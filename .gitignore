@@ -1,0 +1,7 @@
+.nuxt
+dist
+build-dist
+build/*
+!build/icons
+node_modules
+temp

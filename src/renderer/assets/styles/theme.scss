@@ -1,0 +1,94 @@
+
+// primary overlay
+// inactive - used https://meyerweb.com/eric/tools/color-blend/ blended with #EEEEEE, 3 mid points, used last
+$colors: (
+  (primary: #ef0000, inactive: #EEB3B3, overlay: white), // 0 red
+  (primary: #03a9f4, inactive: #B3DDF0,  overlay: white), // 1 blue
+  (primary: #ffed00, inactive: #F2EEB3, overlay: black), // 2 yellow
+  (primary: #009900, inactive: #B3D9B3, overlay: white), // 3 green
+  (primary: #ff9800, inactive: #F2D9B3, overlay: black), // 4 orange
+  (primary: #673ab7, inactive: #CCC1E0, overlay: white), // 5 purple
+  (primary: #f48fb1, inactive: #F0D6DF, overlay: white), // 6 pink
+  (primary: #fffce0, inactive: #F2F2F2, overlay: black), // 7 white
+  (primary: #302f2b, inactive: #B3B3B3, overlay: white), // 8 black
+);
+
+@for $i from 1 through length($colors) {
+  $slot: nth($colors, $i);
+
+  .color-#{$i - 1} {
+    &.color-bg {
+      background: map-get($slot, primary);
+    }
+
+    &.color-fill {
+      fill: map-get($slot, primary);
+    }
+
+    &.color-inactive-fill {
+      fill: map-get($slot, inactive);
+    }
+
+    &.meeple, .meeple, .area {
+      fill: map-get($slot, primary);
+      color: map-get($slot, overlay);
+    }
+
+    .color-stroke {
+      stroke: map-get($slot, primary);
+    }
+
+    g.points, &.points {
+      rect {
+        fill: map-get($slot, primary);
+      }
+
+      text {
+        fill: map-get($slot, overlay)
+      }
+    }
+
+    &.points, div.points {
+      background: map-get($slot, primary);
+      color: map-get($slot, overlay);
+    }
+
+    &.color-overlay, .color-overlay {
+      color: map-get($slot, overlay);
+    }
+  }
+
+  #tile-layer .color-#{$i - 1} {
+    .last-placement {
+      fill: map-get($slot, primary);
+    }
+  }
+}
+
+.color-7 div.points, div.color-7.points {
+  border: 1px solid rgba(0,0,0,0.15);
+}
+
+#tile-layer {
+  .last-placement.over {
+    fill-opacity: 0.5;
+  }
+
+  .color-7 .last-placement.over {
+    fill-opacity: 1;
+  }
+}
+
+.area-select-layer .area.mouseover {
+  opacity: 0.6;
+}
+
+.meeple-select {
+  circle.color-stroke {
+    stroke-opacity: 0.5;
+
+    &.mouseover {
+      stroke-opacity: 1;
+    }
+  }
+}
