@@ -1,5 +1,5 @@
 <template>
-  <GameSetupGrid v-if="$store.state.tilesLoaded">
+  <GameSetupGrid v-if="loaded">
     <template #header>
       <v-alert v-if="javaMissing" type="warning">
         No Java
@@ -69,6 +69,7 @@ export default {
     }),
 
     ...mapGetters({
+      loaded: 'loaded',
       javaMissing: 'javaMissing',
       javaOutdated: 'javaOutdated',
       engineReady: 'engineReady'
