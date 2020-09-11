@@ -3,16 +3,17 @@
     <div class="ribbon">Development Preview</div>
     <div class="disclaimer-box">
       <v-card>
-        <v-card-title>Disclaimer</v-card-title>
+        <v-card-title>Development Preview</v-card-title>
         <v-card-text class="text--primary">
-          <div>This JCloisterZone client builld still missing several important features</div>
+          <p>This JCloisterZone client builld still missing several important features.</p>
           <ul>
             <li>networking (just local game is allowed now)</li>
+            <li>game clock</li>
+            <li>settings</li>
             <li>AI</li>
             <li>localization</li>
-            <li>settings</li>
-            <li>artworks / plugin support</li>
-            <li>timer</li>
+            <li>more artwork plugins</li>
+            <li>game hints (farm hints, projected points ...)</li>
           </ul>
         </v-card-text>
       </v-card>
