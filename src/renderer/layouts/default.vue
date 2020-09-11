@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import fs from 'fs'
 import { webFrame, remote } from 'electron'
 import { mapState } from 'vuex'
 
@@ -117,10 +118,11 @@ export default {
     },
 
     about () {
+      const version = process.env.NODE_ENV === 'development' ? process.env.npm_package_version : app.getVersion()
       dialog.showMessageBox({
         type: 'info',
         title: 'About',
-        message: `JCloisterZone ${app.getVersion()}\nfarin@farin.cz`
+        message: `JCloisterZone ${version}\nfarin@farin.cz`
 
       })
     }

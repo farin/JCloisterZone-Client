@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 import { kill } from 'process'
 import { remote } from 'electron'
 
@@ -11,6 +12,8 @@ import Vue from 'vue'
 import { Expansion } from '@/models/expansions'
 import { randomLong } from '@/utils/random'
 import { isSameFeature } from '@/utils/game'
+
+const { app } = remote
 
 const isDev = process.env.NODE_ENV === 'development'
 const SAVED_GAME_FILTERS = [{ name: 'Saved Game', extensions: ['jcz'] }]
@@ -248,8 +251,9 @@ export const actions = {
         properties: ['createDirectory', 'showOverwriteConfirmation']
       })
       if (filePath) {
+        const version = isDev ? process.env.npm_package_version : app.getVersion()
         const content = {
-          appVersion: process.env.npm_package_version,
+          appVersion: version,
           gameId: '1',
           name: '',
           initialSeed: state.initialSeed,
