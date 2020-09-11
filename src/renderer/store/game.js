@@ -242,7 +242,7 @@ export const actions = {
     commit('gameSetup/clear', null, { root: true })
   },
 
-  async save ({ state }) {
+  async save ({ state, dispatch }) {
     return new Promise(async (resolve, reject) => {
       const { dialog } = remote
       const { filePath } = await dialog.showSaveDialog({
@@ -272,6 +272,9 @@ export const actions = {
           if (err) {
             reject(err)
           } else {
+            Vue.nextTick(() => {
+              dispatch('settings/addRecentSave', filePath, { root: true })
+            })
             resolve(filePath)
           }
         })
@@ -281,16 +284,19 @@ export const actions = {
     })
   },
 
-  async load ({ commit }) {
+  async load ({ commit, dispatch }, filePath) {
     return new Promise(async (resolve, reject) => {
       const { dialog } = remote
-      const { filePaths } = await dialog.showOpenDialog({
-        title: 'Load Game',
-        filters: SAVED_GAME_FILTERS,
-        properties: ['openFile']
-      })
-      if (filePaths.length) {
-        fs.readFile(filePaths[0], async (err, data) => {
+      if (!filePath) {
+        const { filePaths } = await dialog.showOpenDialog({
+          title: 'Load Game',
+          filters: SAVED_GAME_FILTERS,
+          properties: ['openFile']
+        })
+        filePath = filePaths.length ? filePaths[0] : null
+      }
+      if (filePath) {
+        fs.readFile(filePath, async (err, data) => {
           if (err) {
             reject(err)
             return
@@ -310,6 +316,9 @@ export const actions = {
           commit('gameAnnotations', sg.gameAnnotations || {})
           commit('gameMessages', sg.replay)
           commit('gameSetup/slots', slots, { root: true })
+          Vue.nextTick(() => {
+            dispatch('settings/addRecentSave', filePath, { root: true })
+          })
           resolve(true)
         })
       } else {

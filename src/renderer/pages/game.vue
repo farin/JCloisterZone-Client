@@ -94,6 +94,8 @@ export default {
 .game-view
   position: relative
   display: flex
+  overflow: hidden
+  height: 100vh
 
 .board
   flex: 1

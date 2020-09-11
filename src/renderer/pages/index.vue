@@ -43,13 +43,25 @@
     </div>
     <main>
       <div>
-        <v-btn large color="secondary" @click="createGame">
+        <v-btn large color="secondary" @click="createGame()">
           New game
         </v-btn>
+      </div>
 
-        <v-btn large color="secondary" @click="loadGame">
+      <div>
+        <v-btn large color="secondary" @click="loadGame()">
           Load game
         </v-btn>
+
+        <template v-if="recentGames.length">
+          <h2 >Recent games</h2>
+
+          <div class="recent-list">
+            <a v-for="file in recentGames" :key="file" href="#" @click="loadGame(file)">{{ file }}</a>
+            <a class="clear" href="#" @click="$store.dispatch('settings/clearRecentSaved')"><v-icon>fas fa-times</v-icon> clear list</a>
+          </div>
+        </template>
+
       </div>
     </main>
     <footer>
@@ -70,6 +82,8 @@ export default {
 
   data () {
     return {
+      // do not bind it to store
+      recentGames: [...this.$store.state.settings.recentSaves]
     }
   },
 
@@ -83,8 +97,15 @@ export default {
     ...mapState({
       java: state => state.java,
       engine: state => state.engine,
-      download: state => state.download
+      download: state => state.download,
+      settingsLoaded: state => state.loaded.settings
     })
+  },
+
+  watch: {
+    settingsLoaded () {
+      this.recentGames = [...this.$store.state.settings.recentSaves]
+    }
   },
 
   methods: {
@@ -93,8 +114,8 @@ export default {
       this.$router.push('/game-setup')
     },
 
-    async loadGame () {
-      if (await this.$store.dispatch('game/load')) {
+    async loadGame (file) {
+      if (await this.$store.dispatch('game/load', file)) {
         this.$router.push('/open-game')
       }
     },
@@ -113,7 +134,7 @@ export default {
   flex-direction: column
 
   .ribbon
-    position: absolute
+    position: fixed
     left: -90px
     top: 60px
     background-color: #AD1457
@@ -127,15 +148,44 @@ export default {
     margin: 0 auto
     margin-top: 100px
     margin-bottom: 40px
+    border: 1px solid #AD1457
 
 main
-  flex: 1
+  flex: 1 0
   display: flex
   justify-content: center
-  align-items: center
+  align-items: stretch
+  padding-top: 40px
 
-  .v-btn
-    margin: 0 30px
+  > div
+    padding: 5px 30px
+    flex: 1
+
+  > div:first-child
+    border-right: 1px solid #eee
+    text-align: right
+
+  h2
+    color: $color-gray
+    font-weight: 300
+    font-size: 16px
+    text-transform: uppercase
+    margin-top: 30px
+    margin-bottom: 10px
+
+  .recent-list a
+    display: block
+
+    &:hover
+      color: black
+
+    &.clear
+      margin-top: 10px
+      font-size: 14px
+
+      i
+        color: inherit !important
+        font-size: inherit !important
 
 footer
   font-size: 14px

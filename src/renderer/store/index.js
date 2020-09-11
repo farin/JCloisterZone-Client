@@ -18,7 +18,8 @@ function getEngineJavaArgs
 export const state = () => ({
   loaded: {
     tiles: false,
-    plugins: false
+    plugins: false,
+    settings: false
   },
   gameDialog: null,
   java: null,
@@ -33,6 +34,10 @@ export const mutations = {
 
   pluginsLoaded (state) {
     state.loaded.plugins = true
+  },
+
+  settingsLoaded (state) {
+    state.loaded.settings = true
   },
 
   gameDialog (state, gameDialog) {

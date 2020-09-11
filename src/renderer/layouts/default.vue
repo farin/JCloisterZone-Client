@@ -69,6 +69,8 @@ export default {
 
     this.$store.dispatch('checkJavaVersion')
     this.$store.dispatch('checkEngineVersion')
+
+    await this.$store.dispatch('settings/load')
     this.$store.dispatch('loadPlugins')
   },
 
@@ -132,14 +134,14 @@ export default {
 
 <style lang="sass">
 html
-  overflow: hidden
+  overflow-y: auto
 
 body
   margin: 0 !important
 
 .view
   width: 100%
-  height: 100vh
+  min-height: 100vh
 
 @import '~/assets/styles/theme.scss'
 @import '~/assets/styles/rotation.sass'

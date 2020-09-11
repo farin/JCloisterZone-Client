@@ -16,7 +16,7 @@
       {{ info }}
     </div>
 
-    <v-btn large color="primary" :disabled="!engineReady || !containsCoreSet || info" @click="ev => $emit('click', ev)">
+    <v-btn large color="primary" :disabled="!engineReady || !containsCoreSet || !!info" @click="ev => $emit('click', ev)">
       <v-icon left>fas fa-play</v-icon>
       {{ title }}
     </v-btn>
