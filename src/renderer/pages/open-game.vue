@@ -1,25 +1,11 @@
 <template>
   <GameSetupGrid v-if="loaded">
     <template #header>
-      <v-alert v-if="javaMissing" type="warning">
-        No Java
-      </v-alert>
-      <v-alert v-else-if="javaOutdated" type="warning">
-        Outdated Java
-      </v-alert>
-      <v-alert v-else-if="!engineReady" type="warning">
-        Engine.jar unavailable
-      </v-alert>
-      <v-alert v-else-if="!slotsAssigned" type="info">
-        No players added
-      </v-alert>
-
-
-      <v-btn large color="primary" :disabled="!engineReady || !slotsAssigned" @click="startGame">
-        <v-icon left>fas fa-play</v-icon>
-        Start
-      </v-btn>
-
+      <HeaderGameButton
+        title="Start"
+        :info="slotsAssigned ? null : 'No players added'"
+        @click="startGame"
+      />
       <TilePackSize :size="$tiles.getPackSize(sets)" />
     </template>
 
@@ -51,6 +37,7 @@ import { mapGetters, mapState } from 'vuex'
 
 import GameSetupOverview from '@/components/game-setup/GameSetupOverview'
 import GameSetupGrid from '@/components/game-setup/GameSetupGrid'
+import HeaderGameButton from '@/components/game-setup/HeaderGameButton'
 import PlayerSlot from '@/components/game-setup/PlayerSlot'
 import TilePackSize from '@/components/game/TilePackSize'
 
@@ -58,6 +45,7 @@ export default {
   components: {
     GameSetupOverview,
     GameSetupGrid,
+    HeaderGameButton,
     PlayerSlot,
     TilePackSize
   },

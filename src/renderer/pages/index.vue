@@ -16,34 +16,37 @@
           </ul>
         </v-card-text>
       </v-card>
-
+    </div>
+    <div>
       <v-alert v-if="javaMissing" type="warning">
         Unable to locate Java on your system.<br>
         <br>
-        Java is required to start a game.
+        Java is required to start a game.<br>
+        <a href="#" @click="openLink('https://www.oracle.com/java/technologies/javase-jdk14-downloads.html')">Download Java</a>
       </v-alert>
       <v-alert v-if="javaOutdated" type="warning">
         You Java installation is outdated.<br>
         <br>
         Java 11 or higher is required (found {{ java.version }}).<br>
-        Java is required to start a game.
+        Java is required to start a game.<br>
+        <a href="#" @click="openLink('https://www.oracle.com/java/technologies/javase-jdk14-downloads.html')">Download Java</a>
       </v-alert>
       <v-alert v-if="engineMissing" type="warning">
         JCloisterZone Game Engine is missing.
       </v-alert>
 
       <div v-if="download" class="download-box">
-        {{ download.description }}
-        <v-progress-linear indeterminate />
+          {{ download.description }}
+          <v-progress-linear indeterminate />
       </div>
     </div>
     <main>
       <div>
-        <v-btn large color="primary" @click="createGame">
+        <v-btn large color="secondary" @click="createGame">
           New game
         </v-btn>
 
-        <v-btn large color="primary" @click="loadGame">
+        <v-btn large color="secondary" @click="loadGame">
           Load game
         </v-btn>
       </div>
@@ -58,6 +61,7 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
+import { shell } from 'electron'
 
 export default {
   components: {
@@ -92,6 +96,10 @@ export default {
       if (await this.$store.dispatch('game/load')) {
         this.$router.push('/open-game')
       }
+    },
+
+    openLink (href) {
+      shell.openExternal(href)
     }
   }
 }
@@ -117,9 +125,7 @@ export default {
     max-width: 600px
     margin: 0 auto
     margin-top: 100px
-
-  .download-box
-    margin-top: 40px
+    margin-bottom: 40px
 
 main
   flex: 1
@@ -134,4 +140,12 @@ footer
   font-size: 14px
   text-align: right
   padding: 1px 2px
+</style>
+
+<style lang="sass">
+.landing-view .v-alert__content
+  text-align: center
+
+  a
+    color: white
 </style>

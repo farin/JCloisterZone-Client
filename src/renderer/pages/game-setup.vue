@@ -8,23 +8,7 @@
         <v-tab>Timer</v-tab>
       </v-tabs>
 
-      <v-alert v-if="javaMissing" type="warning">
-        No Java
-      </v-alert>
-      <v-alert v-else-if="javaOutdated" type="warning">
-        Outdated Java
-      </v-alert>
-      <v-alert v-else-if="!engineReady" type="warning">
-        Engine.jar unavailable
-      </v-alert>
-      <v-alert v-else-if="!containsCoreSet" type="info">
-        No core set
-      </v-alert>
-
-      <v-btn large color="primary" :disabled="!engineReady || !containsCoreSet" @click="createGame">
-        <v-icon left>fas fa-play</v-icon>
-        Create
-      </v-btn>
+      <HeaderGameButton title="Create" @click="createGame" />
 
       <TilePackSize :size="$tiles.getPackSize(sets, rules)" @click.native="showTilePack" />
     </template>
@@ -66,6 +50,7 @@ import ExpansionSymbol from '@/components/ExpansionSymbol'
 import FiguresTab from '@/components/game-setup/tabs/FiguresTab'
 import GameAnnotationsPanel from '@/components/dev/GameAnnotationsPanel'
 import GameSetupGrid from '@/components/game-setup/GameSetupGrid'
+import HeaderGameButton from '@/components/game-setup/HeaderGameButton'
 import TileDistribution from '@/components/TileDistribution'
 import TilePackSize from '@/components/game/TilePackSize'
 import TileSetsTab from '@/components/game-setup/tabs/TileSetsTab'
@@ -79,6 +64,7 @@ export default {
     FiguresTab,
     GameSetupGrid,
     GameAnnotationsPanel,
+    HeaderGameButton,
     TileDistribution,
     TilePackSize,
     TileSetsTab,
@@ -132,10 +118,14 @@ export default {
 .detail-pack
   padding: 20px
 
-header .v-alert
-  position: relative
-  top: 8px
-  width: 300px
+header
+  .warning-text, .info-text
+    font-size: 24px
+    white-space: nowrap
+    background-color: #F44336
+    color: white
+    padding: 0 20px
+    border-radius: 4px
 
 .tile-pack-size
   cursor: pointer
