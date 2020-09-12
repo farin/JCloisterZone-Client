@@ -2,6 +2,9 @@
   "name": "JCloisterZone",
   "version": "5.0.4",
   "description": "JCloisterZone UI client",
+  "repository": "github:farin/JCloisterZone-Client",
+  "license": "AGPL-3.0-or-later",
+  "author": "Roman Krejcik",
   "main": "./dist/main/index.js",
   "scripts": {
     "dev": "node .electron-nuxt/check-engines.js && cross-env-shell NODE_ENV=development node .electron-nuxt/index.js",
@@ -14,9 +17,6 @@
     "postinstall": "electron-builder install-app-deps"
   },
   "keywords": [],
-  "author": "Roman Krejcik <farin@farin.cz>",
-  "license": "MIT",
-  "homepage": "https://github.com/michalzaq12/electron-nuxt/blob/master/README.md",
   "engines": {
     "node": ">=12.13.0"
   },
