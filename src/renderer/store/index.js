@@ -93,7 +93,7 @@ export const actions = {
         .pipe(unzipper.Extract({ path: artworksFolder }))
         .promise()
       await fs.promises.unlink(zipName)
-      await $theme.loadArtworks() // reload
+      await $theme.loadPlugins() // reload
       commit('download', null)
     }
     commit('pluginsLoaded')
