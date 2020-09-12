@@ -30,12 +30,23 @@
             :transform="emphasis.barn ? transformPosition(emphasis.position) : transformPoint(emphasis)"
           />
           <g v-else-if="emphasis.type === 'feature'">
-            <path
-              v-for="({ tile, clip, rotation }, idx) in featurePlaces"
+            <g
+              v-for="(feature, idx) in featurePlaces"
               :key="idx"
-              :d="clip"
-              :transform="transformPosition(tile.position) + ' ' + transformRotation(rotation)"
-            />
+              :transform="transformPosition(feature.tile.position)"
+            >
+              <path
+                v-if="feature.clip[0] !== '<'"
+                :d="feature.clip"
+                :transform="transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
+              />
+              <!-- eslint-disable vue/no-v-html-->
+              <g
+                v-else
+                :transform="transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
+                v-html="feature.clip"
+              />
+            </g>
           </g>
           <circle
             v-else-if="emphasis.type === 'castle'"

@@ -21,6 +21,13 @@
       <MeepleLayer />
       <BridgeLayer v-if="elements.bridge" />
       <MeepleLayer deployed-on-bridge />
+    </g>
+    <EmphasizeLayer
+      v-if="layers.EmphasizeLayer"
+      v-bind="layers.EmphasizeLayer"
+      :global-transform="transform"
+    />
+    <g :transform="transform">
       <ScoreLayer />
       <FeatureSelectLayer
         v-if="layers.FeatureSelectLayer"
@@ -55,11 +62,6 @@
         v-bind="layers.DragonMoveLayer"
       />
     </g>
-    <EmphasizeLayer
-      v-if="layers.EmphasizeLayer"
-      v-bind="layers.EmphasizeLayer"
-      :global-transform="transform"
-    />
   </svg>
 </template>
 
