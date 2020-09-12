@@ -1,6 +1,10 @@
 <template>
   <div class="view game-view">
     <template v-if="phase">
+      <div v-if="forcedDraw" class="forced-draw">
+        Game is created in development mode.<br>
+        Tile draw order is predefined.
+      </div>
       <Board />
       <aside>
         <TilePackSize :size="tilePackSize" />
@@ -64,7 +68,14 @@ export default {
     gameDialog: state => state.gameDialog,
     phase: state => state.game.phase,
     players: state => state.game.players,
-    tilePackSize: state => state.game.tilePack.size
+    tilePackSize: state => state.game.tilePack.size,
+    forcedDraw: state => {
+      if (process.env.NODE_ENV === 'development') {
+        return false
+      }
+      const { tilePack } = state.game.gameAnnotations
+      return tilePack && tilePack.className === "com.jcloisterzone.debug.ForcedDrawTilePack"
+    }
   }),
 
   beforeCreate () {
@@ -97,6 +108,15 @@ export default {
   overflow: hidden
   height: 100vh
 
+  .forced-draw
+    position: absolute
+    top: #{$action-bar-height + $panel-gap}
+    right: #{$rside-width + $panel-gap}
+    padding: 5px
+    background-color: #AD1457
+    color: white
+    font-weight: 600
+
 .board
   flex: 1
   background: $bg-color
@@ -109,6 +129,7 @@ aside
   top: 0
   right: 0
   user-select: none
+
 
 .game-modal
   position: absolute

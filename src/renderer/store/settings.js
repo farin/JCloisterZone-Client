@@ -8,7 +8,8 @@ export const state = () => ({
   // theme: 'light',
   // artworks: ['classic'], //active artworks
   lastGameSetup: null,
-  recentSaves: []
+  recentSaves: [],
+  devMode: process.env.NODE_ENV === 'development'
 })
 
 
@@ -28,17 +29,17 @@ export const mutations = {
 }
 
 export const actions = {
-  async load ({ commit }) {
+  async load ({ commit, dispatch }) {
     const settingsFile = path.join(remote.app.getPath('userData'), 'jcz-config.json')
     try {
       await fs.promises.access(settingsFile, fs.constants.R_OK)
       const settings = JSON.parse(await fs.promises.readFile(settingsFile))
       commit('settings', settings)
-      console.log(this._vm)
       console.log(`Settings file ${settingsFile} was loaded.`)
     } catch (e) {
       // do nothong, settings doesnt exist
-      console.log(`Settings file ${settingsFile} is not created.`)
+      console.log(`Settings file ${settingsFile} doesn't exist. Creating default one.`)
+      dispatch('save')
     }
     commit('settingsLoaded', true, { root: true })
   },
@@ -46,6 +47,10 @@ export const actions = {
   async save ({ state }) {
     const settingsFile = path.join(remote.app.getPath('userData'), 'jcz-config.json')
     try {
+      const data = { ...state }
+      if (data.devMode === false) {
+        delete data.devMode
+      }
       await fs.promises.writeFile(settingsFile, JSON.stringify(state, null, 2))
       console.log(`Writing to settings file ${settingsFile}`)
     } catch (e) {

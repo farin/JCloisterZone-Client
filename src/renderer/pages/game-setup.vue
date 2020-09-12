@@ -33,7 +33,7 @@
     <template #detail>
       <div v-if="detail.view === 'tile-pack'" class="detail-pack">
         <TileDistribution :sets="sets" :rules="rules" @tile-click="onTileClick" />
-        <GameAnnotationsPanel v-if="isDev" ref="annotationsPanel" />
+        <GameAnnotationsPanel v-if="settings.devMode" ref="annotationsPanel" />
       </div>
       <div v-if="detail.view === 'expansion'">
         <ExpansionDetail :expansion="detail.expansion" />
@@ -84,6 +84,7 @@ export default {
       sets: state => state.gameSetup.sets,
       rules: state => state.gameSetup.rules,
       detail: state => state.gameSetup.detail,
+      settings: state => state.settings,
     }),
 
     ...mapGetters({
