@@ -28,17 +28,10 @@
         <v-icon title="Tiles">fas fa-home</v-icon>
       </div>&ensp;
     </template>
-    <template v-if="names.includes('fairy.completed')"><template v-if="names.length > 1">+&ensp;</template>
-      <div class="value-units">
-        3
-        <svg
-          class="neutral fairy"
-          :width="28"
-          :height="28"
-        >
-          <use :href="`${NEUTRAL_SVG}#fairy`" />
-        </svg>
-      </div>&ensp;<template v-if="names.length == 1">=&ensp;</template></template>
+    <template v-if="names.includes('fairy.completed')"><template v-if="names.length > 1">+</template>
+      <div class="value-units nobg">3
+        <NeutralFigure figure="fairy" :width="28" :height="28" />
+      </div><template v-if="names.length == 1">=&ensp;</template></template>
     <template v-if="expr.name === 'king+robber'">+&ensp;
       <TokenImage token="ROBBER" :height="55" />&ensp;
     </template>
