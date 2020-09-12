@@ -58,7 +58,7 @@
 
           <div class="recent-list">
             <a v-for="file in recentGames" :key="file" href="#" @click="loadGame(file)">{{ file }}</a>
-            <a class="clear" href="#" @click="$store.dispatch('settings/clearRecentSaved')"><v-icon>fas fa-times</v-icon> clear list</a>
+            <a class="clear" href="#" @click="clearRecentGames"><v-icon>fas fa-times</v-icon> clear list</a>
           </div>
         </template>
 
@@ -122,6 +122,11 @@ export default {
 
     openLink (href) {
       shell.openExternal(href)
+    },
+
+    clearRecentGames () {
+      this.$store.dispatch('settings/clearRecentSaved')
+      this.recentGames = []
     }
   }
 }
