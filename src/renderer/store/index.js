@@ -145,14 +145,18 @@ export const actions = {
       return state.engine
     }
     return new Promise((resolve, reject) => {
-      execFile('java', [...getEngineJavaArgs(), '--version'], (error, stdout, stderr) => {
+      const args = getEngineJavaArgs()
+      execFile('java', [...args, '--version'], (error, stdout, stderr) => {
         if (error) {
           commit('engine', false)
           reject(error)
         } else {
           const version = stdout
           console.log("engine version " + version)
-          const value = { version }
+          const value = {
+            path: args[args.length - 1],
+            version
+          }
           commit('engine', value)
           resolve(version)
         }

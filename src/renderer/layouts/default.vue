@@ -1,6 +1,12 @@
 <template>
   <v-app>
     <nuxt />
+    <v-dialog
+      v-model="showAbout"
+      max-width="600"
+    >
+      <AboutDialog />
+    </v-dialog>
   </v-app>
 </template>
 
@@ -9,9 +15,21 @@ import fs from 'fs'
 import { webFrame, remote } from 'electron'
 import { mapState } from 'vuex'
 
+import AboutDialog from '@/components/AboutDialog'
+
 const { app, Menu, dialog } = remote
 
 export default {
+  components: {
+    AboutDialog
+  },
+
+  data () {
+    return {
+      showAbout: false
+    }
+  },
+
   computed: mapState({
     undoAllowed: state => state.game.undo
   }),
@@ -72,6 +90,12 @@ export default {
 
     await this.$store.dispatch('settings/load')
     this.$store.dispatch('loadPlugins')
+
+    window.addEventListener('keydown', this.onKeyDown)
+  },
+
+  beforeDestroy () {
+    window.removeEventListener('keydown', this.onKeyDown)
   },
 
   methods: {
@@ -120,13 +144,15 @@ export default {
     },
 
     about () {
-      const version = process.env.NODE_ENV === 'development' ? process.env.npm_package_version : app.getVersion()
-      dialog.showMessageBox({
-        type: 'info',
-        title: 'About',
-        message: `JCloisterZone ${version}\nfarin@farin.cz`
+      this.showAbout = true
+    },
 
-      })
+    onKeyDown (ev) {
+      if (ev.key === 'Escape' && this.showAbout) {
+        this.showAbout = false
+        ev.preventDefault()
+        ev.stopPropagation()
+      }
     }
   }
 }

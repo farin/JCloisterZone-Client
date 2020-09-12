@@ -25,12 +25,17 @@ export const mutations = {
   recentSaves (state, value) {
     state.recentSaves = value
   }
+}
 
+export const getters = {
+  settingsFile: state => {
+    return path.join(remote.app.getPath('userData'), 'jcz-config.json')
+  }
 }
 
 export const actions = {
-  async load ({ commit, dispatch }) {
-    const settingsFile = path.join(remote.app.getPath('userData'), 'jcz-config.json')
+  async load ({ commit, getters, dispatch }) {
+    const settingsFile = getters.settingsFile
     try {
       await fs.promises.access(settingsFile, fs.constants.R_OK)
       const settings = JSON.parse(await fs.promises.readFile(settingsFile))
@@ -44,8 +49,8 @@ export const actions = {
     commit('settingsLoaded', true, { root: true })
   },
 
-  async save ({ state }) {
-    const settingsFile = path.join(remote.app.getPath('userData'), 'jcz-config.json')
+  async save ({ state, getters }) {
+    const settingsFile = getters.settingsFile
     try {
       const data = { ...state }
       if (data.devMode === false) {
