@@ -14,6 +14,13 @@
           <ExpansionSymbol :expansion="Expansion.SIEGE" :size="24" />
         </div>&ensp;
       </template>
+      <template v-if="expr.args.castles">
+        +&ensp;{{ basePoints + 1}}&ensp;×&ensp;
+        <div class="value-units">
+          {{ expr.args.castles }}
+          <TokenImage token="CASTLE" :height="32" />
+        </div>&ensp;
+      </template>
       <slot />=&ensp;
     </template>
   </ExprContent>
@@ -23,11 +30,13 @@
 import { Expansion } from '@/models/expansions'
 import ExpansionSymbol from '@/components/ExpansionSymbol'
 import ExprContent from '@/components/game/expressions/ExprContent'
+import TokenImage from '@/components/game/TokenImage'
 
 export default {
   components: {
     ExpansionSymbol,
-    ExprContent
+    ExprContent,
+    TokenImage
   },
 
   props: {

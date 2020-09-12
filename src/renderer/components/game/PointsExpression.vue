@@ -43,6 +43,7 @@ import { mapGetters } from 'vuex'
 
 import { Expansion } from '@/models/expansions'
 import ExpansionSymbol from '@/components/ExpansionSymbol'
+import ExprCastle from '@/components/game/expressions/ExprCastle'
 import ExprChurchOnly from '@/components/game/expressions/ExprChurchOnly'
 import ExprCity from '@/components/game/expressions/ExprCity'
 import ExprCityEmpty from '@/components/game/expressions/ExprCityEmpty'
@@ -72,6 +73,7 @@ import TokenImage from '@/components/game/TokenImage'
 export default {
   components: {
     ExpansionSymbol,
+    ExprCastle,
     ExprChurchOnly,
     ExprCity,
     ExprCityEmpty,
@@ -140,6 +142,7 @@ export default {
         }
       }
       if (type === 'garden') return 'ExprGarden'
+      if (type === 'castle') return 'ExprCastle'
 
       if (type === 'fairy') {
         if (subtype === 'turn') return 'ExprFairyTurn'
