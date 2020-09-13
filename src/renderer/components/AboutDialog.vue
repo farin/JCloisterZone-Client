@@ -35,7 +35,10 @@
 </template>
 
 <script>
+import { remote } from 'electron'
 import { mapState } from 'vuex'
+
+const { app } = remote
 
 const MEEPLES_SVG = require('~/assets/meeples.svg')
 

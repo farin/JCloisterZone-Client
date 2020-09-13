@@ -74,8 +74,7 @@ export default {
 
   data () {
     return {
-      tab: 0,
-      isDev: process.env.NODE_ENV === 'development'
+      tab: 0
     }
   },
 
@@ -107,7 +106,7 @@ export default {
     },
 
     onTileClick (tileId) {
-      if (this.isDev) {
+      if (settings.devMode) {
         this.$refs.annotationsPanel.appendTile(tileId)
       }
     }

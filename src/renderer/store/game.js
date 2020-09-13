@@ -16,7 +16,6 @@ import { verifyScenario } from '@/utils/testing'
 
 const { app } = remote
 
-const isDev = process.env.NODE_ENV === 'development'
 const SAVED_GAME_FILTERS = [{ name: 'Saved Game', extensions: ['jcz'] }]
 
 const openGames = {}
@@ -233,9 +232,9 @@ const writeLine = async (pid, line) => {
   })
 }
 
-const writeMessage = async (pid, message) => {
+const writeMessage = async (pid, message, log) => {
   const openGame = openGames[pid]
-  if (isDev) {
+  if (log) {
     console.groupCollapsed(message.type)
     console.log(message.payload)
     console.groupEnd()
@@ -263,7 +262,7 @@ export const actions = {
         properties: ['createDirectory', 'showOverwriteConfirmation']
       })
       if (filePath) {
-        const version = isDev ? process.env.npm_package_version : app.getVersion()
+        const version = process.env.NODE_ENV === 'development' ? process.env.npm_package_version : app.getVersion()
         const content = {
           appVersion: version,
           gameId: '1',
@@ -342,7 +341,7 @@ export const actions = {
     })
   },
 
-  async start ({ state, commit, dispatch }) {
+  async start ({ state, commit, dispatch, rootState }) {
     if (!state.initialSeed) {
       commit('initialSeed', randomLong().toString())
     }
@@ -388,7 +387,7 @@ export const actions = {
       let payload
       try {
         payload = JSON.parse(data)
-        if (isDev) {
+        if (rootState.settings.devMode) {
           console.debug(payload)
         }
       } catch (e) {
@@ -453,10 +452,10 @@ export const actions = {
         initialSeed: state.initialSeed,
         gameAnnotations: annotations
       }
-    })
+    }, rootState.settings.devMode)
     if (state.gameMessages.length) {
       for (const msg of state.gameMessages) {
-        await writeMessage(engine.pid, msg)
+        await writeMessage(engine.pid, msg, rootState.settings.devMode)
       }
       await writeLine(engine.pid, '%bulk off')
     }
@@ -471,7 +470,7 @@ export const actions = {
     }
   },
 
-  async apply ({ state, commit }, message) {
+  async apply ({ state, commit, rootState }, message) {
     const salted = ['COMMIT', 'FLOCK_EXPAND_OR_SCORE'].includes(message.type) || (message.type === 'DEPLOY_MEEPLE' && message.payload.pointer.location === 'FLYING_MACHINE')
     if (salted) {
       message = {
@@ -482,7 +481,7 @@ export const actions = {
         }
       }
     }
-    await writeMessage(state.enginePid, message)
+    await writeMessage(state.enginePid, message, rootState.settings.devMode)
     commit('appendMessage', message)
   },
 
