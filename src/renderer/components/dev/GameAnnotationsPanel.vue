@@ -51,19 +51,12 @@ export default {
 
   computed: {
     annotations () {
-      if (!this.limitPackSize && !this.drawOrder.length) {
-        return {}
-      }
-      const annotations = {
-        tilePack: {
-          className: 'com.jcloisterzone.debug.ForcedDrawTilePack',
-          params: {
-            drawOrder: [...this.drawOrder]
-          }
-        }
+      const annotations = {}
+      if (this.drawOrder.length) {
+        annotations.drawOrder = [...this.drawOrder]
       }
       if (this.limitPackSize) {
-        annotations.tilePack.params.drawLimit = parseInt(this.limitPackSize)
+        annotations.endTurn = parseInt(this.limitPackSize)
       }
       return annotations
     }

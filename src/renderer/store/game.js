@@ -406,13 +406,32 @@ export const actions = {
       await writeLine(engine.pid, '%bulk on')
     }
 
+    let annotations = {}
+    if (Object.keys(state.gameAnnotations).length) {
+      const { drawOrder, endTurn } = state.gameAnnotations
+      if (drawOrder || endTurn) {
+        const params = {
+          drawOrder: drawOrder || []
+        }
+        if (endTurn) {
+          params.drawLimit = endTurn
+        }
+        annotations = {
+          tilePack: {
+            className: 'com.jcloisterzone.debug.ForcedDrawTilePack',
+            params
+          }
+        }
+      }
+    }
+
     await writeMessage(engine.pid, {
       type: 'GAME_SETUP',
       payload: {
         ...state.setup,
         players: state.players.length,
         initialSeed: state.initialSeed,
-        gameAnnotations: state.gameAnnotations
+        gameAnnotations: annotations
       }
     })
     if (state.gameMessages.length) {

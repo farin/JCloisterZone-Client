@@ -73,8 +73,8 @@ export default {
       if (process.env.NODE_ENV === 'development') {
         return false
       }
-      const { tilePack } = state.game.gameAnnotations
-      return tilePack && tilePack.className === "com.jcloisterzone.debug.ForcedDrawTilePack"
+      const { drawOrder, endTurn } = state.game.gameAnnotations
+      return !(drawOrder || endTurrn)
     }
   }),
 

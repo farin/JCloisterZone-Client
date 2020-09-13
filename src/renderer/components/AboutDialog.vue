@@ -61,11 +61,11 @@ export default {
     margin: 5px 40px 5px 20px
 
   svg.small-follower
-    fill: #FF9800
+    fill: #FF5722
     z-index: 10
 
   svg.builder
-    fill: #3F51B5
+    fill: #2196F3
     margin-left: -55px
     z-index: 9
 
