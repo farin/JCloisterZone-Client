@@ -5,6 +5,7 @@
         Game is created in development mode.<br>
         Tile draw order is predefined.
       </div>
+      <TestResult v-if="testScenarioResult" :result="testScenarioResult" />
       <Board />
       <aside>
         <TilePackSize :size="tilePackSize" />
@@ -50,6 +51,7 @@ import FinalScoringEvents from '@/components/game/FinalScoringEvents.vue'
 import ChooseMonkOrAbbotDialog from '@/components/game/dialogs/ChooseMonkOrAbbotDialog.vue'
 import PlayerPanel from '@/components/game/PlayerPanel.vue'
 import PlayEvents from '@/components/game/PlayEvents.vue'
+import TestResult from '@/components/game/TestResult.vue'
 import TilePackSize from '@/components/game/TilePackSize.vue'
 
 export default {
@@ -60,6 +62,7 @@ export default {
     ChooseMonkOrAbbotDialog,
     PlayerPanel,
     PlayEvents,
+    TestResult,
     TilePackSize
   },
 
@@ -69,6 +72,7 @@ export default {
     phase: state => state.game.phase,
     players: state => state.game.players,
     tilePackSize: state => state.game.tilePack.size,
+    testScenarioResult: state => state.game.testScenarioResult,
     forcedDraw: state => {
       if (process.env.NODE_ENV === 'development') {
         return false
@@ -116,6 +120,11 @@ export default {
     background-color: #AD1457
     color: white
     font-weight: 600
+
+  .test-result
+    position: absolute
+    top: #{$action-bar-height + $panel-gap}
+    right: #{$rside-width + $panel-gap}
 
 .board
   flex: 1

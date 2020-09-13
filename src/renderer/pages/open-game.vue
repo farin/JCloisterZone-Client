@@ -90,7 +90,6 @@ export default {
       })
       this.$store.commit('game/players', players)
       await this.$store.dispatch('game/start')
-      this.$store.commit('board/resetZoom')
       this.$router.push('/game')
     }
   }

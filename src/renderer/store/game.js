@@ -12,6 +12,7 @@ import Vue from 'vue'
 import { Expansion } from '@/models/expansions'
 import { randomLong } from '@/utils/random'
 import { isSameFeature } from '@/utils/game'
+import { verifyScenario } from '@/utils/testing'
 
 const { app } = remote
 
@@ -37,7 +38,9 @@ export const state = () => ({
   undo: false,
   initialSeed: null,
   gameMessages: [],
-  gameAnnotations: {}
+  gameAnnotations: {},
+  testScenario: null,
+  testScenarioResult: null
 })
 
 export const mutations = {
@@ -59,6 +62,7 @@ export const mutations = {
     state.initialSeed = null
     state.gameMessages = []
     state.gameAnnotations = {}
+    state.testScenario = null
   },
 
   enginePid (state, value) {
@@ -100,6 +104,14 @@ export const mutations = {
 
   gameAnnotations (state, gameAnnotations) {
     state.gameAnnotations = gameAnnotations
+  },
+
+  testScenario (state, value) {
+    state.testScenario = value
+  },
+
+  testScenarioResult (state, value) {
+    state.testScenarioResult = value
   }
 }
 
@@ -316,6 +328,9 @@ export const actions = {
           commit('gameAnnotations', sg.gameAnnotations || {})
           commit('gameMessages', sg.replay)
           commit('gameSetup/slots', slots, { root: true })
+          if (sg.test) {
+            commit('testScenario', sg.test)
+          }
           Vue.nextTick(() => {
             dispatch('settings/addRecentSave', filePath, { root: true })
           })
@@ -331,6 +346,8 @@ export const actions = {
     if (!state.initialSeed) {
       commit('initialSeed', randomLong().toString())
     }
+
+    commit('board/resetZoom', null, { root: true })
 
     console.log(state.setup)
     console.log('seed is ' + state.initialSeed)
@@ -392,6 +409,9 @@ export const actions = {
         dispatch('apply', { type: 'COMMIT', payload: {} })
       } else {
         commit('update', payload)
+        if (state.testScenario) {
+          commit('testScenarioResult', verifyScenario(state, state.testScenario))
+        }
       }
     })
 

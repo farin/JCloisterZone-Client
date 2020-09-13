@@ -116,7 +116,19 @@ export default {
 
     async loadGame (file) {
       if (await this.$store.dispatch('game/load', file)) {
-        this.$router.push('/open-game')
+        if (this.$store.state.game.testScenario) {
+          const players = this.$store.state.gameSetup.slots.map(s => ({ ...s }))
+          players.forEach(s => {
+            s.slot = s.number
+            delete s.number
+            delete s.order
+          })
+          this.$store.commit('game/players', players)
+          await this.$store.dispatch('game/start')
+          this.$router.push('/game')
+        } else {
+          this.$router.push('/open-game')
+        }
       }
     },
 
