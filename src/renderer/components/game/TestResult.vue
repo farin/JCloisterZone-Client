@@ -13,8 +13,8 @@
       class="d-flex"
       :class="{ case: true, ok: ar.result, fail: !ar.result  }"
     >
-      <span class="flex-grow-1 mr-2">{{ ar.assertion }}</span>
-      <span>{{ ar.result ? 'OK' : ar.error || 'FAIL' }}</span>
+      <span class="flex-grow-1 mr-5">{{ ar.assertion }}</span>
+      <span class="pr-1">{{ ar.result ? 'OK' : ar.error || 'FAIL' }}</span>
     </div>
   </v-card>
 </template>

@@ -1,0 +1,349 @@
+{
+  "appVersion": "5.0.4",
+  "gameId": "1",
+  "name": "",
+  "initialSeed": "1484220149523624019",
+  "created": "2020-09-13T13:41:18.929Z",
+  "clock": null,
+  "test": {
+    "description": "Basic city and road scoring",
+    "assertions": [
+      "David has 7 points",
+      "David scored road for 3 points",
+      "David scored road for 4 points",
+      "Wendy has 16 points",
+      "Wendy scored city for 8 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true
+    },
+    "rules": {
+      "princess-action": "may",
+      "fairy-placement": "next-follower",
+      "dragon-move": "before-scoring",
+      "barn-placement": "not-occupied",
+      "wagon-move": "C2",
+      "bazaar-no-auction": false,
+      "hill-tiebreaker": "at-least-one-follower",
+      "espace-variant": "any-tile",
+      "gq11-pig-herd": "pig",
+      "tunnelize-other-expansions": true,
+      "more-tunnel-tokens": "3/2",
+      "festival-return": "meeple",
+      "keep-monasteries": "replace",
+      "labyrinth-variant": "advanced",
+      "little-buildings-scoring": "1/1/1",
+      "king-and-robber-scoring": "default",
+      "tiny-city-scoring": "4"
+    },
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ]
+  },
+  "players": [
+    {
+      "name": "David",
+      "slot": 0
+    },
+    {
+      "name": "Wendy",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CC.2",
+        "rotation": "R270",
+        "position": [
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "type": "PASS",
+      "payload": {}
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-7461540075648581197"
+      }
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Cc.1",
+        "rotation": "R180",
+        "position": [
+          -1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            -1,
+            1
+          ],
+          "location": "SE"
+        },
+        "meepleId": "1.small.1"
+      }
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-7418166333179924682"
+      }
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Cc.1",
+        "rotation": "R90",
+        "position": [
+          -1,
+          2
+        ]
+      }
+    },
+    {
+      "type": "PASS",
+      "payload": {}
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-3646552285189381909"
+      }
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Cc.1",
+        "rotation": "R0",
+        "position": [
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "type": "PASS",
+      "payload": {}
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "6273133084174864810"
+      }
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRR",
+        "rotation": "R180",
+        "position": [
+          -1,
+          0
+        ]
+      }
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            -1,
+            0
+          ],
+          "location": "E"
+        },
+        "meepleId": "0.small.1"
+      }
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "3815569556520016475"
+      }
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRRR",
+        "rotation": "R0",
+        "position": [
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "type": "PASS",
+      "payload": {}
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "6750924040888683600"
+      }
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Rr",
+        "rotation": "R180",
+        "position": [
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            1
+          ],
+          "location": "NE"
+        },
+        "meepleId": "0.small.1"
+      }
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-6756924664549951553"
+      }
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Rr",
+        "rotation": "R0",
+        "position": [
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "type": "PASS",
+      "payload": {}
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-3118500530466719564"
+      }
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Rr",
+        "rotation": "R90",
+        "position": [
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "type": "PASS",
+      "payload": {}
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-6960415788771952301"
+      }
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CFc+",
+        "rotation": "R90",
+        "position": [
+          0,
+          -1
+        ]
+      }
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -1
+          ],
+          "location": "NS"
+        },
+        "meepleId": "1.small.1"
+      }
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-234151795430202618"
+      }
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [
+          0,
+          -2
+        ]
+      }
+    },
+    {
+      "type": "PASS",
+      "payload": {}
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-613209618721430593"
+      }
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/CC.2",
+      "BA/Cc.1",
+      "BA/Cc.1",
+      "BA/Cc.1",
+      "BA/RRR",
+      "BA/RRRR",
+      "BA/Rr",
+      "BA/Rr",
+      "BA/Rr",
+      "BA/CFc+",
+      "BA/C"
+    ]
+  }
+}
