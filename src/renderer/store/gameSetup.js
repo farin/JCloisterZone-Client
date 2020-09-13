@@ -2,27 +2,11 @@ import Vue from 'vue'
 import uniq from 'lodash/uniq'
 import mapKeys from 'lodash/mapKeys'
 
-import { GameElement } from '@/models/elements'
+import { isConfigValueEnabled, getDefaultElements } from '@/models/elements'
 import { getDefaultRules } from '@/models/rules'
 
 const DEFAULT_SETS = {
   'basic': 1
-}
-
-function isElementEnabled (config) {
-  return config !== 'off' && config !== false && config !== 0
-}
-
-function getDefaultElements (sets) {
-  const q = {}
-  GameElement.all().forEach(c => {
-    const conf = c.getDefaultConfig(sets)
-    if (isElementEnabled(conf)) {
-      q[c.id] = conf
-    }
-  })
-  // q.abbot = 1 // dev
-  return q
 }
 
 function getModifiedDefaults (before, after) {
@@ -66,7 +50,7 @@ export const mutations = {
   },
 
   tileSetQuantity (state, { id, quantity }) {
-    if (isElementEnabled(quantity)) {
+    if (isConfigValueEnabled(quantity)) {
       Vue.set(state.sets, id, quantity)
     } else {
       Vue.delete(state.sets, id)
@@ -74,7 +58,7 @@ export const mutations = {
   },
 
   elementConfig (state, { id, config }) {
-    if (isElementEnabled(config)) {
+    if (isConfigValueEnabled(config)) {
       Vue.set(state.elements, id, config)
     } else {
       Vue.delete(state.elements, id)

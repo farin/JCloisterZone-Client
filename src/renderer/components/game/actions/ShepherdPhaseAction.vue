@@ -44,7 +44,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 
-import { isSameFeature, getMeeplePlayer } from '@/utils/game'
+import { isSameFeature, getMeeplePlayer } from '@/utils/gameUtils'
 import Meeple from '@/components/game/Meeple'
 import TokenImage from '@/components/game/TokenImage'
 

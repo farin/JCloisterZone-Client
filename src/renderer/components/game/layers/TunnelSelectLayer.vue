@@ -28,7 +28,7 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import { getMeeplePlayer } from '@/utils/game'
+import { getMeeplePlayer } from '@/utils/gameUtils'
 import LayerMixin from '@/components/game/layers/LayerMixin'
 
 export default {

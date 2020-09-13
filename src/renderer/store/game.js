@@ -10,7 +10,7 @@ import zip from 'lodash/zip'
 import Vue from 'vue'
 
 import { randomLong } from '@/utils/random'
-import { isSameFeature } from '@/utils/game'
+import { isSameFeature } from '@/utils/gameUtils'
 import { verifyScenario } from '@/utils/testing'
 
 const { app } = remote

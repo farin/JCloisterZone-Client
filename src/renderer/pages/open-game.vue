@@ -27,7 +27,7 @@
     </template>
 
     <template #detail>
-      <GameSetupOverview :sets="sets" />
+      <GameSetupOverview :sets="sets" :elements="elements" />
     </template>
   </GameSetupGrid>
 </template>
@@ -35,7 +35,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 
-import GameSetupOverview from '@/components/game-setup/GameSetupOverview'
+import GameSetupOverview from '@/components/game-setup/overview/GameSetupOverview'
 import GameSetupGrid from '@/components/game-setup/GameSetupGrid'
 import HeaderGameButton from '@/components/game-setup/HeaderGameButton'
 import PlayerSlot from '@/components/game-setup/PlayerSlot'
@@ -53,6 +53,7 @@ export default {
   computed: {
     ...mapState({
       sets: state => state.gameSetup.sets,
+      elements: state => state.gameSetup.elements,
       slots: state => state.gameSetup.slots
     }),
 
@@ -111,6 +112,6 @@ header .v-alert
   margin-top: 40px
 
 .game-setup-overview
-  margin: 40px
+  margin: 40px 0
 
 </style>

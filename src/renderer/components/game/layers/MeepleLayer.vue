@@ -112,7 +112,7 @@ import { mapGetters, mapState } from 'vuex'
 import groupBy from 'lodash/groupBy'
 import keyBy from 'lodash/keyBy'
 
-import { isSameFeature } from '@/utils/game'
+import { isSameFeature } from '@/utils/gameUtils'
 import Location from '@/models/Location'
 import FlockDetail from '@/components/game/layers/FlockDetail'
 import LayerMixin from '@/components/game/layers/LayerMixin'

@@ -31,7 +31,7 @@
 import { mapState } from 'vuex'
 import sum from 'lodash/sum'
 
-import { isSameFeature } from '@/utils/game'
+import { isSameFeature } from '@/utils/gameUtils'
 
 export default {
   props: {

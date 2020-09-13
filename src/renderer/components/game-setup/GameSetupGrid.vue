@@ -26,7 +26,7 @@ export default {
 <style lang="sass" scoped>
 .game-setup-grid
   display: grid
-  grid-template-columns: minmax(0, 1560px) minmax(360px, 1fr)
+  grid-template-columns: minmax(0, 1560px) minmax(372px, 1fr)
   grid-template-rows: $action-bar-height auto
   grid-template-areas: "header detail-header" "main detail"
   gap: $panel-gap

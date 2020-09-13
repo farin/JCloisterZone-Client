@@ -127,7 +127,7 @@
 
 <script>
 import groupBy from 'lodash/groupBy'
-import { isSameFeature } from '@/utils/game'
+import { isSameFeature } from '@/utils/gameUtils'
 
 import LayerMixin from '@/components/game/layers/LayerMixin'
 

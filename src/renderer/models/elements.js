@@ -56,6 +56,21 @@ export class GameElement {
   }
 }
 
+export function isConfigValueEnabled(config) {
+  return config !== 'off' && config !== false && config !== 0
+}
+
+export function getDefaultElements (sets) {
+  const q = {}
+  GameElement.all().forEach(c => {
+    const conf = c.getDefaultConfig(sets)
+    if (isConfigValueEnabled(conf)) {
+      q[c.id] = conf
+    }
+  })
+  return q
+}
+
 // Meeples
 export const SMALL_FOLLOWER = GameElement.SMALL_FOLLOWER = new GameElement('small-follower', 'Small Follower', {
   '*': 7
@@ -74,7 +89,7 @@ export const BUILDER = GameElement.BUILDER = new GameElement('builder', 'Builder
   '*': 0,
   'traders-and-builders': 1
 })
-export const PIG = GameElement.PIG = new GameElement('big', 'Pig', {
+export const PIG = GameElement.PIG = new GameElement('pig', 'Pig', {
   '*': 0,
   'traders-and-builders': 1
 })
