@@ -9,7 +9,6 @@ import range from 'lodash/range'
 import zip from 'lodash/zip'
 import Vue from 'vue'
 
-import { Expansion } from '@/models/expansions'
 import { randomLong } from '@/utils/random'
 import { isSameFeature } from '@/utils/game'
 import { verifyScenario } from '@/utils/testing'
@@ -152,22 +151,6 @@ export const getters = {
     return state.players[playerIdx].meeples[meepleType][1]
   },
 
-  getTileSets: state => {
-    if (!state.setup) {
-      return null
-    }
-    const sets = []
-    const setupSets = state.setup.sets
-    Expansion.all().forEach(expansion => {
-      expansion.sets.forEach(set => {
-        const quantity = setupSets[set.id] || setupSets[set.id + ':1'] || setupSets[set.id + ':2']
-        if (quantity) {
-          sets.push({ expansion, set, quantity })
-        }
-      })
-    })
-    return sets
-  },
 
   canPayRansom: state => player => {
     if (state.action === null || state.action.player !== player) {

@@ -27,7 +27,7 @@
     </template>
 
     <template #detail>
-      <GameSetupOverview />
+      <GameSetupOverview :sets="sets" />
     </template>
   </GameSetupGrid>
 </template>
