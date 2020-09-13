@@ -46,6 +46,23 @@
         <v-btn large color="secondary" @click="createGame()">
           New game
         </v-btn>
+
+        <template v-if="recentGameSetups.length">
+          <h2>Recent Game Setups</h2>
+
+          <div class="recent-list d-flex flex-column align-end">
+            <v-card
+              v-for="(setup, idx) in recentGameSetups"
+              :key="idx"
+              class="recent-setup d-inline-block mb-1"
+              @click="loadSetup(setup)"
+            >
+              <GameSetupOverview small :sets="setup.sets" :elements="setup.elements" />
+            </v-card>
+            <a class="clear" href="#" @click="clearRecentGameSetups"><v-icon>fas fa-times</v-icon> clear list</a>
+          </div>
+        </template>
+
       </div>
 
       <div>
@@ -73,17 +90,23 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
 import { shell } from 'electron'
+
+import mapKeys from 'lodash/mapKeys'
+import { mapGetters, mapState } from 'vuex'
+
+import GameSetupOverview from '@/components/game-setup/overview/GameSetupOverview'
 
 export default {
   components: {
+    GameSetupOverview
   },
 
   data () {
     return {
       // do not bind it to store
-      recentGames: [...this.$store.state.settings.recentSaves]
+      recentGames: [...this.$store.state.settings.recentSaves],
+      recentGameSetups: [...this.$store.state.settings.recentGameSetups]
     }
   },
 
@@ -104,7 +127,8 @@ export default {
 
   watch: {
     settingsLoaded () {
-      this.recentGames = [...this.$store.state.settings.recentSaves]
+      this.recentGames = [...this.$store.state.settings.recentSaves],
+      this.recentGameSetups = [...this.$store.state.settings.recentGameSetups]
     }
   },
 
@@ -132,13 +156,27 @@ export default {
       }
     },
 
+    async loadSetup (setup) {
+      this.$store.dispatch('game/create')
+      this.$store.commit('gameSetup/setup', {
+        ...setup,
+        sets: mapKeys(setup.sets, (val, key) => key.split(":")[0])
+      })
+      this.$router.push('/game-setup')
+    },
+
     openLink (href) {
       shell.openExternal(href)
     },
 
     clearRecentGames () {
-      this.$store.dispatch('settings/clearRecentSaved')
+      this.$store.dispatch('settings/clearRecentSaves')
       this.recentGames = []
+    },
+
+    clearRecentGameSetups () {
+      this.$store.dispatch('settings/clearRecentGameSetups')
+      this.recentGameSetups = []
     }
   }
 }
@@ -189,6 +227,9 @@ main
     text-transform: uppercase
     margin-top: 30px
     margin-bottom: 10px
+
+  .recent-setup
+    cursor: pointer
 
   .recent-list a
     display: block

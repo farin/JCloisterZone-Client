@@ -1,7 +1,7 @@
 <template>
   <div
     class="element-box"
-    :class="{off: !isConfigValueEnabled(value)}"
+    :class="{off: !isConfigValueEnabled(value), small}"
   >
     <div class="symbol-wrapper">
       <svg v-if="isMeeple(element)" class="meeple" :width="55" :height="55">
@@ -49,7 +49,8 @@ export default {
 
   props: {
     element: { type: String, required: true },
-    value: { type: [String, Number, Boolean], required: true }
+    value: { type: [String, Number, Boolean], required: true },
+    small: { type: Boolean }
   },
 
   data () {
@@ -78,6 +79,10 @@ export default {
   .box-title
     text-decoration: line-through
     text-decoration-color: $removed-color
+
+.element-box.small
+  .symbol-wrapper
+    transform: scale(0.66)
 
 .meeple, .fairy, .dragon, .count
   fill: #f0f0f0

@@ -1,3 +1,5 @@
+import mapKeys from 'lodash/mapKeys'
+
 export class GameElement {
   /*
     tile sets:
@@ -62,6 +64,8 @@ export function isConfigValueEnabled(config) {
 
 export function getDefaultElements (sets) {
   const q = {}
+
+  sets = mapKeys(sets, (val, key) => key.split(":")[0]) // strip C1 / C2 suffix
   GameElement.all().forEach(c => {
     const conf = c.getDefaultConfig(sets)
     if (isConfigValueEnabled(conf)) {

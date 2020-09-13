@@ -49,6 +49,14 @@ export const mutations = {
     state.slots = getEmptySlots()
   },
 
+  setup (state, setup) {
+    state.sets = setup.sets
+    state.elements = setup.elements
+    state.rules = setup.rules
+    state.start = setup.start
+    state.timer = setup.timer
+  },
+
   tileSetQuantity (state, { id, quantity }) {
     if (isConfigValueEnabled(quantity)) {
       Vue.set(state.sets, id, quantity)
@@ -150,7 +158,7 @@ export const actions = {
     }
   },
 
-  createGame ({ state, commit, getters }) {
+  createGame ({ state, commit, getters, dispatch }) {
     const { $tiles } = this._vm
     const sets = mapKeys(state.sets, (value, key) => {
       return $tiles.sets[key] ? key : key + ':' + getters.getSelectedEdition
@@ -164,6 +172,7 @@ export const actions = {
       start: getters.selectedStartingTiles.value
     }
 
+    dispatch('settings/addRecentGameSetup', setup, { root: true })
     commit('game/setup', setup, { root: true })
   }
 }

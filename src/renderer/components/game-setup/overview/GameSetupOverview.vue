@@ -1,5 +1,5 @@
 <template>
-  <div class="game-setup-overview">
+  <div class="game-setup-overview" :class="{ small }">
     <section>
       <div
         v-for="{ expansion, set, quantity } in tileSets"
@@ -11,7 +11,7 @@
             v-if="quantity > 1"
             class="quantity"
           >{{ quantity }}</span>
-          <ExpansionSymbol :expansion="expansion" :size="48" />
+          <ExpansionSymbol :expansion="expansion" :size="small ? 32 : 48" />
         </div>
         <div class="box-title">{{ set.title }}</div>
       </div>
@@ -25,6 +25,7 @@
         :key="element"
         :element="element"
         :value="value"
+        :small="small"
       />
     </section>
     <div v-if="removals.length" class="section-delimiter">
@@ -36,6 +37,7 @@
         :key="element"
         :element="element"
         :value="value"
+        :small="small"
       />
     </section>
   </div>
@@ -62,7 +64,8 @@ export default {
 
   props: {
     sets: { type: Object, required: true },
-    elements: { type: Object, required: true }
+    elements: { type: Object, required: true },
+    small: { type: Boolean }
   },
 
   computed: {
@@ -79,7 +82,7 @@ export default {
       return tileSets
     },
 
-    nonDefaultElements (before, after) {
+    nonDefaultElements () {
       const defaults = getDefaultElements(this.sets)
       const keys = uniq([...Object.keys(defaults), ...Object.keys(this.elements)])
       const diff = {}
@@ -139,8 +142,10 @@ export default {
       top: -15px
       margin-right: 4px
 
-  .symbol-wrapper
+  .symbol-wrapper, .box-title
     height: 74px
+
+  .symbol-wrapper
     padding-top: 15px
     text-align: center
 
@@ -149,7 +154,6 @@ export default {
 
   .box-title
     border-top: 1px solid #f0f0f0
-    height: 74px
     margin: 0 10px
     font-size: 14px
     font-weight: 300
@@ -158,4 +162,28 @@ export default {
     justify-content: center
     align-items: center
     text-align: center
+
+.game-setup-overview.small
+  display: flex
+  flex-wrap: wrap
+
+  .tile-set, .element-box
+    width: 80px
+    height: 99px
+
+  .tile-set
+    .quantity
+      font-size: 22px
+      top: -10px
+      margin-right: 2px
+
+  .symbol-wrapper, .box-title
+    height: 49px
+
+  .symbol-wrapper
+    padding-top: 10px
+
+  .box-title
+    font-size: 8px
+    margin: 0 6px
 </style>

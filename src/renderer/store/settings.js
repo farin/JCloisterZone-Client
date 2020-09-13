@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import Vue from 'vue'
+import isEqual from 'lodash/isEqual'
 
 import { remote } from 'electron'
 
@@ -9,6 +10,7 @@ export const state = () => ({
   // artworks: ['classic'], //active artworks
   lastGameSetup: null,
   recentSaves: [],
+  recentGameSetups: [],
   devMode: process.env.NODE_ENV === 'development'
 })
 
@@ -24,6 +26,10 @@ export const mutations = {
 
   recentSaves (state, value) {
     state.recentSaves = value
+  },
+
+  recentGameSetups (state, value) {
+    state.recentGameSetups = value
   }
 }
 
@@ -72,8 +78,21 @@ export const actions = {
     dispatch('save')
   },
 
-  async clearRecentSaved({ commit, dispatch}) {
+  async clearRecentSaves({ commit, dispatch}) {
     commit('recentSaves', [])
+    dispatch('save')
+  },
+
+  async addRecentGameSetup({ state, commit, dispatch }, setup) {
+    const recentGameSetups = state.recentGameSetups.filter(s => !isEqual(s, setup)) // if file is contained, it will be only reordered to begining
+    recentGameSetups.unshift(setup)
+    recentGameSetups.splice(7, 1)
+    commit('recentGameSetups', recentGameSetups)
+    dispatch('save')
+  },
+
+  async clearRecentGameSetups({ commit, dispatch}) {
+    commit('recentGameSetups', [])
     dispatch('save')
   }
 }
