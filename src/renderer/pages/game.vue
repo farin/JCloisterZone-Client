@@ -78,7 +78,7 @@ export default {
         return false
       }
       const { drawOrder, endTurn } = state.game.gameAnnotations
-      return !(drawOrder || endTurrn)
+      return !!(drawOrder || endTurn)
     }
   }),
 
