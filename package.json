@@ -4,7 +4,7 @@
   "description": "JCloisterZone UI client",
   "repository": "github:farin/JCloisterZone-Client",
   "license": "AGPL-3.0-or-later",
-  "author": "Roman Krejcik",
+  "author": "Roman Krejcik <farin@farin.cz>",
   "main": "./dist/main/index.js",
   "scripts": {
     "dev": "node .electron-nuxt/check-engines.js && cross-env-shell NODE_ENV=development node .electron-nuxt/index.js",
