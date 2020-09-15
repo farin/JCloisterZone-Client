@@ -404,6 +404,11 @@ export const actions = {
       displayError()
     })
 
+    engine.on('exit', ev => {
+      delete openGames[engine.pid]
+      commit('enginePid', null)
+    })
+
     if (state.gameMessages.length) {
       await writeLine(engine.pid, '%bulk on')
     }
