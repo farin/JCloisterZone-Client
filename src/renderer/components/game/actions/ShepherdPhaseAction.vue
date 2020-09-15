@@ -6,7 +6,7 @@
         <Meeple
           v-for="flock in flocks"
           :key="flock.id"
-          :tyoe="Shepherd"
+          type="Shepherd"
           :class="colorCssClass(flock.player)"
         />
         <span
@@ -27,7 +27,7 @@
       <div class="help">&nbsp;</div>
     </div>
     <div>
-      <v-btn @click="grow">Grow the flock</v-btn>
+      <v-btn color="secondary" @click="grow">Grow the flock</v-btn>
       <div class="help">{{ sheep.bagSize }} tokens left</div>
     </div>
     <div>
@@ -35,7 +35,7 @@
       <div class="help">&nbsp;</div>
     </div>
     <div>
-      <v-btn @click="score">Score the sheep</v-btn>
+      <v-btn color="secondary" @click="score">Score the sheep</v-btn>
       <div class="help">receive {{ points }} points</div>
     </div>
   </section>

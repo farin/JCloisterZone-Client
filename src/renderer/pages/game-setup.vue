@@ -106,7 +106,7 @@ export default {
     },
 
     onTileClick (tileId) {
-      if (settings.devMode) {
+      if (this.settings.devMode) {
         this.$refs.annotationsPanel.appendTile(tileId)
       }
     }

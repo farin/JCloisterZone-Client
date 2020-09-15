@@ -7,12 +7,12 @@
     >
       <rect
         v-if="WE"
-        :class="{area: true, 'over-only': N && W && S && E, mouseover: isMouseOver(position, 'WE')}"
+        :class="{area: true, 'over-only': NS, mouseover: isMouseOver(position, 'WE')}"
         x="70" y="430" width="860" height="140"
       />
       <rect
         v-if="NS"
-        :class="{area: true, 'over-only': N && W && S && E, mouseover: isMouseOver(position, 'NS')}"
+        :class="{area: true, 'over-only': WE, mouseover: isMouseOver(position, 'NS')}"
         x="430" y="70" width="140" height="860"
       />
 
