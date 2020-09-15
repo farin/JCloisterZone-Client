@@ -28,7 +28,7 @@
       </template>
     </component>
     <GameResultPanel
-      v-else-if="phase == 'GameOverPhase'"
+      v-else-if="phase === 'GameOverPhase'"
       v-show="!pointsExpression"
       class="game-over"
     />

@@ -10,7 +10,7 @@
         :key="idx"
         class="points"
         :class="colorCssClass(s.player)"
-        :transform="`translate(${idx * 360} 0)`"
+        :transform="transformStack(idx, scores.length)"
       >
         <rect
           x="-180" y="-120" width="360" height="240"
@@ -41,13 +41,19 @@ export default {
 
   computed: {
     ...mapState({
-      history: state => state.game.history
+      gameEnd: state => state.game.phase === 'GameOverPhase',
+      history: state => state.game.history,
+      playersCount: state => state.game.players.length
     }),
 
     scoreSources () {
       const items = []
       const len = this.history.length
-      for (let i = len - 1; i >= Math.max(0, len - 3); i--) {
+      let visibleTurns = this.playersCount
+      if (this.gameEnd) {
+        visibleTurns += 1
+      }
+      for (let i = Math.max(0, len - visibleTurns); i < len; i++) {
         const h = this.history[i]
         h.events.forEach(ev => {
           if (ev.type === 'points') {
@@ -69,6 +75,11 @@ export default {
         return this.transformPosition(ptr) + 'translate(500 500)'
       }
       return this.transformPoint(ptr)
+    },
+
+    transformStack (idx, size) {
+      const x = 180 + idx * 360 - size * 180
+      return `translate(${x} 0)`
     },
 
     onMouseEnter (points) {
