@@ -2,13 +2,27 @@
   <g id="meeple-layer">
     <!--
       MeepleSelectLayer is just virtual layer used from this class
-      because selection operates with meeple posiions and position change if meeples are stacked
+      because selection operates with meeple positions and position change if meeples are stacked
       it's easier handle all at same place
     -->
     <g
+      v-for="meeple in barns"
+      :key="meeple.id"
+      :transform="transformPosition(meeple.position)"
+      :class="colorCssClass(meeple.player)"
+    >
+      <use
+        class="meeple"
+        x="-160" y="-160"
+        width="320" height="320"
+        :href="`${MEEPLES_SVG}#barn`"
+      />
+    </g>
+
+    <g
       v-for="group in meeples"
       :key="group.id"
-      :transform="`${getPointTransform(group)}`"
+      :transform="transformPoint(group)"
     >
       <g
         v-for="meeple in group.meeples"
@@ -44,7 +58,7 @@
 
           <!--
             invisible shape for tracking mouse events
-            use only if single meepls is on spet
+            use only if single meeple is on the spot
           -->
           <circle
             v-if="group.meeples.length === 1"
@@ -157,13 +171,20 @@ export default {
       isDeployedOnBridge: 'game/isDeployedOnBridge'
     }),
 
+    barns () {
+      if (this.deployedOnBridge) {
+        return []
+      }
+      return this.$store.state.game.deployedMeeples.filter(m => m.type === 'Barn')
+    },
+
     meeples () {
       const getGroupKey = ptr => {
         return `${ptr.position[0]},${ptr.position[1]},${ptr.location}`
       }
 
       const selectable = this.meepleSelect ? keyBy(this.meepleSelect.options, 'meepleId') : null
-      const filtered = this.$store.state.game.deployedMeeples.filter(m => !this.isDeployedOnBridge(m) ^ this.deployedOnBridge)
+      const filtered = this.$store.state.game.deployedMeeples.filter(m => m.type !== 'Barn' && !this.isDeployedOnBridge(m) ^ this.deployedOnBridge)
       const groupped = groupBy(filtered, getGroupKey)
       const neutralInGroup = {}
       const groups = Object.entries(groupped).map(([key, meeples]) => {
@@ -266,14 +287,6 @@ export default {
   },
 
   methods: {
-    getPointTransform (meeple) {
-      if (meeple.type === 'Barn') {
-        return this.transformPosition(meeple.position)
-      } else {
-        return this.transformPoint(meeple)
-      }
-    },
-
     svgMeepleId (meeple) {
       return toKebabCase(meeple.type)
     },
