@@ -61,6 +61,7 @@ export const mutations = {
     state.gameMessages = []
     state.gameAnnotations = {}
     state.testScenario = null
+    state.testScenarioResult = null
   },
 
   enginePid (state, value) {

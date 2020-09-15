@@ -1,6 +1,6 @@
 <template>
   <ExprContent :expr="expr">
-    <template #title>Fairy</template>
+    <template #title>Fairy: feature scored</template>
     <template #row><slot /></template>
   </ExprContent>
 </template>

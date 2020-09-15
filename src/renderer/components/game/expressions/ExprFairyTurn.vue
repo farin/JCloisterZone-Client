@@ -1,6 +1,6 @@
 <template>
   <ExprContent :expr="expr">
-    <template #title>Fairy</template>
+    <template #title>Fairy: turn bonus</template>
     <template #row>
       <NeutralFigure figure="fairy" :width="45" :height="45" />
       &ensp;=&ensp;
