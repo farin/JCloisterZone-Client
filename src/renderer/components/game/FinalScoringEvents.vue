@@ -48,7 +48,7 @@ export default {
           console.error('Received empty points event')
           return
         }
-        const type = ev.points[0].name.split('.')[0]
+        const type = ev.points[0].name.split('+')[0].split('.')[0]
         if (type === 'trade-goods') {
           rows.tradeGoods.events.push(ev)
         } else if (type === 'gold') {
