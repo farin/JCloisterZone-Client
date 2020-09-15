@@ -216,7 +216,7 @@ export default {
               ...m,
               x,
               y,
-              rotate90: m.location === 'MONASTERY' || (deployedOnFarm && !['Shepherd', 'Barn'].includes(m.type)),
+              rotate90: m.location === 'MONASTERY' || (deployedOnFarm && !['Shepherd', 'Pig'].includes(m.type)),
               selectable: selectable && selectable[m.id]
             }
             x += m.type === 'SmallFollower' ? 100 : 140
