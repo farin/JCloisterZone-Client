@@ -288,49 +288,51 @@ export const actions = {
           filters: SAVED_GAME_FILTERS,
           properties: ['openFile']
         })
-        filePath = filePaths.length ? filePaths[0] : null
+        if (filePaths.length) {
+          filePath = filePaths[0]
+        } else {
+          resolve(false)
+        }
       }
-      if (filePath) {
-        fs.readFile(filePath, async (err, data) => {
-          if (err) {
-            reject(err)
-            return
+      let sg, slots
+      try {
+        const data = await fs.promises.readFile(filePath)
+        sg = JSON.parse(data)
+        slots = sg.players.map((p, i) => {
+          return {
+            number: p.slot,
+            name: p.name,
+            state: 'local',
+            order: i + 1
           }
-          const sg = JSON.parse(data)
-          const slots = sg.players.map((p, i) => {
-            return {
-              number: p.slot,
-              name: p.name,
-              state: 'local',
-              order: i + 1
-            }
-          })
-          commit('clear')
-          commit('setup', sg.setup)
-          commit('initialSeed', sg.initialSeed)
-          commit('gameAnnotations', sg.gameAnnotations || {})
-          commit('gameMessages', sg.replay)
-          commit('gameSetup/slots', slots, { root: true })
-          if (sg.test) {
-            commit('testScenario', sg.test)
-
-            const players = slots.map(s => ({ ...s }))
-            players.forEach(s => {
-              s.slot = s.number
-              delete s.number
-              delete s.order
-            })
-            commit('game/players', players, { root: true })
-            dispatch('game/start', null, { root: true })
-          }
-          Vue.nextTick(() => {
-            dispatch('settings/addRecentSave', filePath, { root: true })
-          })
-          resolve(sg)
         })
-      } else {
-        resolve(false)
+      } catch (e) {
+        reject(e)
+        return
       }
+
+      commit('clear')
+      commit('setup', sg.setup)
+      commit('initialSeed', sg.initialSeed)
+      commit('gameAnnotations', sg.gameAnnotations || {})
+      commit('gameMessages', sg.replay)
+      commit('gameSetup/slots', slots, { root: true })
+      if (sg.test) {
+        commit('testScenario', sg.test)
+
+        const players = slots.map(s => ({ ...s }))
+        players.forEach(s => {
+          s.slot = s.number
+          delete s.number
+          delete s.order
+        })
+        commit('game/players', players, { root: true })
+        dispatch('game/start', null, { root: true })
+      }
+      Vue.nextTick(() => {
+        dispatch('settings/addRecentSave', filePath, { root: true })
+      })
+      resolve(sg)
     })
   },
 

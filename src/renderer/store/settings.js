@@ -5,6 +5,9 @@ import isEqual from 'lodash/isEqual'
 
 import { remote } from 'electron'
 
+const RECENT_GAMES_COUNT = 14
+const RECENT_SETUPS_COUNT = 5
+
 export const state = () => ({
   // theme: 'light',
   // artworks: ['classic'], //active artworks
@@ -52,6 +55,7 @@ export const actions = {
       console.log(`Settings file ${settingsFile} doesn't exist. Creating default one.`)
       dispatch('save')
     }
+    await dispatch('validateRecentSaves')
     commit('settingsLoaded', true, { root: true })
   },
 
@@ -73,7 +77,7 @@ export const actions = {
   async addRecentSave({ state, commit, dispatch }, file) {
     const recentSaves = state.recentSaves.filter(f => f !== file) // if file is contained, it will be only reordered to begining
     recentSaves.unshift(file)
-    recentSaves.splice(14, 1)
+    recentSaves.splice(RECENT_GAMES_COUNT, recentSaves.length)
     commit('recentSaves', recentSaves)
     dispatch('save')
   },
@@ -83,10 +87,26 @@ export const actions = {
     dispatch('save')
   },
 
+  async validateRecentSaves({ state, commit }) {
+    const invalid = {}
+    let containsInvalid = false
+    for (let f of state.recentSaves) {
+      try {
+        await fs.promises.access(f, fs.constants.R_OK)
+      } catch (e) {
+        invalid[f] = true
+        containsInvalid = true
+      }
+    }
+    if (containsInvalid) {
+      commit('recentSaves', state.recentSaves.filter(f => !invalid[f]))
+    }
+  },
+
   async addRecentGameSetup({ state, commit, dispatch }, setup) {
     const recentGameSetups = state.recentGameSetups.filter(s => !isEqual(s, setup)) // if file is contained, it will be only reordered to begining
     recentGameSetups.unshift(setup)
-    recentGameSetups.splice(3, 1)
+    recentGameSetups.splice(RECENT_SETUPS_COUNT, recentGameSetups.length)
     commit('recentGameSetups', recentGameSetups)
     dispatch('save')
   },

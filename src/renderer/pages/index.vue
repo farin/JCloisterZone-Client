@@ -139,9 +139,12 @@ export default {
     },
 
     async loadGame (file) {
-      const save = await this.$store.dispatch('game/load', file)
-      if (save) {
+      try {
+        const save = await this.$store.dispatch('game/load', file)
         this.$router.push(save.test ? '/game' : '/open-game')
+      } catch {
+        await this.$store.dispatch('settings/validateRecentSaves')
+        this.recentGames = [...this.$store.state.settings.recentSaves]
       }
     },
 
