@@ -126,8 +126,9 @@ export default {
     },
 
     async loadGame () {
-      if (await this.$store.dispatch('game/load')) {
-        this.$router.push('/open-game')
+      const save = await this.$store.dispatch('game/load')
+      if (save) {
+        this.$router.push(save.test ? '/game' : '/open-game')
       }
     },
 

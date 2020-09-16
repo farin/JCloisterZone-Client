@@ -1,28 +1,24 @@
 {
-  "appVersion": "5.0.6",
+  "appVersion": "5.0.7",
   "gameId": "1",
   "name": "",
-  "initialSeed": "-2259914147852206399",
-  "created": "2020-09-15T20:08:52.883Z",
+  "initialSeed": "-349946023236146966",
+  "created": "2020-09-16T13:28:08.317Z",
   "clock": null,
   "test": {
-    "description": "A fairy bonus is warded to inn road at the end",
+    "description": "When flying machine is used. Pass is not allowed.",
     "assertions": [
-      "Wendy has 3 points"
+      "Player can't pass"
     ]
   },
   "setup": {
     "sets": {
       "basic:1": 1,
-      "inns-and-cathedrals:1": 1
+      "flier:1": 1
     },
     "elements": {
       "small-follower": 7,
-      "farmers": true,
-      "fairy": 1,
-      "big-follower": 1,
-      "cathedral": true,
-      "inn": true
+      "farmers": true
     },
     "rules": {
       "princess-action": "may",
@@ -55,15 +51,19 @@
   },
   "players": [
     {
-      "name": "Wendy",
+      "name": "Eve",
       "slot": 1
+    },
+    {
+      "name": "Oscar",
+      "slot": 2
     }
   ],
   "replay": [
     {
       "type": "PLACE_TILE",
       "payload": {
-        "tileId": "IC/RFr.i",
+        "tileId": "BA/RFr",
         "rotation": "R0",
         "position": [
           1,
@@ -72,39 +72,13 @@
       }
     },
     {
-      "type": "DEPLOY_MEEPLE",
-      "payload": {
-        "pointer": {
-          "position": [
-            1,
-            0
-          ],
-          "location": "WE"
-        },
-        "meepleId": "0.small.1"
-      }
-    },
-    {
-      "type": "UNDO",
+      "type": "PASS",
       "payload": {}
-    },
-    {
-      "type": "DEPLOY_MEEPLE",
-      "payload": {
-        "pointer": {
-          "position": [
-            1,
-            0
-          ],
-          "location": "WE"
-        },
-        "meepleId": "0.big.1"
-      }
     },
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-7051674546621885967"
+        "salt": "8240378708657239056"
       }
     },
     {
@@ -119,33 +93,46 @@
       }
     },
     {
-      "type": "MOVE_NEUTRAL_FIGURE",
-      "payload": {
-        "figureId": "fairy.1",
-        "to": {
-          "featurePointer": {
-            "position": [
-              1,
-              0
-            ],
-            "location": "WE"
-          },
-          "meepleId": "0.big.1"
-        }
-      }
+      "type": "PASS",
+      "payload": {}
     },
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "5197103344361737824"
+        "salt": "6208940351803546200"
+      }
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "FL/RFr.WE.o",
+        "rotation": "R0",
+        "position": [
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            3,
+            0
+          ],
+          "location": "FLYING_MACHINE"
+        },
+        "meepleId": "0.small.1",
+        "salt": "3684222688003678193"
       }
     }
   ],
   "gameAnnotations": {
     "drawOrder": [
-      "IC/RFr.i",
-      "BA/RFr"
-    ],
-    "endTurn": 2
+      "BA/RFr",
+      "BA/RFr",
+      "FL/RFr.WE.o"
+    ]
   }
 }

@@ -313,11 +313,20 @@ export const actions = {
           commit('gameSetup/slots', slots, { root: true })
           if (sg.test) {
             commit('testScenario', sg.test)
+
+            const players = slots.map(s => ({ ...s }))
+            players.forEach(s => {
+              s.slot = s.number
+              delete s.number
+              delete s.order
+            })
+            commit('game/players', players, { root: true })
+            dispatch('game/start', null, { root: true })
           }
           Vue.nextTick(() => {
             dispatch('settings/addRecentSave', filePath, { root: true })
           })
-          resolve(true)
+          resolve(sg)
         })
       } else {
         resolve(false)

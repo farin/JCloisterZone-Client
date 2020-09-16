@@ -51,6 +51,21 @@ class FeatureScoredAssert {
   }
 }
 
+class PassAssert {
+  constructor (state) {
+    this.state = state
+  }
+
+  verify (assertion) {
+    if (assertion === "Player can't pass") {
+      return { result: !this.state.action.canPass }
+    }
+    if (assertion === "Player can pass") {
+      return { result: this.state.action.canPass }
+    }
+  }
+}
+
 export function verifyScenario(state, { description, assertions }) {
   const result = {
     description,
@@ -59,7 +74,8 @@ export function verifyScenario(state, { description, assertions }) {
 
   const rules = [
     new PointsAssert(state),
-    new FeatureScoredAssert(state)
+    new FeatureScoredAssert(state),
+    new PassAssert(state)
   ]
 
   for (let assertion of assertions) {
