@@ -6,7 +6,7 @@ import isEqual from 'lodash/isEqual'
 import { remote } from 'electron'
 
 const RECENT_GAMES_COUNT = 14
-const RECENT_SETUPS_COUNT = 5
+const RECENT_SETUPS_COUNT = 3
 
 export const state = () => ({
   // theme: 'light',

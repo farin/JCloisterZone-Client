@@ -1,36 +1,32 @@
 <template>
-  <div class="game-setup-overview">
-    <section>
-      <OverviewTileSetTile
-        v-for="{ expansion, set, quantity } in tileSets"
-        :key="set.id"
-        :expansion="expansion"
-        :set="set"
-        :quantity="quantity"
-      />
-    </section>
+  <div class="game-setup-overview-inline">
+    <OverviewTileSetTile
+      v-for="{ expansion, set, quantity } in tileSets"
+      :key="'s' + set.id"
+      :expansion="expansion"
+      :set="set"
+      :quantity="quantity"
+    />
     <div v-if="additions.length" class="section-delimiter">
       <v-icon>fas fa-plus</v-icon>
     </div>
-    <section>
-      <OverviewElementTile
-        v-for="([element, value]) in additions"
-        :key="element"
-        :element="element"
-        :value="value"
-      />
-    </section>
+    <OverviewElementTile
+      v-for="([element, value]) in additions"
+      :key="'a' + element"
+      :element="element"
+      :value="value"
+      :small="small"
+    />
     <div v-if="removals.length" class="section-delimiter">
       <v-icon>fas fa-minus</v-icon>
     </div>
-    <section>
-      <OverviewElementTile
-        v-for="([element, value]) in removals"
-        :key="element"
-        :element="element"
-        :value="value"
-      />
-    </section>
+    <OverviewElementTile
+      v-for="([element, value]) in removals"
+      :key="'r' + element"
+      :element="element"
+      :value="value"
+      :small="small"
+    />
   </div>
 </template>
 
@@ -56,27 +52,39 @@ export default {
   props: {
     sets: { type: Object, required: true },
     elements: { type: Object, required: true },
-  }
+    small: { type: Boolean }
+  },
 }
 </script>
 
 <style lang="sass" scoped>
-section
+.game-setup-overview-inline
   display: flex
   flex-wrap: wrap
 
   .element-box
-    width: 80px
-    height: 105px
-    margin: 1.5px
+    width: 50px
+    height: 66px
+    margin: 0.5px
 
-    ::v-deep .symbol
-      height: 80px
+    ::v-deep
+      .symbol
+        height: 50px
+
+        > *
+          transform: scale(0.625)
+
+      .quantity
+        font-size: 16px
+
+      .symbol.name
+        font-size: 8px
 
 .section-delimiter
+  padding-top: 15px
   text-align: center
-  padding: 15px
+  width: 50px
 
   .v-icon
-    color: black
+    font-size: 12px
 </style>

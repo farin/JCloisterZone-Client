@@ -51,14 +51,14 @@
           <h2>Recent Game Setups</h2>
 
           <div class="recent-list d-flex flex-column align-end">
-            <v-card
+            <div
               v-for="(setup, idx) in recentGameSetups"
               :key="idx"
-              class="recent-setup d-inline-block mb-1"
+              class="recent-setup"
               @click="loadSetup(setup)"
             >
-              <GameSetupOverview small :sets="setup.sets" :elements="setup.elements" />
-            </v-card>
+              <GameSetupOverviewInline  :sets="setup.sets" :elements="setup.elements" />
+            </div>
             <a class="clear" href="#" @click="clearRecentGameSetups"><v-icon>fas fa-times</v-icon> clear list</a>
           </div>
         </template>
@@ -95,11 +95,11 @@ import { shell } from 'electron'
 import mapKeys from 'lodash/mapKeys'
 import { mapGetters, mapState } from 'vuex'
 
-import GameSetupOverview from '@/components/game-setup/overview/GameSetupOverview'
+import GameSetupOverviewInline from '@/components/game-setup/overview/GameSetupOverviewInline'
 
 export default {
   components: {
-    GameSetupOverview
+    GameSetupOverviewInline
   },
 
   data () {
@@ -222,6 +222,11 @@ main
 
   .recent-setup
     cursor: pointer
+    margin-bottom: 10px
+    border: 1px solid #F3A58C
+
+    &:hover
+      border-color: black
 
   .recent-list a
     display: block
