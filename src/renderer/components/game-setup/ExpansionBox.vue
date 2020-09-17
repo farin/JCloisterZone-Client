@@ -57,7 +57,7 @@ export default {
 
   methods: {
     open () {
-      this.$store.commit('gameSetup/detail', { view: 'expansion', expansion: this.expansion })
+      this.$emit('open-detail', this.expansion)
     }
   }
 }

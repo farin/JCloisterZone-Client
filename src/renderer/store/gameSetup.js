@@ -29,7 +29,6 @@ function getEmptySlots () {
 }
 
 export const state = () => ({
-  detail: { view: 'tile-pack' },
   sets: { ...DEFAULT_SETS },
   elements: getDefaultElements(DEFAULT_SETS),
   rules: getDefaultRules(),
@@ -40,7 +39,6 @@ export const state = () => ({
 
 export const mutations = {
   clear (state) {
-    state.detail = { view: 'tile-pack' }
     state.sets = { ...DEFAULT_SETS }
     state.elements = getDefaultElements(DEFAULT_SETS)
     state.rules = getDefaultRules()
@@ -79,10 +77,6 @@ export const mutations = {
 
   timer (state, value) {
     state.timer = value
-  },
-
-  detail (state, value) {
-    state.detail = value
   },
 
   slot (state, slot) {

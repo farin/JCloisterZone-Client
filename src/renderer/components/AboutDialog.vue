@@ -92,13 +92,4 @@ export default {
 
   .value
     margin-left: 20px
-
-
-
-  // .version
-  //   font-weight: 600
-  //   font-size: 18px
-
-  // .author
-  //   font-size: 16px
 </style>

@@ -1,9 +1,14 @@
 <template>
-  <div class="expansion-detail">
-    <div class="description">
+  <v-card>
+    <v-card-title class="headline">
+      <ExpansionSymbol :expansion="expansion" :style="{ width: 32, height: 32 }" />
+      &ensp;
+      {{ expansion.title }}
+    </v-card-title>
+    <v-card-text>
       <component :is="detailComponent" />
-    </div>
-  </div>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
@@ -14,6 +19,7 @@ import CornCirclesDetail from '@/components/game-setup/details/CornCirclesDetail
 import CountDetail from '@/components/game-setup/details/CountDetail'
 import CultDetail from '@/components/game-setup/details/CultDetail'
 import DarmstadtDetail from '@/components/game-setup/details/DarmstadtDetail'
+import ExpansionSymbol from '@/components/ExpansionSymbol'
 import FerriesDetail from '@/components/game-setup/details/FerriesDetail'
 import FestivalDetail from '@/components/game-setup/details/FestivalDetail'
 import FlierDetail from '@/components/game-setup/details/FlierDetail'
@@ -36,9 +42,14 @@ import TradersAndBuildersDetail from '@/components/game-setup/details/TradersAnd
 import WinterEditionDetail from '@/components/game-setup/details/WinterEditionDetail'
 import WindRosesDetail from '@/components/game-setup/details/WindRosesDetail'
 
+
 export default {
   props: {
     expansion: { type: Object, required: true }
+  },
+
+  components: {
+    ExpansionSymbol
   },
 
   computed: {
@@ -76,13 +87,8 @@ export default {
     }
   }
 }
+
 </script>
 
 <style lang="sass" scoped>
-.expansion-detail
-  padding: 0 20px
-
-.description
-  margin-top: 20px
-
 </style>

@@ -10,16 +10,12 @@
 
       <HeaderGameButton title="Create" @click="createGame" />
 
-      <TilePackSize :size="$tiles.getPackSize(sets, rules)" @click.native="showTilePack" />
+      <TilePackSize :size="$tiles.getPackSize(sets, rules)" />
     </template>
 
     <template #detail-header>
-      <template v-if="detail.view === 'tile-pack'">
+      <template>
         <h2 class="tile-pack-header">Selected tiles</h2>
-      </template>
-      <template v-if="detail.view === 'expansion'">
-        <ExpansionSymbol :expansion="detail.expansion" :style="{ width: 32, height: 32 }" />
-        <h2>{{ detail.expansion.title }}</h2>
       </template>
     </template>
 
@@ -31,12 +27,9 @@
     </template>
 
     <template #detail>
-      <div v-if="detail.view === 'tile-pack'" class="detail-pack">
+      <div class="detail-pack">
         <TileDistribution :sets="sets" :rules="rules" @tile-click="onTileClick" />
         <GameAnnotationsPanel v-if="settings.devMode" ref="annotationsPanel" />
-      </div>
-      <div v-if="detail.view === 'expansion'">
-        <ExpansionDetail :expansion="detail.expansion" />
       </div>
     </template>
   </GameSetupGrid>
@@ -45,7 +38,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 
-import ExpansionDetail from '@/components/game-setup/ExpansionDetail'
+
 import ExpansionSymbol from '@/components/ExpansionSymbol'
 import FiguresTab from '@/components/game-setup/tabs/FiguresTab'
 import GameAnnotationsPanel from '@/components/dev/GameAnnotationsPanel'
@@ -59,7 +52,6 @@ import RulesTab from '@/components/game-setup/tabs/RulesTab'
 
 export default {
   components: {
-    ExpansionDetail,
     ExpansionSymbol,
     FiguresTab,
     GameSetupGrid,
@@ -96,10 +88,6 @@ export default {
   },
 
   methods: {
-    showTilePack () {
-      this.$store.commit('gameSetup/detail', { view: 'tile-pack' })
-    },
-
     async createGame () {
       await this.$store.dispatch('gameSetup/createGame')
       this.$router.push('/open-game')

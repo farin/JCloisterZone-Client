@@ -26,7 +26,6 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 
-import ExpansionDetail from '@/components/game-setup/ExpansionDetail'
 import ExpansionSymbol from '@/components/ExpansionSymbol'
 import FiguresTab from '@/components/game-setup/tabs/FiguresTab'
 import GameAnnotationsPanel from '@/components/dev/GameAnnotationsPanel'

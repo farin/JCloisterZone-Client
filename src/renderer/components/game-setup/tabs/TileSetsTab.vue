@@ -2,51 +2,58 @@
   <div>
     <ConfigSection title="Core sets">
       <div class="expansions">
-        <ExpansionBox :expansion="Expansion.BASIC" />
-        <ExpansionBox :expansion="Expansion.WINTER" />
+        <ExpansionBox :expansion="Expansion.BASIC" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.WINTER" @open-detail="openDetail" />
       </div>
     </ConfigSection>
 
     <ConfigSection title="Major expansions">
       <div class="expansions">
-        <ExpansionBox :expansion="Expansion.INNS_AND_CATHEDRALS" />
-        <ExpansionBox :expansion="Expansion.TRADERS_AND_BUILDERS" />
-        <ExpansionBox :expansion="Expansion.PRINCESS_AND_DRAGON" />
-        <ExpansionBox :expansion="Expansion.TOWER" />
-        <ExpansionBox :expansion="Expansion.ABBEY_AND_MAYOR" />
-        <ExpansionBox :expansion="Expansion.BRIDGES_CASTLES_AND_BAZAARS" />
-        <ExpansionBox :expansion="Expansion.HILLS_AND_SHEEP" />
+        <ExpansionBox :expansion="Expansion.INNS_AND_CATHEDRALS" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.TRADERS_AND_BUILDERS" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.PRINCESS_AND_DRAGON" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.TOWER" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.ABBEY_AND_MAYOR" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.BRIDGES_CASTLES_AND_BAZAARS" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.HILLS_AND_SHEEP" @open-detail="openDetail" />
       </div>
     </ConfigSection>
 
     <ConfigSection title="Minor expansions">
       <div class="expansions">
-        <ExpansionBox :expansion="Expansion.KING_AND_ROBBER" />
-        <ExpansionBox :expansion="Expansion.RIVER" />
-        <ExpansionBox :expansion="Expansion.SIEGE" />
-        <ExpansionBox :expansion="Expansion.COUNT" />
-        <ExpansionBox :expansion="Expansion.GQ11" />
-        <ExpansionBox :expansion="Expansion.CULT" />
-        <ExpansionBox :expansion="Expansion.TUNNEL" />
-        <ExpansionBox :expansion="Expansion.CORN_CIRCLES" />
-        <ExpansionBox :expansion="Expansion.FESTIVAL" />
-        <ExpansionBox :expansion="Expansion.WIND_ROSES" />
-        <ExpansionBox :expansion="Expansion.MONASTERIES" />
-        <ExpansionBox :expansion="Expansion.FLIER" />
-        <ExpansionBox :expansion="Expansion.FERRIES" />
-        <ExpansionBox :expansion="Expansion.GOLDMINES" />
-        <ExpansionBox :expansion="Expansion.MAGE_AND_WITCH" />
+        <ExpansionBox :expansion="Expansion.KING_AND_ROBBER" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.RIVER" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.SIEGE" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.COUNT" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.GQ11" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.CULT" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.TUNNEL" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.CORN_CIRCLES" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.FESTIVAL" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.WIND_ROSES" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.MONASTERIES" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.FLIER" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.FERRIES" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.GOLDMINES" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.MAGE_AND_WITCH" @open-detail="openDetail" />
       </div>
     </ConfigSection>
 
     <ConfigSection title="Promos">
       <div class="expansions">
-        <ExpansionBox :expansion="Expansion.RUSSIAN_PROMOS" />
-        <ExpansionBox :expansion="Expansion.DARMSTADT" />
-        <ExpansionBox :expansion="Expansion.LABYRINTH" />
-        <ExpansionBox :expansion="Expansion.SPIEL_DOCH" />
+        <ExpansionBox :expansion="Expansion.RUSSIAN_PROMOS" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.DARMSTADT" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.LABYRINTH" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.SPIEL_DOCH" @open-detail="openDetail" />
       </div>
     </ConfigSection>
+
+    <v-dialog
+      v-model="detailOpen"
+      max-width="800"
+    >
+      <ExpansionDetailDialog :expansion="detailExpansion" />
+    </v-dialog>
   </div>
 </template>
 
@@ -55,23 +62,33 @@ import { mapState } from 'vuex'
 import ConfigSection from '@/components/game-setup/ConfigSection'
 import { Expansion } from '@/models/expansions'
 import ExpansionBox from '@/components/game-setup/ExpansionBox'
+import ExpansionDetailDialog from '@/components/game-setup/ExpansionDetailDialog'
 
 export default {
   components: {
     ConfigSection,
-    ExpansionBox
+    ExpansionBox,
+    ExpansionDetailDialog
   },
 
   data () {
     return {
-      Expansion
+      Expansion,
+      detailOpen: false,
+      detailExpansion: null
     }
   },
 
   computed: mapState({
-    detail: state => state.gameSetup.detail,
     sets: state => state.gameSetup.sets
-  })
+  }),
+
+  methods: {
+    openDetail (exp) {
+      this.detailExpansion = exp
+      this.detailOpen = true
+    }
+  }
 }
 </script>
 
