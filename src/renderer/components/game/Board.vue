@@ -14,8 +14,8 @@
         v-bind="layers.TilePlacementLayer"
       />
       <TileLayer />
-      <TowerLayer v-if="elements.tower" />
       <CastleLayer v-if="elements.castle" />
+      <TowerLayer v-if="elements.tower" />
       <TokenLayer />
       <FlierLayer />
       <MeepleLayer />

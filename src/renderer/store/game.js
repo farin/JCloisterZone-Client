@@ -412,7 +412,9 @@ export const actions = {
     engine.stderr.on('data', data => {
       data = data.toString().trim() // convert buffer to string
       console.error(data)
-      stderrData.push(data)
+      if (!data.startsWith('#')) {
+        stderrData.push(data)
+      }
       displayError()
     })
 
