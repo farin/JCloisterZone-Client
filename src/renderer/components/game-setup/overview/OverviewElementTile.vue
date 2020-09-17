@@ -17,6 +17,22 @@
     <img v-else-if="element === 'king'" src="~/assets/figures/king.png" width="70" height="70">
     <img v-else-if="element === 'robber'" src="~/assets/figures/robber.png" width="70" height="70">
     <img v-else-if="element === 'traders'" src="~/assets/figures/trade.png" height="28">
+    <img v-else-if="element === 'inn'" src="~/assets/features/C1/inn.png" width="55" height="55">
+    <img v-else-if="element === 'cathedral'" src="~/assets/features/C1/cathedral.png" width="55" height="55">
+    <svg v-else-if="element === 'farmers'" class="meeple" :width="70" :height="70">
+      <g transform="translate(42 32) scale(0.6) rotate(90) translate(-27 -27)">
+        <use :href="`${MEEPLES_SVG}#small-follower`" />
+      </g>
+    </svg>
+    <img v-else-if="element === 'princess'" src="~/assets/features/C1/princess.png" height="55">
+    <img v-else-if="element === 'portal'" src="~/assets/features/C1/magic_portal.png" height="55">
+    <img v-else-if="element === 'pig-herd'" src="~/assets/features/C1/pig_herd.jpg" height="55">
+    <img v-else-if="element === 'vineyard'" src="~/assets/features/C1/vineyard.png" height="55">
+    <img v-else-if="element === 'bazaar'" src="~/assets/features/C1/bazaar.png" height="45">
+    <img v-else-if="element === 'hill'" src="~/assets/features/C1/hill.png" height="55">
+    <img v-else-if="element === 'shrine'"  src="~/assets/features/C1/shrine.jpg" height="55">
+    <img v-else-if="element === 'festival'" src="~/assets/features/C1/festival.png" height="55">
+    <img v-else-if="element === 'escape'" src="~/assets/features/C1/escape.png" height="55">
 
     <template #title>
       <template v-if="element === 'traders'">Trade Goods</template>
