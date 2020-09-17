@@ -52,8 +52,8 @@ export default {
 
   computed: {
     ...mapState({
-      sets: state => state.gameSetup.sets,
-      elements: state => state.gameSetup.elements,
+      sets: state => state.game.setup.sets,
+      elements: state => state.game.setup.elements,
       slots: state => state.gameSetup.slots
     }),
 

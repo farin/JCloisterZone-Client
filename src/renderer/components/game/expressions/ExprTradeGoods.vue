@@ -10,6 +10,7 @@
 
 <script>
 import ExprContent from '@/components/game/expressions/ExprContent'
+import ExprMixin from '@/components/game/expressions/ExprMixin'
 import TokenImage from '@/components/game/TokenImage'
 
 export default {
@@ -18,14 +19,10 @@ export default {
     TokenImage
   },
 
+  mixins: [ExprMixin],
+
   props: {
     expr: { type: Object, required: true }
-  },
-
-  computed: {
-    name () {
-      return this.expr.name.split('+')[0]
-    }
   }
 }
 </script>

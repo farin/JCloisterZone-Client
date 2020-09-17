@@ -30,6 +30,7 @@
 import { Expansion } from '@/models/expansions'
 import ExpansionSymbol from '@/components/ExpansionSymbol'
 import ExprContent from '@/components/game/expressions/ExprContent'
+import ExprMixin from '@/components/game/expressions/ExprMixin'
 import TokenImage from '@/components/game/TokenImage'
 
 export default {
@@ -38,6 +39,8 @@ export default {
     ExprContent,
     TokenImage
   },
+
+  mixins: [ExprMixin],
 
   props: {
     expr: { type: Object, required: true }
@@ -51,14 +54,14 @@ export default {
 
   computed: {
     title () {
-      if (this.expr.name === 'farm.barn-connected') return 'Barn connected'
-      if (this.expr.name === 'farm.barn') return 'Barn'
+      if (this.name === 'farm.barn-connected') return 'Barn connected'
+      if (this.name === 'farm.barn') return 'Barn'
       return 'Field'
     },
 
     basePoints () {
-      if (this.expr.name === 'farm.barn') return 4
-      if (this.expr.name === 'farm.barn-connected') return 1
+      if (this.name === 'farm.barn') return 4
+      if (this.name === 'farm.barn-connected') return 1
       return 3
     }
   }

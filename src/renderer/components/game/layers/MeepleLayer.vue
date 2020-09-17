@@ -316,7 +316,6 @@ export default {
       const { placement } = this.fairy
       if (this.$store.state.game.setup.rules['fairy-placement'] === 'next-follower') {
         const fp = placement.featurePointer
-        console.log(fp)
         return this.transformPoint(fp) + ' translate(-240 -240)'
       } else {
         return this.transformPosition(placement) + ' translate(410 200)'
