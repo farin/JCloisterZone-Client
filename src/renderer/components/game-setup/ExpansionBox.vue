@@ -91,7 +91,6 @@ export default {
   .exp-title
     text-align: center
     padding: 24px 0 8px 0
-    //padding-top: 24px
 
     h3
       font-size: 1.09em
@@ -119,12 +118,6 @@ export default {
 
     &:hover .v-icon
       color: black
-
-  // .exp-controls
-  //   flex: 1
-  //   display: flex
-  //   flex-direction: column
-  //   justify-content: center
 
   &.selected
     background: $selection-bg

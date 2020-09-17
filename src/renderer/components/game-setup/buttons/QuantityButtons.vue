@@ -6,7 +6,9 @@
       'switch': hasBooleanInterface,
       'mutable': mutable,
       'read-only': !mutable,
-      'selected': value > 0}"
+      'selected': value > 0,
+      'with-hover-message': $slots.hover
+    }"
     @click.stop="onClick"
   >
     <slot />
@@ -15,7 +17,7 @@
         <span v-if="mutable" class="remove" @click.stop="removeOne">
           <v-icon>fas fa-minus</v-icon>
         </span>
-        <span class="count">
+        <span class="quantity">
           <v-icon v-if="value === 1 || value === true">fas fa-check</v-icon>
           <template v-else>{{ value }}</template>
         </span>
@@ -23,9 +25,13 @@
           <v-icon>fas fa-plus</v-icon>
         </span>
       </template>
-      <template v-else>
+      <template v-else-if="mutable">
         <div class="add-first">Add</div>
       </template>
+    </div>
+
+    <div v-if="$slots.hover" class="hover-message">
+      <slot name="hover" />
     </div>
   </div>
 </template>
@@ -87,24 +93,30 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.quantity-buttons.mutable
-  cursor: pointer
-
 .controls
   height: 56px
   display: flex
   align-items: stretch
 
-.add-first, .remove, .count, .add
+.hover-message
+  height: 56px
+  display: none
+  align-items: center
+  justify-content: center
+
+  .text
+    font-size: 12px
+    text-transform: uppercase
+    text-align: center
+    font-weight: 300
+    color: #777
+
+.add-first, .remove, .quantity, .add
   display: flex
   align-items: center
   justify-content: center
 
-
-.quantity-buttons.read-only .count
-  cursor: default
-
-.count
+.quantity
   font-size: 24px
   font-weight: 500
   color: $selection-icon
@@ -119,11 +131,8 @@ export default {
   font-weight: 300
   color: #777
 
-.quantity-buttons:hover .add-first
-    color: $selection-hover
-    text-decoration: underline
 
-.remove, .count, .add
+.remove, .quantity, .add
   flex: 1
 
 .remove, .add
@@ -135,17 +144,36 @@ export default {
   &:hover i
     color: $selection-hover
 
-.quantity-buttons:hover
-  .remove, .add
-    visibility: visible
+.hover-message
+  display: none
 
-.quantity-buttons.at-max
-  .add
-    visibility: hidden
+.quantity-buttons
+  &.mutable
+    cursor: pointer
 
-.quantity-buttons.switch
-  cursor: pointer
+  &.read-only .quantity
+    cursor: default
 
-  .remove
-    visibility: hidden
+  &:hover
+    .remove, .add
+      visibility: visible
+
+    .add-first
+      color: $selection-hover
+      text-decoration: underline
+
+  &.with-hover-message:hover
+    .controls
+      display: none
+
+    .hover-message
+      display: flex
+
+  &.at-max
+    .add
+      visibility: hidden
+
+  &.switch
+    .add, .remove
+      visibility: hidden
 </style>

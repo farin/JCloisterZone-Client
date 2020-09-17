@@ -3,7 +3,13 @@
     v-model="quantity"
     :max="max"
     :mutable="mutable"
-  />
+  >
+    <slot/>
+
+    <template v-if="$slots.hover" #hover>
+      <slot name="hover" />
+    </template>
+  </QuantityButtons>
 </template>
 
 <script>
