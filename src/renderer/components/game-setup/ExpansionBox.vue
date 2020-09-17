@@ -8,9 +8,12 @@
       ['multiset-' + expansion.sets.length]: expansion.sets.length > 1
     }"
   >
-    <div class="exp-title" @click="open">
+    <div class="exp-title" >
       <ExpansionSymbol :expansion="expansion" />
       <h3>{{ expansion.title }}</h3>
+      <a href="#" class="detail-link" @click.prevent="open">
+        <v-icon>fas fa-layer-group</v-icon>
+      </a>
     </div>
     <div class="exp-controls">
       <template v-if="expansion.sets.length === 1">
@@ -70,9 +73,24 @@ export default {
   background: white
 
   .exp-title
-    cursor: help
+    position: relative
     text-align: center
     padding: 24px 0 8px 0
+
+    .detail-link
+      position: absolute
+      display: block
+      text-decoration: none
+      top: 0
+      right: 0
+
+      .v-icon
+        color: #eee
+        font-size: 28px
+        margin: 8px
+
+      &:hover .v-icon
+        color: black
 
     h3
       font-size: 1.09em
@@ -99,8 +117,16 @@ export default {
     h3
       color: $selection-icon
 
-    .exp-title svg
+    .exp-title
+      svg
         fill: $selection-icon
+
+      .detail-link
+        .v-icon
+          color: $selection-bg-unobtrusive
+
+        &:hover .v-icon
+          color: $selection-icon
 
 .tile-set-row
   text-align: center
