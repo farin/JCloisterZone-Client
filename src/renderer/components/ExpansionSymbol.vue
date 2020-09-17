@@ -1,5 +1,5 @@
 <template>
-  <svg class="exp-symbol" :width="size" :height="size">
+  <svg class="exp-symbol">
     <use :href="`${EXP_SYMBOL_SVG}#${expansion.name}`" />
   </svg>
 </template>
@@ -9,8 +9,7 @@ const EXP_SYMBOL_SVG = require('~/assets/exp-symbols.svg')
 
 export default {
   props: {
-    expansion: { type: Object, required: true },
-    size: { type: Number, default: 55 }
+    expansion: { type: Object, required: true }
   },
 
   data () {

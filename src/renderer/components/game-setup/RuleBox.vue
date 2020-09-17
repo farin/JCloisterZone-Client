@@ -86,4 +86,8 @@ export default {
   &.unselected
     opacity: $rules-disabled-opacity
     background: transparent
+
+  ::v-deep .exp-symbol
+    width: 45px
+    height: 45px
 </style>

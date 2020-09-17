@@ -13,7 +13,7 @@
     </template>
     <template v-if="names.includes('cloister.church')">
       +<div class="value-units nobg">3
-        <ExpansionSymbol :expansion="Expansion.DARMSTADT" :size="28" />
+        <ExpansionSymbol :expansion="Expansion.DARMSTADT" :style="{ width: 28, height: 28 }" />
       </div>&ensp;
     </template>
     <template v-if="names.includes('little-buildings.default')">

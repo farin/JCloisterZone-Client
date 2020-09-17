@@ -118,7 +118,7 @@
       <div class="rules-section other-rules">
         <RuleBox :item="Expansion.MONASTERIES">
           <template #icon>
-            <ExpansionSymbol :expansion="Expansion.MONASTERIES" :size="45" />
+            <ExpansionSymbol :expansion="Expansion.MONASTERIES" />
           </template>
           <template #rules="{ selected }">
             <div class="rule-line">
@@ -244,7 +244,7 @@
 
         <RuleBox :item="GameElement.TUNNEL">
           <template #icon>
-            <ExpansionSymbol :expansion="Expansion.TUNNEL" :size="45" />
+            <ExpansionSymbol :expansion="Expansion.TUNNEL" />
           </template>
           <template #rules="{ selected }">
             <div class="rule-line">
@@ -258,7 +258,7 @@
 
         <RuleBox :item="Expansion.LABYRINTH">
           <template #icon>
-            <ExpansionSymbol :expansion="Expansion.LABYRINTH" :size="45" />
+            <ExpansionSymbol :expansion="Expansion.LABYRINTH" />
           </template>
           <template #rules="{ selected }">
             <div class="rule-line">

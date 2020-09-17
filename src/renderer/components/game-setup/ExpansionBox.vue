@@ -82,6 +82,8 @@ export default {
     .exp-symbol
       display: block
       margin: 0 auto
+      width: 55px
+      height: 55px
 
   .exp-controls
     flex: 1

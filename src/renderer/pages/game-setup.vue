@@ -18,7 +18,7 @@
         <h2 class="tile-pack-header">Selected tiles</h2>
       </template>
       <template v-if="detail.view === 'expansion'">
-        <ExpansionSymbol :expansion="detail.expansion" :size="32" />
+        <ExpansionSymbol :expansion="detail.expansion" :style="{ width: 32, height: 32 }" />
         <h2>{{ detail.expansion.title }}</h2>
       </template>
     </template>

@@ -25,7 +25,7 @@
       <template v-if="expr.args.extraPoints">
         +<div class="value-units nobg">
           {{ expr.args.extraPoints }}
-          <ExpansionSymbol :expansion="Expansion.DARMSTADT" :size="28" />
+          <ExpansionSymbol :expansion="Expansion.DARMSTADT" :style="{ width: 28, height: 28 }" />
         </div>&ensp;
       </template>
       <slot />=&ensp;

@@ -1,6 +1,6 @@
 <template>
   <OverviewTile enabled :quantity="quantity">
-    <ExpansionSymbol :expansion="expansion" :size="70" />
+    <ExpansionSymbol :expansion="expansion" />
 
     <template #title>{{ set.title }}</template>
   </OverviewTile>
@@ -23,3 +23,9 @@ export default {
   },
 }
 </script>
+
+<style lang="sass" scoped>
+.exp-symbol
+  width: 70px
+  height: 70px
+</style>

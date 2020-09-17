@@ -2,7 +2,7 @@
   <ExprContent :expr="expr">
     <template #title>Church bonus</template>
     <template #row>
-      <ExpansionSymbol :expansion="Expansion.DARMSTADT" :size="55" />
+      <ExpansionSymbol :expansion="Expansion.DARMSTADT" :style="{ width: 55, height: 55 }" />
       &nbsp;=&nbsp;
     </template>
   </ExprContent>

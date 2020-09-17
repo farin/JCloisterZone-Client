@@ -11,7 +11,7 @@
         +&ensp;{{ basePoints * 2 }}&ensp;×&ensp;
         <div class="value-units">
           {{ expr.args.besieged }}
-          <ExpansionSymbol :expansion="Expansion.SIEGE" :size="24" />
+          <ExpansionSymbol :expansion="Expansion.SIEGE" :style="{ width: 24, height: 24 }" />
         </div>&ensp;
       </template>
       <template v-if="expr.args.castles">
