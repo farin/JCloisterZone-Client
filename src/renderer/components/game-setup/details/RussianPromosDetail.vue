@@ -5,7 +5,11 @@
       <RulesLink title="Rules" href="http://wikicarpedia.com/index.php/Russian_Promos_(1st_edition)" />
     </p>
 
+    <h5>Tiles from 2013</h5>
     <TileDistribution :sets="{'russian-promos/2013': 1}" />
+
+    <h5>Tiles from 2016</h5>
+    Will be added.
   </div>
 </template>
 
