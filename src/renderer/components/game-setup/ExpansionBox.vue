@@ -8,28 +8,33 @@
       ['multiset-' + expansion.sets.length]: expansion.sets.length > 1
     }"
   >
-    <div class="exp-title" >
-      <ExpansionSymbol :expansion="expansion" />
-      <h3>{{ expansion.title }}</h3>
-      <a href="#" class="detail-link" @click.prevent="open">
-        <v-icon>fas fa-layer-group</v-icon>
-      </a>
-    </div>
-    <div class="exp-controls">
-      <template v-if="expansion.sets.length === 1">
-        <TileSetButtons :set="expansion.sets[0]" />
-      </template>
-      <template v-else>
-        <div
-          v-for="set in expansion.sets"
-          :key="set.id"
-          class="tile-set-row"
-        >
-          <h4 :title="set.note">{{ set.title }}</h4>
-          <TileSetButtons :set="set" />
+    <a href="#" class="detail-link" @click.prevent="open">
+      <v-icon>fas fa-layer-group</v-icon>
+    </a>
+
+    <template v-if="expansion.sets.length === 1">
+      <TileSetButtons :set="expansion.sets[0]">
+        <div class="exp-title">
+          <ExpansionSymbol :expansion="expansion" />
+          <h3>{{ expansion.title }}</h3>
         </div>
-      </template>
+      </TileSetButtons>
+    </template>
+    <template v-else>
+      <div class="exp-title" @click="onMultisetTitleClick">
+        <ExpansionSymbol :expansion="expansion" />
+        <h3>{{ expansion.title }}</h3>
+      </div>
+      <div
+        v-for="set in expansion.sets"
+        :key="set.id"
+        class="tile-set-row"
+      >
+        <TileSetButtons :set="set">
+          <h4 :title="set.note">{{ set.title }}</h4>
+        </TileSetButtons>
     </div>
+    </template>
   </div>
 </template>
 
@@ -61,6 +66,16 @@ export default {
   methods: {
     open () {
       this.$emit('open-detail', this.expansion)
+    },
+
+    onMultisetTitleClick () {
+      if (this.selected) {
+        this.expansion.sets.forEach(set => {
+          this.$store.dispatch('gameSetup/setTileSetQuantity', { id: set.id, quantity: 0 })
+        })
+      } else {
+        this.$store.dispatch('gameSetup/setTileSetQuantity', { id: this.expansion.sets[0].id, quantity: 1 })
+      }
     }
   }
 }
@@ -71,26 +86,12 @@ export default {
   display: flex
   flex-direction: column
   background: white
+  position: relative
 
   .exp-title
-    position: relative
     text-align: center
     padding: 24px 0 8px 0
-
-    .detail-link
-      position: absolute
-      display: block
-      text-decoration: none
-      top: 0
-      right: 0
-
-      .v-icon
-        color: #eee
-        font-size: 28px
-        margin: 8px
-
-      &:hover .v-icon
-        color: black
+    //padding-top: 24px
 
     h3
       font-size: 1.09em
@@ -103,12 +104,27 @@ export default {
       width: 55px
       height: 55px
 
-  .exp-controls
-    flex: 1
-    display: flex
-    flex-direction: column
-    justify-content: center
-    border-top: 1px solid #ddd
+  .detail-link
+    position: absolute
+    display: block
+    text-decoration: none
+    top: 0
+    right: 0
+
+    .v-icon
+      color: #eee
+      font-size: 28px
+      margin: 8px
+      transition: none !important
+
+    &:hover .v-icon
+      color: black
+
+  // .exp-controls
+  //   flex: 1
+  //   display: flex
+  //   flex-direction: column
+  //   justify-content: center
 
   &.selected
     background: $selection-bg
@@ -121,25 +137,40 @@ export default {
       svg
         fill: $selection-icon
 
-      .detail-link
-        .v-icon
-          color: $selection-bg-unobtrusive
+    .detail-link
+      .v-icon
+        color: $selection-bg-unobtrusive
 
-        &:hover .v-icon
-          color: $selection-icon
+      &:hover .v-icon
+        color: $selection-icon
+
+
+.multiset
+  .exp-title
+    cursor: pointer
+    padding-bottom: 20px
+
+  h4
+    margin-bottom: 6px
 
 .tile-set-row
   text-align: center
+  border-top: 1px solid #ddd
+  flex: 1
+  display: flex
+  align-items: flex-end
+  justify-content: stretch
 
-  &:first-child
-    margin-top: 10px
+  .quantity-buttons
+    width: 100%
 
   h4
+    text-align: center
     font-weight: 400
 
-.exp-box.multiset-3
-  .tile-set-row
-    .tile-set-buttons
-      height: 48px
+// .exp-box.multiset-3
+//   .tile-set-row
+//     .tile-set-buttons
+//       height: 48px
 
 </style>

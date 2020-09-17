@@ -3,7 +3,9 @@
     v-model="quantity"
     :max="set.max || 3"
     :mutable="mutable"
-  />
+  >
+    <slot/>
+  </QuantityButtons>
 </template>
 
 <script>

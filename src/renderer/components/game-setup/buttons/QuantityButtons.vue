@@ -7,23 +7,26 @@
       'mutable': mutable,
       'read-only': !mutable,
       'selected': value > 0}"
-    @click.stop="onComponentClick"
+    @click.stop="onClick"
   >
-    <template v-if="value">
-      <span v-if="mutable" class="remove" @click.stop="removeOne">
-        <v-icon>fas fa-minus</v-icon>
-      </span>
-      <span class="count" @click.stop="removeAll">
-        <v-icon v-if="value === 1 || value === true">fas fa-check</v-icon>
-        <template v-else>{{ value }}</template>
-      </span>
-      <span v-if="mutable" class="add" title="Add multiple instances" @click.stop="add">
-        <v-icon>fas fa-plus</v-icon>
-      </span>
-    </template>
-    <template v-else>
-      <div class="add-first" @click.stop="add">Add</div>
-    </template>
+    <slot />
+    <div class="controls">
+      <template v-if="value">
+        <span v-if="mutable" class="remove" @click.stop="removeOne">
+          <v-icon>fas fa-minus</v-icon>
+        </span>
+        <span class="count">
+          <v-icon v-if="value === 1 || value === true">fas fa-check</v-icon>
+          <template v-else>{{ value }}</template>
+        </span>
+        <span v-if="mutable" class="add" title="Add multiple instances" @click.stop="add">
+          <v-icon>fas fa-plus</v-icon>
+        </span>
+      </template>
+      <template v-else>
+        <div class="add-first">Add</div>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -72,10 +75,11 @@ export default {
       }
     },
 
-    onComponentClick () {
-      // for on/off widget make whole area clickable
-      if (this.mutable && this.hasBooleanInterface && this.value) {
+    onClick () {
+      if (this.value) {
         this.removeAll()
+      } else {
+        this.add()
       }
     }
   }
@@ -83,19 +87,19 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.quantity-buttons
+.quantity-buttons.mutable
+  cursor: pointer
+
+.controls
   height: 56px
   display: flex
   align-items: stretch
-
-// .quantity-buttons.mutable:hover
-//   background: #EFEBE9
 
 .add-first, .remove, .count, .add
   display: flex
   align-items: center
   justify-content: center
-  cursor: pointer
+
 
 .quantity-buttons.read-only .count
   cursor: default
@@ -115,7 +119,7 @@ export default {
   font-weight: 300
   color: #777
 
-  &:hover
+.quantity-buttons:hover .add-first
     color: $selection-hover
     text-decoration: underline
 
