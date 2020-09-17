@@ -6,12 +6,13 @@
       'mandatory': mandatory,
       'selected': selected,
     }"
+    @click.stop="toggle"
   >
     <div class="box-title">
       <slot name="icon" />
       <h3>{{ item.title }}</h3>
     </div>
-    <div class="toggle" @click.stop="toggle">
+    <div class="toggle">
       <v-icon v-if="selected">fas fa-check</v-icon>
       <div v-else-if="enabled" class="add-first">Set</div>
       <div v-else class="disabled-message">
@@ -67,6 +68,7 @@ export default {
   display: flex
   flex-direction: column
   background: white
+  cursor: pointer
 
   .box-title
     text-align: center
@@ -92,7 +94,6 @@ export default {
     flex-direction: column
     justify-content: center
     text-align: center
-    border-top: 1px solid #ddd
     min-height: 56px
 
     // TODO make mixin from it
@@ -120,6 +121,7 @@ export default {
 
   &.disabled
     background: transparent
+    cursor: default
 
     .box-title
       opacity: $rules-disabled-opacity
@@ -135,7 +137,7 @@ export default {
     font-weight: 400
     color: rgba(0, 0, 0, 0.5)
 
-  .toggle:hover
-    .disabled-message
-      visibility: visible
+.game-mechanics-box:hover
+  .disabled-message
+    visibility: visible
 </style>

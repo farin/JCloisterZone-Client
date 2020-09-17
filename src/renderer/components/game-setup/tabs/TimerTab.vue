@@ -20,7 +20,7 @@
           <span>do nothing</span>
         </div> -->
         <div class="buttons">
-          <v-btn @click="disableLimits">Disable limits</v-btn>
+          <v-btn color="secondary" @click="disableLimits">Disable limits</v-btn>
         </div>
       </template>
       <template v-else>
@@ -28,7 +28,7 @@
           unlimited time
         </div>
         <div class="buttons">
-          <v-btn @click="enableLimits">Enable limits</v-btn>
+          <v-btn color="secondary" @click="enableLimits">Enable limits</v-btn>
         </div>
       </template>
     </ConfigSection>
