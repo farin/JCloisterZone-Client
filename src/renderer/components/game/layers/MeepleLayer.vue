@@ -128,12 +128,12 @@
 import { mapGetters, mapState } from 'vuex'
 import groupBy from 'lodash/groupBy'
 import keyBy from 'lodash/keyBy'
+import kebabCase from 'lodash/kebabCase'
 
 import { isSameFeature } from '@/utils/gameUtils'
 import Location from '@/models/Location'
 import FlockDetail from '@/components/game/layers/FlockDetail'
 import LayerMixin from '@/components/game/layers/LayerMixin'
-import { toKebabCase } from '@/utils/stringcase'
 
 import { FOLLOWER_ORDERING } from '@/constants/ordering'
 
@@ -291,7 +291,7 @@ export default {
 
   methods: {
     svgMeepleId (meeple) {
-      return toKebabCase(meeple.type)
+      return kebabCase(meeple.type)
     },
 
     // methods related to meeple select

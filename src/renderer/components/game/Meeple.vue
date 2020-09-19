@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { toKebabCase } from '@/utils/stringcase'
+import kebabCase from 'lodash/kebabCase'
 
 const MEEPLES_SVG = require('~/assets/meeples.svg')
 
@@ -20,7 +20,7 @@ export default {
 
   computed: {
     svgMeepleId () {
-      return toKebabCase(this.type)
+      return kebabCase(this.type)
     }
   }
 }

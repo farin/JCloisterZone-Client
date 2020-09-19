@@ -5,6 +5,8 @@ import { execFile, spawn } from 'child_process'
 import unzipper from 'unzipper'
 import { remote } from 'electron'
 
+import Engine from '@/services/engine'
+
 function getEngineJavaArgs
 () {
   // Run against local engine
@@ -136,8 +138,8 @@ export const actions = {
     })
   },
 
-  spawnEngine ({ state }) {
-    return spawn('java', getEngineJavaArgs())
+  spawnEngine () {
+    return new Engine(spawn('java', getEngineJavaArgs()))
   },
 
   async checkEngineVersion ({ state, commit }) {

@@ -209,13 +209,6 @@ export const getters = {
   }
 }
 
-const writeLine = async (pid, line) => {
-  const openGame = openGames[pid]
-  return new Promise(resolve => {
-    openGame.engine.stdin.write(line + '\n', 'utf-8', resolve)
-  })
-}
-
 const writeMessage = async (pid, message, log) => {
   const openGame = openGames[pid]
   if (log) {
@@ -225,9 +218,7 @@ const writeMessage = async (pid, message, log) => {
   }
 
   openGame.lastMessage = message
-  return new Promise(resolve => {
-    openGame.engine.stdin.write(JSON.stringify(message) + '\n', 'utf-8', resolve)
-  })
+  await openGame.engine.write(JSON.stringify(message))
 }
 
 export const actions = {
@@ -348,47 +339,21 @@ export const actions = {
 
     const engine = await dispatch('spawnEngine', null, { root: true })
 
-    console.log(`Engine started ${engine.pid}`)
     openGames[engine.pid] = { engine, lastMessage: null }
     commit('enginePid', engine.pid)
 
-    let stdoutData = []
-    let stderrData = []
+    engine.on('error', data => {
+      dialog.showErrorBox('Engine error', data)
+    })
 
-    const displayError = debounce(() => {
-      const { dialog } = remote
-      if (stderrData.length) {
-        const data = stderrData.join('\n')
-        dialog.showErrorBox('Engine error', data)
-        stderrData = []
-      }
-    }, 100)
+    engine.on('exit', ev => {
+      delete openGames[engine.pid]
+      commit('enginePid', null)
+    })
 
-    engine.stdout.on('data', data => {
-      data = data.toString()
-      if (!data) {
-        return
-      }
-
-      if (!data.endsWith('\n')) {
-        stdoutData.push(data)
-        return
-      } else if (stdoutData.length) {
-        stdoutData.push(data)
-        data = stdoutData.join('')
-        stdoutData = []
-      }
-
-      let payload
-      try {
-        payload = JSON.parse(data)
-        if (rootState.settings.devMode) {
-          console.debug(payload)
-        }
-      } catch (e) {
-        console.error('Received invalid json: ' + data)
-        console.error(e)
-        return
+    engine.on('message', payload => {
+      if (rootState.settings.devMode) {
+        console.debug(payload)
       }
 
       const { lastMessage } = openGames[engine.pid]
@@ -409,22 +374,9 @@ export const actions = {
       }
     })
 
-    engine.stderr.on('data', data => {
-      data = data.toString().trim() // convert buffer to string
-      console.error(data)
-      if (!data.startsWith('#')) {
-        stderrData.push(data)
-      }
-      displayError()
-    })
-
-    engine.on('exit', ev => {
-      delete openGames[engine.pid]
-      commit('enginePid', null)
-    })
 
     if (state.gameMessages.length) {
-      await writeLine(engine.pid, '%bulk on')
+      engine.write('%bulk on')
     }
 
     let annotations = {}
@@ -459,7 +411,7 @@ export const actions = {
       for (const msg of state.gameMessages) {
         await writeMessage(engine.pid, msg, rootState.settings.devMode)
       }
-      await writeLine(engine.pid, '%bulk off')
+      engine.write('%bulk off')
     }
   },
 
