@@ -1,7 +1,9 @@
-
+import path from 'path'
 import debounce from 'lodash/debounce'
+import { spawn } from 'child_process'
+import Vue from 'vue'
 
-export default class Engine {
+export class Engine {
   constructor (engineProcess, loggingEnabled) {
     this.engineProcess = engineProcess
     this.loggingEnabled = loggingEnabled
@@ -93,4 +95,41 @@ export default class Engine {
     console.log('Sending TERM to game engine.')
     this.engineProcess.kill()
   }
+}
+
+
+export default ({ app }, inject) => {  
+  let spawnedEngine = null
+
+  Vue.prototype.$engine = {
+    getJavaArgs () {
+      // Run against local engine
+      if (process.env.NODE_ENV === 'development') {
+        return ['-jar', 'Engine.jar']
+      }
+      const basePath = path.dirname(remote.app.getAppPath())
+      return ['-jar', path.join(basePath, 'Engine.jar')]
+    },
+
+    spawn ({ loggingEnabled }) {      
+      spawnedEngine = new Engine(spawn('java', this.getJavaArgs()), loggingEnabled)
+      spawnedEngine.engineProcess.on('exit', () => {
+        spawnedEngine = null
+      })
+      return spawnedEngine
+    },
+
+    kill () {
+      if (spawnedEngine) {
+        spawnedEngine.kill()
+        spawnedEngine = null
+      }
+    },
+
+    get () {
+      return spawnedEngine
+    }
+  }
+
+  // app.store
 }

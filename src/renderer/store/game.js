@@ -16,8 +16,7 @@ const SAVED_GAME_FILTERS = [{ name: 'Saved Game', extensions: ['jcz'] }]
 
 // chiild process can't be part of store itself, because it's internals are mutated be own
 // causing Error: [vuex] do not mutate vuex store state outside mutation handlers
-let engine = null
-
+// theme $engine is used instead to store engine instance
 export const state = () => ({
   id: null,
   setup: null,
@@ -310,13 +309,10 @@ export const actions = {
     console.log(state.setup)
 
     const loggingEnabled = rootState.settings.devMode
-    engine = await dispatch('spawnEngine', { loggingEnabled }, { root: true })
+    const engine = this._vm.$engine.spawn({ loggingEnabled })
     engine.on('error', data => {
       dialog.showErrorBox('Engine error', data)
-    })
-    engine.on('exit', () => {
-      engine = null
-    })
+    })    
     engine.on('message', payload => {
       const lastMessageType = engine.lastMessage?.type
       let autoCommit = false
@@ -377,13 +373,11 @@ export const actions = {
   },
 
   close () {
-    if (engine) {
-      engine.kill()
-      engine = null
-    }
+    this._vm.$engine.kill()    
   },
 
   async apply ({ commit }, message) {
+    const engine = this._vm.$engine.get()
     const salted = ['COMMIT', 'FLOCK_EXPAND_OR_SCORE'].includes(message.type) || (message.type === 'DEPLOY_MEEPLE' && message.payload.pointer.location === 'FLYING_MACHINE')
     if (salted) {
       message = {
@@ -393,7 +387,7 @@ export const actions = {
           salt: randomLong().toString()
         }
       }
-    }
+    }    
     await engine.writeMessage(message)
     commit('appendMessage', message)
   },

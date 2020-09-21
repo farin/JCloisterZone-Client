@@ -1,21 +1,9 @@
 import fs from 'fs'
 import path from 'path'
 import https from 'https'
-import { execFile, spawn } from 'child_process'
+import { execFile } from 'child_process'
 import unzipper from 'unzipper'
 import { remote } from 'electron'
-
-import Engine from '@/services/engine'
-
-function getEngineJavaArgs
-() {
-  // Run against local engine
-  if (process.env.NODE_ENV === 'development') {
-    return ['-jar', 'Engine.jar']
-  }
-  const basePath = path.dirname(remote.app.getAppPath())
-  return ['-jar', path.join(basePath, 'Engine.jar')]
-}
 
 export const state = () => ({
   loaded: {
@@ -138,16 +126,13 @@ export const actions = {
     })
   },
 
-  spawnEngine (ctx, { loggingEnabled }) {
-    return new Engine(spawn('java', getEngineJavaArgs()), loggingEnabled)
-  },
-
   async checkEngineVersion ({ state, commit }) {
     if (state.engine !== null) {
       return state.engine
     }
     return new Promise((resolve, reject) => {
-      const args = getEngineJavaArgs()
+      const { $engine } = this._vm
+      const args = $engine.getJavaArgs()
       execFile('java', [...args, '--version'], (error, stdout, stderr) => {
         if (error) {
           commit('engine', false)

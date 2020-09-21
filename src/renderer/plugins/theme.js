@@ -34,18 +34,6 @@ const makeAbsPathProp = (prefix, obj, prop) => {
   }
 }
 
-const listDir = async parent => {
-  let dirs = []
-  for (const file of await readdir(parent)) {
-    if ((await stat(path.join(parent, file))).isDirectory()) {
-      dirs = [...dirs, file]
-    }
-  }
-  return dirs
-}
-
-
-
 class Theme {
   constructor (vue) {
     this.artworks = {}
