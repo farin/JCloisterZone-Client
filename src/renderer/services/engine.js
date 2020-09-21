@@ -88,4 +88,9 @@ export default class Engine {
     this.lastMessage = message
     await this._write(JSON.stringify(message))
   }
+
+  kill () {
+    console.log('Sending TERM to game engine.')
+    this.engineProcess.kill()
+  }
 }

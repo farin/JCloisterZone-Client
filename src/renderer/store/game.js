@@ -1,9 +1,6 @@
 import fs from 'fs'
-import path from 'path'
-import { kill } from 'process'
 import { remote } from 'electron'
 
-import debounce from 'lodash/debounce'
 import difference from 'lodash/difference'
 import range from 'lodash/range'
 import zip from 'lodash/zip'
@@ -17,6 +14,8 @@ const { app } = remote
 
 const SAVED_GAME_FILTERS = [{ name: 'Saved Game', extensions: ['jcz'] }]
 
+// chiild process can't be part of store itself, because it's internals are mutated be own
+// causing Error: [vuex] do not mutate vuex store state outside mutation handlers
 let engine = null
 
 export const state = () => ({
@@ -66,10 +65,6 @@ export const mutations = {
 
   id (state, value) {
     state.id = value
-  },
-
-  enginePid (state, value) {
-    state.enginePid = value
   },
 
   setup (state, value) {
@@ -167,21 +162,6 @@ export const getters = {
     const currentTurn = state.history[state.history.length - 1]
     return !currentTurn.events.find(ev => ev.type === 'ransom-paid')
   },
-
-  // lastEvent: state => {
-  //   if (!state.history) {
-  //     return null
-  //   }
-  //   let idx = state.history.length - 1
-  //   while (idx >= 0) {
-  //     const h = state.history[idx]
-  //     if (h.events.length) {
-  //       return h.events[h.events.length - 1]
-  //     }
-  //     idx--
-  //   }
-  //   return null
-  // },
 
   currentTurnLastEvent: state => {
     if (!state.history || state.history.length === 0) {
@@ -396,12 +376,10 @@ export const actions = {
     }
   },
 
-  close ({ state, commit }) {
-    if (state.enginePid) {
-      console.log(`Sending TERM to game engine ${state.enginePid}`)
-      kill(state.enginePid)
-      commit('enginePid', null)
-      delete openGames[state.engineProcess]
+  close () {
+    if (engine) {
+      engine.kill()
+      engine = null
     }
   },
 
