@@ -17,11 +17,10 @@ const { app } = remote
 
 const SAVED_GAME_FILTERS = [{ name: 'Saved Game', extensions: ['jcz'] }]
 
-const openGames = {}
+let engine = null
 
 export const state = () => ({
   id: null,
-  enginePid: null,
   setup: null,
   players: null,
   tilePack: null,
@@ -45,7 +44,6 @@ export const state = () => ({
 export const mutations = {
   clear (state) {
     state.id = null
-    state.enginePid = null
     state.setup = null
     state.players = null
     state.tilePack = null
@@ -215,18 +213,6 @@ export const getters = {
   }
 }
 
-const writeMessage = async (pid, message, log) => {
-  const openGame = openGames[pid]
-  if (log) {
-    console.groupCollapsed(message.type)
-    console.log(message.payload)
-    console.groupEnd()
-  }
-
-  openGame.lastMessage = message
-  await openGame.engine.write(JSON.stringify(message))
-}
-
 export const actions = {
   create ({ commit }) {
     commit('clear')
@@ -342,29 +328,17 @@ export const actions = {
     commit('board/resetZoom', null, { root: true })
 
     console.log(state.setup)
-    console.log('seed is ' + state.initialSeed)
 
-    const engine = await dispatch('spawnEngine', null, { root: true })
-
-    openGames[engine.pid] = { engine, lastMessage: null }
-    commit('enginePid', engine.pid)
-
+    const loggingEnabled = rootState.settings.devMode
+    engine = await dispatch('spawnEngine', { loggingEnabled }, { root: true })
     engine.on('error', data => {
       dialog.showErrorBox('Engine error', data)
     })
-
-    engine.on('exit', ev => {
-      delete openGames[engine.pid]
-      commit('enginePid', null)
+    engine.on('exit', () => {
+      engine = null
     })
-
     engine.on('message', payload => {
-      if (rootState.settings.devMode) {
-        console.debug(payload)
-      }
-
-      const { lastMessage } = openGames[engine.pid]
-      const lastMessageType = lastMessage ? lastMessage.type : null
+      const lastMessageType = engine.lastMessage?.type
       let autoCommit = false
       if (payload.phase === 'CommitActionPhase') {
         autoCommit = !payload.undo || lastMessageType === 'PASS' || lastMessageType === 'EXCHANGE_FOLLOWER'
@@ -383,7 +357,7 @@ export const actions = {
 
 
     if (state.gameMessages.length) {
-      engine.write('%bulk on')
+      engine.writeDirective('%bulk on')
     }
 
     let annotations = {}
@@ -405,7 +379,7 @@ export const actions = {
       }
     }
 
-    await writeMessage(engine.pid, {
+    await engine.writeMessage({
       type: 'GAME_SETUP',
       payload: {
         ...state.setup,
@@ -413,12 +387,12 @@ export const actions = {
         initialSeed: state.initialSeed,
         gameAnnotations: annotations
       }
-    }, rootState.settings.devMode)
+    })
     if (state.gameMessages.length) {
       for (const msg of state.gameMessages) {
-        await writeMessage(engine.pid, msg, rootState.settings.devMode)
+        await engine.writeMessage(msg)
       }
-      engine.write('%bulk off')
+      engine.writeDirective('%bulk off')
     }
   },
 
@@ -431,7 +405,7 @@ export const actions = {
     }
   },
 
-  async apply ({ state, commit, rootState }, message) {
+  async apply ({ commit }, message) {
     const salted = ['COMMIT', 'FLOCK_EXPAND_OR_SCORE'].includes(message.type) || (message.type === 'DEPLOY_MEEPLE' && message.payload.pointer.location === 'FLYING_MACHINE')
     if (salted) {
       message = {
@@ -442,7 +416,7 @@ export const actions = {
         }
       }
     }
-    await writeMessage(state.enginePid, message, rootState.settings.devMode)
+    await engine.writeMessage(message)
     commit('appendMessage', message)
   },
 

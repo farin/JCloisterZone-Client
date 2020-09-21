@@ -2,9 +2,10 @@
 import debounce from 'lodash/debounce'
 
 export default class Engine {
-  constructor (engineProcess) {
+  constructor (engineProcess, loggingEnabled) {
     this.engineProcess = engineProcess
-    this.pid = engineProcess.pid
+    this.loggingEnabled = loggingEnabled
+    this.lastMessage = null
 
     let stdoutData = []
     let stderrData = []
@@ -17,7 +18,7 @@ export default class Engine {
       }
     }, 100)
 
-    console.log(`Engine started ${this.pid}`)
+    console.log(`Engine started ${engineProcess.pid}`)
 
     this.engineProcess.stderr.on('data', data => {
       data = data.toString().trim() // convert buffer to string
@@ -46,6 +47,9 @@ export default class Engine {
       let payload
       try {
         payload = JSON.parse(data)
+        if (loggingEnabled) {
+          console.debug(payload)
+        }
         this.msgHandler && this.msgHandler(payload)
       } catch (e) {
         console.error('Received invalid json: ' + data)
@@ -64,9 +68,24 @@ export default class Engine {
     }
   }
 
-  write (cmd) {
+  _write (cmd) {
     return new Promise(resolve => {
       this.engineProcess.stdin.write(cmd + '\n', 'utf-8', resolve)
     })
+  }
+
+  async writeDirective (directive) {
+    await this._write(directive)
+  }
+
+  async writeMessage (message){
+    if (this.loggingEnabled) {
+      console.groupCollapsed(message.type)
+      console.log(message.payload)
+      console.groupEnd()
+    }
+
+    this.lastMessage = message
+    await this._write(JSON.stringify(message))
   }
 }

@@ -138,8 +138,8 @@ export const actions = {
     })
   },
 
-  spawnEngine () {
-    return new Engine(spawn('java', getEngineJavaArgs()))
+  spawnEngine (ctx, { loggingEnabled }) {
+    return new Engine(spawn('java', getEngineJavaArgs()), loggingEnabled)
   },
 
   async checkEngineVersion ({ state, commit }) {
