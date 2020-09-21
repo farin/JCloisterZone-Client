@@ -20,6 +20,7 @@ const SAVED_GAME_FILTERS = [{ name: 'Saved Game', extensions: ['jcz'] }]
 const openGames = {}
 
 export const state = () => ({
+  id: null,
   enginePid: null,
   setup: null,
   players: null,
@@ -43,6 +44,7 @@ export const state = () => ({
 
 export const mutations = {
   clear (state) {
+    state.id = null
     state.enginePid = null
     state.setup = null
     state.players = null
@@ -62,6 +64,10 @@ export const mutations = {
     state.gameAnnotations = {}
     state.testScenario = null
     state.testScenarioResult = null
+  },
+
+  id (state, value) {
+    state.id = value
   },
 
   enginePid (state, value) {
@@ -240,7 +246,7 @@ export const actions = {
         const version = process.env.NODE_ENV === 'development' ? process.env.npm_package_version : app.getVersion()
         const content = {
           appVersion: version,
-          gameId: '1',
+          gameId: state.id,
           name: '',
           initialSeed: state.initialSeed,
           created: (new Date()).toISOString(),
@@ -303,6 +309,7 @@ export const actions = {
       }
 
       commit('clear')
+      commit('id', sg.gameId)
       commit('setup', sg.setup)
       commit('initialSeed', sg.initialSeed)
       commit('gameAnnotations', sg.gameAnnotations || {})

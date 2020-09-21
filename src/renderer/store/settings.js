@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import Vue from 'vue'
 import isEqual from 'lodash/isEqual'
+import { v4 as uuidv4 } from 'uuid';
 
 import { remote } from 'electron'
 
@@ -14,6 +15,7 @@ export const state = () => ({
   lastGameSetup: null,
   recentSaves: [],
   recentGameSetups: [],
+  clientId: uuidv4(),
   devMode: process.env.NODE_ENV === 'development'
 })
 
@@ -48,11 +50,15 @@ export const actions = {
     try {
       await fs.promises.access(settingsFile, fs.constants.R_OK)
       const settings = JSON.parse(await fs.promises.readFile(settingsFile))
+      if (!settings.clientId) {
+        settings.clientId = uuidv4()
+      }
       commit('settings', settings)
       console.log(`Settings file ${settingsFile} was loaded.`)
     } catch (e) {
-      // do nothong, settings doesnt exist
+      // do nothong, settings doesn't exist
       console.log(`Settings file ${settingsFile} doesn't exist. Creating default one.`)
+      commit('settings', { clientId: uuidv4() })
       dispatch('save')
     }
     await dispatch('validateRecentSaves')

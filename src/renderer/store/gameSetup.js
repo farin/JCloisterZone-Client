@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import uniq from 'lodash/uniq'
 import mapKeys from 'lodash/mapKeys'
+import { v4 as uuidv4 } from 'uuid';
 
 import { isConfigValueEnabled, getDefaultElements } from '@/models/elements'
 import { getDefaultRules } from '@/models/rules'
@@ -167,6 +168,7 @@ export const actions = {
     }
 
     dispatch('settings/addRecentGameSetup', setup, { root: true })
+    commit('game/id', uuidv4(), { root: true })
     commit('game/setup', setup, { root: true })
   }
 }
