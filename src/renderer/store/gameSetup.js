@@ -154,7 +154,7 @@ export const actions = {
   },
 
   createGame ({ state, commit, getters, dispatch }) {
-    const { $tiles } = this._vm
+    const { $tiles, $server, $connection } = this._vm
     const sets = mapKeys(state.sets, (value, key) => {
       return $tiles.sets[key] ? key : key + ':' + getters.getSelectedEdition
     })
@@ -170,6 +170,8 @@ export const actions = {
     dispatch('settings/addRecentGameSetup', setup, { root: true })
     commit('game/id', uuidv4(), { root: true })
     commit('game/setup', setup, { root: true })
+    $server.start(setup)
+    $connection.connect()
   }
 }
 

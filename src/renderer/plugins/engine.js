@@ -130,6 +130,4 @@ export default ({ app }, inject) => {
       return spawnedEngine
     }
   }
-
-  // app.store
 }
