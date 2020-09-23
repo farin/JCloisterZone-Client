@@ -24,12 +24,13 @@ function getModifiedDefaults (before, after) {
 function getEmptySlots () {
   const slots = []
   for (let i = 0; i < 9; i++) {
-    slots.push({ number: i, state: 'open', name: null, order: null })
+    slots.push({ number: i })
   }
   return slots
 }
 
 export const state = () => ({
+  sessionId: null,
   sets: { ...DEFAULT_SETS },
   elements: getDefaultElements(DEFAULT_SETS),
   rules: getDefaultRules(),
@@ -40,12 +41,17 @@ export const state = () => ({
 
 export const mutations = {
   clear (state) {
+    state.sessionId =  null
     state.sets = { ...DEFAULT_SETS }
     state.elements = getDefaultElements(DEFAULT_SETS)
     state.rules = getDefaultRules()
     state.start = null
     state.timer = null
     state.slots = getEmptySlots()
+  },
+
+  sessionId (state, sessionId) {
+    state.sessionId = sessionId
   },
 
   setup (state, setup) {
@@ -132,25 +138,17 @@ export const actions = {
   },
 
   takeSlot ({ state, commit }, { number, name }) {
-    let max = 0
-    state.slots.forEach(({ order }) => {
-      if (order > max) { max = order }
+    this._vm.$connection.send({
+      type: 'TAKE_SLOT',
+      payload: { number, name }      
     })
-    commit('slot', { number, state: 'local', name, order: max + 1 })
   },
 
   releaseSlot ({ state, commit }, { number }) {
-    const { order } = state.slots[number]
-    for (let i = 0; i < state.slots.length; i++) {
-      if (i === number) {
-        commit('slot', { number, state: 'open', name: null, order: null })
-      } else {
-        const slot = state.slots[i]
-        if (slot.order > order) {
-          commit('slot', { ...slot, number: i, order: slot.order - 1 })
-        }
-      }
-    }
+    this._vm.$connection.send({
+      type: 'LEAVE_SLOT',
+      payload: { number }      
+    })
   },
 
   createGame ({ state, commit, getters, dispatch }) {
@@ -172,6 +170,23 @@ export const actions = {
     commit('game/setup', setup, { root: true })
     $server.start(setup)
     $connection.connect()
+    $connection.on('message', ({ type, payload}) => {
+      if (type === 'WELCOME') {
+        commit('sessionId', payload.sessionId)
+      }
+      if (type === 'SLOT') {
+        if (!payload.sessionId) {
+          const order = state.slots[payload.number].order
+          for (let i = 0; i < state.slots.length; i++) {
+            const slot = state.slots[i]
+            if (slot.order > order) {
+              commit('slot', { ...slot, order: slot.order - 1 })
+            }
+          }
+        }
+        commit('slot', payload)                
+      }
+    })
   }
 }
 

@@ -19,7 +19,7 @@
           v-for="slot in slots"
           :key="slot.number"
           :number="slot.number"
-          :state="slot.state"
+          :owner="slot.sessionId"
           :name="slot.name"
           :order="slot.order"
         />

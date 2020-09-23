@@ -1,5 +1,5 @@
 <template>
-  <div :class="`player-slot color-${number} ${state}`" @click="toggle">
+  <div :class="`player-slot color-${number} ${slotState}`" @click="toggle">
     <div
       v-if="order !== null"
       :class="`order order-${order}`"
@@ -10,11 +10,12 @@
       <use :href="`${MEEPLES_SVG}#small-follower`" />
     </svg>
     <div class="state">
-      <template v-if="state === 'open'">open slot</template>
-      <template v-if="state === 'local'">local player</template>
+      <template v-if="slotState === 'open'">open slot</template>
+      <template v-if="slotState === 'local'">local player</template>
+      <template v-if="slotState === 'remote'">remote player</template>
     </div>
     <div class="name">
-      <template v-if="state === 'open'">click to assign</template>
+      <template v-if="slotState === 'open'">click to assign</template>
       <template v-else>{{ name }}</template>
     </div>
   </div>
@@ -22,13 +23,14 @@
 
 <script>
 import sample from 'lodash/sample'
+import { mapState } from 'vuex'
 
 const MEEPLES_SVG = require('~/assets/meeples.svg')
 
 export default {
   props: {
     number: { type: Number, required: true },
-    state: { type: String, required: true },
+    owner: { type: String, default: null },
     name: { type: String, default: null },
     order: { type: Number, default: null }
   },
@@ -37,18 +39,27 @@ export default {
     return { MEEPLES_SVG }
   },
 
+  computed: {
+    ...mapState({
+      sessionId: state => state.gameSetup.sessionId
+    }),
+
+    slotState () {
+      if (this.owner === this.sessionId) {
+        return 'local'
+      }
+      return this.owner ? 'remove' : 'open'
+    }
+  },
+
   methods: {
     toggle () {
       const { number } = this
-      if (this.state === 'open') {
-        this.$store.dispatch('gameSetup/takeSlot', {
-          number,
-          name: sample(['Alice', 'Bob', 'Carol', 'David', 'Eve', 'Frank', 'Grace', 'Oscar', 'Wendy'])
-        })
-      }
-      if (this.state === 'local') {
-        this.$store.dispatch('gameSetup/releaseSlot', { number })
-      }
+      if (this.slotState === 'local') {        
+        this.$store.dispatch('gameSetup/releaseSlot', { number })                
+      } else if (this.slotState === 'open') {
+        this.$store.dispatch('gameSetup/takeSlot', { number })
+      }      
     }
   }
 }

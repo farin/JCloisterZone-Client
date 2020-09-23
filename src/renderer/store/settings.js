@@ -15,7 +15,8 @@ export const state = () => ({
   lastGameSetup: null,
   recentSaves: [],
   recentGameSetups: [],
-  clientId: uuidv4(),
+  clientId: null,
+  secret: null,
   devMode: process.env.NODE_ENV === 'development'
 })
 
@@ -47,18 +48,30 @@ export const getters = {
 export const actions = {
   async load ({ commit, getters, dispatch }) {
     const settingsFile = getters.settingsFile
+    let missingKey = false
     try {
       await fs.promises.access(settingsFile, fs.constants.R_OK)
-      const settings = JSON.parse(await fs.promises.readFile(settingsFile))
+      const settings = JSON.parse(await fs.promises.readFile(settingsFile))      
       if (!settings.clientId) {
+        missingKey = true
         settings.clientId = uuidv4()
+      }
+      if (!settings.secret) {
+        missingKey = true
+        settings.secret = uuidv4()
       }
       commit('settings', settings)
       console.log(`Settings file ${settingsFile} was loaded.`)
     } catch (e) {
       // do nothong, settings doesn't exist
-      console.log(`Settings file ${settingsFile} doesn't exist. Creating default one.`)
-      commit('settings', { clientId: uuidv4() })
+      missingKey = true
+      commit('settings', { 
+        clientId: uuidv4(),
+        secret: uuidv4()
+      })
+      console.log(`Settings file ${settingsFile} doesn't exist. Creating default one.`)      
+    }
+    if (missingKey) {
       dispatch('save')
     }
     await dispatch('validateRecentSaves')

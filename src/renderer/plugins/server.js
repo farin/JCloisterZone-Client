@@ -2,8 +2,10 @@ import WebSocket from 'ws'
 import { v4 as uuidv4 } from 'uuid';
 import { remote } from 'electron'
 import Vue from 'vue'
+import EventEmitter from 'events'
 
 import camelCase from 'lodash/camelCase'
+import sample from 'lodash/sample'
 
 const PORT = 37447
 
@@ -18,11 +20,11 @@ export class GameServer {
       // clockStart: 0,
       // initialSeed:
       // replay;
-    }
-
+    }    
 
     this.wss = new WebSocket.Server({
-      port: PORT
+      port: PORT,
+      clientTracking: true
     })
 
     this.wss.on('connection', ws => this.onConnection(ws))
@@ -40,19 +42,56 @@ export class GameServer {
     })
   }
 
+  broadcast (msg) {
+    const data = JSON.stringify(msg)
+    for (let client of this.wss.clients) {
+      client.send(data)
+    }
+  }
+
   handleHello (ws, payload) {
     // const { appVersion, protocolVersion, nickname, clientId, secret } = payload
-    ws.hello = payload
+    const sessionId = uuidv4()
+    ws.sessionId = sessionId
+    ws.clientId = payload.clientId
+    ws.secret = payload.secret
+    ws.name = payload.name    
     ws.send(JSON.stringify({
       type: 'WELCOME',
       payload: {
-        sessionId: uuidv4()
+        sessionId
       }
     }))
     ws.send(JSON.stringify({
       type: 'GAME',
       payload: this.game
     }))
+  }
+
+  handleTakeSlot (ws, { number, name }) {
+    const slot = { 
+      number,
+      name: name || ws.name || '',
+      order: this.game.slots.length + 1,
+      sessionId: ws.sessionId,
+      clientId: ws.clientId
+    }    
+    this.game.slots.push(slot)
+    this.broadcast({ 
+      type: 'SLOT', 
+      payload: slot, 
+    })
+  }
+
+  handleLeaveSlot (ws, { number }) {
+    const idx = this.game.slots.findIndex(s => s.number === number)
+    if (idx !== -1) {
+      this.game.slots.splice(idx, 1)
+      this.broadcast({ 
+        type: 'SLOT', 
+        payload: { number }, 
+      })
+    }
   }
 }
 
@@ -76,28 +115,44 @@ export default ({ app }, inject) => {
 
   Vue.prototype.$connection = {
     connect () {
-      socket = new WebSocket('ws://localhost:' + PORT);
-      socket.addEventListener('open', () => {
+      const emitter = new EventEmitter()
+      const ws = new WebSocket('ws://localhost:' + PORT)
+      ws.addEventListener('open', () => {
         console.log("Websocket connection opened")
         const appVersion = process.env.NODE_ENV === 'development' ? process.env.npm_package_version : remote.app.getVersion()
-        socket.send(JSON.stringify({ 
+        const { settings } = app.store.state
+        ws.send(JSON.stringify({ 
           type: 'HELLO',
           payload: {
             appVersion,
             protocolVersion: '5.0.0',
-            nickname: 'Alice',
-            clientId: app.store.state.settings.clientId,
-            secret: ''
+            name: sample(['Alice', 'Bob', 'Carol', 'David', 'Eve', 'Frank', 'Grace', 'Oscar', 'Wendy']),            
+            clientId: settings.clientId,
+            secret: settings.secret
           }
         }))
       })
 
-      socket.addEventListener('message', ev => {
-        console.log("RCV", ev.data)
+      ws.addEventListener('message', ev => {
+        const msg = JSON.parse(ev.data)
+        console.log("message received", msg)
+        emitter.emit('message', msg)        
       })
+
+      socket = {
+        ws, emitter
+      }      
+    }, 
+    
+    on (eventName, cb) {
+      socket.emitter.on(eventName, cb)
     },
 
-    dicconnect () {
+    off (eventName, cb) {
+      socket.emitter.off(eventName, cb)
+    },
+
+    disconnect () {
       if (socket) {
         socket.close()
         socket = null
@@ -105,7 +160,7 @@ export default ({ app }, inject) => {
     },
 
     send (message) {
-      socket.send(JSON.stringify(message))
+      socket.ws.send(JSON.stringify(message))
     }
   }
 }
