@@ -14,10 +14,36 @@
       <template v-if="slotState === 'local'">local player</template>
       <template v-if="slotState === 'remote'">remote player</template>
     </div>
-    <div class="name">
-      <template v-if="slotState === 'open'">click to assign</template>
-      <template v-else>{{ name }}</template>
+    <div 
+      v-if="slotState === 'local'"
+      class="name"
+      @click.stop="openEdit"
+    >      
+      {{ name }}
+      <v-icon v-if="slotState === 'local'">fas fa-pencil-alt</v-icon>
     </div>
+    <div v-else class="name">
+      <template v-if="slotState === 'open'">click to assign</template>      
+      <template v-else>{{ name}}</template>
+    </div>
+
+    <v-dialog v-model="edit" max-width="600px">      
+      <v-card>
+        <v-card-title>
+          <span class="headline">Rename Player</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+              <v-text-field label="Name" v-model="editName"></v-text-field>              
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn text @click="edit = false">Cancel</v-btn>
+          <v-btn text @click="rename()">Confirm</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -36,7 +62,11 @@ export default {
   },
 
   data () {
-    return { MEEPLES_SVG }
+    return { 
+      MEEPLES_SVG,
+      edit: false,
+      editName: null
+    }
   },
 
   computed: {
@@ -60,6 +90,18 @@ export default {
       } else if (this.slotState === 'open') {
         this.$store.dispatch('gameSetup/takeSlot', { number })
       }      
+    },
+
+    openEdit () {
+      this.editName = this.name
+      this.edit = true
+    },
+
+    rename () {          
+      if (this.editName !== this.name) {
+        this.$store.dispatch('gameSetup/renameSlot', { number: this.number, name: this.editName })
+      }
+      this.edit = false
     }
   }
 }
@@ -84,6 +126,7 @@ export default {
     font-size: 224px
     font-weight: 900
     opacity: 0.4
+    z-index: 1
 
   .order-1
     right: -48px
@@ -104,6 +147,15 @@ export default {
   .name
     font-size: 24px
     height: 36px
+    width: 100%
+    text-align: center
+    z-index: 2
+
+    i
+      visibility: hidden
+
+    &:hover i
+      visibility: visible
 
   &.open
     .name
@@ -117,5 +169,5 @@ export default {
 
   &.local
     background: $selection-bg
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)        
 </style>

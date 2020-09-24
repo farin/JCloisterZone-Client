@@ -144,6 +144,13 @@ export const actions = {
     })
   },
 
+  renameSlot (ctx, { number, name }) {
+    this._vm.$connection.send({
+      type: 'UPDATE_SLOT',
+      payload: { number, name }      
+    })
+  },
+
   releaseSlot ({ state, commit }, { number }) {
     this._vm.$connection.send({
       type: 'LEAVE_SLOT',

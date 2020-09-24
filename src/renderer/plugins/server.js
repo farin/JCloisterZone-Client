@@ -83,8 +83,26 @@ export class GameServer {
     })
   }
 
+  handleUpdateSlot (ws, { number, name }) {
+    const slot = this.game.slots.find(s => s.number === number)
+    if (slot.sessionId !== ws.sessionId) {
+      ws.send(JSON.stringify({type: 'ERR', payload: 'Slot is not assigned to your session'}))
+      return 
+    }
+    slot.name = name
+    this.broadcast({ 
+      type: 'SLOT', 
+      payload: slot, 
+    })
+  }
+
   handleLeaveSlot (ws, { number }) {
     const idx = this.game.slots.findIndex(s => s.number === number)
+    const slot = this.game.slots[idx]
+    if (slot.sessionId !== ws.sessionId) {
+      ws.send(JSON.stringify({type: 'ERR', payload: 'Slot is not assigned to your session'}))
+      return 
+    }
     if (idx !== -1) {
       this.game.slots.splice(idx, 1)
       this.broadcast({ 
@@ -94,7 +112,6 @@ export class GameServer {
     }
   }
 }
-
 
 export default ({ app }, inject) => {  
   let gameServer = null
