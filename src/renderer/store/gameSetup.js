@@ -54,6 +54,7 @@ export const mutations = {
     state.rules = setup.rules
     state.start = setup.start
     state.timer = setup.timer
+    state.slots = getEmptySlots()
   },
 
   tileSetQuantity (state, { id, quantity }) {
@@ -167,9 +168,10 @@ export const actions = {
     }
 
     dispatch('settings/addRecentGameSetup', setup, { root: true })
-    commit('game/id', uuidv4(), { root: true })
-    commit('game/setup', setup, { root: true })    
-    dispatch('networking/startServer', setup, { root: true })    
+    dispatch('networking/startServer', {
+      gameId: uuidv4(),
+      setup
+    }, { root: true })    
   },
 
   handleSlotMessage ({ state, commit }, payload) {

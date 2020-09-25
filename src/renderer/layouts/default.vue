@@ -113,11 +113,12 @@ export default {
     },
 
     newGame () {
-      this.$store.dispatch('game/newGame')
+      this.$store.commit('gameSetup/clear')
       this.$router.push('/game-setup')
     },
 
     leaveGame () {
+      this.$store.dispatch('game/close')
       this.$router.push('/')
     },
 

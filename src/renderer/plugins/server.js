@@ -14,24 +14,45 @@ const PORT = 37447
 
 
 export class GameServer {
-  constructor (gameSetup) {
+  constructor (game) {
     this.game = {
-      gameId: uuidv4(),
-      gameSetup,
+      gameId: game.gameId,
+      setup: game.setup,
+      initialSeed: game.initialSeed || randomLong().toString(),
+      replay: game.replay || [],
+      gameAnnotations: game.gameAnnotations || {},
       slots: []
-      // clockStart: 0,
-      // initialSeed:
-      // replay;
+      // clockStart: 0,      
     }    
     this.status = 'OPEN'
-    this.ownerSessionId = null
+    this.ownerSessionId = null    
+    this.wss = null
+  }
 
-    this.wss = new WebSocket.Server({
-      port: PORT,
-      clientTracking: true
+  async start () {
+    return new Promise(resolve => {
+      this.wss = new WebSocket.Server({
+        port: PORT,
+        clientTracking: true
+      }, () => {
+        console.log('Embedded server started.')
+        resolve()
+      })
+      this.wss.on('connection', ws => this.onConnection(ws))
+      
     })
+  }
 
-    this.wss.on('connection', ws => this.onConnection(ws))
+  async stop () {
+    if (this.wss) {
+      return new Promise(resolve => {
+        this.wss.close(() => {          
+          console.log('Embedded server stopped.')
+          resolve()
+        })
+        this.wss = null
+      })
+    }
   }
 
   onConnection (ws) {
@@ -136,9 +157,7 @@ export class GameServer {
     this.status = 'STARTED'
     this.broadcast({ 
       type: 'START', 
-      payload: { 
-        seed: randomLong().toString()
-      } 
+      payload: {}         
     })
   }
 
@@ -159,20 +178,23 @@ export default ({ app }, inject) => {
   let socket = null
 
   Vue.prototype.$server = {
-    start (gameSetup) {      
-      gameServer = new GameServer(gameSetup)
-      console.log("Embedded server started.")
+    async start (game) {      
+      await this.stop()
+      gameServer = new GameServer(game)
+      await gameServer.start()      
     },
 
-    stop () {
+    async stop () {      
       if (gameServer) {
-        gameServer.wss.close()
-        gameServer = null
-      }
+        await gameServer.stop()
+        gameServer = null        
+      }      
     },
 
     setOwner (sessionId) {
-      gameServer.ownerSessionId = sessionId
+      if (gameServer) {
+        gameServer.ownerSessionId = sessionId
+      }
     }
   }
 
@@ -197,8 +219,13 @@ export default ({ app }, inject) => {
       })
 
       ws.addEventListener('message', ev => {
-        const msg = JSON.parse(ev.data)        
+        const msg = JSON.parse(ev.data)                
         emitter.emit('message', msg)        
+      })
+
+      ws.addEventListener('close', ev => {
+        console.log(`Websocket connection closed. code: ${ev.code} reason: ${ev.reason}`)
+        socket = null
       })
 
       socket = {
@@ -216,8 +243,7 @@ export default ({ app }, inject) => {
 
     disconnect () {
       if (socket) {
-        socket.ws.close()
-        socket = null
+        socket.ws.close()        
       }
     },
 

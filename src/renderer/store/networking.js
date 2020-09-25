@@ -11,9 +11,10 @@ export const mutations = {
 }
 
 export const actions = {
-  startServer ({ commit, dispatch }, setup) {
-    const { $server, $connection } = this._vm
-    $server.start(setup)
+  async startServer ({ commit, dispatch }, game) {
+    commit('game/clear', null, { root: true })
+    const { $server, $connection } = this._vm    
+    await $server.start(game)
     $connection.connect()
     $connection.on('message', message => {
       const { type, payload} = message
@@ -25,9 +26,9 @@ export const actions = {
       } else if (type === 'SLOT') {
         dispatch('gameSetup/handleSlotMessage', payload, { root: true })                   
       } else if (type === 'START') {
-        dispatch('game/handleStart', payload, { root: true })
+        dispatch('game/handleStartMessage', payload, { root: true })
       } else if (type === 'GAME') {
-        // not used now
+        dispatch('game/handleGameMessage', payload, { root: true })
       } else {
         console.error(payload)
         console.error(`Unhandled message ${type}`)

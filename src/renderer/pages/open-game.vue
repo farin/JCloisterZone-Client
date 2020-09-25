@@ -1,5 +1,5 @@
 <template>
-  <GameSetupGrid v-if="loaded">
+  <GameSetupGrid v-if="loaded && gameId">
     <template #header>
       <HeaderGameButton
         title="Start"
@@ -52,8 +52,9 @@ export default {
 
   computed: {
     ...mapState({
-      sets: state => state.game.setup.sets,
-      elements: state => state.game.setup.elements,
+      gameId: state => state.game.id,
+      sets: state => state.game.setup?.sets,
+      elements: state => state.game.setup?.elements,
       slots: state => state.gameSetup.slots
     }),
 
@@ -65,7 +66,7 @@ export default {
     }),
 
     slotsAssigned () {
-      return !!this.slots.find(({ state }) => state !== 'open')
+      return !!this.slots.find(slot => slot.sessionId)
     }
   },
 

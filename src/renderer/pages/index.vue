@@ -134,7 +134,7 @@ export default {
 
   methods: {
     newGame () {
-      this.$store.dispatch('game/newGame')
+      this.$store.commit('gameSetup/clear')
       this.$router.push('/game-setup')
     },
 
@@ -149,7 +149,6 @@ export default {
     },
 
     async loadSetup (setup) {
-      this.$store.dispatch('game/newGame')
       this.$store.commit('gameSetup/setup', {
         ...setup,
         sets: mapKeys(setup.sets, (val, key) => key.split(":")[0])

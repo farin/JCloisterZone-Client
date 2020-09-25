@@ -191,13 +191,7 @@ export const getters = {
   }
 }
 
-export const actions = {
-  newGame ({ commit }) {
-    commit('clear')
-    commit('gameMessages', [])
-    commit('gameSetup/clear', null, { root: true })
-  },
-
+export const actions = {  
   async save ({ state, dispatch }) {
     return new Promise(async (resolve, reject) => {
       const { dialog } = remote
@@ -272,12 +266,14 @@ export const actions = {
         return
       }
 
-      commit('clear')
-      commit('id', sg.gameId)
-      commit('setup', sg.setup)
-      commit('initialSeed', sg.initialSeed)
-      commit('gameAnnotations', sg.gameAnnotations || {})
-      commit('gameMessages', sg.replay)
+      dispatch('networking/startServer', {
+        gameId: sg.gameId,
+        setup: sg.setup,
+        initialSeed: sg.initialSeed,
+        gameAnnotations: sg.gameAnnotations || {},
+        replay: sg.replay
+      }, { root: true })        
+
       commit('gameSetup/slots', slots, { root: true })
       if (sg.test) {
         commit('testScenario', sg.test)
@@ -298,13 +294,21 @@ export const actions = {
     })
   },
 
+  async handleGameMessage ({ commit }, payload) {         
+    commit('clear')
+    commit('id', payload.gameId)
+    commit('setup', payload.setup)
+    commit('initialSeed', payload.initialSeed)
+    commit('gameAnnotations', payload.gameAnnotations)
+    commit('gameMessages', payload.replay)
+  },
+
   async start () {
     const { $connection } = this._vm   
     $connection.send({ type: 'START'})
   },
 
-  async handleStart ({ state, commit, dispatch, rootState }, payload) {    
-    commit('initialSeed', payload.seed)
+  async handleStartMessage ({ state, commit, dispatch, rootState }) {        
     commit('board/resetZoom', null, { root: true })
 
     console.log(state.setup)
