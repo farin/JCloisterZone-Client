@@ -43,7 +43,7 @@
     </div>
     <main>
       <div>
-        <v-btn large color="secondary" @click="createGame()">
+        <v-btn large color="secondary" @click="newGame()">
           New game
         </v-btn>
 
@@ -133,8 +133,8 @@ export default {
   },
 
   methods: {
-    createGame () {
-      this.$store.dispatch('game/create')
+    newGame () {
+      this.$store.dispatch('game/newGame')
       this.$router.push('/game-setup')
     },
 
@@ -149,7 +149,7 @@ export default {
     },
 
     async loadSetup (setup) {
-      this.$store.dispatch('game/create')
+      this.$store.dispatch('game/newGame')
       this.$store.commit('gameSetup/setup', {
         ...setup,
         sets: mapKeys(setup.sets, (val, key) => key.split(":")[0])

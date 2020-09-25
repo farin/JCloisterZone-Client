@@ -194,7 +194,7 @@ export const getters = {
 }
 
 export const actions = {
-  create ({ commit }) {
+  newGame ({ commit }) {
     commit('clear')
     commit('gameMessages', [])
     commit('gameSetup/clear', null, { root: true })

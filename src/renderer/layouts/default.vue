@@ -113,7 +113,7 @@ export default {
     },
 
     newGame () {
-      this.$store.dispatch('game/create')
+      this.$store.dispatch('game/newGame')
       this.$router.push('/game-setup')
     },
 
