@@ -6,6 +6,7 @@ import range from 'lodash/range'
 import zip from 'lodash/zip'
 import Vue from 'vue'
 
+import { ENGINE_MESSAGES } from '@/constants/messages'
 import { randomLong } from '@/utils/random'
 import { isSameFeature } from '@/utils/gameUtils'
 import { verifyScenario } from '@/utils/testing'
@@ -299,11 +300,23 @@ export const actions = {
     })
   },
 
-  async start ({ state, commit, dispatch, rootState }) {
-    if (!state.initialSeed) {
-      commit('initialSeed', randomLong().toString())
-    }
+  async start ({ dispatch }) {
+    const { $connection } = this._vm
+    $connection.on('message', message => {
+      const { type, payload} = message
+      if (type === 'START') {
+        dispatch('handleStart', payload)
+      } else if (ENGINE_MESSAGES.has(type)) {
+        dispatch('handleEngineMessage', message)
+      } else {
+        console.error(`Unhandled message ${type}`)
+      }      
+    })
+    $connection.send({ type: 'START'})
+  },
 
+  async handleStart ({ state, commit, dispatch, rootState }, payload) {    
+    commit('initialSeed', payload.seed)
     commit('board/resetZoom', null, { root: true })
 
     console.log(state.setup)
@@ -330,7 +343,6 @@ export const actions = {
         }
       }
     })
-
 
     if (state.gameMessages.length) {
       engine.writeDirective('%bulk on')
@@ -373,21 +385,19 @@ export const actions = {
   },
 
   close () {
-    this._vm.$engine.kill()    
+    const { $engine, $connection, $server } = this._vm    
+    $connection.disconnect()
+    $server.stop()
+    $engine.kill()    
   },
 
-  async apply ({ commit }, message) {
-    const engine = this._vm.$engine.get()
-    const salted = ['COMMIT', 'FLOCK_EXPAND_OR_SCORE'].includes(message.type) || (message.type === 'DEPLOY_MEEPLE' && message.payload.pointer.location === 'FLYING_MACHINE')
-    if (salted) {
-      message = {
-        ...message,
-        payload: {
-          ...message.payload,
-          salt: randomLong().toString()
-        }
-      }
-    }    
+  async apply (ctx, message) {
+    const { $connection } = this._vm  
+    $connection.send(message)
+  },
+
+  async handleEngineMessage ({ commit }, message) {
+    const engine = this._vm.$engine.get()    
     await engine.writeMessage(message)
     commit('appendMessage', message)
   },

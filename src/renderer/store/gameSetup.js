@@ -179,7 +179,8 @@ export const actions = {
     $connection.connect()
     $connection.on('message', ({ type, payload}) => {
       if (type === 'WELCOME') {
-        commit('sessionId', payload.sessionId)
+        commit('sessionId', payload.sessionId) 
+        $server.setOwner(payload.sessionId)
       }
       if (type === 'SLOT') {
         if (!payload.sessionId) {

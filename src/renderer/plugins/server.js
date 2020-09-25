@@ -7,6 +7,9 @@ import EventEmitter from 'events'
 import camelCase from 'lodash/camelCase'
 import sample from 'lodash/sample'
 
+import { randomLong } from '@/utils/random'
+import { ENGINE_MESSAGES } from '@/constants/messages'
+
 const PORT = 37447
 
 
@@ -14,13 +17,14 @@ export class GameServer {
   constructor (gameSetup) {
     this.game = {
       gameId: uuidv4(),
-      status: 'OPEN',
       gameSetup,
       slots: []
       // clockStart: 0,
       // initialSeed:
       // replay;
     }    
+    this.status = 'OPEN'
+    this.ownerSessionId = null
 
     this.wss = new WebSocket.Server({
       port: PORT,
@@ -32,12 +36,24 @@ export class GameServer {
 
   onConnection (ws) {
     ws.on('message', data => {
-      const { type, payload } = JSON.parse(data)      
-      const handler = this[camelCase('handle_' + type)]
-      if (handler) {
-        handler.call(this, ws, payload)
+      const { type, payload } = JSON.parse(data)            
+      if (ENGINE_MESSAGES.has(type)) {
+        if (this.status !== 'STARTED') {
+          ws.send(JSON.stringify({type: 'ERR', payload: 'Game is not started'}))
+          return
+        }
+        this.handleEngineMessage(ws, type, payload)                        
       } else {
-        console.error("Unknown handler for " + type)
+        if (this.status !== 'OPEN') {
+          ws.send(JSON.stringify({type: 'ERR', payload: 'Game is not open'}))
+          return
+        }
+        const handler = this[camelCase('handle_' + type)]      
+        if (handler) {
+          handler.call(this, ws, payload)
+        } else {
+          console.error("Unknown handler for " + type)
+        }
       }
     })
   }
@@ -111,6 +127,31 @@ export class GameServer {
       })
     }
   }
+
+  handleStart (ws) {
+    if (this.ownerSessionId !== ws.sessionId) {
+      ws.send(JSON.stringify({type: 'ERR', payload: 'Not a game owner'}))
+      return 
+    }
+    this.status = 'STARTED'
+    this.broadcast({ 
+      type: 'START', 
+      payload: { 
+        seed: randomLong().toString()
+      } 
+    })
+  }
+
+  handleEngineMessage (ws, type, payload) {
+    const salted = ['COMMIT', 'FLOCK_EXPAND_OR_SCORE'].includes(type) || (type === 'DEPLOY_MEEPLE' && payload.pointer.location === 'FLYING_MACHINE')
+    if (salted) {
+      payload = {
+        ...payload,
+        salt: randomLong().toString()
+      }      
+    }  
+    this.broadcast({ type, payload })      
+  }
 }
 
 export default ({ app }, inject) => {  
@@ -127,6 +168,10 @@ export default ({ app }, inject) => {
         gameServer.wss.close()
         gameServer = null
       }
+    },
+
+    setOwner (sessionId) {
+      gameServer.ownerSessionId = sessionId
     }
   }
 
@@ -151,8 +196,7 @@ export default ({ app }, inject) => {
       })
 
       ws.addEventListener('message', ev => {
-        const msg = JSON.parse(ev.data)
-        console.log("message received", msg)
+        const msg = JSON.parse(ev.data)        
         emitter.emit('message', msg)        
       })
 
