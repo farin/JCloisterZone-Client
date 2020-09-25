@@ -96,11 +96,6 @@ export default {
   beforeDestroy () {
     // window.removeEventListener('keydown', this.onKeyDown)
     this.$store.dispatch('game/close')
-  },
-
-  methods: {
-    // async onKeyDown (ev) {
-    // }
   }
 }
 </script>

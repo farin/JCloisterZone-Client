@@ -71,7 +71,7 @@ export default {
 
   computed: {
     ...mapState({
-      sessionId: state => state.gameSetup.sessionId
+      sessionId: state => state.networking.sessionId
     }),
 
     slotState () {

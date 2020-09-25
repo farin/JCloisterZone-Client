@@ -161,6 +161,7 @@ export default ({ app }, inject) => {
   Vue.prototype.$server = {
     start (gameSetup) {      
       gameServer = new GameServer(gameSetup)
+      console.log("Embedded server started.")
     },
 
     stop () {
@@ -215,7 +216,7 @@ export default ({ app }, inject) => {
 
     disconnect () {
       if (socket) {
-        socket.close()
+        socket.ws.close()
         socket = null
       }
     },

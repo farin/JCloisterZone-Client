@@ -30,7 +30,6 @@ function getEmptySlots () {
 }
 
 export const state = () => ({
-  sessionId: null,
   sets: { ...DEFAULT_SETS },
   elements: getDefaultElements(DEFAULT_SETS),
   rules: getDefaultRules(),
@@ -40,18 +39,13 @@ export const state = () => ({
 })
 
 export const mutations = {
-  clear (state) {
-    state.sessionId =  null
+  clear (state) {  
     state.sets = { ...DEFAULT_SETS }
     state.elements = getDefaultElements(DEFAULT_SETS)
     state.rules = getDefaultRules()
     state.start = null
     state.timer = null
     state.slots = getEmptySlots()
-  },
-
-  sessionId (state, sessionId) {
-    state.sessionId = sessionId
   },
 
   setup (state, setup) {
@@ -137,7 +131,7 @@ export const actions = {
     commit('ruleConfig', { id, config })
   },
 
-  takeSlot ({ state, commit }, { number, name }) {
+  takeSlot ({ ctx }, { number, name }) {
     this._vm.$connection.send({
       type: 'TAKE_SLOT',
       payload: { number, name }      
@@ -151,7 +145,7 @@ export const actions = {
     })
   },
 
-  releaseSlot ({ state, commit }, { number }) {
+  releaseSlot (ctx, { number }) {
     this._vm.$connection.send({
       type: 'LEAVE_SLOT',
       payload: { number }      
@@ -159,7 +153,7 @@ export const actions = {
   },
 
   createGame ({ state, commit, getters, dispatch }) {
-    const { $tiles, $server, $connection } = this._vm
+    const { $tiles } = this._vm
     const sets = mapKeys(state.sets, (value, key) => {
       return $tiles.sets[key] ? key : key + ':' + getters.getSelectedEdition
     })
@@ -174,27 +168,21 @@ export const actions = {
 
     dispatch('settings/addRecentGameSetup', setup, { root: true })
     commit('game/id', uuidv4(), { root: true })
-    commit('game/setup', setup, { root: true })
-    $server.start(setup)
-    $connection.connect()
-    $connection.on('message', ({ type, payload}) => {
-      if (type === 'WELCOME') {
-        commit('sessionId', payload.sessionId) 
-        $server.setOwner(payload.sessionId)
-      }
-      if (type === 'SLOT') {
-        if (!payload.sessionId) {
-          const order = state.slots[payload.number].order
-          for (let i = 0; i < state.slots.length; i++) {
-            const slot = state.slots[i]
-            if (slot.order > order) {
-              commit('slot', { ...slot, order: slot.order - 1 })
-            }
-          }
+    commit('game/setup', setup, { root: true })    
+    dispatch('networking/startServer', setup, { root: true })    
+  },
+
+  handleSlotMessage ({ state, commit }, payload) {
+    if (!payload.sessionId) {
+      const order = state.slots[payload.number].order
+      for (let i = 0; i < state.slots.length; i++) {
+        const slot = state.slots[i]
+        if (slot.order > order) {
+          commit('slot', { ...slot, order: slot.order - 1 })
         }
-        commit('slot', payload)                
       }
-    })
+    }
+    commit('slot', payload)     
   }
 }
 

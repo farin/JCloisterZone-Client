@@ -6,8 +6,6 @@ import range from 'lodash/range'
 import zip from 'lodash/zip'
 import Vue from 'vue'
 
-import { ENGINE_MESSAGES } from '@/constants/messages'
-import { randomLong } from '@/utils/random'
 import { isSameFeature } from '@/utils/gameUtils'
 import { verifyScenario } from '@/utils/testing'
 
@@ -300,18 +298,8 @@ export const actions = {
     })
   },
 
-  async start ({ dispatch }) {
-    const { $connection } = this._vm
-    $connection.on('message', message => {
-      const { type, payload} = message
-      if (type === 'START') {
-        dispatch('handleStart', payload)
-      } else if (ENGINE_MESSAGES.has(type)) {
-        dispatch('handleEngineMessage', message)
-      } else {
-        console.error(`Unhandled message ${type}`)
-      }      
-    })
+  async start () {
+    const { $connection } = this._vm   
     $connection.send({ type: 'START'})
   },
 
@@ -324,6 +312,7 @@ export const actions = {
     const loggingEnabled = rootState.settings.devMode
     const engine = this._vm.$engine.spawn({ loggingEnabled })
     engine.on('error', data => {
+      const { dialog } = remote
       dialog.showErrorBox('Engine error', data)
     })    
     engine.on('message', payload => {
@@ -384,10 +373,9 @@ export const actions = {
     }
   },
 
-  close () {
-    const { $engine, $connection, $server } = this._vm    
-    $connection.disconnect()
-    $server.stop()
+  close ({ dispatch }) {
+    const { $engine } = this._vm    
+    dispatch('networking/close', null, { root: true })    
     $engine.kill()    
   },
 

@@ -82,7 +82,7 @@ export default {
     },
 
     async startGame () {
-      const players = this.slots.filter(s => s.state !== 'open').map(s => ({ ...s }))
+      const players = this.slots.filter(s => s.sessionId).map(s => ({ ...s }))
       players.sort((a, b) => a.order - b.order)
       players.forEach(s => {
         s.slot = s.number
