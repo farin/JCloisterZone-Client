@@ -12,6 +12,7 @@ export const state = () => ({
     settings: false
   },
   gameDialog: null,
+  showJoinDialog: false,
   java: null,
   engine: null,
   download: null
@@ -32,6 +33,10 @@ export const mutations = {
 
   gameDialog (state, gameDialog) {
     state.gameDialog = gameDialog
+  },
+
+  showJoinDialog (state, showJoinDialog) {
+    state.showJoinDialog = showJoinDialog
   },
 
   java (state, value) {

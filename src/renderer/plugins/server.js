@@ -2,15 +2,12 @@ import WebSocket from 'ws'
 import { v4 as uuidv4 } from 'uuid';
 import { remote } from 'electron'
 import Vue from 'vue'
-import EventEmitter from 'events'
 
 import camelCase from 'lodash/camelCase'
 import sample from 'lodash/sample'
 
 import { randomLong } from '@/utils/random'
 import { ENGINE_MESSAGES } from '@/constants/messages'
-
-const PORT = 37447
 
 
 export class GameServer {
@@ -29,10 +26,10 @@ export class GameServer {
     this.wss = null
   }
 
-  async start () {
+  async start (port) {
     return new Promise(resolve => {
       this.wss = new WebSocket.Server({
-        port: PORT,
+        port,
         clientTracking: true
       }, () => {
         console.log('Embedded server started.')
@@ -77,6 +74,17 @@ export class GameServer {
         }
       }
     })
+    ws.on('close', () => {
+      this.game.slots.forEach(slot => {
+        if (slot.sessionId === ws.sessionId) {
+          this.broadcast({ 
+            type: 'SLOT', 
+            payload: { number: slot.number }, 
+          })
+        }
+      })
+      this.game.slots = this.game.slots.filter(slot => slot.sessionId !== ws.sessionId)
+    })
   }
 
   broadcast (msg) {
@@ -103,6 +111,12 @@ export class GameServer {
       type: 'GAME',
       payload: this.game
     }))
+    this.game.slots.forEach(slot => {
+      ws.send(JSON.stringify({ 
+        type: 'SLOT', 
+        payload: slot, 
+      }))
+    })
   }
 
   handleTakeSlot (ws, { number, name }) {
@@ -178,10 +192,10 @@ export default ({ app }, inject) => {
   let socket = null
 
   Vue.prototype.$server = {
-    async start (game) {      
+    async start (game, port) {      
       await this.stop()
       gameServer = new GameServer(game)
-      await gameServer.start()      
+      await gameServer.start(port)      
     },
 
     async stop () {      
@@ -193,62 +207,64 @@ export default ({ app }, inject) => {
 
     setOwner (sessionId) {
       if (gameServer) {
+        console.log(`Server owner is ${sessionId}`)
         gameServer.ownerSessionId = sessionId
       }
     }
   }
 
   Vue.prototype.$connection = {
-    connect () {
-      const emitter = new EventEmitter()
-      const ws = new WebSocket('ws://localhost:' + PORT)
-      ws.addEventListener('open', () => {
-        console.log("Websocket connection opened")
-        const appVersion = process.env.NODE_ENV === 'development' ? process.env.npm_package_version : remote.app.getVersion()
-        const { settings } = app.store.state
-        ws.send(JSON.stringify({ 
-          type: 'HELLO',
-          payload: {
-            appVersion,
-            protocolVersion: '5.0.0',
-            name: sample(['Alice', 'Bob', 'Carol', 'David', 'Eve', 'Frank', 'Grace', 'Oscar', 'Wendy']),            
-            clientId: settings.clientId,
-            secret: settings.secret
-          }
-        }))
-      })
+    async connect (host, onMessage) {
+      return new Promise((resolve, reject) => {
+        const ws = new WebSocket('ws://' + host)
+        ws.addEventListener('open', () => {
+          resolve()
+          console.log("Websocket connection opened")
+          const appVersion = process.env.NODE_ENV === 'development' ? process.env.npm_package_version : remote.app.getVersion()
+          const { settings } = app.store.state
+          ws.send(JSON.stringify({ 
+            type: 'HELLO',
+            payload: {
+              appVersion,
+              protocolVersion: '5.0.0',
+              name: sample(['Alice', 'Bob', 'Carol', 'David', 'Eve', 'Frank', 'Grace', 'Oscar', 'Wendy']),            
+              clientId: settings.clientId,
+              secret: settings.secret
+            }
+          }))          
+        })
 
-      ws.addEventListener('message', ev => {
-        const msg = JSON.parse(ev.data)                
-        emitter.emit('message', msg)        
-      })
+        ws.addEventListener('error', (e) => {
+          socket = null
+          reject(e)
+        })
 
-      ws.addEventListener('close', ev => {
-        console.log(`Websocket connection closed. code: ${ev.code} reason: ${ev.reason}`)
-        socket = null
-      })
+        ws.addEventListener('message', ev => {
+          const msg = JSON.parse(ev.data)                
+          onMessage(msg)        
+        })
 
-      socket = {
-        ws, emitter
-      }      
+        ws.addEventListener('close', ev => {
+          console.log(`Websocket connection closed. code: ${ev.code} reason: ${ev.reason}`)
+          socket = null
+        })
+
+        socket = ws        
+      })
     }, 
-    
-    on (eventName, cb) {
-      socket.emitter.on(eventName, cb)
-    },
-
-    off (eventName, cb) {
-      socket.emitter.off(eventName, cb)
-    },
-
+        
     disconnect () {
       if (socket) {
-        socket.ws.close()        
+        socket.close()        
       }
     },
 
     send (message) {
-      socket.ws.send(JSON.stringify(message))
+      socket.send(JSON.stringify(message))
+    },
+
+    isConnectedOrConnecting () {
+      return socket !== null
     }
   }
 }

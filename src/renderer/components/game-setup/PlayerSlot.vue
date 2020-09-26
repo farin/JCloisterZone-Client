@@ -78,7 +78,7 @@ export default {
       if (this.owner === this.sessionId) {
         return 'local'
       }
-      return this.owner ? 'remove' : 'open'
+      return this.owner ? 'remote' : 'open'
     }
   },
 
@@ -167,7 +167,12 @@ export default {
   &.open, &.local
     cursor: pointer
 
+  &.local, &.remote
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)  
+
   &.local
     background: $selection-bg
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)        
+
+  &.remote      
+    background: #ccc
 </style>

@@ -7,6 +7,16 @@
     >
       <AboutDialog />
     </v-dialog>
+    <v-dialog
+      v-model="showJoinDialog"
+      max-width="600"
+    >
+      <!-- use if to always create fresh dialog instance -->
+      <JoinGameDialog 
+        v-if="showJoinDialog" 
+        @close="showJoinDialog = false"
+      />
+    </v-dialog>
   </v-app>
 </template>
 
@@ -16,12 +26,14 @@ import { webFrame, remote } from 'electron'
 import { mapState } from 'vuex'
 
 import AboutDialog from '@/components/AboutDialog'
+import JoinGameDialog from '@/components/JoinGameDialog'
 
 const { app, Menu, dialog } = remote
 
 export default {
   components: {
-    AboutDialog
+    AboutDialog,
+    JoinGameDialog
   },
 
   data () {
@@ -30,9 +42,21 @@ export default {
     }
   },
 
-  computed: mapState({
-    undoAllowed: state => state.game.undo
-  }),
+  computed: {
+    ...mapState({
+      undoAllowed: state => state.game.undo,
+    }),
+
+    showJoinDialog: {
+      get () {
+       return this.$store.state.showJoinDialog
+      },
+
+      set (value) {
+        this.$store.commit('showJoinDialog', value)   
+      }
+    }
+  },
 
   watch: {
     $route (to) {
@@ -54,6 +78,7 @@ export default {
         label: 'Session',
         submenu: [
           { id: 'new-game', label: 'New Game', accelerator: 'CommandOrControl+N', click: this.newGame },
+          { id: 'join-game', label: 'Join Game', accelerator: 'CommandOrControl+J', click: this.joinGame },
           { type: 'separator' },
           { id: 'leave-game', label: 'Leave Game', click: this.leaveGame },
           { type: 'separator' },
@@ -104,6 +129,7 @@ export default {
       const gameOpen = routeName === 'game-setup' || routeName === 'open-game' || routeName === 'game'
       const gameRunning = routeName === 'game'
       this.menu.getMenuItemById('new-game').enabled = !gameOpen
+      this.menu.getMenuItemById('join-game').enabled = !gameOpen
       this.menu.getMenuItemById('leave-game').enabled = gameOpen
       this.menu.getMenuItemById('save-game').enabled = gameRunning
       this.menu.getMenuItemById('load-game').enabled = !gameOpen
@@ -115,6 +141,10 @@ export default {
     newGame () {
       this.$store.commit('gameSetup/clear')
       this.$router.push('/game-setup')
+    },
+
+    joinGame () {
+      this.showJoinDialog = true
     },
 
     leaveGame () {

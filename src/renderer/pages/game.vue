@@ -83,7 +83,8 @@ export default {
   }),
 
   beforeCreate () {
-    if (!this.$store.state.game.setup) {
+    // useful for dev mode, reload on this page redirects back to home
+    if (!this.$connection.isConnectedOrConnecting()) {
       this.$store.dispatch('game/close')
       this.$router.push('/')
     }

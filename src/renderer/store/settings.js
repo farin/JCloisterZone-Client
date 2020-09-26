@@ -17,6 +17,7 @@ export const state = () => ({
   recentGameSetups: [],
   clientId: null,
   secret: null,
+  port: 37447,
   devMode: process.env.NODE_ENV === 'development'
 })
 

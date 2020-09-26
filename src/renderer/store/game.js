@@ -378,6 +378,7 @@ export const actions = {
   },
 
   close ({ dispatch }) {
+    console.log("Game close requested")    
     const { $engine } = this._vm    
     dispatch('networking/close', null, { root: true })    
     $engine.kill()    

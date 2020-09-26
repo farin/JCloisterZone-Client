@@ -66,9 +66,17 @@
       </div>
 
       <div>
-        <v-btn large color="secondary" @click="loadGame()">
-          Load game
-        </v-btn>
+        <div class="d-flex">
+          <v-btn large color="secondary" @click="loadGame()">
+            Load game
+          </v-btn>
+
+          <div class="join-wrapper">
+            <v-btn large color="secondary" @click="joinGame()">
+              Join game
+            </v-btn>
+          </div>
+        </div>
 
         <template v-if="recentGames.length">
           <h2 >Recent games</h2>
@@ -136,6 +144,10 @@ export default {
     newGame () {
       this.$store.commit('gameSetup/clear')
       this.$router.push('/game-setup')
+    },
+
+    joinGame () {
+      this.$store.commit('showJoinDialog', true)   
     },
 
     async loadGame (file) {
@@ -210,6 +222,11 @@ main
   > div:first-child
     border-right: 1px solid #eee
     text-align: right
+
+  .join-wrapper
+    border-left: 1px solid #eee
+    margin-left: 40px
+    padding-left: 40px
 
   h2
     color: $color-gray
