@@ -49,6 +49,7 @@ class ConnectionPlugin {
           console.log('%c client %c received session id ' + msg.payload.sessionId, CONSOLE_CLIENT_COLOR, '')
         }
         onMessage(msg)
+        this.emitter.emit('message', msg)
       })
 
       this.ws.addEventListener('close', ev => {

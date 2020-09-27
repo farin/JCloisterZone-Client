@@ -280,17 +280,18 @@ export const actions = {
         replay: sg.replay,
       }, { root: true })
 
-      commit('gameSetup/slots', slots, { root: true })
+      // TOOO trigger slot messages
+      // commit('gameSetup/slots', slots, { root: true })
       if (sg.test) {
         commit('testScenario', sg.test)
 
-        const players = slots.map(s => ({ ...s }))
-        players.forEach(s => {
-          s.slot = s.number
-          delete s.number
-          delete s.order
-        })
-        commit('game/players', players, { root: true })
+        // const players = slots.map(s => ({ ...s }))
+        // players.forEach(s => {
+        //   s.slot = s.number
+        //   delete s.number
+        //   delete s.order
+        // })
+        // commit('game/players', players, { root: true })
         dispatch('game/start', null, { root: true })
       }
       Vue.nextTick(() => {
@@ -316,6 +317,14 @@ export const actions = {
   },
 
   async handleStartMessage ({ state, commit, dispatch, rootState }) {
+    const players = rootState.gameSetup.slots.filter(s => s.sessionId).map(s => ({ ...s }))
+    players.sort((a, b) => a.order - b.order)
+    players.forEach(s => {
+      s.slot = s.number
+      delete s.number
+      delete s.order
+    })
+    commit('players', players)
     commit('board/resetZoom', null, { root: true })
 
     console.log(state.setup)
@@ -371,7 +380,7 @@ export const actions = {
       type: 'GAME_SETUP',
       payload: {
         ...state.setup,
-        players: state.players.length,
+        players: players.length,
         initialSeed: state.initialSeed,
         gameAnnotations: annotations
       }

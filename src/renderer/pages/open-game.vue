@@ -83,15 +83,23 @@ export default {
       this.$router.push('/')
       return
     }
+  },
 
-    this.$connection.on('close', this._onGameClose = () => {
+  mouted () {
+    this.$connection.on('close', this._onClose = () => {
       // TODO print message
       this.$router.push('/')
+    })
+    this.$connection.on('message', this._onMessage = ({ type }) => {
+      if (type === 'START') {
+        this.$router.push('/game')
+      }
     })
   },
 
   beforeDestroy () {
-    this._onGameClose && this.$connection.off('close', this._onGameClose)
+    this._onClose && this.$connection.off('close', this._onClose)
+    this._onMessage && this.$connection.off('message', this._onMessage)
   },
 
   methods: {
@@ -100,16 +108,7 @@ export default {
     },
 
     async startGame () {
-      const players = this.slots.filter(s => s.sessionId).map(s => ({ ...s }))
-      players.sort((a, b) => a.order - b.order)
-      players.forEach(s => {
-        s.slot = s.number
-        delete s.number
-        delete s.order
-      })
-      this.$store.commit('game/players', players)
       await this.$store.dispatch('game/start')
-      this.$router.push('/game')
     }
   }
 }
