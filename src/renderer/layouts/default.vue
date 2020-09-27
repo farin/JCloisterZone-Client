@@ -12,8 +12,8 @@
       max-width="600"
     >
       <!-- use if to always create fresh dialog instance -->
-      <JoinGameDialog 
-        v-if="showJoinDialog" 
+      <JoinGameDialog
+        v-if="showJoinDialog"
         @close="showJoinDialog = false"
       />
     </v-dialog>
@@ -22,7 +22,7 @@
 
 <script>
 import fs from 'fs'
-import { webFrame, remote } from 'electron'
+import { webFrame, remote, shell } from 'electron'
 import { mapState } from 'vuex'
 
 import AboutDialog from '@/components/AboutDialog'
@@ -53,7 +53,7 @@ export default {
       },
 
       set (value) {
-        this.$store.commit('showJoinDialog', value)   
+        this.$store.commit('showJoinDialog', value)
       }
     }
   },
@@ -71,6 +71,8 @@ export default {
   async mounted () {
     webFrame.setZoomLevel(0)
     webFrame.setVisualZoomLevelLimits(1, 1)
+
+    await this.$store.dispatch('settings/load')
 
     const isMac = process.platform === 'darwin'
     const template = [
@@ -99,21 +101,29 @@ export default {
       }, {
         label: 'Help',
         submenu: [
-          { label: 'About', click: this.about },
+          { label: 'Rules (WikiCarpedia)', click: this.showRules },
           { type: 'separator' },
-          { role: 'toggleDevTools', label: 'Toggle DevTools' },
-          // { label: 'Relaunch electron', accelerator: 'CommandOrControl+E', click: () => app.exit(250) }
+          { label: 'About', click: this.about }
         ]
       }
     ]
+    if ( this.$store.state.settings.devMode) {
+      template.push({
+        label: 'Dev',
+        submenu: [
+          { role: 'toggleDevTools', label: 'Toggle DevTools' },
+          { label: 'Change clientId', click: this.changeClientId },
+          //{ label: 'Relaunch electron', accelerator: 'CommandOrControl+E', click: () => app.exit(250) }
+        ]
+      })
+    }
+
     this.menu = Menu.buildFromTemplate(template)
     this.updateMenu()
     Menu.setApplicationMenu(this.menu)
 
     this.$store.dispatch('checkJavaVersion')
     this.$store.dispatch('checkEngineVersion')
-
-    await this.$store.dispatch('settings/load')
     this.$store.dispatch('loadPlugins')
 
     window.addEventListener('keydown', this.onKeyDown)
@@ -125,6 +135,9 @@ export default {
 
   methods: {
     updateMenu () {
+      if (!this.menu) {
+        return
+      }
       const routeName = this.$route.name
       const gameOpen = routeName === 'game-setup' || routeName === 'open-game' || routeName === 'game'
       const gameRunning = routeName === 'game'
@@ -175,6 +188,10 @@ export default {
       this.$store.commit('board/changeZoom', -2)
     },
 
+    showRules () {
+      shell.openExternal('http://wikicarpedia.com/index.php/Main_Page')
+    },
+
     about () {
       this.showAbout = true
     },
@@ -185,6 +202,13 @@ export default {
         ev.preventDefault()
         ev.stopPropagation()
       }
+    },
+
+    changeClientId () {
+      const [ base, suffix = '0'] = this.$store.state.settings.clientId.split('--', 2)
+      const newId = `${base}--${~~suffix + 1}`
+      this.$store.commit('settings/clientId', newId)
+      console.log(`Client id changed to ${newId}`)
     }
   }
 }

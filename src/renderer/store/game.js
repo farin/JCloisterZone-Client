@@ -18,6 +18,7 @@ const SAVED_GAME_FILTERS = [{ name: 'Saved Game', extensions: ['jcz'] }]
 // theme $engine is used instead to store engine instance
 export const state = () => ({
   id: null,
+  owner: null,
   setup: null,
   players: null,
   tilePack: null,
@@ -41,6 +42,7 @@ export const state = () => ({
 export const mutations = {
   clear (state) {
     state.id = null
+    state.owner = null,
     state.setup = null
     state.players = null
     state.tilePack = null
@@ -63,6 +65,10 @@ export const mutations = {
 
   id (state, value) {
     state.id = value
+  },
+
+  owner (state, value) {
+  state.owner = value
   },
 
   setup (state, value) {
@@ -191,7 +197,7 @@ export const getters = {
   }
 }
 
-export const actions = {  
+export const actions = {
   async save ({ state, dispatch }) {
     return new Promise(async (resolve, reject) => {
       const { dialog } = remote
@@ -271,8 +277,8 @@ export const actions = {
         setup: sg.setup,
         initialSeed: sg.initialSeed,
         gameAnnotations: sg.gameAnnotations || {},
-        replay: sg.replay
-      }, { root: true })        
+        replay: sg.replay,
+      }, { root: true })
 
       commit('gameSetup/slots', slots, { root: true })
       if (sg.test) {
@@ -294,21 +300,22 @@ export const actions = {
     })
   },
 
-  async handleGameMessage ({ commit }, payload) {         
+  async handleGameMessage ({ commit }, payload) {
     commit('clear')
     commit('id', payload.gameId)
     commit('setup', payload.setup)
     commit('initialSeed', payload.initialSeed)
     commit('gameAnnotations', payload.gameAnnotations)
     commit('gameMessages', payload.replay)
+    commit('owner', payload.owner)
   },
 
   async start () {
-    const { $connection } = this._vm   
+    const { $connection } = this._vm
     $connection.send({ type: 'START'})
   },
 
-  async handleStartMessage ({ state, commit, dispatch, rootState }) {        
+  async handleStartMessage ({ state, commit, dispatch, rootState }) {
     commit('board/resetZoom', null, { root: true })
 
     console.log(state.setup)
@@ -318,7 +325,7 @@ export const actions = {
     engine.on('error', data => {
       const { dialog } = remote
       dialog.showErrorBox('Engine error', data)
-    })    
+    })
     engine.on('message', payload => {
       const lastMessageType = engine.lastMessage?.type
       let autoCommit = false
@@ -378,19 +385,19 @@ export const actions = {
   },
 
   close ({ dispatch }) {
-    console.log("Game close requested")    
-    const { $engine } = this._vm    
-    dispatch('networking/close', null, { root: true })    
-    $engine.kill()    
+    console.log("Game close requested")
+    const { $engine } = this._vm
+    dispatch('networking/close', null, { root: true })
+    $engine.kill()
   },
 
   async apply (ctx, message) {
-    const { $connection } = this._vm  
+    const { $connection } = this._vm
     $connection.send(message)
   },
 
   async handleEngineMessage ({ commit }, message) {
-    const engine = this._vm.$engine.get()    
+    const engine = this._vm.$engine.get()
     await engine.writeMessage(message)
     commit('appendMessage', message)
   },

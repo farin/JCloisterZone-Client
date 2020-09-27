@@ -1,11 +1,16 @@
 <template>
   <GameSetupGrid v-if="loaded && gameId">
     <template #header>
-      <HeaderGameButton
-        title="Start"
-        :info="slotsAssigned ? null : 'No players added'"
-        @click="startGame"
-      />
+      <template v-if="isOwner">
+        <HeaderGameButton
+          title="Start"
+          :info="slotsAssigned ? null : 'No players added'"
+          @click="startGame"
+        />
+      </template>
+      <template v-else>
+
+      </template>
       <TilePackSize :size="$tiles.getPackSize(sets)" />
     </template>
 
@@ -55,7 +60,8 @@ export default {
       gameId: state => state.game.id,
       sets: state => state.game.setup?.sets,
       elements: state => state.game.setup?.elements,
-      slots: state => state.gameSetup.slots
+      slots: state => state.gameSetup.slots,
+      isOwner: state => state.game.owner === state.settings.clientId
     }),
 
     ...mapGetters({
@@ -115,5 +121,15 @@ header .v-alert
 
 .game-setup-overview
   margin: 40px 0
+
+
+@media (max-width: 1079px)
+  .slots
+    grid-template-columns: 1fr 1fr
+
+
+@media (max-width: 919px)
+  .slots
+    grid-template-columns: 1fr
 
 </style>

@@ -5,6 +5,7 @@ import isEqual from 'lodash/isEqual'
 import { v4 as uuidv4 } from 'uuid';
 
 import { remote } from 'electron'
+import { CONSOLE_SETTINGS_COLOR } from '@/constants/logging'
 
 const RECENT_GAMES_COUNT = 14
 const RECENT_SETUPS_COUNT = 3
@@ -21,7 +22,6 @@ export const state = () => ({
   devMode: process.env.NODE_ENV === 'development'
 })
 
-
 export const mutations = {
   settings (state, settings) {
     Object.keys(state).forEach(key => {
@@ -29,6 +29,10 @@ export const mutations = {
         Vue.set(state, key, settings[key])
       }
     })
+  },
+
+  clientId (state, value) {
+    state.clientId = value
   },
 
   recentSaves (state, value) {
@@ -52,7 +56,7 @@ export const actions = {
     let missingKey = false
     try {
       await fs.promises.access(settingsFile, fs.constants.R_OK)
-      const settings = JSON.parse(await fs.promises.readFile(settingsFile))      
+      const settings = JSON.parse(await fs.promises.readFile(settingsFile))
       if (!settings.clientId) {
         missingKey = true
         settings.clientId = uuidv4()
@@ -62,15 +66,15 @@ export const actions = {
         settings.secret = uuidv4()
       }
       commit('settings', settings)
-      console.log(`Settings file ${settingsFile} was loaded.`)
+      console.log(`%c settings %c loaded ${settingsFile}`, CONSOLE_SETTINGS_COLOR, '')
     } catch (e) {
       // do nothong, settings doesn't exist
       missingKey = true
-      commit('settings', { 
+      commit('settings', {
         clientId: uuidv4(),
         secret: uuidv4()
       })
-      console.log(`Settings file ${settingsFile} doesn't exist. Creating default one.`)      
+      console.log(`%c settings %c file ${settingsFile} doesn't exist. Creating default one.`, CONSOLE_SETTINGS_COLOR, '')
     }
     if (missingKey) {
       dispatch('save')
@@ -86,8 +90,9 @@ export const actions = {
       if (data.devMode === false) {
         delete data.devMode
       }
+      data.clientId = data.clientId.split('--')[0] // for dev mode, do not store changed id
       await fs.promises.writeFile(settingsFile, JSON.stringify(state, null, 2))
-      console.log(`Writing to settings file ${settingsFile}`)
+      console.log(`%c settings %c writing ${settingsFile}`, CONSOLE_SETTINGS_COLOR, '')
     } catch (e) {
       console.error(e)
       // do nothong, settings doesnt exist

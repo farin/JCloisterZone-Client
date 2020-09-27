@@ -1,7 +1,7 @@
 import { ENGINE_MESSAGES } from '@/constants/messages'
 import { reject } from 'lodash'
 
-export const state = () => ({  
+export const state = () => ({
   sessionId: null
 })
 
@@ -12,29 +12,28 @@ export const mutations = {
 }
 
 export const actions = {
-  async startServer ({ state, commit, dispatch, rootState }, game) {
-    const { $server } = this._vm        
+  async startServer ({ commit, dispatch }, game) {
+    const { $server } = this._vm
     commit('game/clear', null, { root: true })
-    await $server.start(game, rootState.settings.port)
+    await $server.start(game)
     await dispatch('connect', 'localhost')
-    $server.setOwner(state.sessionId)    
   },
 
-  async connect ({ commit, dispatch, rootState }, host) {         
-    const { $connection } = this._vm    
+  async connect ({ commit, dispatch, rootState }, host) {
+    const { $connection } = this._vm
     if (!host.match(/:\d+$/)) {
       host = `${host}:${rootState.settings.port}`
-    }      
+    }
     return new Promise((resolve, reject) => {
       const onMessage = message => {
         const { type, payload} = message
         if (ENGINE_MESSAGES.has(type)) {
           dispatch('game/handleEngineMessage', message, { root: true })
         } else if (type === 'WELCOME') {
-          commit('sessionId', payload.sessionId) 
-          resolve()    
+          commit('sessionId', payload.sessionId)
+          resolve()
         } else if (type === 'SLOT') {
-          dispatch('gameSetup/handleSlotMessage', payload, { root: true })                   
+          dispatch('gameSetup/handleSlotMessage', payload, { root: true })
         } else if (type === 'START') {
           dispatch('game/handleStartMessage', payload, { root: true })
         } else if (type === 'GAME') {
