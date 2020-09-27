@@ -20,6 +20,7 @@ export const actions = {
   },
 
   async connect ({ commit, dispatch, rootState }, host) {
+    commit('gameSetup/clear', null, { root: true })
     const { $connection } = this._vm
     if (!host.match(/:\d+$/)) {
       host = `${host}:${rootState.settings.port}`
@@ -37,6 +38,9 @@ export const actions = {
         } else if (type === 'START') {
           dispatch('game/handleStartMessage', payload, { root: true })
         } else if (type === 'GAME') {
+          payload.slots.forEach(slot => {
+            dispatch('gameSetup/handleSlotMessage', slot, { root: true })
+          })
           dispatch('game/handleGameMessage', payload, { root: true })
         } else {
           console.error(payload)

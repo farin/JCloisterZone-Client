@@ -1,15 +1,14 @@
 import WebSocket from 'ws'
 import { v4 as uuidv4 } from 'uuid';
-import { remote } from 'electron'
 import Vue from 'vue'
 
 import camelCase from 'lodash/camelCase'
-import sample from 'lodash/sample'
 import groupBy from 'lodash/groupBy'
 
 import { randomLong } from '@/utils/random'
 import { ENGINE_MESSAGES } from '@/constants/messages'
-import { CONSOLE_SERVER_COLOR, CONSOLE_CLIENT_COLOR } from '@/constants/logging'
+import { CONSOLE_SERVER_COLOR } from '@/constants/logging'
+
 
 export class GameServer {
   constructor (game, clientId) {
@@ -98,7 +97,7 @@ export class GameServer {
             payload: { number: slot.number },
           })
         })
-        this.game.slots = groupped.false
+        this.game.slots = groupped.false || []
       }
     })
   }
@@ -230,65 +229,6 @@ export default ({ app }, inject) => {
         await gameServer.stop()
         gameServer = null
       }
-    }
-  }
-
-  Vue.prototype.$connection = {
-    async connect (host, onMessage) {
-      return new Promise((resolve, reject) => {
-        const ws = new WebSocket('ws://' + host)
-        ws.addEventListener('open', () => {
-          resolve()
-          console.log('%c client %c connected to ' + host, CONSOLE_CLIENT_COLOR, '')
-          const appVersion = process.env.NODE_ENV === 'development' ? process.env.npm_package_version : remote.app.getVersion()
-          const { settings } = app.store.state
-          ws.send(JSON.stringify({
-            type: 'HELLO',
-            payload: {
-              appVersion,
-              protocolVersion: '5.0.0',
-              name: sample(['Alice', 'Bob', 'Carol', 'David', 'Eve', 'Frank', 'Grace', 'Oscar', 'Wendy']),
-              clientId: settings.clientId,
-              secret: settings.secret
-            }
-          }))
-        })
-
-        ws.addEventListener('error', (e) => {
-          console.log('%c client %c websocket error ' + e, CONSOLE_CLIENT_COLOR, '')
-          socket = null
-          reject(e)
-        })
-
-        ws.addEventListener('message', ev => {
-          const msg = JSON.parse(ev.data)
-          if (msg.type === 'WELCOME') {
-            console.log('%c client %c received session id ' + msg.payload.sessionId, CONSOLE_CLIENT_COLOR, '')
-          }
-          onMessage(msg)
-        })
-
-        ws.addEventListener('close', ev => {
-          console.log(`%c client %c websocket closed  code: ${ev.code} reason: ${ev.reason}`, CONSOLE_CLIENT_COLOR, '')
-          socket = null
-        })
-
-        socket = ws
-      })
-    },
-
-    disconnect () {
-      if (socket) {
-        socket.close()
-      }
-    },
-
-    send (message) {
-      socket.send(JSON.stringify(message))
-    },
-
-    isConnectedOrConnecting () {
-      return socket !== null
     }
   }
 }

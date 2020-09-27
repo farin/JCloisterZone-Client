@@ -81,7 +81,17 @@ export default {
     if (!this.$connection.isConnectedOrConnecting()) {
       this.$store.dispatch('game/close')
       this.$router.push('/')
+      return
     }
+
+    this.$connection.on('close', this._onGameClose = () => {
+      // TODO print message
+      this.$router.push('/')
+    })
+  },
+
+  beforeDestroy () {
+    this._onGameClose && this.$connection.off('close', this._onGameClose)
   },
 
   methods: {

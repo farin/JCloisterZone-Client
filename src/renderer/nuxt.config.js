@@ -13,6 +13,7 @@ module.exports = {
     // '~/plugins/portal-vue',
     '~/plugins/engine',
     '~/plugins/server',
+    '~/plugins/connection',
     '~/plugins/tiles',
     '~/plugins/theme',
     { ssr: true, src: '@/plugins/icons.js' }

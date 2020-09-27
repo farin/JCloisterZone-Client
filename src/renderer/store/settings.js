@@ -16,6 +16,7 @@ export const state = () => ({
   lastGameSetup: null,
   recentSaves: [],
   recentGameSetups: [],
+  recentJoinedGames: [],
   clientId: null,
   secret: null,
   port: 37447,
@@ -33,6 +34,10 @@ export const mutations = {
 
   clientId (state, value) {
     state.clientId = value
+  },
+
+  recentJoinedGames (state, value) {
+    state.recentJoinedGames = value
   },
 
   recentSaves (state, value) {
@@ -109,6 +114,11 @@ export const actions = {
 
   async clearRecentSaves({ commit, dispatch}) {
     commit('recentSaves', [])
+    dispatch('save')
+  },
+
+  async addRecentJoinedGame({ commit, dispatch }, host) {
+    commit('recentJoinedGames', [ host ])
     dispatch('save')
   },
 

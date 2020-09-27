@@ -5,9 +5,9 @@
       Connect to remote host with created game.<br/>
       <i>The must on remote host must be in color selection phase.</i>
       <div class="field-wrapper">
-        <v-progress-linear 
+        <v-progress-linear
           v-if="connecting"
-          indeterminate          
+          indeterminate
         />
         <v-text-field
           v-else
@@ -15,7 +15,7 @@
           v-model="host"
           @keydown.enter="connect"
         />
-        <v-alert 
+        <v-alert
           v-if="error"
           type="error"
           dense
@@ -25,13 +25,13 @@
       </div>
     </v-card-text>
     <v-card-actions>
-      <v-spacer></v-spacer>    
-      <v-btn 
-        color="secondary" 
-        text 
+      <v-spacer></v-spacer>
+      <v-btn
+        color="secondary"
+        text
         :disabled="host.trim() === ''"
         @click="connect"
-      >Connect</v-btn>      
+      >Connect</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -40,10 +40,11 @@
 export default {
 
   data() {
+    const recent = this.$store.state.settings.recentJoinedGames
     return {
       connecting: false,
       error: null,
-      host: ''
+      host: recent[0] || ''
     }
   },
 
@@ -53,6 +54,7 @@ export default {
       this.error = null
       try {
         await this.$store.dispatch('networking/connect', this.host)
+        this.$store.dispatch('settings/addRecentJoinedGame', this.host)
         this.$router.push('/open-game')
         this.connecting = false
         this.$emit('close')
