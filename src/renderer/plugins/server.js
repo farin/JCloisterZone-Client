@@ -19,11 +19,11 @@ export class GameServer {
       replay: game.replay || [],
       gameAnnotations: game.gameAnnotations || {},
       slots: [],
-      owner: clientId
+      owner: null // owner session
       // clockStart: 0,
     }
     this.status = 'OPEN'
-    this.owner = clientId
+    this.ownerClientId = clientId
     this.wss = null
     this.clients = null
   }
@@ -132,6 +132,12 @@ export class GameServer {
         sessionId
       }
     }))
+
+    if (this.game.owner === null && ws.clientId === this.ownerClientId) {
+      this.game.owner = ws.sessionId
+    }
+
+
     ws.send(JSON.stringify({
       type: 'GAME',
       payload: this.game
@@ -189,7 +195,7 @@ export class GameServer {
   }
 
   handleStart (ws) {
-    if (this.owner !== ws.clientId) {
+    if (this.game.owner !== ws.sessionId) {
       ws.send(JSON.stringify({type: 'ERR', payload: 'Not a game owner'}))
       return
     }

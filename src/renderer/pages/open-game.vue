@@ -61,7 +61,7 @@ export default {
       sets: state => state.game.setup?.sets,
       elements: state => state.game.setup?.elements,
       slots: state => state.gameSetup.slots,
-      isOwner: state => state.game.owner === state.settings.clientId
+      isOwner: state => state.game.owner === state.networking.sessionId
     }),
 
     ...mapGetters({
@@ -85,7 +85,7 @@ export default {
     }
   },
 
-  mouted () {
+  mounted () {
     this.$connection.on('close', this._onClose = () => {
       // TODO print message
       this.$router.push('/')

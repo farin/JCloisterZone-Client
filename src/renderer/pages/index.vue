@@ -147,7 +147,7 @@ export default {
     },
 
     joinGame () {
-      this.$store.commit('showJoinDialog', true)   
+      this.$store.commit('showJoinDialog', true)
     },
 
     async loadGame (file) {
@@ -263,6 +263,13 @@ footer
   font-size: 14px
   text-align: right
   padding: 1px 2px
+
+@media (max-height: 1199px)
+  .landing-view
+    .disclaimer-box
+      margin-top: 20px
+      margin-bottom: 20px
+
 </style>
 
 <style lang="sass">

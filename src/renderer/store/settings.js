@@ -92,11 +92,11 @@ export const actions = {
     const settingsFile = getters.settingsFile
     try {
       const data = { ...state }
-      if (data.devMode === false) {
+      if (data.devMode !== process.env.NODE_ENV === 'development') {
         delete data.devMode
       }
       data.clientId = data.clientId.split('--')[0] // for dev mode, do not store changed id
-      await fs.promises.writeFile(settingsFile, JSON.stringify(state, null, 2))
+      await fs.promises.writeFile(settingsFile, JSON.stringify(data, null, 2))
       console.log(`%c settings %c writing ${settingsFile}`, CONSOLE_SETTINGS_COLOR, '')
     } catch (e) {
       console.error(e)
