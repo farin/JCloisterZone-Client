@@ -11,7 +11,9 @@ import { CONSOLE_SERVER_COLOR } from '@/constants/logging'
 
 
 export class GameServer {
-  constructor (game, clientId) {
+  constructor (game, clientId, { engineVersion, appVersion }) {
+    this.engineVersion = engineVersion
+    this.appVersion = appVersion
     this.game = {
       gameId: game.gameId,
       setup: game.setup,
@@ -56,7 +58,8 @@ export class GameServer {
   }
 
   onConnection (ws) {
-    ws.on('message', data => {
+    let helloExpected = true
+    ws.on('message', async data => {
       const { type, payload } = JSON.parse(data)
       if (ENGINE_MESSAGES.has(type)) {
         if (this.status !== 'STARTED') {
@@ -66,8 +69,17 @@ export class GameServer {
         this.handleEngineMessage(ws, type, payload)
       } else {
         if (this.status !== 'OPEN') {
-          ws.send(JSON.stringify({type: 'ERR', payload: 'Game is not open'}))
+          await this.send(ws, {type: 'ERR', payload: 'Game is not open'})
           return
+        }
+        if (helloExpected) {
+          if (type === 'HELLO') {
+            helloExpected = false
+          } else {
+            await this.send(ws, {type: 'ERR', payload: 'Game is not open'})
+            ws.close()
+            return
+          }
         }
         const handler = this[camelCase('handle_' + type)]
         if (handler) {
@@ -102,18 +114,32 @@ export class GameServer {
     })
   }
 
-  broadcast (msg) {
-    const data = JSON.stringify(msg)
-    for (let client of this.clients) {
-      client.send(data)
-    }
+  async send(ws, msg) {
+    return new Promise(resolve => {
+      ws.send(JSON.stringify(msg), {}, resolve)
+    })
   }
 
-  handleHello (ws, payload) {
+  async broadcast (msg) {
+    const data = JSON.stringify(msg)
+    return Promise.all(this.clients.map(client => {
+      return new Promise(resolve => {
+        client.send(data, {}, resolve)
+      })
+    }))
+  }
+
+  async handleHello (ws, payload) {
     // const { appVersion, protocolVersion, nickname, clientId, secret } = payload
     const clientAlreadyConnected = this.clients.find(ws => ws.clientId === payload.clientTracking)
     if (clientAlreadyConnected && clientAlreadyConnected.secret !== payload.secret) {
-      ws.send(JSON.stringify({ type: 'ERR', payload: "Secret doesn't match" }))
+      await this.send(ws, { type: 'ERR', code: 'wrong-secret', message: "Secret doesn't match" })
+      ws.close()
+      return
+    }
+
+    if (this.engineVersion !== payload.engineVersion) {
+      await this.send(ws, { type: 'ERR', code: 'bad-version', message: `Incompatible versions. server: ${this.appVersion} / client: ${payload.appVersion}` })
       ws.close()
       return
     }
@@ -126,31 +152,30 @@ export class GameServer {
     ws.clientId = payload.clientId
     ws.secret = payload.secret
     ws.name = payload.name
-    ws.send(JSON.stringify({
+    this.send(ws, {
       type: 'WELCOME',
       payload: {
         sessionId
       }
-    }))
+    })
 
     if (this.game.owner === null && ws.clientId === this.ownerClientId) {
       this.game.owner = ws.sessionId
     }
 
-
-    ws.send(JSON.stringify({
+    this.send(ws, {
       type: 'GAME',
       payload: this.game
-    }))
+    })
     this.game.slots.forEach(slot => {
-      ws.send(JSON.stringify({
+      this.send(ws, {
         type: 'SLOT',
         payload: slot,
-      }))
+      })
     })
   }
 
-  handleTakeSlot (ws, { number, name }) {
+  async handleTakeSlot (ws, { number, name }) {
     const slot = {
       number,
       name: name || ws.name || '',
@@ -165,10 +190,10 @@ export class GameServer {
     })
   }
 
-  handleUpdateSlot (ws, { number, name }) {
+  async handleUpdateSlot (ws, { number, name }) {
     const slot = this.game.slots.find(s => s.number === number)
     if (slot.sessionId !== ws.sessionId) {
-      ws.send(JSON.stringify({type: 'ERR', payload: 'Slot is not assigned to your session'}))
+      ws.send(JSON.stringify({type: 'ERR', code: 'slot-owner', message: 'Slot is not assigned to your session'}))
       return
     }
     slot.name = name
@@ -182,7 +207,7 @@ export class GameServer {
     const idx = this.game.slots.findIndex(s => s.number === number)
     const slot = this.game.slots[idx]
     if (slot.sessionId !== ws.sessionId) {
-      ws.send(JSON.stringify({type: 'ERR', payload: 'Slot is not assigned to your session'}))
+      ws.send(JSON.stringify({type: 'ERR', code: 'slot-owner', message: 'Slot is not assigned to your session'}))
       return
     }
     if (idx !== -1) {
@@ -196,7 +221,7 @@ export class GameServer {
 
   handleStart (ws) {
     if (this.game.owner !== ws.sessionId) {
-      ws.send(JSON.stringify({type: 'ERR', payload: 'Not a game owner'}))
+      ws.send(JSON.stringify({type: 'ERR', code: 'game-owner', message: 'Not a game owner'}))
       return
     }
     this.status = 'STARTED'
@@ -220,13 +245,17 @@ export class GameServer {
 
 export default ({ app }, inject) => {
   let gameServer = null
-  let socket = null
 
   Vue.prototype.$server = {
     async start (game) {
       await this.stop()
       const { settings } = app.store.state
-      gameServer = new GameServer(game, settings.clientId)
+      const appVersion = process.env.NODE_ENV === 'development' ? process.env.npm_package_version : remote.app.getVersion()
+      const engineVersion = app.store.state.engine.version
+      gameServer = new GameServer(game, settings.clientId, {
+        appVersion,
+        engineVersion
+      })
       await gameServer.start(settings.port)
     },
 
