@@ -22,21 +22,26 @@
         </span>
       </div>
     </div>
-    <div>
-      <div class="text">Choose</div>
-      <div class="help">&nbsp;</div>
-    </div>
-    <div>
-      <v-btn color="secondary" @click="grow">Grow the flock</v-btn>
-      <div class="help">{{ sheep.bagSize }} tokens left</div>
-    </div>
-    <div>
-      <div class="text">or</div>
-      <div class="help">&nbsp;</div>
-    </div>
-    <div>
-      <v-btn color="secondary" @click="score">Score the sheep</v-btn>
-      <div class="help">receive {{ points }} points</div>
+    <template v-if="local">
+      <div>
+        <div class="text">Choose</div>
+        <div class="help">&nbsp;</div>
+      </div>
+      <div>
+        <v-btn color="secondary" @click="grow">Grow the flock</v-btn>
+        <div class="help">{{ sheep.bagSize }} tokens left</div>
+      </div>
+      <div>
+        <div class="text">or</div>
+        <div class="help">&nbsp;</div>
+      </div>
+      <div>
+        <v-btn color="secondary" @click="score">Score the sheep</v-btn>
+        <div class="help">receive {{ points }} points</div>
+      </div>
+    </template>
+    <div v-else class="text">
+      Player must choose to grow the flock or score sheep for {{ points }} points.
     </div>
   </section>
 </template>
@@ -55,7 +60,8 @@ export default {
   },
 
   props: {
-    action: { type: Object, required: true }
+    action: { type: Object, required: true },
+    local: { type: Boolean }
   },
 
   computed: {
@@ -104,21 +110,25 @@ export default {
 
   methods: {
     async grow () {
-      await this.$store.dispatch('game/apply', {
-        type: 'FLOCK_EXPAND_OR_SCORE',
-        payload: {
-          value: 'EXPAND'
-        }
-      })
+      if (this.local) {
+        await this.$store.dispatch('game/apply', {
+          type: 'FLOCK_EXPAND_OR_SCORE',
+          payload: {
+            value: 'EXPAND'
+          }
+        })
+      }
     },
 
     async score () {
-      await this.$store.dispatch('game/apply', {
-        type: 'FLOCK_EXPAND_OR_SCORE',
-        payload: {
-          value: 'SCORE'
-        }
-      })
+      if (this.local) {
+        await this.$store.dispatch('game/apply', {
+          type: 'FLOCK_EXPAND_OR_SCORE',
+          payload: {
+            value: 'SCORE'
+          }
+        })
+      }
     }
   }
 }

@@ -64,9 +64,9 @@
             v-if="group.meeples.length === 1"
             cx="0" cy="0" r="305"
             :style="{'pointer-events': 'all', fill: 'none'}"
-            @mouseenter="onMouseOver(meeple.selectable)"
-            @mouseleave="onMouseLeave(meeple.selectable)"
-            @click="ev => onSelect(ev, meeple.selectable)"
+            @mouseenter="meepleSelect.local && onMouseOver(meeple.selectable)"
+            @mouseleave="meepleSelect.local && onMouseLeave(meeple.selectable)"
+            @click="ev => meepleSelect.local && onSelect(ev, meeple.selectable)"
           />
         </g>
 

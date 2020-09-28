@@ -1,8 +1,8 @@
 <template>
-  <section>
-    <div v-if="phase === 'CocFollowerPhase'" class="text">You may place a meeple in a city district.</div>
-    <div v-if="phase === 'CocScoringPhase'" class="text">You may move a meeple from city district.</div>
-    <div v-if="phase === 'CornCirclePhase'" class="text">Crop Circle:<br>You may place a meeple next to already present one.</div>
+  <section :class="{ local }">
+    <div v-if="phase === 'CocFollowerPhase'" class="text">{{ local ? 'You' : 'Player' }} may place a meeple in a city district.</div>
+    <div v-if="phase === 'CocScoringPhase'" class="text">{{ local ? 'You' : 'Player' }} may move a meeple from city district.</div>
+    <div v-if="phase === 'CornCirclePhase'" class="text">Crop Circle:<br>{{ local ? 'You' : 'Player' }} may place a meeple next to already present one.</div>
 
     <!-- key composed from phase meepls trigers properly mounted when one action follows another
          eg phantom action -->
@@ -100,12 +100,13 @@ export default {
 
   props: {
     action: { type: Object, required: true },
-    phase: { type: String, required: true }
+    phase: { type: String, required: true },
+    local: { type: Boolean }
   },
 
   data () {
     return {
-      selected: 0
+      selected: this.local ? 0 : null
     }
   },
 
@@ -144,15 +145,19 @@ export default {
 
   methods: {
     select (idx) {
-      this.selected = idx
+      if (this.local) {
+        this.selected = idx
+      }
     },
 
     selectNext () {
-      this.select((this.selected + 1) % this.items.length)
+      if (this.local) {
+        this.select((this.selected + 1) % this.items.length)
+      }
     },
 
     onKeyDown (ev) {
-      if (ev.key === 'Tab') {
+      if (this.local && ev.key === 'Tab') {
         this.selectNext()
         ev.preventDefault()
       }
@@ -177,12 +182,15 @@ section
     display: flex
     justify-content: center
     align-items: center
-    cursor: pointer
-
-    &:hover
-      background: radial-gradient(circle, #f6f6f6 72%, transparent 73%)
 
     &.active
       background: radial-gradient(circle, #ddd 72%, transparent 73%)
       cursor: default
+
+section.local
+  .action-item
+    cursor: pointer
+
+    &:hover
+      background: radial-gradient(circle, #f6f6f6 72%, transparent 73%)
 </style>

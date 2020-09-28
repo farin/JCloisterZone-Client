@@ -38,8 +38,8 @@ class ConnectionPlugin {
       })
 
       this.ws.addEventListener('error', e => {
-        console.log('%c client %c websocket error ' + e, CONSOLE_CLIENT_COLOR, '')
-        socket = null
+        console.log(`%c client %c websocket error ${e.message}`, CONSOLE_CLIENT_COLOR, '')
+        this.ws = null
         reject(e)
       })
 

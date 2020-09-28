@@ -9,7 +9,7 @@
         />
       </template>
       <template v-else>
-
+        <span class="text">Waiting for host to start game</span>
       </template>
       <TilePackSize :size="$tiles.getPackSize(sets)" />
     </template>

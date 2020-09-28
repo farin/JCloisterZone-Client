@@ -2,7 +2,7 @@
   <section>
     <img src="~/assets/features/C1/escape.png" height="54">
     <div class="text">
-      You can escape a besieged city.
+      {{ local ? 'You' : 'Player' }} can escape a besieged city.
     </div>
     <slot plain />
   </section>
@@ -15,7 +15,8 @@ export default {
   mixins: [SingleMeepleSelectMixin],
 
   props: {
-    action: { type: Object, required: true }
+    action: { type: Object, required: true },
+    local: { type: Boolean }
   },
 
   methods: {

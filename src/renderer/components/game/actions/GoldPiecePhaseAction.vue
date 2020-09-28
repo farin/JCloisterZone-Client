@@ -1,7 +1,8 @@
 <template>
   <section>
     <div class="text">
-      Place a gold ingot <img src="~/assets/figures/gold.png" height="30">
+      {{ local ? 'Place a gold ingot' : 'Player must place a gold ingot' }}
+      <img src="~/assets/figures/gold.png" height="30">
     </div>
     <slot
       plain
@@ -14,7 +15,8 @@
 export default {
   props: {
     action: { type: Object, required: true },
-    phase: { type: String, required: true }
+    phase: { type: String, required: true },
+    local: { type: Boolean }
   },
 
   computed: {
@@ -41,27 +43,33 @@ export default {
 
   methods: {
     showLayer () {
-      this.$store.dispatch('board/showLayer', {
-        layer: 'TileSelectLayer',
-        props: {
-          options: this.actionItem.options,
-          color: 'gold'
-        }
-      })
+      if (this.local) {
+        this.$store.dispatch('board/showLayer', {
+          layer: 'TileSelectLayer',
+          props: {
+            options: this.actionItem.options,
+            color: 'gold'
+          }
+        })
+      }
     },
 
     hideLayer () {
-      this.$store.dispatch('board/hideLayer', { layer: 'TileSelectLayer' })
+      if (this.local) {
+        this.$store.dispatch('board/hideLayer', { layer: 'TileSelectLayer' })
+      }
     },
 
     async onSelect (opt) {
-      await this.$store.dispatch('game/apply', {
-        type: 'PLACE_TOKEN',
-        payload: {
-          token: 'GOLD',
-          pointer: opt
-        }
-      })
+      if (this.local) {
+        await this.$store.dispatch('game/apply', {
+          type: 'PLACE_TOKEN',
+          payload: {
+            token: 'GOLD',
+            pointer: opt
+          }
+        })
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <span class="text">You can move the Count</span>
+    <span class="text">{{ local ? 'You can move the Count' : 'Player can move the Count' }}</span>
     <NeutralFigure figure="count" />
     <slot />
   </section>
@@ -15,7 +15,8 @@ export default {
   },
 
   props: {
-    action: { type: Object, required: true }
+    action: { type: Object, required: true },
+    local: { type: Boolean }
   },
 
   computed: {
@@ -56,13 +57,15 @@ export default {
     },
 
     async onSelect (opt) {
-      await this.$store.dispatch('game/apply', {
-        type: 'MOVE_NEUTRAL_FIGURE',
-        payload: {
-          to: opt,
-          figureId: this.actionItem.figureId
-        }
-      })
+      if (this.local) {
+        await this.$store.dispatch('game/apply', {
+          type: 'MOVE_NEUTRAL_FIGURE',
+          payload: {
+            to: opt,
+            figureId: this.actionItem.figureId
+          }
+        })
+      }
     }
   }
 }

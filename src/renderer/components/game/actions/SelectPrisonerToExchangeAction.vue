@@ -2,7 +2,7 @@
   <section
     :class="colorCssClass(action.player)"
   >
-    <span class="text">Select follower for exchange</span>
+    <span class="text">{{ local ? 'Select follower for exchange' : 'Player must select follower for exchange' }} </span>
     <v-btn
       v-for="opt in options"
       :key="opt.id"
@@ -25,7 +25,8 @@ export default {
   },
 
   props: {
-    action: { type: Object, required: true }
+    action: { type: Object, required: true },
+    local: { type: Boolean }
   },
 
   computed: {
@@ -40,12 +41,14 @@ export default {
 
   methods: {
     async exchange (meepleId) {
-      await this.$store.dispatch('game/apply', {
-        type: 'EXCHANGE_FOLLOWER',
-        payload: {
-          meepleId
-        }
-      })
+      if (this.local) {
+        await this.$store.dispatch('game/apply', {
+          type: 'EXCHANGE_FOLLOWER',
+          payload: {
+            meepleId
+          }
+        })
+      }
     }
   }
 }

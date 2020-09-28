@@ -26,7 +26,8 @@ export default {
       this.$store.dispatch('board/showLayer', {
         layer: 'MeepleSelectLayer',
         props: {
-          options: this.actionItem.options
+          options: this.actionItem.options,
+          local: this.local
         }
       })
     },

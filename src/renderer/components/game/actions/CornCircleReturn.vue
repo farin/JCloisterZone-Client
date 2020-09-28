@@ -2,7 +2,8 @@
   <section>
     <div class="text">
       Crop Circle<br>
-      You must return one of your meeples
+      <template v-if="local">You must return one of your meeples</template>
+      <template v-else>Player must return a meeple</template>
     </div>
     <slot plain />
   </section>
@@ -15,19 +16,21 @@ export default {
   mixins: [SingleMeepleSelectMixin],
 
   props: {
-    action: { type: Object, required: true }
+    action: { type: Object, required: true },
+    local: { type: Boolean }
   },
 
   methods: {
     async onSelect (ptr) {
-      console.log(ptr)
-      await this.$store.dispatch('game/apply', {
-        type: 'RETURN_MEEPLE',
-        payload: {
-          source: 'CORN_CIRCLE',
-          pointer: ptr
-        }
-      })
+      if (this.local) {
+        await this.$store.dispatch('game/apply', {
+          type: 'RETURN_MEEPLE',
+          payload: {
+            source: 'CORN_CIRCLE',
+            pointer: ptr
+          }
+        })
+      }
     }
   }
 }

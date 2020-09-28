@@ -35,17 +35,19 @@ export const state = () => ({
   rules: getDefaultRules(),
   start: null,
   timer: null,
-  slots: getEmptySlots()
+  slots: getEmptySlots(),
+  gameAnnotations: {}
 })
 
 export const mutations = {
-  clear (state) {  
+  clear (state) {
     state.sets = { ...DEFAULT_SETS }
     state.elements = getDefaultElements(DEFAULT_SETS)
     state.rules = getDefaultRules()
     state.start = null
     state.timer = null
     state.slots = getEmptySlots()
+    state.gameAnnotations = {}
   },
 
   setup (state, setup) {
@@ -55,6 +57,11 @@ export const mutations = {
     state.start = setup.start
     state.timer = setup.timer
     state.slots = getEmptySlots()
+    state.gameAnnotations = {}
+  },
+
+  gameAnnotations (state, gameAnnotations) {
+    state.gameAnnotations = gameAnnotations
   },
 
   tileSetQuantity (state, { id, quantity }) {
@@ -135,21 +142,21 @@ export const actions = {
   takeSlot ({ ctx }, { number, name }) {
     this._vm.$connection.send({
       type: 'TAKE_SLOT',
-      payload: { number, name }      
+      payload: { number, name }
     })
   },
 
   renameSlot (ctx, { number, name }) {
     this._vm.$connection.send({
       type: 'UPDATE_SLOT',
-      payload: { number, name }      
+      payload: { number, name }
     })
   },
 
   releaseSlot (ctx, { number }) {
     this._vm.$connection.send({
       type: 'LEAVE_SLOT',
-      payload: { number }      
+      payload: { number }
     })
   },
 
@@ -170,8 +177,9 @@ export const actions = {
     dispatch('settings/addRecentGameSetup', setup, { root: true })
     dispatch('networking/startServer', {
       gameId: uuidv4(),
-      setup
-    }, { root: true })    
+      setup,
+      gameAnnotations: state.gameAnnotations
+    }, { root: true })
   },
 
   handleSlotMessage ({ state, commit }, payload) {
@@ -184,7 +192,7 @@ export const actions = {
         }
       }
     }
-    commit('slot', payload)     
+    commit('slot', payload)
   }
 }
 

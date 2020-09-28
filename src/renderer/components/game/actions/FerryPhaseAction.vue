@@ -1,7 +1,13 @@
 <template>
   <section>
     <div class="text">
-      {{ phase === 'PlaceFerryPhase' ? 'Place a ferry' : 'You can move ferries' }} <img src="~/assets/figures/ferry.png" height="30">
+      <template v-if="local">
+        {{ phase === 'PlaceFerryPhase' ? 'Place a ferry' : 'You can move ferries' }}
+      </template>
+      <template v-else>
+        {{ phase === 'PlaceFerryPhase' ? 'Player must place a ferry' : 'Player can move ferries' }}
+      </template>
+      <img src="~/assets/figures/ferry.png" height="30">
     </div>
     <slot
       plain
@@ -14,7 +20,8 @@
 export default {
   props: {
     action: { type: Object, required: true },
-    phase: { type: String, required: true }
+    phase: { type: String, required: true },
+    local: { type: Boolean }
   },
 
   computed: {
@@ -41,26 +48,32 @@ export default {
 
   methods: {
     showLayer () {
-      this.$store.dispatch('board/showLayer', {
-        layer: 'FerryChangeLayer',
-        props: {
-          options: this.actionItem.options
-        }
-      })
+      if (this.local) {
+        this.$store.dispatch('board/showLayer', {
+          layer: 'FerryChangeLayer',
+          props: {
+            options: this.actionItem.options
+          }
+        })
+      }
     },
 
     hideLayer () {
-      this.$store.dispatch('board/hideLayer', { layer: 'FerryChangeLayer' })
+      if (this.local) {
+        this.$store.dispatch('board/hideLayer', { layer: 'FerryChangeLayer' })
+      }
     },
 
     async onSelect (opt) {
-      await this.$store.dispatch('game/apply', {
-        type: 'PLACE_TOKEN',
-        payload: {
-          token: 'FERRY',
-          pointer: opt
-        }
-      })
+      if (this.local) {
+        await this.$store.dispatch('game/apply', {
+          type: 'PLACE_TOKEN',
+          payload: {
+            token: 'FERRY',
+            pointer: opt
+          }
+        })
+      }
     }
   }
 }

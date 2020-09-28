@@ -16,7 +16,8 @@ export default {
   props: {
     tileId: { type: String, required: true },
     options: { type: Array, required: true },
-    active: { type: Boolean }
+    active: { type: Boolean },
+    local: { type: Boolean }
   },
 
   data () {
@@ -31,7 +32,8 @@ export default {
       return {
         tileId: this.tileId,
         rotation: this.rotation,
-        options: this.options
+        options: this.options,
+        local: this.local
       }
     }
   },
@@ -55,7 +57,7 @@ export default {
 
   methods: {
     async onSelect ({ position, rotation }) {
-      if (this.active) {
+      if (this.active && this.local) {
         await this.$store.dispatch('game/apply', {
           type: 'PLACE_TILE',
           payload: {

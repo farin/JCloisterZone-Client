@@ -1,10 +1,13 @@
 <template>
   <section>
-    <span class="text">Choose one. Each player</span>
-    <v-btn large color="secondary" @click="select('DEPLOY')">may deploy</v-btn>
-    <span class="text">or</span>
-    <v-btn large color="secondary" @click="select('REMOVE')">must remove</v-btn>
-    <span class="text">meeple on/from {{ featureName }}.</span>
+    <template v-if="local">
+      <span class="text">Choose one. Each player</span>
+      <v-btn large color="secondary" @click="select('DEPLOY')">may deploy</v-btn>
+      <span class="text">or</span>
+      <v-btn large color="secondary" @click="select('REMOVE')">must remove</v-btn>
+      <span class="text">meeple on/from {{ featureName }}.</span>
+    </template>
+    <span v-else class="text">Player must choose: Each player may deploy or myst remove meeple on/from {{ featureName }}.</span>
   </section>
 </template>
 
@@ -16,7 +19,8 @@ export default {
   },
 
   props: {
-    action: { type: Object, required: true }
+    action: { type: Object, required: true },
+    local: { type: Boolean }
   },
 
   computed: {
@@ -39,10 +43,12 @@ export default {
 
   methods: {
     async select (value) {
-      await this.$store.dispatch('game/apply', {
-        type: 'CIRCLE_REMOVE_OR_DEPLOY',
-        payload: { value }
-      })
+      if (this.local) {
+        await this.$store.dispatch('game/apply', {
+          type: 'CIRCLE_REMOVE_OR_DEPLOY',
+          payload: { value }
+        })
+      }
     }
   }
 }

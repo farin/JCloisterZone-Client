@@ -1,15 +1,22 @@
 <template>
   <section>
-    <v-btn color="secondary" @click="confirm">
-      Confirm
-    </v-btn>
+    <template v-if="local">
+      <v-btn  color="secondary" @click="confirm">
+        Confirm
+      </v-btn>
+      your action.
+    </template>
+    <span v-else class="text">
+      Waiting for player confirmation.
+    </span>
   </section>
 </template>
 
 <script>
 export default {
   props: {
-    action: { type: Object, required: true }
+    action: { type: Object, required: true },
+    local: { type: Boolean }
   },
 
   mounted () {
@@ -22,10 +29,12 @@ export default {
 
   methods: {
     async confirm () {
-      await this.$store.dispatch('game/apply', {
-        type: 'COMMIT',
-        payload: {}
-      })
+      if (this.local) {
+        await this.$store.dispatch('game/apply', {
+          type: 'COMMIT',
+          payload: {}
+        })
+      }
     },
 
     onKeyDown (ev) {
@@ -36,3 +45,8 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+.v-btn
+  margin-right: 20px
+</style>

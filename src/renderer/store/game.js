@@ -327,7 +327,7 @@ export const actions = {
     commit('players', players)
     commit('board/resetZoom', null, { root: true })
 
-    console.log(state.setup)
+    console.log(state.setup, state.gameAnnotations)
 
     const loggingEnabled = rootState.settings.devMode
     const engine = this._vm.$engine.spawn({ loggingEnabled })
@@ -337,11 +337,14 @@ export const actions = {
     })
     engine.on('message', payload => {
       const lastMessageType = engine.lastMessage?.type
+      const local = rootState.networking.sessionId === state.players[payload?.action.player]?.sessionId
       let autoCommit = false
-      if (payload.phase === 'CommitActionPhase') {
-        autoCommit = !payload.undo || lastMessageType === 'PASS' || lastMessageType === 'EXCHANGE_FOLLOWER'
-      } else if (payload.phase === 'CommitAbbeyPassPhase') {
-        autoCommit = true
+      if (local) {
+        if (payload.phase === 'CommitActionPhase') {
+          autoCommit = !payload.undo || lastMessageType === 'PASS' || lastMessageType === 'EXCHANGE_FOLLOWER'
+        } else if (payload.phase === 'CommitAbbeyPassPhase') {
+          autoCommit = true
+        }
       }
       if (autoCommit) {
         dispatch('apply', { type: 'COMMIT', payload: {} })

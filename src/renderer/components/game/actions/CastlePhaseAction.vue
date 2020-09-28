@@ -1,6 +1,6 @@
 <template>
   <section>
-    <span class="text">You are allowed to place</span>
+    <span class="text">{{ local ? 'You are allowed to place' : 'Player is allowed to place' }}</span>
     <img src="~/assets/figures/castle.png" height="70">
     <slot />
   </section>
@@ -9,7 +9,8 @@
 <script>
 export default {
   props: {
-    action: { type: Object, required: true }
+    action: { type: Object, required: true },
+    local: { type: Boolean }
   },
 
   computed: {
@@ -50,13 +51,15 @@ export default {
     },
 
     async onSelect (option) {
-      await this.$store.dispatch('game/apply', {
-        type: 'PLACE_TOKEN',
-        payload: {
-          token: 'CASTLE',
-          pointer: option
-        }
-      })
+      if (this.local) {
+        await this.$store.dispatch('game/apply', {
+          type: 'PLACE_TOKEN',
+          payload: {
+            token: 'CASTLE',
+            pointer: option
+          }
+        })
+      }
     }
   }
 }
