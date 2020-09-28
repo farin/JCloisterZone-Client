@@ -1,14 +1,18 @@
 import { ENGINE_MESSAGES } from '@/constants/messages'
-import { reject } from 'lodash'
 
 export const state = () => ({
-  sessionId: null
+  sessionId: null,
+  connectionStatus: null
 })
 
 export const mutations = {
   sessionId (state, sessionId) {
     state.sessionId = sessionId
   },
+
+  connectionStatus (state, value) {
+    state.connectionStatus = value
+  }
 }
 
 export const actions = {
@@ -20,6 +24,7 @@ export const actions = {
   },
 
   async connect ({ commit, dispatch, rootState }, host) {
+    commit('connectionStatus', 'connecting')
     commit('gameSetup/clear', null, { root: true })
     const { $connection } = this._vm
     if (!host.match(/:\d+$/)) {
@@ -32,6 +37,7 @@ export const actions = {
           dispatch('game/handleEngineMessage', message, { root: true })
         } else if (type === 'WELCOME') {
           commit('sessionId', payload.sessionId)
+          commit('connectionStatus', 'connected')
           resolve()
         } else if (type === 'SLOT') {
           dispatch('gameSetup/handleSlotMessage', payload, { root: true })
@@ -47,7 +53,10 @@ export const actions = {
           console.error(`Unhandled message ${type}`)
         }
       }
-      $connection.connect(host, onMessage).catch(err => reject(err))
+      const onClose = () => {
+        commit('connectionStatus', 'closed')
+      }
+      $connection.connect(host, { onMessage, onClose }).catch(err => reject(err))
     })
   },
 

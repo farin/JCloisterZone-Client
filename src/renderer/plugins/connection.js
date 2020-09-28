@@ -17,7 +17,7 @@ class ConnectionPlugin {
   }
 
   // TODO use emitter instead callback
-  async connect (host, onMessage) {
+  async connect (host, { onMessage, onClose }) {
     let fulfilled = false
     return new Promise((resolve, reject) => {
       this.ws = new WebSocket('ws://' + host)
@@ -43,6 +43,7 @@ class ConnectionPlugin {
         console.log(`%c client %c websocket error ${e.message}`, CONSOLE_CLIENT_COLOR, '')
         this.ws = null
         reject(e)
+        onClose()
       })
 
       this.ws.addEventListener('message', ev => {
@@ -72,6 +73,7 @@ class ConnectionPlugin {
         if (!fulfilled) {
           reject(ev)
         }
+        onClose()
       })
     })
   }

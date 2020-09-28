@@ -91,14 +91,14 @@ export default {
   },
 
   mounted () {
-    this.$connection.on('close', this._onClose = () => {
-      // TODO print message instea
-      this.$router.push('/')
-    })
+    // this.$connection.on('close', this._onClose = () => {
+    //   // TODO print message instea
+    //   this.$router.push('/')
+    // })
   },
 
   beforeDestroy () {
-    this._onClose && this.$connection.off('close', this._onClose)
+    //this._onClose && this.$connection.off('close', this._onClose)
     this.$store.dispatch('game/close')
   }
 }

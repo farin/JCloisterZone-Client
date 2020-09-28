@@ -3,15 +3,20 @@
     class="action-panel"
     @click.right="onRightClick"
   >
+    <div v-if="notifyConnectionClosed" class="flex-grow-1">
+      <v-alert type="error">
+        Host terminated the game. Connection was closed.
+      </v-alert>
+    </div>
     <PointsExpression
-      v-if="pointsExpression"
+      v-else-if="pointsExpression"
       :expr="pointsExpression"
     />
     <!-- use v-show bit v-if for pointsExoression - to not hide related layers when pointExpression is triggered by mouse hover  -->
     <component
       :is="actionComponent"
       v-if="action"
-      v-show="!pointsExpression"
+      v-show="!pointsExpression && !notifyConnectionClosed"
       :action="action"
       :phase="phase"
       :local="local"
@@ -106,8 +111,13 @@ export default {
 
   computed: {
     ...mapState({
+      connectionState: state => state.networking.connectionStatus,
       pointsExpression: state => state.board.pointsExpression
     }),
+
+    notifyConnectionClosed () {
+      return this.connectionState === 'closed' && this.phase !== 'GameOverPhase'
+    },
 
     local () {
       if (!this.action) {
