@@ -40,13 +40,10 @@ export const actions = {
           commit('connectionStatus', 'connected')
           resolve()
         } else if (type === 'SLOT') {
-          dispatch('gameSetup/handleSlotMessage', payload, { root: true })
+          dispatch('game/handleSlotMessage', payload, { root: true })
         } else if (type === 'START') {
           dispatch('game/handleStartMessage', payload, { root: true })
         } else if (type === 'GAME') {
-          payload.slots.forEach(slot => {
-            dispatch('gameSetup/handleSlotMessage', slot, { root: true })
-          })
           dispatch('game/handleGameMessage', payload, { root: true })
         } else {
           console.error(payload)

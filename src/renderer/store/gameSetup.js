@@ -24,7 +24,7 @@ function getModifiedDefaults (before, after) {
 function getEmptySlots () {
   const slots = []
   for (let i = 0; i < 9; i++) {
-    slots.push({ number: i })
+    slots.push({ number: i, clientId: null, sessionId: null, name: null })
   }
   return slots
 }
@@ -35,7 +35,6 @@ export const state = () => ({
   rules: getDefaultRules(),
   start: null,
   timer: null,
-  slots: getEmptySlots(),
   gameAnnotations: {}
 })
 
@@ -46,7 +45,6 @@ export const mutations = {
     state.rules = getDefaultRules()
     state.start = null
     state.timer = null
-    state.slots = getEmptySlots()
     state.gameAnnotations = {}
   },
 
@@ -56,7 +54,6 @@ export const mutations = {
     state.rules = setup.rules
     state.start = setup.start
     state.timer = setup.timer
-    state.slots = getEmptySlots()
     state.gameAnnotations = {}
   },
 
@@ -86,14 +83,6 @@ export const mutations = {
 
   timer (state, value) {
     state.timer = value
-  },
-
-  slot (state, slot) {
-    Vue.set(state.slots, slot.number, slot)
-  },
-
-  slots (state, slots) {
-    state.slots = slots
   },
 
   startingTiles (state, id) {
@@ -178,21 +167,9 @@ export const actions = {
     dispatch('networking/startServer', {
       gameId: uuidv4(),
       setup,
+      slots: getEmptySlots(),
       gameAnnotations: state.gameAnnotations
     }, { root: true })
-  },
-
-  handleSlotMessage ({ state, commit }, payload) {
-    if (!payload.sessionId) {
-      const order = state.slots[payload.number].order
-      for (let i = 0; i < state.slots.length; i++) {
-        const slot = state.slots[i]
-        if (slot.order > order) {
-          commit('slot', { ...slot, order: slot.order - 1 })
-        }
-      }
-    }
-    commit('slot', payload)
   }
 }
 

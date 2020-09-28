@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import Vue from 'vue'
 
 import camelCase from 'lodash/camelCase'
-import groupBy from 'lodash/groupBy'
 
 import { randomLong } from '@/utils/random'
 import { ENGINE_MESSAGES } from '@/constants/messages'
@@ -20,11 +19,12 @@ export class GameServer {
       initialSeed: game.initialSeed || randomLong().toString(),
       replay: game.replay || [],
       gameAnnotations: game.gameAnnotations || {},
-      slots: [],
+      slots: game.slots,
       owner: null // owner session
       // clockStart: 0,
     }
-    this.status = 'OPEN'
+    this.order = 1
+    this.status = game.replay ? 'loaded' : 'new'
     this.ownerClientId = clientId
     this.wss = null
     this.clients = null
@@ -36,7 +36,7 @@ export class GameServer {
       this.wss = new WebSocket.Server({
         port
       }, () => {
-        console.log('%c embedded server %c started', CONSOLE_SERVER_COLOR, '')
+        console.log(`%c embedded server %c started (${this.status} game)`, CONSOLE_SERVER_COLOR, '')
         resolve()
       })
       this.wss.on('connection', ws => this.onConnection(ws))
@@ -62,13 +62,13 @@ export class GameServer {
     ws.on('message', async data => {
       const { type, payload } = JSON.parse(data)
       if (ENGINE_MESSAGES.has(type)) {
-        if (this.status !== 'STARTED') {
+        if (this.status !== 'running') {
           ws.send(JSON.stringify({type: 'ERR', payload: 'Game is not started'}))
           return
         }
         this.handleEngineMessage(ws, type, payload)
       } else {
-        if (this.status !== 'OPEN') {
+        if (this.status !== 'new' && this.status !== 'loaded') {
           await this.send(ws, {type: 'ERR', payload: 'Game is not open'})
           return
         }
@@ -100,17 +100,15 @@ export class GameServer {
         this.clients.splice(idx, 1)
       }
 
-      const groupped = groupBy(this.game.slots, s => s.sessionId === ws.sessionId)
-      console.log(groupped)
-      if (groupped.true) {
-        groupped.true.forEach(slot => {
-          this.broadcast({
-            type: 'SLOT',
-            payload: { number: slot.number },
-          })
+      const clientSlots = this.game.slots.filter(s => s.sessionId === ws.sessionId)
+      clientSlots.forEach(slot => {
+        slot.sessionId = null
+        slot.clientId = null
+        this.broadcast({
+          type: 'SLOT',
+          payload: slot,
         })
-        this.game.slots = groupped.false || []
-      }
+      })
     })
   }
 
@@ -167,35 +165,46 @@ export class GameServer {
       type: 'GAME',
       payload: this.game
     })
-    this.game.slots.forEach(slot => {
-      this.send(ws, {
-        type: 'SLOT',
-        payload: slot,
-      })
-    })
   }
 
   async handleTakeSlot (ws, { number, name }) {
-    const slot = {
-      number,
-      name: name || ws.name || '',
-      order: this.game.slots.length + 1,
-      sessionId: ws.sessionId,
-      clientId: ws.clientId
+    const slot = this.game.slots.find(s => s.number === number)
+    if (!slot) {
+      this.send(ws, { type: 'ERR', code: 'bad-slot', message: "Slot doesn't exist" })
+      return
     }
-    this.game.slots.push(slot)
+    if (slot.sessionId) {
+      this.send(ws, { type: 'ERR', code: 'slot-occupied', message: "Slot is occupied" })
+      return
+    }
+
+    if (this.status === 'new') {
+      slot.name = name || ws.name || ''
+      slot.order = this.order++
+    }
+    slot.sessionId = ws.sessionId
+    slot.clientId = ws.clientId
     this.broadcast({
       type: 'SLOT',
-      payload: slot,
+      payload: slot
     })
   }
 
   async handleUpdateSlot (ws, { number, name }) {
     const slot = this.game.slots.find(s => s.number === number)
-    if (slot.sessionId !== ws.sessionId) {
-      ws.send(JSON.stringify({type: 'ERR', code: 'slot-owner', message: 'Slot is not assigned to your session'}))
+    if (!slot) {
+      this.send(ws, { type: 'ERR', code: 'bad-slot', message: "Slot doesn't exist" })
       return
     }
+    if (slot.sessionId !== ws.sessionId) {
+      this.send(ws, {type: 'ERR', code: 'slot-owner', message: 'Slot is not assigned to your session'})
+      return
+    }
+    if (this.status === 'new') {
+      this.send(ws, {type: 'ERR', code: 'slot-reaonlyr', message: "Can't update slot"})
+      return
+    }
+
     slot.name = name
     this.broadcast({
       type: 'SLOT',
@@ -206,25 +215,34 @@ export class GameServer {
   handleLeaveSlot (ws, { number }) {
     const idx = this.game.slots.findIndex(s => s.number === number)
     const slot = this.game.slots[idx]
+    if (!slot) {
+      this.send(ws, { type: 'ERR', code: 'bad-slot', message: "Slot doesn't exist" })
+      return
+    }
     if (slot.sessionId !== ws.sessionId) {
-      ws.send(JSON.stringify({type: 'ERR', code: 'slot-owner', message: 'Slot is not assigned to your session'}))
+      this.send(ws, { type: 'ERR', code: 'slot-owner', message: 'Slot is not assigned to your session' })
       return
     }
     if (idx !== -1) {
-      this.game.slots.splice(idx, 1)
+      if (this.status === 'new') {
+        slot.name = null
+        slot.order = null
+      }
+      slot.sessionId = null
+      slot.clientId = null
       this.broadcast({
         type: 'SLOT',
-        payload: { number },
+        payload: slot,
       })
     }
   }
 
   handleStart (ws) {
     if (this.game.owner !== ws.sessionId) {
-      ws.send(JSON.stringify({type: 'ERR', code: 'game-owner', message: 'Not a game owner'}))
+      this.send(ws, { type: 'ERR', code: 'game-owner', message: 'Not a game owner' })
       return
     }
-    this.status = 'STARTED'
+    this.status = 'running'
     this.broadcast({
       type: 'START',
       payload: {}

@@ -20,6 +20,7 @@ export const state = () => ({
   id: null,
   owner: null,
   setup: null,
+  slots: null,
   players: null,
   tilePack: null,
   placedTiles: null,
@@ -33,7 +34,7 @@ export const state = () => ({
   history: null,
   undo: false,
   initialSeed: null,
-  gameMessages: [],
+  gameMessages: null,
   gameAnnotations: {},
   testScenario: null,
   testScenarioResult: null
@@ -44,6 +45,7 @@ export const mutations = {
     state.id = null
     state.owner = null,
     state.setup = null
+    state.slots = null,
     state.players = null
     state.tilePack = null
     state.placedTiles = null
@@ -57,7 +59,7 @@ export const mutations = {
     state.history = null
     state.undo = false
     state.initialSeed = null
-    state.gameMessages = []
+    state.gameMessages = null
     state.gameAnnotations = {}
     state.testScenario = null
     state.testScenarioResult = null
@@ -73,6 +75,15 @@ export const mutations = {
 
   setup (state, value) {
     state.setup = value
+  },
+
+  slot (state, slot) {
+    const idx = state.slots.findIndex(s => s.number === slot.number)
+    Vue.set(state.slots, idx, slot)
+  },
+
+  slots (state, slots) {
+    state.slots = slots
   },
 
   players (state, players) {
@@ -216,7 +227,11 @@ export const actions = {
           created: (new Date()).toISOString(),
           clock: null,
           setup: state.setup,
-          players: state.players.map(p => ({ name: p.name, slot: p.slot })),
+          players: state.players.map(p => ({
+            name: p.name,
+            slot: p.slot,
+            clientId: p.clientId
+          })),
           replay: state.gameMessages
         }
 
@@ -263,7 +278,8 @@ export const actions = {
           return {
             number: p.slot,
             name: p.name,
-            state: 'local',
+            clientId: p.clientId,
+            sessionId: null,
             order: i + 1
           }
         })
@@ -277,6 +293,7 @@ export const actions = {
         setup: sg.setup,
         initialSeed: sg.initialSeed,
         gameAnnotations: sg.gameAnnotations || {},
+        slots: slots,
         replay: sg.replay,
       }, { root: true })
 
@@ -305,10 +322,31 @@ export const actions = {
     commit('clear')
     commit('id', payload.gameId)
     commit('setup', payload.setup)
+    commit('slots', payload.slots)
     commit('initialSeed', payload.initialSeed)
     commit('gameAnnotations', payload.gameAnnotations)
     commit('gameMessages', payload.replay)
     commit('owner', payload.owner)
+  },
+
+  handleSlotMessage ({ state, commit }, payload) {
+    if (state.gameMessages === null) {
+      if (payload.sessionId) {
+        const order = state.slots.filter(s => s.sessionId).length + 1
+        commit('slot', { ...payload, order })
+      } else {
+        const order = state.slots.find(s => s.number === payload.number).order
+        for (let i = 0; i < state.slots.length; i++) {
+          const slot = state.slots[i]
+          if (slot.sessionId && slot.order > order) {
+            commit('slot', { ...slot, order: slot.order - 1 })
+          }
+        }
+        commit('slot', payload)
+      }
+    } else {
+      commit('slot', payload)
+    }
   },
 
   async start () {
@@ -317,7 +355,7 @@ export const actions = {
   },
 
   async handleStartMessage ({ state, commit, dispatch, rootState }) {
-    const players = rootState.gameSetup.slots.filter(s => s.sessionId).map(s => ({ ...s }))
+    const players = state.slots.filter(s => s.sessionId).map(s => ({ ...s }))
     players.sort((a, b) => a.order - b.order)
     players.forEach(s => {
       s.slot = s.number
@@ -356,7 +394,7 @@ export const actions = {
       }
     })
 
-    if (state.gameMessages.length) {
+    if (state.gameMessages?.length) {
       engine.writeDirective('%bulk on')
     }
 
@@ -388,11 +426,15 @@ export const actions = {
         gameAnnotations: annotations
       }
     })
-    if (state.gameMessages.length) {
+    if (state.gameMessages?.length) {
       for (const msg of state.gameMessages) {
         await engine.writeMessage(msg)
       }
       engine.writeDirective('%bulk off')
+    }
+
+    if (state.gameMessages === null) {
+      commit('gameMessages', [])
     }
   },
 

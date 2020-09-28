@@ -4,7 +4,7 @@
       <template v-if="isOwner">
         <HeaderGameButton
           title="Start"
-          :info="slotsAssigned ? null : 'No players added'"
+          :info="slotsAssigned ? null : (readOnly ? 'Unassigned players' : 'No player in game')"
           @click="startGame"
         />
       </template>
@@ -27,6 +27,7 @@
           :owner="slot.sessionId"
           :name="slot.name"
           :order="slot.order"
+          :readOnly="readOnly"
         />
       </div>
     </template>
@@ -60,8 +61,9 @@ export default {
       gameId: state => state.game.id,
       sets: state => state.game.setup?.sets,
       elements: state => state.game.setup?.elements,
-      slots: state => state.gameSetup.slots,
-      isOwner: state => state.game.owner === state.networking.sessionId
+      slots: state => state.game.slots,
+      isOwner: state => state.game.owner === state.networking.sessionId,
+      readOnly: state => state.game.gameMessages !== null
     }),
 
     ...mapGetters({
@@ -72,7 +74,11 @@ export default {
     }),
 
     slotsAssigned () {
-      return !!this.slots.find(slot => slot.sessionId)
+      if (this.readOnly) {
+        return !this.slots.find(slot => !slot.sessionId)
+      } else {
+        return !!this.slots.find(slot => slot.sessionId)
+      }
     }
   },
 

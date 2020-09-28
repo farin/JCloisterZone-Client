@@ -1,5 +1,5 @@
 <template>
-  <div :class="`player-slot color-${number} ${slotState}`" @click="toggle">
+  <div :class="`player-slot color-${number} ${slotState} ${readOnly ? '' : 'editable'}`" @click="toggle">
     <div
       v-if="order !== null"
       :class="`order order-${order}`"
@@ -14,27 +14,27 @@
       <template v-if="slotState === 'local'">local player</template>
       <template v-if="slotState === 'remote'">remote player</template>
     </div>
-    <div 
+    <div
       v-if="slotState === 'local'"
       class="name"
       @click.stop="openEdit"
-    >      
+    >
       {{ name }}
-      <v-icon v-if="slotState === 'local'">fas fa-pencil-alt</v-icon>
+      <v-icon v-if="slotState === 'local' && !readOnly">fas fa-pencil-alt</v-icon>
     </div>
     <div v-else class="name">
-      <template v-if="slotState === 'open'">click to assign</template>      
-      <template v-else>{{ name}}</template>
+      <template v-if="slotState === 'open' && !readOnly">click to assign</template>
+      <template v-else>{{ name }}</template>
     </div>
 
-    <v-dialog v-model="edit" max-width="600px">      
+    <v-dialog v-model="edit" max-width="600px">
       <v-card>
         <v-card-title>
           <span class="headline">Rename Player</span>
         </v-card-title>
         <v-card-text>
           <v-container>
-              <v-text-field label="Name" v-model="editName"></v-text-field>              
+              <v-text-field label="Name" v-model="editName"></v-text-field>
           </v-container>
         </v-card-text>
         <v-card-actions>
@@ -58,11 +58,12 @@ export default {
     number: { type: Number, required: true },
     owner: { type: String, default: null },
     name: { type: String, default: null },
-    order: { type: Number, default: null }
+    order: { type: Number, default: null },
+    readOnly: { type: Boolean }
   },
 
   data () {
-    return { 
+    return {
       MEEPLES_SVG,
       edit: false,
       editName: null
@@ -85,19 +86,21 @@ export default {
   methods: {
     toggle () {
       const { number } = this
-      if (this.slotState === 'local') {        
-        this.$store.dispatch('gameSetup/releaseSlot', { number })                
+      if (this.slotState === 'local') {
+        this.$store.dispatch('gameSetup/releaseSlot', { number })
       } else if (this.slotState === 'open') {
         this.$store.dispatch('gameSetup/takeSlot', { number })
-      }      
+      }
     },
 
     openEdit () {
-      this.editName = this.name
-      this.edit = true
+      if (!this.readOnly) {
+        this.editName = this.name
+        this.edit = true
+      }
     },
 
-    rename () {          
+    rename () {
       if (this.editName !== this.name) {
         this.$store.dispatch('gameSetup/renameSlot', { number: this.number, name: this.editName })
       }
@@ -157,7 +160,7 @@ export default {
     &:hover i
       visibility: visible
 
-  &.open
+  &.open.editable
     .name
       font-size: 16px
       font-style: italic
@@ -168,11 +171,15 @@ export default {
     cursor: pointer
 
   &.local, &.remote
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)  
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)
 
   &.local
     background: $selection-bg
 
-  &.remote      
+  &.remote
     background: #ccc
+
+  &.open
+    .order
+      color: #ccc
 </style>

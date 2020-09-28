@@ -48,6 +48,7 @@ class ConnectionPlugin {
 
       this.ws.addEventListener('message', ev => {
         const msg = JSON.parse(ev.data)
+        console.debug(msg)
         // console.debug(`%c client %c received ${msg.type}`, CONSOLE_CLIENT_COLOR, '')
         if (msg.type === 'ERR') {
           if (!fulfilled) {
