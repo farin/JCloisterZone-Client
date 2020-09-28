@@ -6,6 +6,7 @@
     <v-btn
       v-for="opt in options"
       :key="opt.id"
+      :disabled="!local"
       large
       @click="exchange(opt.id)"
     >

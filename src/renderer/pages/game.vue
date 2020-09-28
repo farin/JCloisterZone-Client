@@ -91,11 +91,14 @@ export default {
   },
 
   mounted () {
-    // window.addEventListener('keydown', this.onKeyDown)
+    this.$connection.on('close', this._onClose = () => {
+      // TODO print message instea
+      this.$router.push('/')
+    })
   },
 
   beforeDestroy () {
-    // window.removeEventListener('keydown', this.onKeyDown)
+    this._onClose && this.$connection.off('close', this._onClose)
     this.$store.dispatch('game/close')
   }
 }

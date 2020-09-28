@@ -4,7 +4,9 @@
       <v-btn  color="secondary" @click="confirm">
         Confirm
       </v-btn>
-      your action.
+      <span class="text">
+        your action
+      </span>
     </template>
     <span v-else class="text">
       Waiting for player confirmation.
