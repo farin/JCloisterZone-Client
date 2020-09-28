@@ -89,7 +89,7 @@ export default {
 
   methods: {
     async createGame () {
-      await this.$store.dispatch('gameSetup/createGame')
+      await this.$store.dispatch('gameSetup/createGame')      
       this.$router.push('/open-game')
     },
 

@@ -11,6 +11,9 @@ module.exports = {
   loading: false,
   plugins: [
     // '~/plugins/portal-vue',
+    '~/plugins/engine',
+    '~/plugins/server',
+    '~/plugins/connection',
     '~/plugins/tiles',
     '~/plugins/theme',
     { ssr: true, src: '@/plugins/icons.js' }

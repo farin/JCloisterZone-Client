@@ -1,15 +1,11 @@
 import fs from 'fs'
-import path from 'path'
-import { kill } from 'process'
 import { remote } from 'electron'
 
-import debounce from 'lodash/debounce'
 import difference from 'lodash/difference'
 import range from 'lodash/range'
 import zip from 'lodash/zip'
 import Vue from 'vue'
 
-import { randomLong } from '@/utils/random'
 import { isSameFeature } from '@/utils/gameUtils'
 import { verifyScenario } from '@/utils/testing'
 
@@ -17,10 +13,12 @@ const { app } = remote
 
 const SAVED_GAME_FILTERS = [{ name: 'Saved Game', extensions: ['jcz'] }]
 
-const openGames = {}
-
+// chiild process can't be part of store itself, because it's internals are mutated be own
+// causing Error: [vuex] do not mutate vuex store state outside mutation handlers
+// theme $engine is used instead to store engine instance
 export const state = () => ({
-  enginePid: null,
+  id: null,
+  owner: null,
   setup: null,
   players: null,
   tilePack: null,
@@ -43,7 +41,8 @@ export const state = () => ({
 
 export const mutations = {
   clear (state) {
-    state.enginePid = null
+    state.id = null
+    state.owner = null,
     state.setup = null
     state.players = null
     state.tilePack = null
@@ -64,8 +63,12 @@ export const mutations = {
     state.testScenarioResult = null
   },
 
-  enginePid (state, value) {
-    state.enginePid = value
+  id (state, value) {
+    state.id = value
+  },
+
+  owner (state, value) {
+  state.owner = value
   },
 
   setup (state, value) {
@@ -164,21 +167,6 @@ export const getters = {
     return !currentTurn.events.find(ev => ev.type === 'ransom-paid')
   },
 
-  // lastEvent: state => {
-  //   if (!state.history) {
-  //     return null
-  //   }
-  //   let idx = state.history.length - 1
-  //   while (idx >= 0) {
-  //     const h = state.history[idx]
-  //     if (h.events.length) {
-  //       return h.events[h.events.length - 1]
-  //     }
-  //     idx--
-  //   }
-  //   return null
-  // },
-
   currentTurnLastEvent: state => {
     if (!state.history || state.history.length === 0) {
       return null
@@ -209,25 +197,7 @@ export const getters = {
   }
 }
 
-const writeMessage = async (pid, message, log) => {
-  const openGame = openGames[pid]
-  if (log) {
-    console.groupCollapsed(message.type)
-    console.log(message.payload)
-    console.groupEnd()
-  }
-
-  openGame.lastMessage = message
-  await openGame.engine.write(JSON.stringify(message))
-}
-
 export const actions = {
-  create ({ commit }) {
-    commit('clear')
-    commit('gameMessages', [])
-    commit('gameSetup/clear', null, { root: true })
-  },
-
   async save ({ state, dispatch }) {
     return new Promise(async (resolve, reject) => {
       const { dialog } = remote
@@ -240,7 +210,7 @@ export const actions = {
         const version = process.env.NODE_ENV === 'development' ? process.env.npm_package_version : app.getVersion()
         const content = {
           appVersion: version,
-          gameId: '1',
+          gameId: state.id,
           name: '',
           initialSeed: state.initialSeed,
           created: (new Date()).toISOString(),
@@ -302,22 +272,26 @@ export const actions = {
         return
       }
 
-      commit('clear')
-      commit('setup', sg.setup)
-      commit('initialSeed', sg.initialSeed)
-      commit('gameAnnotations', sg.gameAnnotations || {})
-      commit('gameMessages', sg.replay)
-      commit('gameSetup/slots', slots, { root: true })
+      dispatch('networking/startServer', {
+        gameId: sg.gameId,
+        setup: sg.setup,
+        initialSeed: sg.initialSeed,
+        gameAnnotations: sg.gameAnnotations || {},
+        replay: sg.replay,
+      }, { root: true })
+
+      // TOOO trigger slot messages
+      // commit('gameSetup/slots', slots, { root: true })
       if (sg.test) {
         commit('testScenario', sg.test)
 
-        const players = slots.map(s => ({ ...s }))
-        players.forEach(s => {
-          s.slot = s.number
-          delete s.number
-          delete s.order
-        })
-        commit('game/players', players, { root: true })
+        // const players = slots.map(s => ({ ...s }))
+        // players.forEach(s => {
+        //   s.slot = s.number
+        //   delete s.number
+        //   delete s.order
+        // })
+        // commit('game/players', players, { root: true })
         dispatch('game/start', null, { root: true })
       }
       Vue.nextTick(() => {
@@ -327,42 +301,50 @@ export const actions = {
     })
   },
 
-  async start ({ state, commit, dispatch, rootState }) {
-    if (!state.initialSeed) {
-      commit('initialSeed', randomLong().toString())
-    }
+  async handleGameMessage ({ commit }, payload) {
+    commit('clear')
+    commit('id', payload.gameId)
+    commit('setup', payload.setup)
+    commit('initialSeed', payload.initialSeed)
+    commit('gameAnnotations', payload.gameAnnotations)
+    commit('gameMessages', payload.replay)
+    commit('owner', payload.owner)
+  },
 
+  async start () {
+    const { $connection } = this._vm
+    $connection.send({ type: 'START'})
+  },
+
+  async handleStartMessage ({ state, commit, dispatch, rootState }) {
+    const players = rootState.gameSetup.slots.filter(s => s.sessionId).map(s => ({ ...s }))
+    players.sort((a, b) => a.order - b.order)
+    players.forEach(s => {
+      s.slot = s.number
+      delete s.number
+      delete s.order
+    })
+    commit('players', players)
     commit('board/resetZoom', null, { root: true })
 
-    console.log(state.setup)
-    console.log('seed is ' + state.initialSeed)
+    console.log(state.setup, state.gameAnnotations)
 
-    const engine = await dispatch('spawnEngine', null, { root: true })
-
-    openGames[engine.pid] = { engine, lastMessage: null }
-    commit('enginePid', engine.pid)
-
+    const loggingEnabled = rootState.settings.devMode
+    const engine = this._vm.$engine.spawn({ loggingEnabled })
     engine.on('error', data => {
+      const { dialog } = remote
       dialog.showErrorBox('Engine error', data)
     })
-
-    engine.on('exit', ev => {
-      delete openGames[engine.pid]
-      commit('enginePid', null)
-    })
-
     engine.on('message', payload => {
-      if (rootState.settings.devMode) {
-        console.debug(payload)
-      }
-
-      const { lastMessage } = openGames[engine.pid]
-      const lastMessageType = lastMessage ? lastMessage.type : null
+      const lastMessageType = engine.lastMessage?.type
+      const local = rootState.networking.sessionId === state.players[payload?.action.player]?.sessionId
       let autoCommit = false
-      if (payload.phase === 'CommitActionPhase') {
-        autoCommit = !payload.undo || lastMessageType === 'PASS' || lastMessageType === 'EXCHANGE_FOLLOWER'
-      } else if (payload.phase === 'CommitAbbeyPassPhase') {
-        autoCommit = true
+      if (local) {
+        if (payload.phase === 'CommitActionPhase') {
+          autoCommit = !payload.undo || lastMessageType === 'PASS' || lastMessageType === 'EXCHANGE_FOLLOWER'
+        } else if (payload.phase === 'CommitAbbeyPassPhase') {
+          autoCommit = true
+        }
       }
       if (autoCommit) {
         dispatch('apply', { type: 'COMMIT', payload: {} })
@@ -374,9 +356,8 @@ export const actions = {
       }
     })
 
-
     if (state.gameMessages.length) {
-      engine.write('%bulk on')
+      engine.writeDirective('%bulk on')
     }
 
     let annotations = {}
@@ -398,44 +379,38 @@ export const actions = {
       }
     }
 
-    await writeMessage(engine.pid, {
+    await engine.writeMessage({
       type: 'GAME_SETUP',
       payload: {
         ...state.setup,
-        players: state.players.length,
+        players: players.length,
         initialSeed: state.initialSeed,
         gameAnnotations: annotations
       }
-    }, rootState.settings.devMode)
+    })
     if (state.gameMessages.length) {
       for (const msg of state.gameMessages) {
-        await writeMessage(engine.pid, msg, rootState.settings.devMode)
+        await engine.writeMessage(msg)
       }
-      engine.write('%bulk off')
+      engine.writeDirective('%bulk off')
     }
   },
 
-  close ({ state, commit }) {
-    if (state.enginePid) {
-      console.log(`Sending TERM to game engine ${state.enginePid}`)
-      kill(state.enginePid)
-      commit('enginePid', null)
-      delete openGames[state.engineProcess]
-    }
+  close ({ dispatch }) {
+    console.log("Game close requested")
+    const { $engine } = this._vm
+    dispatch('networking/close', null, { root: true })
+    $engine.kill()
   },
 
-  async apply ({ state, commit, rootState }, message) {
-    const salted = ['COMMIT', 'FLOCK_EXPAND_OR_SCORE'].includes(message.type) || (message.type === 'DEPLOY_MEEPLE' && message.payload.pointer.location === 'FLYING_MACHINE')
-    if (salted) {
-      message = {
-        ...message,
-        payload: {
-          ...message.payload,
-          salt: randomLong().toString()
-        }
-      }
-    }
-    await writeMessage(state.enginePid, message, rootState.settings.devMode)
+  async apply (ctx, message) {
+    const { $connection } = this._vm
+    $connection.send(message)
+  },
+
+  async handleEngineMessage ({ commit }, message) {
+    const engine = this._vm.$engine.get()
+    await engine.writeMessage(message)
     commit('appendMessage', message)
   },
 

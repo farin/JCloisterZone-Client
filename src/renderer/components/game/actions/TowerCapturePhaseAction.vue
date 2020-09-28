@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="text">
-      Take a prisoner
+      {{ local ? 'Take a prisoner' : 'Player can take a prisoner' }}
     </div>
   </section>
 </template>
@@ -13,7 +13,8 @@ export default {
   mixins: [SingleMeepleSelectMixin],
 
   props: {
-    action: { type: Object, required: true }
+    action: { type: Object, required: true },
+    local: { type: Boolean }
   },
 
   methods: {

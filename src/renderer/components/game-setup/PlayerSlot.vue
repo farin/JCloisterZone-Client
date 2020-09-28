@@ -1,5 +1,5 @@
 <template>
-  <div :class="`player-slot color-${number} ${state}`" @click="toggle">
+  <div :class="`player-slot color-${number} ${slotState}`" @click="toggle">
     <div
       v-if="order !== null"
       :class="`order order-${order}`"
@@ -10,45 +10,98 @@
       <use :href="`${MEEPLES_SVG}#small-follower`" />
     </svg>
     <div class="state">
-      <template v-if="state === 'open'">open slot</template>
-      <template v-if="state === 'local'">local player</template>
+      <template v-if="slotState === 'open'">open slot</template>
+      <template v-if="slotState === 'local'">local player</template>
+      <template v-if="slotState === 'remote'">remote player</template>
     </div>
-    <div class="name">
-      <template v-if="state === 'open'">click to assign</template>
-      <template v-else>{{ name }}</template>
+    <div 
+      v-if="slotState === 'local'"
+      class="name"
+      @click.stop="openEdit"
+    >      
+      {{ name }}
+      <v-icon v-if="slotState === 'local'">fas fa-pencil-alt</v-icon>
     </div>
+    <div v-else class="name">
+      <template v-if="slotState === 'open'">click to assign</template>      
+      <template v-else>{{ name}}</template>
+    </div>
+
+    <v-dialog v-model="edit" max-width="600px">      
+      <v-card>
+        <v-card-title>
+          <span class="headline">Rename Player</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+              <v-text-field label="Name" v-model="editName"></v-text-field>              
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn text @click="edit = false">Cancel</v-btn>
+          <v-btn text @click="rename()">Confirm</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import sample from 'lodash/sample'
+import { mapState } from 'vuex'
 
 const MEEPLES_SVG = require('~/assets/meeples.svg')
 
 export default {
   props: {
     number: { type: Number, required: true },
-    state: { type: String, required: true },
+    owner: { type: String, default: null },
     name: { type: String, default: null },
     order: { type: Number, default: null }
   },
 
   data () {
-    return { MEEPLES_SVG }
+    return { 
+      MEEPLES_SVG,
+      edit: false,
+      editName: null
+    }
+  },
+
+  computed: {
+    ...mapState({
+      sessionId: state => state.networking.sessionId
+    }),
+
+    slotState () {
+      if (this.owner === this.sessionId) {
+        return 'local'
+      }
+      return this.owner ? 'remote' : 'open'
+    }
   },
 
   methods: {
     toggle () {
       const { number } = this
-      if (this.state === 'open') {
-        this.$store.dispatch('gameSetup/takeSlot', {
-          number,
-          name: sample(['Alice', 'Bob', 'Carol', 'David', 'Eve', 'Frank', 'Grace', 'Oscar', 'Wendy'])
-        })
+      if (this.slotState === 'local') {        
+        this.$store.dispatch('gameSetup/releaseSlot', { number })                
+      } else if (this.slotState === 'open') {
+        this.$store.dispatch('gameSetup/takeSlot', { number })
+      }      
+    },
+
+    openEdit () {
+      this.editName = this.name
+      this.edit = true
+    },
+
+    rename () {          
+      if (this.editName !== this.name) {
+        this.$store.dispatch('gameSetup/renameSlot', { number: this.number, name: this.editName })
       }
-      if (this.state === 'local') {
-        this.$store.dispatch('gameSetup/releaseSlot', { number })
-      }
+      this.edit = false
     }
   }
 }
@@ -73,6 +126,7 @@ export default {
     font-size: 224px
     font-weight: 900
     opacity: 0.4
+    z-index: 1
 
   .order-1
     right: -48px
@@ -93,6 +147,15 @@ export default {
   .name
     font-size: 24px
     height: 36px
+    width: 100%
+    text-align: center
+    z-index: 2
+
+    i
+      visibility: hidden
+
+    &:hover i
+      visibility: visible
 
   &.open
     .name
@@ -104,7 +167,12 @@ export default {
   &.open, &.local
     cursor: pointer
 
+  &.local, &.remote
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)  
+
   &.local
     background: $selection-bg
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)
+
+  &.remote      
+    background: #ccc
 </style>

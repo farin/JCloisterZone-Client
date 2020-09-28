@@ -23,16 +23,16 @@
       <rect
         v-else
         :x="60" :y="60" width="880" height="880"
-        :style="{stroke: '#c0c0c0', strokeWidth: 70, fill: 'none'}"
+        :style="{stroke: local ? '#c0c0c0' : '#e0e0e0', strokeWidth: 70, fill: 'none'}"
       />
 
       <!-- invisible rect for tracking mouse events -->
       <rect
         :x="0" :y="0" width="1000" height="1000"
         :style="{'pointer-events': 'all', fill: 'none'}"
-        @mouseenter="onMouseOver(pos)"
-        @mouseleave="onMouseLeave(pos)"
-        @click="ev => onClick(ev, rotations, pos)"
+        @mouseenter="local && onMouseOver(pos)"
+        @mouseleave="local && onMouseLeave(pos)"
+        @click="ev => local && onClick(ev, rotations, pos)"
       />
     </g>
   </g>
@@ -52,7 +52,8 @@ export default {
   props: {
     tileId: { type: String, required: true },
     rotation: { type: Number, required: true },
-    options: { type: Array, required: true }
+    options: { type: Array, required: true },
+    local: { type: Boolean }
   },
 
   data () {

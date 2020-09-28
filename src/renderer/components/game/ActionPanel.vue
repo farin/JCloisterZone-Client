@@ -3,28 +3,37 @@
     class="action-panel"
     @click.right="onRightClick"
   >
+    <div v-if="notifyConnectionClosed" class="flex-grow-1">
+      <v-alert type="error">
+        Host terminated the game. Connection was closed.
+      </v-alert>
+    </div>
     <PointsExpression
-      v-if="pointsExpression"
+      v-else-if="pointsExpression"
       :expr="pointsExpression"
     />
     <!-- use v-show bit v-if for pointsExoression - to not hide related layers when pointExpression is triggered by mouse hover  -->
     <component
       :is="actionComponent"
       v-if="action"
-      v-show="!pointsExpression"
+      v-show="!pointsExpression && !notifyConnectionClosed"
       :action="action"
       :phase="phase"
+      :local="local"
     >
       <template
         v-if="action.canPass"
         #default="{ plain, label }"
       >
-        <span v-if="plain !== ''" class="skip-text text">or</span>
-        <div
-          class="pass-item"
-        >
-          <v-btn large color="secondary" @click="pass">{{ label || 'Skip action' }}</v-btn>
-        </div>
+        <template v-if="local">
+          <span v-if="plain !== ''" class="skip-text text">or</span>
+          <div class="pass-item">
+            <v-btn large color="secondary" @click="pass">{{ label || 'Skip action' }}</v-btn>
+          </div>
+        </template>
+        <template v-else>
+          <span class="skip-text text">or skip the action</span>
+        </template>
       </template>
     </component>
     <GameResultPanel
@@ -102,8 +111,22 @@ export default {
 
   computed: {
     ...mapState({
+      connectionState: state => state.networking.connectionStatus,
       pointsExpression: state => state.board.pointsExpression
     }),
+
+    notifyConnectionClosed () {
+      return this.connectionState === 'closed' && this.phase !== 'GameOverPhase'
+    },
+
+    local () {
+      if (!this.action) {
+        return false
+      }
+      const clientSessionId = this.$store.state.networking.sessionId
+      const actionSessionId = this.$store.state.game.players[this.action.player].sessionId
+      return clientSessionId === actionSessionId
+    },
 
     actionComponent () {
       const component = MAPPING[this.phase]

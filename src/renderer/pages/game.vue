@@ -83,24 +83,23 @@ export default {
   }),
 
   beforeCreate () {
-    if (!this.$store.state.game.setup) {
+    // useful for dev mode, reload on this page redirects back to home
+    if (!this.$connection.isConnectedOrConnecting()) {
       this.$store.dispatch('game/close')
       this.$router.push('/')
     }
   },
 
   mounted () {
-    // window.addEventListener('keydown', this.onKeyDown)
+    // this.$connection.on('close', this._onClose = () => {
+    //   // TODO print message instea
+    //   this.$router.push('/')
+    // })
   },
 
   beforeDestroy () {
-    // window.removeEventListener('keydown', this.onKeyDown)
+    //this._onClose && this.$connection.off('close', this._onClose)
     this.$store.dispatch('game/close')
-  },
-
-  methods: {
-    // async onKeyDown (ev) {
-    // }
   }
 }
 </script>

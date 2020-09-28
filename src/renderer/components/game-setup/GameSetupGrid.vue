@@ -38,7 +38,6 @@ header
   align-items: center
   justify-content: flex-end
   color: $color-gray
-  font-size: 36px
   padding: 0 30px
   background: white
 
@@ -50,6 +49,11 @@ header
 
   .tile-pack-size
     margin: 0 20px 0 40px
+
+  .text
+    font-size: 20px
+    font-weight: 300
+
 
 .detail-header
   grid-area: detail-header

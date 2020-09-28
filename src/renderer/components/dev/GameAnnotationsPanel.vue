@@ -64,7 +64,7 @@ export default {
 
   watch: {
     annotations (val) {
-      this.$store.commit('game/gameAnnotations', val)
+      this.$store.commit('gameSetup/gameAnnotations', val)
     }
   },
 

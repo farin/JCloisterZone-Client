@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section :class="{ remote: !local }">
     <div class="move-dragon-item">
       <NeutralFigure figure="dragon" :width="90" :height="45" />
       <v-icon
@@ -23,7 +23,8 @@ export default {
   },
 
   props: {
-    action: { type: Object, required: true }
+    action: { type: Object, required: true },
+    local: { type: Boolean }
   },
 
   computed: {
@@ -54,26 +55,32 @@ export default {
 
   methods: {
     showLayer () {
-      this.$store.dispatch('board/showLayer', {
-        layer: 'DragonMoveLayer',
-        props: {
-          options: this.actionItem.options
-        }
-      })
+      if (this.local) {
+        this.$store.dispatch('board/showLayer', {
+          layer: 'DragonMoveLayer',
+          props: {
+            options: this.actionItem.options
+          }
+        })
+      }
     },
 
     hideLayer () {
-      this.$store.dispatch('board/hideLayer', { layer: 'DragonMoveLayer' })
+      if (this.local) {
+        this.$store.dispatch('board/hideLayer', { layer: 'DragonMoveLayer' })
+      }
     },
 
     async onSelect (position) {
-      await this.$store.dispatch('game/apply', {
-        type: 'MOVE_NEUTRAL_FIGURE',
-        payload: {
-          figureId: this.actionItem.figureId,
-          to: position
-        }
-      })
+      if (this.local) {
+        await this.$store.dispatch('game/apply', {
+          type: 'MOVE_NEUTRAL_FIGURE',
+          payload: {
+            figureId: this.actionItem.figureId,
+            to: position
+          }
+        })
+      }
     }
   }
 }
@@ -92,4 +99,8 @@ export default {
 
 svg.dragon
   margin: 0 20px
+
+.remote
+  svg.dragon
+    fill: #999
 </style>

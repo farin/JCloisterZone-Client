@@ -1,12 +1,15 @@
 <template>
   <section>
-    <span class="text">Remove mage or witch</span>
-    <v-btn large @click="select('mage.1')">
-      <NeutralFigure figure="mage" />
-    </v-btn>
-    <v-btn large @click="select('witch.1')">
-      <NeutralFigure figure="witch" />
-    </v-btn>
+    <template v-if="local">
+      <span class="text">Remove mage or witch</span>
+      <v-btn large @click="select('mage.1')">
+        <NeutralFigure figure="mage" />
+      </v-btn>
+      <v-btn large @click="select('witch.1')">
+        <NeutralFigure figure="witch" />
+      </v-btn>
+    </template>
+    <span v-else class="text">Player must remove mage or witch.</span>
   </section>
 </template>
 
@@ -19,18 +22,21 @@ export default {
   },
 
   props: {
-    action: { type: Object, required: true }
+    action: { type: Object, required: true },
+    local: { type: Boolean }
   },
 
   methods: {
     async select (figureId) {
-      await this.$store.dispatch('game/apply', {
-        type: 'MOVE_NEUTRAL_FIGURE',
-        payload: {
-          figureId,
-          to: null
-        }
-      })
+      if (this.local) {
+        await this.$store.dispatch('game/apply', {
+          type: 'MOVE_NEUTRAL_FIGURE',
+          payload: {
+            figureId,
+            to: null
+          }
+        })
+      }
     }
   }
 }

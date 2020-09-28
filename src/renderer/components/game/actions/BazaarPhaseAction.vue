@@ -1,11 +1,11 @@
 <template>
-  <section :class="'action-' + actionItem.type">
+  <section :class="{['action-' + actionItem.type]: true, local}">
     <span class="text">
-      <template v-if="actionItem.type === 'BazaarSelectTile' && !noAuction">Choose a tile and your bid</template>
-      <template v-else-if="actionItem.type === 'BazaarSelectTile' && noAuction">Choose a tile</template>
-      <template v-else-if="actionItem.type === 'BazaarBid'">Raise bid or pass</template>
+      <template v-if="actionItem.type === 'BazaarSelectTile' && !noAuction">{{ local ? 'Choose a tile and your bid' : 'Player must choose a tile and bid'}}</template>
+      <template v-else-if="actionItem.type === 'BazaarSelectTile' && noAuction">{{ local ? 'Choose a tile' : 'Player must choose a tile' }}</template>
+      <template v-else-if="actionItem.type === 'BazaarBid'">{{ local ? 'Raise bid or pass' : 'Player must raise bid or pass' }}</template>
       <template v-else-if="actionItem.type === 'BazaarSelectBuyOrSell'">
-        Buy/Sell the tile from/to
+        {{ local ? 'Buy/Sell the tile from/to' : 'Player must buy/sell the tile from/to' }}
       </template>
       <template v-else>{{ actionItem.type }}</template>
     </span>
@@ -42,17 +42,17 @@
           class="auction"
         >
           <template v-if="!noAuction">
-            <BidPriceInput v-if="actionItem.type !== 'BazaarSelectBuyOrSell'" v-model="bid" :min="0" :max="999" />
+            <BidPriceInput v-if="local && actionItem.type !== 'BazaarSelectBuyOrSell'" v-model="bid" :min="0" :max="999" />
             <span v-else class="bid-price">{{ bid }}</span>
           </template>
-          <template v-if="actionItem.type === 'BazaarSelectTile'">
+          <template v-if="local && actionItem.type === 'BazaarSelectTile'">
             <v-btn small color="secondary" @click="makeBid">Select</v-btn>
           </template>
-          <template v-else-if="actionItem.type === 'BazaarBid'">
+          <template v-else-if="local && actionItem.type === 'BazaarBid'">
             <v-btn class="left-btn" small color="secondary" @click="makeBid">Raise</v-btn>
             <v-btn small color="secondary" @click="pass">Pass</v-btn>
           </template>
-          <template v-else-if="actionItem.type === 'BazaarSelectBuyOrSell'">
+          <template v-else-if="local && actionItem.type === 'BazaarSelectBuyOrSell'">
             <v-btn class="left-btn" small color="secondary" @click="buy">Buy</v-btn>
             <v-btn small color="secondary" @click="sell">Sell</v-btn>
           </template>
@@ -99,7 +99,8 @@ export default {
   },
 
   props: {
-    action: { type: Object, required: true }
+    action: { type: Object, required: true },
+    local: { type: Boolean }
   },
 
   data () {
@@ -131,44 +132,52 @@ export default {
     isNil,
 
     onTileClick (idx) {
-      if (this.actionItem.type === 'BazaarSelectTile') {
+      if (this.local && this.actionItem.type === 'BazaarSelectTile') {
         this.selected = idx
       }
     },
 
     async makeBid () {
-      await this.$store.dispatch('game/apply', {
-        type: 'BAZAAR_BID',
-        payload: {
-          supplyIndex: this.selected,
-          price: this.bid
-        }
-      })
+      if (this.local) {
+        await this.$store.dispatch('game/apply', {
+          type: 'BAZAAR_BID',
+          payload: {
+            supplyIndex: this.selected,
+            price: this.bid
+          }
+        })
+      }
     },
 
     async pass () {
-      await this.$store.dispatch('game/apply', {
-        type: 'PASS',
-        payload: {}
-      })
+      if (this.local) {
+        await this.$store.dispatch('game/apply', {
+          type: 'PASS',
+          payload: {}
+        })
+      }
     },
 
     async buy () {
-      await this.$store.dispatch('game/apply', {
-        type: 'BAZAAR_BUY_OR_SELL',
-        payload: {
-          value: 'BUY'
-        }
-      })
+      if (this.local) {
+        await this.$store.dispatch('game/apply', {
+          type: 'BAZAAR_BUY_OR_SELL',
+          payload: {
+            value: 'BUY'
+          }
+        })
+      }
     },
 
     async sell () {
-      await this.$store.dispatch('game/apply', {
-        type: 'BAZAAR_BUY_OR_SELL',
-        payload: {
-          value: 'SELL'
-        }
-      })
+      if (this.local) {
+        await this.$store.dispatch('game/apply', {
+          type: 'BAZAAR_BUY_OR_SELL',
+          payload: {
+            value: 'SELL'
+          }
+        })
+      }
     }
   }
 }
@@ -224,7 +233,7 @@ svg.meeple
     .left-btn
       margin-right: 15px
 
-.action-BazaarSelectTile
+.action-BazaarSelectTile.local
   .bazaar-supply-item.available
     .tile-img:hover
       cursor: pointer

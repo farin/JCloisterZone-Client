@@ -1,11 +1,16 @@
 <template>
-  <GameSetupGrid v-if="loaded">
+  <GameSetupGrid v-if="loaded && gameId">
     <template #header>
-      <HeaderGameButton
-        title="Start"
-        :info="slotsAssigned ? null : 'No players added'"
-        @click="startGame"
-      />
+      <template v-if="isOwner">
+        <HeaderGameButton
+          title="Start"
+          :info="slotsAssigned ? null : 'No players added'"
+          @click="startGame"
+        />
+      </template>
+      <template v-else>
+        <span class="text">Waiting for host to start game</span>
+      </template>
       <TilePackSize :size="$tiles.getPackSize(sets)" />
     </template>
 
@@ -19,7 +24,7 @@
           v-for="slot in slots"
           :key="slot.number"
           :number="slot.number"
-          :state="slot.state"
+          :owner="slot.sessionId"
           :name="slot.name"
           :order="slot.order"
         />
@@ -52,9 +57,11 @@ export default {
 
   computed: {
     ...mapState({
-      sets: state => state.game.setup.sets,
-      elements: state => state.game.setup.elements,
-      slots: state => state.gameSetup.slots
+      gameId: state => state.game.id,
+      sets: state => state.game.setup?.sets,
+      elements: state => state.game.setup?.elements,
+      slots: state => state.gameSetup.slots,
+      isOwner: state => state.game.owner === state.networking.sessionId
     }),
 
     ...mapGetters({
@@ -65,15 +72,34 @@ export default {
     }),
 
     slotsAssigned () {
-      return !!this.slots.find(({ state }) => state !== 'open')
+      return !!this.slots.find(slot => slot.sessionId)
     }
   },
 
   beforeCreate () {
-    if (!this.$store.state.game.setup) {
+    // useful for dev mode, reload on this page redirects back to home
+    if (!this.$connection.isConnectedOrConnecting()) {
       this.$store.dispatch('game/close')
       this.$router.push('/')
+      return
     }
+  },
+
+  mounted () {
+    this.$connection.on('close', this._onClose = () => {
+      // TODO print message
+      this.$router.push('/')
+    })
+    this.$connection.on('message', this._onMessage = ({ type }) => {
+      if (type === 'START') {
+        this.$router.push('/game')
+      }
+    })
+  },
+
+  beforeDestroy () {
+    this._onClose && this.$connection.off('close', this._onClose)
+    this._onMessage && this.$connection.off('message', this._onMessage)
   },
 
   methods: {
@@ -82,16 +108,7 @@ export default {
     },
 
     async startGame () {
-      const players = this.slots.filter(s => s.state !== 'open').map(s => ({ ...s }))
-      players.sort((a, b) => a.order - b.order)
-      players.forEach(s => {
-        s.slot = s.number
-        delete s.number
-        delete s.order
-      })
-      this.$store.commit('game/players', players)
       await this.$store.dispatch('game/start')
-      this.$router.push('/game')
     }
   }
 }
@@ -113,5 +130,15 @@ header .v-alert
 
 .game-setup-overview
   margin: 40px 0
+
+
+@media (max-width: 1079px)
+  .slots
+    grid-template-columns: 1fr 1fr
+
+
+@media (max-width: 919px)
+  .slots
+    grid-template-columns: 1fr
 
 </style>

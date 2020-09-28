@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import uniq from 'lodash/uniq'
 import mapKeys from 'lodash/mapKeys'
+import { v4 as uuidv4 } from 'uuid';
 
 import { isConfigValueEnabled, getDefaultElements } from '@/models/elements'
 import { getDefaultRules } from '@/models/rules'
@@ -23,7 +24,7 @@ function getModifiedDefaults (before, after) {
 function getEmptySlots () {
   const slots = []
   for (let i = 0; i < 9; i++) {
-    slots.push({ number: i, state: 'open', name: null, order: null })
+    slots.push({ number: i })
   }
   return slots
 }
@@ -34,7 +35,8 @@ export const state = () => ({
   rules: getDefaultRules(),
   start: null,
   timer: null,
-  slots: getEmptySlots()
+  slots: getEmptySlots(),
+  gameAnnotations: {}
 })
 
 export const mutations = {
@@ -45,6 +47,7 @@ export const mutations = {
     state.start = null
     state.timer = null
     state.slots = getEmptySlots()
+    state.gameAnnotations = {}
   },
 
   setup (state, setup) {
@@ -53,6 +56,12 @@ export const mutations = {
     state.rules = setup.rules
     state.start = setup.start
     state.timer = setup.timer
+    state.slots = getEmptySlots()
+    state.gameAnnotations = {}
+  },
+
+  gameAnnotations (state, gameAnnotations) {
+    state.gameAnnotations = gameAnnotations
   },
 
   tileSetQuantity (state, { id, quantity }) {
@@ -130,26 +139,25 @@ export const actions = {
     commit('ruleConfig', { id, config })
   },
 
-  takeSlot ({ state, commit }, { number, name }) {
-    let max = 0
-    state.slots.forEach(({ order }) => {
-      if (order > max) { max = order }
+  takeSlot ({ ctx }, { number, name }) {
+    this._vm.$connection.send({
+      type: 'TAKE_SLOT',
+      payload: { number, name }
     })
-    commit('slot', { number, state: 'local', name, order: max + 1 })
   },
 
-  releaseSlot ({ state, commit }, { number }) {
-    const { order } = state.slots[number]
-    for (let i = 0; i < state.slots.length; i++) {
-      if (i === number) {
-        commit('slot', { number, state: 'open', name: null, order: null })
-      } else {
-        const slot = state.slots[i]
-        if (slot.order > order) {
-          commit('slot', { ...slot, number: i, order: slot.order - 1 })
-        }
-      }
-    }
+  renameSlot (ctx, { number, name }) {
+    this._vm.$connection.send({
+      type: 'UPDATE_SLOT',
+      payload: { number, name }
+    })
+  },
+
+  releaseSlot (ctx, { number }) {
+    this._vm.$connection.send({
+      type: 'LEAVE_SLOT',
+      payload: { number }
+    })
   },
 
   createGame ({ state, commit, getters, dispatch }) {
@@ -167,7 +175,24 @@ export const actions = {
     }
 
     dispatch('settings/addRecentGameSetup', setup, { root: true })
-    commit('game/setup', setup, { root: true })
+    dispatch('networking/startServer', {
+      gameId: uuidv4(),
+      setup,
+      gameAnnotations: state.gameAnnotations
+    }, { root: true })
+  },
+
+  handleSlotMessage ({ state, commit }, payload) {
+    if (!payload.sessionId) {
+      const order = state.slots[payload.number].order
+      for (let i = 0; i < state.slots.length; i++) {
+        const slot = state.slots[i]
+        if (slot.order > order) {
+          commit('slot', { ...slot, order: slot.order - 1 })
+        }
+      }
+    }
+    commit('slot', payload)
   }
 }
 
