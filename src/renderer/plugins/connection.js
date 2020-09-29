@@ -33,7 +33,7 @@ class ConnectionPlugin {
             appVersion,
             engineVersion,
             protocolVersion: '5.0.0',
-            name: sample(['Alice', 'Bob', 'Carol', 'David', 'Eve', 'Frank', 'Grace', 'Oscar', 'Wendy']),
+            name: settings.nickname,
             clientId: settings.clientId,
             secret: settings.secret
           }

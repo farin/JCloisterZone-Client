@@ -17,6 +17,14 @@
         @close="showJoinDialog = false"
       />
     </v-dialog>
+    <v-dialog
+      v-model="showSettings"
+      max-width="600"
+    >
+      <SettingsDialog
+        @close="showSettings = false"
+      />
+    </v-dialog>
   </v-app>
 </template>
 
@@ -27,18 +35,22 @@ import { mapState } from 'vuex'
 
 import AboutDialog from '@/components/AboutDialog'
 import JoinGameDialog from '@/components/JoinGameDialog'
+import SettingsDialog from '@/components/SettingsDialog'
+
 
 const { app, Menu, dialog } = remote
 
 export default {
   components: {
     AboutDialog,
-    JoinGameDialog
+    JoinGameDialog,
+    SettingsDialog
   },
 
   data () {
     return {
-      showAbout: false
+      showAbout: false,
+      showSettings: false
     }
   },
 
@@ -87,6 +99,8 @@ export default {
           { id: 'save-game', label: 'Save Game', accelerator: 'CommandOrControl+S', click: this.saveGame },
           { id: 'load-game', label: 'Load Game', accelerator: 'CommandOrControl+L', click: this.loadGame },
           { type: 'separator' },
+          { id: 'settigns', label: 'Settings', accelerator: 'CommandOrControl+,', click: () => { this.showSettings = true }},
+          { type: 'separator' },
           isMac ? { role: 'close' } : { role: 'quit' }
         ]
       },
@@ -103,7 +117,7 @@ export default {
         submenu: [
           { label: 'Rules (WikiCarpedia)', click: this.showRules },
           { type: 'separator' },
-          { label: 'About', click: this.about }
+          { label: 'About', click: () => { this.showAbout = true } }
         ]
       }
     ]
@@ -186,10 +200,6 @@ export default {
 
     showRules () {
       shell.openExternal('http://wikicarpedia.com/index.php/Main_Page')
-    },
-
-    about () {
-      this.showAbout = true
     },
 
     onKeyDown (ev) {

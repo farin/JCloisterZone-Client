@@ -4,6 +4,7 @@ import Vue from 'vue'
 import isEqual from 'lodash/isEqual'
 import { v4 as uuidv4 } from 'uuid';
 
+import username from 'username'
 import { remote } from 'electron'
 import { CONSOLE_SETTINGS_COLOR } from '@/constants/logging'
 
@@ -20,15 +21,14 @@ export const state = () => ({
   clientId: null,
   secret: null,
   port: 37447,
+  nickname: null,
   devMode: process.env.NODE_ENV === 'development'
 })
 
 export const mutations = {
   settings (state, settings) {
-    Object.keys(state).forEach(key => {
-      if (settings[key] !== undefined) {
-        Vue.set(state, key, settings[key])
-      }
+    Object.keys(settings).forEach(key => {
+      Vue.set(state, key, settings[key])
     })
   },
 
@@ -70,6 +70,10 @@ export const actions = {
         missingKey = true
         settings.secret = uuidv4()
       }
+      if (!settings.nickname) {
+        missingKey = true
+        settings.nickname = await username();
+      }
       commit('settings', settings)
       console.log(`%c settings %c loaded ${settingsFile}`, CONSOLE_SETTINGS_COLOR, '')
     } catch (e) {
@@ -77,7 +81,8 @@ export const actions = {
       missingKey = true
       commit('settings', {
         clientId: uuidv4(),
-        secret: uuidv4()
+        secret: uuidv4(),
+        nickname: await username()
       })
       console.log(`%c settings %c file ${settingsFile} doesn't exist. Creating default one.`, CONSOLE_SETTINGS_COLOR, '')
     }
@@ -148,6 +153,11 @@ export const actions = {
 
   async clearRecentGameSetups({ commit, dispatch}) {
     commit('recentGameSetups', [])
+    dispatch('save')
+  },
+
+  async update({ commit, dispatch }, settings) {
+    commit('settings', settings)
     dispatch('save')
   }
 }
