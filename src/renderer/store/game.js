@@ -255,7 +255,7 @@ export const actions = {
     })
   },
 
-  async load ({ commit, dispatch }, filePath) {
+  async load ({ commit, dispatch, rootState }, filePath) {
     return new Promise(async (resolve, reject) => {
       const { dialog } = remote
       if (!filePath) {
@@ -288,7 +288,11 @@ export const actions = {
         return
       }
 
-      dispatch('networking/startServer', {
+      if (sg.test) {
+        slots.forEach(s => { s.clientId = rootState.settings.clientId })
+      }
+
+      await dispatch('networking/startServer', {
         gameId: sg.gameId,
         setup: sg.setup,
         initialSeed: sg.initialSeed,
@@ -297,18 +301,8 @@ export const actions = {
         replay: sg.replay,
       }, { root: true })
 
-      // TOOO trigger slot messages
-      // commit('gameSetup/slots', slots, { root: true })
       if (sg.test) {
         commit('testScenario', sg.test)
-
-        // const players = slots.map(s => ({ ...s }))
-        // players.forEach(s => {
-        //   s.slot = s.number
-        //   delete s.number
-        //   delete s.order
-        // })
-        // commit('game/players', players, { root: true })
         dispatch('game/start', null, { root: true })
       }
       Vue.nextTick(() => {
@@ -375,7 +369,7 @@ export const actions = {
     })
     engine.on('message', payload => {
       const lastMessageType = engine.lastMessage?.type
-      const local = rootState.networking.sessionId === state.players[payload?.action.player]?.sessionId
+      const local = rootState.networking.sessionId === state.players[payload.action?.player]?.sessionId
       let autoCommit = false
       if (local) {
         if (payload.phase === 'CommitActionPhase') {

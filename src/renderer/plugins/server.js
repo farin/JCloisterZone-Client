@@ -150,6 +150,7 @@ export class GameServer {
     ws.clientId = payload.clientId
     ws.secret = payload.secret
     ws.name = payload.name
+
     this.send(ws, {
       type: 'WELCOME',
       payload: {
@@ -164,6 +165,18 @@ export class GameServer {
     this.send(ws, {
       type: 'GAME',
       payload: this.game
+    })
+
+    // auto assign slots with matching clientId
+    this.game.slots.forEach(slot => {
+      if (slot.clientId === ws.clientId) {
+        slot.sessionId = ws.sessionId
+        slot.clientId = ws.clientId
+        this.broadcast({
+          type: 'SLOT',
+          payload: slot
+        })
+      }
     })
   }
 
