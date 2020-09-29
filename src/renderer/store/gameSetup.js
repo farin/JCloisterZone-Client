@@ -91,6 +91,11 @@ export const mutations = {
 }
 
 export const actions = {
+  newGame ({ commit }) {
+    commit('clear')
+    this.$router.push('/game-setup')
+  },
+
   setTileSetQuantity ({ state, commit }, { id, quantity }) {
     const enabledStateChanged = (state.sets[id] > 0) !== (quantity > 0)
     const before = enabledStateChanged ? getDefaultElements(state.sets) : null

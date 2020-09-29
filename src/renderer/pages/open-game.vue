@@ -4,7 +4,7 @@
       <template v-if="isOwner">
         <HeaderGameButton
           title="Start"
-          :info="slotsAssigned ? null : (readOnly ? 'Unassigned players' : 'No player in game')"
+          :info="slotsAssigned ? null : (readOnly ? 'Assign all players to start' : 'No player in game')"
           @click="startGame"
         />
       </template>
@@ -56,6 +56,13 @@ export default {
     TilePackSize
   },
 
+  data () {
+    return {
+      // do not updata it after start when gameMessages are set to empty array
+      readOnly: this.$store.state.game.gameMessages !== null
+    }
+  },
+
   computed: {
     ...mapState({
       gameId: state => state.game.id,
@@ -63,7 +70,6 @@ export default {
       elements: state => state.game.setup?.elements,
       slots: state => state.game.slots,
       isOwner: state => state.game.owner === state.networking.sessionId,
-      readOnly: state => state.game.gameMessages !== null
     }),
 
     ...mapGetters({
@@ -96,16 +102,10 @@ export default {
       // TODO print message
       this.$router.push('/')
     })
-    this.$connection.on('message', this._onMessage = ({ type }) => {
-      if (type === 'START') {
-        this.$router.push('/game')
-      }
-    })
   },
 
   beforeDestroy () {
     this._onClose && this.$connection.off('close', this._onClose)
-    this._onMessage && this.$connection.off('message', this._onMessage)
   },
 
   methods: {

@@ -43,8 +43,15 @@ export const actions = {
           dispatch('game/handleSlotMessage', payload, { root: true })
         } else if (type === 'START') {
           dispatch('game/handleStartMessage', payload, { root: true })
+          this.$router.push('/game')
         } else if (type === 'GAME') {
           dispatch('game/handleGameMessage', payload, { root: true })
+          if (payload.started) {
+            dispatch('game/handleStartMessage', null, { root: true })
+            this.$router.push('/game')
+          } else {
+            this.$router.push('/open-game')
+          }
         } else {
           console.error(payload)
           console.error(`Unhandled message ${type}`)

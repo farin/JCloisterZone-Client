@@ -10,14 +10,15 @@ import { CONSOLE_SERVER_COLOR } from '@/constants/logging'
 
 
 export class GameServer {
-  constructor (game, clientId, { engineVersion, appVersion }) {
+  constructor (game, clientId, { engineVersion, appVersion }, app) {
+    this.app = app // hack for now, read replay from game store
     this.engineVersion = engineVersion
     this.appVersion = appVersion
     this.game = {
       gameId: game.gameId,
       setup: game.setup,
       initialSeed: game.initialSeed || randomLong().toString(),
-      replay: game.replay || [],
+      replay: game.replay || null,
       gameAnnotations: game.gameAnnotations || {},
       slots: game.slots,
       owner: null // owner session
@@ -62,21 +63,17 @@ export class GameServer {
     ws.on('message', async data => {
       const { type, payload } = JSON.parse(data)
       if (ENGINE_MESSAGES.has(type)) {
-        if (this.status !== 'running') {
-          ws.send(JSON.stringify({type: 'ERR', payload: 'Game is not started'}))
+        if (this.status !== 'started') {
+          this.send(ws, {type: 'ERR', code: 'illegal-game-state', message: "Game is not started" })
           return
         }
         this.handleEngineMessage(ws, type, payload)
       } else {
-        if (this.status !== 'new' && this.status !== 'loaded') {
-          await this.send(ws, {type: 'ERR', payload: 'Game is not open'})
-          return
-        }
         if (helloExpected) {
           if (type === 'HELLO') {
             helloExpected = false
           } else {
-            await this.send(ws, {type: 'ERR', payload: 'Game is not open'})
+            await this.send(ws, {type: 'ERR', code: 'unexpected-message', message: "Unexpected message" })
             ws.close()
             return
           }
@@ -103,7 +100,9 @@ export class GameServer {
       const clientSlots = this.game.slots.filter(s => s.sessionId === ws.sessionId)
       clientSlots.forEach(slot => {
         slot.sessionId = null
-        slot.clientId = null
+        if (this.status !== 'started') {
+          slot.clientId = null
+        }
         this.broadcast({
           type: 'SLOT',
           payload: slot,
@@ -128,9 +127,9 @@ export class GameServer {
   }
 
   async handleHello (ws, payload) {
-    // const { appVersion, protocolVersion, nickname, clientId, secret } = payload
-    const clientAlreadyConnected = this.clients.find(ws => ws.clientId === payload.clientTracking)
-    if (clientAlreadyConnected && clientAlreadyConnected.secret !== payload.secret) {
+     const { name, clientId, secret } = payload
+    const clientAlreadyConnected = this.clients.find(ws => ws.clientId === clientId)
+    if (clientAlreadyConnected && clientAlreadyConnected.secret !== secret) {
       await this.send(ws, { type: 'ERR', code: 'wrong-secret', message: "Secret doesn't match" })
       ws.close()
       return
@@ -142,14 +141,22 @@ export class GameServer {
       return
     }
 
-    console.log(`%c embedded server %c client ${payload.clientId} connected`, CONSOLE_SERVER_COLOR, '')
+    if (this.status === 'started') {
+      if (!this.game.slots.find(slot => slot.clientId === clientId && !slot.sessionId)) {
+        await this.send(ws, {type: 'ERR', code: 'illegal-game-state', message: "Game already started" })
+        ws.close()
+        return
+      }
+    }
+
+    console.log(`%c embedded server %c client ${clientId} connected`, CONSOLE_SERVER_COLOR, '')
 
     this.clients.push(ws)
     const sessionId = uuidv4()
     ws.sessionId = sessionId
-    ws.clientId = payload.clientId
-    ws.secret = payload.secret
-    ws.name = payload.name
+    ws.clientId = clientId
+    ws.secret = secret
+    ws.name = name
 
     this.send(ws, {
       type: 'WELCOME',
@@ -162,25 +169,39 @@ export class GameServer {
       this.game.owner = ws.sessionId
     }
 
-    this.send(ws, {
-      type: 'GAME',
-      payload: this.game
-    })
+    let game = this.game
+    if (this.status === 'started') {
+      game = { ...game, replay: this.app.store.state.game.gameMessages, started: true }
+    }
 
     // auto assign slots with matching clientId
+    const assignedSlots = []
     this.game.slots.forEach(slot => {
-      if (slot.clientId === ws.clientId) {
+      if (slot.clientId === ws.clientId && !slot.sessionId) {
         slot.sessionId = ws.sessionId
-        slot.clientId = ws.clientId
-        this.broadcast({
-          type: 'SLOT',
-          payload: slot
-        })
+        assignedSlots.push(slot)
       }
+    })
+
+    this.send(ws, {
+      type: 'GAME',
+      payload: game
+    })
+
+    assignedSlots.forEach(slot => {
+      this.broadcast({
+        type: 'SLOT',
+        payload: slot
+      })
     })
   }
 
   async handleTakeSlot (ws, { number, name }) {
+    if (this.status === 'started') {
+      this.send(ws, {type: 'ERR', code: 'illegal-game-state', message: "Game already started" })
+      return
+    }
+
     const slot = this.game.slots.find(s => s.number === number)
     if (!slot) {
       this.send(ws, { type: 'ERR', code: 'bad-slot', message: "Slot doesn't exist" })
@@ -204,6 +225,11 @@ export class GameServer {
   }
 
   async handleUpdateSlot (ws, { number, name }) {
+    if (this.status === 'started') {
+      this.send(ws, {type: 'ERR', code: 'illegal-game-state', message: "Game already started" })
+      return
+    }
+
     const slot = this.game.slots.find(s => s.number === number)
     if (!slot) {
       this.send(ws, { type: 'ERR', code: 'bad-slot', message: "Slot doesn't exist" })
@@ -226,6 +252,11 @@ export class GameServer {
   }
 
   handleLeaveSlot (ws, { number }) {
+    if (this.status === 'started') {
+      this.send(ws, {type: 'ERR', code: 'illegal-game-state', message: "Game already started" })
+      return
+    }
+
     const idx = this.game.slots.findIndex(s => s.number === number)
     const slot = this.game.slots[idx]
     if (!slot) {
@@ -251,11 +282,16 @@ export class GameServer {
   }
 
   handleStart (ws) {
+    if (this.status === 'started') {
+      this.send(ws, {type: 'ERR', code: 'illegal-game-state', message: "Game already started" })
+      return
+    }
+
     if (this.game.owner !== ws.sessionId) {
       this.send(ws, { type: 'ERR', code: 'game-owner', message: 'Not a game owner' })
       return
     }
-    this.status = 'running'
+    this.status = 'started'
     this.broadcast({
       type: 'START',
       payload: {}
@@ -286,7 +322,7 @@ export default ({ app }, inject) => {
       gameServer = new GameServer(game, settings.clientId, {
         appVersion,
         engineVersion
-      })
+      }, app)
       await gameServer.start(settings.port)
     },
 

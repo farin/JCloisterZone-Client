@@ -142,8 +142,7 @@ export default {
 
   methods: {
     newGame () {
-      this.$store.commit('gameSetup/clear')
-      this.$router.push('/game-setup')
+      this.$store.dispatch('gameSetup/newGame')
     },
 
     joinGame () {
@@ -152,8 +151,7 @@ export default {
 
     async loadGame (file) {
       try {
-        const save = await this.$store.dispatch('game/load', file)
-        this.$router.push(save.test ? '/game' : '/open-game')
+        await this.$store.dispatch('game/load', file)
       } catch {
         await this.$store.dispatch('settings/validateRecentSaves')
         this.recentGames = [...this.$store.state.settings.recentSaves]

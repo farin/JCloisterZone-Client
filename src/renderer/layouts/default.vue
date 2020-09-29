@@ -152,8 +152,7 @@ export default {
     },
 
     newGame () {
-      this.$store.commit('gameSetup/clear')
-      this.$router.push('/game-setup')
+      this.$store.dispatch('gameSetup/newGame')
     },
 
     joinGame () {
@@ -170,10 +169,7 @@ export default {
     },
 
     async loadGame () {
-      const save = await this.$store.dispatch('game/load')
-      if (save) {
-        this.$router.push(save.test ? '/game' : '/open-game')
-      }
+      await this.$store.dispatch('game/load')
     },
 
     undo () {

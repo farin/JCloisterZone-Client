@@ -309,6 +309,7 @@ export const actions = {
         dispatch('settings/addRecentSave', filePath, { root: true })
       })
       resolve(sg)
+      this.$router.push(sg.test ? '/game' : '/open-game')
     })
   },
 
@@ -349,7 +350,7 @@ export const actions = {
   },
 
   async handleStartMessage ({ state, commit, dispatch, rootState }) {
-    const players = state.slots.filter(s => s.sessionId).map(s => ({ ...s }))
+    const players = state.slots.filter(s => s.clientId).map(s => ({ ...s }))
     players.sort((a, b) => a.order - b.order)
     players.forEach(s => {
       s.slot = s.number
