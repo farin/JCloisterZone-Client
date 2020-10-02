@@ -3,6 +3,8 @@ import debounce from 'lodash/debounce'
 import { spawn } from 'child_process'
 import Vue from 'vue'
 
+import { remote } from 'electron'
+
 export class Engine {
   constructor (engineProcess, loggingEnabled) {
     this.engineProcess = engineProcess
