@@ -7,6 +7,7 @@ import Vue from 'vue'
 import sample from 'lodash/sample'
 import { CONSOLE_CLIENT_COLOR } from '@/constants/logging'
 
+const isDev = process.env.NODE_ENV === 'development'
 
 class ConnectionPlugin {
 
@@ -32,7 +33,7 @@ class ConnectionPlugin {
             appVersion,
             engineVersion,
             protocolVersion: '5.0.0',
-            name: sample(['Alice', 'Bob', 'Carol', 'David', 'Eve', 'Frank', 'Grace', 'Oscar', 'Wendy']),
+            name: settings.nickname,
             clientId: settings.clientId,
             secret: settings.secret
           }
@@ -48,7 +49,9 @@ class ConnectionPlugin {
 
       this.ws.addEventListener('message', ev => {
         const msg = JSON.parse(ev.data)
-        console.debug(msg)
+        if (isDev) {
+          console.debug(msg)
+        }
         // console.debug(`%c client %c received ${msg.type}`, CONSOLE_CLIENT_COLOR, '')
         if (msg.type === 'ERR') {
           if (!fulfilled) {

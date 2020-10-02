@@ -55,7 +55,6 @@ export default {
       try {
         await this.$store.dispatch('networking/connect', this.host)
         this.$store.dispatch('settings/addRecentJoinedGame', this.host)
-        this.$router.push('/open-game')
         this.connecting = false
         this.$emit('close')
       } catch (e) {

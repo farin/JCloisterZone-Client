@@ -11,6 +11,9 @@
       </div>
       <div class="name">{{ player.name }}</div>
     </div>
+    <div v-if="!slot.sessionId" class="disconnected">
+      <!--v-icon>fas fa-exclamation</v-icon-->Disconnected
+    </div>
     <div class="resources">
       <div class="followers">
         <div
@@ -97,6 +100,10 @@ export default {
       canPayRansom: 'game/canPayRansom'
     }),
 
+    slot () {
+      return this.$store.state.game.slots.find(s => s.number === this.player.slot)
+    },
+
     followers () {
       const followers = Object.entries(this.player.meeples).map(([follower, [count]]) => {
         return { follower, count, ordering: FOLLOWER_ORDERING[follower] }
@@ -159,6 +166,13 @@ section
   font-size: 32px
   color: #aaa
   text-align: center
+
+.disconnected
+  text-transform: uppercase
+  text-align: center
+  padding: 12px 0
+  font-weight: 500
+  background: #FFECB3
 
 .active-turn
   .name
