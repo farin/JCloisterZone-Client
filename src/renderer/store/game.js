@@ -1,4 +1,5 @@
 import fs from 'fs'
+import { extname } from 'path'
 import { remote } from 'electron'
 
 import difference from 'lodash/difference'
@@ -216,12 +217,15 @@ export const actions = {
   async save ({ state, dispatch }) {
     return new Promise(async (resolve, reject) => {
       const { dialog } = remote
-      const { filePath } = await dialog.showSaveDialog({
+      let { filePath } = await dialog.showSaveDialog({
         title: 'Save Game',
         filters: SAVED_GAME_FILTERS,
         properties: ['createDirectory', 'showOverwriteConfirmation']
       })
       if (filePath) {
+        if (extname(filePath) === '') {
+          filePath += '.jcz'
+        }
         const version = process.env.NODE_ENV === 'development' ? process.env.npm_package_version : app.getVersion()
         const content = {
           appVersion: version,
