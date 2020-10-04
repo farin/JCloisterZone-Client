@@ -7,6 +7,7 @@ import range from 'lodash/range'
 import zip from 'lodash/zip'
 import Vue from 'vue'
 
+import Location from '@/models/Location'
 import { isSameFeature } from '@/utils/gameUtils'
 import { verifyScenario } from '@/utils/testing'
 
@@ -33,7 +34,10 @@ export const state = () => ({
   phase: null,
   action: null,
   history: null,
-  undo: false,
+  undo: {
+    allowed: false,
+    depth: 0
+  },
   initialSeed: null,
   gameMessages: null,
   gameAnnotations: {},
@@ -370,6 +374,28 @@ export const actions = {
 
     console.log(state.setup, state.gameAnnotations)
 
+    const deployedOnField = (payload) => {
+      for (let i = 0; i < payload.undo.depth; i++) {
+        const msg = state.gameMessages[state.gameMessages.length - i - 1]
+        if (msg.type === 'DEPLOY_MEEPLE') {
+          const loc = Location.parse(msg.payload.pointer.location)
+          if (loc?.isFarmLocation()) {
+            return true
+          }
+        }
+      }
+      return false
+    }
+    const deployedOnTower = (payload) => {
+      for (let i = 0; i < payload.undo.depth; i++) {
+        const msg = state.gameMessages[state.gameMessages.length - i - 1]
+        if (msg.type === 'DEPLOY_MEEPLE' && msg.payload.pointer?.location === 'TOWER') {
+          return true
+        }
+      }
+      return false
+    }
+
     const loggingEnabled = rootState.settings.devMode
     const engine = this._vm.$engine.spawn({ loggingEnabled })
     engine.on('error', data => {
@@ -382,7 +408,13 @@ export const actions = {
       let autoCommit = false
       if (local) {
         if (payload.phase === 'CommitActionPhase') {
-          autoCommit = !payload.undo || lastMessageType === 'PASS' || lastMessageType === 'EXCHANGE_FOLLOWER'
+          let confirm = payload.undo.allowed && lastMessageType !== 'PASS' && lastMessageType !== 'EXCHANGE_FOLLOWER'
+          if (confirm) {
+            confirm = rootState.settings['confirm.always']
+              || (rootState.settings['confirm.field'] && deployedOnField(payload))
+              || (rootState.settings['confirm.tower'] && deployedOnTower(payload))
+          }
+          autoCommit = !confirm
         } else if (payload.phase === 'CommitAbbeyPassPhase') {
           autoCommit = true
         }

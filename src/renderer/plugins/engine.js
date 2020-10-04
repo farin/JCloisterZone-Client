@@ -100,11 +100,15 @@ export class Engine {
 }
 
 
-export default ({ app }, inject) => {  
+export default ({ app }, inject) => {
   let spawnedEngine = null
 
   Vue.prototype.$engine = {
     getJavaArgs () {
+      const { settings } = app.store.state
+      if (settings.enginePath) {
+        return ['-jar', settings.enginePath]
+      }
       // Run against local engine
       if (process.env.NODE_ENV === 'development') {
         return ['-jar', 'Engine.jar']
@@ -113,7 +117,7 @@ export default ({ app }, inject) => {
       return ['-jar', path.join(basePath, 'Engine.jar')]
     },
 
-    spawn ({ loggingEnabled }) {      
+    spawn ({ loggingEnabled }) {
       spawnedEngine = new Engine(spawn('java', this.getJavaArgs()), loggingEnabled)
       spawnedEngine.engineProcess.on('exit', () => {
         spawnedEngine = null

@@ -23,6 +23,10 @@ export const state = () => ({
   port: 37447,
   nickname: null,
   preferredColor: null,
+  'confirm.always': true,
+  'confirm.field': true,
+  'confirm.tower': true,
+  enginePath: null, // explicit engine path
   devMode: process.env.NODE_ENV === 'development'
 })
 
