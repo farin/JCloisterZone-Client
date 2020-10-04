@@ -1,7 +1,7 @@
 <template>
-  <v-card>
+  <v-card class="d-flex flex-column">
     <v-card-title class="headline">Settings</v-card-title>
-    <v-card-text>
+    <v-card-text class="flex-grow-1">
       <div class="d-flex">      
         <v-list class="flex-shrink-0">
           <v-list-item-group
@@ -12,7 +12,7 @@
               <v-list-item-title>Player</v-list-item-title>      
             </v-list-item>      
             <v-list-item>
-              <v-list-item-title>Game</v-list-item-title>
+              <v-list-item-title>Game Interface</v-list-item-title>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>Apperance</v-list-item-title>
@@ -49,7 +49,26 @@
             </div>
           </template>
           <template v-if="section === 1">
-            <h3 class="mt-2 mb-4">Interface</h3>
+            <h3 class="mt-2 mb-4">Game Interface</h3>
+
+            <h4>End turn confirmation</h4>  
+            <em>Confirmation allows player undo performed action actions before activity is passed to a next player.
+                Enable explicit confirmation at the turn end&hellip;</em>
+            <div class="action-confirmation">              
+              <v-checkbox  
+                dense hide-details              
+                label="after each turn"
+              />
+              <v-checkbox  
+                dense hide-details              
+                label="when meeple was deployed on a field"
+              />
+              <v-checkbox              
+                dense hide-details
+                label="when meeple was deployed on a tower"
+              />
+              
+            </div>
           </template>
 
           <template v-if="section === 2">
@@ -121,4 +140,8 @@ em
     &.color
       padding: 0 !important
       min-width: 30px !important        
+
+.action-confirmation
+  .v-input
+    margin-top: 0
 </style>

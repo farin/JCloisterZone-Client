@@ -18,6 +18,7 @@
       />
     </v-dialog>
     <v-dialog
+      content-class="settings-dialog"
       v-model="showSettings"
       max-width="800"
     >
@@ -248,4 +249,8 @@ body
 
 .witch
   fill: $witch-color
+
+.settings-dialog
+  height: 80vh
+  display: grid
 </style>
