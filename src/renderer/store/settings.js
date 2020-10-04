@@ -22,6 +22,7 @@ export const state = () => ({
   secret: null,
   port: 37447,
   nickname: null,
+  preferredColor: null,
   devMode: process.env.NODE_ENV === 'development'
 })
 

@@ -21,6 +21,10 @@ $colors: (
       background: map-get($slot, primary);
     }
 
+    &.color-bg-important {
+      background: map-get($slot, primary) !important;
+    }
+
     &.color-fill {
       fill: map-get($slot, primary);
     }

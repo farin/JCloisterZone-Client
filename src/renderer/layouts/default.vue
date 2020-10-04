@@ -19,7 +19,7 @@
     </v-dialog>
     <v-dialog
       v-model="showSettings"
-      max-width="600"
+      max-width="800"
     >
       <SettingsDialog
         @close="showSettings = false"

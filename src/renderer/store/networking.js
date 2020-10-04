@@ -50,7 +50,15 @@ export const actions = {
             dispatch('game/handleStartMessage', null, { root: true })
             this.$router.push('/game')
           } else {
-            this.$router.push('/open-game')
+            this.$router.push('/open-game')            
+            const { preferredColor } = rootState.settings
+            if (preferredColor !== null && !payload.replay) {
+              // player has auto assign enabled and game is a new game 
+              const slot = payload.slots.find(s => s.number === preferredColor && !s.clientId)
+              if (slot) {
+                dispatch('gameSetup/takeSlot', { number: slot.number }, { root: true })
+              }
+            }
           }
         } else {
           console.error(payload)
