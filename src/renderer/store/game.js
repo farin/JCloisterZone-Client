@@ -108,7 +108,11 @@ export const mutations = {
   },
 
   appendMessage (state, msg) {
-    state.gameMessages.push(msg)
+    if (msg.type === 'UNDO') {
+      state.gameMessages.pop()
+    } else {
+      state.gameMessages.push(msg)
+    }
   },
 
   gameMessages (state, gameMessages) {
