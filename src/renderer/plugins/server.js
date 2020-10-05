@@ -62,18 +62,26 @@ export class GameServer {
   async stop () {
     if (this.wss) {
       return new Promise(resolve => {
+        this.closing = resolve
+
         clearInterval(this.heartBeatInterval)
-        this.wss.close(() => {
-          console.log('%c embedded server %c stopped', CONSOLE_SERVER_COLOR, '')
-          resolve()
+        this.clients.forEach(ws => {
+          ws.close()
         })
-        this.clients = null
-        this.wss = null
+        setTimeout(() => {
+          // do force close if not resolved yet
+          this._resolveClose()
+        }, 2000)
       })
     }
   }
 
   onConnection (ws) {
+    if (this.closing) {
+      ws.terminate()
+      return
+    }
+
     ws.isAlive = true;
     ws.on('pong', () => {
       ws.isAlive = true;
@@ -117,18 +125,36 @@ export class GameServer {
         this.clients.splice(idx, 1)
       }
 
-      const clientSlots = this.game.slots.filter(s => s.sessionId === ws.sessionId)
-      clientSlots.forEach(slot => {
-        slot.sessionId = null
-        if (this.status !== 'started') {
-          slot.clientId = null
-        }
-        this.broadcast({
-          type: 'SLOT',
-          payload: slot,
+      if (!this.closing) {
+        const clientSlots = this.game.slots.filter(s => s.sessionId === ws.sessionId)
+        clientSlots.forEach(slot => {
+          slot.sessionId = null
+          if (this.status !== 'started') {
+            slot.clientId = null
+          }
+          this.broadcast({
+            type: 'SLOT',
+            payload: slot,
+          })
         })
-      })
+      }
+
+      if (this.closing && !this.clients.length) {
+        this._resolveClose()
+      }
     })
+  }
+
+  _resolveClose () {
+    if (this.wss) {
+      this.wss.close(() => {
+        console.log('%c embedded server %c stopped', CONSOLE_SERVER_COLOR, '')
+        this.closing()
+        delete this.closing
+      })
+      this.clients = null
+      this.wss = null
+    }
   }
 
   async send(ws, msg) {
