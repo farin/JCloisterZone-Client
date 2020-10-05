@@ -35,10 +35,9 @@
 </template>
 
 <script>
-import { remote } from 'electron'
 import { mapState } from 'vuex'
 
-const { app } = remote
+import { getAppVersion } from '@/utils/version'
 
 const MEEPLES_SVG = require('~/assets/meeples.svg')
 
@@ -46,7 +45,7 @@ export default {
   data () {
     return {
       MEEPLES_SVG,
-      version: process.env.NODE_ENV === 'development' ? process.env.npm_package_version : app.getVersion(),
+      version: getAppVersion(),
     }
   },
 

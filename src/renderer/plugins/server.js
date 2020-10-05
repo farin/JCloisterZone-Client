@@ -4,6 +4,7 @@ import Vue from 'vue'
 
 import camelCase from 'lodash/camelCase'
 
+import { getAppVersion } from '@/utils/version'
 import { randomLong } from '@/utils/random'
 import { ENGINE_MESSAGES } from '@/constants/messages'
 import { CONSOLE_SERVER_COLOR } from '@/constants/logging'
@@ -317,7 +318,7 @@ export default ({ app }, inject) => {
     async start (game) {
       await this.stop()
       const { settings } = app.store.state
-      const appVersion = process.env.NODE_ENV === 'development' ? process.env.npm_package_version : remote.app.getVersion()
+      const appVersion = getAppVersion()
       const engineVersion = app.store.state.engine.version
       gameServer = new GameServer(game, settings.clientId, {
         appVersion,

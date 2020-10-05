@@ -8,10 +8,9 @@ import zip from 'lodash/zip'
 import Vue from 'vue'
 
 import Location from '@/models/Location'
+import { getAppVersion } from '@/utils/version'
 import { isSameFeature } from '@/utils/gameUtils'
 import { verifyScenario } from '@/utils/testing'
-
-const { app } = remote
 
 const SAVED_GAME_FILTERS = [{ name: 'Saved Game', extensions: ['jcz'] }]
 
@@ -230,9 +229,8 @@ export const actions = {
         if (extname(filePath) === '') {
           filePath += '.jcz'
         }
-        const version = process.env.NODE_ENV === 'development' ? process.env.npm_package_version : app.getVersion()
         const content = {
-          appVersion: version,
+          appVersion: getAppVersion(),
           gameId: state.id,
           name: '',
           initialSeed: state.initialSeed,

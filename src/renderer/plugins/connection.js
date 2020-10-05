@@ -1,10 +1,9 @@
 import { EventEmitter } from 'events'
 
 import WebSocket from 'ws'
-import { remote } from 'electron'
 import Vue from 'vue'
 
-import sample from 'lodash/sample'
+import { getAppVersion } from '@/utils/version'
 import { CONSOLE_CLIENT_COLOR } from '@/constants/logging'
 
 const isDev = process.env.NODE_ENV === 'development'
@@ -24,7 +23,7 @@ class ConnectionPlugin {
       this.ws = new WebSocket('ws://' + host)
       this.ws.addEventListener('open', () => {
         console.log('%c client %c connected to ' + host, CONSOLE_CLIENT_COLOR, '')
-        const appVersion = process.env.NODE_ENV === 'development' ? process.env.npm_package_version : remote.app.getVersion()
+        const appVersion = getAppVersion()
         const engineVersion = this.app.store.state.engine.version
         const { settings } = this.app.store.state
         this.ws.send(JSON.stringify({
