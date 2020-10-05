@@ -5,6 +5,7 @@ import Vue from 'vue'
 
 import { getAppVersion } from '@/utils/version'
 import { CONSOLE_CLIENT_COLOR } from '@/constants/logging'
+import { HEARTBEAT_INTERVAL} from '@/constants/ws'
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -19,7 +20,15 @@ class ConnectionPlugin {
   // TODO use emitter instead callback
   async connect (host, { onMessage, onClose }) {
     let fulfilled = false
+    let pingTimeout = null
     return new Promise((resolve, reject) => {
+      const heartbeat = () => {
+        clearTimeout(pingTimeout)
+        pingTimeout = setTimeout(() => {
+          this.ws.terminate()
+        }, HEARTBEAT_INTERVAL + 1000)
+      }
+
       this.ws = new WebSocket('ws://' + host)
       this.ws.addEventListener('open', () => {
         console.log('%c client %c connected to ' + host, CONSOLE_CLIENT_COLOR, '')
@@ -37,7 +46,10 @@ class ConnectionPlugin {
             secret: settings.secret
           }
         }))
+        heartbeat()
       })
+
+      this.ws.addEventListener('ping', heartbeat)
 
       this.ws.addEventListener('error', e => {
         console.log(`%c client %c websocket error ${e.message}`, CONSOLE_CLIENT_COLOR, '')
@@ -70,6 +82,7 @@ class ConnectionPlugin {
       })
 
       this.ws.addEventListener('close', ev => {
+        clearTimeout(pingTimeout)
         console.log(`%c client %c websocket closed  code: ${ev.code} reason: ${ev.reason}`, CONSOLE_CLIENT_COLOR, '')
         this.ws = null
         this.emitter.emit('close', ev)

@@ -8,6 +8,7 @@ import { getAppVersion } from '@/utils/version'
 import { randomLong } from '@/utils/random'
 import { ENGINE_MESSAGES } from '@/constants/messages'
 import { CONSOLE_SERVER_COLOR } from '@/constants/logging'
+import { HEARTBEAT_INTERVAL} from '@/constants/ws'
 
 
 export class GameServer {
@@ -30,6 +31,7 @@ export class GameServer {
     this.ownerClientId = clientId
     this.wss = null
     this.clients = null
+    this.heartBeatInterval = null
   }
 
   async start (port) {
@@ -43,12 +45,24 @@ export class GameServer {
       })
       this.wss.on('connection', ws => this.onConnection(ws))
 
+      this.heartBeatInterval = setInterval(() => {
+        this.wss.clients.forEach(ws => {
+          if (ws.isAlive === false) {
+            ws.terminate()
+            return
+          }
+
+          ws.isAlive = false;
+          ws.ping();
+        });
+      }, HEARTBEAT_INTERVAL);
     })
   }
 
   async stop () {
     if (this.wss) {
       return new Promise(resolve => {
+        clearInterval(this.heartBeatInterval)
         this.wss.close(() => {
           console.log('%c embedded server %c stopped', CONSOLE_SERVER_COLOR, '')
           resolve()
@@ -60,6 +74,11 @@ export class GameServer {
   }
 
   onConnection (ws) {
+    ws.isAlive = true;
+    ws.on('pong', () => {
+      ws.isAlive = true;
+    });
+
     let helloExpected = true
     ws.on('message', async data => {
       const { type, payload } = JSON.parse(data)

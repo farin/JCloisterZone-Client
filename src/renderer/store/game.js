@@ -489,10 +489,12 @@ export const actions = {
     commit('appendMessage', message)
   },
 
-  async undo ({ dispatch }) {
-    await dispatch('apply', {
-      type: 'UNDO',
-      payload: {}
-    })
+  async undo ({ state, dispatch }) {
+    if (state.undo.allowed) {
+      await dispatch('apply', {
+        type: 'UNDO',
+        payload: {}
+      })
+    }
   }
 }

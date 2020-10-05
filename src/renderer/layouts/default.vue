@@ -57,7 +57,7 @@ export default {
 
   computed: {
     ...mapState({
-      undoAllowed: state => state.game.undo,
+      undoAllowed: state => state.game.undo?.allowed,
     }),
 
     showJoinDialog: {
