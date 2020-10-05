@@ -137,7 +137,11 @@ export class GameServer {
     }
 
     if (this.engineVersion !== payload.engineVersion) {
-      await this.send(ws, { type: 'ERR', code: 'bad-version', message: `Incompatible versions. server: ${this.appVersion} / client: ${payload.appVersion}` })
+      if (this.appVersion === payload.appVersion) {
+        await this.send(ws, { type: 'ERR', code: 'bad-version', message: `Incompatible engine versions. server engine ${this.engineVersion} / client engine ${payload.engineVersion})` })
+      } else {
+        await this.send(ws, { type: 'ERR', code: 'bad-version', message: `Incompatible versions. server ${this.appVersion} / client: ${payload.appVersion}` })
+      }
       ws.close()
       return
     }

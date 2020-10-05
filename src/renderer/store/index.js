@@ -143,7 +143,7 @@ export const actions = {
           commit('engine', false)
           reject(error)
         } else {
-          const version = stdout
+          const version = stdout.trim()
           console.log("engine version " + version)
           const value = {
             path: args[args.length - 1],
