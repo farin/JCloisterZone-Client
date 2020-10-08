@@ -19,11 +19,16 @@
       </v-card>
     </div>
     <div>
-      <v-alert v-if="javaMissing" type="warning">
+      <v-alert v-if="javaMissing && !javaSelectedByUser" type="warning">
         Unable to locate Java on your system.<br>
         <br>
         Java is required to start a game.<br>
         <a href="#" @click="openLink('https://www.oracle.com/java/technologies/javase-jdk14-downloads.html')">Download Java</a>
+      </v-alert>
+      <v-alert v-if="javaMissing && javaSelectedByUser" type="warning">
+        Your manually configured path to Java binary is not valid.<br>
+        <br>
+        Change it in settings.
       </v-alert>
       <v-alert v-if="javaOutdated" type="warning">
         You Java installation is outdated.<br>
@@ -79,7 +84,7 @@
         </div>
 
         <template v-if="recentGames.length">
-          <h2 >Recent games</h2>
+          <h2>Recent games</h2>
 
           <div class="recent-list">
             <a v-for="file in recentGames" :key="file" href="#" @click="loadGame(file)">{{ file }}</a>
@@ -123,6 +128,7 @@ export default {
     }),
 
     ...mapState({
+      javaSelectedByUser: state => state.settings.javaPath,
       java: state => state.java,
       engine: state => state.engine,
       download: state => state.download,

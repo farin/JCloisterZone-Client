@@ -27,6 +27,7 @@ export const state = () => ({
   'confirm.field': true,
   'confirm.tower': true,
   enginePath: null, // explicit engine path
+  javaPath: null, // exolicit java path
   devMode: process.env.NODE_ENV === 'development'
 })
 

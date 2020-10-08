@@ -104,6 +104,11 @@ export default ({ app }, inject) => {
   let spawnedEngine = null
 
   Vue.prototype.$engine = {
+    getJavaExecutable () {
+      const { settings } = app.store.state
+      return settings.javaPath || 'java'
+    },
+
     getJavaArgs () {
       const { settings } = app.store.state
       if (settings.enginePath) {
@@ -118,7 +123,7 @@ export default ({ app }, inject) => {
     },
 
     spawn ({ loggingEnabled }) {
-      spawnedEngine = new Engine(spawn('java', this.getJavaArgs()), loggingEnabled)
+      spawnedEngine = new Engine(spawn(this.getJavaExecutable(), this.getJavaArgs()), loggingEnabled)
       spawnedEngine.engineProcess.on('exit', () => {
         spawnedEngine = null
       })

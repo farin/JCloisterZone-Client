@@ -94,13 +94,16 @@ export const actions = {
     commit('pluginsLoaded')
   },
 
-  async checkJavaVersion ({ state, commit }) {
-    if (state.java !== null) {
+  async checkJavaVersion ({ state, commit, rootState }, forceCheck = false) {
+    if (state.java !== null && !forceCheck) {
       return state.java
     }
 
     return new Promise((resolve, reject) => {
-      execFile('java', ['--version'], (error, stdout, stderr) => {
+      const executable = rootState.settings.javaPath || 'java'
+      console.log(`Checking ${executable}`)
+      execFile(executable, ['--version'], (error, stdout, stderr) => {
+        console.log(stdout)
         if (error) {
           commit('java', false)
           reject(error)

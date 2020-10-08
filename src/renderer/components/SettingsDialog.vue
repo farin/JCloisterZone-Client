@@ -17,6 +17,9 @@
             <v-list-item>
               <v-list-item-title>Apperance</v-list-item-title>
             </v-list-item>
+            <v-list-item>
+              <v-list-item-title>Java</v-list-item-title>
+            </v-list-item>
           </v-list-item-group>
         </v-list>
 
@@ -79,6 +82,32 @@
           <template v-if="section === 2">
             <h3 class="mt-2 mb-4">Apperance</h3>
           </template>
+
+          <template v-if="section === 3">
+            <h3 class="mt-2 mb-4">Java</h3>
+
+            <h4>Java executable</h4>
+            <em>You can set manually path to {{ platform === 'win32' ? 'java.exe' : 'java binary' }}</em>
+
+            <template v-if="javaPath === null">
+              <span class="v-label">Using system default.</span> <v-btn color="secondary" small @click="selectJava">Change</v-btn>
+            </template>
+            <template v-else>
+              <span class="v-label">Selected: {{ javaPath }}</span>
+              <br>
+              <v-btn color="secondary" small @click="resetJava">Reset</v-btn>
+            </template>
+
+            <div class="mt-4">
+              <span v-if="java">
+                Java version {{ java.version }}
+              </span>
+              <v-alert v-else type="warning" dense>
+                Java not found.
+              </v-alert>
+            </div>
+
+          </template>
         </div>
       </div>
     </v-card-text>
@@ -94,15 +123,22 @@
 </template>
 
 <script>
+import { remote } from 'electron'
+import { mapState } from 'vuex'
 
 export default {
   data () {
     return {
-      section: 0
+      section: 0,
+      platform: process.platform
     }
   },
 
   computed: {
+    ...mapState({
+      java: state => state.java,
+    }),
+
     nickname: {
       get () { return this.$store.state.settings.nickname },
       set (val) { this.$store.dispatch('settings/update', { nickname: val })}
@@ -126,6 +162,34 @@ export default {
     confirmTower: {
       get () { return this.$store.state.settings['confirm.tower'] },
       set (val) { this.$store.dispatch('settings/update', { 'confirm.tower': val })}
+    },
+
+    javaPath: {
+      get () { return this.$store.state.settings.javaPath},
+      set (val) { this.$store.dispatch('settings/update', { javaPath: val })}
+    }
+  },
+
+  methods: {
+    async selectJava () {
+      const { dialog } = remote
+      const opts = {
+        title: 'Select java executable',
+        properties: ['openFile']
+      }
+      if (this.platform === 'win32') {
+        opts.filters =  [{ name: 'Executable', extensions: ['exe'] }]
+      }
+      const { filePaths } = await dialog.showOpenDialog(opts)
+      if (filePaths.length) {
+        this.javaPath = filePaths[0]
+        await this.$store.dispatch('checkJavaVersion', true)
+      }
+    },
+
+    async resetJava () {
+      this.javaPath = null
+      await this.$store.dispatch('checkJavaVersion', true)
     }
   }
 }
