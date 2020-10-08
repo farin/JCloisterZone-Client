@@ -32,7 +32,7 @@
 <script>
 import fs from 'fs'
 import { webFrame, remote, shell } from 'electron'
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 import AboutDialog from '@/components/AboutDialog'
 import JoinGameDialog from '@/components/JoinGameDialog'
@@ -56,7 +56,13 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      javaMissing: 'javaMissing',
+      javaOutdated: 'javaOutdated',
+    }),
+
     ...mapState({
+      java: state => state.java,
       undoAllowed: state => state.game.undo?.allowed,
     }),
 
@@ -137,8 +143,14 @@ export default {
     this.updateMenu()
     Menu.setApplicationMenu(this.menu)
 
-    this.$store.dispatch('checkJavaVersion')
-    this.$store.dispatch('checkEngineVersion')
+    try {
+      await this.$store.dispatch('checkJavaVersion')
+      if (this.java && !this.javaOutdated) {
+        this.$store.dispatch('checkEngineVersion')
+      }
+    } catch {
+      // do nothing, state flags asre set
+    }
     this.$store.dispatch('loadPlugins')
 
     window.addEventListener('keydown', this.onKeyDown)

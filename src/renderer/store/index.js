@@ -56,7 +56,7 @@ export const getters = {
   loaded: state => state.loaded.plugins && state.loaded.tiles,
   javaMissing: state => state.java === false,
   javaOutdated: state => !!(state.java && state.java.version && state.java.version < 11),
-  engineMissing: state => state.java === false,
+  engineMissing: state => state.engine === false,
   engineReady: (state, getters) => !!(state.java && state.engine && !getters.javaOutdated)
 }
 

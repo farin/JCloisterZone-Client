@@ -89,11 +89,8 @@
 
       </div>
     </main>
-    <footer>
-      <span v-if="java !== null">
-        Java version  {{ java === false ? 'not available' : java.version }}
-      </span>
-    </footer>
+    <!-- <footer>
+    </footer> -->
   </div>
 </template>
 
@@ -257,10 +254,10 @@ main
         color: inherit !important
         font-size: inherit !important
 
-footer
-  font-size: 14px
-  text-align: right
-  padding: 1px 2px
+// footer
+//   font-size: 14px
+//   text-align: right
+//   padding: 1px 2px
 
 @media (max-height: 1199px)
   .landing-view
