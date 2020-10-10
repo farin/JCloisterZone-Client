@@ -26,6 +26,7 @@ export const state = () => ({
   'confirm.always': true,
   'confirm.field': true,
   'confirm.tower': true,
+  beep: true,
   enginePath: null, // explicit engine path
   javaPath: null, // exolicit java path
   devMode: process.env.NODE_ENV === 'development'

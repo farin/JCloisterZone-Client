@@ -41,6 +41,11 @@
       v-show="!pointsExpression"
       class="game-over"
     />
+
+    <audio
+      ref="beep"
+      src="~/assets/beep.wav"
+    />
   </div>
 </template>
 
@@ -112,7 +117,8 @@ export default {
   computed: {
     ...mapState({
       connectionState: state => state.networking.connectionStatus,
-      pointsExpression: state => state.board.pointsExpression
+      pointsExpression: state => state.board.pointsExpression,
+      beep: state => state.settings.beep
     }),
 
     notifyConnectionClosed () {
@@ -155,8 +161,19 @@ export default {
     }
   },
 
+  watch: {
+    local (val) {
+      if (val) {
+        this.onPlayerActivated()
+      }
+    }
+  },
+
   mounted () {
     window.addEventListener('keydown', this.onKeyDown)
+    if (this.local) {
+      this.onPlayerActivated()
+    }
   },
 
   beforeDestroy () {
@@ -179,6 +196,12 @@ export default {
         type: 'PASS',
         payload: {}
       })
+    },
+
+    onPlayerActivated () {
+      if (this.beep) {
+        this.$refs.beep.play();
+      }
     }
   }
 }

@@ -32,6 +32,7 @@
             <v-text-field
               v-model="nickname"
               outlined dense
+              hide-details
             />
 
             <h4>Preferred Color</h4>
@@ -57,25 +58,33 @@
             <h4>End turn confirmation</h4>
             <em>Confirmation allows player undo performed action actions before activity is passed to a next player.
                 Enable explicit confirmation at the turn end&hellip;</em>
-            <div class="action-confirmation">
+            <div class="checkboxes-wrapper">
               <v-checkbox
                 v-model="confirmAlways"
                 dense hide-details
-                label="after each turn"
+                label="After each turn"
               />
               <v-checkbox
                 v-model="confirmField"
                 :disabled="confirmAlways"
                 dense hide-details
-                label="when meeple was deployed on a field"
+                label="When meeple was deployed on a field"
               />
               <v-checkbox
-                v-model="confirmTower"
                 :disabled="confirmAlways"
                 dense hide-details
-                label="when meeple was deployed on a tower"
+                label="When meeple was deployed on a tower"
               />
+            </div>
 
+            <h4>Beep</h4>
+            <em>Beep when you are on turn (or when your action is required during opponent's turn).</em>
+            <div class="checkboxes-wrapper">
+              <v-checkbox
+                v-model="beep"
+                dense hide-details
+                label="Enable beep"
+              />
             </div>
           </template>
 
@@ -169,6 +178,11 @@ export default {
       set (val) { this.$store.dispatch('settings/update', { 'confirm.tower': val })}
     },
 
+    beep: {
+      get () { return this.$store.state.settings.beep},
+      set (val) { this.$store.dispatch('settings/update', { beep: val })}
+    },
+
     javaPath: {
       get () { return this.$store.state.settings.javaPath},
       set (val) { this.$store.dispatch('settings/update', { javaPath: val })}
@@ -226,6 +240,7 @@ h3
 h4
   font-size: 1rem
   font-weight: 600
+  margin-top: 20px
 
 em
   display: block
@@ -241,7 +256,7 @@ em
       padding: 0 !important
       min-width: 30px !important
 
-.action-confirmation
+.checkboxes-wrapper
   .v-input
     margin-top: 0
 </style>
