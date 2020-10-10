@@ -93,11 +93,13 @@ export default {
     text-transform: uppercase
 
   h6
-    color: $color-gray
     font-weight: 300
     font-size: 16px
     text-transform: uppercase
     margin-top: 20px
+
+    +theme using ($theme)
+       color: map-get($theme, 'gray-text-color')
 
   i
     display: block

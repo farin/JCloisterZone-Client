@@ -52,10 +52,12 @@ export default {
   display: inline-block
   font-size: 36px
   font-weight: 500
-  color: $color-gray
-  background: white
   padding: 5px 7px
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.07), 0 3px 10px 0 rgba(0, 0, 0, 0.05)
+
+  +theme using ($theme)
+    color: map-get($theme, 'gray-text-color')
+    background: map-get($theme, 'cards-bg')
 
   input
     width: 50px

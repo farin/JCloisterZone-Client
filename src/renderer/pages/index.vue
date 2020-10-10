@@ -1,21 +1,18 @@
 <template>
   <div class="landing-view view">
-    <div class="ribbon">Development Preview</div>
-    <div class="disclaimer-box">
-      <v-card>
-        <v-card-title>Development Preview</v-card-title>
-        <v-card-text class="text--primary">
-          <p>This JCloisterZone client builld still missing several important features.</p>
-          <ul>
-            <li>networking (just local game is allowed now)</li>
-            <li>game clock</li>
-            <li>AI</li>
-            <li>localization</li>
-            <li>more artwork plugins</li>
-            <li>game hints (farm hints, projected points ...)</li>
-          </ul>
-        </v-card-text>
-      </v-card>
+    <div class="ribbon">Beta</div>
+    <div class="disclaimer">
+      <div class="disclaimer-content">
+        <p>The new JCloisterZone client still missing several important features.</p>
+        <ul>
+          <li>play through public server (just direct connection between clints is possible)</li>
+          <li>game clock</li>
+          <li>AI</li>
+          <li>localization</li>
+          <li>artwork plugins</li>
+          <li>game hints (farm hints, projected points ...)</li>
+        </ul>
+      </div>
     </div>
     <div>
       <v-alert v-if="javaMissing && !javaSelectedByUser" type="warning">
@@ -193,20 +190,34 @@ export default {
 
   .ribbon
     position: fixed
+    width: 320px
     left: -90px
     top: 60px
     background-color: #AD1457
     color: white
     text-transform: uppercase
+    text-align: center
     padding: 10px 80px
     transform: rotate(-45deg)
 
-  .disclaimer-box
+  .disclaimer
+    padding: 20px 0
+    margin-bottom: 40px
+
+    #app.theme--light &
+      background-color: #FDF0F5
+      box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.1)
+
+    #app.theme--dark &
+      background-color: #73686B
+      box-shadow: 0px 3px 7px 0px rgba(255,255,255,0.1)
+
+  .disclaimer-content
     max-width: 600px
     margin: 0 auto
-    margin-top: 100px
-    margin-bottom: 40px
-    border: 1px solid #AD1457
+
+    p
+      font-size: 18px
 
 main
   flex: 1 0
@@ -220,30 +231,32 @@ main
     flex: 1
 
   > div:first-child
-    border-right: 1px solid #eee
     text-align: right
 
+    +theme using ($theme)
+      border-right: 1px solid #{map-get($theme, 'line-color')}
+
   .join-wrapper
-    border-left: 1px solid #eee
     margin-left: 40px
     padding-left: 40px
 
+    +theme using ($theme)
+      border-left: 1px solid #{map-get($theme, 'line-color')}
+
   h2
-    color: $color-gray
     font-weight: 300
     font-size: 16px
     text-transform: uppercase
     margin-top: 30px
     margin-bottom: 10px
 
+    +theme using ($theme)
+      color: map-get($theme, 'gray-text-color')
+
   .recent-setup
     cursor: pointer
     margin-bottom: 10px
     border: 1px solid black
-
-    &:hover
-      box-shadow: 0px 0px 4px 0px $primary-color
-
 
   .recent-list a
     display: block

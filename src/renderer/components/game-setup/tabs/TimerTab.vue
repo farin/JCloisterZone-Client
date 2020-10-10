@@ -106,7 +106,9 @@ export default {
   text-align: center
   font-size: 36px
   font-weight: 300
-  color: $color-gray
+
+  +theme using ($theme)
+    color: map-get($theme, 'gray-text-color')
 
 .buttons
   margin-top: 40px

@@ -127,7 +127,8 @@ export default {
 
 .board
   flex: 1
-  background: $bg-color
+  +theme using ($theme)
+    background: map-get($theme, 'board-bg')
 
 aside
   box-sizing: border-box
@@ -138,6 +139,9 @@ aside
   right: 0
   user-select: none
 
+  .tile-pack-size
+    +theme using ($theme)
+      background: map-get($theme, 'opaque-bg')
 
 .game-modal
   position: absolute

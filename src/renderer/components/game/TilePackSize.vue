@@ -18,7 +18,6 @@ section
   display: flex
   justify-content: center
   align-items: center
-  background: $bg-opaque
   height: $action-bar-height
 
 .v-icon, .size
@@ -26,6 +25,8 @@ section
 
 .size
   font-weight: bold
-  color: $color-gray
   margin-left: $panel-gap
+
+  +theme using ($theme)
+    color: map-get($theme, 'gray-text-color')
 </style>

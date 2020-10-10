@@ -255,7 +255,7 @@ body
   width: 100%
   min-height: 100vh
 
-@import '~/assets/styles/theme.scss'
+@import '~/assets/styles/player-colors.scss'
 @import '~/assets/styles/rotation.sass'
 
 .dragon

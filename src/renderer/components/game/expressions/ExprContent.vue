@@ -51,10 +51,12 @@ export default {
   .expr
     display: flex
     align-items: stretch
-    color: $color-gray
     font-size: 28px
     font-weight: 500
     padding-top: 1px
+
+    +theme using ($theme)
+      color: map-get($theme, 'gray-text-color')
 
     .value-units
       position: relative
@@ -68,7 +70,9 @@ export default {
 
       i
         margin-top: 5px
-        color: $color-gray
+
+        +theme using ($theme)
+          color: map-get($theme, 'gray-text-color')
 
       img
         position: absolute

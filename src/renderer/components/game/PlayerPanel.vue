@@ -148,10 +148,12 @@ export default {
 
 <style lang="sass" scoped>
 section
-  background: $bg-opaque
   margin-top: $panel-gap
   padding-top: 15px
   min-height: 100px
+
+  +theme using ($theme)
+    background: map-get($theme, 'opaque-bg')
 
 .name-box
   position: relative

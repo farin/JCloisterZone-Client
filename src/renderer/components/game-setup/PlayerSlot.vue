@@ -113,13 +113,15 @@ export default {
 <style lang="sass" scoped>
 .player-slot
   position: relative
-  background: white
   padding: 40px 0 30px 0
 
   display: flex
   flex-direction: column
   align-items: center
   overflow: hidden
+
+  +theme using ($theme)
+    background: map-get($theme, 'cards-bg')
 
   .order
     position: absolute
@@ -174,7 +176,8 @@ export default {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)
 
   &.local
-    background: $selection-bg
+    +theme using ($theme)
+      background: map-get($theme, 'cards-selected-bg')
 
   &.remote
     background: #ccc

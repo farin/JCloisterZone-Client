@@ -24,22 +24,27 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+
 .game-setup-grid
   display: grid
   grid-template-columns: minmax(0, 1560px) minmax(372px, 1fr)
   grid-template-rows: $action-bar-height auto
   grid-template-areas: "header detail-header" "main detail"
   gap: $panel-gap
-  background: $bg-color
+
+  +theme using ($theme)
+    background: map-get($theme, 'board-bg')
 
 header
   grid-area: header
   display: flex
   align-items: center
   justify-content: flex-end
-  color: $color-gray
   padding: 0 30px
-  background: white
+
+  +theme using ($theme)
+    background-color: map-get($theme, 'cards-bg')
+    color: map-get($theme, 'gray-text-color')
 
   .tabs
     flex: 1
@@ -57,10 +62,12 @@ header
 
 .detail-header
   grid-area: detail-header
-  background: white
   display: flex
   align-items: center
   justify-content: center
+
+  +theme using ($theme)
+    background-color: map-get($theme, 'cards-bg')
 
   h2
     // style copied from v-tab
@@ -71,10 +78,6 @@ header
     line-height: normal
     text-transform: uppercase
 
-  .exp-symbol
-    display: block
-    margin: 0px 20px
-    fill: $color-gray
 
 main
   grid-area: main

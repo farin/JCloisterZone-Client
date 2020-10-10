@@ -255,11 +255,13 @@ export default {
   width: 160px
 
 h3
-  color: $color-gray
   font-weight: 300
   font-size: 16px
   text-transform: uppercase
   text-align: center
+
+  +theme using ($theme)
+    color: map-get($theme, 'gray-text-color')
 
 h4
   font-size: 1rem

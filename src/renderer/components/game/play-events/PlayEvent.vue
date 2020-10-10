@@ -86,7 +86,6 @@ export default {
   margin-right: 1px
   min-width: 40px
   height: 40px
-  background: $bg-opaque
 
 .play-event.ev-current-action
   background: transparent
@@ -98,8 +97,9 @@ export default {
 .unknown-event
   font-size: 12px
 
-.score-event
-  background: $bg-opaque
+.play-event, .score-event
+  +theme using ($theme)
+    background: map-get($theme, 'opaque-bg')
 </style>
 
 <style lang="sass">

@@ -85,12 +85,18 @@ export default {
 .exp-box
   display: flex
   flex-direction: column
-  background: white
   position: relative
+
+  +theme using ($theme)
+    background-color: map-get($theme, 'cards-bg')
 
   .exp-title
     text-align: center
     padding: 24px 0 8px 0
+
+    svg
+      +theme using ($theme)
+        fill: map-get($theme, 'text-color')
 
     h3
       font-size: 1.09em
@@ -111,31 +117,39 @@ export default {
     right: 0
 
     .v-icon
-      color: #eee
       font-size: 28px
       margin: 8px
       transition: none !important
+
+      +theme using ($theme)
+        color: map-get($theme, 'exp-detail-color')
 
     &:hover .v-icon
       color: black
 
   &.selected
-    background: $selection-bg
+    +theme using ($theme)
+      background: map-get($theme, 'cards-selected-bg')
+
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)
 
     h3
-      color: $selection-icon
+      +theme using ($theme)
+        color: map-get($theme, 'cards-selected-text')
 
     .exp-title
       svg
-        fill: $selection-icon
+        +theme using ($theme)
+          fill: map-get($theme, 'cards-selected-text')
 
     .detail-link
       .v-icon
-        color: $selection-bg-unobtrusive
+        +theme using ($theme)
+          color: map-get($theme, 'exp-detail-selected-color')
 
       &:hover .v-icon
-        color: $selection-icon
+        +theme using ($theme)
+          color: map-get($theme, 'cards-selected-text')
 
 
 .multiset
@@ -148,11 +162,13 @@ export default {
 
 .tile-set-row
   text-align: center
-  border-top: 1px solid #ddd
   flex: 1
   display: flex
   align-items: flex-end
   justify-content: stretch
+
+  +theme using ($theme)
+    border-top: 1px solid #{map-get($theme, 'line-color-light')}
 
   .quantity-buttons
     width: 100%

@@ -77,6 +77,8 @@ svg.meeple
     font-weight: 900
     font-size: 48px
     margin-right: 10px
-    color: $color-gray
+
+    +theme using ($theme)
+      color: map-get($theme, 'gray-text-color')
 
 </style>

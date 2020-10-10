@@ -216,8 +216,10 @@ export default {
   height: $action-bar-height
   display: flex
   align-items: stretch
-  background: $bg-opaque
   user-select: none
+
+  +theme using ($theme)
+    background: map-get($theme, 'opaque-bg')
 
   .text
     font-size: 20px

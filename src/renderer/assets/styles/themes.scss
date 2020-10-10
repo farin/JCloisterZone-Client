@@ -1,0 +1,42 @@
+$theme-light: (
+  'text-color': rgba(0, 0, 0, 0.87),
+  'line-color': #eee,
+  'line-color-light': #ddd,
+  'gray-text-color': #757575,
+  'cards-bg': #fff,
+  'cards-selected-bg': #D7CCC8,
+  'cards-selected-text': #4E342E,
+  'board-bg': #F5F5F5,
+  'exp-detail-color': #eee,
+  'exp-detail-selected-color': #C3B9B6,
+  'opaque-bg': rgba(255, 255, 255, 0.92)
+);
+
+
+// theme from 4.x
+// mainBg: #282c34
+// bgColor: #21252B
+
+$theme-dark: (
+  'text-color': white,
+  'line-color': #323232,
+  'line-color-light': #444,
+  'gray-text-color': #bbb,
+  'cards-bg':  #1E1E1E,
+  'cards-selected-bg': #D7CCC8,
+  'cards-selected-text': #4E342E,
+  'board-bg': #282c34,
+  'exp-detail-color': #373737,
+  'exp-detail-selected-color': #C3B9B6,
+  'opaque-bg': rgba(30, 30, 30, 0.92)
+);
+
+@mixin theme {
+  #app.theme--light & {
+    @content($theme-light);
+  }
+
+  #app.theme--dark & {
+    @content($theme-dark);
+  }
+}
