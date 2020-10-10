@@ -100,6 +100,10 @@ export default {
 
     await this.$store.dispatch('settings/load')
 
+    if (this.$store.state.settings.theme === 'dark') {
+      this.$vuetify.theme.dark = true
+    }
+
     const isMac = process.platform === 'darwin'
     const template = [
       {

@@ -37,9 +37,11 @@ module.exports = {
     // treeShake: true,
 
     theme: {
-      // dark: true
       themes: {
         light: {
+          primary: '#E64A19' // deep orange darken-2
+        },
+        dark: {
           primary: '#E64A19' // deep orange darken-2
         }
       }

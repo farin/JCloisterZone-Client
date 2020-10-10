@@ -90,6 +90,21 @@
 
           <template v-if="section === 2">
             <h3 class="mt-2 mb-4">Apperance</h3>
+
+            <h4>Theme</h4>
+            <v-radio-group
+              v-model="theme"
+              @change="onThemeChange"
+            >
+              <v-radio
+                label="Light"
+                value="light"
+              ></v-radio>
+              <v-radio
+                label="Dark"
+                value="dark"
+              ></v-radio>
+            </v-radio-group>
           </template>
 
           <template v-if="section === 3">
@@ -183,6 +198,11 @@ export default {
       set (val) { this.$store.dispatch('settings/update', { beep: val })}
     },
 
+    theme: {
+      get () { return this.$store.state.settings.theme},
+      set (val) { this.$store.dispatch('settings/update', { theme: val })}
+    },
+
     javaPath: {
       get () { return this.$store.state.settings.javaPath},
       set (val) { this.$store.dispatch('settings/update', { javaPath: val })}
@@ -192,6 +212,10 @@ export default {
   methods: {
     clean () {
       this.notJavaError = false;
+    },
+
+    onThemeChange (val) {
+      this.$vuetify.theme.dark = val === 'dark'
     },
 
     async selectJava () {

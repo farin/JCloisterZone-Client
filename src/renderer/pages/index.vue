@@ -9,7 +9,6 @@
           <ul>
             <li>networking (just local game is allowed now)</li>
             <li>game clock</li>
-            <li>settings</li>
             <li>AI</li>
             <li>localization</li>
             <li>more artwork plugins</li>
