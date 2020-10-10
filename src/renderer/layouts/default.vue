@@ -23,6 +23,7 @@
       max-width="800"
     >
       <SettingsDialog
+        ref="settings"
         @close="showSettings = false"
       />
     </v-dialog>
@@ -84,6 +85,12 @@ export default {
 
     undoAllowed () {
       this.updateMenu()
+    },
+
+    showSettings (val) {
+      if (val) {
+        this.$refs.settings?.clean()
+      }
     }
   },
 

@@ -99,7 +99,10 @@
             </template>
 
             <div class="mt-4">
-              <span v-if="java">
+              <v-alert v-if="notJavaError" type="warning" dense>
+                File doesn't look like a java binary.
+              </v-alert>
+              <span v-else-if="java">
                 Java version {{ java.version }}
               </span>
               <v-alert v-else type="warning" dense>
@@ -123,6 +126,7 @@
 </template>
 
 <script>
+import path from 'path'
 import { remote } from 'electron'
 import { mapState } from 'vuex'
 
@@ -130,7 +134,8 @@ export default {
   data () {
     return {
       section: 0,
-      platform: process.platform
+      platform: process.platform,
+      notJavaError: false,
     }
   },
 
@@ -171,6 +176,10 @@ export default {
   },
 
   methods: {
+    clean () {
+      this.notJavaError = false;
+    },
+
     async selectJava () {
       const { dialog } = remote
       const opts = {
@@ -182,13 +191,20 @@ export default {
       }
       const { filePaths } = await dialog.showOpenDialog(opts)
       if (filePaths.length) {
-        this.javaPath = filePaths[0]
-        await this.$store.dispatch('checkJavaVersion', true)
+        const f = filePaths[0];
+        if (['java', 'java.exe', 'javaw.exe'].includes(path.basename(f))) {
+          this.notJavaError = false
+          this.javaPath = f
+          await this.$store.dispatch('checkJavaVersion', true)
+        } else {
+          this.notJavaError = true
+        }
       }
     },
 
     async resetJava () {
       this.javaPath = null
+      this.notJavaError = false
       await this.$store.dispatch('checkJavaVersion', true)
     }
   }
