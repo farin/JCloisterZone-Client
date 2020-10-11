@@ -159,15 +159,20 @@ section
   position: relative
   //margin-top: 20px
   height: 60px
-  background: #f0f0f0
+
+  +theme using ($theme)
+    background: map-get($theme, 'player-panel-name-bg')
+
 
 .name
   //margin-top: 30px // + 10 for outer box margin
   padding-left: 65px
   padding-top: 5px
   font-size: 32px
-  color: #aaa
   text-align: center
+
+  +theme using ($theme)
+    color: map-get($theme, 'player-panel-name-color')
 
 .disconnected
   text-transform: uppercase
@@ -178,11 +183,11 @@ section
 
 .active-turn
   .name
-    color: #757575
+    text-decoration: underline dotted
 
 .active-action
   .name
-    text-decoration: underline
+    text-decoration: underline solid
 
 .points
   position: absolute
@@ -215,8 +220,6 @@ section
     font-weight: bold
     font-size: 20px
     line-height: 30px
-    background: #e0e0e0
-    color: black
     width: 30px
     height: 30px
     border-radius: 14px
@@ -225,6 +228,10 @@ section
     top: -10px
     z-index: 1
     margin-right: -6px
+
+    +theme using ($theme)
+      background: map-get($theme, 'player-panel-count-bg')
+      color: map-get($theme, 'player-panel-count-text')
 
 .followers, .prisoners
   .item
@@ -246,6 +253,10 @@ section
 
     .stacked
       margin-left: -24px
+
+  ::v-deep svg
+    +theme using ($theme)
+      fill: map-get($theme, 'cards-text')
 
 .prisoners .item.can-pay:hover
   cursor: pointer

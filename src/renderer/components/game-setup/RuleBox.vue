@@ -65,7 +65,7 @@ export default {
   align-items: center
 
   +theme using ($theme)
-    color: map-get($theme, 'cards-text-color')
+    color: map-get($theme, 'cards-text')
     background: map-get($theme, 'cards-bg')
 
   .rule-lines

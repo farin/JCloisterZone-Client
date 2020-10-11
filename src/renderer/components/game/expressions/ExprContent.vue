@@ -64,9 +64,12 @@ export default {
       flex-direction: column
       align-items: center
       text-align: center
-      background: #fff4db
       padding: 0 10px
       margin: 0 2px
+
+      +theme using ($theme)
+        background: map-get($theme, 'expr-units-bg')
+        color: map-get($theme, 'expr-units-text')
 
       i
         margin-top: 5px

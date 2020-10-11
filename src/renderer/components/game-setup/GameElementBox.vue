@@ -70,7 +70,7 @@ export default {
   flex-direction: column
 
   +theme using ($theme)
-    color: map-get($theme, 'cards-text-color')
+    color: map-get($theme, 'cards-text')
     background-color: map-get($theme, 'cards-bg')
 
   ::v-deep .box-title

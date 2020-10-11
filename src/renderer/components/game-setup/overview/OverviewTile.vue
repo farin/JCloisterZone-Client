@@ -25,8 +25,7 @@ export default {
 <style lang="sass" scoped>
 .element-box
   +theme using ($theme)
-    background-color: map-get($theme, 'cards-bg')
-
+    background-color: map-get($theme, 'overview-tile-bg')
   .symbol
     display: flex
     align-items: center
@@ -34,7 +33,7 @@ export default {
 
     svg
       +theme using ($theme)
-        fill: map-get($theme, 'text-color')
+        fill: map-get($theme, 'overview-tile-fill')
 
 
   .quantity
@@ -58,13 +57,18 @@ export default {
       display: flex
 
 .element-box.off
-  background: #FFEBEE
+  // background: #FFEBEE
 
-  .symbol.ico
-    opacity: 0.6
+  +theme using ($theme)
+    background: map-get($theme, 'overview-tile-off-bg')
 
-    svg
-      fill: #FFEBEE
+  // .symbol.ico
+  //   opacity: 0.6
+
+  svg
+    +theme using ($theme)
+      fill: map-get($theme, 'overview-tile-off-fill')
+      color: map-get($theme, 'overview-tile-off-overlay')
 
   .name
     text-decoration: line-through

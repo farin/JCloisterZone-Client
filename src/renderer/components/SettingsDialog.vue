@@ -140,7 +140,6 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn
-        color="secondary"
         text
         @click="$emit('close')"
       >Close</v-btn>

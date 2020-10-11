@@ -88,7 +88,7 @@ export default {
   position: relative
 
   +theme using ($theme)
-    color: map-get($theme, 'cards-text-color')
+    color: map-get($theme, 'cards-text')
     background-color: map-get($theme, 'cards-bg')
 
   .exp-title
@@ -97,7 +97,7 @@ export default {
 
     svg
       +theme using ($theme)
-        fill: map-get($theme, 'cards-text-color')
+        fill: map-get($theme, 'cards-text')
 
     h3
       font-size: 1.09em

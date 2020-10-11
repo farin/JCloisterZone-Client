@@ -110,7 +110,7 @@ export default {
     cursor: pointer
 
     +theme using ($theme)
-      color: map-get($theme, 'cards-text-color')
+      color: map-get($theme, 'cards-text')
       background: map-get($theme, 'cards-bg')
 
   .miniboard

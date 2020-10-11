@@ -57,7 +57,11 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.active
-  svg.fairy
-    fill: $fairy-color
+svg
+  +theme using ($theme)
+    fill: map-get($theme, 'cards-text')
+
+.active svg
+  +theme using ($theme)
+    fill: map-get($theme, 'text-color')
 </style>

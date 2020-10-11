@@ -70,7 +70,7 @@ export default {
   cursor: pointer
 
   +theme using ($theme)
-    color: map-get($theme, 'cards-text-color')
+    color: map-get($theme, 'cards-text')
     background-color: map-get($theme, 'cards-bg')
 
   .box-title

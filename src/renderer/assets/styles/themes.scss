@@ -1,11 +1,13 @@
+$text-color-light: rgba(0, 0, 0, 0.87);
+
 $theme-light: (
-  'text-color': rgba(0, 0, 0, 0.87),
+  'text-color': $text-color-light,
   'line-color': #eee,
   'line-color-light': #ddd,
   'gray-text-color': #757575,
   'disabled-fill': #757575,
   'cards-bg': #fff,
-  'cards-text-color': rgba(0, 0, 0, 0.87),
+  'cards-text': $text-color-light,
   'cards-meeple-overlay': white,
   'cards-selected-bg': #D7CCC8,
   'cards-selected-text': #4E342E,
@@ -25,7 +27,18 @@ $theme-light: (
   'action-panel-disabled-overlay': white,
   'action-panel-active-bg': #ddd,
   'action-panel-hover-bg': #f6f6f6,
-  'emphasize-lightbox-fill': rgba(255, 255, 255, 0.7)
+  'emphasize-lightbox-fill': rgba(255, 255, 255, 0.7),
+  'player-panel-name-bg': #f0f0f0,
+  'player-panel-name-color': #555,
+  'player-panel-count': #e0e0e0,
+  'player-panel-count-text': black,
+  'overview-tile-bg': #fff,
+  'overview-tile-fill': $text-color-light,
+  'overview-tile-off-bg': #fff,
+  'overview-tile-off-fill': #FFEBEE,
+  'overview-tile-off-overlay': black,
+  'expr-units-bg': #fff4db,
+  'expr-units-text': black
 );
 
 
@@ -34,14 +47,17 @@ $theme-light: (
 // bgColor: #21252B
 // panel bg: #21252b
 
+$cards-bg-dark: #1E1E1E;
+$cards-text-dark: rgba(255, 255, 255, 0.6);
+
 $theme-dark: (
   'text-color': white,
   'line-color': #323232,
   'line-color-light': #444,
   'gray-text-color': #bbb,
   'disabled-fill': #777,
-  'cards-bg':  #1E1E1E,
-  'cards-text-color': rgba(255, 255, 255, 0.6),
+  'cards-bg':  $cards-bg-dark,
+  'cards-text': $cards-text-dark,
   'cards-meeple-overlay': white,
   'cards-selected-bg': #59677a,
   'cards-selected-text': #dae2ed,
@@ -54,14 +70,25 @@ $theme-dark: (
   'link-detail-color': #373737,
   'link-detail-selected-color': #445163,
   'opaque-bg': rgba(30, 30, 30, 0.92),
-  'removed-color': #DD2C00,
+  'removed-color': #ff957a,
   'tile-placement-local': #4e535c,
   'tile-placement-remote': #3e434d,
   'action-panel-disabled-fill': #777,
   'action-panel-disabled-overlay': white,
   'action-panel-active-bg': #7a7878,
   'action-panel-hover-bg': #cfcccc,
-  'emphasize-lightbox-fill': rgba(0, 0, 0, 0.7)
+  'emphasize-lightbox-fill': rgba(0, 0, 0, 0.7),
+  'player-panel-name-bg': #2e2d2d,
+  'player-panel-name-color': #aaa,
+  'player-panel-count-bg': #2e2d2d,
+  'player-panel-count-text': white,
+  'overview-tile-bg':$cards-bg-dark,
+  'overview-tile-fill': rgba(255, 255, 255, 0.8),
+  'overview-tile-off-bg': $cards-bg-dark,
+  'overview-tile-off-fill': #99685f,
+  'overview-tile-off-overlay': black,
+  'expr-units-bg': #59677a,
+  'expr-units-text': #dae2ed
 );
 
 @mixin theme {
