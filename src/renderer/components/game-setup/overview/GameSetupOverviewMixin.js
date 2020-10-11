@@ -28,6 +28,13 @@ export default {
           diff[cid] = this.elements[cid] === undefined ? false : this.elements[cid]
         }
       })
+      if (this.elements.abbot) {
+        if (this.elements.garden) {
+          delete diff.garden
+        } else {
+          diff.garden = 'off'
+        }
+      }
       return Object.entries(diff)
     },
 
