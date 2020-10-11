@@ -38,7 +38,14 @@ $theme-light: (
   'overview-tile-off-fill': #FFEBEE,
   'overview-tile-off-overlay': black,
   'expr-units-bg': #fff4db,
-  'expr-units-text': black
+  'expr-units-text': black,
+  'slot-open-bg': white,
+  'slot-local-bg': #D7CCC8,
+  'slot-remote-bg': #ccc,
+  'slot-open-text': #444,
+  'slot-local-text': #444,
+  'slot-remote-text': #444,
+  'slot-assign-text': #444
 );
 
 
@@ -88,7 +95,14 @@ $theme-dark: (
   'overview-tile-off-fill': #99685f,
   'overview-tile-off-overlay': black,
   'expr-units-bg': #59677a,
-  'expr-units-text': #dae2ed
+  'expr-units-text': #dae2ed,
+  'slot-open-bg': $cards-bg-dark,
+  'slot-local-bg': #59677a,
+  'slot-remote-bg': #3d4752,
+  'slot-open-text': #bbb,
+  'slot-local-text': #dae2ed,
+  'slot-remote-text': #bbb,
+  'slot-assign-text': #bbb
 );
 
 @mixin theme {

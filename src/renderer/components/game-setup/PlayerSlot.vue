@@ -121,7 +121,8 @@ export default {
   overflow: hidden
 
   +theme using ($theme)
-    background: map-get($theme, 'cards-bg')
+    background: map-get($theme, 'slot-open-bg')
+    color: map-get($theme, 'slot-open-text')
 
   .order
     position: absolute
@@ -146,7 +147,6 @@ export default {
     font-size: 24px
     text-transform: uppercase
     font-weight: 300
-    color: #444
     margin-bottom: 15px
 
   .name
@@ -155,6 +155,9 @@ export default {
     width: 100%
     text-align: center
     z-index: 2
+
+    +theme using ($theme)
+      color: map-get($theme, 'text-color')
 
     i
       visibility: hidden
@@ -167,7 +170,9 @@ export default {
       font-size: 16px
       font-style: italic
       padding-top: 8px
-      color: #444
+
+      +theme using ($theme)
+        color: map-get($theme, 'slot-assign-text')
 
   &.open, &.local
     cursor: pointer
@@ -177,10 +182,13 @@ export default {
 
   &.local
     +theme using ($theme)
-      background: map-get($theme, 'cards-selected-bg')
+      background: map-get($theme, 'slot-local-bg')
+      color: map-get($theme, 'slot-local-text')
 
   &.remote
-    background: #ccc
+    +theme using ($theme)
+      background: map-get($theme, 'slot-remote-bg')
+      color: map-get($theme, 'slot-remote-text')
 
   &.open
     .order
