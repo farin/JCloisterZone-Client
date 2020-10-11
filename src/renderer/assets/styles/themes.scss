@@ -32,6 +32,7 @@ $theme-light: (
 // theme from 4.x
 // mainBg: #282c34
 // bgColor: #21252B
+// panel bg: #21252b
 
 $theme-dark: (
   'text-color': white,
@@ -42,16 +43,16 @@ $theme-dark: (
   'cards-bg':  #1E1E1E,
   'cards-text-color': rgba(255, 255, 255, 0.6),
   'cards-meeple-overlay': white,
-  'cards-selected-bg': #607D8B,
-  'cards-selected-text': #CFD8DC,
+  'cards-selected-bg': #59677a,
+  'cards-selected-text': #dae2ed,
   'cards-selected-shadow': (0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 8px 0 rgba(0, 0, 0, 0.05)),
-  'cards-selected-meeple': #FFAB00,
-  'cards-selected-meeple-overlay': black,
+  'cards-selected-meeple': #5ea5ff,
+  'cards-selected-meeple-overlay': white,
   'cards-link-hover': white,
   'cards-selected-link-hover': #37474F,
   'board-bg': #282c34,
   'link-detail-color': #373737,
-  'link-detail-selected-color': #455A64,
+  'link-detail-selected-color': #445163,
   'opaque-bg': rgba(30, 30, 30, 0.92),
   'removed-color': #DD2C00,
   'tile-placement-local': #4e535c,
