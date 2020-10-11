@@ -58,9 +58,8 @@
     </defs>
 
     <rect
+      class="emphasize-lightbox"
       width="100%" height="100%"
-      fill="white"
-      fill-opacity="0.7"
       mask="url(#emphasis-layer-mask)"
     />
   </g>
@@ -104,4 +103,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.emphasize-lightbox
+  +theme using ($theme)
+    fill: map-get($theme, 'emphasize-lightbox-fill')
 </style>

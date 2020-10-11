@@ -22,8 +22,9 @@
       </g>
       <rect
         v-else
+        class="available-tile"
+        :class="{ local }"
         :x="60" :y="60" width="880" height="880"
-        :style="{stroke: local ? '#c0c0c0' : '#e0e0e0', strokeWidth: 70, fill: 'none'}"
       />
 
       <!-- invisible rect for tracking mouse events -->
@@ -111,5 +112,15 @@ export default {
 }
 </script>
 
-<style>
+<style lang="sass" scoped>
+.available-tile
+  stroke-width: 70px
+  fill: none
+
+  +theme using ($theme)
+    stroke: map-get($theme, 'tile-placement-remote')
+
+    &.local
+      stroke: map-get($theme, 'tile-placement-local')
+
 </style>

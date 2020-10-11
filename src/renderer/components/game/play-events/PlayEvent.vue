@@ -89,10 +89,12 @@ export default {
 
 .play-event.ev-current-action
   background: transparent
-  border: 4px solid #ccc
   width: 38px
   height: 38px
   margin: 1px
+
+  +theme using ($theme)
+    border: 4px solid #{map-get($theme, 'tile-placement-local')}
 
 .unknown-event
   font-size: 12px

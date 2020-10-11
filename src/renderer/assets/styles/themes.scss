@@ -18,7 +18,14 @@ $theme-light: (
   'link-detail-color': #eee,
   'link-detail-selected-color': #C3B9B6,
   'opaque-bg': rgba(255, 255, 255, 0.92),
-  'removed-color': #DD2C00
+  'removed-color': #DD2C00,
+  'tile-placement-local': #c0c0c0,
+  'tile-placement-remote': #e0e0e0,
+  'action-panel-disabled-fill': #999,
+  'action-panel-disabled-overlay': white,
+  'action-panel-active-bg': #ddd,
+  'action-panel-hover-bg': #f6f6f6,
+  'emphasize-lightbox-fill': rgba(255, 255, 255, 0.7)
 );
 
 
@@ -46,7 +53,14 @@ $theme-dark: (
   'link-detail-color': #373737,
   'link-detail-selected-color': #455A64,
   'opaque-bg': rgba(30, 30, 30, 0.92),
-  'removed-color': #DD2C00
+  'removed-color': #DD2C00,
+  'tile-placement-local': #4e535c,
+  'tile-placement-remote': #3e434d,
+  'action-panel-disabled-fill': #777,
+  'action-panel-disabled-overlay': white,
+  'action-panel-active-bg': #7a7878,
+  'action-panel-hover-bg': #cfcccc,
+  'emphasize-lightbox-fill': rgba(0, 0, 0, 0.7)
 );
 
 @mixin theme {
