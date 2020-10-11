@@ -3,13 +3,22 @@ $theme-light: (
   'line-color': #eee,
   'line-color-light': #ddd,
   'gray-text-color': #757575,
+  'disabled-fill': #757575,
   'cards-bg': #fff,
+  'cards-text-color': rgba(0, 0, 0, 0.87),
+  'cards-meeple-overlay': white,
   'cards-selected-bg': #D7CCC8,
   'cards-selected-text': #4E342E,
+  'cards-selected-shadow': (0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)),
+  'cards-selected-meeple': #E53935,
+  'cards-selected-meeple-overlay': white,
+  'cards-link-hover': #3E2723,
+  'cards-selected-link-hover': #3E2723,
   'board-bg': #F5F5F5,
-  'exp-detail-color': #eee,
-  'exp-detail-selected-color': #C3B9B6,
-  'opaque-bg': rgba(255, 255, 255, 0.92)
+  'link-detail-color': #eee,
+  'link-detail-selected-color': #C3B9B6,
+  'opaque-bg': rgba(255, 255, 255, 0.92),
+  'removed-color': #DD2C00
 );
 
 
@@ -22,13 +31,22 @@ $theme-dark: (
   'line-color': #323232,
   'line-color-light': #444,
   'gray-text-color': #bbb,
+  'disabled-fill': #777,
   'cards-bg':  #1E1E1E,
-  'cards-selected-bg': #D7CCC8,
-  'cards-selected-text': #4E342E,
+  'cards-text-color': rgba(255, 255, 255, 0.6),
+  'cards-meeple-overlay': white,
+  'cards-selected-bg': #607D8B,
+  'cards-selected-text': #CFD8DC,
+  'cards-selected-shadow': (0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 8px 0 rgba(0, 0, 0, 0.05)),
+  'cards-selected-meeple': #FFAB00,
+  'cards-selected-meeple-overlay': black,
+  'cards-link-hover': white,
+  'cards-selected-link-hover': #37474F,
   'board-bg': #282c34,
-  'exp-detail-color': #373737,
-  'exp-detail-selected-color': #C3B9B6,
-  'opaque-bg': rgba(30, 30, 30, 0.92)
+  'link-detail-color': #373737,
+  'link-detail-selected-color': #455A64,
+  'opaque-bg': rgba(30, 30, 30, 0.92),
+  'removed-color': #DD2C00
 );
 
 @mixin theme {

@@ -256,13 +256,16 @@ main
   .recent-setup
     cursor: pointer
     margin-bottom: 10px
-    border: 1px solid black
+
+    +theme using ($theme)
+      border: 1px solid #{map-get($theme, 'line-color')}
 
   .recent-list a
     display: block
 
-    &:hover
-      color: black
+    +theme using ($theme)
+      &:hover
+        color: map-get($theme, 'text-color')
 
     &.clear
       margin-top: 10px

@@ -42,7 +42,7 @@ module.exports = {
           primary: '#E64A19' // deep orange darken-2
         },
         dark: {
-          primary: '#E64A19' // deep orange darken-2
+          primary: '#EF6C00' // orange darken-3
         }
       }
     }

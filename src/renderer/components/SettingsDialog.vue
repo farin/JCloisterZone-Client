@@ -215,6 +215,8 @@ export default {
     },
 
     onThemeChange (val) {
+      // netive theme requires electron 10
+      // nativeTheme.themeSource = val
       this.$vuetify.theme.dark = val === 'dark'
     },
 

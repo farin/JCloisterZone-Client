@@ -67,8 +67,11 @@ export default {
 .game-mechanics-box
   display: flex
   flex-direction: column
-  background: white
   cursor: pointer
+
+  +theme using ($theme)
+    color: map-get($theme, 'cards-text-color')
+    background-color: map-get($theme, 'cards-bg')
 
   .box-title
     text-align: center
@@ -101,18 +104,24 @@ export default {
       font-size: 16px
       text-transform: uppercase
       font-weight: 300
-      color: #777
+
+      +theme using ($theme)
+        color: map-get($theme, 'gray-text-color')
 
     &:hover .add-first
-      color: $selection-hover
       text-decoration: underline
 
+      +theme using ($theme)
+        color: map-get($theme, 'cards-link-hover')
+
   &.selected
-    background: $selection-bg
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)
+    +theme using ($theme)
+      background: map-get($theme, 'cards-selected-bg')
+      box-shadow: map-get($theme, 'cards-selected-shadow')
 
     h3
-      color: $selection-icon
+      +theme using ($theme)
+        color: map-get($theme, 'cards-selected-text')
 
     .box-title img
       opacity: 1

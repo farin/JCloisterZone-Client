@@ -59,11 +59,14 @@ export default {
 
 <style lang="sass" scoped>
 .rule-box
-  background: white
   min-height: 75px
   padding: 10px 10px
   display: flex
   align-items: center
+
+  +theme using ($theme)
+    color: map-get($theme, 'cards-text-color')
+    background: map-get($theme, 'cards-bg')
 
   .rule-lines
     .rule-line

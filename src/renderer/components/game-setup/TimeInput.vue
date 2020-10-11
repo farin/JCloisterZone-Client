@@ -64,4 +64,7 @@ export default {
     margin: 0 5px
     // border: 1px solid gray
     text-align: center
+
+    +theme using ($theme)
+      color: map-get($theme, 'gray-text-color')
 </style>

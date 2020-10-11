@@ -88,6 +88,7 @@ export default {
   position: relative
 
   +theme using ($theme)
+    color: map-get($theme, 'cards-text-color')
     background-color: map-get($theme, 'cards-bg')
 
   .exp-title
@@ -96,7 +97,7 @@ export default {
 
     svg
       +theme using ($theme)
-        fill: map-get($theme, 'text-color')
+        fill: map-get($theme, 'cards-text-color')
 
     h3
       font-size: 1.09em
@@ -122,7 +123,7 @@ export default {
       transition: none !important
 
       +theme using ($theme)
-        color: map-get($theme, 'exp-detail-color')
+        color: map-get($theme, 'link-detail-color')
 
     &:hover .v-icon
       color: black
@@ -130,8 +131,7 @@ export default {
   &.selected
     +theme using ($theme)
       background: map-get($theme, 'cards-selected-bg')
-
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)
+      box-shadow: map-get($theme, 'cards-selected-shadow')
 
     h3
       +theme using ($theme)
@@ -145,7 +145,7 @@ export default {
     .detail-link
       .v-icon
         +theme using ($theme)
-          color: map-get($theme, 'exp-detail-selected-color')
+          color: map-get($theme, 'link-detail-selected-color')
 
       &:hover .v-icon
         +theme using ($theme)

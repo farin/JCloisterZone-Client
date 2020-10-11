@@ -91,4 +91,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.exp-symbol
+  +theme using ($theme)
+    fill: map-get($theme, 'text-color')
 </style>

@@ -368,11 +368,14 @@ export default {
   padding-top: $panel-gap
 
   svg.meeple
-    fill: #757575
+    +theme using ($theme)
+      fill: map-get($theme, 'disabled-fill')
 
   .selected
     svg.meeple
-      fill: $selection-meeple
+      +theme using ($theme)
+        fill: map-get($theme, 'cards-selected-meeple')
+        color: map-get($theme, 'cards-selected-meeple-overlay')
 
 .game-mechanics
   display: grid
@@ -400,7 +403,9 @@ export default {
 
   .selected
     svg.meeple, svg.tunnel-token
-      fill: $selection-meeple
+      +theme using ($theme)
+        fill: map-get($theme, 'cards-selected-meeple')
+        color: map-get($theme, 'cards-selected-meeple-overlay')
 
     svg.fairy
       position: relative

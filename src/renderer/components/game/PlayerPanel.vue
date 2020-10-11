@@ -248,9 +248,11 @@ section
       margin-left: -24px
 
 .prisoners .item.can-pay:hover
-  background: $removed-color
   cursor: pointer
   border-radius: 4px
+
+  +theme using ($theme)
+    background: map-get($theme, 'removed-color')
 
 .bazaar-tile
   svg

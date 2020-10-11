@@ -109,7 +109,9 @@ export default {
     text-transform: uppercase
     text-align: center
     font-weight: 300
-    color: #777
+
+    +theme using ($theme)
+      color: map-get($theme, 'gray-text-color')
 
 .add-first, .remove, .quantity, .add
   display: flex
@@ -119,17 +121,22 @@ export default {
 .quantity
   font-size: 24px
   font-weight: 500
-  color: $selection-icon
+
+  +theme using ($theme)
+    color: map-get($theme, 'cards-selected-text')
 
   i
-    color: $selection-icon
+    +theme using ($theme)
+        color: map-get($theme, 'cards-selected-text')
 
 .add-first
   flex: 1
   font-size: 16px
   text-transform: uppercase
   font-weight: 300
-  color: #777
+
+  +theme using ($theme)
+    color: map-get($theme, 'gray-text-color')
 
 
 .remove, .quantity, .add
@@ -139,10 +146,12 @@ export default {
   visibility: hidden
 
   i
-    color: $selection-icon
+    +theme using ($theme)
+      color: map-get($theme, 'cards-selected-text')
 
   &:hover i
-    color: $selection-hover
+    +theme using ($theme)
+      color: map-get($theme, 'cards-selected-link-hover')
 
 .hover-message
   display: none
@@ -159,8 +168,10 @@ export default {
       visibility: visible
 
     .add-first
-      color: $selection-hover
       text-decoration: underline
+
+      +theme using ($theme)
+        color: map-get($theme, 'cards-link-hover')
 
   &.with-hover-message:hover
     .controls

@@ -25,17 +25,6 @@
         <div class="text text-mandatory">Mandatory for<br>selected tiles</div>
       </template>
     </GameElementButtons>
-    <!-- <div class="box-controls">
-      <div v-if="!enabled" class="text text-disabled">Related tiles<br>not selected</div>
-      <GameElementButtons
-        v-else
-        :mutable="mutable"
-        :item="item"
-        :max="max"
-      />
-
-      <div v-if="mandatory" class="text text-mandatory">Mandatory for<br>selected tiles</div>
-    </div> -->
   </div>
 </template>
 
@@ -71,12 +60,6 @@ export default {
     selected () {
       return !!this.elements[this.item.id]
     }
-  },
-
-  methods: {
-    // open () {
-    //   this.$store.commit('gameSetup/detail', { view: 'expansion', expansion: this.expansion })
-    // }
   }
 }
 </script>
@@ -85,7 +68,10 @@ export default {
 .element-box
   display: flex
   flex-direction: column
-  background: white
+
+  +theme using ($theme)
+    color: map-get($theme, 'cards-text-color')
+    background-color: map-get($theme, 'cards-bg')
 
   ::v-deep .box-title
     text-align: center
@@ -105,11 +91,13 @@ export default {
       margin: 0 auto
 
   &.selected
-    background: $selection-bg
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)
+    +theme using ($theme)
+      background: map-get($theme, 'cards-selected-bg')
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)
 
     h3
-      color: $selection-icon
+      +theme using ($theme)
+        color: map-get($theme, 'cards-selected-text')
 
     ::v-deep .box-title img
       opacity: 1

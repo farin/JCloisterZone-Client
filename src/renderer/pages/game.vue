@@ -157,7 +157,10 @@ aside
 
   .game-modal-content
     position: relative
-    background: white
     box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.45)
     padding: 40px 60px
+
+    +theme using ($theme)
+      color: map-get($theme, 'cards-text-color')
+      background: map-get($theme, 'cards-bg')
 </style>

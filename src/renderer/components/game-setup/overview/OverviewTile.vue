@@ -24,12 +24,18 @@ export default {
 
 <style lang="sass" scoped>
 .element-box
-  background: white
+  +theme using ($theme)
+    background-color: map-get($theme, 'cards-bg')
 
   .symbol
     display: flex
     align-items: center
     justify-content: center
+
+    svg
+      +theme using ($theme)
+        fill: map-get($theme, 'text-color')
+
 
   .quantity
     text-align: center
@@ -62,6 +68,8 @@ export default {
 
   .name
     text-decoration: line-through
-    text-decoration-color: $removed-color
+
+    +theme using ($theme)
+      text-decoration-color: map-get($theme, 'removed-color')
 </style>
 
