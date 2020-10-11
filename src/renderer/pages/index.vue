@@ -205,11 +205,11 @@ export default {
     margin-bottom: 40px
 
     #app.theme--light &
-      background-color: #FDF0F5
+      background-color: #D7CCC8
       box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.1)
 
     #app.theme--dark &
-      background-color: #73686B
+      background-color: #282c34
       box-shadow: 0px 3px 7px 0px rgba(255,255,255,0.1)
 
   .disclaimer-content

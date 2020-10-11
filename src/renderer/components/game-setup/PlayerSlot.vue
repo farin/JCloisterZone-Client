@@ -34,13 +34,13 @@
         </v-card-title>
         <v-card-text>
           <v-container>
-              <v-text-field label="Name" v-model="editName"></v-text-field>
+              <v-text-field label="Name" v-model="editName" @keydown.enter="rename"></v-text-field>
           </v-container>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn text @click="edit = false">Cancel</v-btn>
-          <v-btn text @click="rename()">Confirm</v-btn>
+          <v-btn text @click="rename">Confirm</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

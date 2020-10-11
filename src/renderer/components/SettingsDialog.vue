@@ -6,7 +6,6 @@
         <v-list class="flex-shrink-0">
           <v-list-item-group
             v-model="section"
-            color="secondary"
           >
             <v-list-item>
               <v-list-item-title>Player</v-list-item-title>

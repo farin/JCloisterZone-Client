@@ -289,8 +289,8 @@ export class GameServer {
       this.send(ws, {type: 'ERR', code: 'slot-owner', message: 'Slot is not assigned to your session'})
       return
     }
-    if (this.status === 'new') {
-      this.send(ws, {type: 'ERR', code: 'slot-reaonlyr', message: "Can't update slot"})
+    if (this.status !== 'new') {
+      this.send(ws, {type: 'ERR', code: 'slot-reaonly', message: "Can't update slot"})
       return
     }
 
