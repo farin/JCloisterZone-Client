@@ -5,7 +5,9 @@
       v-model="showAbout"
       max-width="600"
     >
-      <AboutDialog />
+      <AboutDialog
+        @close="showAbout = false"
+      />
     </v-dialog>
     <v-dialog
       v-model="showJoinDialog"

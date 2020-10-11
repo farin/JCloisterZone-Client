@@ -31,6 +31,13 @@
         <div class="value">{{ engine ? engine.version : '' }}</div>
       </section>
     </v-card-text>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn
+        text
+        @click="$emit('close')"
+      >Close</v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
