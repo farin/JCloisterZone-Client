@@ -48,7 +48,7 @@
           New game
         </v-btn>
 
-        <template v-if="recentGameSetups.length">
+        <template v-if="recentGameSetups.length && $store.state.loaded.plugins">
           <h2>Recent Game Setups</h2>
 
           <div class="recent-list d-flex flex-column align-end">
@@ -63,7 +63,6 @@
             <a class="clear" href="#" @click="clearRecentGameSetups"><v-icon>fas fa-times</v-icon> clear list</a>
           </div>
         </template>
-
       </div>
 
       <div>
