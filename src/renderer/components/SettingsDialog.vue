@@ -109,6 +109,8 @@
           <template v-if="section === 3">
             <h3 class="mt-2 mb-4">Java</h3>
 
+            <em>Although JCloisterZone client is pure native application, Java is required to run game engine. In other words to play a game.</em>
+
             <h4>Java executable</h4>
             <em>You can set manually path to {{ platform === 'win32' ? 'java.exe' : 'java binary' }}</em>
 
@@ -150,7 +152,7 @@
 <script>
 import path from 'path'
 import { remote } from 'electron'
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   data () {
@@ -162,8 +164,13 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      javaOutdated: 'javaOutdated',
+    }),
+
     ...mapState({
       java: state => state.java,
+      engine: state => state.engine
     }),
 
     nickname: {
@@ -212,7 +219,7 @@ export default {
       this.notJavaError = false;
     },
 
-    onThemeChange (val) {      
+    onThemeChange (val) {
       if (val === 'dark') {
         this.$vuetify.theme.dark = true
         remote.nativeTheme.themeSource = 'dark'
@@ -238,6 +245,7 @@ export default {
           this.notJavaError = false
           this.javaPath = f
           await this.$store.dispatch('checkJavaVersion', true)
+          this.verifyEngineIfNeeded()
         } else {
           this.notJavaError = true
         }
@@ -248,6 +256,13 @@ export default {
       this.javaPath = null
       this.notJavaError = false
       await this.$store.dispatch('checkJavaVersion', true)
+      this.verifyEngineIfNeeded()
+    },
+
+    verifyEngineIfNeeded () {
+      if (!this.engine && this.java && !this.javaOutdated) {
+        this.$store.dispatch('checkEngineVersion')
+      }
     }
   }
 }

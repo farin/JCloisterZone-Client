@@ -22,7 +22,7 @@
         <a href="#" @click="openLink('https://www.oracle.com/java/technologies/javase-jdk14-downloads.html')">Download Java</a>
       </v-alert>
       <v-alert v-if="javaMissing && javaSelectedByUser" type="warning">
-        Your manually configured path to Java binary is not valid.<br>
+        Your manually configured Java path is not valid.<br>
         <br>
         Change it in settings.
       </v-alert>
