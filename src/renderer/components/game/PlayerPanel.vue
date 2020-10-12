@@ -179,6 +179,7 @@ section
   text-align: center
   padding: 12px 0
   font-weight: 500
+  color: rgba(0, 0, 0, 0.87)
   background: #FFECB3
 
 .active-turn

@@ -19,8 +19,17 @@ class ConnectionPlugin {
 
   // TODO use emitter instead callback
   async connect (host, { onMessage, onClose }) {
+    let closeCalled = false
     let fulfilled = false
     let pingTimeout = null
+
+    const handleClose = (code) => {
+      if (onClose && !closeCalled) {
+        closeCalled = true // call it only once. error event can be emited after close
+        onClose(code)
+      }
+    }
+
     return new Promise((resolve, reject) => {
       const heartbeat = () => {
         clearTimeout(pingTimeout)
@@ -54,8 +63,10 @@ class ConnectionPlugin {
       this.ws.addEventListener('error', e => {
         console.log(`%c client %c websocket error ${e.message}`, CONSOLE_CLIENT_COLOR, '')
         this.ws = null
-        reject(e)
-        onClose()
+        if (!fulfilled) {
+          reject(e)
+        }
+        handleClose(null)
       })
 
       this.ws.addEventListener('message', ev => {
@@ -89,7 +100,7 @@ class ConnectionPlugin {
         if (!fulfilled) {
           reject(ev)
         }
-        onClose()
+        handleClose(ev.code)
       })
     })
   }
@@ -102,7 +113,10 @@ class ConnectionPlugin {
   }
 
   send (message) {
-    this.ws.send(JSON.stringify(message))
+    // ignored messages when client is disconnected
+    if (this.ws) {
+      this.ws.send(JSON.stringify(message))
+    }
   }
 
   isConnectedOrConnecting () {
