@@ -212,10 +212,14 @@ export default {
       this.notJavaError = false;
     },
 
-    onThemeChange (val) {
-      // netive theme requires electron 10
-      // nativeTheme.themeSource = val
-      this.$vuetify.theme.dark = val === 'dark'
+    onThemeChange (val) {      
+      if (val === 'dark') {
+        this.$vuetify.theme.dark = true
+        remote.nativeTheme.themeSource = 'dark'
+      } else {
+        this.$vuetify.theme.dark = false
+        remote.nativeTheme.themeSource = 'light'
+      }
     },
 
     async selectJava () {

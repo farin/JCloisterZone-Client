@@ -98,12 +98,16 @@ export default {
 
   async mounted () {
     webFrame.setZoomLevel(0)
-    webFrame.setVisualZoomLevelLimits(1, 1)
+    webFrame.setVisualZoomLevelLimits(1, 1)    
 
     await this.$store.dispatch('settings/load')
-
+        
     if (this.$store.state.settings.theme === 'dark') {
       this.$vuetify.theme.dark = true
+      remote.nativeTheme.themeSource = 'dark'
+    } else {
+      this.$vuetify.theme.dark = false
+      remote.nativeTheme.themeSource = 'light'
     }
 
     const isMac = process.platform === 'darwin'
