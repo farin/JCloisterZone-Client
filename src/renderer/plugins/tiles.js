@@ -63,6 +63,10 @@ export default ({ app }, inject) => {
 
     const json = JSON.parse(data)
     $tiles.tiles = json.tiles
+    $tiles.tiles['AM/A'] = {
+      symmetry: 4,
+      edge: '****'
+    }
     $tiles.multiTiles = json.multiTiles
     $tiles.sets = json.sets
     $tiles.loaded = true
