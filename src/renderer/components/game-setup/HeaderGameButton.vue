@@ -1,13 +1,13 @@
 <template>
   <div class="header-game-button">
-    <div v-if="javaMissing" class="warning-text">
+    <div v-if="java && java.error === 'not-found'" class="warning-text">
       Java is not installed!
     </div>
-    <div v-else-if="javaOutdated" class="warning-text">
+    <div v-else-if="java && java.error === 'outdated'" class="warning-text">
       Java is outdated!
     </div>
-    <div v-else-if="!engineReady" class="warning-text">
-      Engine.jar is unavailable!
+    <div v-else-if="engine && engine.error" class="warning-text">
+      Game engine not available.
     </div>
     <div v-else-if="!containsCoreSet" class="info-text">
       No core set!
@@ -16,7 +16,7 @@
       {{ info }}
     </div>
 
-    <v-btn large color="primary" :disabled="!engineReady || !containsCoreSet || !!info" @click="ev => $emit('click', ev)">
+    <v-btn large color="primary" :disabled="!engine.ok || !containsCoreSet || !!info" @click="ev => $emit('click', ev)">
       <v-icon left>fas fa-play</v-icon>
       {{ title }}
     </v-btn>
@@ -42,12 +42,16 @@ export default {
     info: { type: String, default: null }
   },
 
-  computed: mapGetters({
-    javaMissing: 'javaMissing',
-    javaOutdated: 'javaOutdated',
-    engineReady: 'engineReady',
-    containsCoreSet: 'gameSetup/containsCoreSet'
-  })
+  computed: {
+    ...mapState({
+      java: state => state.java,
+      engine: state => state.engine
+    }),
+
+    ...mapGetters({
+      containsCoreSet: 'gameSetup/containsCoreSet'
+    })
+  }
 }
 </script>
 

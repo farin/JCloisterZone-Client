@@ -15,28 +15,32 @@
       </div>
     </div>
     <div>
-      <v-alert v-if="javaMissing && !javaSelectedByUser" type="warning">
+      <v-alert v-if="java && java.error === 'not-found' && !javaSelectedByUser" type="warning">
         Unable to locate Java on your system.<br>
         <br>
         Java is required to start a game.<br>
-        <a href="#" @click="openLink('https://www.oracle.com/java/technologies/javase-jdk14-downloads.html')">Download Java</a>
+        <a href="#" @click="openLink('https://www.oracle.com/java/technologies/javase-jdk14-downloads.html')">Download Java</a><br>
+        If Java is already installed, verify if Java is added to your system path or select java binary manually in <a href @click.prevent="() => $store.commit('showSettings', true)">settings</a>.
       </v-alert>
-      <v-alert v-if="javaMissing && javaSelectedByUser" type="warning">
+      <v-alert v-if="java && java.error === 'not-found' && javaSelectedByUser" type="warning">
         Your manually configured Java path is not valid.<br>
         <br>
-        Change it in settings.
+        Change it in <a href @click.prevent="() => $store.commit('showSettings', true)">settings</a>.
       </v-alert>
-      <v-alert v-if="javaOutdated" type="warning">
+      <v-alert v-if="java && java.error === 'outdated'" type="warning">
         You Java installation is outdated.<br>
         <br>
-        Java 11 or higher is required (found {{ java.version }}).<br>
-        Java is required to start a game.<br>
-        <a href="#" @click="openLink('https://www.oracle.com/java/technologies/javase-jdk14-downloads.html')">Download Java</a>
+        Java 11 or higher is required (found {{ java.version }}) to start a game.<br>
+        <a href="#" @click="openLink('https://www.oracle.com/java/technologies/javase-jdk14-downloads.html')">Download Java</a><br>
+        Or select proper java manually in <a href @click.prevent="() => $store.commit('showSettings', true)">settings</a>.
       </v-alert>
-      <v-alert v-if="engineMissing" type="warning">
-        JCloisterZone Game Engine is missing.
+      <v-alert v-if="engine && engine.error === 'not-found'" type="warning">
+        Can't locate game engine (file <i>{{ engine.path }}</i> doesn't exist or can't be read)
       </v-alert>
-
+      <v-alert v-if="engine && engine.error === 'exec-error'" type="warning">
+        Unable to spawn game engine. Details:<br>
+        <small>{{ engine.errorMessage }}</small>
+      </v-alert>
       <div v-if="download" class="download-box">
           {{ download.description }}
           <v-progress-linear indeterminate />
@@ -116,12 +120,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      javaMissing: 'javaMissing',
-      javaOutdated: 'javaOutdated',
-      engineMissing: 'engineMissing'
-    }),
-
     ...mapState({
       javaSelectedByUser: state => state.settings.javaPath,
       java: state => state.java,
