@@ -51,10 +51,12 @@ export default {
   .expr
     display: flex
     align-items: stretch
-    color: $color-gray
     font-size: 28px
     font-weight: 500
     padding-top: 1px
+
+    +theme using ($theme)
+      color: map-get($theme, 'gray-text-color')
 
     .value-units
       position: relative
@@ -62,13 +64,18 @@ export default {
       flex-direction: column
       align-items: center
       text-align: center
-      background: #fff4db
       padding: 0 10px
       margin: 0 2px
 
+      +theme using ($theme)
+        background: map-get($theme, 'expr-units-bg')
+        color: map-get($theme, 'expr-units-text')
+
       i
         margin-top: 5px
-        color: $color-gray
+
+        +theme using ($theme)
+          color: map-get($theme, 'gray-text-color')
 
       img
         position: absolute

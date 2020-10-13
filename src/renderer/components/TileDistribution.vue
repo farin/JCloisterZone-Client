@@ -80,7 +80,6 @@ export default {
     margin: 0 2px
 
   .count
-    //background: white
     text-align: center
     padding: 4px 0
     margin-bottom: 10px

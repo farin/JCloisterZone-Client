@@ -25,8 +25,10 @@ export default {
     text-align: center
 
     h2
-      color: $color-gray
       font-weight: 300
       font-size: 16px
       text-transform: uppercase
+
+      +theme using ($theme)
+        color: map-get($theme, 'gray-text-color')
 </style>

@@ -181,7 +181,7 @@ export const actions = {
 export const getters = {
   containsCoreSet: state => state.sets.basic || state.sets.winter,
 
-  getSelectedEdition: state => state.elements.abbot ? 2 : 1,
+  getSelectedEdition: state => state.elements.garden ? 2 : 1,
 
   startingTilesOptions: (state, getters) => {
     const { sets } = state

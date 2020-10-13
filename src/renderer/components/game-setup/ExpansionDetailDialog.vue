@@ -8,6 +8,13 @@
     <v-card-text>
       <component :is="detailComponent" />
     </v-card-text>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn
+        text
+        @click="$emit('close')"
+      >Close</v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -91,4 +98,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.exp-symbol
+  +theme using ($theme)
+    fill: map-get($theme, 'text-color')
 </style>

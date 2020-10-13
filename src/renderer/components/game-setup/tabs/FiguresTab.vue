@@ -174,32 +174,38 @@ export default {
   grid-auto-flow: row
 
   svg.meeple, svg.tunnel-token
-    color: white
+    +theme using ($theme)
+      color: map-get($theme, 'cards-meeple-overlay')
 
   svg.meeple, svg.neutral, svg.token
-    fill: #757575
+    +theme using ($theme)
+      fill: map-get($theme, 'disabled-fill')
 
   .selected
     svg.meeple, svg.tunnel-token
-      fill: $selection-meeple
+      +theme using ($theme)
+        fill: map-get($theme, 'cards-selected-meeple')
+        color: map-get($theme, 'cards-selected-meeple-overlay')
 
-    svg.fairy
-      fill: $fairy-color
+    +theme using ($theme)
+      // theme is not used, but specific theme selector is needed to override disabled-fill
+      svg.fairy
+        fill: $fairy-color
 
-    svg.dragon
-      fill: $dragon-color
+      svg.dragon
+        fill: $dragon-color
 
-    svg.count
-      fill: $count-color
+      svg.count
+        fill: $count-color
 
-    svg.mage
-      fill: $mage-color
+      svg.mage
+        fill: $mage-color
 
-    svg.witch
-      fill: $witch-color
+      svg.witch
+        fill: $witch-color
 
-    svg.wooden-token
-      fill: $wooden-token-color
+      svg.wooden-token
+        fill: $wooden-token-color
 
 .icon-wrapper
   height: 55px

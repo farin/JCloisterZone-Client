@@ -5,7 +5,9 @@
       v-model="showAbout"
       max-width="600"
     >
-      <AboutDialog />
+      <AboutDialog
+        @close="showAbout = false"
+      />
     </v-dialog>
     <v-dialog
       v-model="showJoinDialog"
@@ -23,6 +25,7 @@
       max-width="800"
     >
       <SettingsDialog
+        ref="settings"
         @close="showSettings = false"
       />
     </v-dialog>
@@ -84,14 +87,28 @@ export default {
 
     undoAllowed () {
       this.updateMenu()
+    },
+
+    showSettings (val) {
+      if (val) {
+        this.$refs.settings?.clean()
+      }
     }
   },
 
   async mounted () {
     webFrame.setZoomLevel(0)
-    webFrame.setVisualZoomLevelLimits(1, 1)
+    webFrame.setVisualZoomLevelLimits(1, 1)    
 
     await this.$store.dispatch('settings/load')
+        
+    if (this.$store.state.settings.theme === 'dark') {
+      this.$vuetify.theme.dark = true
+      remote.nativeTheme.themeSource = 'dark'
+    } else {
+      this.$vuetify.theme.dark = false
+      remote.nativeTheme.themeSource = 'light'
+    }
 
     const isMac = process.platform === 'darwin'
     const template = [
@@ -244,7 +261,7 @@ body
   width: 100%
   min-height: 100vh
 
-@import '~/assets/styles/theme.scss'
+@import '~/assets/styles/player-colors.scss'
 @import '~/assets/styles/rotation.sass'
 
 .dragon

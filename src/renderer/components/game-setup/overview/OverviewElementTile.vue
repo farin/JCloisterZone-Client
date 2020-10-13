@@ -88,6 +88,6 @@ export default {
 .tile-img, img
   filter: grayscale(100%)
 
-.meeple, .fairy, .dragon, .count
-  fill: #f0f0f0
+// .meeple, .fairy, .dragon, .count
+//   fill: #f0f0f0
 </style>

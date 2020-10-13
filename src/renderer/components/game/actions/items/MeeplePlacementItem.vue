@@ -93,6 +93,7 @@ svg
   height: 74px
 
 svg.inactive
-  fill: #999
-  color: white
+  +theme using ($theme)
+    fill: map-get($theme, 'action-panel-disabled-fill')
+    color: map-get($theme, 'action-panel-disabled-overlay')
 </style>

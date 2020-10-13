@@ -6,7 +6,6 @@
         <v-list class="flex-shrink-0">
           <v-list-item-group
             v-model="section"
-            color="secondary"
           >
             <v-list-item>
               <v-list-item-title>Player</v-list-item-title>
@@ -32,6 +31,7 @@
             <v-text-field
               v-model="nickname"
               outlined dense
+              hide-details
             />
 
             <h4>Preferred Color</h4>
@@ -57,34 +57,59 @@
             <h4>End turn confirmation</h4>
             <em>Confirmation allows player undo performed action actions before activity is passed to a next player.
                 Enable explicit confirmation at the turn end&hellip;</em>
-            <div class="action-confirmation">
+            <div class="checkboxes-wrapper">
               <v-checkbox
                 v-model="confirmAlways"
                 dense hide-details
-                label="after each turn"
+                label="After each turn"
               />
               <v-checkbox
                 v-model="confirmField"
                 :disabled="confirmAlways"
                 dense hide-details
-                label="when meeple was deployed on a field"
+                label="When meeple was deployed on a field"
               />
               <v-checkbox
-                v-model="confirmTower"
                 :disabled="confirmAlways"
                 dense hide-details
-                label="when meeple was deployed on a tower"
+                label="When meeple was deployed on a tower"
               />
+            </div>
 
+            <h4>Beep</h4>
+            <em>Beep when you are on turn (or when your action is required during opponent's turn).</em>
+            <div class="checkboxes-wrapper">
+              <v-checkbox
+                v-model="beep"
+                dense hide-details
+                label="Enable beep"
+              />
             </div>
           </template>
 
           <template v-if="section === 2">
             <h3 class="mt-2 mb-4">Apperance</h3>
+
+            <h4>Theme</h4>
+            <v-radio-group
+              v-model="theme"
+              @change="onThemeChange"
+            >
+              <v-radio
+                label="Light"
+                value="light"
+              ></v-radio>
+              <v-radio
+                label="Dark"
+                value="dark"
+              ></v-radio>
+            </v-radio-group>
           </template>
 
           <template v-if="section === 3">
             <h3 class="mt-2 mb-4">Java</h3>
+
+            <em>Although JCloisterZone client is pure native application, Java is required to run game engine. In other words to play a game.</em>
 
             <h4>Java executable</h4>
             <em>You can set manually path to {{ platform === 'win32' ? 'java.exe' : 'java binary' }}</em>
@@ -99,7 +124,10 @@
             </template>
 
             <div class="mt-4">
-              <span v-if="java">
+              <v-alert v-if="notJavaError" type="warning" dense>
+                File doesn't look like a java binary.
+              </v-alert>
+              <span v-else-if="java">
                 Java version {{ java.version }}
               </span>
               <v-alert v-else type="warning" dense>
@@ -114,7 +142,6 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn
-        color="secondary"
         text
         @click="$emit('close')"
       >Close</v-btn>
@@ -123,20 +150,27 @@
 </template>
 
 <script>
+import path from 'path'
 import { remote } from 'electron'
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   data () {
     return {
       section: 0,
-      platform: process.platform
+      platform: process.platform,
+      notJavaError: false,
     }
   },
 
   computed: {
+    ...mapGetters({
+      javaOutdated: 'javaOutdated',
+    }),
+
     ...mapState({
       java: state => state.java,
+      engine: state => state.engine
     }),
 
     nickname: {
@@ -164,6 +198,16 @@ export default {
       set (val) { this.$store.dispatch('settings/update', { 'confirm.tower': val })}
     },
 
+    beep: {
+      get () { return this.$store.state.settings.beep},
+      set (val) { this.$store.dispatch('settings/update', { beep: val })}
+    },
+
+    theme: {
+      get () { return this.$store.state.settings.theme},
+      set (val) { this.$store.dispatch('settings/update', { theme: val })}
+    },
+
     javaPath: {
       get () { return this.$store.state.settings.javaPath},
       set (val) { this.$store.dispatch('settings/update', { javaPath: val })}
@@ -171,6 +215,20 @@ export default {
   },
 
   methods: {
+    clean () {
+      this.notJavaError = false;
+    },
+
+    onThemeChange (val) {
+      if (val === 'dark') {
+        this.$vuetify.theme.dark = true
+        remote.nativeTheme.themeSource = 'dark'
+      } else {
+        this.$vuetify.theme.dark = false
+        remote.nativeTheme.themeSource = 'light'
+      }
+    },
+
     async selectJava () {
       const { dialog } = remote
       const opts = {
@@ -182,14 +240,29 @@ export default {
       }
       const { filePaths } = await dialog.showOpenDialog(opts)
       if (filePaths.length) {
-        this.javaPath = filePaths[0]
-        await this.$store.dispatch('checkJavaVersion', true)
+        const f = filePaths[0];
+        if (['java', 'java.exe', 'javaw.exe'].includes(path.basename(f))) {
+          this.notJavaError = false
+          this.javaPath = f
+          await this.$store.dispatch('checkJavaVersion', true)
+          this.verifyEngineIfNeeded()
+        } else {
+          this.notJavaError = true
+        }
       }
     },
 
     async resetJava () {
       this.javaPath = null
+      this.notJavaError = false
       await this.$store.dispatch('checkJavaVersion', true)
+      this.verifyEngineIfNeeded()
+    },
+
+    verifyEngineIfNeeded () {
+      if (!this.engine && this.java && !this.javaOutdated) {
+        this.$store.dispatch('checkEngineVersion')
+      }
     }
   }
 }
@@ -201,15 +274,18 @@ export default {
   width: 160px
 
 h3
-  color: $color-gray
   font-weight: 300
   font-size: 16px
   text-transform: uppercase
   text-align: center
 
+  +theme using ($theme)
+    color: map-get($theme, 'gray-text-color')
+
 h4
   font-size: 1rem
   font-weight: 600
+  margin-top: 20px
 
 em
   display: block
@@ -225,7 +301,7 @@ em
       padding: 0 !important
       min-width: 30px !important
 
-.action-confirmation
+.checkboxes-wrapper
   .v-input
     margin-top: 0
 </style>

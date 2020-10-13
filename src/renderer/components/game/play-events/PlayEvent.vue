@@ -86,20 +86,22 @@ export default {
   margin-right: 1px
   min-width: 40px
   height: 40px
-  background: $bg-opaque
 
 .play-event.ev-current-action
   background: transparent
-  border: 4px solid #ccc
   width: 38px
   height: 38px
   margin: 1px
 
+  +theme using ($theme)
+    border: 4px solid #{map-get($theme, 'tile-placement-local')}
+
 .unknown-event
   font-size: 12px
 
-.score-event
-  background: $bg-opaque
+.play-event, .score-event
+  +theme using ($theme)
+    background: map-get($theme, 'opaque-bg')
 </style>
 
 <style lang="sass">

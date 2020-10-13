@@ -8,6 +8,15 @@
         Host terminated the game. Connection was closed.
       </v-alert>
     </div>
+    <div v-else-if="notifyConnectionReconnecting" class="flex-grow-1">
+      <v-alert type="error">
+        Connection interrupted. Reconnecting&hellip;
+        <v-progress-linear
+          indeterminate
+          color="white"
+        ></v-progress-linear>
+      </v-alert>
+    </div>
     <PointsExpression
       v-else-if="pointsExpression"
       :expr="pointsExpression"
@@ -16,7 +25,7 @@
     <component
       :is="actionComponent"
       v-if="action"
-      v-show="!pointsExpression && !notifyConnectionClosed"
+      v-show="!pointsExpression && !notifyConnectionClosed && !notifyConnectionReconnecting"
       :action="action"
       :phase="phase"
       :local="local"
@@ -40,6 +49,11 @@
       v-else-if="phase === 'GameOverPhase'"
       v-show="!pointsExpression"
       class="game-over"
+    />
+
+    <audio
+      ref="beep"
+      src="~/assets/beep.wav"
     />
   </div>
 </template>
@@ -112,11 +126,16 @@ export default {
   computed: {
     ...mapState({
       connectionState: state => state.networking.connectionStatus,
-      pointsExpression: state => state.board.pointsExpression
+      pointsExpression: state => state.board.pointsExpression,
+      beep: state => state.settings.beep
     }),
 
     notifyConnectionClosed () {
       return this.connectionState === 'closed' && this.phase !== 'GameOverPhase'
+    },
+
+    notifyConnectionReconnecting () {
+      return this.connectionState === 'reconnecting'
     },
 
     local () {
@@ -155,8 +174,19 @@ export default {
     }
   },
 
+  watch: {
+    local (val) {
+      if (val) {
+        this.onPlayerActivated()
+      }
+    }
+  },
+
   mounted () {
     window.addEventListener('keydown', this.onKeyDown)
+    if (this.local) {
+      this.onPlayerActivated()
+    }
   },
 
   beforeDestroy () {
@@ -179,6 +209,12 @@ export default {
         type: 'PASS',
         payload: {}
       })
+    },
+
+    onPlayerActivated () {
+      if (this.beep) {
+        this.$refs.beep.play();
+      }
     }
   }
 }
@@ -193,8 +229,10 @@ export default {
   height: $action-bar-height
   display: flex
   align-items: stretch
-  background: $bg-opaque
   user-select: none
+
+  +theme using ($theme)
+    background: map-get($theme, 'opaque-bg')
 
   .text
     font-size: 20px

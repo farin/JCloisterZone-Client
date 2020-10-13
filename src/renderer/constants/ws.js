@@ -1,2 +1,2 @@
 
-export const HEARTBEAT_INTERVAL = 10 * 1000
+export const HEARTBEAT_INTERVAL = 8 * 1000

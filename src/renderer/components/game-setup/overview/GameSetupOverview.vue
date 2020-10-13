@@ -78,5 +78,6 @@ section
   padding: 15px
 
   .v-icon
-    color: black
+    +theme using ($theme)
+      color: map-get($theme, 'text-color')
 </style>

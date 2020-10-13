@@ -107,8 +107,11 @@ export default {
 
 .items.enabled
   .item
-    background: white
     cursor: pointer
+
+    +theme using ($theme)
+      color: map-get($theme, 'cards-text')
+      background: map-get($theme, 'cards-bg')
 
   .miniboard
     height: 120px
@@ -135,4 +138,7 @@ export default {
   font-style: italic
   text-align: center
   font-size: 14px
+
+  +theme using ($theme)
+    color: map-get($theme, 'gray-text-color')
 </style>

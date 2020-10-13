@@ -93,8 +93,9 @@ export default {
   top: #{$action-bar-height + $panel-gap}
   left: 0
   user-select: none
-
-  background: $bg-opaque
   min-height: 0
   padding: 0 5px 5px 11px
+
+  +theme using ($theme)
+    background: map-get($theme, 'opaque-bg')
 </style>

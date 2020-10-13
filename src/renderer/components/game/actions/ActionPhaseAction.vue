@@ -184,13 +184,16 @@ section
     align-items: center
 
     &.active
-      background: radial-gradient(circle, #ddd 72%, transparent 73%)
       cursor: default
+
+      +theme using ($theme)
+        background: radial-gradient(circle, #{map-get($theme, 'action-panel-active-bg')} 72%, transparent 73%)
 
 section.local
   .action-item
     cursor: pointer
 
     &:hover
-      background: radial-gradient(circle, #f6f6f6 72%, transparent 73%)
+      +theme using ($theme)
+        background: radial-gradient(circle, #{map-get($theme, 'action-panel-hover-bg')} 72%, transparent 73%)
 </style>

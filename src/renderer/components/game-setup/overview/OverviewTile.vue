@@ -24,12 +24,17 @@ export default {
 
 <style lang="sass" scoped>
 .element-box
-  background: white
-
+  +theme using ($theme)
+    background-color: map-get($theme, 'overview-tile-bg')
   .symbol
     display: flex
     align-items: center
     justify-content: center
+
+    svg
+      +theme using ($theme)
+        fill: map-get($theme, 'overview-tile-fill')
+
 
   .quantity
     text-align: center
@@ -52,16 +57,23 @@ export default {
       display: flex
 
 .element-box.off
-  background: #FFEBEE
+  // background: #FFEBEE
 
-  .symbol.ico
-    opacity: 0.6
+  +theme using ($theme)
+    background: map-get($theme, 'overview-tile-off-bg')
 
-    svg
-      fill: #FFEBEE
+  // .symbol.ico
+  //   opacity: 0.6
+
+  svg
+    +theme using ($theme)
+      fill: map-get($theme, 'overview-tile-off-fill')
+      color: map-get($theme, 'overview-tile-off-overlay')
 
   .name
     text-decoration: line-through
-    text-decoration-color: $removed-color
+
+    +theme using ($theme)
+      text-decoration-color: map-get($theme, 'removed-color')
 </style>
 

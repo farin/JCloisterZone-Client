@@ -32,10 +32,10 @@
       <rect
         v-for="({position: pos}) in tiles"
         :key="'bg-' + positionAsKey(pos)"
+        class="tiles-border"
         x="-80" y="-80"
         width="1160"
         height="1160"
-        fill="white"
         :transform="transformPosition(pos)"
       />
     </g>
@@ -154,5 +154,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang="sass" scoped>
+.tiles-border
+  +theme using ($theme)
+    fill: map-get($theme, 'cards-bg')
 </style>

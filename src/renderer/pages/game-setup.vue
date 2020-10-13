@@ -114,9 +114,6 @@ header
     padding: 0 20px
     border-radius: 4px
 
-.tile-pack-size
-  cursor: pointer
-
 .dev-panel
   border-top: 1px solid black
   margin-top: 20px

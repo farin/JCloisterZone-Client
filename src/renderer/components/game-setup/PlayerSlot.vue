@@ -34,13 +34,13 @@
         </v-card-title>
         <v-card-text>
           <v-container>
-              <v-text-field label="Name" v-model="editName"></v-text-field>
+              <v-text-field label="Name" v-model="editName" @keydown.enter="rename"></v-text-field>
           </v-container>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn text @click="edit = false">Cancel</v-btn>
-          <v-btn text @click="rename()">Confirm</v-btn>
+          <v-btn text @click="rename">Confirm</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -113,13 +113,16 @@ export default {
 <style lang="sass" scoped>
 .player-slot
   position: relative
-  background: white
   padding: 40px 0 30px 0
 
   display: flex
   flex-direction: column
   align-items: center
   overflow: hidden
+
+  +theme using ($theme)
+    background: map-get($theme, 'slot-open-bg')
+    color: map-get($theme, 'slot-open-text')
 
   .order
     position: absolute
@@ -144,7 +147,6 @@ export default {
     font-size: 24px
     text-transform: uppercase
     font-weight: 300
-    color: #444
     margin-bottom: 15px
 
   .name
@@ -153,6 +155,9 @@ export default {
     width: 100%
     text-align: center
     z-index: 2
+
+    +theme using ($theme)
+      color: map-get($theme, 'text-color')
 
     i
       visibility: hidden
@@ -165,7 +170,9 @@ export default {
       font-size: 16px
       font-style: italic
       padding-top: 8px
-      color: #444
+
+      +theme using ($theme)
+        color: map-get($theme, 'slot-assign-text')
 
   &.open, &.local
     cursor: pointer
@@ -174,10 +181,14 @@ export default {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)
 
   &.local
-    background: $selection-bg
+    +theme using ($theme)
+      background: map-get($theme, 'slot-local-bg')
+      color: map-get($theme, 'slot-local-text')
 
   &.remote
-    background: #ccc
+    +theme using ($theme)
+      background: map-get($theme, 'slot-remote-bg')
+      color: map-get($theme, 'slot-remote-text')
 
   &.open
     .order

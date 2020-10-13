@@ -27,7 +27,6 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn
-        color="secondary"
         text
         :disabled="host.trim() === ''"
         @click="connect"

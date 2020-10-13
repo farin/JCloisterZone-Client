@@ -58,5 +58,7 @@ export default {
     left: -1px
     top: 2px
     font-size: 34px
-    color: $removed-color
+
+    +theme using ($theme)
+      color: map-get($theme, 'removed-color')
 </style>

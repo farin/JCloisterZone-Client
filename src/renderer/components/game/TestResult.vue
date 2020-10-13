@@ -29,8 +29,11 @@ export default {
 
 <style lang="sass" scoped>
 .test-result
-  background: white
   padding: 30px 50px
+
+  +theme using ($theme)
+    color: map-get($theme, 'cards-text')
+    background: map-get($theme, 'cards-bg')
 
   .btn-line
     margin-bottom: 10px

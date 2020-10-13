@@ -336,11 +336,18 @@ export const actions = {
 
   handleSlotMessage ({ state, commit }, payload) {
     if (state.gameMessages === null) {
+      const selectedSlot = state.slots.find(s => s.number === payload.number)
       if (payload.sessionId) {
-        const order = state.slots.filter(s => s.sessionId).length + 1
-        commit('slot', { ...payload, order })
+        console.log(selectedSlot)
+        if (selectedSlot.sessionId) {
+          commit('slot', { ...payload, order: selectedSlot.order })
+        } else {
+          // take a slot
+          const order = state.slots.filter(s => s.sessionId).length + 1
+          commit('slot', { ...payload, order })
+        }
       } else {
-        const order = state.slots.find(s => s.number === payload.number).order
+        const order = selectedSlot.order
         for (let i = 0; i < state.slots.length; i++) {
           const slot = state.slots[i]
           if (slot.sessionId && slot.order > order) {

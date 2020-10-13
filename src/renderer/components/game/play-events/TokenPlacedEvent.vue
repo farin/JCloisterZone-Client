@@ -85,6 +85,9 @@ export default {
   justify-content: center
   align-items: center
 
+  +theme using ($theme)
+    fill: map-get($theme, 'text-color')
+
 .token-FERRY
   background-image: url('~assets/icons/water.jpg')
 </style>
