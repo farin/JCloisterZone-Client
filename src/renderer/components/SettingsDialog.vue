@@ -164,10 +164,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      javaOutdated: 'javaOutdated',
-    }),
-
     ...mapState({
       java: state => state.java,
       engine: state => state.engine
@@ -260,7 +256,7 @@ export default {
     },
 
     verifyEngineIfNeeded () {
-      if (!this.engine && this.java && !this.javaOutdated) {
+      if (!this.engine && this.java?.ok) {
         this.$store.dispatch('checkEngineVersion')
       }
     }
