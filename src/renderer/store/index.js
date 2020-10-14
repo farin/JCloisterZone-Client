@@ -79,7 +79,8 @@ export const actions = {
             file.close(resolve);
           });
         }).on('error', function(err) { // Handle errors
-          fs.unlink(dest); // Delete the file async. (But we don't check the result)
+        	console.log('
+          //fs.unlink(dest); // Delete the file async. (But we don't check the result)
           if (cb) reject(err.message);
         });
       })

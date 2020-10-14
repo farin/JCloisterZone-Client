@@ -83,9 +83,9 @@ export default {
 
     onClick () {
       if (this.value) {
-      	if (this.hasBooleanInterface) {
-	        this.removeAll()
-	    }
+        if (this.hasBooleanInterface) {
+          this.removeAll()
+        }
       } else {
         this.add()
       }
