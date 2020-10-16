@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pack>
+  <tiles>
+	<tile id="FAN_WL/Rrrr.ww">
+		<road wells="2">N E S W</road>
+		<farm>WR NL</farm>
+		<farm>NR EL</farm>
+		<farm>ER SL</farm>
+		<farm>SR WL</farm>
+	</tile>
+	<tile id="FAN_WL/R.w">
+		<road wells="1">W</road>
+		<farm>WR NL NR EL ER SL SR WL</farm>
+	</tile>
+	<tile id="FAN_WL/Rr.w">
+		<road wells="1">S W</road>
+		<farm>WR NL NR EL ER SL</farm>
+		<farm>SR WL</farm>
+	</tile>
+	<tile id="FAN_WL/Rr.ww">
+		<road wells="2">S W</road>
+		<farm>WR NL NR EL ER SL</farm>
+		<farm>SR WL</farm>
+	</tile>
+	<tile id="FAN_WL/RFr.w">
+		<road wells="1">W E</road>
+		<farm>WR NL NR EL</farm>
+		<farm>ER SL SR WL</farm>
+	</tile>
+	<tile id="FAN_WL/RFr.ww">
+		<road wells="2">W E</road>
+		<farm>WR NL NR EL</farm>
+		<farm>ER SL SR WL</farm>
+	</tile>
+	<tile id="FAN_WL/CR.w">
+		<city castle-base="true">S</city>
+		<road wells="1">W</road>
+		<farm>WR NL NR EL ER WL</farm>
+	</tile>
+	<tile id="FAN_WL/Rrr.w">
+		<road wells="1">E N W</road>
+		<farm>WR NL</farm>
+		<farm>NR EL</farm>
+		<farm>ER SL SR WL</farm>
+	</tile>
+	<tile id="FAN_WL/CRR.w">
+		<city castle-base="true">N</city>
+		<road wells="1">E</road>
+		<road>S</road>
+		<farm city="N">EL</farm>
+		<farm>ER</farm>
+		<farm city="N">WL WR SR</farm>
+		<wagon-move>
+			<neighbouring>N S</neighbouring>
+		</wagon-move>
+	</tile>
+	<tile id="FAN_WL/CRRr.w">
+		<city castle-base="true">N</city>
+		<road>E W</road>
+		<road wells="1">S</road>
+		<farm city="N">EL</farm>
+		<farm>WL SR</farm>
+		<farm city="N">WR</farm>
+		<farm>ER SL</farm>
+		<wagon-move>
+			<neighbouring>N S</neighbouring>
+		</wagon-move>
+	</tile>
+  </tiles>
+  <sets>
+	<tile-set id="fan-wells:1">
+	  <ref count="1" tile="FAN_WL/Rrrr.ww" />
+	  <ref count="2" tile="FAN_WL/R.w" />
+	  <ref count="2" tile="FAN_WL/Rr.w" />
+	  <ref count="1" tile="FAN_WL/Rr.ww" />
+	  <ref count="1" tile="FAN_WL/RFr.w" />
+	  <ref count="1" tile="FAN_WL/RFr.ww" />
+	  <ref count="1" tile="FAN_WL/CR.w" />
+	  <ref count="1" tile="FAN_WL/Rrr.w" />
+	  <ref count="1" tile="FAN_WL/CRR.w" />
+	  <ref count="1" tile="FAN_WL/CRRr.w" />
+	</tile-set>
+  </sets>
+</pack>

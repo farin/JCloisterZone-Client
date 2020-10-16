@@ -44,7 +44,11 @@
       "symmetry": 0,
       "edge": "ffrf"
     },
-    "AM/Rrr": {
+    "AM/Rrr:1": {
+      "symmetry": 0,
+      "edge": "rrfr"
+    },
+    "AM/Rrr:2": {
       "symmetry": 0,
       "edge": "rrfr"
     },
@@ -364,6 +368,10 @@
       "symmetry": 0,
       "edge": "crrr"
     },
+    "FR/CRRR": {
+      "symmetry": 0,
+      "edge": "crrr"
+    },
     "FR/RRR": {
       "symmetry": 0,
       "edge": "frrr"
@@ -371,6 +379,46 @@
     "FR/RRRR": {
       "symmetry": 4,
       "edge": "rrrr"
+    },
+    "FAN_WL/Rrrr.ww": {
+      "symmetry": 4,
+      "edge": "rrrr"
+    },
+    "FAN_WL/CR.w": {
+      "symmetry": 0,
+      "edge": "ffcr"
+    },
+    "FAN_WL/CRR.w": {
+      "symmetry": 0,
+      "edge": "crrf"
+    },
+    "FAN_WL/CRRr.w": {
+      "symmetry": 0,
+      "edge": "crrr"
+    },
+    "FAN_WL/R.w": {
+      "symmetry": 0,
+      "edge": "fffr"
+    },
+    "FAN_WL/RFr.w": {
+      "symmetry": 2,
+      "edge": "frfr"
+    },
+    "FAN_WL/RFr.ww": {
+      "symmetry": 2,
+      "edge": "frfr"
+    },
+    "FAN_WL/Rr.w": {
+      "symmetry": 0,
+      "edge": "ffrr"
+    },
+    "FAN_WL/Rr.ww": {
+      "symmetry": 0,
+      "edge": "ffrr"
+    },
+    "FAN_WL/Rrr.w": {
+      "symmetry": 0,
+      "edge": "rrfr"
     },
     "FE/CCc": {
       "symmetry": 0,
@@ -1322,7 +1370,7 @@
         "AM/RrC": 1,
         "AM/C!+": 1,
         "AM/R": 1,
-        "AM/Rrr": 1,
+        "AM/Rrr:1": 1,
         "AM/CRcr+": 1
       }
     },
@@ -1338,7 +1386,7 @@
         "AM/RrC": 1,
         "AM/C!+": 1,
         "AM/RG": 1,
-        "AM/Rrr": 1,
+        "AM/Rrr:2": 1,
         "AM/CRcr+": 1
       }
     },
@@ -1499,6 +1547,20 @@
         "DA/LRR": 1
       }
     },
+	"fan-wells:1": {
+	  "tiles": {
+		"FAN_WL/Rrrr.ww": 1,
+		"FAN_WL/CR.w": 1,
+		"FAN_WL/CRR.w": 1,
+		"FAN_WL/CRRr.w": 1,
+		"FAN_WL/R.w": 2,
+		"FAN_WL/RFr.w": 1,
+		"FAN_WL/RFr.ww": 1,
+		"FAN_WL/Rr.w": 2,
+		"FAN_WL/Rr.ww": 1,
+		"FAN_WL/Rrr.w": 1
+	  }
+	},
     "ferries": {
       "tiles": {
         "FR/CRRR": 3,

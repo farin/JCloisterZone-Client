@@ -63,34 +63,38 @@ export const getters = {
 export const actions = {
   async loadPlugins ({ commit }) {
     const { $theme } = this._vm
+    const artworks = [
+    	{ id: 'classic', link: 'https://jcloisterzone.com/artworks/classic.zip', file: 'classic.zip' },
+    	{ id: 'fan_c1', link: 'http://localhost/JCloisterZone-Client/src/resources/artworks/fan_c1.zip', file: 'fan_c1.zip' },
+    ]
     await $theme.loadPlugins()
-    if (!$theme.installedArtworks.find(({ id }) => id === 'classic')) {
-      console.log("Classic artwork does not exist. Downloading")
-      const link = 'https://jcloisterzone.com/artworks/classic.zip'
-      commit('download', { name: 'classic.zip', description: 'Downloading classic artwork', link })
-      const artworksFolder = path.join(remote.app.getPath('userData'), 'artworks')
-      await fs.promises.mkdir(artworksFolder, { recursive: true })
-      const zipName = path.join(artworksFolder, 'classic.zip')
-      const file = fs.createWriteStream(zipName);
-      await new Promise((resolve, reject) => {
-        https.get(link, function(response) {
-          response.pipe(file);
-          file.on('finish', function() {
-            file.close(resolve);
+    for (var i=0;i<artworks.length;i++) {
+      var artwork = artworks[i];
+      if (!$theme.installedArtworks.find(({ id }) => id === artwork.id)) {
+        console.log(artwork.id+" artwork does not exist. Downloading")
+        commit('download', { name: artwork.file, description: 'Downloading '+artwork.id+' artwork', link: artwork.link })
+        const artworksFolder = path.join(remote.app.getPath('userData'), 'artworks')
+        await fs.promises.mkdir(artworksFolder, { recursive: true })
+        const zipName = path.join(artworksFolder, artwork.file)
+        const file = fs.createWriteStream(zipName);
+        await new Promise((resolve, reject) => {
+          https.get(artwork.link, function(response) {
+            response.pipe(file);
+            file.on('finish', function() {
+              file.close(resolve);
+            });
+          }).on('error', function(err) { // Handle errors
+            console.log('Error download '+artwork.file);
           });
-        }).on('error', function(err) { // Handle errors
-        	console.log('
-          //fs.unlink(dest); // Delete the file async. (But we don't check the result)
-          if (cb) reject(err.message);
-        });
-      })
-      console.log('classic.zip downloaded')
-      await fs.createReadStream(zipName)
-        .pipe(unzipper.Extract({ path: artworksFolder }))
-        .promise()
-      await fs.promises.unlink(zipName)
-      await $theme.loadPlugins() // reload
-      commit('download', null)
+        })
+        console.log(artwork.file+' downloaded')
+        await fs.createReadStream(zipName)
+          .pipe(unzipper.Extract({ path: artworksFolder }))
+          .promise()
+        await fs.promises.unlink(zipName)
+        await $theme.loadPlugins() // reload
+        commit('download', null)
+      }
     }
     commit('pluginsLoaded')
   },

@@ -48,6 +48,12 @@
       </div>
     </ConfigSection>
 
+    <ConfigSection title="Fan Expansions">
+      <div class="expansions">
+        <ExpansionBox :expansion="Expansion.FAN_WELLS" @open-detail="openDetail" />
+      </div>
+    </ConfigSection>
+
     <v-dialog
       v-model="detailOpen"
       max-width="800"

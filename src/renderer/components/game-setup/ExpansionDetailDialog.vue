@@ -27,6 +27,7 @@ import CountDetail from '@/components/game-setup/details/CountDetail'
 import CultDetail from '@/components/game-setup/details/CultDetail'
 import DarmstadtDetail from '@/components/game-setup/details/DarmstadtDetail'
 import ExpansionSymbol from '@/components/ExpansionSymbol'
+import FanWellsDetail from '@/components/game-setup/details/FanWellsDetail'
 import FerriesDetail from '@/components/game-setup/details/FerriesDetail'
 import FestivalDetail from '@/components/game-setup/details/FestivalDetail'
 import FlierDetail from '@/components/game-setup/details/FlierDetail'
@@ -69,6 +70,7 @@ export default {
         'COUNT': CountDetail,
         'CULT': CultDetail,
         'DARMSTADT': DarmstadtDetail,
+        'FAN_WELLS': FanWellsDetail,
         'FERRIES': FerriesDetail,
         'FESTIVAL': FestivalDetail,
         'FLIER': FlierDetail,

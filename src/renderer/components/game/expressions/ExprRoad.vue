@@ -13,7 +13,17 @@
         {{ expr.args.tiles }}
         <v-icon title="Tiles">far fa-square</v-icon>
       </div>
-      &ensp;
+      <template v-if="expr.args.wells">
+          +&ensp;
+          <template v-if="expr.args.inn">
+            2&ensp;×&ensp;
+          </template>
+          <div class="value-units">
+            {{ expr.args.wells }}
+            <img src="~/assets/features/FAN/well.png">
+          </div>
+          &ensp;
+      </template>      
       <template v-if="expr.args.meeples">
           +&ensp;2&ensp;×&ensp;
           <div class="value-units">

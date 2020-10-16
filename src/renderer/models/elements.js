@@ -239,3 +239,8 @@ export const ESCAPE = GameElement.ESCAPE = new GameElement('escape', 'Escaping a
   '*': 'off',
   'siege/*': true
 })
+export const FAN_WELL = GameElement.FAN_WELL = new GameElement('fan-well', 'Wells', {
+  '*': 'off',
+  'fan-wells': true,
+  'abbey-and-mayor': false
+})

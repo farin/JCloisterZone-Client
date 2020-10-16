@@ -98,7 +98,6 @@ class Theme {
   async loadArtwork({ id, folder, jsonFile }) {
     const artwork = this._artworks[id] = JSON.parse(await fs.promises.readFile(jsonFile))
     const pathPrefix = `file:///${folder}/`
-
     artwork.id = id
     if (artwork.background) {
       artwork.background.image = makeAbsPath(pathPrefix, artwork.background.image)
@@ -189,7 +188,6 @@ class Theme {
     } else if (rotation !== 0) {
       loc = Location.parse(loc).rotateCCW(rotation).name
     }
-
     // console.log(bridges)
     const tile = this.getTile(id)
     const feature = tile.features[loc]

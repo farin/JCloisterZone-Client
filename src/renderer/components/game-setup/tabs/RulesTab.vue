@@ -111,6 +111,14 @@
           <template #description>Espace allowed via a&nbsp;neighboring cloister.</template>
           <template #disabled>Siege expansion is not in the game.</template>
         </GameMechanicsBox>
+
+        <GameMechanicsBox :item="GameElement.FAN_WELL">
+          <template #icon>
+            <img src="~/assets/features/FAN/well.png" height="55">
+          </template>
+          <template #description>Get extra points for each well arround road.</template>
+          <template #disabled>None expansion with wells is in the game.</template>
+        </GameMechanicsBox>
       </div>
     </ConfigSection>
 
