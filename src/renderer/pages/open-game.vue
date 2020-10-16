@@ -74,9 +74,6 @@ export default {
 
     ...mapGetters({
       loaded: 'loaded',
-      javaMissing: 'javaMissing',
-      javaOutdated: 'javaOutdated',
-      engineReady: 'engineReady'
     }),
 
     slotsAssigned () {

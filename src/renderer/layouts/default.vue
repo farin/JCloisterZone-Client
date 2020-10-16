@@ -53,17 +53,11 @@ export default {
 
   data () {
     return {
-      showAbout: false,
-      showSettings: false
+      showAbout: false
     }
   },
 
   computed: {
-    ...mapGetters({
-      javaMissing: 'javaMissing',
-      javaOutdated: 'javaOutdated',
-    }),
-
     ...mapState({
       java: state => state.java,
       undoAllowed: state => state.game.undo?.allowed,
@@ -76,6 +70,16 @@ export default {
 
       set (value) {
         this.$store.commit('showJoinDialog', value)
+      }
+    },
+
+    showSettings: {
+      get () {
+       return this.$store.state.showSettings
+      },
+
+      set (value) {
+        this.$store.commit('showSettings', value)
       }
     }
   },
@@ -98,10 +102,10 @@ export default {
 
   async mounted () {
     webFrame.setZoomLevel(0)
-    webFrame.setVisualZoomLevelLimits(1, 1)    
+    webFrame.setVisualZoomLevelLimits(1, 1)
 
     await this.$store.dispatch('settings/load')
-        
+
     if (this.$store.state.settings.theme === 'dark') {
       this.$vuetify.theme.dark = true
       remote.nativeTheme.themeSource = 'dark'
@@ -162,7 +166,7 @@ export default {
 
     try {
       await this.$store.dispatch('checkJavaVersion')
-      if (this.java && !this.javaOutdated) {
+      if (this.java?.ok) {
         this.$store.dispatch('checkEngineVersion')
       }
     } catch {

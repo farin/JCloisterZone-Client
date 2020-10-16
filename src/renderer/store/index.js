@@ -13,7 +13,8 @@ export const state = () => ({
   },
   gameDialog: null,
   showJoinDialog: false,
-  java: null,
+  showSettings: false,
+  java: null,  // { version, outdated, error }
   engine: null,
   download: null
 })
@@ -35,8 +36,12 @@ export const mutations = {
     state.gameDialog = gameDialog
   },
 
-  showJoinDialog (state, showJoinDialog) {
-    state.showJoinDialog = showJoinDialog
+  showJoinDialog (state, value) {
+    state.showJoinDialog = value
+  },
+
+  showSettings (state, value) {
+    state.showSettings = value
   },
 
   java (state, value) {
@@ -54,10 +59,6 @@ export const mutations = {
 
 export const getters = {
   loaded: state => state.loaded.plugins && state.loaded.tiles,
-  javaMissing: state => state.java === false,
-  javaOutdated: state => !!(state.java && state.java.version && state.java.version < 11),
-  engineMissing: state => state.engine === false,
-  engineReady: (state, getters) => !!(state.java && state.engine && !getters.javaOutdated)
 }
 
 export const actions = {
@@ -107,30 +108,36 @@ export const actions = {
     return new Promise((resolve, reject) => {
       const executable = rootState.settings.javaPath || 'java'
       console.log(`Checking ${executable}`)
-      execFile(executable, ['--version'], (error, stdout, stderr) => {
-        console.log(stdout)
+      execFile(executable, ['-version'], (error, stdout, stderr) => {
+        console.log(stderr)
         if (error) {
-          commit('java', false)
-          reject(error)
+          console.error(error)
+          const value = { ok: false, error: 'not-found' }
+          commit('java', value)
+          reject(value)
         } else {
-          const ident = stdout.split('\n')[0]
-          let version
+          const ident = stderr.split('\n')[0]
+          let vendor = null
+          let version = null
 
-          let m = ident.match(/^\w+ version "1\.(\d)\.[^"]*"/)
+          let m = ident.match(/^(\w+) version "1\.(\d)\.[^"]*"/)
           if (m) {
-            version = parseInt(m[1])
+            vendor = m[1]
+            version = parseInt(m[2])
           } else {
-            m = ident.match(/^\w+ (\d+)/)
+            m = ident.match(/^(\w+) version "(\d+)/)
             if (m) {
-              version = parseInt(m[1])
-            } else {
-              version = null
+              vendor = m[1]
+              version = parseInt(m[2])
             }
           }
 
+          const outdated = !!version && version < 11
           const value = {
-            versionString: ident,
-            version
+            version,
+            vendor,
+            ok: !outdated,
+            error: outdated ? 'outdated' : null
           }
           commit('java', value)
           resolve(value)
@@ -139,22 +146,48 @@ export const actions = {
     })
   },
 
-  async checkEngineVersion ({ state, commit }) {
+  async checkEngineVersion ({ state, commit, rootState }) {
     if (state.engine !== null) {
       return state.engine
     }
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       const { $engine } = this._vm
+      const executable = rootState.settings.javaPath || 'java'
       const args = $engine.getJavaArgs()
-      execFile('java', [...args, '--version'], (error, stdout, stderr) => {
+      args[args.length - 1] = args[args.length - 1]
+      const enginePath = args[args.length - 1]
+
+      try {
+        await fs.promises.access(enginePath, fs.constants.R_OK)
+      } catch (e) {
+        console.error(e)
+        const value = {
+          ok: false,
+          path: enginePath,
+          error: 'not-found',
+        }
+        commit('engine', value)
+        reject(value)
+        return
+      }
+
+      execFile(executable, [...args, '--version'], (error, stdout, stderr) => {
         if (error) {
-          commit('engine', false)
-          reject(error)
+          console.error(error)
+          const value = {
+            ok: false,
+            path: enginePath,
+            error: 'exec-error',
+            errorMessage: "" + error
+          }
+          commit('engine', value)
+          reject(value)
         } else {
           const version = stdout.trim()
           console.log("engine version " + version)
           const value = {
-            path: args[args.length - 1],
+            ok: true,
+            path: enginePath,
             version
           }
           commit('engine', value)
