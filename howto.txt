@@ -1,0 +1,269 @@
+Register of new Expansion
+1. Zaregistrovat rozsirenie, ak ma samostatne karticky
+	i) Zaregistrovanie ikony rozsirenia pod novym ID napr. FAN_WELLS
+		src/renderer/assets/exp-symbols.svg
+
+        <symbol id="FAN_WELLS" viewBox="0 100 210 210">
+    	  <path d="M 38.483679,290.15119 C 20.71437,279.83504 11.920017,272.13093 6.2502315,261.91374 1.7876311,253.87201 1.1746707,250.09921 0.79605981,228.34308 0.18069903,192.98357 5.7908275,168.39793 15.193915,165.24623 c 3.885653,-1.30238 4.111275,-2.83389 3.573218,-24.25884 l -0.574408,-22.8686 -6.463129,0.6544 c -4.8861522,0.49484 -7.0222529,-0.44949 -8.7547956,-3.86789 -2.0780619,-4.10056 -1.5228261,-4.84113 5.9558392,-7.94349 5.0227374,-2.08361 8.2475524,-4.80979 8.2475524,-6.972366 0,-5.945983 4.691436,-10.456834 12.393798,-11.916745 6.941139,-1.315669 7.386017,-1.04468 8.572872,5.222266 1.115533,5.890347 2.033512,6.609928 8.431911,6.609928 6.881704,0 14.817817,-3.269291 17.544224,-7.227473 0.708617,-1.028643 4.817515,-1.214999 9.130945,-0.413854 4.31343,0.800986 10.581844,1.463882 13.929823,1.47319 3.34798,0.0077 7.456954,0.57989 9.130944,1.268457 1.673991,0.688411 5.088461,1.040307 7.587711,0.782358 3.1555,-0.325585 5.27014,1.214026 6.9202,5.038499 2.27341,5.26923 3.10296,5.5075 19.17527,5.5075 h 16.7991 l 0.62963,-8.03566 c 0.59128,-7.545927 1.07849,-8.075191 7.99286,-8.685202 6.97665,-0.615517 7.43327,-0.254306 8.70218,6.889023 1.62912,9.170889 2.33997,9.681359 14.13643,10.152559 5.15111,0.20571 9.36561,1.23897 9.36561,2.29604 0,1.05699 -1.18356,0.77231 0,0 1.47022,-0.95955 4.18236,5.7968 3.92024,20.21231 l -0.38345,21.09939 h 8.88438 c 8.01481,0 8.94345,0.53533 9.48771,5.46887 0.99383,9.00907 -5.26653,13.08372 -18.93431,12.32363 -14.451,-0.8034 -17.92153,-4.75729 -12.57156,-14.32179 3.52344,-6.29918 2.74235,-22.01991 2.20246,-31.97826 -0.22459,-4.14259 -2.42502,-4.8157 -7.58135,-4.28562 -6.07577,0.62443 -6.37716,1.12299 -7.52053,12.43621 l -1.19107,11.78562 -0.33054,-11.12345 c -0.31595,-10.63396 -3.38026,-16.9197 -5.35058,-10.97646 -2.50163,7.54568 -2.34672,27.58937 0.23084,29.84839 2.10613,1.84591 3.15257,1.241 4.6402,-2.68252 l 1.92078,-5.06596 0.31137,5.35703 c 1.54552,26.60932 1.17695,59.04916 -0.91553,80.56751 -2.25522,23.19263 -3.14468,26.79025 -8.43875,34.13443 -3.25479,4.51515 -11.33049,11.9076 -17.946,16.42769 -18.25897,12.47541 -34.45315,17.14209 -63.048173,18.16854 l -19.057416,-1.53556 z m 79.787691,-7.97022 c 11.50526,-4.29664 18.80002,-8.66738 25.68487,-15.38933 11.30165,-11.03429 15.25832,-19.56099 15.25832,-32.88201 v -9.70292 l -12.63798,10.75472 c -13.95598,11.87626 -21.81808,14.89351 -53.814695,20.65241 -3.627055,0.65277 -6.594575,2.34649 -6.594575,3.76381 0,2.78247 -8.807389,10.24603 -14.939448,12.65991 -3.131407,1.23273 -3.339083,2.04813 -1.211165,4.75584 1.412553,1.79739 4.482915,2.99134 6.823034,2.65313 2.999654,-0.43329 4.171708,0.4916 3.973004,3.13517 -0.345105,4.58715 2.45293,4.95637 4.059279,0.53534 1.643468,-4.52309 5.353502,-4.00662 5.353502,0.7451 0,5.90493 9.209475,5.35266 28.045854,-1.68174 z m 3.36523,-38.77398 c 12.03512,-3.98937 15.92339,-6.60572 25.87092,-17.40863 8.90049,-9.66581 11.70704,-14.23199 11.70704,-19.04695 0,-4.84057 -0.92825,-6.33328 -3.93842,-6.33328 -2.16618,0 -4.50277,0.96426 -5.19252,2.14281 -0.68944,1.17856 -3.51148,2.14282 -6.27064,2.14282 -2.75923,0 -5.53901,1.43755 -6.17746,3.19453 -2.19173,6.03167 -20.02745,17.55441 -32.96406,21.29627 -19.319673,5.58826 -37.803733,3.1883 -49.771902,-6.46237 -11.478196,-9.25561 -18.106741,-19.10186 -18.106741,-26.89642 0,-4.818 -0.905786,-6.10986 -4.227308,-6.02895 -9.559795,0.23243 -19.200691,3.39969 -16.353841,12.75412 0.675961,2.22113 3.024118,1.1166 2.174085,3.45589 -1.460714,4.0199 6.826174,15.7592 9.705277,17.97247 0,0 3.658626,4.25224 17.16936,12.00301 9.245753,5.30406 14.715281,10.09976 23.659639,11.85333 13.082705,2.56493 37.453961,0.42034 52.716571,-4.63865 z M 87.114891,218.34731 c -3.349973,-6.81888 -0.829402,-11.35744 3.970933,-7.15021 1.68373,1.47578 4.233443,2.17481 5.666013,1.55346 1.641013,-0.7119 0.915602,-1.67203 -1.960888,-2.59539 -3.027031,-0.9717 -4.565433,-3.14391 -4.565433,-6.44625 0,-2.73938 -0.975344,-5.61733 -2.167414,-6.39539 -1.192147,-0.77831 -1.66402,-2.79996 -1.048813,-4.49323 0.615054,-1.69323 -0.235439,-3.62743 -1.890715,-4.29817 -3.358181,-1.36095 -4.152919,-7.18958 -0.980329,-7.18958 1.115993,0 2.029065,-1.44647 2.029065,-3.21429 0,-1.76784 -1.263162,-3.21422 -2.807009,-3.21422 -1.543847,0 -3.308561,-2.02562 -3.921544,-4.5013 -2.174316,-8.78069 -4.980251,-1.74629 -6.379537,15.99326 -0.780167,9.89131 -0.785613,22.44124 -0.01534,27.88881 1.390774,9.79346 1.493615,9.90449 9.172127,9.90449 h 7.765709 z M 60.711436,199.01098 c 1.604125,-17.66483 1.74953,-28.42812 0.40339,-29.84988 -2.422869,-2.5587 -15.585868,7.11717 -17.477427,12.84731 -4.083741,12.37136 -2.695115,19.766 5.062385,26.95906 3.944858,3.65779 7.922003,6.65051 8.838065,6.65051 0.916063,0 2.344261,-7.47312 3.173663,-16.607 z m 6.551091,-0.93753 c -0.64803,-1.70936 -1.12857,-1.20163 -1.225966,1.29469 -0.0882,2.25888 0.39112,3.5245 1.065761,2.81243 0.674106,-0.71189 0.746194,-2.56023 0.160283,-4.10712 z m 93.981093,-15.66949 c 0,-2.94639 -0.91306,-5.35711 -2.02906,-5.35711 -2.26688,0 -2.78132,7.06275 -0.67641,9.28566 2.23675,2.36212 2.7054,1.68149 2.7054,-3.92855 z m -15.67406,-5.89285 c 1.45865,-9.96653 -5.3936,-18.49121 -22.04393,-27.42408 -12.53253,-6.72372 -15.3683,-7.39699 -31.152948,-7.39699 H 75.0073 l -0.629625,8.03559 -0.629625,8.03567 h 13.289768 c 16.510752,0 29.443912,4.98205 43.591912,16.79238 5.87822,4.90697 11.41508,8.92168 12.30423,8.92168 0.88914,0 2.07523,-3.13387 2.63583,-6.96425 z m -112.15862,3.87646 c 0,-0.51995 -0.913071,-1.5409 -2.029065,-2.26931 -1.115993,-0.7281 -2.029064,-0.3029 -2.029064,0.94498 0,1.24812 0.913071,2.26931 2.029064,2.26931 1.115994,0 2.029065,-0.42519 2.029065,-0.94498 z m 21.679347,-16.9993 c 6.855704,-2.49487 7.814637,-3.71481 8.37225,-10.65081 0.716285,-8.90857 -1.119521,-9.63674 -12.090413,-4.79586 -10.411588,4.59412 -13.521829,9.46845 -12.344713,19.3463 l 1.007553,8.4551 3.656424,-4.76855 c 2.010966,-2.62268 7.140532,-6.03653 11.398899,-7.58618 z m 107.081213,5.2353 c 0.64189,-1.09716 0.23928,-2.60049 -0.89475,-3.34073 -1.13424,-0.74023 -2.06219,0.15713 -2.06219,1.99477 0,3.76398 1.21761,4.31818 2.95694,1.34596 z m 41.68302,-3.23585 c 0,-2.26169 -3.89401,-3.21194 -5.05226,-1.23289 -0.70094,1.19783 0.14877,2.1778 1.88887,2.1778 1.73988,0 3.16339,-0.4252 3.16339,-0.94491 z m -56.51265,-26.1578 c 0.023,-9.25399 -0.0384,-18.03078 -0.13114,-19.50398 -0.1273,-2.00229 -7.11584,-2.67855 -27.67835,-2.67855 H 92.024587 l 3.157942,-4.76128 c 1.736798,-2.6187 5.212701,-4.78832 7.724151,-4.82137 7.18256,-0.0947 5.74431,-6.44478 -1.52108,-6.71553 -3.347979,-0.12473 -7.592771,-0.913721 -9.432872,-1.753172 -1.840177,-0.83954 -3.927219,-0.532912 -4.637905,0.681931 -0.877488,1.499271 -2.900035,1.434481 -6.30116,-0.20248 -5.86441,-2.821824 -8.640589,-1.000052 -5.182251,3.400651 1.647224,2.09609 1.739329,3.51736 0.289121,4.46389 -2.66728,1.74086 -2.812991,9.70712 -0.177922,9.70712 1.07251,0 3.69577,-1.97897 5.829516,-4.39764 3.557803,-4.03293 3.990643,-4.09157 5.220444,-0.70704 1.340848,3.68995 -1.661106,7.15143 -6.256679,7.21461 -2.857547,0.0405 -4.093638,5.41591 -3.043214,13.2367 0.7646,5.69355 0.803635,5.70521 21.416533,6.42852 20.187969,0.70866 20.944429,0.92117 33.783189,9.5057 7.22305,4.82955 13.42022,8.54396 13.77137,8.2541 0.35124,-0.28995 0.65647,-8.09844 0.67795,-17.3525 z m -102.31876,7.82445 c 2.8327,-2.35315 8.759842,-5.30479 13.171359,-6.55932 5.894012,-1.67607 7.707041,-3.14506 6.836915,-5.53965 -0.651098,-1.7923 -1.184093,-6.42949 -1.184093,-10.3049 0,-6.51299 -0.684842,-7.24862 -9.048502,-9.72163 -4.976723,-1.47148 -11.140071,-2.12345 -13.696377,-1.44873 -4.458834,1.17677 -4.62111,1.97128 -3.991485,19.53961 0.36121,10.07222 1.130105,18.31303 1.709037,18.31303 0.57901,0 3.370373,-1.92527 6.203146,-4.27841 z m 24.911452,-40.72121 c 0,-4.99994 -0.901799,-6.42851 -4.05813,-6.42851 -4.883314,0 -5.082017,1.78848 -0.899497,8.09454 4.166723,6.28242 4.957627,6.01661 4.957627,-1.66603 z M 157.1855,95.618944 c 0,-1.178551 -1.36969,-2.142809 -3.04367,-2.142809 -1.674,0 -3.0436,0.964258 -3.0436,2.142809 0,1.178562 1.3696,2.142897 3.0436,2.142897 1.67398,0 3.04367,-0.964335 3.04367,-2.142897 z" />
+        </symbol>
+
+	ii) Zaregistrovanie ID pre rozsirenie s pouzitym ID zo symbolov
+		src/renderer/models/expansions.js
+		
+		export const FAN_WELLS = Expansion.FAN_WELLS = new Expansion('FAN_WELLS','Wells')
+		
+	iii) Zaradit rozsirenie do prisluchajucej slupiny rozsireni pre vyber karticies (tiles)
+		src/renderer/components/game-setup/tabs/TileSetsTab.vue
+		
+		V konkretne ConfigSection napr: ConfigSection title="Fan Expansions"> pridat riadok ID z expansion.ks
+
+		    <ConfigSection title="Fan Expansions">
+		      <div class="expansions">
+		      	...
+		      </div>
+		    </ConfigSection>
+
+	        <ExpansionBox :expansion="Expansion.FAN_WELLS" @open-detail="openDetail" />
+
+	iv) Zaregistovat TileSet pre nove rozsirenie - subor aj set je lower case expansion ID,
+		ale set je lower case ID kde je zaroven znak "_" nahradeny znakom "-" cize FAN_WELLS -> fan-wells
+		Tento subor je pouzity nasledne v Engine, tu je len kvoli generovaniu JSONov
+		src/tile-distribution-xml/fan-wells.xml
+	
+			<?xml version="1.0" encoding="UTF-8"?>
+			<pack>
+			  <tiles>
+				<tile id="FAN_WL/Rrrr.ww">
+					<road wells="2">N E S W</road>
+					<farm>WR NL</farm>
+					<farm>NR EL</farm>
+					<farm>ER SL</farm>
+					<farm>SR WL</farm>
+				</tile>
+				<tile id="FAN_WL/R.w">
+					<road wells="1">W</road>
+					<farm>WR NL NR EL ER SL SR WL</farm>
+				</tile>
+				<tile id="FAN_WL/Rr.w">
+					<road wells="1">S W</road>
+					<farm>WR NL NR EL ER SL</farm>
+					<farm>SR WL</farm>
+				</tile>
+				<tile id="FAN_WL/Rr.ww">
+					<road wells="2">S W</road>
+					<farm>WR NL NR EL ER SL</farm>
+					<farm>SR WL</farm>
+				</tile>
+				<tile id="FAN_WL/RFr.w">
+					<road wells="1">W E</road>
+					<farm>WR NL NR EL</farm>
+					<farm>ER SL SR WL</farm>
+				</tile>
+				<tile id="FAN_WL/RFr.ww">
+					<road wells="2">W E</road>
+					<farm>WR NL NR EL</farm>
+					<farm>ER SL SR WL</farm>
+				</tile>
+				<tile id="FAN_WL/CR.w">
+					<city castle-base="true">S</city>
+					<road wells="1">W</road>
+					<farm>WR NL NR EL ER WL</farm>
+				</tile>
+				<tile id="FAN_WL/Rrr.w">
+					<road wells="1">E N W</road>
+					<farm>WR NL</farm>
+					<farm>NR EL</farm>
+					<farm>ER SL SR WL</farm>
+				</tile>
+				<tile id="FAN_WL/CRR.w">
+					<city castle-base="true">N</city>
+					<road wells="1">E</road>
+					<road>S</road>
+					<farm city="N">EL</farm>
+					<farm>ER</farm>
+					<farm city="N">WL WR SR</farm>
+					<wagon-move>
+						<neighbouring>N S</neighbouring>
+					</wagon-move>
+				</tile>
+				<tile id="FAN_WL/CRRr.w">
+					<city castle-base="true">N</city>
+					<road>E W</road>
+					<road wells="1">S</road>
+					<farm city="N">EL</farm>
+					<farm>WL SR</farm>
+					<farm city="N">WR</farm>
+					<farm>ER SL</farm>
+					<wagon-move>
+						<neighbouring>N S</neighbouring>
+					</wagon-move>
+				</tile>
+			  </tiles>
+			  <sets>
+				<tile-set id="fan-wells:1">
+				  <ref count="1" tile="FAN_WL/Rrrr.ww" />
+				  <ref count="2" tile="FAN_WL/R.w" />
+				  <ref count="2" tile="FAN_WL/Rr.w" />
+				  <ref count="1" tile="FAN_WL/Rr.ww" />
+				  <ref count="1" tile="FAN_WL/RFr.w" />
+				  <ref count="1" tile="FAN_WL/RFr.ww" />
+				  <ref count="1" tile="FAN_WL/CR.w" />
+				  <ref count="1" tile="FAN_WL/Rrr.w" />
+				  <ref count="1" tile="FAN_WL/CRR.w" />
+				  <ref count="1" tile="FAN_WL/CRRr.w" />
+				</tile-set>
+			  </sets>
+			</pack>
+	v) Zaregistrovane TileSet zaradit do TileDistribution vlastne kopia <sets> z xml
+		src/renderer/resources/tiles.json
+	
+		v sekcii tiles zaregistrovat kazdu karticku, definovat jej symetriu (moznost otocenia 0, 2 alebo 4) a okraje z pismen rfc road field city
+		    "FAN_WL/Rrrr.ww": {
+			  "symmetry": 4,
+			  "edge": "rrrr"
+			},
+	
+		v sekcii sets moznost definovat rozne verzie rozsirenia pre C1 a C2 napr. fan-wells:1 a fan-wells:2 ak su rovnake take fanwells
+			"fan-wells:1": {
+			  "tiles": {
+				"FAN_WL/CR.w": 1,
+				"FAN_WL/CRR.w": 1,
+				"FAN_WL/CRRr.w": 1,
+				"FAN_WL/R.w": 1,
+				"FAN_WL/RFr.w": 1,
+				"FAN_WL/RFr.ww": 1,
+				"FAN_WL/Rr.w": 1,
+				"FAN_WL/Rr.ww": 1,
+				"FAN_WL/Rrr.w": 1,
+				"FAN_WL/Rrrr.ww": 1
+			  }
+			},
+		
+	vi) Ak rozsirenie pridava mechanizmus do existujucich rozsireni, ktore su rozne pre C1 a C2, tak je nutne upravit definicie toho rozsirenia
+		napr AM/Rrr
+			src/resources/artworks/tiles.json
+			
+			nahradit jednu AM/Rrr dvoma AM/Rrr:1 a AM/Rrr:2
+			    "AM/Rrr:1": {
+			      "symmetry": 0,
+			      "edge": "rrfr"
+			    },
+			    "AM/Rrr:2": {
+			      "symmetry": 0,
+			      "edge": "rrfr"
+			    },
+			a
+			  "sets": {
+			    "abbey-and-mayor:1": {
+			        "AM/Rrr:1": 1,
+			a
+			    "abbey-and-mayor:2": {
+			        "AM/Rrr:2": 1,
+			
+
+			src/tile-definitions-xml
+			- nahradit <tile id="AM/Rrr"> dvoma novymi, kedze AM/Rrr:2 nema wells
+			    <tile id="AM/Rrr:1">
+			      <road wells="1">N W E</road>
+			      <farm>WR NL</farm>
+			      <farm>NR EL</farm>
+			      <farm>ER SL SR WL</farm>
+			    </tile>
+			    <tile id="AM/Rrr:2">
+			      <road>N W E</road>
+			      <farm>WR NL</farm>
+			      <farm>NR EL</farm>
+			      <farm>ER SL SR WL</farm>
+			    </tile>
+			
+			a
+				<tile-set id="abbey-and-mayor:1">
+				      <ref count="1" tile="AM/Rrr:1" />
+			a
+			    <tile-set id="abbey-and-mayor:2">
+				      <ref count="1" tile="AM/Rrr:2" />
+			
+	
+	vii) Kedze chceme zobrazit zoznam karticiek pre dane rozsirenie, tak musime zaregistrovat detail "page" pre toto rozsirenie
+		src/renderer/components/game-setup/ExpansionDetailDialog.vue
+		
+		v sekcii importov:
+		
+		import FanWellsDetail from '@/components/game-setup/details/FanWellsDetail'
+
+		v sekcii detailComponent() pre ID rozsirenia
+
+			'FAN_WELLS': FanWellsDetail,
+			
+	viii) Detail rozsirenia podla predchadzajuceho bodu
+		src/renferer/components/game-setup/details/FanWellsDetail.vue
+
+			<template>
+			  <div>
+			    <TileDistribution :sets="{'fan-wells:1': 1}" />
+			
+			  </div>
+			</template>
+			
+			<script>
+			import TileDistribution from '@/components/TileDistribution'
+			
+			export default {
+			  components: {
+			    TileDistribution
+			  }
+			}
+			</script>
+			
+			<style lang="sass" scoped>
+			</style>
+
+2. Ak ma rozsirenie novu mechaniku - teda ma element, ktory je na karticke a je mozne ho hrat alebo nie, napr. Hostinec / Studna / Veza
+	i) Nahranie obrazka pre danu mechaniku
+		src/renderer/assets/features/FAN/fan_well.png
+
+	ii) Zaregistrovat mechaniku, definovat, ci je default (*) pre konkretne rozsirenia po zakliknuti na rozsirenie, mechanika zapnuta (true), zakazana (off) alebo mozna zapnut (false)
+		src/renderer/models/elements.js
+
+			export const FAN_WELL = GameElement.FAN_WELL = new GameElement('fan-well', 'Wells', {
+			  '*': 'off',
+			  'fan-wells': true,
+			  'abbey-and-mayor': false
+			})
+
+	iii) Vlozenie moznosti zapnut/vypnut danu mechaniku
+		src/renderer/omponents/game-setup/tabs/RulesTab.vue
+		 + optional game mechanics
+			 <ConfigSection title="Optional Game Mechanics">
+			  <div class="rules-section game-mechanics">
+				...
+		        <GameMechanicsBox :item="GameElement.FAN_WELL">
+		          <template #icon>
+		            <img src="~/assets/features/FAN/well.png" height="55">
+		          </template>
+		          <template #description>Get extra points for each well arround road.</template>
+		          <template #disabled>None expansion with wells is in the game.</template>
+		        </GameMechanicsBox>
+				
+3. Ak rozsirenie v Engine pridava informaciu k hodoteniu existujuceho feature
+	i) Rozsirenie expression napr. Road o informaciu kolko bodov je za studne,
+		pozor Engine musi generovat args.wells, generovat len aj >0
+		
+		src/renderer/components/game/expressions/ExprRoad.vue
+		
+		      <template v-if="expr.args.wells">
+		          +&ensp;
+		          <template v-if="expr.args.inn">
+		            2&ensp;×&ensp;
+		          </template>
+		          <div class="value-units">
+		            {{ expr.args.wells }}
+		            <img src="~/assets/features/FAN/well.png">
+		          </div>
+		          &ensp;
+		      </template>      
+		
+src/renderer/omponents/game-setup/overview/OverviewElementTile.vue
+ + optional game mechanics
+	<img v-else-if="element === 'festival'" src="~/assets/features/C1/festival.png" height="55">
+
