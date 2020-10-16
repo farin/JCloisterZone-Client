@@ -6,7 +6,7 @@
 module.exports = {
   mode: 'spa', // or 'universal'
   head: {
-    title: 'JCloisterZone'
+    title: 'JCloisterZone Fan Edition'
   },
   loading: false,
   plugins: [
