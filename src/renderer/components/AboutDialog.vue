@@ -1,6 +1,6 @@
 <template>
   <v-card class="about">
-    <v-card-title class="headline">JCloisterZone</v-card-title>
+    <v-card-title class="headline">JCloisterZone - Fan Edition</v-card-title>
     <v-card-text>
       <section class="d-flex my-3">
         <div class="meeples d-flex">
@@ -16,7 +16,7 @@
         </div>
         <div>
           <div class="version">version {{ version }}</div>
-          Roman Krejčík<br>
+          Roman Krejčík, Stano Lacko<br>
           farin@farin.cz
         </div>
       </section>
