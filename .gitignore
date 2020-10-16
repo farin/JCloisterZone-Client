@@ -5,3 +5,8 @@ build/*
 !build/icons
 node_modules
 temp
+.settings
+.buildpath
+.project
+fan_c1
+src/resources/artworks/fan_c1.zip
