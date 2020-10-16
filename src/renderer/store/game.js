@@ -19,6 +19,7 @@ const SAVED_GAME_FILTERS = [{ name: 'Saved Game', extensions: ['jcz'] }]
 // theme $engine is used instead to store engine instance
 export const state = () => ({
   id: null,
+  hash: null,
   owner: null,
   setup: null,
   slots: null,
@@ -47,6 +48,7 @@ export const state = () => ({
 export const mutations = {
   clear (state) {
     state.id = null
+    state.hash = null,
     state.owner = null,
     state.setup = null
     state.slots = null,
@@ -71,6 +73,10 @@ export const mutations = {
 
   id (state, value) {
     state.id = value
+  },
+
+  hash (state, value) {
+    state.hash = value
   },
 
   owner (state, value) {
@@ -407,7 +413,7 @@ export const actions = {
       const { dialog } = remote
       dialog.showErrorBox('Engine error', data)
     })
-    engine.on('message', payload => {
+    engine.on('message', ({ payload, hash }) => {
       const lastMessageType = engine.lastMessage?.type
       const local = rootState.networking.sessionId === state.players[payload.action?.player]?.sessionId
       let autoCommit = false
@@ -424,6 +430,7 @@ export const actions = {
           autoCommit = true
         }
       }
+      commit('hash', hash)
       if (autoCommit) {
         dispatch('apply', { type: 'COMMIT', payload: {} })
       } else {
@@ -485,9 +492,9 @@ export const actions = {
     $engine.kill()
   },
 
-  async apply (ctx, message) {
+  async apply ({ state }, message) {
     const { $connection } = this._vm
-    $connection.send(message)
+    $connection.send({ ...message, gameStateHash: state.hash })
   },
 
   async handleEngineMessage ({ commit }, message) {

@@ -89,6 +89,7 @@ export class GameServer {
 
     let helloExpected = true
     ws.on('message', async data => {
+      console.log('%c embedded server %c received ' + data, CONSOLE_SERVER_COLOR, '')
       const { type, payload } = JSON.parse(data)
       if (ENGINE_MESSAGES.has(type)) {
         if (this.status !== 'started') {

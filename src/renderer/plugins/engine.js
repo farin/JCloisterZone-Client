@@ -1,4 +1,5 @@
 import path from 'path'
+import crypto from 'crypto'
 import debounce from 'lodash/debounce'
 import { spawn } from 'child_process'
 import Vue from 'vue'
@@ -51,10 +52,11 @@ export class Engine {
       let payload
       try {
         payload = JSON.parse(data)
+        const hash = crypto.createHash('sha1').update(data).digest('hex');
         if (loggingEnabled) {
           console.debug(payload)
         }
-        this.msgHandler && this.msgHandler(payload)
+        this.msgHandler && this.msgHandler({ payload, hash })
       } catch (e) {
         console.error('Received invalid json: ' + data)
         console.error(e)
