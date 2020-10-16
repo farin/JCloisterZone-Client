@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import http from 'http'
 import https from 'https'
 import { execFile } from 'child_process'
 import unzipper from 'unzipper'
@@ -78,8 +79,12 @@ export const actions = {
         await fs.promises.mkdir(artworksFolder, { recursive: true })
         const zipName = path.join(artworksFolder, artwork.file)
         const file = fs.createWriteStream(zipName);
+        var engine = https;
+        if (artwork.link.substring(0,5)!='https') {
+        	engine = http;
+        }
         await new Promise((resolve, reject) => {
-          https.get(artwork.link, function(response) {
+          engine.get(artwork.link, function(response) {
             response.pipe(file);
             file.on('finish', function() {
               file.close(resolve);
