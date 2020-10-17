@@ -14,6 +14,28 @@ import { verifyScenario } from '@/utils/testing'
 
 const SAVED_GAME_FILTERS = [{ name: 'Saved Game', extensions: ['jcz'] }]
 
+const deployedOnField = (state, response) => {
+  for (let i = 0; i < response.undo.depth; i++) {
+    const msg = state.gameMessages[state.gameMessages.length - i - 1]
+    if (msg.type === 'DEPLOY_MEEPLE') {
+      const loc = Location.parse(msg.payload.pointer.location)
+      if (loc?.isFarmLocation()) {
+        return true
+      }
+    }
+  }
+  return false
+}
+const deployedOnTower = (state, response) => {
+  for (let i = 0; i < response.undo.depth; i++) {
+    const msg = state.gameMessages[state.gameMessages.length - i - 1]
+    if (msg.type === 'DEPLOY_MEEPLE' && msg.payload.pointer?.location === 'TOWER') {
+      return true
+    }
+  }
+  return false
+}
+
 // chiild process can't be part of store itself, because it's internals are mutated be own
 // causing Error: [vuex] do not mutate vuex store state outside mutation handlers
 // theme $engine is used instead to store engine instance
@@ -24,6 +46,7 @@ export const state = () => ({
   setup: null,
   slots: null,
   players: null,
+  clock: null,
   tilePack: null,
   placedTiles: null,
   discardedTiles: null,
@@ -48,11 +71,12 @@ export const state = () => ({
 export const mutations = {
   clear (state) {
     state.id = null
-    state.hash = null,
-    state.owner = null,
+    state.hash = null
+    state.owner = null
     state.setup = null
-    state.slots = null,
+    state.slots = null
     state.players = null
+    state.clock = null
     state.tilePack = null
     state.placedTiles = null
     state.discardedTiles = null
@@ -98,6 +122,10 @@ export const mutations = {
 
   players (state, players) {
     state.players = players
+  },
+
+  clock (state, clock) {
+    state.clock = clock
   },
 
   update (state, data) {
@@ -381,31 +409,10 @@ export const actions = {
       delete s.order
     })
     commit('players', players)
+    commit('clock', players.map(() => 0))
     commit('board/resetZoom', null, { root: true })
 
     console.log(state.setup, state.gameAnnotations)
-
-    const deployedOnField = (payload) => {
-      for (let i = 0; i < payload.undo.depth; i++) {
-        const msg = state.gameMessages[state.gameMessages.length - i - 1]
-        if (msg.type === 'DEPLOY_MEEPLE') {
-          const loc = Location.parse(msg.payload.pointer.location)
-          if (loc?.isFarmLocation()) {
-            return true
-          }
-        }
-      }
-      return false
-    }
-    const deployedOnTower = (payload) => {
-      for (let i = 0; i < payload.undo.depth; i++) {
-        const msg = state.gameMessages[state.gameMessages.length - i - 1]
-        if (msg.type === 'DEPLOY_MEEPLE' && msg.payload.pointer?.location === 'TOWER') {
-          return true
-        }
-      }
-      return false
-    }
 
     const loggingEnabled = rootState.settings.devMode
     const engine = this._vm.$engine.spawn({ loggingEnabled })
@@ -413,36 +420,9 @@ export const actions = {
       const { dialog } = remote
       dialog.showErrorBox('Engine error', data)
     })
-    engine.on('message', ({ payload, hash }) => {
-      const lastMessageType = engine.lastMessage?.type
-      const local = rootState.networking.sessionId === state.players[payload.action?.player]?.sessionId
-      let autoCommit = false
-      if (local) {
-        if (payload.phase === 'CommitActionPhase') {
-          let confirm = payload.undo.allowed && lastMessageType !== 'PASS' && lastMessageType !== 'EXCHANGE_FOLLOWER'
-          if (confirm) {
-            confirm = rootState.settings['confirm.always']
-              || (rootState.settings['confirm.field'] && deployedOnField(payload))
-              || (rootState.settings['confirm.tower'] && deployedOnTower(payload))
-          }
-          autoCommit = !confirm
-        } else if (payload.phase === 'CommitAbbeyPassPhase') {
-          autoCommit = true
-        }
-      }
-      commit('hash', hash)
-      if (autoCommit) {
-        dispatch('apply', { type: 'COMMIT', payload: {} })
-      } else {
-        commit('update', payload)
-        if (state.testScenario) {
-          commit('testScenarioResult', verifyScenario(state, state.testScenario))
-        }
-      }
-    })
 
     if (state.gameMessages?.length) {
-      engine.writeDirective('%bulk on')
+      await engine.enableBulkMode()
     }
 
     let annotations = {}
@@ -464,7 +444,7 @@ export const actions = {
       }
     }
 
-    await engine.writeMessage({
+    const setupMessage = {
       type: 'GAME_SETUP',
       payload: {
         ...state.setup,
@@ -472,12 +452,18 @@ export const actions = {
         initialSeed: state.initialSeed,
         gameAnnotations: annotations
       }
-    })
+    }
+
     if (state.gameMessages?.length) {
+      await engine.writeMessage(setupMessage)
       for (const msg of state.gameMessages) {
         await engine.writeMessage(msg)
       }
-      engine.writeDirective('%bulk off')
+      const { response, hash } = await engine.disableBulkMode()
+      await dispatch('onEngineMessage', { response, hash, message: state.gameMessages[state.gameMessages.length - 1] })
+    } else {
+      const { response, hash } = await engine.writeMessage(setupMessage)
+      await dispatch('onEngineMessage', { response, hash, message: setupMessage })
     }
 
     if (state.gameMessages === null) {
@@ -497,10 +483,38 @@ export const actions = {
     $connection.send({ ...message, gameStateHash: state.hash })
   },
 
-  async handleEngineMessage ({ commit }, message) {
+  async handleEngineMessage ({ commit, dispatch }, message) {
     const engine = this._vm.$engine.get()
-    await engine.writeMessage(message)
+    const { response, hash } = await engine.writeMessage(message)
     commit('appendMessage', message)
+    await dispatch('onEngineMessage', { response, hash, message })
+  },
+
+  async onEngineMessage ({ state, commit, dispatch, rootState }, { response, hash, message }) {
+    const local = rootState.networking.sessionId === state.players[response.action?.player]?.sessionId
+    let autoCommit = false
+    if (local) {
+      if (response.phase === 'CommitActionPhase') {
+        let confirm = response.undo.allowed && message.type !== 'PASS' && message.type !== 'EXCHANGE_FOLLOWER'
+        if (confirm) {
+          confirm = rootState.settings['confirm.always']
+            || (rootState.settings['confirm.field'] && deployedOnField(state, response))
+            || (rootState.settings['confirm.tower'] && deployedOnTower(state, response))
+        }
+        autoCommit = !confirm
+      } else if (response.phase === 'CommitAbbeyPassPhase') {
+        autoCommit = true
+      }
+    }
+    commit('hash', hash)
+    if (autoCommit) {
+      dispatch('apply', { type: 'COMMIT', payload: {} })
+    } else {
+      commit('update', response)
+      if (state.testScenario) {
+        commit('testScenarioResult', verifyScenario(state, state.testScenario))
+      }
+    }
   },
 
   async undo ({ state, dispatch }) {

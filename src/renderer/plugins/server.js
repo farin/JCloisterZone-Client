@@ -23,7 +23,7 @@ export class GameServer {
       replay: game.replay || null,
       gameAnnotations: game.gameAnnotations || {},
       slots: game.slots,
-      owner: null // owner session
+      owner: null, // owner session
       // clockStart: 0,
     }
     this.order = 1
@@ -32,6 +32,7 @@ export class GameServer {
     this.wss = null
     this.clients = null
     this.heartBeatInterval = null
+    this.startedAt = Date.now()
   }
 
   async start (port) {
@@ -343,9 +344,11 @@ export class GameServer {
       return
     }
     this.status = 'started'
+    this.startedAt = Date.now()
     this.broadcast({
       type: 'START',
-      payload: {}
+      payload: {},
+      clock: 0
     })
   }
 
@@ -357,7 +360,7 @@ export class GameServer {
         salt: randomLong().toString()
       }
     }
-    this.broadcast({ type, payload })
+    this.broadcast({ type, payload, clock: Date.now() - this.startedAt })
   }
 }
 

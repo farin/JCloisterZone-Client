@@ -5,12 +5,14 @@ import { spawn } from 'child_process'
 import Vue from 'vue'
 
 import { remote } from 'electron'
+import { assert } from 'console'
 
 export class Engine {
   constructor (engineProcess, loggingEnabled) {
     this.engineProcess = engineProcess
     this.loggingEnabled = loggingEnabled
-    this.lastMessage = null
+    this.onMessage = null
+    this.bulkMode = false
 
     let stdoutData = []
     let stderrData = []
@@ -49,17 +51,27 @@ export class Engine {
         stdoutData = []
       }
 
-      let payload
       try {
-        payload = JSON.parse(data)
+        const response = JSON.parse(data)
         const hash = crypto.createHash('sha1').update(data).digest('hex');
         if (loggingEnabled) {
-          console.debug(payload)
+          console.debug(response)
         }
-        this.msgHandler && this.msgHandler({ payload, hash })
+        console.log(this.bulkMode, this.onMessage)
+        if (this.onMessage) {
+          const { resolve } = this.onMessage
+          this.onMessage = null
+          console.log("CALLING RESOLVE")
+          resolve({ response, hash })
+        }
       } catch (e) {
         console.error('Received invalid json: ' + data)
         console.error(e)
+        if (this.onMessage) {
+          const { reject } = this.onMessage
+          this.onMessage = null
+          reject(e)
+        }
       }
     })
   }
@@ -69,8 +81,6 @@ export class Engine {
       this.engineProcess.on('exit', cb)
     } else if (type === 'error') {
       this.errHandler = cb
-    } else if (type === 'message') {
-      this.msgHandler = cb
     }
   }
 
@@ -80,19 +90,36 @@ export class Engine {
     })
   }
 
-  async writeDirective (directive) {
-    await this._write(directive)
+  async enableBulkMode () {
+    this.bulkMode = true
+    await this._write('%bulk on')
   }
 
-  async writeMessage (message){
+  async disableBulkMode () {
+    this.bulkMode = false
+    return new Promise((resolve, reject) => {
+      this.onMessage = { resolve, reject }
+      this._write('%bulk off')
+    })
+  }
+
+  writeMessage (message) {
     if (this.loggingEnabled) {
       console.groupCollapsed(message.type)
       console.log(message.payload)
       console.groupEnd()
     }
 
-    this.lastMessage = message
-    await this._write(JSON.stringify(message))
+    if (this.bulkMode) {
+      return this._write(JSON.stringify(message)).then(() => null)
+    }
+    return new Promise((resolve, reject) => {
+      if (this.onMessage) {
+        console.error("unresolved onMessage");
+      }
+      this.onMessage = { resolve, reject }
+      this._write(JSON.stringify(message))
+    })
   }
 
   kill () {
