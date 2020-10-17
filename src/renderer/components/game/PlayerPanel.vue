@@ -14,6 +14,7 @@
     <div v-if="!slot.sessionId" class="disconnected">
       <!--v-icon>fas fa-exclamation</v-icon-->Disconnected
     </div>
+    <PlayerClock :player="index" />
     <div class="resources">
       <div class="followers">
         <div
@@ -72,6 +73,7 @@ import { mapGetters, mapState } from 'vuex'
 
 import Meeple from '@/components/game/Meeple'
 import TokenImage from '@/components/game/TokenImage'
+import PlayerClock from '@/components/game/PlayerClock'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
 
 import { FOLLOWER_ORDERING, TOKEN_ORDERING } from '@/constants/ordering'
@@ -79,6 +81,7 @@ import { FOLLOWER_ORDERING, TOKEN_ORDERING } from '@/constants/ordering'
 export default {
   components: {
     Meeple,
+    PlayerClock,
     StandaloneTileImage,
     TokenImage
   },
@@ -91,7 +94,7 @@ export default {
   computed: {
     ...mapState({
       turnPlayer: state => state.game.turnPlayer,
-      actionPlayer: state => state.game.action ? state.game.action.player : null,
+      actionPlayer: state => state.game.action?.player,
       bazaar: state => state.game.bazaar
     }),
 
@@ -163,12 +166,11 @@ section
   +theme using ($theme)
     background: map-get($theme, 'player-panel-name-bg')
 
-
 .name
   //margin-top: 30px // + 10 for outer box margin
   padding-left: 65px
-  padding-top: 5px
-  font-size: 32px
+  padding-top: 14px
+  font-size: 22px
   text-align: center
 
   +theme using ($theme)

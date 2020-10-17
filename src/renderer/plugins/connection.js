@@ -129,7 +129,7 @@ class ConnectionPlugin {
           if (this.recentGameStateHash === message.gameStateHash) {
             this.recentGameStateHash = null
           }
-        }, 250)
+        }, 500)
       }
       this.ws.send(JSON.stringify(message))
     }

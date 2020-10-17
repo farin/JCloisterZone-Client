@@ -16,7 +16,7 @@
       {{ info }}
     </div>
 
-    <v-btn large color="primary" :disabled="!engine.ok || !containsCoreSet || !!info" @click="ev => $emit('click', ev)">
+    <v-btn large color="primary" :disabled="!engine || !engine.ok || !containsCoreSet || !!info" @click="ev => $emit('click', ev)">
       <v-icon left>fas fa-play</v-icon>
       {{ title }}
     </v-btn>
@@ -25,16 +25,6 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-
-import ExpansionSymbol from '@/components/ExpansionSymbol'
-import FiguresTab from '@/components/game-setup/tabs/FiguresTab'
-import GameAnnotationsPanel from '@/components/dev/GameAnnotationsPanel'
-import GameSetupGrid from '@/components/game-setup/GameSetupGrid'
-import TileDistribution from '@/components/TileDistribution'
-import TilePackSize from '@/components/game/TilePackSize'
-import TileSetsTab from '@/components/game-setup/tabs/TileSetsTab'
-import TimerTab from '@/components/game-setup/tabs/TimerTab'
-import RulesTab from '@/components/game-setup/tabs/RulesTab'
 
 export default {
   props: {
@@ -74,4 +64,3 @@ export default {
 .info-text
   background-color: #3F51B5
 </style>
-

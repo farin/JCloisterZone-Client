@@ -23,8 +23,7 @@ export class GameServer {
       replay: game.replay || null,
       gameAnnotations: game.gameAnnotations || {},
       slots: game.slots,
-      owner: null, // owner session
-      // clockStart: 0,
+      owner: null // owner session
     }
     this.order = 1
     this.status = game.replay ? 'loaded' : 'new'
@@ -32,7 +31,8 @@ export class GameServer {
     this.wss = null
     this.clients = null
     this.heartBeatInterval = null
-    this.startedAt = Date.now()
+    this.replay = game.replay || []
+    this.initialClock = game.clock || 0
   }
 
   async start (port) {
@@ -90,14 +90,15 @@ export class GameServer {
 
     let helloExpected = true
     ws.on('message', async data => {
-      console.log('%c embedded server %c received ' + data, CONSOLE_SERVER_COLOR, '')
-      const { type, payload } = JSON.parse(data)
+      // console.log('%c embedded server %c received ' + data, CONSOLE_SERVER_COLOR, '')
+      const message = JSON.parse(data)
+      const { type } = message
       if (ENGINE_MESSAGES.has(type)) {
         if (this.status !== 'started') {
           this.send(ws, {type: 'ERR', code: 'illegal-game-state', message: "Game is not started" })
           return
         }
-        this.handleEngineMessage(ws, type, payload)
+        this.handleEngineMessage(ws, message)
       } else {
         if (helloExpected) {
           if (type === 'HELLO') {
@@ -110,7 +111,7 @@ export class GameServer {
         }
         const handler = this[camelCase('handle_' + type)]
         if (handler) {
-          handler.call(this, ws, payload)
+          handler.call(this, ws, message)
         } else {
           console.error("Unknown handler for " + type)
         }
@@ -174,7 +175,7 @@ export class GameServer {
     }))
   }
 
-  async handleHello (ws, payload) {
+  async handleHello (ws, { payload }) {
      const { name, clientId, secret } = payload
     const clientAlreadyConnected = this.clients.find(ws => ws.clientId === clientId)
     if (clientAlreadyConnected && clientAlreadyConnected.secret !== secret) {
@@ -223,7 +224,7 @@ export class GameServer {
 
     let game = this.game
     if (this.status === 'started') {
-      game = { ...game, replay: this.app.store.state.game.gameMessages, started: true }
+      game = { ...game, replay: this.replay, started: true }
     }
 
     // auto assign slots with matching clientId
@@ -235,10 +236,15 @@ export class GameServer {
       }
     })
 
-    this.send(ws, {
+    const msg = {
       type: 'GAME',
       payload: game
-    })
+    }
+
+    if (this.status === 'started') {
+      mgg.clock = Date.now() - this.startedAt
+    }
+    this.send(ws, msg)
 
     assignedSlots.forEach(slot => {
       this.broadcast({
@@ -248,7 +254,7 @@ export class GameServer {
     })
   }
 
-  async handleTakeSlot (ws, { number, name }) {
+  async handleTakeSlot (ws, { payload: { number, name }}) {
     if (this.status === 'started') {
       this.send(ws, {type: 'ERR', code: 'illegal-game-state', message: "Game already started" })
       return
@@ -276,7 +282,7 @@ export class GameServer {
     })
   }
 
-  async handleUpdateSlot (ws, { number, name }) {
+  async handleUpdateSlot (ws, { payload: { number, name }}) {
     if (this.status === 'started') {
       this.send(ws, {type: 'ERR', code: 'illegal-game-state', message: "Game already started" })
       return
@@ -303,7 +309,7 @@ export class GameServer {
     })
   }
 
-  handleLeaveSlot (ws, { number }) {
+  handleLeaveSlot (ws, { payload: { number }}) {
     if (this.status === 'started') {
       this.send(ws, {type: 'ERR', code: 'illegal-game-state', message: "Game already started" })
       return
@@ -344,15 +350,15 @@ export class GameServer {
       return
     }
     this.status = 'started'
-    this.startedAt = Date.now()
+    this.startedAt = Date.now() - this.initialClock
     this.broadcast({
       type: 'START',
       payload: {},
-      clock: 0
+      clock: this.initialClock
     })
   }
 
-  handleEngineMessage (ws, type, payload) {
+  handleEngineMessage (ws, { type, payload, player }) {
     const salted = ['COMMIT', 'FLOCK_EXPAND_OR_SCORE'].includes(type) || (type === 'DEPLOY_MEEPLE' && payload.pointer.location === 'FLYING_MACHINE')
     if (salted) {
       payload = {
@@ -360,7 +366,13 @@ export class GameServer {
         salt: randomLong().toString()
       }
     }
-    this.broadcast({ type, payload, clock: Date.now() - this.startedAt })
+    const msg = { type, payload, player, clock: Date.now() - this.startedAt }
+    if (type === 'UNDO') {
+      this.replay.pop()
+    } else {
+      this.replay.push(msg)
+    }
+    this.broadcast(msg)
   }
 }
 

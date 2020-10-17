@@ -57,11 +57,9 @@ export class Engine {
         if (loggingEnabled) {
           console.debug(response)
         }
-        console.log(this.bulkMode, this.onMessage)
         if (this.onMessage) {
           const { resolve } = this.onMessage
           this.onMessage = null
-          console.log("CALLING RESOLVE")
           resolve({ response, hash })
         }
       } catch (e) {

@@ -45,7 +45,7 @@ export const actions = {
     }
     return new Promise((resolve, reject) => {
       const onMessage = message => {
-        const { type, payload} = message
+        const { type, payload, clock } = message
         if (ENGINE_MESSAGES.has(type)) {
           dispatch('game/handleEngineMessage', message, { root: true })
         } else if (type === 'WELCOME') {
@@ -56,12 +56,12 @@ export const actions = {
         } else if (type === 'SLOT') {
           dispatch('game/handleSlotMessage', payload, { root: true })
         } else if (type === 'START') {
-          dispatch('game/handleStartMessage', payload, { root: true })
+          dispatch('game/handleStartMessage', message, { root: true })
           this.$router.push('/game')
         } else if (type === 'GAME') {
           dispatch('game/handleGameMessage', payload, { root: true })
           if (payload.started) {
-            dispatch('game/handleStartMessage', null, { root: true })
+            dispatch('game/handleStartMessage', message, { root: true })
             this.$router.push('/game')
           } else {
             this.$router.push('/open-game')

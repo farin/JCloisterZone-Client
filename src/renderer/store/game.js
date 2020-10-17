@@ -36,6 +36,18 @@ const deployedOnTower = (state, response) => {
   return false
 }
 
+const computeClock = (playersCount, messages) => {
+  const clocks = (new Array(playersCount)).fill(0)
+  let active = 0;
+  let prevClock = 0
+  messages.forEach(({ clock, player }) => {
+    clocks[active] += clock - prevClock
+    active = player
+    prevClock = clock
+  })
+  return clocks
+}
+
 // chiild process can't be part of store itself, because it's internals are mutated be own
 // causing Error: [vuex] do not mutate vuex store state outside mutation handlers
 // theme $engine is used instead to store engine instance
@@ -47,6 +59,8 @@ export const state = () => ({
   slots: null,
   players: null,
   clock: null,
+  lastMessageClock: null,
+  lastMessageClockLocal: null,
   tilePack: null,
   placedTiles: null,
   discardedTiles: null,
@@ -77,6 +91,8 @@ export const mutations = {
     state.slots = null
     state.players = null
     state.clock = null
+    state.lastMessageClock = null,
+    state.lastMessageClockLocal = null
     state.tilePack = null
     state.placedTiles = null
     state.discardedTiles = null
@@ -104,7 +120,7 @@ export const mutations = {
   },
 
   owner (state, value) {
-  state.owner = value
+    state.owner = value
   },
 
   setup (state, value) {
@@ -124,8 +140,21 @@ export const mutations = {
     state.players = players
   },
 
-  clock (state, clock) {
-    state.clock = clock
+  resetClock (state, value) {
+    if (value) {
+      state.clock = value
+    } else {
+      const clock = new Array(state.players.length)
+      state.clock = clock.fill(0)
+    }
+  },
+
+  updateClock (state, { player, clock, shiftLocal=0 }) {
+    if (player !== null && player !== undefined) {
+      Vue.set(state.clock, player, state.clock[player] + clock - state.lastMessageClock)
+    }
+    state.lastMessageClock = clock
+    state.lastMessageClockLocal = Date.now() + shiftLocal
   },
 
   update (state, data) {
@@ -263,13 +292,14 @@ export const actions = {
         if (extname(filePath) === '') {
           filePath += '.jcz'
         }
+        const clock = state.lastMessageClock + Date.now() - state.lastMessageClockLocal
         const content = {
           appVersion: getAppVersion(),
           gameId: state.id,
           name: '',
           initialSeed: state.initialSeed,
           created: (new Date()).toISOString(),
-          clock: null,
+          clock: clock,
           setup: state.setup,
           players: state.players.map(p => ({
             name: p.name,
@@ -343,6 +373,7 @@ export const actions = {
         gameAnnotations: sg.gameAnnotations || {},
         slots: slots,
         replay: sg.replay,
+        clock: sg.clock
       }, { root: true })
 
       if (sg.test) {
@@ -372,7 +403,6 @@ export const actions = {
     if (state.gameMessages === null) {
       const selectedSlot = state.slots.find(s => s.number === payload.number)
       if (payload.sessionId) {
-        console.log(selectedSlot)
         if (selectedSlot.sessionId) {
           commit('slot', { ...payload, order: selectedSlot.order })
         } else {
@@ -400,7 +430,7 @@ export const actions = {
     $connection.send({ type: 'START'})
   },
 
-  async handleStartMessage ({ state, commit, dispatch, rootState }) {
+  async handleStartMessage ({ state, commit, dispatch, rootState }, { clock }) {
     const players = state.slots.filter(s => s.clientId).map(s => ({ ...s }))
     players.sort((a, b) => a.order - b.order)
     players.forEach(s => {
@@ -409,7 +439,7 @@ export const actions = {
       delete s.order
     })
     commit('players', players)
-    commit('clock', players.map(() => 0))
+    commit('resetClock')
     commit('board/resetZoom', null, { root: true })
 
     console.log(state.setup, state.gameAnnotations)
@@ -455,17 +485,21 @@ export const actions = {
     }
 
     if (state.gameMessages?.length) {
+      commit('resetClock', computeClock(players.length, state.gameMessages))
       await engine.writeMessage(setupMessage)
       for (const msg of state.gameMessages) {
         await engine.writeMessage(msg)
       }
+      const lastMessage = state.gameMessages[state.gameMessages.length - 1]
+      // TODO shift local
+      commit('updateClock', { player: null, clock: lastMessage.clock, shiftLocal: lastMessage.clock - clock})
       const { response, hash } = await engine.disableBulkMode()
-      await dispatch('onEngineMessage', { response, hash, message: state.gameMessages[state.gameMessages.length - 1] })
+      await dispatch('applyEngineResponse', { response, hash, message: lastMessage })
     } else {
+      commit('updateClock', { player: null, clock: 0 })
       const { response, hash } = await engine.writeMessage(setupMessage)
-      await dispatch('onEngineMessage', { response, hash, message: setupMessage })
+      await dispatch('applyEngineResponse', { response, hash, message: null })
     }
-
     if (state.gameMessages === null) {
       commit('gameMessages', [])
     }
@@ -480,22 +514,27 @@ export const actions = {
 
   async apply ({ state }, message) {
     const { $connection } = this._vm
-    $connection.send({ ...message, gameStateHash: state.hash })
+    $connection.send({
+      ...message,
+      gameStateHash: state.hash,
+      player: state.action.player
+    })
   },
 
-  async handleEngineMessage ({ commit, dispatch }, message) {
+  async handleEngineMessage ({ state, commit, dispatch }, message) {
     const engine = this._vm.$engine.get()
     const { response, hash } = await engine.writeMessage(message)
     commit('appendMessage', message)
-    await dispatch('onEngineMessage', { response, hash, message })
+    commit('updateClock', { player: state.action?.player, clock: message.clock || 0 })
+    await dispatch('applyEngineResponse', { response, hash, message })
   },
 
-  async onEngineMessage ({ state, commit, dispatch, rootState }, { response, hash, message }) {
+  async applyEngineResponse ({ state, commit, dispatch, rootState }, { response, hash, message }) {
     const local = rootState.networking.sessionId === state.players[response.action?.player]?.sessionId
     let autoCommit = false
     if (local) {
       if (response.phase === 'CommitActionPhase') {
-        let confirm = response.undo.allowed && message.type !== 'PASS' && message.type !== 'EXCHANGE_FOLLOWER'
+        let confirm = response.undo.allowed && message?.type !== 'PASS' && message?.type !== 'EXCHANGE_FOLLOWER'
         if (confirm) {
           confirm = rootState.settings['confirm.always']
             || (rootState.settings['confirm.field'] && deployedOnField(state, response))
