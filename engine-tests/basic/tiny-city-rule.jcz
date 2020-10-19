@@ -1,10 +1,10 @@
 {
-  "appVersion": "5.0.4",
+  "appVersion": "5.0.15",
   "gameId": "1",
   "name": "",
   "initialSeed": "5790376666911062450",
   "created": "2020-09-13T12:14:38.400Z",
-  "clock": null,
+  "clock": 0,
   "test": {
     "description": "When tiny-city-scoring rule is enabled 2 tiles city gives only 2 points",
     "assertions": [

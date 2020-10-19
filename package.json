@@ -1,6 +1,6 @@
 {
   "name": "JCloisterZone",
-  "version": "5.0.14",
+  "version": "5.0.15",
   "description": "JCloisterZone UI client",
   "repository": "github:farin/JCloisterZone-Client",
   "license": "AGPL-3.0-or-later",
@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "@nuxtjs/style-resources": "^1.0.0",
+    "compare-versions": "^3.6.0",
     "lodash": "^4.17.15",
     "portal-vue": "^2.1.7",
     "random-bigint": "^0.0.1",

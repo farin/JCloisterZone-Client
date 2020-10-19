@@ -1,12 +1,14 @@
 import fs from 'fs'
 import { extname } from 'path'
 import { remote } from 'electron'
+import compareVersions from 'compare-versions';
 
 import difference from 'lodash/difference'
 import range from 'lodash/range'
 import zip from 'lodash/zip'
 import Vue from 'vue'
 
+import { SAVED_GAME_COMPATIBILITY } from '@/constants/versions'
 import Location from '@/models/Location'
 import { getAppVersion } from '@/utils/version'
 import { isSameFeature } from '@/utils/gameUtils'
@@ -347,7 +349,14 @@ export const actions = {
       let sg, slots
       try {
         const data = await fs.promises.readFile(filePath)
-        sg = JSON.parse(data)
+        sg = JSON.parse(data) 
+        if (compareVersions(SAVED_GAME_COMPATIBILITY, sg.appVersion) === 1) {
+          const msg = `Saves created prior ${SAVED_GAME_COMPATIBILITY} are not supported.`
+          dialog.showErrorBox('Load Error', msg)
+          reject(msg)
+          return
+        }
+
         slots = sg.players.map((p, i) => {
           return {
             number: p.slot,
@@ -516,7 +525,7 @@ export const actions = {
     const { $connection } = this._vm
     $connection.send({
       ...message,
-      gameStateHash: state.hash,
+      sourceHash: state.hash,
       player: state.action.player
     })
   },

@@ -1,10 +1,10 @@
 {
-  "appVersion": "5.0.4",
+  "appVersion": "5.0.15",
   "gameId": "1",
   "name": "",
   "initialSeed": "2605733560009036338",
   "created": "2020-09-13T13:45:09.903Z",
-  "clock": null,
+  "clock": 0,
   "test": {
     "description": "Basic field scoring",
     "assertions": [
