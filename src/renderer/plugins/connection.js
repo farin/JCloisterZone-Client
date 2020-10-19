@@ -14,6 +14,7 @@ class ConnectionPlugin {
   constructor (app) {
     this.app = app
     this.ws = null
+    this.recentGameStateHash = null
     this.emitter = new EventEmitter()
   }
 
@@ -35,7 +36,7 @@ class ConnectionPlugin {
         clearTimeout(pingTimeout)
         pingTimeout = setTimeout(() => {
           this.ws.terminate()
-        }, HEARTBEAT_INTERVAL + 1000)
+        }, HEARTBEAT_INTERVAL + 2000)
       }
 
       this.ws = new WebSocket('ws://' + host)
@@ -109,12 +110,27 @@ class ConnectionPlugin {
     if (this.ws) {
       this.ws.close()
       this.ws = null
+      this.recentGameStateHash = null
     }
   }
 
   send (message) {
     // ignored messages when client is disconnected
     if (this.ws) {
+      if (message.gameStateHash) {
+        if (message.gameStateHash === this.recentGameStateHash) {
+          // duplicate message
+          return
+        }
+
+        // set protection for next 250 ms => do not send message with same origin during this time
+        this.recentGameStateHash = message.gameStateHash
+        setTimeout(() => {
+          if (this.recentGameStateHash === message.gameStateHash) {
+            this.recentGameStateHash = null
+          }
+        }, 500)
+      }
       this.ws.send(JSON.stringify(message))
     }
   }

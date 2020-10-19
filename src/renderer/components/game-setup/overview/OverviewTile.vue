@@ -7,7 +7,7 @@
       <slot />
     </div>
     <div class="symbol name">
-      <slot name="title"/>
+      <slot name="title" />
     </div>
     <div v-if="quantity > 1" class="quantity">{{ quantity }}</div>
   </div>
@@ -17,7 +17,7 @@
 export default {
   props: {
     enabled: { type: Boolean },
-    quantity: { type: Number, default: 1 },
+    quantity: { type: Number, default: 1 }
   }
 }
 </script>
@@ -34,7 +34,6 @@ export default {
     svg
       +theme using ($theme)
         fill: map-get($theme, 'overview-tile-fill')
-
 
   .quantity
     text-align: center
@@ -57,13 +56,8 @@ export default {
       display: flex
 
 .element-box.off
-  // background: #FFEBEE
-
   +theme using ($theme)
     background: map-get($theme, 'overview-tile-off-bg')
-
-  // .symbol.ico
-  //   opacity: 0.6
 
   svg
     +theme using ($theme)
@@ -76,4 +70,3 @@ export default {
     +theme using ($theme)
       text-decoration-color: map-get($theme, 'removed-color')
 </style>
-

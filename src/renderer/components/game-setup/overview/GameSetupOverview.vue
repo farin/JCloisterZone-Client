@@ -1,5 +1,8 @@
 <template>
   <div class="game-setup-overview">
+    <div class="label">
+      <h2>Selected Tiles</h2>
+    </div>
     <section>
       <OverviewTileSetTile
         v-for="{ expansion, set, quantity } in tileSets"
@@ -9,8 +12,8 @@
         :quantity="quantity"
       />
     </section>
-    <div v-if="additions.length" class="section-delimiter">
-      <v-icon>fas fa-plus</v-icon>
+    <div v-if="additions.length" class="label">
+      <h2>Additional elements</h2>
     </div>
     <section>
       <OverviewElementTile
@@ -20,8 +23,8 @@
         :value="value"
       />
     </section>
-    <div v-if="removals.length" class="section-delimiter">
-      <v-icon>fas fa-minus</v-icon>
+    <div v-if="removals.length" class="label">
+      <h2>Removed Elements</h2>
     </div>
     <section>
       <OverviewElementTile
@@ -31,24 +34,29 @@
         :value="value"
       />
     </section>
+    <div v-if="timer" class="label">
+      <h2>Timer</h2>
+    </div>
+    <section class="timer">
+      <TimerValue :value="timer.initial" />
+      <template v-if="timer.turn">
+        &emsp;+&thinsp;<TimerValue :value="timer.turn" />
+      </template>
+    </section>
   </div>
 </template>
 
 <script>
-import ExpansionSymbol from '@/components/ExpansionSymbol'
-import NeutralFigure from '@/components/game/NeutralFigure'
-import StandaloneTileImage from '@/components/game/StandaloneTileImage'
 import GameSetupOverviewMixin from '@/components/game-setup/overview/GameSetupOverviewMixin'
 import OverviewElementTile from '@/components/game-setup/overview/OverviewElementTile'
 import OverviewTileSetTile from '@/components/game-setup/overview/OverviewTileSetTile'
+import TimerValue from '@/components/game-setup/overview/TimerValue'
 
 export default {
   components: {
-    ExpansionSymbol,
-    NeutralFigure,
-    StandaloneTileImage,
     OverviewElementTile,
-    OverviewTileSetTile
+    OverviewTileSetTile,
+    TimerValue
   },
 
   mixins: [GameSetupOverviewMixin],
@@ -56,6 +64,7 @@ export default {
   props: {
     sets: { type: Object, required: true },
     elements: { type: Object, required: true },
+    timer: { type: Object, required: true }
   }
 }
 </script>
@@ -73,11 +82,22 @@ section
     ::v-deep .symbol
       height: 80px
 
-.section-delimiter
-  text-align: center
-  padding: 15px
+  &.timer
+    display: block
+    text-align: center
+    font-size: 26px
+    font-weight: 300
 
-  .v-icon
+.label
+  text-align: center
+  margin: 20px 0 10px 0
+
+  h2
+    font-weight: 300
+    font-size: 16px
+    text-transform: uppercase
+
     +theme using ($theme)
-      color: map-get($theme, 'text-color')
+      color: map-get($theme, 'gray-text-color')
+
 </style>

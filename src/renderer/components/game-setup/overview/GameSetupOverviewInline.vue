@@ -31,18 +31,12 @@
 </template>
 
 <script>
-import ExpansionSymbol from '@/components/ExpansionSymbol'
-import NeutralFigure from '@/components/game/NeutralFigure'
-import StandaloneTileImage from '@/components/game/StandaloneTileImage'
 import GameSetupOverviewMixin from '@/components/game-setup/overview/GameSetupOverviewMixin'
 import OverviewElementTile from '@/components/game-setup/overview/OverviewElementTile'
 import OverviewTileSetTile from '@/components/game-setup/overview/OverviewTileSetTile'
 
 export default {
   components: {
-    ExpansionSymbol,
-    NeutralFigure,
-    StandaloneTileImage,
     OverviewElementTile,
     OverviewTileSetTile
   },
@@ -53,7 +47,7 @@ export default {
     sets: { type: Object, required: true },
     elements: { type: Object, required: true },
     small: { type: Boolean }
-  },
+  }
 }
 </script>
 

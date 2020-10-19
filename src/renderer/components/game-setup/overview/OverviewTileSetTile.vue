@@ -20,7 +20,7 @@ export default {
     expansion: { type: Object, required: true },
     set: { type: Object, required: true },
     quantity: { type: Number, default: 1 }
-  },
+  }
 }
 </script>
 
