@@ -29,7 +29,8 @@ export default {
     layerProps () {
       return {
         options: this.options,
-        css: 'fairy-select'
+        css: 'fairy-select',
+        local: true
       }
     }
   },

@@ -6,7 +6,10 @@
 module.exports = {
   mode: 'spa', // or 'universal'
   head: {
-    title: 'JCloisterZone'
+    title: 'JCloisterZone',
+    meta: [
+      { hid: 'charset', name: 'charset', content: 'utf-8' }
+    ]
   },
   loading: false,
   plugins: [
@@ -22,7 +25,7 @@ module.exports = {
     '@nuxtjs/style-resources'
   ],
   modules: [
-    '@nuxtjs/vuetify',
+    '@nuxtjs/vuetify'
   ],
 
   styleResources: {
@@ -57,7 +60,7 @@ module.exports = {
       }
     },
 
-    extend(config, ctx) {
+    extend (config, ctx) {
       config.module.rules.push({
         test: /\.(ogg|mp3|wav|mpe?g)$/i,
         loader: 'file-loader',
