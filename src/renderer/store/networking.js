@@ -6,6 +6,96 @@ const STATUS_CONNECTED = 'connected'
 
 let reconnectTimeout = null;
 
+class ConnectionHandler {
+  constructor (ctx, $router, resolve) {
+    this.ctx = ctx
+    this.$router = $router
+    this.resolve = resolve
+    this.messageBuffer = []
+    this.onMessageLock = false
+  }
+
+  async onMessage (message) {
+    this.messageBuffer.push(message)
+    if (!this.onMessageLock) {
+      this.onMessageLock = true
+      while (this.messageBuffer.length) {
+        await this.processMessage(this.messageBuffer.shift())        
+      }
+      this.onMessageLock = false
+    }
+  }
+
+  async processMessage (message) {
+    const { commit, dispatch, rootState } = this.ctx
+    const { type, payload } = message
+    if (ENGINE_MESSAGES.has(type)) {
+      await dispatch('game/handleEngineMessage', message, { root: true })
+    } else if (type === 'WELCOME') {
+      commit('sessionId', payload.sessionId)
+      commit('connectionStatus', STATUS_CONNECTED)
+      commit('reconnectAttempt', null)
+      this.resolve()
+    } else if (type === 'SLOT') {
+      await dispatch('game/handleSlotMessage', payload, { root: true })
+    } else if (type === 'START') {
+      await dispatch('game/handleStartMessage', message, { root: true })
+      this.$router.push('/game')
+    } else if (type === 'GAME') {
+      await dispatch('game/handleGameMessage', payload, { root: true })
+      if (payload.started) {
+        await dispatch('game/handleStartMessage', message, { root: true })
+        this.$router.push('/game')
+      } else {
+        this.$router.push('/open-game')
+        const { preferredColor } = rootState.settings
+        if (preferredColor !== null && !payload.replay) {
+          // player has auto assign enabled and game is a new game
+          const slot = payload.slots.find(s => s.number === preferredColor && !s.clientId)
+          if (slot) {
+            await dispatch('gameSetup/takeSlot', { number: slot.number }, { root: true })
+          }
+        }
+      }
+    } else {
+      console.error(payload)      
+      throw new Error(`Unhandled message ${type}`)
+    }
+  }
+
+  onClose (errCode) {
+    const { state, commit, dispatch } = this.ctx
+    const reconnecting = state.connectionStatus === STATUS_RECONNECTING
+    if (errCode === 1006 || reconnecting) {
+      const attempt = reconnecting ? state.reconnectAttempt + 1 : 1
+      let delay
+      if (attempt === 1) {
+        delay = 250
+      } else if (attempt <= 3) {
+        delay = 1000
+      } else if (attempt <= 5) {
+        delay = 2000
+      } else {
+        delay = 6000
+      }
+      commit('connectionStatus', STATUS_RECONNECTING)
+      commit('reconnectAttempt', attempt)
+      reconnectTimeout = setTimeout(async () => {
+        reconnectTimeout = null
+        try {
+          await dispatch('connect', host)
+        } catch (err) {
+          // do nothing, reconnect is handled from on Close
+        }
+      }, delay)
+    } else {
+      commit('connectionStatus', null)
+    }
+  }
+}
+
+
+
 export const state = () => ({
   sessionId: null,
   connectionStatus: null,
@@ -34,7 +124,8 @@ export const actions = {
     await dispatch('connect', 'localhost')
   },
 
-  async connect ({ state, commit, dispatch, rootState }, host) {
+  async connect (ctx, host) {
+    const { state, commit, rootState } = ctx
     if (state.connectionStatus !== STATUS_RECONNECTING) {
       commit('connectionStatus', STATUS_CONNECTING)
     }
@@ -44,70 +135,11 @@ export const actions = {
       host = `${host}:${rootState.settings.port}`
     }
     return new Promise((resolve, reject) => {
-      const onMessage = message => {
-        const { type, payload, clock } = message
-        if (ENGINE_MESSAGES.has(type)) {
-          dispatch('game/handleEngineMessage', message, { root: true })
-        } else if (type === 'WELCOME') {
-          commit('sessionId', payload.sessionId)
-          commit('connectionStatus', STATUS_CONNECTED)
-          commit('reconnectAttempt', null)
-          resolve()
-        } else if (type === 'SLOT') {
-          dispatch('game/handleSlotMessage', payload, { root: true })
-        } else if (type === 'START') {
-          dispatch('game/handleStartMessage', message, { root: true })
-          this.$router.push('/game')
-        } else if (type === 'GAME') {
-          dispatch('game/handleGameMessage', payload, { root: true })
-          if (payload.started) {
-            dispatch('game/handleStartMessage', message, { root: true })
-            this.$router.push('/game')
-          } else {
-            this.$router.push('/open-game')
-            const { preferredColor } = rootState.settings
-            if (preferredColor !== null && !payload.replay) {
-              // player has auto assign enabled and game is a new game
-              const slot = payload.slots.find(s => s.number === preferredColor && !s.clientId)
-              if (slot) {
-                dispatch('gameSetup/takeSlot', { number: slot.number }, { root: true })
-              }
-            }
-          }
-        } else {
-          console.error(payload)
-          console.error(`Unhandled message ${type}`)
-        }
-      }
-      const onClose = (errCode) => {
-        const reconnecting = state.connectionStatus === STATUS_RECONNECTING
-        if (errCode === 1006 || reconnecting) {
-          const attempt = reconnecting ? state.reconnectAttempt + 1 : 1
-          let delay
-          if (attempt === 1) {
-            delay = 250
-          } else if (attempt <= 3) {
-            delay = 1000
-          } else if (attempt <= 5) {
-            delay = 2000
-          } else {
-            delay = 6000
-          }
-          commit('connectionStatus', STATUS_RECONNECTING)
-          commit('reconnectAttempt', attempt)
-          reconnectTimeout = setTimeout(async () => {
-            reconnectTimeout = null
-            try {
-              await dispatch('connect', host)
-            } catch (err) {
-              // do nothing, reconnect is handled from on Close
-            }
-          }, delay)
-        } else {
-          commit('connectionStatus', null)
-        }
-      }
-      $connection.connect(host, { onMessage, onClose }).catch(err => reject(err))
+      const handler = new ConnectionHandler(ctx, this.$router, resolve)      
+      $connection.connect(host, { 
+        onMessage: handler.onMessage.bind(handler), 
+        onClose: handler.onClose.bind(handler)
+      }).catch(err => reject(err))
     })
   },
 
