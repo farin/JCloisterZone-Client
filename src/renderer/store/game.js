@@ -4,6 +4,7 @@ import { remote } from 'electron'
 import compareVersions from 'compare-versions';
 
 import difference from 'lodash/difference'
+import pick from 'lodash/pick';
 import range from 'lodash/range'
 import zip from 'lodash/zip'
 import Vue from 'vue'
@@ -308,7 +309,7 @@ export const actions = {
             slot: p.slot,
             clientId: p.clientId
           })),
-          replay: state.gameMessages
+          replay: state.gameMessages.map(m => pick(m, ['type', 'payload', 'player', 'clock']))
         }
 
         if (Object.keys(state.gameAnnotations).length) {
