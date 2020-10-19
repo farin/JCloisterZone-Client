@@ -27,13 +27,13 @@
           :owner="slot.sessionId"
           :name="slot.name"
           :order="slot.order"
-          :readOnly="readOnly"
+          :read-only="readOnly"
         />
       </div>
     </template>
 
     <template #detail>
-      <GameSetupOverview :sets="sets" :elements="elements" />
+      <GameSetupOverview :sets="sets" :elements="elements" :timer="timer" />
     </template>
   </GameSetupGrid>
 </template>
@@ -68,12 +68,13 @@ export default {
       gameId: state => state.game.id,
       sets: state => state.game.setup?.sets,
       elements: state => state.game.setup?.elements,
+      timer: state => state.game.setup?.timer,
       slots: state => state.game.slots,
-      isOwner: state => state.game.owner === state.networking.sessionId,
+      isOwner: state => state.game.owner === state.networking.sessionId
     }),
 
     ...mapGetters({
-      loaded: 'loaded',
+      loaded: 'loaded'
     }),
 
     slotsAssigned () {
@@ -90,7 +91,6 @@ export default {
     if (!this.$connection.isConnectedOrConnecting()) {
       this.$store.dispatch('game/close')
       this.$router.push('/')
-      return
     }
   },
 

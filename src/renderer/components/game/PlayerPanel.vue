@@ -14,7 +14,7 @@
     <div v-if="!slot.sessionId" class="disconnected">
       <!--v-icon>fas fa-exclamation</v-icon-->Disconnected
     </div>
-    <PlayerClock :player="index" />
+    <PlayerClock v-if="timer" :player="index" />
     <div class="resources">
       <div class="followers">
         <div
@@ -93,6 +93,7 @@ export default {
 
   computed: {
     ...mapState({
+      timer: state => state.game.setup.timer,
       turnPlayer: state => state.game.turnPlayer,
       actionPlayer: state => state.game.action?.player,
       bazaar: state => state.game.bazaar

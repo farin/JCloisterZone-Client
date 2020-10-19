@@ -24,8 +24,13 @@ export default {
   computed: {
     ...mapState({
       clock: state => state.game.clock,
+      timer: state => state.game.setup.timer,
       lastMessageClockLocal: state => state.game.lastMessageClockLocal
     }),
+
+    playerTurns () {
+      return this.$store.state.game.history.reduce((acc, h) => acc + (h.player === this.player ? 1 : 0), 0)
+    },
 
     running () {
       return this.$store.state.game.action?.player === this.player
@@ -35,13 +40,17 @@ export default {
       return this.clock[this.player]
     },
 
+    remainingTime () {
+      return this.timer.initial * 1000 + this.timer.turn * 1000 * this.playerTurns - this.milis
+    },
+
     minutes () {
-      const m = parseInt(this.milis / 60000)
+      const m = parseInt(this.remainingTime / 60000)
       return m
     },
 
     seconds () {
-      const s = parseInt(this.milis / 1000) % 60
+      const s = parseInt(this.remainingTime / 1000) % 60
       return `${s < 10 ? '0' : ''}${s}`
     }
   },
@@ -63,6 +72,7 @@ export default {
   methods: {
     start () {
       this.stop()
+      this.milis = this.clockMilis + Date.now() - this.lastMessageClockLocal
       this.updateSecTimeout = setTimeout(this.updateSec, 1000 - (this.milis % 1000))
     },
 
