@@ -397,7 +397,6 @@ export const actions = {
       Vue.nextTick(() => {
         dispatch('settings/addRecentSave', filePath, { root: true })
       })
-      console.log(play);
       resolve(sg)
       this.$router.push(play ? '/game' : '/open-game')
     })
