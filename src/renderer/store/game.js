@@ -371,12 +371,12 @@ export const actions = {
         reject(e)
         return
       }
-      slots.forEach(s => { if (s.clientId != rootState.settings.clientId) start = false; })
-      
+
       if (sg.test) {
         slots.forEach(s => { s.clientId = rootState.settings.clientId })
-        start = true
       }
+
+      slots.forEach(s => { if (s.clientId != rootState.settings.clientId) start = false; })
 
       await dispatch('networking/startServer', {
         gameId: sg.gameId,
