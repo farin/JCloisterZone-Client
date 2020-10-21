@@ -32,6 +32,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import groupBy from 'lodash/groupBy'
 
 import LayerMixin from '@/components/game/layers/LayerMixin'
@@ -44,6 +45,12 @@ export default {
       gameEnd: state => state.game.phase === 'GameOverPhase',
       history: state => state.game.history,
       playersCount: state => state.game.players.length
+    }),
+
+    ...mapGetters({
+      tileOn: 'game/tileOn',
+      featureOn: 'game/featureOn',
+      colorCssClass: 'game/colorCssClass'
     }),
 
     scoreSources () {
@@ -84,10 +91,26 @@ export default {
 
     onMouseEnter (points) {
       this.$store.commit('board/pointsExpression', points)
+      const feature = this.featureOn(points.ptr)
+      const places = feature.places.map(p => {
+        return {
+          tile: this.tileOn(p),
+          location: p[2]
+        }
+      })
+      this.$store.dispatch('board/showLayer', {
+        layer: 'EmphasizeLayer',
+        props: {
+          emphasis: {
+            type: 'feature',
+            places
+          }
+        }
+      })
     },
-
     onMouseLeave () {
       this.$store.commit('board/pointsExpression', null)
+      this.$store.dispatch('board/hideLayerDebounced', { layer: 'EmphasizeLayer' })
     }
   }
 }
