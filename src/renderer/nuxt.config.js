@@ -6,7 +6,10 @@
 module.exports = {
   mode: 'spa', // or 'universal'
   head: {
-    title: 'JCloisterZone Fan Edition'
+    title: 'JCloisterZone',
+    meta: [
+      { hid: 'charset', name: 'charset', content: 'utf-8' }
+    ]
   },
   loading: false,
   plugins: [
