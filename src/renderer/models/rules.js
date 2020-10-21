@@ -111,8 +111,8 @@ export const GQ11_PIG_HERD = Rule.GQ11_PIG_HERD = new Rule('gq11-pig-herd',
   'Field tile from Game Quarterly 11 expansion {}.',
   { tiles: ['gq11'] },
   [
-    { value: 'pig', text: 'contains pig herd', flags: ['house'] },
-    { value: 'nothing', text: 'is just empty field' }
+    { value: 'nothing', text: 'is just empty field' },
+    { value: 'pig', text: 'contains pig herd', flags: ['house'] }
   ],
   {
     link: 'http://wikicarpedia.com/index.php/Games_Quarterly_11_(1st_edition)#cite_note-5'
