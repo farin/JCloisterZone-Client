@@ -214,12 +214,12 @@ export const getters = {
     const fillCss = inactive ? 'color-inactive-fill' : 'color-fill'
     if (letter === 'A') {
       const { slot } = state.players[player]
-      return `color-${slot} ${fillCss} color-overlay`
+      return `color-${slot} ${fillCss} color-overlay tunnel`
     }
 
     const emptySlots = difference(range(9), state.players.map(p => p.slot))
     const slot = emptySlots[player + (letter === 'B' ? 0 : state.players.length)]
-    return `color-${slot} ${fillCss} color-overlay`
+    return `color-${slot} ${fillCss} color-overlay tunnel`
   },
 
   tileOn: state => pos => {

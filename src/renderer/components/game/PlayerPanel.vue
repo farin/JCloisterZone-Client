@@ -258,7 +258,7 @@ section
     .stacked
       margin-left: -24px
 
-  ::v-deep svg
+  ::v-deep svg:not(.tunnel)
     +theme using ($theme)
       fill: map-get($theme, 'cards-text')
 
