@@ -1,10 +1,10 @@
 {
-  "appVersion": "5.0.6",
+  "appVersion": "5.0.15",
   "gameId": "1",
   "name": "",
   "initialSeed": "4330830176953278762",
   "created": "2020-09-15T19:09:12.876Z",
-  "clock": null,
+  "clock": 0,
   "test": {
     "description": "A fairy next to a farmer should grant 3 points at the end of the game even if the farmer scores 0 points for the field itself",
     "assertions": [

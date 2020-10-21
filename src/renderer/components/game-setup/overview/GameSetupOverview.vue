@@ -37,7 +37,7 @@
     <div v-if="timer" class="label">
       <h2>Timer</h2>
     </div>
-    <section class="timer">
+    <section v-if="timer" class="timer">
       <TimerValue :value="timer.initial" />
       <template v-if="timer.turn">
         &emsp;+&thinsp;<TimerValue :value="timer.turn" />
@@ -64,7 +64,7 @@ export default {
   props: {
     sets: { type: Object, required: true },
     elements: { type: Object, required: true },
-    timer: { type: Object, required: true }
+    timer: { type: Object, default: null }
   }
 }
 </script>

@@ -56,7 +56,7 @@
 
             <h4>End turn confirmation</h4>
             <em>Confirmation allows player undo performed action actions before activity is passed to a next player.
-                Enable explicit confirmation at the turn end&hellip;</em>
+              Enable explicit confirmation at the turn end&hellip;</em>
             <div class="checkboxes-wrapper">
               <v-checkbox
                 v-model="confirmAlways"
@@ -98,11 +98,11 @@
               <v-radio
                 label="Light"
                 value="light"
-              ></v-radio>
+              />
               <v-radio
                 label="Dark"
                 value="dark"
-              ></v-radio>
+              />
             </v-radio-group>
           </template>
 
@@ -134,17 +134,13 @@
                 Java not found.
               </v-alert>
             </div>
-
           </template>
         </div>
       </div>
     </v-card-text>
     <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn
-        text
-        @click="$emit('close')"
-      >Close</v-btn>
+      <v-spacer />
+      <v-btn text @click="$emit('close')">Close</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -152,14 +148,14 @@
 <script>
 import path from 'path'
 import { remote } from 'electron'
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   data () {
     return {
       section: 0,
       platform: process.platform,
-      notJavaError: false,
+      notJavaError: false
     }
   },
 
@@ -171,48 +167,48 @@ export default {
 
     nickname: {
       get () { return this.$store.state.settings.nickname },
-      set (val) { this.$store.dispatch('settings/update', { nickname: val })}
+      set (val) { this.$store.dispatch('settings/update', { nickname: val }) }
     },
 
     preferredColor: {
       get () { return this.$store.state.settings.preferredColor },
-      set (val) { this.$store.dispatch('settings/update', { preferredColor: val })}
+      set (val) { this.$store.dispatch('settings/update', { preferredColor: val }) }
     },
 
     confirmAlways: {
       get () { return this.$store.state.settings['confirm.always'] },
-      set (val) { this.$store.dispatch('settings/update', { 'confirm.always': val })}
+      set (val) { this.$store.dispatch('settings/update', { 'confirm.always': val }) }
     },
 
     confirmField: {
       get () { return this.$store.state.settings['confirm.field'] },
-      set (val) { this.$store.dispatch('settings/update', { 'confirm.field': val })}
+      set (val) { this.$store.dispatch('settings/update', { 'confirm.field': val }) }
     },
 
     confirmTower: {
       get () { return this.$store.state.settings['confirm.tower'] },
-      set (val) { this.$store.dispatch('settings/update', { 'confirm.tower': val })}
+      set (val) { this.$store.dispatch('settings/update', { 'confirm.tower': val }) }
     },
 
     beep: {
-      get () { return this.$store.state.settings.beep},
-      set (val) { this.$store.dispatch('settings/update', { beep: val })}
+      get () { return this.$store.state.settings.beep },
+      set (val) { this.$store.dispatch('settings/update', { beep: val }) }
     },
 
     theme: {
-      get () { return this.$store.state.settings.theme},
-      set (val) { this.$store.dispatch('settings/update', { theme: val })}
+      get () { return this.$store.state.settings.theme },
+      set (val) { this.$store.dispatch('settings/update', { theme: val }) }
     },
 
     javaPath: {
-      get () { return this.$store.state.settings.javaPath},
-      set (val) { this.$store.dispatch('settings/update', { javaPath: val })}
+      get () { return this.$store.state.settings.javaPath },
+      set (val) { this.$store.dispatch('settings/update', { javaPath: val }) }
     }
   },
 
   methods: {
     clean () {
-      this.notJavaError = false;
+      this.notJavaError = false
     },
 
     onThemeChange (val) {
@@ -232,11 +228,11 @@ export default {
         properties: ['openFile']
       }
       if (this.platform === 'win32') {
-        opts.filters =  [{ name: 'Executable', extensions: ['exe'] }]
+        opts.filters = [{ name: 'Executable', extensions: ['exe'] }]
       }
       const { filePaths } = await dialog.showOpenDialog(opts)
       if (filePaths.length) {
-        const f = filePaths[0];
+        const f = filePaths[0]
         if (['java', 'java.exe', 'javaw.exe'].includes(path.basename(f))) {
           this.notJavaError = false
           this.javaPath = f

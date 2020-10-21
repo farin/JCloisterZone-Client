@@ -2,7 +2,7 @@
   <v-card class="about">
     <v-card-title class="headline">Join Remote Game</v-card-title>
     <v-card-text>
-      Connect to remote host with created game.<br/>
+      Connect to remote host with created game.<br>
       <i>The must on remote host must be in color selection phase.</i>
       <div class="field-wrapper">
         <v-progress-linear
@@ -11,8 +11,8 @@
         />
         <v-text-field
           v-else
-          label="Host"
           v-model="host"
+          label="Host"
           @keydown.enter="connect"
         />
         <v-alert
@@ -25,7 +25,7 @@
       </div>
     </v-card-text>
     <v-card-actions>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-btn
         text
         :disabled="host.trim() === ''"
@@ -61,9 +61,9 @@ export default {
         if (e.error?.errno === 'EAI_AGAIN') {
           this.error = "Can't resolve host"
         } else if (e.error?.errno === 'ECONNREFUSED') {
-          this.error = "Connection refused"
+          this.error = 'Connection refused'
         } else {
-          this.error = e.message || "Connection failed"
+          this.error = e.message || 'Connection failed'
         }
         console.error(e)
       }

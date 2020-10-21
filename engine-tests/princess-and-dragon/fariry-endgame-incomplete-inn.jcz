@@ -1,10 +1,10 @@
 {
-  "appVersion": "5.0.6",
+  "appVersion": "5.0.15",
   "gameId": "1",
   "name": "",
   "initialSeed": "-2259914147852206399",
   "created": "2020-09-15T20:08:52.883Z",
-  "clock": null,
+  "clock": 0,
   "test": {
     "description": "A fairy bonus is warded to inn road at the end",
     "assertions": [

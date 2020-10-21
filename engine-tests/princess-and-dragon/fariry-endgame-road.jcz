@@ -1,10 +1,10 @@
 {
-  "appVersion": "5.0.6",
+  "appVersion": "5.0.15",
   "gameId": "1",
   "name": "",
   "initialSeed": "8658692847944871398",
   "created": "2020-09-15T19:33:45.636Z",
-  "clock": null,
+  "clock": 0,
   "test": {
     "description": "A fairy is score at the end of game",
     "assertions": [

@@ -32,11 +32,7 @@ export default {
   computed: {
     actionItem () {
       return this.action.items[0]
-    },
-
-    /*playerName () {
-      return this.$store.state.game.players[this.action.player].name
-    }*/
+    }
   }
 }
 </script>

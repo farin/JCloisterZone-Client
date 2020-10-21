@@ -25,7 +25,7 @@ module.exports = {
     '@nuxtjs/style-resources'
   ],
   modules: [
-    '@nuxtjs/vuetify',
+    '@nuxtjs/vuetify'
   ],
 
   styleResources: {
@@ -60,7 +60,7 @@ module.exports = {
       }
     },
 
-    extend(config, ctx) {
+    extend (config, ctx) {
       config.module.rules.push({
         test: /\.(ogg|mp3|wav|mpe?g)$/i,
         loader: 'file-loader',

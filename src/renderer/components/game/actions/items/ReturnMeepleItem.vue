@@ -51,7 +51,8 @@ export default {
 
     layerProps () {
       return {
-        options: this.options
+        options: this.options,
+        local: true
       }
     }
   },
