@@ -41,6 +41,9 @@ header
   align-items: center
   justify-content: flex-end
   padding: 0 30px
+  position: sticky
+  top: 0
+  z-index: 10
 
   +theme using ($theme)
     background-color: map-get($theme, 'cards-bg')
@@ -65,6 +68,8 @@ header
   display: flex
   align-items: center
   justify-content: center
+  position: sticky
+  top: 0
 
   +theme using ($theme)
     background-color: map-get($theme, 'cards-bg')

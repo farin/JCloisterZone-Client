@@ -10,12 +10,13 @@
 
       <HeaderGameButton title="Create" @click="createGame" />
 
-      <TilePackSize :size="$tiles.getPackSize(sets, rules)" />
     </template>
 
     <template #detail-header>
       <template>
         <h2 class="tile-pack-header">Selected tiles</h2>
+	    &nbsp;
+        <TilePackSize :size="$tiles.getPackSize(sets, rules)" />
       </template>
     </template>
 
