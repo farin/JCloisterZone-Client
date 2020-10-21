@@ -1,6 +1,7 @@
 <template>
   <QuantityButtons
     v-model="quantity"
+    :min="min"
     :max="max"
     :mutable="mutable"
   >
@@ -24,6 +25,7 @@ export default {
   props: {
     item: { type: Object, required: true },
     mutable: { type: Boolean, default: true },
+    min: { type: Number, required: true },
     max: { type: Number, required: true }
   },
 

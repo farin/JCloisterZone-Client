@@ -2,6 +2,7 @@
   <div
     :class="{
       'quantity-buttons': true,
+      'at-min': !canRemove,
       'at-max': !canAdd,
       'switch': hasBooleanInterface,
       'mutable': mutable,
@@ -40,6 +41,7 @@
 export default {
   props: {
     value: { type: [Number, Boolean], required: true },
+    min: { type: Number, required: true },
     max: { type: Number, required: true },
     mutable: { type: Boolean, default: true }
   },
@@ -51,6 +53,14 @@ export default {
 
     hasBooleanInterface () {
       return this.isBoolean || this.max === 1
+    },
+
+    canRemove() {
+      if (this.isBoolean) {
+        return this.value === true
+      } else {
+        return this.value > this.min
+      }
     },
 
     canAdd () {
@@ -71,12 +81,14 @@ export default {
 
     removeAll () {
       if (this.mutable && this.value) {
-        this.$emit('input', this.isBoolean ? false : 0)
+        this.$emit('input', this.isBoolean ? false : this.min)
+        console.log(this.min,this.isBoolean);
       }
     },
 
     removeOne () {
-      if (this.mutable && this.value > 0) {
+      console.log(this.mutable,this.canRemove);
+      if (this.mutable && this.canRemove) {
         this.$emit('input', this.isBoolean ? false : this.value - 1)
       }
     },
@@ -182,6 +194,10 @@ export default {
 
   &.at-max
     .add
+      visibility: hidden
+
+  &.at-min
+    .remove
       visibility: hidden
 
   &.switch
