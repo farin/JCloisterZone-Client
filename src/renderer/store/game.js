@@ -347,7 +347,7 @@ export const actions = {
           resolve(false)
         }
       }
-      let sg, slots
+      let sg, slots, play=true
       try {
         const data = await fs.promises.readFile(filePath)
         sg = JSON.parse(data) 
@@ -371,9 +371,11 @@ export const actions = {
         reject(e)
         return
       }
-
+      slots.forEach(s => { if (s.clientId != rootState.settings.clientId) play = false; })
+      
       if (sg.test) {
         slots.forEach(s => { s.clientId = rootState.settings.clientId })
+        play = true
       }
 
       await dispatch('networking/startServer', {
@@ -388,13 +390,16 @@ export const actions = {
 
       if (sg.test) {
         commit('testScenario', sg.test)
+      }
+      if (play) {
         dispatch('game/start', null, { root: true })
       }
       Vue.nextTick(() => {
         dispatch('settings/addRecentSave', filePath, { root: true })
       })
+      console.log(play);
       resolve(sg)
-      this.$router.push(sg.test ? '/game' : '/open-game')
+      this.$router.push(play ? '/game' : '/open-game')
     })
   },
 
