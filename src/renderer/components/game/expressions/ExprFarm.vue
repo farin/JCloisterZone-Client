@@ -7,28 +7,6 @@
         {{ expr.args.cities || 0 }}
         <img src="~/assets/icons/city-icon.png" height="32">
       </div>&ensp;
-      <template v-if="expr.args.pigs">
-        +&ensp;
-        <div class="value-units">
-          {{ expr.args.pigs }}
-          <ExpansionSymbol :expansion="Expansion.TRADERS_AND_BUILDERS" :style="{ width: 24, height: 24 }" />
-        </div>&ensp;×&ensp;
-        <div class="value-units">
-          {{ expr.args.cities || 0 }}
-          <img src="~/assets/icons/city-icon.png" height="32">
-        </div>&ensp;
-      </template>
-      <template v-if="expr.args.pigHerds">
-        +&ensp;
-        <div class="value-units">
-          {{ expr.args.pigHerds }}
-          <img src="~/assets/features/C1/pig_herd.jpg" height="32" />
-        </div>&ensp;×&ensp;
-        <div class="value-units">
-          {{ expr.args.cities || 0 }}
-          <img src="~/assets/icons/city-icon.png" height="32">
-        </div>&ensp;
-      </template>
       <template v-if="expr.args.besieged">
         +&ensp;{{ basePoints * 2 }}&ensp;×&ensp;
         <div class="value-units">
