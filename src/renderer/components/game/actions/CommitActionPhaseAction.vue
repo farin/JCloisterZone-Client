@@ -1,7 +1,7 @@
 <template>
   <section>
     <template v-if="local">
-      <v-btn  color="secondary" @click="confirm">
+      <v-btn color="secondary" @click="confirm">
         Confirm
       </v-btn>
       <span class="text">

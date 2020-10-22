@@ -61,7 +61,7 @@
               class="recent-setup"
               @click="loadSetup(setup)"
             >
-              <GameSetupOverviewInline  :sets="setup.sets" :elements="setup.elements" />
+              <GameSetupOverviewInline :sets="setup.sets" :elements="setup.elements" />
             </div>
             <a class="clear" href="#" @click="clearRecentGameSetups"><v-icon>fas fa-times</v-icon> clear list</a>
           </div>
@@ -100,7 +100,7 @@
 import { shell } from 'electron'
 
 import mapKeys from 'lodash/mapKeys'
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 import GameSetupOverviewInline from '@/components/game-setup/overview/GameSetupOverviewInline'
 

@@ -134,11 +134,9 @@ header .v-alert
 .game-setup-overview
   margin: 40px 0
 
-
 @media (max-width: 1079px)
   .slots
     grid-template-columns: 1fr 1fr
-
 
 @media (max-width: 919px)
   .slots

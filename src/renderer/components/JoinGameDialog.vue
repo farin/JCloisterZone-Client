@@ -30,7 +30,9 @@
         text
         :disabled="host.trim() === ''"
         @click="connect"
-      >Connect</v-btn>
+      >
+        Connect
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -38,7 +40,7 @@
 <script>
 export default {
 
-  data() {
+  data () {
     const recent = this.$store.state.settings.recentJoinedGames
     return {
       connecting: false,

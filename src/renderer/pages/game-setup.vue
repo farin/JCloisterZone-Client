@@ -38,8 +38,6 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 
-
-import ExpansionSymbol from '@/components/ExpansionSymbol'
 import FiguresTab from '@/components/game-setup/tabs/FiguresTab'
 import GameAnnotationsPanel from '@/components/dev/GameAnnotationsPanel'
 import GameSetupGrid from '@/components/game-setup/GameSetupGrid'
@@ -52,7 +50,6 @@ import RulesTab from '@/components/game-setup/tabs/RulesTab'
 
 export default {
   components: {
-    ExpansionSymbol,
     FiguresTab,
     GameSetupGrid,
     GameAnnotationsPanel,
@@ -75,7 +72,7 @@ export default {
       sets: state => state.gameSetup.sets,
       rules: state => state.gameSetup.rules,
       detail: state => state.gameSetup.detail,
-      settings: state => state.settings,
+      settings: state => state.settings
     }),
 
     ...mapGetters({

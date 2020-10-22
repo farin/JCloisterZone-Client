@@ -1,6 +1,5 @@
 <template>
-  <div class="annotations-panel"
-  >
+  <div class="annotations-panel">
     <h5>Development Panel</h5>
     <div class="annotations-panel-content">
       <div class="draw-order">
