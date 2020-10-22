@@ -157,7 +157,7 @@ export default {
     },
 
     onKeyDown (ev) {
-      if (this.local && ev.key === 'Tab') {
+      if (this.local && ev.key === 'Tab' && !this.$store.state.gameDialog) {
         this.selectNext()
         ev.preventDefault()
       }

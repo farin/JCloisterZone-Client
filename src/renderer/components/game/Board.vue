@@ -172,7 +172,7 @@ export default {
 
   methods: {
     onKeyDown (ev) {
-      if (['a', 's', 'd', 'w'].includes(ev.key) !== -1) {
+      if (['a', 's', 'd', 'w'].includes(ev.key) !== -1 && !this.$store.state.gameDialog) {
         this.pressedKeys[ev.key] = true
         if (!this.pressedKeysInterval) {
           this.pressedKeysInterval = setInterval(() => {
