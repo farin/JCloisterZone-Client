@@ -6,7 +6,6 @@
         <p>The new JCloisterZone client still missing several important features.</p>
         <ul>
           <li>play through public server (just direct connection between clints is possible)</li>
-          <li>game clock</li>
           <li>AI</li>
           <li>localization</li>
           <li>artwork plugins</li>
@@ -42,8 +41,8 @@
         <small>{{ engine.errorMessage }}</small>
       </v-alert>
       <div v-if="download" class="download-box">
-          {{ download.description }}
-          <v-progress-linear indeterminate />
+        {{ download.description }}
+        <v-progress-linear indeterminate />
       </div>
     </div>
     <main>
@@ -90,7 +89,6 @@
             <a class="clear" href="#" @click="clearRecentGames"><v-icon>fas fa-times</v-icon> clear list</a>
           </div>
         </template>
-
       </div>
     </main>
     <!-- <footer>
@@ -131,7 +129,7 @@ export default {
 
   watch: {
     settingsLoaded () {
-      this.recentGames = [...this.$store.state.settings.recentSaves],
+      this.recentGames = [...this.$store.state.settings.recentSaves]
       this.recentGameSetups = [...this.$store.state.settings.recentGameSetups]
     }
   },
@@ -157,7 +155,7 @@ export default {
     async loadSetup (setup) {
       this.$store.commit('gameSetup/setup', {
         ...setup,
-        sets: mapKeys(setup.sets, (val, key) => key.split(":")[0])
+        sets: mapKeys(setup.sets, (val, key) => key.split(':')[0])
       })
       this.$router.push('/game-setup')
     },
