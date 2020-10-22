@@ -4,7 +4,7 @@
  * @link {https://nuxtjs.org/guide/configuration/}
  */
 module.exports = {
-  mode: 'spa', // or 'universal'
+  ssr: false,
   head: {
     title: 'JCloisterZone',
     meta: [

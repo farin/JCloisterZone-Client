@@ -13,28 +13,21 @@ const NuxtApp = require('./renderer/NuxtApp')
 
 const isDev = process.env.NODE_ENV === 'development'
 
-class DummyElectronBuilder {
-
-  constructor(options = {}) {
-    this.logger = options.logger || new Logger('Dummy Electron-builder', 'gray')
-  }
-
-  async build() {
-    console.log('Dummy builder called')
-  }
-}
-
 const launcher = new ElectronLauncher({
   electronPath: electron,
   entryFile: path.join(DIST_DIR, 'main/index.js')
 })
 
-// const builder = new ElectronBuilder({
-//   processArgv: ['-c', path.join(__dirname, '../builder.config.js')]
-// })
+function hasConfigArgument (array) {
+  for (const el of array) if (el === '--config' || el === '-c') return true
+  return false
+}
+const argumentsArray = process.argv.slice(2)
+if (!hasConfigArgument(argumentsArray)) argumentsArray.push('--config', 'builder.config.js')
 
-const builder = new DummyElectronBuilder()
-
+const builder = new ElectronBuilder({
+  processArgv: argumentsArray
+})
 
 const webpackConfig = Webpack.getBaseConfig({
   entry: isDev
