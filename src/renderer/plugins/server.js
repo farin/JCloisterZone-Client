@@ -1,6 +1,7 @@
 import WebSocket from 'ws'
 import { v4 as uuidv4 } from 'uuid';
 import Vue from 'vue'
+import { remote } from 'electron';
 
 import camelCase from 'lodash/camelCase'
 
@@ -45,6 +46,17 @@ export class GameServer {
         resolve()
       })
       this.wss.on('connection', ws => this.onConnection(ws))
+      this.wss.on('error', err => {
+        console.error(err)
+        const { dialog } = remote
+        let msg
+        if (err.errno === 'EADDRINUSE') {
+          msg = `Have you alredy created game from another app instance?`
+        } else {
+          msg = err.message || "" + err
+        }
+        dialog.showErrorBox(`Can't start server on port ${port}`, msg)
+      })
 
       this.heartBeatInterval = setInterval(() => {
         this.wss.clients.forEach(ws => {
