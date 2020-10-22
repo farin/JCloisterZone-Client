@@ -1,6 +1,6 @@
 <template>
-  <div class="player-clock">
-    <div class="time">{{ minutes }}&thinsp;:&thinsp;{{ seconds }}</div>
+  <div class="player-clock" :class="{'out-of-time': remainingTime < 0}">
+    <div class="time">{{sign}}{{ minutes }}&thinsp;:&thinsp;{{ seconds }}</div>
   </div>
 </template>
 
@@ -45,13 +45,17 @@ export default {
     },
 
     minutes () {
-      const m = parseInt(this.remainingTime / 60000)
+      const m = parseInt(Math.abs(this.remainingTime) / 60000)
       return m
     },
 
     seconds () {
-      const s = parseInt(this.remainingTime / 1000) % 60
+      const s = parseInt(Math.abs(this.remainingTime) / 1000) % 60
       return `${s < 10 ? '0' : ''}${s}`
+    },
+
+    sign () {
+      return this.remainingTime < 0 ? '- ' : ''
     }
   },
 
@@ -109,6 +113,6 @@ export default {
   font-size: 20px
   font-weight: 500
 
-  /*+theme using ($theme)
-    background: map-get($theme, 'player-panel-name-bg')*/
+.out-of-time
+  color: #D32F2F
 </style>
