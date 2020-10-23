@@ -2,7 +2,19 @@
   <ExprContent :expr="expr">
     <template #title>{{ title }}</template>
     <template #row>
-      {{ basePoints }}&ensp;×&ensp;
+      <templale v-if="expr.args.pigs || expr.args.pigHerds">(&ensp;</templale>
+      {{ basePoints }}{{ expr.args.pigs ? '&ensp;+' : '' }}
+      <div v-if="expr.args.pigs" class="value-units nobg">{{ expr.args.pigs }}
+        <svg class="meeple mt-2" :width="24" :height="24">
+          <use :href="`${MEEPLES_SVG}#pig`" />
+        </svg>
+      </div>
+      {{ expr.args.pigHerds ? '&ensp;+' : '' }}
+      <div v-if="expr.args.pigHerds" class="value-units nobg">{{ expr.args.pigHerds }}
+        <img src="~/assets/features/C1/pig_herd.jpg" height="24">
+      </div>
+      <templale v-if="expr.args.pigs || expr.args.pigHerds">&ensp;)</templale>
+      &ensp;×&ensp;
       <div class="value-units">
         {{ expr.args.cities || 0 }}
         <img src="~/assets/icons/city-icon.png" height="32">
@@ -33,6 +45,8 @@ import ExprContent from '@/components/game/expressions/ExprContent'
 import ExprMixin from '@/components/game/expressions/ExprMixin'
 import TokenImage from '@/components/game/TokenImage'
 
+const MEEPLES_SVG = require('~/assets/meeples.svg')
+
 export default {
   components: {
     ExpansionSymbol,
@@ -48,6 +62,7 @@ export default {
 
   data () {
     return {
+      MEEPLES_SVG,
       Expansion
     }
   },
