@@ -255,6 +255,8 @@ export default {
 </script>
 
 <style lang="sass">
+@import 'typeface-roboto/index.css'
+
 html
   overflow-y: auto
 

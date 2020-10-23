@@ -38,6 +38,11 @@ module.exports = {
     // customVariables: ['~/assets/variables.scss'],
     // treeShake: true,
 
+    defaultAssets: {
+      font: false,
+      icons: 'fa'
+    },
+
     theme: {
       options: { customProperties: true },
       themes: {

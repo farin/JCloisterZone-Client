@@ -1,2 +1,6 @@
 {
+    "prettier.disableLanguages": [
+        "javascript",
+        "python"
+    ]
 }

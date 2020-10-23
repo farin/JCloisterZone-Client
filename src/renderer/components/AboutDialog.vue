@@ -16,7 +16,7 @@
         </div>
         <div>
           <div class="version">version {{ version }}</div>
-          Roman Krejčík<br>
+          Roman Krejcik<br>
           farin@farin.cz
         </div>
       </section>
@@ -32,11 +32,8 @@
       </section>
     </v-card-text>
     <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn
-        text
-        @click="$emit('close')"
-      >Close</v-btn>
+      <v-spacer />
+      <v-btn text @click="$emit('close')">Close</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -52,7 +49,7 @@ export default {
   data () {
     return {
       MEEPLES_SVG,
-      version: getAppVersion(),
+      version: getAppVersion()
     }
   },
 
