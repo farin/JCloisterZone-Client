@@ -2,8 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { app } from 'electron'
 import electronDebug from 'electron-debug'
-import vueDevtools from 'vue-devtools'
-// import { ELECTRON_RELAUNCH_CODE } from '../../.electron-nuxt/config'
+import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import mainWinHandler from './mainWindow'
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true'
 
@@ -25,7 +24,9 @@ if (process.platform === 'win32') {
 }
 
 app.whenReady().then(() => {
-  vueDevtools.install()
+  installExtension(VUEJS_DEVTOOLS)
+    .then(name => console.log(`Added Extension:  ${name}`))
+    .catch(err => console.log('An error occurred: ', err))
 })
 
 mainWinHandler.onCreated(browserWindow => {
