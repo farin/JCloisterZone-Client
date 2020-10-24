@@ -1,4 +1,5 @@
 import { ENGINE_MESSAGES } from '@/constants/messages'
+import { remote } from 'electron'
 
 const STATUS_CONNECTING = 'connecting'
 const STATUS_RECONNECTING = 'reconnecting'
@@ -121,7 +122,13 @@ export const actions = {
     const { $server } = this._vm
     commit('game/clear', null, { root: true })
     await $server.start(game)
-    await dispatch('connect', 'localhost')
+    try {
+      await dispatch('connect', 'localhost')
+    } catch (err) {
+      console.error(err)
+      const { dialog } = remote
+      dialog.showErrorBox('Engine error', err.message || err + "")
+    }
   },
 
   async connect (ctx, host) {
@@ -139,7 +146,9 @@ export const actions = {
       $connection.connect(host, { 
         onMessage: handler.onMessage.bind(handler), 
         onClose: handler.onClose.bind(handler)
-      }).catch(err => reject(err))
+      }).catch(err => {
+        reject(err)
+      })
     })
   },
 

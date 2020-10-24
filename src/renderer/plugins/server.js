@@ -4,7 +4,9 @@ import Vue from 'vue'
 import { remote } from 'electron';
 
 import camelCase from 'lodash/camelCase'
+import compareVersions from 'compare-versions';
 
+import { NETWORK_PROTOCOL_COMPATIBILITY } from '@/constants/versions'
 import { getAppVersion } from '@/utils/version'
 import { randomLong } from '@/utils/random'
 import { ENGINE_MESSAGES } from '@/constants/messages'
@@ -34,6 +36,7 @@ export class GameServer {
     this.heartBeatInterval = null
     this.replay = game.replay || []
     this.initialClock = game.clock || 0
+    this.receivedMessageIds = new Set()
   }
 
   async start (port) {
@@ -104,7 +107,13 @@ export class GameServer {
     ws.on('message', async data => {
       // console.log('%c embedded server %c received ' + data, CONSOLE_SERVER_COLOR, '')
       const message = JSON.parse(data)
-      const { type } = message
+      const { id, type } = message
+      if (this.receivedMessageIds.has(id)) {
+        console.warn(`Dropping already received message ${data}"`)
+        return 
+      }
+      this.receivedMessageIds.add(id)
+
       if (ENGINE_MESSAGES.has(type)) {
         if (this.status !== 'started') {
           this.send(ws, {type: 'ERR', code: 'illegal-game-state', message: "Game is not started" })
@@ -202,6 +211,11 @@ export class GameServer {
       } else {
         await this.send(ws, { type: 'ERR', code: 'bad-version', message: `Incompatible versions. server ${this.appVersion} / client: ${payload.appVersion}` })
       }
+      ws.close()
+      return
+    }
+    if (compareVersions(NETWORK_PROTOCOL_COMPATIBILITY, payload.appVersion) === 1) {
+      await this.send(ws, { type: 'ERR', code: 'bad-version', message: `Incompatible versions. server ${this.appVersion} / client: ${payload.appVersion}` })
       ws.close()
       return
     }

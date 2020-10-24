@@ -2,6 +2,7 @@ import fs from 'fs'
 import { extname } from 'path'
 import { remote } from 'electron'
 import compareVersions from 'compare-versions';
+import { v4 as uuidv4 } from 'uuid';
 
 import difference from 'lodash/difference'
 import pick from 'lodash/pick';
@@ -57,6 +58,7 @@ const computeClock = (playersCount, messages) => {
 export const state = () => ({
   id: null,
   hash: null,
+  lastMessageId: null,
   owner: null,
   setup: null,
   slots: null,
@@ -120,6 +122,10 @@ export const mutations = {
 
   hash (state, value) {
     state.hash = value
+  },
+
+  lastMessageId (state, value) {
+    state.lastMessageId = value
   },
 
   owner (state, value) {
@@ -522,13 +528,17 @@ export const actions = {
     $engine.kill()
   },
 
-  async apply ({ state }, message) {
+  async apply ({ state, commit }, message) {
     const { $connection } = this._vm
+    const id = uuidv4()
     $connection.send({
       ...message,
+      id,
+      parentId: state.lastMessageId,
       sourceHash: state.hash,
       player: state.action.player
     })
+    commit('lastMessageId', id);
   },
 
   async handleEngineMessage ({ state, commit, dispatch }, message) {

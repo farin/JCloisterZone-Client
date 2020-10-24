@@ -2,6 +2,7 @@ import { EventEmitter } from 'events'
 
 import WebSocket from 'ws'
 import Vue from 'vue'
+import { v4 as uuidv4 } from 'uuid';
 
 import { getAppVersion } from '@/utils/version'
 import { CONSOLE_CLIENT_COLOR } from '@/constants/logging'
@@ -130,6 +131,9 @@ class ConnectionPlugin {
             this.recentlyUsedSourceHash = null
           }
         }, 500)
+      }
+      if (!message.id) {
+        message = { id: uuidv4(), ...message } 
       }
       this.ws.send(JSON.stringify(message))
     }
