@@ -2,18 +2,23 @@
   <ExprContent :expr="expr">
     <template #title>{{ title }}</template>
     <template #row>
-      <templale v-if="expr.args.pigs || expr.args.pigHerds">(&ensp;</templale>
-      {{ basePoints }}{{ expr.args.pigs ? '&ensp;+' : '' }}
-      <div v-if="expr.args.pigs" class="value-units nobg">{{ expr.args.pigs }}
-        <svg class="meeple mt-2" :width="24" :height="24">
-          <use :href="`${MEEPLES_SVG}#pig`" />
-        </svg>
-      </div>
-      {{ expr.args.pigHerds ? '&ensp;+' : '' }}
-      <div v-if="expr.args.pigHerds" class="value-units nobg">{{ expr.args.pigHerds }}
-        <img src="~/assets/features/C1/pig_herd.jpg" height="24">
-      </div>
-      <templale v-if="expr.args.pigs || expr.args.pigHerds">&ensp;)</templale>
+      <template v-if="expr.args.pigs || expr.args.pigHerds">(&ensp;</template>
+      {{ basePoints }}
+      <template v-if="expr.args.pigs">
+        &ensp;+
+        <div class="value-units nobg">{{ expr.args.pigs }}
+          <svg class="meeple mt-2" :width="24" :height="24">
+            <use :href="`${MEEPLES_SVG}#pig`" />
+          </svg>
+        </div>
+      </template>
+      <template v-if="expr.args.pigHerds">
+        &ensp;+
+        <div class="value-units nobg">{{ expr.args.pigHerds }}
+          <img src="~/assets/features/C1/pig_herd.jpg" height="24">
+        </div>
+      </template>
+      <template v-if="expr.args.pigs || expr.args.pigHerds">&ensp;)</template>
       &ensp;×&ensp;
       <div class="value-units">
         {{ expr.args.cities || 0 }}
