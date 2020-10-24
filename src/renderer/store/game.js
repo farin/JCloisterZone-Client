@@ -537,12 +537,16 @@ export const actions = {
       sourceHash: state.hash,
       player: state.action.player
     })
-    commit('lastMessageId', id)
+    commit('lastMessageId', message.id)
   },
 
-  async handleEngineMessage ({ state, commit, dispatch }, message) {
+  async handleEngineMessage ({ state, commit, dispatch, rootState }, message) {
     const engine = this._vm.$engine.get()
     const { response, hash } = await engine.writeMessage(message)
+    if (rootState.networking.sessionId !== state.players[message.player].sessionId) {
+      // message from remote player, not tracked yet
+      commit('lastMessageId', message.id)
+    }
     commit('appendMessage', message)
     commit('updateClock', { player: state.action?.player, clock: message.clock || 0 })
     await dispatch('applyEngineResponse', { response, hash, message })
