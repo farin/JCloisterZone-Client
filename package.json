@@ -31,7 +31,7 @@
     "@xpda-dev/electron-builder": "^0.2.1",
     "@xpda-dev/electron-launcher": "^0.2.1",
     "@xpda-dev/webpack-step": "^0.1.2",
-    "babel-eslint": "10.1.0",
+    "babel-eslint": "11.0.0-beta.2",
     "browser-env": "3.3.0",
     "cross-env": "7.0.2",
     "deepmerge": "4.2.2",

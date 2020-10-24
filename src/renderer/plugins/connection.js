@@ -2,16 +2,15 @@ import { EventEmitter } from 'events'
 
 import WebSocket from 'ws'
 import Vue from 'vue'
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid'
 
 import { getAppVersion } from '@/utils/version'
 import { CONSOLE_CLIENT_COLOR } from '@/constants/logging'
-import { HEARTBEAT_INTERVAL} from '@/constants/ws'
+import { HEARTBEAT_INTERVAL } from '@/constants/ws'
 
 const isDev = process.env.NODE_ENV === 'development'
 
 class ConnectionPlugin {
-
   constructor (app) {
     this.app = app
     this.ws = null
@@ -25,7 +24,7 @@ class ConnectionPlugin {
     let fulfilled = false
     let pingTimeout = null
 
-    const handleClose = (code) => {
+    const handleClose = code => {
       if (onClose && !closeCalled) {
         closeCalled = true // call it only once. error event can be emited after close
         onClose(code)
@@ -40,6 +39,7 @@ class ConnectionPlugin {
         }, HEARTBEAT_INTERVAL + 2000)
       }
 
+      console.log('%c client %c trying to connect to ' + host, CONSOLE_CLIENT_COLOR, '')
       this.ws = new WebSocket('ws://' + host)
       this.ws.addEventListener('open', () => {
         console.log('%c client %c connected to ' + host, CONSOLE_CLIENT_COLOR, '')
@@ -134,7 +134,7 @@ class ConnectionPlugin {
         }, 500)
       }
       if (!message.id) {
-        message = { id: uuidv4(), ...message } 
+        message = { id: uuidv4(), ...message }
       }
       this.ws.send(JSON.stringify(message))
     }
@@ -160,7 +160,3 @@ class ConnectionPlugin {
 export default ({ app }, inject) => {
   Vue.prototype.$connection = new ConnectionPlugin(app)
 }
-
-
-
-

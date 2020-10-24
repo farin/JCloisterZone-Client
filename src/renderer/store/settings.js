@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import Vue from 'vue'
 import isEqual from 'lodash/isEqual'
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid'
 
 import username from 'username'
 import { remote } from 'electron'
@@ -11,6 +11,7 @@ import { CONSOLE_SETTINGS_COLOR } from '@/constants/logging'
 const RECENT_GAMES_COUNT = 14
 const RECENT_SETUPS_COUNT = 3
 
+/* eslint quote-props: 0 */
 export const state = () => ({
   // theme: 'light',
   // artworks: ['classic'], //active artworks
@@ -80,7 +81,7 @@ export const actions = {
       }
       if (!settings.nickname) {
         missingKey = true
-        settings.nickname = await username();
+        settings.nickname = await username()
       }
       commit('settings', settings)
       console.log(`%c settings %c loaded ${settingsFile}`, CONSOLE_SETTINGS_COLOR, '')
@@ -117,7 +118,7 @@ export const actions = {
     }
   },
 
-  async addRecentSave({ state, commit, dispatch }, file) {
+  async addRecentSave ({ state, commit, dispatch }, file) {
     const recentSaves = state.recentSaves.filter(f => f !== file) // if file is contained, it will be only reordered to begining
     recentSaves.unshift(file)
     recentSaves.splice(RECENT_GAMES_COUNT, recentSaves.length)
@@ -125,20 +126,20 @@ export const actions = {
     dispatch('save')
   },
 
-  async clearRecentSaves({ commit, dispatch}) {
+  async clearRecentSaves ({ commit, dispatch }) {
     commit('recentSaves', [])
     dispatch('save')
   },
 
-  async addRecentJoinedGame({ commit, dispatch }, host) {
-    commit('recentJoinedGames', [ host ])
+  async addRecentJoinedGame ({ commit, dispatch }, host) {
+    commit('recentJoinedGames', [host])
     dispatch('save')
   },
 
-  async validateRecentSaves({ state, commit }) {
+  async validateRecentSaves ({ state, commit }) {
     const invalid = {}
     let containsInvalid = false
-    for (let f of state.recentSaves) {
+    for (const f of state.recentSaves) {
       try {
         await fs.promises.access(f, fs.constants.R_OK)
       } catch (e) {
@@ -151,7 +152,7 @@ export const actions = {
     }
   },
 
-  async addRecentGameSetup({ state, commit, dispatch }, setup) {
+  async addRecentGameSetup ({ state, commit, dispatch }, setup) {
     const recentGameSetups = state.recentGameSetups.filter(s => !isEqual(s, setup)) // if file is contained, it will be only reordered to begining
     recentGameSetups.unshift(setup)
     recentGameSetups.splice(RECENT_SETUPS_COUNT, recentGameSetups.length)
@@ -159,12 +160,12 @@ export const actions = {
     dispatch('save')
   },
 
-  async clearRecentGameSetups({ commit, dispatch}) {
+  async clearRecentGameSetups ({ commit, dispatch }) {
     commit('recentGameSetups', [])
     dispatch('save')
   },
 
-  async update({ commit, dispatch }, settings) {
+  async update ({ commit, dispatch }, settings) {
     commit('settings', settings)
     dispatch('save')
   }

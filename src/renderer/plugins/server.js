@@ -1,18 +1,17 @@
 import WebSocket from 'ws'
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid'
 import Vue from 'vue'
-import { remote } from 'electron';
+import { remote } from 'electron'
 
 import camelCase from 'lodash/camelCase'
-import compareVersions from 'compare-versions';
+import compareVersions from 'compare-versions'
 
 import { NETWORK_PROTOCOL_COMPATIBILITY } from '@/constants/versions'
 import { getAppVersion } from '@/utils/version'
 import { randomLong } from '@/utils/random'
 import { ENGINE_MESSAGES } from '@/constants/messages'
 import { CONSOLE_SERVER_COLOR } from '@/constants/logging'
-import { HEARTBEAT_INTERVAL} from '@/constants/ws'
-
+import { HEARTBEAT_INTERVAL } from '@/constants/ws'
 
 export class GameServer {
   constructor (game, clientId, { engineVersion, appVersion }, app) {
@@ -55,9 +54,9 @@ export class GameServer {
         const { dialog } = remote
         let msg
         if (err.errno === 'EADDRINUSE') {
-          msg = `Have you alredy created game from another app instance?`
+          msg = 'Have you alredy created game from another app instance?'
         } else {
-          msg = err.message || "" + err
+          msg = err.message || '' + err
         }
         dialog.showErrorBox(`Can't start server on port ${port}`, msg)
       })
@@ -69,10 +68,10 @@ export class GameServer {
             return
           }
 
-          ws.isAlive = false;
-          ws.ping();
-        });
-      }, HEARTBEAT_INTERVAL);
+          ws.isAlive = false
+          ws.ping()
+        })
+      }, HEARTBEAT_INTERVAL)
     })
   }
 
@@ -99,10 +98,10 @@ export class GameServer {
       return
     }
 
-    ws.isAlive = true;
+    ws.isAlive = true
     ws.on('pong', () => {
-      ws.isAlive = true;
-    });
+      ws.isAlive = true
+    })
 
     let helloExpected = true
     ws.on('message', async data => {
@@ -111,13 +110,13 @@ export class GameServer {
       const { id, type } = message
       if (this.receivedMessageIds.has(id)) {
         console.warn(`Dropping already received message ${data}"`)
-        return 
+        return
       }
       this.receivedMessageIds.add(id)
 
       if (ENGINE_MESSAGES.has(type)) {
         if (this.status !== 'started') {
-          this.send(ws, {type: 'ERR', code: 'illegal-game-state', message: "Game is not started" })
+          this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game is not started' })
           return
         }
         if (this.expectedParentId && message.parentId && this.expectedParentId !== message.parentId) {
@@ -133,7 +132,7 @@ export class GameServer {
           if (type === 'HELLO') {
             helloExpected = false
           } else {
-            await this.send(ws, {type: 'ERR', code: 'unexpected-message', message: "Unexpected message" })
+            await this.send(ws, { type: 'ERR', code: 'unexpected-message', message: 'Unexpected message' })
             ws.close()
             return
           }
@@ -142,7 +141,7 @@ export class GameServer {
         if (handler) {
           handler.call(this, ws, message)
         } else {
-          console.error("Unknown handler for " + type)
+          console.error('Unknown handler for ' + type)
         }
       }
     })
@@ -166,7 +165,7 @@ export class GameServer {
           }
           this.broadcast({
             type: 'SLOT',
-            payload: slot,
+            payload: slot
           })
         })
       }
@@ -189,10 +188,10 @@ export class GameServer {
     }
   }
 
-  async send(ws, msg) {
+  async send (ws, msg) {
     if (!msg.id) {
-      msg = { ...msg, id: uuidv4()}
-    }    
+      msg = { ...msg, id: uuidv4() }
+    }
     return new Promise(resolve => {
       ws.send(JSON.stringify(msg), {}, resolve)
     })
@@ -200,8 +199,8 @@ export class GameServer {
 
   async broadcast (msg) {
     if (!msg.id) {
-      msg = { ...msg, id: uuidv4()}
-    }    
+      msg = { ...msg, id: uuidv4() }
+    }
     const data = JSON.stringify(msg)
     return Promise.all(this.clients.map(client => {
       return new Promise(resolve => {
@@ -211,7 +210,7 @@ export class GameServer {
   }
 
   async handleHello (ws, { payload }) {
-     const { name, clientId, secret } = payload
+    const { name, clientId, secret } = payload
     const clientAlreadyConnected = this.clients.find(ws => ws.clientId === clientId)
     if (clientAlreadyConnected && clientAlreadyConnected.secret !== secret) {
       await this.send(ws, { type: 'ERR', code: 'wrong-secret', message: "Secret doesn't match" })
@@ -236,7 +235,7 @@ export class GameServer {
 
     if (this.status === 'started') {
       if (!this.game.slots.find(slot => slot.clientId === clientId && !slot.sessionId)) {
-        await this.send(ws, {type: 'ERR', code: 'illegal-game-state', message: "Game already started" })
+        await this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game already started' })
         ws.close()
         return
       }
@@ -294,9 +293,9 @@ export class GameServer {
     })
   }
 
-  async handleTakeSlot (ws, { payload: { number, name }}) {
+  async handleTakeSlot (ws, { payload: { number, name } }) {
     if (this.status === 'started') {
-      this.send(ws, {type: 'ERR', code: 'illegal-game-state', message: "Game already started" })
+      this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game already started' })
       return
     }
 
@@ -306,7 +305,7 @@ export class GameServer {
       return
     }
     if (slot.sessionId) {
-      this.send(ws, { type: 'ERR', code: 'slot-occupied', message: "Slot is occupied" })
+      this.send(ws, { type: 'ERR', code: 'slot-occupied', message: 'Slot is occupied' })
       return
     }
 
@@ -322,9 +321,9 @@ export class GameServer {
     })
   }
 
-  async handleUpdateSlot (ws, { payload: { number, name }}) {
+  async handleUpdateSlot (ws, { payload: { number, name } }) {
     if (this.status === 'started') {
-      this.send(ws, {type: 'ERR', code: 'illegal-game-state', message: "Game already started" })
+      this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game already started' })
       return
     }
 
@@ -334,24 +333,24 @@ export class GameServer {
       return
     }
     if (slot.sessionId !== ws.sessionId) {
-      this.send(ws, {type: 'ERR', code: 'slot-owner', message: 'Slot is not assigned to your session'})
+      this.send(ws, { type: 'ERR', code: 'slot-owner', message: 'Slot is not assigned to your session' })
       return
     }
     if (this.status !== 'new') {
-      this.send(ws, {type: 'ERR', code: 'slot-reaonly', message: "Can't update slot"})
+      this.send(ws, { type: 'ERR', code: 'slot-reaonly', message: "Can't update slot" })
       return
     }
 
     slot.name = name
     this.broadcast({
       type: 'SLOT',
-      payload: slot,
+      payload: slot
     })
   }
 
-  handleLeaveSlot (ws, { payload: { number }}) {
+  handleLeaveSlot (ws, { payload: { number } }) {
     if (this.status === 'started') {
-      this.send(ws, {type: 'ERR', code: 'illegal-game-state', message: "Game already started" })
+      this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game already started' })
       return
     }
 
@@ -374,14 +373,14 @@ export class GameServer {
       slot.clientId = null
       this.broadcast({
         type: 'SLOT',
-        payload: slot,
+        payload: slot
       })
     }
   }
 
   handleStart (ws) {
     if (this.status === 'started') {
-      this.send(ws, {type: 'ERR', code: 'illegal-game-state', message: "Game already started" })
+      this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game already started' })
       return
     }
 

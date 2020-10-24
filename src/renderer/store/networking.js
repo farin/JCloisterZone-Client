@@ -5,11 +5,12 @@ const STATUS_CONNECTING = 'connecting'
 const STATUS_RECONNECTING = 'reconnecting'
 const STATUS_CONNECTED = 'connected'
 
-let reconnectTimeout = null;
+let reconnectTimeout = null
 
 class ConnectionHandler {
-  constructor (ctx, $router, resolve) {
+  constructor (ctx, host, $router, resolve) {
     this.ctx = ctx
+    this.host = host
     this.$router = $router
     this.resolve = resolve
     this.messageBuffer = []
@@ -21,7 +22,7 @@ class ConnectionHandler {
     if (!this.onMessageLock) {
       this.onMessageLock = true
       while (this.messageBuffer.length) {
-        await this.processMessage(this.messageBuffer.shift())        
+        await this.processMessage(this.messageBuffer.shift())
       }
       this.onMessageLock = false
     }
@@ -59,7 +60,7 @@ class ConnectionHandler {
         }
       }
     } else {
-      console.error(payload)      
+      console.error(payload)
       throw new Error(`Unhandled message ${type}`)
     }
   }
@@ -81,11 +82,16 @@ class ConnectionHandler {
       }
       commit('connectionStatus', STATUS_RECONNECTING)
       commit('reconnectAttempt', attempt)
+      console.log(`Connection interrupted. Next attempt (${attempt}) in ${delay}ms`)
       reconnectTimeout = setTimeout(async () => {
         reconnectTimeout = null
         try {
-          await dispatch('connect', host)
+          await dispatch('connect', this.host)
         } catch (err) {
+          if (!err.error?.errno) {
+            // unexpected error
+            console.error(err)
+          }
           // do nothing, reconnect is handled from on Close
         }
       }, delay)
@@ -94,8 +100,6 @@ class ConnectionHandler {
     }
   }
 }
-
-
 
 export const state = () => ({
   sessionId: null,
@@ -114,7 +118,7 @@ export const mutations = {
 
   reconnectAttempt (state, value) {
     state.reconnectAttempt = value
-  },
+  }
 }
 
 export const actions = {
@@ -127,7 +131,7 @@ export const actions = {
     } catch (err) {
       console.error(err)
       const { dialog } = remote
-      dialog.showErrorBox('Engine error', err.message || err + "")
+      dialog.showErrorBox('Engine error', err.message || err + '')
     }
   },
 
@@ -142,9 +146,9 @@ export const actions = {
       host = `${host}:${rootState.settings.port}`
     }
     return new Promise((resolve, reject) => {
-      const handler = new ConnectionHandler(ctx, this.$router, resolve)      
-      $connection.connect(host, { 
-        onMessage: handler.onMessage.bind(handler), 
+      const handler = new ConnectionHandler(ctx, host, this.$router, resolve)
+      $connection.connect(host, {
+        onMessage: handler.onMessage.bind(handler),
         onClose: handler.onClose.bind(handler)
       }).catch(err => {
         reject(err)
@@ -156,7 +160,7 @@ export const actions = {
     const { $server, $connection } = this._vm
     if (reconnectTimeout) {
       clearTimeout(reconnectTimeout)
-      reconnectTimeout = null;
+      reconnectTimeout = null
     }
     $connection.disconnect()
     $server.stop()

@@ -1,11 +1,11 @@
 import fs from 'fs'
 import { extname } from 'path'
 import { remote } from 'electron'
-import compareVersions from 'compare-versions';
-import { v4 as uuidv4 } from 'uuid';
+import compareVersions from 'compare-versions'
+import { v4 as uuidv4 } from 'uuid'
 
 import difference from 'lodash/difference'
-import pick from 'lodash/pick';
+import pick from 'lodash/pick'
 import range from 'lodash/range'
 import zip from 'lodash/zip'
 import Vue from 'vue'
@@ -42,7 +42,7 @@ const deployedOnTower = (state, response) => {
 
 const computeClock = (playersCount, messages) => {
   const clocks = (new Array(playersCount)).fill(0)
-  let active = 0;
+  let active = 0
   let prevClock = 0
   messages.forEach(({ clock, player }) => {
     clocks[active] += clock - prevClock
@@ -96,7 +96,7 @@ export const mutations = {
     state.slots = null
     state.players = null
     state.clock = null
-    state.lastMessageClock = null,
+    state.lastMessageClock = null
     state.lastMessageClockLocal = null
     state.tilePack = null
     state.placedTiles = null
@@ -158,7 +158,7 @@ export const mutations = {
     }
   },
 
-  updateClock (state, { player, clock, shiftLocal=0 }) {
+  updateClock (state, { player, clock, shiftLocal = 0 }) {
     if (player !== null && player !== undefined) {
       Vue.set(state.clock, player, state.clock[player] + clock - state.lastMessageClock)
     }
@@ -246,7 +246,6 @@ export const getters = {
     return state.players[playerIdx].meeples[meepleType][1]
   },
 
-
   canPayRansom: state => player => {
     if (state.action === null || state.action.player !== player) {
       return false
@@ -290,7 +289,7 @@ export const getters = {
 
 export const actions = {
   async save ({ state, dispatch }) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve, reject) => { /* eslint no-async-promise-executor: 0 */
       const { dialog } = remote
       let { filePath } = await dialog.showSaveDialog({
         title: 'Save Game',
@@ -308,7 +307,7 @@ export const actions = {
           name: '',
           initialSeed: state.initialSeed,
           created: (new Date()).toISOString(),
-          clock: clock,
+          clock,
           setup: state.setup,
           players: state.players.map(p => ({
             name: p.name,
@@ -356,7 +355,7 @@ export const actions = {
       let sg, slots
       try {
         const data = await fs.promises.readFile(filePath)
-        sg = JSON.parse(data) 
+        sg = JSON.parse(data)
         if (compareVersions(SAVED_GAME_COMPATIBILITY, sg.appVersion) === 1) {
           const msg = `Saves created prior ${SAVED_GAME_COMPATIBILITY} are not supported.`
           dialog.showErrorBox('Load Error', msg)
@@ -387,7 +386,7 @@ export const actions = {
         setup: sg.setup,
         initialSeed: sg.initialSeed,
         gameAnnotations: sg.gameAnnotations || {},
-        slots: slots,
+        slots,
         replay: sg.replay,
         clock: sg.clock
       }, { root: true })
@@ -443,7 +442,7 @@ export const actions = {
 
   async start () {
     const { $connection } = this._vm
-    $connection.send({ type: 'START'})
+    $connection.send({ type: 'START' })
   },
 
   async handleStartMessage ({ state, commit, dispatch, rootState }, { clock }) {
@@ -508,7 +507,7 @@ export const actions = {
       }
       const lastMessage = state.gameMessages[state.gameMessages.length - 1]
       // TODO shift local
-      commit('updateClock', { player: null, clock: lastMessage.clock, shiftLocal: lastMessage.clock - clock})
+      commit('updateClock', { player: null, clock: lastMessage.clock, shiftLocal: lastMessage.clock - clock })
       const { response, hash } = await engine.disableBulkMode()
       await dispatch('applyEngineResponse', { response, hash, message: lastMessage })
     } else {
@@ -522,7 +521,7 @@ export const actions = {
   },
 
   close ({ dispatch }) {
-    console.log("Game close requested")
+    console.log('Game close requested')
     const { $engine } = this._vm
     dispatch('networking/close', null, { root: true })
     $engine.kill()
@@ -538,7 +537,7 @@ export const actions = {
       sourceHash: state.hash,
       player: state.action.player
     })
-    commit('lastMessageId', id);
+    commit('lastMessageId', id)
   },
 
   async handleEngineMessage ({ state, commit, dispatch }, message) {

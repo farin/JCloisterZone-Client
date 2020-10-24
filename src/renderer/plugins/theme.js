@@ -8,7 +8,6 @@ import isObject from 'lodash/isObject'
 
 import Location from '@/models/Location'
 
-
 const makeAbsPath = (prefix, path) => {
   if (!path || path[0] === '/') {
     return path
@@ -49,7 +48,7 @@ class Theme {
 
     const installedArtworks = []
 
-    for (let lookupFolder of lookupFolders) {
+    for (const lookupFolder of lookupFolders) {
       let listing
       try {
         listing = await fs.promises.readdir(lookupFolder)
@@ -57,7 +56,7 @@ class Theme {
         console.log(`${lookupFolder} does not exist`)
         continue
       }
-      for (let f of listing) {
+      for (const f of listing) {
         const fullPath = path.join(lookupFolder, f)
         const stats = await fs.promises.stat(fullPath)
         if (stats.isDirectory()) {
@@ -69,7 +68,6 @@ class Theme {
               folder: fullPath,
               jsonFile: jsonPath
             })
-
           } catch (e) {
             // not plugin folder, do nothing
           }
@@ -81,11 +79,11 @@ class Theme {
     await this.loadArtworks()
   }
 
-  async loadArtworks() {
+  async loadArtworks () {
     this._artworks = {}
     this._tiles = {}
 
-    for (let artwork of this.installedArtworks) {
+    for (const artwork of this.installedArtworks) {
       await this.loadArtwork(artwork)
     }
 
@@ -95,7 +93,7 @@ class Theme {
     delete this._tiles
   }
 
-  async loadArtwork({ id, folder, jsonFile }) {
+  async loadArtwork ({ id, folder, jsonFile }) {
     const artwork = this._artworks[id] = JSON.parse(await fs.promises.readFile(jsonFile))
     const pathPrefix = `file:///${folder}/`
 

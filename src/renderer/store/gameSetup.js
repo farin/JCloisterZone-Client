@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import uniq from 'lodash/uniq'
 import mapKeys from 'lodash/mapKeys'
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid'
 
 import { isConfigValueEnabled, getDefaultElements } from '@/models/elements'
 import { getDefaultRules } from '@/models/rules'
 
 const DEFAULT_SETS = {
-  'basic': 1
+  basic: 1
 }
 
 function getModifiedDefaults (before, after) {

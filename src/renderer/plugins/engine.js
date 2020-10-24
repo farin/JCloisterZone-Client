@@ -1,11 +1,10 @@
 import path from 'path'
 import crypto from 'crypto'
-import debounce from 'lodash/debounce'
 import { spawn } from 'child_process'
+import debounce from 'lodash/debounce'
 import Vue from 'vue'
 
 import { remote } from 'electron'
-import { assert } from 'console'
 
 export class Engine {
   constructor (engineProcess, loggingEnabled) {
@@ -53,7 +52,7 @@ export class Engine {
 
       try {
         const response = JSON.parse(data)
-        const hash = crypto.createHash('sha1').update(data).digest('hex');
+        const hash = crypto.createHash('sha1').update(data).digest('hex')
         if (loggingEnabled) {
           console.debug(response)
         }
@@ -113,7 +112,7 @@ export class Engine {
     }
     return new Promise((resolve, reject) => {
       if (this.onMessage) {
-        console.error("unresolved onMessage");
+        console.error('unresolved onMessage')
       }
       this.onMessage = { resolve, reject }
       this._write(JSON.stringify(message))
@@ -125,7 +124,6 @@ export class Engine {
     this.engineProcess.kill()
   }
 }
-
 
 export default ({ app }, inject) => {
   let spawnedEngine = null
