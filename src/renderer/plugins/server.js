@@ -401,7 +401,7 @@ export class GameServer {
     })
   }
 
-  handleEngineMessage (ws, { type, payload, player, sourceHash }) {
+  handleEngineMessage (ws, { id, type, payload, player, sourceHash }) {
     const salted = ['COMMIT', 'FLOCK_EXPAND_OR_SCORE'].includes(type) || (type === 'DEPLOY_MEEPLE' && payload.pointer.location === 'FLYING_MACHINE')
     if (salted) {
       payload = {
@@ -409,7 +409,7 @@ export class GameServer {
         salt: randomLong().toString()
       }
     }
-    const msg = { type, payload, player, sourceHash, clock: Date.now() - this.startedAt }
+    const msg = { id, type, payload, player, sourceHash, clock: Date.now() - this.startedAt }
     if (type === 'UNDO') {
       this.replay.pop()
     } else {
