@@ -514,11 +514,11 @@ export const actions = {
       // TODO shift local
       commit('updateClock', { player: null, clock: lastMessage.clock, shiftLocal: lastMessage.clock - message.clock })
       const { response, hash } = await engine.disableBulkMode()
-      await dispatch('applyEngineResponse', { response, hash, message: lastMessage })
+      await dispatch('applyEngineResponse', { response, hash, message: lastMessage, allowAutoCommit: false })
     } else {
       commit('updateClock', { player: null, clock: 0 })
       const { response, hash } = await engine.writeMessage(setupMessage)
-      await dispatch('applyEngineResponse', { response, hash, message: null })
+      await dispatch('applyEngineResponse', { response, hash, message: null, allowAutoCommit: false })
     }
     if (state.gameMessages === null) {
       commit('gameMessages', [])
@@ -555,13 +555,13 @@ export const actions = {
     }
     commit('appendMessage', message)
     commit('updateClock', { player: state.action?.player, clock: message.clock || 0 })
-    await dispatch('applyEngineResponse', { response, hash, message })
+    await dispatch('applyEngineResponse', { response, hash, message, allowAutoCommit: true })
   },
 
-  async applyEngineResponse ({ state, commit, dispatch, rootState }, { response, hash, message }) {
+  async applyEngineResponse ({ state, commit, dispatch, rootState }, { response, hash, message, allowAutoCommit }) {
     const local = rootState.networking.sessionId === state.players[response.action?.player]?.sessionId
     let autoCommit = false
-    if (local) {
+    if (local && allowAutoCommit) {
       if (response.phase === 'CommitActionPhase') {
         let confirm = response.undo.allowed && message?.type !== 'PASS' && message?.type !== 'EXCHANGE_FOLLOWER'
         if (confirm) {
