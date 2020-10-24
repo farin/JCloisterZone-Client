@@ -542,8 +542,8 @@ export const actions = {
       sourceHash: state.hash,
       player: state.action.player
     }
-    $connection.send(message)
     commit('lastMessageId', message.id)
+    $connection.send(message)
   },
 
   async handleEngineMessage ({ state, commit, dispatch, rootState }, message) {
