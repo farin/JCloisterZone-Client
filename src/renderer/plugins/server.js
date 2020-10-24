@@ -37,6 +37,7 @@ export class GameServer {
     this.replay = game.replay || []
     this.initialClock = game.clock || 0
     this.receivedMessageIds = new Set()
+    this.expectedParentId = null
   }
 
   async start (port) {
@@ -119,6 +120,13 @@ export class GameServer {
           this.send(ws, {type: 'ERR', code: 'illegal-game-state', message: "Game is not started" })
           return
         }
+        if (this.expectedParentId && message.parentId && this.expectedParentId !== message.parentId) {
+          console.warn(`Wrong parent id ${data}"`)
+          // TODO send resync message instead
+          ws.close()
+          return
+        }
+        this.expectedParentId = message.id
         this.handleEngineMessage(ws, message)
       } else {
         if (helloExpected) {
