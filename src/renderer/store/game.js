@@ -500,7 +500,9 @@ export const actions = {
       }
     }
 
-    commit('lastMessageId', message.id)
+    if (message.id) {
+      commit('lastMessageId', message.id)
+    }
 
     if (state.gameMessages?.length) {
       commit('resetClock', computeClock(players.length, state.gameMessages))
