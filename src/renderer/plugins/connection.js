@@ -47,6 +47,7 @@ class ConnectionPlugin {
         const engineVersion = this.app.store.state.engine.version
         const { settings } = this.app.store.state
         this.ws.send(JSON.stringify({
+          id: uuidv4(),
           type: 'HELLO',
           payload: {
             appVersion,
