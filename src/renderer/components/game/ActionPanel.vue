@@ -14,7 +14,7 @@
         <v-progress-linear
           indeterminate
           color="white"
-        ></v-progress-linear>
+        />
       </v-alert>
     </div>
     <PointsExpression
@@ -131,7 +131,7 @@ export default {
     }),
 
     notifyConnectionClosed () {
-      return this.connectionState === 'closed' && this.phase !== 'GameOverPhase'
+      return this.connectionState === null && this.phase !== 'GameOverPhase'
     },
 
     notifyConnectionReconnecting () {
