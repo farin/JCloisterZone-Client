@@ -282,7 +282,7 @@ export class GameServer {
     }
 
     if (this.status === 'started') {
-      mgg.clock = Date.now() - this.startedAt
+      msg.clock = Date.now() - this.startedAt
     }
     this.send(ws, msg)
 
