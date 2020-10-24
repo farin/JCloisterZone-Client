@@ -190,12 +190,18 @@ export class GameServer {
   }
 
   async send(ws, msg) {
+    if (!msg.id) {
+      msg = { ...msg, id: uuidv4()}
+    }    
     return new Promise(resolve => {
       ws.send(JSON.stringify(msg), {}, resolve)
     })
   }
 
   async broadcast (msg) {
+    if (!msg.id) {
+      msg = { ...msg, id: uuidv4()}
+    }    
     const data = JSON.stringify(msg)
     return Promise.all(this.clients.map(client => {
       return new Promise(resolve => {
