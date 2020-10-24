@@ -105,7 +105,7 @@ export class GameServer {
 
     let helloExpected = true
     ws.on('message', async data => {
-      // console.log('%c embedded server %c received ' + data, CONSOLE_SERVER_COLOR, '')
+      console.log('%c embedded server %c received ' + data, CONSOLE_SERVER_COLOR, '')
       const message = JSON.parse(data)
       const { id, type } = message
       if (this.receivedMessageIds.has(id)) {
@@ -136,6 +136,9 @@ export class GameServer {
             ws.close()
             return
           }
+        }
+        if (type === 'START') {
+          this.expectedParentId = message.id
         }
         const handler = this[camelCase('handle_' + type)]
         if (handler) {
@@ -378,7 +381,7 @@ export class GameServer {
     }
   }
 
-  handleStart (ws) {
+  handleStart (ws, message) {
     if (this.status === 'started') {
       this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game already started' })
       return
@@ -391,6 +394,7 @@ export class GameServer {
     this.status = 'started'
     this.startedAt = Date.now() - this.initialClock
     this.broadcast({
+      id: message.id,
       type: 'START',
       payload: {},
       clock: this.initialClock

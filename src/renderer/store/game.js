@@ -91,6 +91,7 @@ export const mutations = {
   clear (state) {
     state.id = null
     state.hash = null
+    state.lastMessageId = null
     state.owner = null
     state.setup = null
     state.slots = null
@@ -445,7 +446,7 @@ export const actions = {
     $connection.send({ type: 'START' })
   },
 
-  async handleStartMessage ({ state, commit, dispatch, rootState }, { clock }) {
+  async handleStartMessage ({ state, commit, dispatch, rootState }, message) {
     const players = state.slots.filter(s => s.clientId).map(s => ({ ...s }))
     players.sort((a, b) => a.order - b.order)
     players.forEach(s => {
@@ -499,6 +500,8 @@ export const actions = {
       }
     }
 
+    commit('lastMessageId', message.id)
+
     if (state.gameMessages?.length) {
       commit('resetClock', computeClock(players.length, state.gameMessages))
       await engine.writeMessage(setupMessage)
@@ -507,7 +510,7 @@ export const actions = {
       }
       const lastMessage = state.gameMessages[state.gameMessages.length - 1]
       // TODO shift local
-      commit('updateClock', { player: null, clock: lastMessage.clock, shiftLocal: lastMessage.clock - clock })
+      commit('updateClock', { player: null, clock: lastMessage.clock, shiftLocal: lastMessage.clock - message.clock })
       const { response, hash } = await engine.disableBulkMode()
       await dispatch('applyEngineResponse', { response, hash, message: lastMessage })
     } else {
@@ -530,13 +533,14 @@ export const actions = {
   async apply ({ state, commit }, message) {
     const { $connection } = this._vm
     const id = uuidv4()
-    $connection.send({
+    message = {
       ...message,
       id,
       parentId: state.lastMessageId,
       sourceHash: state.hash,
       player: state.action.player
-    })
+    }
+    $connection.send(message)
     commit('lastMessageId', message.id)
   },
 
