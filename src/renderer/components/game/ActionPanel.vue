@@ -213,7 +213,7 @@ export default {
 
     onPlayerActivated () {
       if (this.beep) {
-        this.$refs.beep.play();
+        this.$refs.beep.play()
       }
     }
   }

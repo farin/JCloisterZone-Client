@@ -20,8 +20,8 @@
       />
     </v-dialog>
     <v-dialog
-      content-class="settings-dialog"
       v-model="showSettings"
+      content-class="settings-dialog"
       max-width="800"
     >
       <SettingsDialog
@@ -33,16 +33,14 @@
 </template>
 
 <script>
-import fs from 'fs'
 import { webFrame, remote, shell } from 'electron'
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 import AboutDialog from '@/components/AboutDialog'
 import JoinGameDialog from '@/components/JoinGameDialog'
 import SettingsDialog from '@/components/SettingsDialog'
 
-
-const { app, Menu, dialog } = remote
+const { Menu } = remote
 
 export default {
   components: {
@@ -60,12 +58,12 @@ export default {
   computed: {
     ...mapState({
       java: state => state.java,
-      undoAllowed: state => state.game.undo?.allowed,
+      undoAllowed: state => state.game.undo?.allowed
     }),
 
     showJoinDialog: {
       get () {
-       return this.$store.state.showJoinDialog
+        return this.$store.state.showJoinDialog
       },
 
       set (value) {
@@ -75,7 +73,7 @@ export default {
 
     showSettings: {
       get () {
-       return this.$store.state.showSettings
+        return this.$store.state.showSettings
       },
 
       set (value) {
@@ -127,7 +125,7 @@ export default {
           { id: 'save-game', label: 'Save Game', accelerator: 'CommandOrControl+S', click: this.saveGame },
           { id: 'load-game', label: 'Load Game', accelerator: 'CommandOrControl+L', click: this.loadGame },
           { type: 'separator' },
-          { id: 'settigns', label: 'Settings', accelerator: 'CommandOrControl+,', click: () => { this.showSettings = true }},
+          { id: 'settigns', label: 'Settings', accelerator: 'CommandOrControl+,', click: () => { this.showSettings = true } },
           { type: 'separator' },
           isMac ? { role: 'close' } : { role: 'quit' }
         ]
@@ -149,13 +147,12 @@ export default {
         ]
       }
     ]
-    if ( this.$store.state.settings.devMode) {
+    if (this.$store.state.settings.devMode) {
       template.push({
         label: 'Dev',
         submenu: [
           { role: 'toggleDevTools', label: 'Toggle DevTools' },
-          { label: 'Change clientId', click: this.changeClientId },
-          //{ label: 'Relaunch electron', accelerator: 'CommandOrControl+E', click: () => app.exit(250) }
+          { label: 'Change clientId', click: this.changeClientId }
         ]
       })
     }
@@ -245,7 +242,7 @@ export default {
     },
 
     changeClientId () {
-      const [ base, suffix = '0'] = this.$store.state.settings.clientId.split('--', 2)
+      const [base, suffix = '0'] = this.$store.state.settings.clientId.split('--', 2)
       const newId = `${base}--${~~suffix + 1}`
       this.$store.commit('settings/clientId', newId)
       console.log(`Client id changed to ${newId}`)
