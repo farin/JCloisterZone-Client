@@ -303,6 +303,14 @@ export class GameServer {
     return msg
   }
 
+  async handleSyncGame (ws) {
+    if (this.status !== 'started') {
+      this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game not started' })
+      return
+    }
+    this.send(ws, this.createGameMessage())
+  }
+
   async handleTakeSlot (ws, { payload: { number, name } }) {
     if (this.status === 'started') {
       this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game already started' })
