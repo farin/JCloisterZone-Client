@@ -121,8 +121,7 @@ export class GameServer {
         }
         if (this.expectedParentId && message.parentId && this.expectedParentId !== message.parentId) {
           console.warn(`Wrong parent id ${data}"`)
-          // TODO send resync message instead
-          ws.close()
+          this.send(ws, this.createGameMessage())
           return
         }
         this.expectedParentId = message.id
@@ -264,10 +263,8 @@ export class GameServer {
       this.game.owner = ws.sessionId
     }
 
-    let game = this.game
-    if (this.status === 'started') {
-      game = { ...game, replay: this.replay, started: true }
-    }
+    // create message before slot update
+    const gameMessage = this.createGameMessage()
 
     // auto assign slots with matching clientId
     const assignedSlots = []
@@ -278,22 +275,32 @@ export class GameServer {
       }
     })
 
-    const msg = {
-      type: 'GAME',
-      payload: game
-    }
-
-    if (this.status === 'started') {
-      msg.clock = Date.now() - this.startedAt
-    }
-    this.send(ws, msg)
-
+    this.send(ws, gameMessage)
     assignedSlots.forEach(slot => {
       this.broadcast({
         type: 'SLOT',
         payload: slot
       })
     })
+  }
+
+  createGameMessage () {
+    const started = this.status === 'started'
+    let game = this.game
+    if (started) {
+      game = { ...game, replay: this.replay, started: true }
+    }
+
+    const msg = {
+      type: 'GAME',
+      payload: game
+    }
+
+    if (started) {
+      msg.clock = Date.now() - this.startedAt
+    }
+
+    return msg
   }
 
   async handleTakeSlot (ws, { payload: { number, name } }) {

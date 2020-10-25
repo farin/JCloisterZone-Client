@@ -553,6 +553,10 @@ export const actions = {
     const engine = this._vm.$engine.get()
     const { response, hash } = await engine.writeMessage(message)
     if (rootState.networking.sessionId !== state.players[message.player].sessionId) {
+      if (message.sourceHash && message.sourceHash !== state.sourceHash) {
+        console.warn("Source hash doesn't match")
+        // TODO SYNC
+      }
       // message from remote player, not tracked yet
       commit('lastMessageId', message.id)
     }
