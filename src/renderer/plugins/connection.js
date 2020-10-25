@@ -122,7 +122,7 @@ class ConnectionPlugin {
       if (message.sourceHash) {
         if (message.sourceHash === this.recentlyUsedSourceHash) {
           // duplicate message
-          return
+          return false
         }
 
         // set protection for next 250 ms => do not send message with same origin during this time
@@ -137,7 +137,9 @@ class ConnectionPlugin {
         message = { id: uuidv4(), ...message }
       }
       this.ws.send(JSON.stringify(message))
+      return true
     }
+    return false
   }
 
   isConnectedOrConnecting () {

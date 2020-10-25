@@ -542,8 +542,11 @@ export const actions = {
       sourceHash: state.hash,
       player: state.action.player
     }
-    commit('lastMessageId', message.id)
-    $connection.send(message)
+    if ($connection.send(message)) {
+      // update immediatelly because local client can send anothor message
+      // before reply to this is received
+      commit('lastMessageId', message.id)
+    }
   },
 
   async handleEngineMessage ({ state, commit, dispatch, rootState }, message) {
