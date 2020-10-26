@@ -569,10 +569,10 @@ export const actions = {
     const { response, hash } = await engine.writeMessage(message)
     if (rootState.networking.sessionId !== state.players[message.player].sessionId) {
       if (message.sourceHash && message.sourceHash !== state.hash) {
-        console.warn("Source hash doesn't match")
-        const { $connection } = this._vm
-        $connection.send({ type: 'SYNC_GAME' })
-        return
+        console.warn(`Message source ${message.sourceHash} doesn't match ${state.hash}`)
+        // const { $connection } = this._vm
+        // $connection.send({ type: 'SYNC_GAME' })
+        // return
       }
     }
     commit('appendMessage', message)
