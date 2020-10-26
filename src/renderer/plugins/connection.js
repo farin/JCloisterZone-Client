@@ -131,7 +131,7 @@ class ConnectionPlugin {
           if (this.recentlyUsedSourceHash === message.sourceHash) {
             this.recentlyUsedSourceHash = null
           }
-        }, 500)
+        }, 1000)
       }
       if (!message.id) {
         message = { id: uuidv4(), ...message }

@@ -84,7 +84,8 @@ export const state = () => ({
   gameMessages: null,
   gameAnnotations: {},
   testScenario: null,
-  testScenarioResult: null
+  testScenarioResult: null,
+  lockUi: false
 })
 
 export const mutations = {
@@ -115,6 +116,7 @@ export const mutations = {
     state.gameAnnotations = {}
     state.testScenario = null
     state.testScenarioResult = null
+    state.lockUi = false
   },
 
   id (state, value) {
@@ -206,6 +208,10 @@ export const mutations = {
 
   testScenarioResult (state, value) {
     state.testScenarioResult = value
+  },
+
+  lockUi (state, value) {
+    state.lockUi = value
   }
 }
 
@@ -404,9 +410,14 @@ export const actions = {
     })
   },
 
-  async handleGameMessage ({ commit }, payload) {
-    commit('clear')
-    commit('id', payload.gameId)
+  async handleGameMessage ({ state, commit }, payload) {
+    if (payload.started) {
+      commit('lockUi', true)
+    }
+    if (state.id !== payload.gameId) {
+      commit('clear')
+      commit('id', payload.gameId)
+    }
     commit('setup', payload.setup)
     commit('slots', payload.slots)
     commit('initialSeed', payload.initialSeed)
@@ -454,9 +465,12 @@ export const actions = {
       delete s.number
       delete s.order
     })
-    commit('players', players)
+    if (state.players === null) {
+      commit('players', players)
+    } else {
+      commit('update', { players })
+    }
     commit('resetClock')
-    commit('board/resetZoom', null, { root: true })
 
     console.log(state.setup, state.gameAnnotations)
 
@@ -523,6 +537,8 @@ export const actions = {
     if (state.gameMessages === null) {
       commit('gameMessages', [])
     }
+
+    commit('lockUi', false)
   },
 
   close ({ dispatch }) {
@@ -533,6 +549,9 @@ export const actions = {
   },
 
   async apply ({ state, commit }, message) {
+    if (state.lockUi) {
+      return
+    }
     const { $connection } = this._vm
     const id = uuidv4()
     message = {
@@ -542,11 +561,7 @@ export const actions = {
       sourceHash: state.hash,
       player: state.action.player
     }
-    if ($connection.send(message)) {
-      // update immediatelly because local client can send anothor message
-      // before reply to this is received
-      commit('lastMessageId', message.id)
-    }
+    $connection.send(message)
   },
 
   async handleEngineMessage ({ state, commit, dispatch, rootState }, message) {
@@ -559,10 +574,9 @@ export const actions = {
         $connection.send({ type: 'SYNC_GAME' })
         return
       }
-      // message from remote player, not tracked yet
-      commit('lastMessageId', message.id)
     }
     commit('appendMessage', message)
+    commit('lastMessageId', message.id)
     commit('updateClock', { player: state.action?.player, clock: message.clock || 0 })
     await dispatch('applyEngineResponse', { response, hash, message, allowAutoCommit: true })
   },
