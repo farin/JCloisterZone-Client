@@ -34,8 +34,7 @@ export default {
         const playersWithIndex = state.game.players.map((p, index) => ({ ...p, index }))
         const groups = groupBy(playersWithIndex, 'points')
         const points = Object.keys(groups).map(p => parseInt(p))
-        points.sort()
-        points.reverse()
+        points.sort((a, b) => b - a)
         let rank = 0
         const ranks = []
         points.forEach(p => {
