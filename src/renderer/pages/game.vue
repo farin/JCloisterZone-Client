@@ -9,12 +9,14 @@
       <Board />
       <aside>
         <TilePackSize :size="tilePackSize" />
-        <PlayerPanel
-          v-for="(player, idx) in players"
-          :key="idx"
-          :index="idx"
-          :player="player"
-        />
+        <div class="scrollable">
+          <PlayerPanel
+            v-for="(player, idx) in players"
+            :key="idx"
+            :index="idx"
+            :player="player"
+          />
+        </div>
       </aside>
       <ActionPanel
         :phase="phase"
@@ -125,11 +127,16 @@ export default {
 aside
   box-sizing: border-box
   width: $rside-width
-  heigh: 100vh
+  height: 100vh
   position: absolute
   top: 0
   right: 0
   user-select: none
+
+  .scrollable
+    overflow: scroll
+    height: calc(100vh - #{$action-bar-height})
+    margin-top: $panel-gap
 
   .tile-pack-size
     +theme using ($theme)
@@ -149,7 +156,7 @@ aside
 
   .game-modal-content
     position: relative
-    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.45)
+    box-shadow: 0 0 4px 0 rgba(0,0,0,0.45)
     padding: 40px 60px
 
     +theme using ($theme)

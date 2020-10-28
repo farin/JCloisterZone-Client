@@ -152,7 +152,7 @@ export default {
 
 <style lang="sass" scoped>
 section
-  margin-top: $panel-gap
+  margin-bottom: $panel-gap
   padding-top: 15px
   min-height: 100px
 
