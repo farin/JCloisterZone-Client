@@ -7,8 +7,8 @@
       </div>
       <TestResult v-if="testScenarioResult" :result="testScenarioResult" />
       <Board />
-      <aside>
-        <TilePackSize :size="tilePackSize" />
+      <TilePackSize :size="tilePackSize" />
+      <aside ref="aside" :class="`shrink-${shrink}`">
         <PlayerPanel
           v-for="(player, idx) in players"
           :key="idx"
@@ -66,6 +66,12 @@ export default {
     TilePackSize
   },
 
+  data () {
+    return {
+      shrink: 0
+    }
+  },
+
   computed: mapState({
     action: state => state.game.action,
     gameDialog: state => state.gameDialog,
@@ -79,8 +85,17 @@ export default {
       }
       const { drawOrder, endTurn } = state.game.gameAnnotations
       return !!(drawOrder || endTurn)
-    }
+    },
+    gameHash: state => state.game.hash
   }),
+
+  watch: {
+    phase (newVal, oldVal) {
+      if (!oldVal) {
+        this.checkOverflow()
+      }
+    }
+  },
 
   beforeCreate () {
     // useful for dev mode, reload on this page redirects back to home
@@ -90,8 +105,68 @@ export default {
     }
   },
 
+  mounted () {
+    this.shrinkSizes = [null, null, null]
+    this.shrinkChanged = false
+    window.addEventListener('resize', this.onRezize)
+    this.checkOverflow()
+  },
+
   beforeDestroy () {
+    this._ro?.disconnect()
+    window.removeEventListener('resize', this.onRezize)
+    clearTimeout(this.checkOverflowTimeout)
     this.$store.dispatch('game/close')
+  },
+
+  methods: {
+    onRezize () {
+      clearTimeout(this.checkOverflowTimeout)
+      this.checkOverflowTimeout = setTimeout(this.checkOverflow, 20)
+    },
+
+    checkOverflow () {
+      const { aside } = this.$refs
+      if (!aside) {
+        return
+      }
+
+      if (!this._ro) {
+        this._ro = new ResizeObserver(ev => {
+          if (this.shrinkChanged) {
+            // triggered from checkOverflow
+            this.shrinkChanged = false
+          } else {
+            // triggered by changed content
+            this.shrinkSizes = [null, null, null]
+            this.checkOverflow()
+          }
+        })
+        this._ro.observe(aside)
+      }
+
+      const availableHeight = this.$el.clientHeight - aside.getBoundingClientRect().top
+      const height = aside.clientHeight
+      const sizes = this.shrinkSizes
+
+      if (sizes[this.shrink] === null) {
+        sizes[this.shrink] = height
+      }
+
+      if (availableHeight < height && this.shrink < 2) {
+        this.shrink += 1
+        this.shrinkChanged = true
+        setTimeout(this.checkOverflow, 1)
+      }
+      if (availableHeight > height && this.shrink > 0) {
+        const target = this.shrink - 1
+        if (sizes[target] === null || sizes[target] <= availableHeight) {
+          this.shrink = target
+          this.shrinkChanged = true
+          setTimeout(this.checkOverflow, 1)
+        }
+      }
+    }
   }
 }
 </script>
@@ -119,18 +194,25 @@ export default {
   +theme using ($theme)
     background: map-get($theme, 'board-bg')
 
-aside
-  box-sizing: border-box
-  width: var(--aside-width)
-  height: 100vh
+.tile-pack-size
   position: absolute
   top: 0
   right: 0
-  user-select: none
+  width: var(--aside-width)
+  height: $action-bar-height
 
-  .tile-pack-size
-    +theme using ($theme)
-      background: map-get($theme, 'opaque-bg')
+  +theme using ($theme)
+    background: map-get($theme, 'opaque-bg')
+
+aside
+  position: absolute
+  top: #{$action-bar-height + $panel-gap}
+  right: 0
+  width: var(--aside-width)
+  // max-height: calc(100vh - #{$action-bar-height + $panel-gap})
+  user-select: none
+  display: flex
+  flex-direction: column
 
 .game-modal
   position: absolute

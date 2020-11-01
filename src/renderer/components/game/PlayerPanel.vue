@@ -2,7 +2,7 @@
   <section
     :class="{
       'active-turn': index === turnPlayer,
-      'active-action': index === actionPlayer,
+      'active-action': index === actionPlayer
     }"
   >
     <div :class="'name-box ' + colorCssClass(index)">
@@ -15,7 +15,7 @@
       <!--v-icon>fas fa-exclamation</v-icon-->Disconnected
     </div>
     <PlayerClock v-if="timer" :player="index" />
-    <div class="resources">
+    <div ref="resources" class="resources">
       <div
         v-for="({ follower, count }) in followers"
         :key="follower"
@@ -147,27 +147,22 @@ export default {
 
 <style lang="sass" scoped>
 section
-  margin-top: $panel-gap
-  padding-top: 15px
-  min-height: 100px
+  margin-bottom: $panel-gap
+  // min-height: 100px
 
   +theme using ($theme)
     background: map-get($theme, 'opaque-bg')
 
 .name-box
   position: relative
-  //margin-top: 20px
-  height: 60px
 
   +theme using ($theme)
     background: map-get($theme, 'player-panel-name-bg')
 
 .name
-  //margin-top: 30px // + 10 for outer box margin
-  padding-left: 65px
-  padding-top: 14px
-  font-size: 22px
-  text-align: center
+  display: flex
+  justify-content: center
+  align-items: center
 
   +theme using ($theme)
     color: map-get($theme, 'player-panel-name-color')
@@ -192,21 +187,16 @@ section
   position: absolute
   top: 0
   left: -25px
-  width: 90px
-  height: 60px
   display: flex
   align-items: center
-  border-radius: 30px
 
   > div
     flex: 1
     text-align: right
     padding: 0 18px
     font-weight: 500
-    font-size: 36px
 
 .resources
-  padding: 15px
   display: flex
   flex-wrap: wrap
 
@@ -221,10 +211,7 @@ section
     height: 30px
     border-radius: 14px
     position: relative
-    left: -8px
-    top: -10px
     z-index: 1
-    margin-right: -6px
 
     +theme using ($theme)
       background: map-get($theme, 'player-panel-count-bg')
@@ -234,8 +221,6 @@ section
     margin: 0 2px
 
     svg
-      width: 34px
-      height: 34px
       position: relative
       z-index: 2
 
@@ -245,8 +230,6 @@ section
     .token-image
       position: relative
       z-index: 2
-      width: 34px
-      height: 34px
 
     .stacked
       margin-left: -24px
@@ -262,8 +245,95 @@ section
     +theme using ($theme)
       background: map-get($theme, 'removed-color')
 
-.bazaar-tile
-  svg
-    width: 34px
-    height: 34px
+aside.shrink-0
+  section
+    padding-top: 15px
+
+  .name-box, .name, .points
+    height: 60px
+
+  .name
+    font-size: 22px
+    margin-left: 65px
+
+  .points
+    border-radius: 30px
+    width: 90px
+
+    > div
+      font-size: 36px
+
+  .resources
+    padding: 15px
+
+    .item-follower svg, .item-prisoner svg, .item-token .token-image, .bazaar-tile svg
+      width: 34px
+      height: 34px
+
+    span.count
+      left: -8px
+      top: -10px
+      margin-right: -6px
+
+aside.shrink-1
+  section
+    padding-top: 10px
+
+  .name-box, .name, .points
+    height: 50px
+
+  .name
+    font-size: 20px
+    margin-left: 65px
+
+  .points
+    border-radius: 25px
+    width: 80px
+
+    > div
+      font-size: 31px
+
+  .resources
+    padding: 12px 10px 6px
+
+    .item-follower svg, .item-prisoner svg, .item-token .token-image, .bazaar-tile svg
+      width: 26px
+      height: 26px
+
+    span.count
+      transform: scale(0.765)
+      left: -11px
+      top: -6px
+      margin-right: -14px
+
+aside.shrink-2
+  section
+    padding-top: 5px
+
+  .name-box, .name, .points
+    height: 40px
+
+  .name
+    font-size: 18px
+    margin-left: 65px
+
+  .points
+    border-radius: 20px
+    width: 70px
+
+    > div
+      font-size: 26px
+
+  .resources
+    padding: 9px 6px 3px
+
+    .item-follower svg, .item-prisoner svg, .item-token .token-image, .bazaar-tile svg
+      width: 20px
+      height: 20px
+
+    span.count
+      transform: scale(0.588)
+      left: -12px
+      top: -4px
+      margin-right: -18px
 </style>
