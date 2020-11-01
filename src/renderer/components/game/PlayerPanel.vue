@@ -3,6 +3,7 @@
     :class="{
       'active-turn': index === turnPlayer,
       'active-action': index === actionPlayer,
+      [`shrink-${shrink}`]: true
     }"
   >
     <div :class="'name-box ' + colorCssClass(index)">
@@ -15,7 +16,7 @@
       <!--v-icon>fas fa-exclamation</v-icon-->Disconnected
     </div>
     <PlayerClock v-if="timer" :player="index" />
-    <div class="resources">
+    <div ref="resources" class="resources">
       <div
         v-for="({ follower, count }) in followers"
         :key="follower"
@@ -83,7 +84,8 @@ export default {
 
   props: {
     index: { type: Number, required: true },
-    player: { type: Object, required: true }
+    player: { type: Object, required: true },
+    shrink: { type: Number, default: 0 }
   },
 
   computed: {
@@ -140,6 +142,13 @@ export default {
 
     stackTwo (token) {
       return !token.startsWith('TUNNEL_')
+    },
+
+    calculateOverflow () {
+      const resEl = this.$refs.resources
+      const pos = resEl.getBoundingClientRect().top - this.$el.getBoundingClientRect().top
+      const overflow = pos + this.$refs.resources.clientHeight - this.$el.clientHeight
+      return overflow
     }
   }
 }
@@ -147,7 +156,7 @@ export default {
 
 <style lang="sass" scoped>
 section
-  margin-top: $panel-gap
+  margin-bottom: $panel-gap
   padding-top: 15px
   min-height: 100px
 
@@ -206,7 +215,6 @@ section
     font-size: 36px
 
 .resources
-  padding: 15px
   display: flex
   flex-wrap: wrap
 
@@ -221,10 +229,7 @@ section
     height: 30px
     border-radius: 14px
     position: relative
-    left: -8px
-    top: -10px
     z-index: 1
-    margin-right: -6px
 
     +theme using ($theme)
       background: map-get($theme, 'player-panel-count-bg')
@@ -234,8 +239,6 @@ section
     margin: 0 2px
 
     svg
-      width: 34px
-      height: 34px
       position: relative
       z-index: 2
 
@@ -245,8 +248,6 @@ section
     .token-image
       position: relative
       z-index: 2
-      width: 34px
-      height: 34px
 
     .stacked
       margin-left: -24px
@@ -262,8 +263,44 @@ section
     +theme using ($theme)
       background: map-get($theme, 'removed-color')
 
-.bazaar-tile
-  svg
-    width: 34px
-    height: 34px
+.shrink-0
+  .resources
+    padding: 15px
+
+    .item-follower svg, .item-prisoner svg, .item-token .token-image, .bazaar-tile svg
+      width: 34px
+      height: 34px
+
+    span.count
+      left: -8px
+      top: -10px
+      margin-right: -6px
+
+.shrink-1
+  .resources
+    padding: 12px 10px
+
+    .item-follower svg, .item-prisoner svg, .item-token .token-image, .bazaar-tile svg
+      width: 26px
+      height: 26px
+
+    span.count
+      transform: scale(0.765)
+      left: -11px
+      top: -6px
+      margin-right: -14px
+
+.shrink-2
+  .resources
+    padding: 9px 6px
+
+    .item-follower svg, .item-prisoner svg, .item-token .token-image, .bazaar-tile svg
+      width: 20px
+      height: 20px
+
+    span.count
+      transform: scale(0.588)
+      left: -12px
+      top: -4px
+      margin-right: -18px
 </style>
