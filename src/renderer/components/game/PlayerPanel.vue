@@ -31,12 +31,12 @@
         class="item item-token"
       >
         <TokenImage
-          :token="token" :player="index" :height="34"
+          :token="token" :player="index"
         />
         <TokenImage
           v-if="count === 2 && !stackTwo(token)"
           class="stacked"
-          :token="token" :player="index" :height="34"
+          :token="token" :player="index"
         />
         <span v-if="(count > 1 && stackTwo(token)) || count > 2" class="count">{{ count }}</span>
       </div>
@@ -245,6 +245,8 @@ section
     .token-image
       position: relative
       z-index: 2
+      width: 34px
+      height: 34px
 
     .stacked
       margin-left: -24px

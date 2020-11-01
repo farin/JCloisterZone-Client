@@ -1,15 +1,12 @@
 <template>
-  <span class="token-image">
-    <StandaloneTileImage
-      v-if="token === 'ABBEY_TILE'"
-      tile-id="AM/A"
-      v-bind="dimension"
-    />
-    <svg v-else-if="attrs.tag === 'svg'" v-bind="dimension" :class="tunnelTokenColorCssClass(token, player, inactive)">
-      <use :href="attrs.src" />
-    </svg>
-    <img v-else-if="attrs.tag === 'img'" :src="attrs.src" :alt="token" v-bind="dimension">
-  </span>
+  <component
+    :is="tag"
+    class="token-image"
+    :class="classes"
+    v-bind="attrs"
+  >
+    <use v-if="tag === 'svg'" :href="src" />
+  </component>
 </template>
 
 <script>
@@ -18,7 +15,7 @@ import StandaloneTileImage from '@/components/game/StandaloneTileImage'
 
 const TOKENS_SVG = require('~/assets/tokens.svg')
 
-const SOURCES = {
+const TOKENS = {
   TOWER_PIECE: { tag: 'svg', src: TOKENS_SVG + '#tower', width: 1.512 },
   BRIDGE: { tag: 'svg', src: TOKENS_SVG + '#bridge', width: 1.273 },
   TUNNEL_A: { tag: 'svg', src: TOKENS_SVG + '#tunnel', width: 1 },
@@ -49,7 +46,7 @@ export default {
 
   props: {
     token: { type: String, required: true },
-    height: { type: Number, required: true },
+    height: { type: Number, default: null },
     player: { type: Number, default: null },
     inactive: { type: Boolean }
   },
@@ -59,20 +56,46 @@ export default {
       tunnelTokenColorCssClass: 'game/tunnelTokenColorCssClass'
     }),
 
-    attrs () {
-      return SOURCES[this.token]
+    tag () {
+      if (this.token === 'ABBEY_TILE') {
+        return StandaloneTileImage
+      }
+      return TOKENS[this.token].tag
     },
 
-    dimension () {
-      if (this.height) {
-        if (this.token === 'ABBEY_TILE' || this.attrs.tag === 'img') {
-          return { size: this.height }
-        }
-        if (this.attrs.tag === 'svg') {
-          return { width: this.attrs.width * this.height, height: this.height }
+    src () {
+      return TOKENS[this.token]?.src
+    },
+
+    classes () {
+      // const cls = this.token.replace('_', '-').toLowerCase()
+      const cls = 'token-' + this.token
+      if (this.token.startsWith('TUNNEL')) {
+        return cls + ' ' + this.tunnelTokenColorCssClass(this.token, this.player, this.inactive)
+      }
+      return cls
+    },
+
+    attrs () {
+      if (this.token === 'ABBEY_TILE') {
+        return {
+          'tile-id': 'AM/A',
+          'size': this.height
         }
       }
-      return {}
+      const attrs = {}
+      const t = TOKENS[this.token]
+      if (t.tag === 'img') {
+        attrs.src = t.src
+        if (this.height) {
+          Object.assign(attrs, { height: this.height })
+        }
+      } else if (t.tag === 'svg') {
+        if (this.height) {
+          Object.assign(attrs, { width: t.width * this.height, height: this.height })
+        }
+      }
+      return attrs
     }
   }
 }

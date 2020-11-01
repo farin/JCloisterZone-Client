@@ -77,14 +77,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-// svg
-//   width: 34px
-//   height: 34px
-.token-image
-  display: flex
-  justify-content: center
-  align-items: center
-
+.token-image:not(.tunnel)
   +theme using ($theme)
     fill: map-get($theme, 'text-color')
 
