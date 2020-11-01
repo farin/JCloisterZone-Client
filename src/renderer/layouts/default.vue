@@ -280,19 +280,19 @@ body
   width: 100%
   min-height: 100vh
 
-.dragon
+svg.dragon
   fill: $dragon-color
 
-.fairy
+svg.fairy
   fill: $fairy-color
 
-.count
+svg.count
   fill: $count-color
 
-.mage
+svg.mage
   fill: $mage-color
 
-.witch
+svg.witch
   fill: $witch-color
 
 .settings-dialog

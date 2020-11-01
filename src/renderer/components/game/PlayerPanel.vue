@@ -16,51 +16,46 @@
     </div>
     <PlayerClock v-if="timer" :player="index" />
     <div class="resources">
-      <div class="followers">
-        <div
-          v-for="({ follower, count }) in followers"
-          :key="follower"
-          :class="'item ' + colorCssClass(index)"
-        >
-          <Meeple :type="follower" />
-          <span v-if="count > 1" class="count">{{ count }}</span>
-        </div>
-      </div>
-      <div class="tokens">
-        <div
-          v-for="({ token, count }) in tokens"
-          :key="token"
-          class="item"
-        >
-          <TokenImage
-            :token="token" :player="index" :height="34"
-          />
-          <TokenImage
-            v-if="count === 2 && !stackTwo(token)"
-            class="stacked"
-            :token="token" :player="index" :height="34"
-          />
-          <span v-if="(count > 1 && stackTwo(token)) || count > 2" class="count">{{ count }}</span>
-        </div>
-      </div>
       <div
-        v-if="player.captured"
-        class="prisoners"
+        v-for="({ follower, count }) in followers"
+        :key="follower"
+        :class="'item item-follower ' + colorCssClass(index)"
       >
-        <div
-          v-for="cap in player.captured"
-          :key="cap.type + cap.player"
-          :class="{
-            item: true,
-            [colorCssClass(cap.player)]: true,
-            'can-pay': canPayRansom(cap.player)
-          }"
-          @click="payRansom(cap.player, cap.id)"
-        >
-          <Meeple :type="cap.type" />
-          <span v-if="cap.count > 1" class="count">{{ cap.count }}</span>
-        </div>
+        <Meeple :type="follower" />
+        <span v-if="count > 1" class="count">{{ count }}</span>
       </div>
+
+      <div
+        v-for="({ token, count }) in tokens"
+        :key="token"
+        class="item item-token"
+      >
+        <TokenImage
+          :token="token" :player="index" :height="34"
+        />
+        <TokenImage
+          v-if="count === 2 && !stackTwo(token)"
+          class="stacked"
+          :token="token" :player="index" :height="34"
+        />
+        <span v-if="(count > 1 && stackTwo(token)) || count > 2" class="count">{{ count }}</span>
+      </div>
+
+      <div
+        v-for="cap in player.captured"
+        :key="cap.type + cap.player"
+        :class="{
+          item: true,
+          'item-prisoner': true,
+          [colorCssClass(cap.player)]: true,
+          'can-pay': canPayRansom(cap.player)
+        }"
+        @click="payRansom(cap.player, cap.id)"
+      >
+        <Meeple :type="cap.type" />
+        <span v-if="cap.count > 1" class="count">{{ cap.count }}</span>
+      </div>
+
       <div v-if="auctionedTile" class="bazaar-tile">
         <StandaloneTileImage :tile-id="auctionedTile" />
       </div>
@@ -212,8 +207,6 @@ section
 
 .resources
   padding: 15px
-
-.followers, .tokens, .prisoners
   display: flex
   flex-wrap: wrap
 
@@ -237,8 +230,7 @@ section
       background: map-get($theme, 'player-panel-count-bg')
       color: map-get($theme, 'player-panel-count-text')
 
-.followers, .prisoners
-  .item
+  .item-follower, .item-prisoner
     margin: 0 2px
 
     svg
@@ -247,8 +239,7 @@ section
       position: relative
       z-index: 2
 
-.tokens
-  .item
+  .item-token
     margin: 0 2px
 
     .token-image
@@ -258,16 +249,16 @@ section
     .stacked
       margin-left: -24px
 
-  ::v-deep svg:not(.tunnel)
+    ::v-deep svg:not(.tunnel)
+      +theme using ($theme)
+        fill: map-get($theme, 'cards-text')
+
+  .item-prisoner.can-pay:hover
+    cursor: pointer
+    border-radius: 4px
+
     +theme using ($theme)
-      fill: map-get($theme, 'cards-text')
-
-.prisoners .item.can-pay:hover
-  cursor: pointer
-  border-radius: 4px
-
-  +theme using ($theme)
-    background: map-get($theme, 'removed-color')
+      background: map-get($theme, 'removed-color')
 
 .bazaar-tile
   svg
