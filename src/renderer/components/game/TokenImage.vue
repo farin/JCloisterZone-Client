@@ -3,12 +3,12 @@
     <StandaloneTileImage
       v-if="token === 'ABBEY_TILE'"
       tile-id="AM/A"
-      :size="height"
+      v-bind="dimension"
     />
-    <svg v-else-if="attrs.tag === 'svg'" :width="attrs.width * height" :height="height" :class="tunnelTokenColorCssClass(token, player, inactive)">
+    <svg v-else-if="attrs.tag === 'svg'" v-bind="dimension" :class="tunnelTokenColorCssClass(token, player, inactive)">
       <use :href="attrs.src" />
     </svg>
-    <img v-else-if="attrs.tag === 'img'" :src="attrs.src" :alt="token" :height="height">
+    <img v-else-if="attrs.tag === 'img'" :src="attrs.src" :alt="token" v-bind="dimension">
   </span>
 </template>
 
@@ -61,6 +61,18 @@ export default {
 
     attrs () {
       return SOURCES[this.token]
+    },
+
+    dimension () {
+      if (this.height) {
+        if (this.token === 'ABBEY_TILE' || this.attrs.tag === 'img') {
+          return { size: this.height }
+        }
+        if (this.attrs.tag === 'svg') {
+          return { width: this.attrs.width * this.height, height: this.height }
+        }
+      }
+      return {}
     }
   }
 }
