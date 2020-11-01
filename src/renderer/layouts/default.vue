@@ -253,6 +253,22 @@ export default {
 
 <style lang="sass">
 @import 'typeface-roboto/index.css'
+@import '~vuetify/src/styles/styles.sass'
+
+@import '~/assets/styles/player-colors.scss'
+@import '~/assets/styles/rotation.sass'
+
+:root
+  --aside-width: 290px
+  --aside-width-plus-gap: #{290px + $panel-gap}
+
+  @media #{map-get($display-breakpoints, 'lg-and-down')}
+    --aside-width: 250px
+    --aside-width-plus-gap: #{250px + $panel-gap}
+
+  @media #{map-get($display-breakpoints, 'md-and-down')}
+    --aside-width: 210px
+    --aside-width-plus-gap: #{210px + $panel-gap}
 
 html
   overflow-y: auto
@@ -263,9 +279,6 @@ body
 .view
   width: 100%
   min-height: 100vh
-
-@import '~/assets/styles/player-colors.scss'
-@import '~/assets/styles/rotation.sass'
 
 .dragon
   fill: $dragon-color

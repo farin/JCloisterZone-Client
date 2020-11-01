@@ -225,7 +225,7 @@ export default {
   position: absolute
   top: 0
   left: 0px
-  width: calc(100% - #{$rside-width + $panel-gap})
+  width: calc(100% - var(--aside-width-plus-gap))
   height: $action-bar-height
   display: flex
   align-items: stretch

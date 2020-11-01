@@ -103,19 +103,16 @@ export default {
   overflow: hidden
   height: 100vh
 
-  .forced-draw
+  .forced-draw, .test-result
     position: absolute
     top: #{$action-bar-height + $panel-gap}
-    right: #{$rside-width + $panel-gap}
+    right: var(--aside-width-plus-gap)
+
+  .forced-draw
     padding: 5px
     background-color: #AD1457
     color: white
     font-weight: 600
-
-  .test-result
-    position: absolute
-    top: #{$action-bar-height + $panel-gap}
-    right: #{$rside-width + $panel-gap}
 
 .board
   flex: 1
@@ -124,8 +121,8 @@ export default {
 
 aside
   box-sizing: border-box
-  width: $rside-width
-  heigh: 100vh
+  width: var(--aside-width)
+  height: 100vh
   position: absolute
   top: 0
   right: 0
