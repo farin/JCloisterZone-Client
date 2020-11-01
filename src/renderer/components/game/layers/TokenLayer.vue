@@ -10,7 +10,7 @@
         :key="idx"
         :transform="`${transformTunnelEnd(ptr)}`"
       >
-        <use x="-210" y="-210" :width="420" :height="420" :href="TOKENS_SVG + '#tunnel'" />
+        <use x="-210" y="-210" :width="340" :height="340" :href="TOKENS_SVG + '#tunnel'" />
       </g>
     </g>
     <g

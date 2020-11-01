@@ -15,7 +15,7 @@
     />
   </symbol>
 
-  <symbol id="tunnel" viewBox="0 0 200 200">
+  <symbol id="tunnel" viewBox="20 20 160 160">
     <circle
       cx="100" cy="100" r="65"
       stroke="black"
