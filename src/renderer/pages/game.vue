@@ -44,6 +44,8 @@
 
 <script>
 import { mapState } from 'vuex'
+import { remote } from 'electron'
+import path from 'path'
 
 import ActionPanel from '@/components/game/ActionPanel.vue'
 import Board from '@/components/game/Board.vue'
@@ -74,6 +76,7 @@ export default {
 
   computed: mapState({
     action: state => state.game.action,
+    activePlayerIdx: state => state.game.action?.player,
     gameDialog: state => state.gameDialog,
     phase: state => state.game.phase,
     players: state => state.game.players,
@@ -94,6 +97,10 @@ export default {
       if (!oldVal) {
         this.checkOverflow()
       }
+    },
+
+    activePlayerIdx (val) {
+      this.setPlayerIcon(val)
     }
   },
 
@@ -110,6 +117,7 @@ export default {
     this.shrinkChanged = false
     window.addEventListener('resize', this.onRezize)
     this.checkOverflow()
+    this.setPlayerIcon(this.activePlayerIdx)
   },
 
   beforeDestroy () {
@@ -117,9 +125,33 @@ export default {
     window.removeEventListener('resize', this.onRezize)
     clearTimeout(this.checkOverflowTimeout)
     this.$store.dispatch('game/close')
+    this.setPlayerIcon(null)
   },
 
   methods: {
+    setPlayerIcon (idx) {
+      let icon
+      if (Number.isInteger(idx)) {
+        const slot = this.$store.state.game.players[idx].slot
+        icon = `p${slot}.png`
+      } else {
+        icon = 'default.png'
+      }
+
+      try {
+        const { BrowserWindow, app } = remote
+        const w = BrowserWindow.getAllWindows()[0]
+        if (process.env.NODE_ENV === 'development') {
+          w.setIcon(path.join('icons', icon))
+        } else {
+          const basePath = path.dirname(app.getAppPath())
+          w.setIcon(path.join(basePath, 'icons', icon))
+        }
+      } catch (e) {
+        console.error(e)
+      }
+    },
+
     onRezize () {
       clearTimeout(this.checkOverflowTimeout)
       this.checkOverflowTimeout = setTimeout(this.checkOverflow, 20)

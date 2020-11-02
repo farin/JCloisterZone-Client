@@ -22,7 +22,7 @@ const linuxOS = {
 const macOS = {
   mac: {
     target: 'dmg',
-    icon: ICONS_DIR + 'con.icns'
+    icon: ICONS_DIR + 'icon.icns'
   },
   dmg: {
     contents: [
@@ -65,7 +65,7 @@ module.exports = {
       to: 'dist/resources/'
     }
   ],
-  extraResources: 'Engine.jar',
+  extraResources: ['Engine.jar', 'icons'],
   ...windowsOS,
   ...linuxOS,
   ...macOS

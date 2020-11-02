@@ -130,6 +130,10 @@ export default {
       beep: state => state.settings.beep
     }),
 
+    playerIndex () {
+      return this.action?.player
+    },
+
     notifyConnectionClosed () {
       return this.connectionState === null && this.phase !== 'GameOverPhase'
     },
