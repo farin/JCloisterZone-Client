@@ -59,7 +59,6 @@ header
     font-size: 20px
     font-weight: 300
 
-
 .detail-header
   grid-area: detail-header
   display: flex
@@ -78,7 +77,6 @@ header
     line-height: normal
     text-transform: uppercase
 
-
 main
   grid-area: main
   overflow-y: overlay
@@ -86,4 +84,11 @@ main
 
 aside
   overflow-y: overlay
+
+@media (max-width: 1164px)
+  .game-setup-grid
+    grid-template-columns: 1fr
+    grid-template-rows: $action-bar-height auto $action-bar-height auto
+    grid-template-areas: "header" "main" "detail-header" "detail"
+
 </style>
