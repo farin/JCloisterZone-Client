@@ -1,35 +1,25 @@
 <template>
-  <div
-    class="play-events"
-  >
+  <div class="play-events">
     <div
-      class="play-events-content"
-      :style="{top: -offset + 'px'}"
+      v-for="h in reversed"
+      :key="h.turn"
+      class="turn"
+      :style="{ display: -offset + h.top < BASE_Y ? 'none' : 'block' }"
+      @wheel.passive="onWheel"
     >
-      <div ref="wrapper">
-        <div
-          v-for="h in reversed"
-          :key="h.turn"
-          class="turn"
-          @wheel.passive="onWheel"
-        >
-          <div
-            v-if="!h.finalScoring"
-            :class="`number ${colorCssClass(h.player)} color-bg`"
-          />
-          <div class="events">
-            <EventsRow
-              v-for="(row, i) in h.rows"
-              :key="i"
-              :row="row"
-              :player="h.player"
-            />
-          </div>
-        </div>
-      </div>
       <div
-        class="additional-wheel-tracking-area"
-        @wheel.passive="onWheel"
+        v-if="!h.finalScoring"
+        :class="`number ${colorCssClass(h.player)} color-bg`"
+        :style="{ top: `${-offset + h.top}px`, height: `${h.height - 1}px` }"
+      />
+
+      <EventsRow
+        v-for="(row, i) in h.rows"
+        :key="i"
+        :row="row"
+        :player="h.player"
+        :top="row.top"
+        :style="{ top: `${-offset + row.top}px` }"
       />
     </div>
   </div>
@@ -40,6 +30,8 @@ import { mapGetters, mapState } from 'vuex'
 
 import EventsRow from '@/components/game/play-events/EventsRow'
 
+const BASE_Y = 94 // action panel height + gap
+
 export default {
   components: {
     EventsRow
@@ -47,7 +39,8 @@ export default {
 
   data () {
     return {
-      offset: 0
+      offset: 0,
+      BASE_Y
     }
   },
 
@@ -63,6 +56,7 @@ export default {
 
     reversed () {
       const items = []
+      let top = BASE_Y
       for (let i = this.history.length - 1; i >= 0; i--) {
         if (this.history[i].finalScoring) {
           continue
@@ -74,7 +68,7 @@ export default {
         item.events.forEach(ev => {
           const isScore = ev.type === 'points' || ev.type === 'token-received'
           if (isScore !== lastRowIsScore) {
-            row = { events: [] }
+            row = { events: [], height: isScore ? 27 : 41 }
             item.rows.unshift(row)
             lastRowIsScore = isScore
           }
@@ -83,12 +77,21 @@ export default {
         delete item.events
         if (i === this.history.length - 1 && this.phase !== 'CommitActionPhase' && this.phase !== 'GameOverPhase') {
           if (!item.rows.length || item.rows[0].events[0].type === 'points') {
-            item.rows.unshift({ events: [] })
+            item.rows.unshift({ events: [], height: 41 })
           }
           item.rows[0].events.push({ type: 'current-action' })
         }
+        let height = 0
+        item.rows.forEach(row => {
+          row.top = top
+          top += row.height
+          height += row.height
+        })
+        item.top = item.rows[0].top
+        item.height = height
         items.push(item)
       }
+      this.eventsHeight = top - BASE_Y// eslint-disable-line
       return items
     }
   },
@@ -117,12 +120,18 @@ export default {
 
   methods: {
     onWheel (ev) {
-      this.offset += ev.deltaY / 3
-      if (this.offset < 0) {
-        this.offset = 0
-      }
-      if (this.offset > this.$refs.wrapper.clientHeight - 20) {
-        this.offset = this.$refs.wrapper.clientHeight - 20
+      if (ev.clientX < 50) {
+        const availableHeight = document.documentElement.clientHeight - BASE_Y
+        const maxOffset = this.eventsHeight - availableHeight
+        console.log(availableHeight, this.eventsHeight, maxOffset)
+        // handle wheel only on first item
+        this.offset += ev.deltaY / 3
+        if (this.offset < 0) {
+          this.offset = 0
+        }
+        if (this.offset > maxOffset) {
+          this.offset = Math.max(0, maxOffset)
+        }
       }
     },
 
@@ -143,27 +152,13 @@ export default {
 
 <style lang="sass" scoped>
 .play-events
-  height: calc(100vh - #{$action-bar-height + $panel-gap})
-  position: absolute
-  top: #{$action-bar-height + $panel-gap}
-  left: 0
   user-select: none
-  overflow-y: hidden
 
-.play-events-content
-  position: relative
-
-.turn
-  display: flex
-  min-height: 40px
-  margin-bottom: 1px
-
-  .number
-    align-self: stretch
-    margin-right: 1px
-    width: 10px
-
-.additional-wheel-tracking-area
-  width: 51px
-  height: 100vh
+.number
+  position: absolute
+  left: 0
+  height: 40px
+  align-self: stretch
+  margin-right: 1px
+  width: 10px
 </style>

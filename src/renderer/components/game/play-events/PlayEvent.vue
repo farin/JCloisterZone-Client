@@ -88,7 +88,7 @@ export default {
   height: 40px
 
 .play-event.ev-current-action
-  background: transparent
+  background: transparent !important
   width: 38px
   height: 38px
   margin: 1px

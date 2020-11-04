@@ -31,7 +31,11 @@ export default {
 
 <style lang="sass" scoped>
 .events-row
-  margin-bottom: 1px
+  position: absolute
+  left: 10px
+
+  padding-right: 0
+  border-right: 1px solid rgba(192, 192, 192, 0.2)
 
   &:last-child
     margin-bottom: 0
