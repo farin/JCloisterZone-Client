@@ -4,13 +4,13 @@
       v-for="h in reversed"
       :key="h.turn"
       class="turn"
-      :style="{ display: -offset + h.top < BASE_Y ? 'none' : 'block' }"
+      :style="{ display: -offset + (h.top + h.height) < BASE_Y ? 'none' : 'block' }"
       @wheel.passive="onWheel"
     >
       <div
         v-if="!h.finalScoring"
         :class="`number ${colorCssClass(h.player)} color-bg`"
-        :style="{ top: `${-offset + h.top}px`, height: `${h.height - 1}px` }"
+        :style="{ top: `${-offset + h.top}px`, height: `${h.height}px`, 'clip-path': getClipPath(-offset + h.top, h.height) }"
       />
 
       <EventsRow
@@ -18,8 +18,7 @@
         :key="i"
         :row="row"
         :player="h.player"
-        :top="row.top"
-        :style="{ top: `${-offset + row.top}px` }"
+        :style="{ top: `${-offset + row.top}px`, 'clip-path': getClipPath(-offset + row.top, row.height) }"
       />
     </div>
   </div>
@@ -88,7 +87,7 @@ export default {
           height += row.height
         })
         item.top = item.rows[0].top
-        item.height = height
+        item.height = height - 1 // 1px margin
         items.push(item)
       }
       this.eventsHeight = top - BASE_Y// eslint-disable-line
@@ -119,6 +118,13 @@ export default {
   },
 
   methods: {
+    getClipPath (top, height) {
+      if (top < BASE_Y - 9) {
+        return `inset(${BASE_Y - 9 - top}px 0 0 0)`
+      }
+      return 'none'
+    },
+
     onWheel (ev) {
       if (ev.clientX < 50) {
         const availableHeight = document.documentElement.clientHeight - BASE_Y
