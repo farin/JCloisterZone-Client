@@ -33,12 +33,8 @@ export default {
 .events-row
   position: absolute
   left: 10px
-
-  padding-right: 0
   border-right: 1px solid rgba(192, 192, 192, 0.2)
-
-  &:last-child
-    margin-bottom: 0
+  overflow: hidden
 
 .events-row-title
   font-size: 11px
@@ -47,4 +43,7 @@ export default {
 
 .events-row-events
   display: flex
+
+.collapsed .events-row
+  width: 0
 </style>

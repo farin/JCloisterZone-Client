@@ -14,6 +14,7 @@ export const state = () => ({
   gameDialog: null,
   showJoinDialog: false,
   showSettings: false,
+  showGameHistory: true,
   java: null, // { version, outdated, error }
   engine: null,
   download: null
@@ -42,6 +43,10 @@ export const mutations = {
 
   showSettings (state, value) {
     state.showSettings = value
+  },
+
+  toggleGameHistory (state) {
+    state.showGameHistory = !state.showGameHistory
   },
 
   java (state, value) {

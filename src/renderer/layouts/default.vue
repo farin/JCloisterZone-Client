@@ -136,7 +136,10 @@ export default {
           { id: 'undo', label: 'Undo', accelerator: 'CommandOrControl+Z', click: this.undo },
           { type: 'separator' },
           { id: 'zoom-in', label: 'Zoom In', accelerator: 'numadd', click: this.zoomIn },
-          { id: 'zoom-out', label: 'Zoom Out', accelerator: 'numsub', click: this.zoomOut }
+          { id: 'zoom-out', label: 'Zoom Out', accelerator: 'numsub', click: this.zoomOut },
+          { type: 'separator' },
+          { id: 'toggle-history', label: 'Toggle history', accelerator: 'h', click: this.toggleGameHistory },
+
         ]
       }, {
         label: 'Help',
@@ -194,6 +197,7 @@ export default {
       this.menu.getMenuItemById('undo').enabled = gameRunning && this.undoAllowed
       this.menu.getMenuItemById('zoom-in').enabled = gameRunning
       this.menu.getMenuItemById('zoom-out').enabled = gameRunning
+      this.menu.getMenuItemById('toggle-history').enabled = gameRunning
     },
 
     newGame () {
@@ -227,6 +231,10 @@ export default {
 
     zoomOut () {
       this.$store.commit('board/changeZoom', -2)
+    },
+
+    toggleGameHistory () {
+      this.$store.commit('toggleGameHistory')
     },
 
     showRules () {

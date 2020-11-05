@@ -1,5 +1,5 @@
 <template>
-  <div class="play-events">
+  <div class="play-events" :class="{collapsed: !$store.state.showGameHistory}">
     <div
       v-for="h in reversed"
       :key="h.turn"
@@ -11,6 +11,7 @@
         v-if="!h.finalScoring"
         :class="`number ${colorCssClass(h.player)} color-bg`"
         :style="{ top: `${-offset + h.top}px`, height: `${h.height}px`, 'clip-path': getClipPath(-offset + h.top, h.height) }"
+        @click="toggleGameHistory"
       />
 
       <EventsRow
@@ -125,6 +126,10 @@ export default {
       return 'none'
     },
 
+    toggleGameHistory () {
+      this.$store.commit('toggleGameHistory')
+    },
+
     onWheel (ev) {
       if (ev.clientX < 50) {
         const availableHeight = document.documentElement.clientHeight - BASE_Y
@@ -167,4 +172,5 @@ export default {
   align-self: stretch
   margin-right: 1px
   width: 10px
+  cursor: pointer
 </style>
