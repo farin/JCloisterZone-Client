@@ -32,7 +32,7 @@ export default {
 <style lang="sass" scoped>
 .events-row
   position: absolute
-  left: 10px
+  left: 11px
   border-right: 1px solid rgba(192, 192, 192, 0.2)
   overflow: hidden
 

@@ -131,7 +131,7 @@ export default {
     },
 
     onWheel (ev) {
-      if (ev.clientX < 50) {
+      if (ev.clientX < 52) {
         const availableHeight = document.documentElement.clientHeight - BASE_Y
         const maxOffset = this.eventsHeight - availableHeight
         console.log(availableHeight, this.eventsHeight, maxOffset)

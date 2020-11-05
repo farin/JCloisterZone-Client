@@ -45,11 +45,20 @@
         </template>
       </template>
     </component>
+
     <GameResultPanel
       v-else-if="phase === 'GameOverPhase'"
       v-show="!pointsExpression"
       class="game-over"
     />
+
+    <svg
+      v-if="action"
+      :class="`active-player-marker ${colorCssClass(action.player)} color-fill`"
+      width="42" height="42"
+    >
+      <polygon points="0,0 42,0 42,42" />
+    </svg>
 
     <audio
       ref="beep"
@@ -60,7 +69,7 @@
 
 <script>
 import { remote } from 'electron'
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 import ActionPhaseAction from '@/components/game/actions/ActionPhaseAction.vue'
 import BazaarPhaseAction from '@/components/game/actions/BazaarPhaseAction.vue'
@@ -126,6 +135,10 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      colorCssClass: 'game/colorCssClass'
+    }),
+
     ...mapState({
       connectionState: state => state.networking.connectionStatus,
       pointsExpression: state => state.board.pointsExpression,
@@ -313,4 +326,9 @@ export default {
   .game-over
     text-align: center
     padding-top: 20px
+
+.active-player-marker
+  position: absolute
+  top: 0
+  right: 0
 </style>
