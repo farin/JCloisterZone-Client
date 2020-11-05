@@ -9,7 +9,7 @@
         v-for="(s, idx) in scores"
         :key="idx"
         class="points"
-        :class="colorCssClass(s.player)"
+        :class="{[colorCssClass(s.player)]: true, 'in-game': s.inGame}"
         :transform="transformStack(idx, scores.length)"
       >
         <rect
@@ -59,7 +59,7 @@ export default {
           if (ev.type === 'points') {
             ev.points.forEach(p => {
               if (p.ptr) {
-                items.push(p)
+                items.push(this.gameEnd && i != len-1 ? {...p, inGame: true} : p)
               }
             })
           }
@@ -94,4 +94,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.in-game
+  opacity: 0.5
 </style>
