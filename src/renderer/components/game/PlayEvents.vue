@@ -10,7 +10,7 @@
       <div
         v-if="!h.finalScoring"
         :class="`number ${colorCssClass(h.player)} color-bg`"
-        :style="{ top: `${-offset + h.top}px`, height: `${h.height}px`, 'clip-path': getClipPath(-offset + h.top, h.height) }"
+        :style="{ top: `${-offset + finalHeight + h.top}px`, height: `${h.height}px`, 'clip-path': getClipPath(-offset + h.top, h.height) }"
         @click="toggleGameHistory"
       />
 
@@ -19,7 +19,7 @@
         :key="i"
         :row="row"
         :player="h.player"
-        :style="{ top: `${-offset + row.top}px`, 'clip-path': getClipPath(-offset + row.top, row.height) }"
+        :style="{ top: `${-offset + finalHeight + row.top}px`, 'clip-path': getClipPath(-offset + row.top, row.height) }"
       />
     </div>
   </div>
@@ -39,6 +39,7 @@ export default {
 
   data () {
     return {
+      finalHeight: 0,
       offset: 0,
       BASE_Y
     }
@@ -104,14 +105,10 @@ export default {
 
   created () {
     this._finalScoringResized = height => {
-      this._finalHeight = height
-      this.updateAbsolutePosition()
+      this.finalHeight = height
+      console.log(height)
     }
     this.$root.$on('final-scoring-height', this._finalScoringResized)
-  },
-
-  mounted () {
-    this.updateAbsolutePosition()
   },
 
   beforeDestroy () {
@@ -144,18 +141,6 @@ export default {
           this.offset = Math.max(0, maxOffset)
         }
       }
-    },
-
-    updateAbsolutePosition () {
-      if (!this._finalHeight) {
-        return
-      }
-      if (!this._boundingRect) {
-        this._boundingRect = this.$el.getBoundingClientRect()
-      }
-      // add 8px gap
-      this.$el.style.top = (this._boundingRect.top + this._finalHeight + 8) + 'px'
-      this.$el.style.height = (this._boundingRect.height - this._finalHeight + 8) + 'px'
     }
   }
 }

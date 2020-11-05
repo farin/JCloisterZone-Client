@@ -6,6 +6,7 @@
       v-for="(row, i) in nonEmptyRows"
       :key="i"
       :row="row"
+      final
     />
   </div>
 </template>
@@ -76,9 +77,10 @@ export default {
   mounted () {
     this._ro = new ResizeObserver(ev => {
       const { height } = ev[0].contentRect
-      this.$root.$emit('final-scoring-height', height + 5) // add padding + border
+      this.$root.$emit('final-scoring-height', height + 10) // add padding + border + 5px margin
     })
     this._ro.observe(this.$el)
+    this.$root.$emit('final-scoring-height', this.$el.clientHeight + 10)
   },
 
   beforeDestroy () {

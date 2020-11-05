@@ -1,6 +1,7 @@
 <template>
   <div
     class="events-row"
+    :class="{ final }"
   >
     <div v-if="row.title" class="events-row-title">{{ row.title }}</div>
     <div class="events-row-events">
@@ -24,7 +25,8 @@ export default {
 
   props: {
     row: { type: Object, required: true },
-    player: { type: Number, default: null }
+    player: { type: Number, default: null },
+    final: { type: Boolean }
   }
 }
 </script>
@@ -36,6 +38,10 @@ export default {
   border-right: 1px solid rgba(192, 192, 192, 0.2)
   overflow: hidden
 
+  &.final
+    position: static
+    border-right: 0
+
 .events-row-title
   font-size: 11px
   text-transform: uppercase
@@ -46,4 +52,7 @@ export default {
 
 .collapsed .events-row
   width: 0
+
+  &.final
+    width: auto
 </style>
