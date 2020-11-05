@@ -1,5 +1,5 @@
 <template>
-  <StandaloneTileImage :tile-id="tileId" :rotation="rotation" />
+  <StandaloneTileImage :tile-id="tileId" :rotation="rotation" :class="{remote: !local}" />
 </template>
 
 <script>
@@ -40,10 +40,12 @@ export default {
 
   mounted () {
     this.onRightClick = ev => {
-      if (this.rotation === 270) {
-        this.rotation = 0
-      } else {
-        this.rotation += 90
+      if (this.local) {
+        if (this.rotation === 270) {
+          this.rotation = 0
+        } else {
+          this.rotation += 90
+        }
       }
     }
     this.$root.$on('rclick', this.onRightClick)
@@ -75,4 +77,10 @@ export default {
 <style lang="sass" scoped>
 svg
   margin: 0 30px
+
+  &.remote
+    filter: grayscale(1)
+
+  &.remote:hover
+    filter: none
 </style>
