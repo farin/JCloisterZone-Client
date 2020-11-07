@@ -1,3 +1,4 @@
+
 import WebSocket from 'ws'
 import { v4 as uuidv4 } from 'uuid'
 import Vue from 'vue'
@@ -18,11 +19,11 @@ export class GameServer {
     this.app = app // hack for now, read replay from game store
     this.engineVersion = engineVersion
     this.appVersion = appVersion
+    console.log(game.replay)
     this.game = {
       gameId: game.gameId,
       setup: game.setup,
       initialSeed: game.initialSeed || randomLong().toString(),
-      replay: game.replay || null,
       gameAnnotations: game.gameAnnotations || {},
       slots: game.slots,
       owner: null // owner session
@@ -37,6 +38,25 @@ export class GameServer {
     this.initialClock = game.clock || 0
     this.receivedMessageIds = new Set()
     this.expectedParentId = null
+  }
+
+  dump () {
+    return {
+      ownerClientId: this.ownerClientId,
+      gameStatus: this.status,
+      initialClock: this.initialClock,
+      connectedClients: this.clients?.map(ws => ws.clientId),
+      receivedMessageIds: Array.from(this.receivedMessageIds),
+      expectedParentId: this.expectedParentId,
+      replay: this.replay,
+      game: {
+        gameId: this.game.gameId,
+        initialSeed: this.game.initialSeed,
+        setup: this.game.setup,
+        gameAnnotation: this.game.gameAnnotation,
+        slots: this.game.slots
+      }
+    }
   }
 
   async start (port) {
@@ -286,9 +306,12 @@ export class GameServer {
 
   createGameMessage () {
     const started = this.status === 'started'
-    let game = this.game
+    let game = {
+      ...this.game,
+      replay: this.status === 'new' ? null : this.replay
+    }
     if (started) {
-      game = { ...game, replay: this.replay, started: true }
+      game.started = true
     }
 
     const msg = {
@@ -455,6 +478,14 @@ export default ({ app }, inject) => {
         await gameServer.stop()
         gameServer = null
       }
+    },
+
+    isRunning () {
+      return gameServer !== null
+    },
+
+    getServer () {
+      return gameServer
     }
   }
 }

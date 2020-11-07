@@ -33,12 +33,16 @@
 </template>
 
 <script>
+import os from 'os'
+import fs from 'fs'
+import { extname } from 'path'
 import { webFrame, remote, shell } from 'electron'
 import { mapState, mapGetters } from 'vuex'
 
 import AboutDialog from '@/components/AboutDialog'
 import JoinGameDialog from '@/components/JoinGameDialog'
 import SettingsDialog from '@/components/SettingsDialog'
+import { getAppVersion } from '@/utils/version'
 
 const { Menu } = remote
 
@@ -158,7 +162,8 @@ export default {
         label: 'Dev',
         submenu: [
           { role: 'toggleDevTools', label: 'Toggle DevTools' },
-          { label: 'Change clientId', click: this.changeClientId }
+          { label: 'Change clientId', click: this.changeClientId },
+          { id: 'dump-server', label: 'Dump hosted game server state', click: this.dumpServer }
         ]
       })
     }
@@ -201,6 +206,10 @@ export default {
       this.menu.getMenuItemById('zoom-in').enabled = gameRunning
       this.menu.getMenuItemById('zoom-out').enabled = gameRunning
       this.menu.getMenuItemById('toggle-history').enabled = gameRunning
+
+      if (this.$store.state.settings.devMode) {
+        this.menu.getMenuItemById('dump-server').enabled = this.$server.isRunning()
+      }
     },
 
     newGame () {
@@ -257,6 +266,36 @@ export default {
       const newId = `${base}--${~~suffix + 1}`
       this.$store.commit('settings/clientId', newId)
       console.log(`Client id changed to ${newId}`)
+    },
+
+    async dumpServer () {
+      const data = {
+        appVersion: getAppVersion(),
+        engineVersion: this.$store.state.engine?.version,
+        date: (new Date()).toISOString(),
+        os: `${os.platform()} ${os.release()}`,
+        java: this.java ? `${this.java.vendor} ${this.java.version}`: '',
+        ...this.$server.getServer().dump()
+      }
+
+      const { dialog } = remote
+      let { filePath } = await dialog.showSaveDialog({
+        title: 'Save Server Dump',
+        filters: [{ name: 'JSON files', extensions: ['json'] }],
+        properties: ['createDirectory', 'showOverwriteConfirmation']
+      })
+      if (filePath) {
+        if (extname(filePath) === '') {
+          filePath += '.json'
+        }
+        fs.writeFile(filePath, JSON.stringify(data, null, 2), err => {
+          if (err) {
+            console.error(err)
+          } else {
+            console.log(`Dump save to ${filePath}`)
+          }
+        })
+      }
     }
   }
 }
