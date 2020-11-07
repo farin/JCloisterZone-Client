@@ -34,7 +34,7 @@
 
 <script>
 import { webFrame, remote, shell } from 'electron'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 import AboutDialog from '@/components/AboutDialog'
 import JoinGameDialog from '@/components/JoinGameDialog'
@@ -57,8 +57,11 @@ export default {
 
   computed: {
     ...mapState({
-      java: state => state.java,
-      undoAllowed: state => state.game.undo?.allowed
+      java: state => state.java
+    }),
+
+    ...mapGetters({
+      undoAllowed: 'game/isUndoAllowed'
     }),
 
     showJoinDialog: {

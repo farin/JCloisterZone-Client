@@ -291,6 +291,19 @@ export const getters = {
       return state.history.flatMap(h => h.events.filter(ev => ev.type === 'castle-created'))
     }
     return []
+  },
+
+  isActionLocal (state, getters, rootState) {
+    if (!state.action) {
+      return false
+    }
+    const clientSessionId = rootState.networking.sessionId
+    const actionSessionId = state.players[state.action.player].sessionId
+    return clientSessionId === actionSessionId
+  },
+
+  isUndoAllowed: (state, getters) => {
+    return state.undo?.allowed && getters.isActionLocal
   }
 }
 
@@ -608,8 +621,8 @@ export const actions = {
     }
   },
 
-  async undo ({ state, dispatch }) {
-    if (state.undo.allowed) {
+  async undo ({ getters, dispatch }) {
+    if (getters.isUndoAllowed) {
       await dispatch('apply', {
         type: 'UNDO',
         payload: {}

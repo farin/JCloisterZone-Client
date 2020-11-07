@@ -136,7 +136,8 @@ export default {
 
   computed: {
     ...mapGetters({
-      colorCssClass: 'game/colorCssClass'
+      colorCssClass: 'game/colorCssClass',
+      local: 'game/isActionLocal'
     }),
 
     ...mapState({
@@ -155,15 +156,6 @@ export default {
 
     notifyConnectionReconnecting () {
       return this.connectionState === 'reconnecting'
-    },
-
-    local () {
-      if (!this.action) {
-        return false
-      }
-      const clientSessionId = this.$store.state.networking.sessionId
-      const actionSessionId = this.$store.state.game.players[this.action.player].sessionId
-      return clientSessionId === actionSessionId
     },
 
     actionComponent () {
