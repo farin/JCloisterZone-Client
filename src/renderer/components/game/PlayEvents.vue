@@ -106,7 +106,6 @@ export default {
   created () {
     this._finalScoringResized = height => {
       this.finalHeight = height
-      console.log(height)
     }
     this.$root.$on('final-scoring-height', this._finalScoringResized)
   },
