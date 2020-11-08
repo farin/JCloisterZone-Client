@@ -65,7 +65,7 @@ export default {
           }
         })
       }
-      return groupBy(items, item => this.pointerAsKey(item.ptr))
+      return groupBy(items, item => Array.isArray(item.ptr) ? this.positionAsKey(item.ptr) : this.pointerAsKey(item.ptr))
     }
   },
 
