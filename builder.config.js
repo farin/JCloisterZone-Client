@@ -15,7 +15,7 @@ const windowsOS = {
 const linuxOS = {
   linux: {
     icon: ICONS_DIR,
-    target: ['AppImage', 'snap']
+    target: 'AppImage'
   }
 }
 
