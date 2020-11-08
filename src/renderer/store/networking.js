@@ -146,8 +146,11 @@ export const actions = {
     }
     commit('gameSetup/clear', null, { root: true })
     const { $connection } = this._vm
-    if (!host.match(/:\d+$/)) {
+    if (!host.match(/:\d+/)) {
       host = `${host}:${rootState.settings.port}`
+    }
+    if (!host.match(/^\w+:\/\//)) {
+      host = 'ws://' + host
     }
     return new Promise((resolve, reject) => {
       const handler = new ConnectionHandler(ctx, host, this.$router, resolve)
@@ -158,6 +161,10 @@ export const actions = {
         reject(err)
       })
     })
+  },
+
+  async connectPlayOnline ({ dispatch, rootState }) {
+    dispatch('connect', rootState.settings.playOnlineUrl)
   },
 
   close () {

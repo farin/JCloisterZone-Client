@@ -2,10 +2,11 @@ import fs from 'fs'
 import { extname } from 'path'
 import { remote } from 'electron'
 import compareVersions from 'compare-versions'
-import { v4 as uuidv4 } from 'uuid'
+import { randomId } from '@/utils/random'
 
 import difference from 'lodash/difference'
 import pick from 'lodash/pick'
+import omit from 'lodash/omit'
 import range from 'lodash/range'
 import zip from 'lodash/zip'
 import Vue from 'vue'
@@ -334,7 +335,11 @@ export const actions = {
             slot: p.slot,
             clientId: p.clientId
           })),
-          replay: state.gameMessages.map(m => pick(m, ['type', 'payload', 'player', 'clock']))
+          replay: state.gameMessages.map(m => {
+            m = pick(m, ['type', 'payload', 'player', 'clock'])
+            m.payload = omit(m.payload, ['gameId'])
+            return m
+          })
         }
 
         if (Object.keys(state.gameAnnotations).length) {
@@ -465,9 +470,9 @@ export const actions = {
     }
   },
 
-  async start () {
+  async start ({ state }) {
     const { $connection } = this._vm
-    $connection.send({ type: 'START' })
+    $connection.send({ type: 'START', payload: { gameId: state.id } })
   },
 
   async handleStartMessage ({ state, commit, dispatch, rootState }, message) {
@@ -521,6 +526,7 @@ export const actions = {
       type: 'GAME_SETUP',
       payload: {
         ...state.setup,
+        gameId: state.id,
         players: players.length,
         initialSeed: state.initialSeed,
         gameAnnotations: annotations
@@ -561,15 +567,16 @@ export const actions = {
     $engine.kill()
   },
 
-  async apply ({ state, commit }, message) {
+  async apply ({ state }, { type, payload }) {
     if (state.lockUi) {
       return
     }
     const { $connection } = this._vm
-    const id = uuidv4()
-    message = {
-      ...message,
+    const id = randomId()
+    const message = {
       id,
+      type,
+      payload: { ...payload, gameId: state.id },
       parentId: state.lastMessageId,
       sourceHash: state.hash,
       player: state.action.player
@@ -612,7 +619,7 @@ export const actions = {
     }
     commit('hash', hash)
     if (autoCommit) {
-      dispatch('apply', { type: 'COMMIT', payload: {} })
+      dispatch('apply', { type: 'COMMIT', payload: { gameId: state.id } })
     } else {
       commit('update', response)
       if (state.testScenario) {
@@ -625,7 +632,9 @@ export const actions = {
     if (getters.isUndoAllowed) {
       await dispatch('apply', {
         type: 'UNDO',
-        payload: {}
+        payload: {
+          gameId: state.id
+        }
       })
     }
   }

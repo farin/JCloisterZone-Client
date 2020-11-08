@@ -1,18 +1,18 @@
 
 import WebSocket from 'ws'
-import { v4 as uuidv4 } from 'uuid'
 import Vue from 'vue'
 import { remote } from 'electron'
 
 import camelCase from 'lodash/camelCase'
-import compareVersions from 'compare-versions'
 
 import { NETWORK_PROTOCOL_COMPATIBILITY } from '@/constants/versions'
 import { getAppVersion } from '@/utils/version'
-import { randomLong } from '@/utils/random'
+import { randomLong, randomId } from '@/utils/random'
 import { ENGINE_MESSAGES } from '@/constants/messages'
 import { CONSOLE_SERVER_COLOR } from '@/constants/logging'
 import { HEARTBEAT_INTERVAL } from '@/constants/ws'
+
+const isDev = process.env.NODE_ENV === 'development'
 
 export class GameServer {
   constructor (game, clientId, { engineVersion, appVersion }, app) {
@@ -125,8 +125,11 @@ export class GameServer {
 
     let helloExpected = true
     ws.on('message', async data => {
-      console.log('%c embedded server %c received ' + data, CONSOLE_SERVER_COLOR, '')
       const message = JSON.parse(data)
+      if (isDev) {
+        console.log('%c embedded server %c received message', CONSOLE_SERVER_COLOR, '')
+        console.log(message)
+      }
       const { id, type } = message
       if (this.receivedMessageIds.has(id)) {
         console.warn(`Dropping already received message ${data}"`)
@@ -212,7 +215,7 @@ export class GameServer {
 
   async send (ws, msg) {
     if (!msg.id) {
-      msg = { ...msg, id: uuidv4() }
+      msg = { ...msg, id: randomId() }
     }
     return new Promise(resolve => {
       ws.send(JSON.stringify(msg), {}, resolve)
@@ -221,7 +224,7 @@ export class GameServer {
 
   async broadcast (msg) {
     if (!msg.id) {
-      msg = { ...msg, id: uuidv4() }
+      msg = { ...msg, id: randomId() }
     }
     const data = JSON.stringify(msg)
     return Promise.all(this.clients.map(client => {
@@ -249,7 +252,7 @@ export class GameServer {
       ws.close()
       return
     }
-    if (compareVersions(NETWORK_PROTOCOL_COMPATIBILITY, payload.appVersion) === 1) {
+    if (NETWORK_PROTOCOL_COMPATIBILITY !== payload.protocolVersion) {
       await this.send(ws, { type: 'ERR', code: 'bad-version', message: `Incompatible versions. server ${this.appVersion} / client: ${payload.appVersion}` })
       ws.close()
       return
@@ -266,7 +269,7 @@ export class GameServer {
     console.log(`%c embedded server %c client ${clientId} connected`, CONSOLE_SERVER_COLOR, '')
 
     this.clients.push(ws)
-    const sessionId = uuidv4()
+    const sessionId = randomId()
     ws.sessionId = sessionId
     ws.clientId = clientId
     ws.secret = secret

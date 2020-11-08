@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import Vue from 'vue'
 import isEqual from 'lodash/isEqual'
-import { v4 as uuidv4 } from 'uuid'
+import { randomId } from '@/utils/random'
 
 import username from 'username'
 import { remote } from 'electron'
@@ -31,6 +31,7 @@ export const state = () => ({
   theme: 'light',
   enginePath: null, // explicit engine path
   javaPath: null, // exolicit java path
+  playOnlineUrl: 'localhost:8000/ws',
   devMode: process.env.NODE_ENV === 'development'
 })
 
@@ -73,11 +74,21 @@ export const actions = {
       const settings = JSON.parse(await fs.promises.readFile(settingsFile))
       if (!settings.clientId) {
         missingKey = true
-        settings.clientId = uuidv4()
+        settings.clientId = randomId()
+      }
+      // migrate old format
+      if (settings.clientId.includes('-')) {
+        missingKey = true
+        settings.clientId = settings.clientId.replaceAll('-', '')
       }
       if (!settings.secret) {
         missingKey = true
-        settings.secret = uuidv4()
+        settings.secret = randomId()
+      }
+      // migrate old format
+      if (settings.secret.includes('-')) {
+        missingKey = true
+        settings.secret = settings.secret.replaceAll('-', '')
       }
       if (!settings.nickname) {
         missingKey = true
@@ -89,8 +100,8 @@ export const actions = {
       // do nothong, settings doesn't exist
       missingKey = true
       commit('settings', {
-        clientId: uuidv4(),
-        secret: uuidv4(),
+        clientId: randomId(),
+        secret: randomId(),
         nickname: await username()
       })
       console.log(`%c settings %c file ${settingsFile} doesn't exist. Creating default one.`, CONSOLE_SETTINGS_COLOR, '')

@@ -22,7 +22,6 @@ class PointsAssert {
 }
 
 class FeatureScoredAssert {
-
   REGEXP = /(\w+) scored (\w+) for (\d+) points?/
 
   constructor (state) {

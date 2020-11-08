@@ -79,6 +79,12 @@
               Join game
             </v-btn>
           </div>
+
+          <div  v-if="featureEnabledPlayOnline" class="join-wrapper">
+            <v-btn large color="secondary" @click="playOnline()">
+              Play online (DEV)
+            </v-btn>
+          </div>
         </div>
 
         <template v-if="recentGames.length">
@@ -111,6 +117,7 @@ export default {
 
   data () {
     return {
+      featureEnabledPlayOnline: process.env.NODE_ENV === 'development',
       // do not bind it to store
       recentGames: [...this.$store.state.settings.recentSaves],
       recentGameSetups: [...this.$store.state.settings.recentGameSetups]
@@ -141,6 +148,10 @@ export default {
 
     joinGame () {
       this.$store.commit('showJoinDialog', true)
+    },
+
+    playOnline () {
+      this.$store.dispatch('networking/connectPlayOnline')
     },
 
     async loadGame (file) {

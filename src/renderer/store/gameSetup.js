@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import uniq from 'lodash/uniq'
 import mapKeys from 'lodash/mapKeys'
-import { v4 as uuidv4 } from 'uuid'
+import { randomId } from '@/utils/random'
 
 import { isConfigValueEnabled, getDefaultElements } from '@/models/elements'
 import { getDefaultRules } from '@/models/rules'
@@ -133,28 +133,28 @@ export const actions = {
     commit('ruleConfig', { id, config })
   },
 
-  takeSlot ({ ctx }, { number, name }) {
+  takeSlot ({ rootState }, { number, name }) {
     this._vm.$connection.send({
       type: 'TAKE_SLOT',
-      payload: { number, name }
+      payload: { gameId: rootState.game.id, number, name }
     })
   },
 
-  renameSlot (ctx, { number, name }) {
+  renameSlot ({ rootState }, { number, name }) {
     this._vm.$connection.send({
       type: 'UPDATE_SLOT',
-      payload: { number, name }
+      payload: { gameId: rootState.game.id, number, name }
     })
   },
 
-  releaseSlot (ctx, { number }) {
+  releaseSlot ({ rootState }, { number }) {
     this._vm.$connection.send({
       type: 'LEAVE_SLOT',
-      payload: { number }
+      payload: { gameId: rootState.game.id, number }
     })
   },
 
-  createGame ({ state, commit, getters, dispatch }) {
+  createGame ({ state, getters, dispatch }) {
     const { $tiles } = this._vm
     const sets = mapKeys(state.sets, (value, key) => {
       return $tiles.sets[key] ? key : key + ':' + getters.getSelectedEdition
@@ -170,7 +170,7 @@ export const actions = {
 
     dispatch('settings/addRecentGameSetup', setup, { root: true })
     dispatch('networking/startServer', {
-      gameId: uuidv4(),
+      gameId: randomId(),
       setup,
       slots: getEmptySlots(),
       gameAnnotations: state.gameAnnotations
