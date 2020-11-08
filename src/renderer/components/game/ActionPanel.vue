@@ -90,7 +90,6 @@ import ShepherdPhaseAction from '@/components/game/actions/ShepherdPhaseAction.v
 import TilePhaseAction from '@/components/game/actions/TilePhaseAction.vue'
 import TowerCapturePhaseAction from '@/components/game/actions/TowerCapturePhaseAction.vue'
 
-const { BrowserWindow } = remote
 const MAPPING = {
   AbbeyPhase: TilePhaseAction,
   ChangeFerriesPhase: FerryPhaseAction,
@@ -209,7 +208,7 @@ export default {
       }
     }
 
-    const win = BrowserWindow.getAllWindows()[0]
+    const win = remote.getCurrentWindow()
     win.on('restore', this._restored)
     win.on('show', this._restored)
     win.on('focus', this._restored)
@@ -220,7 +219,7 @@ export default {
 
   beforeDestroy () {
     window.removeEventListener('keydown', this.onKeyDown)
-    const win = BrowserWindow.getAllWindows()[0]
+    const win = remote.getCurrentWindow()
     win.off('restore', this._restored)
     win.off('show', this._restored)
     win.off('focus', this._restored)
@@ -251,7 +250,7 @@ export default {
       if (this.beep) {
         this.$refs.beep.play()
       }
-      const win = BrowserWindow.getAllWindows()[0]
+      const win = remote.getCurrentWindow()
       if (win.isMinimized() || !win.isVisible()) {
         this.setupProgress()
       }
@@ -262,14 +261,14 @@ export default {
     },
 
     setupProgress () {
-      const win = BrowserWindow.getAllWindows()[0]
+      const win = remote.getCurrentWindow()
       win.setProgressBar(1, {
         mode: 'indeterminate'
       })
     },
 
     clearProgress () {
-      const win = BrowserWindow.getAllWindows()[0]
+      const win = remote.getCurrentWindow()
       win.setProgressBar(-1)
     }
   }

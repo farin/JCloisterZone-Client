@@ -31,7 +31,7 @@ export const state = () => ({
   theme: 'light',
   enginePath: null, // explicit engine path
   javaPath: null, // exolicit java path
-  playOnlineUrl: 'localhost:8000/ws',
+  playOnlineUrl: 'play.jcloisterzone.com/ws',
   devMode: process.env.NODE_ENV === 'development'
 })
 

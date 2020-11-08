@@ -23,7 +23,7 @@
       <hr>
       <section class="my-3">
         <div class="label">Configuration file</div>
-        <div class="value">{{ $store.getters['settings/settingsFile'] }}</div>
+        <div class="value config-file" @click="openConfig">{{ $store.getters['settings/settingsFile'] }}</div>
         <div class="label">System Java Version</div>
         <div class="value">{{ java ? java.versionString : '' }}</div>
         <div class="label">JCloisteZone Game Engine</div>
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { shell } from 'electron'
 import { mapState } from 'vuex'
 
 import { getAppVersion } from '@/utils/version'
@@ -56,7 +57,13 @@ export default {
   computed: mapState({
     java: state => state.java,
     engine: state => state.engine
-  })
+  }),
+
+  methods: {
+    openConfig () {
+      shell.openPath(this.$store.getters['settings/settingsFile'])
+    }
+  }
 }
 
 </script>
@@ -95,4 +102,10 @@ export default {
 
   .value
     margin-left: 20px
+
+  .config-file
+    cursor: pointer
+
+    &:hover
+      text-decoration: underline
 </style>
