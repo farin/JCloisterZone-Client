@@ -1,6 +1,7 @@
 /* globals INCLUDE_RESOURCES_PATH */
 import { app, protocol } from 'electron'
-
+import { autoUpdater } from 'electron-updater'
+import log from 'electron-log'
 /**
  * Set `__resources` path to resources files in renderer process
  */
@@ -25,6 +26,20 @@ app.whenReady().then(() => {
   protocol.registerFileProtocol('file', (request, callback) => {
     const pathname = request.url.replace('file:///', '')
     callback(pathname)
+  })
+
+  log.transports.file.level = 'debug'
+  autoUpdater.logger = log
+  autoUpdater.setFeedURL({
+    provider: 'github',
+    owner: 'farin',
+    repo: 'JCloisterZone-Client'
+  })
+  autoUpdater.checkForUpdatesAndNotify()
+
+  autoUpdater.checkForUpdates().then(result => {
+    console.log('RESULT')
+    console.log(result.updateInfo)
   })
 })
 
