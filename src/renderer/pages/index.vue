@@ -40,9 +40,24 @@
         Unable to spawn game engine. Details:<br>
         <small>{{ engine.errorMessage }}</small>
       </v-alert>
-      <div v-if="download" class="download-box">
+      <div v-if="download">
         {{ download.description }}
         <v-progress-linear indeterminate />
+      </div>
+      <div v-if="updateInfo" class="update-box">
+        <h3>New JCloisterZone version is avaialable.</h3>
+
+        <div class="update-action">
+          <template v-if="isMac">
+            Automatic updates are not supported on Mac platform. Please update manually<br>
+            <a :href="updateInfoFile">{{ updateInfoFile }}</a>
+          </template>
+          <v-btn v-else-if="!updating" color="secondary" @click="updateApp">Update to {{ updateInfo.version }}</v-btn>
+          <v-progress-linear v-else indeterminate />
+        </div>
+
+        <h4>Release Notes</h4>
+        <div v-html="updateInfo.releaseNotes" />
       </div>
     </div>
     <main>
@@ -103,12 +118,14 @@
 </template>
 
 <script>
-import { shell } from 'electron'
+import { shell, ipcRenderer } from 'electron'
 
 import mapKeys from 'lodash/mapKeys'
 import { mapState } from 'vuex'
 
 import GameSetupOverviewInline from '@/components/game-setup/overview/GameSetupOverviewInline'
+
+const isMac = process.platform === 'darwin'
 
 export default {
   components: {
@@ -117,10 +134,12 @@ export default {
 
   data () {
     return {
+      isMac,
       featureEnabledPlayOnline: process.env.NODE_ENV === 'development',
       // do not bind it to store
       recentGames: [...this.$store.state.settings.recentSaves],
-      recentGameSetups: [...this.$store.state.settings.recentGameSetups]
+      recentGameSetups: [...this.$store.state.settings.recentGameSetups],
+      updating: false
     }
   },
 
@@ -130,8 +149,16 @@ export default {
       java: state => state.java,
       engine: state => state.engine,
       download: state => state.download,
-      settingsLoaded: state => state.loaded.settings
-    })
+      settingsLoaded: state => state.loaded.settings,
+      updateInfo: state => state.updateInfo
+    }),
+
+    updateInfoFile () {
+      if (this.updateInfo) {
+        return `https://github.com/farin/JCloisterZone-Client/releases/download/v${this.updateInfo.version}/${this.updateInfo.files[0].url}`
+      }
+      return null
+    }
   },
 
   watch: {
@@ -183,6 +210,11 @@ export default {
     clearRecentGameSetups () {
       this.$store.dispatch('settings/clearRecentGameSetups')
       this.recentGameSetups = []
+    },
+
+    updateApp () {
+      this.updating = true
+      ipcRenderer.send('do-update')
     }
   }
 }
@@ -280,6 +312,15 @@ main
       i
         color: inherit !important
         font-size: inherit !important
+
+.update-box
+  padding: 20px
+  background-color: #FFE082
+  color: black
+  text-align: center
+
+  .update-action
+    margin: 20px 0
 
 // footer
 //   font-size: 14px
