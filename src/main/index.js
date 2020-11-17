@@ -1,5 +1,8 @@
 /* globals INCLUDE_RESOURCES_PATH */
-import { app, protocol } from 'electron'
+import { app, protocol, ipcMain } from 'electron'
+import { autoUpdater } from 'electron-updater'
+import compareVersions from 'compare-versions'
+import winHandler from './mainWindow'
 
 /**
  * Set `__resources` path to resources files in renderer process
@@ -28,7 +31,33 @@ app.whenReady().then(() => {
   })
 })
 
-// TOOD set Menu directly here bofore app starts
+ipcMain.on('do-update', async () => {
+  await autoUpdater.downloadUpdate()
+  autoUpdater.quitAndInstall()
+})
 
-// Load here all startup windows
-require('./mainWindow')
+if (process.env.NODE_ENV === 'production') {
+  winHandler.onCreated(win => {
+    win.webContents.on('did-finish-load', () => {
+      app.whenReady().then(() => {
+        // const log = require(''electron-log')
+        // log.transports.file.level = 'debug'
+        // autoUpdater.logger = log
+        autoUpdater.autoDownload = false
+        autoUpdater.setFeedURL({
+          provider: 'github',
+          owner: 'farin',
+          repo: 'JCloisterZone-Client'
+        })
+        autoUpdater.checkForUpdates().then(result => {
+          // console.log(result)
+          if (compareVersions(result.updateInfo.version, app.getVersion()) === 1) {
+            win.webContents.send('app-update', result.updateInfo)
+          }
+        }).catch(err => {
+          console.error(err)
+        })
+      })
+    })
+  })
+}

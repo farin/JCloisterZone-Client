@@ -17,7 +17,8 @@ export const state = () => ({
   showGameHistory: true,
   java: null, // { version, outdated, error }
   engine: null,
-  download: null
+  download: null,
+  updateInfo: null,
 })
 
 export const mutations = {
@@ -59,6 +60,10 @@ export const mutations = {
 
   download (state, value) {
     state.download = value
+  },
+
+  updateInfo (state, value) {
+    state.updateInfo = value
   }
 }
 

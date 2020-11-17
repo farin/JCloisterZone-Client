@@ -18,15 +18,7 @@ yarn run lint
 
 ## Development notes
 
-### Issues with upgrade to Electron 9 / 10
-
-Issues with 9
-- after page reload, spawn jave process seems to be stucked
-look at app.allowRendererProcessReuse - which changed to true in 9
-- also page perfomance seems to be worse
-
-Issues with 10
-Vue Dev Tools are not loaded
+https://github.com/electron-userland/electron-builder/issues/1340
 
 ### How to convert Photoshop path to SVG
 

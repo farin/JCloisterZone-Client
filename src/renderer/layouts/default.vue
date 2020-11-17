@@ -36,7 +36,7 @@
 import os from 'os'
 import fs from 'fs'
 import { extname } from 'path'
-import { webFrame, remote, shell } from 'electron'
+import { webFrame, remote, shell, ipcRenderer } from 'electron'
 import { mapState, mapGetters } from 'vuex'
 
 import AboutDialog from '@/components/AboutDialog'
@@ -103,6 +103,12 @@ export default {
         this.$refs.settings?.clean()
       }
     }
+  },
+
+  created () {
+    ipcRenderer.on('app-update', (event, updateInfo) => {
+      this.$store.commit('updateInfo', updateInfo)
+    })
   },
 
   async mounted () {
