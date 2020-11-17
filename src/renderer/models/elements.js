@@ -198,6 +198,7 @@ export const CATHEDRAL = GameElement.CATHEDRAL = new GameElement('cathedral', 'C
 export const INN = GameElement.INN = new GameElement('inn', 'Inns', {
   '*': 'off',
   'river/2': false,
+  'bridges-castles-and-bazaars': false,
   'inns-and-cathedrals': true
 })
 export const PRINCESS = GameElement.PRINCESS = new GameElement('princess', 'Princess', {
