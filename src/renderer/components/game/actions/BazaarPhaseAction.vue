@@ -132,7 +132,7 @@ export default {
     isNil,
 
     onTileClick (idx) {
-      if (this.local && this.actionItem.type === 'BazaarSelectTile') {
+      if (this.local && this.actionItem.type === 'BazaarSelectTile' && isNil(this.bazaar[idx].owner)) {
         this.selected = idx
       }
     },
