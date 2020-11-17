@@ -58,14 +58,14 @@ export class GameElement {
   }
 }
 
-export function isConfigValueEnabled(config) {
+export function isConfigValueEnabled (config) {
   return config !== 'off' && config !== false && config !== 0
 }
 
 export function getDefaultElements (sets) {
   const q = {}
 
-  sets = mapKeys(sets, (val, key) => key.split(":")[0]) // strip C1 / C2 suffix
+  sets = mapKeys(sets, (val, key) => key.split(':')[0]) // strip C1 / C2 suffix
   GameElement.all().forEach(c => {
     const conf = c.getDefaultConfig(sets)
     if (isConfigValueEnabled(conf)) {
