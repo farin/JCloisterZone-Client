@@ -16,6 +16,20 @@ yarn run package
 yarn run lint
 ```
 
+## Run client against remote engine
+
+Run engine listening to socket. It will be usualy started using Java IDE.
+Add program args to run configuration
+
+```
+--socket 9000
+```
+
+Add engine's socket address to jcz-config.json
+```
+"enginePath": "localhost:9000",
+```
+
 ## Development notes
 
 https://github.com/electron-userland/electron-builder/issues/1340

@@ -18,7 +18,7 @@ export const state = () => ({
   java: null, // { version, outdated, error }
   engine: null,
   download: null,
-  updateInfo: null,
+  updateInfo: null
 })
 
 export const mutations = {
@@ -157,6 +157,19 @@ export const actions = {
     }
     return new Promise(async (resolve, reject) => {
       const { $engine } = this._vm
+      const remote = $engine.isRemote()
+
+      if (remote) {
+        const value = {
+          ok: true,
+          path: `Remote engine on ${remote.host}:${remote.port}`,
+          version: ''
+        }
+        commit('engine', value)
+        resolve(value.version)
+        return
+      }
+
       const executable = rootState.settings.javaPath || 'java'
       const args = $engine.getJavaArgs()
       args[args.length - 1] = args[args.length - 1]

@@ -2,6 +2,7 @@
   <section :class="{ local }">
     <div v-if="phase === 'CocFollowerPhase'" class="text">{{ local ? 'You' : 'Player' }} may place a meeple in a city district.</div>
     <div v-if="phase === 'CocScoringPhase'" class="text">{{ local ? 'You' : 'Player' }} may move a meeple from city district.</div>
+    <div v-if="phase === 'CocFinalScoringPhase'" class="text">{{ local ? 'You' : 'Player' }} may move a meeple from city district before final scoring.</div>
     <div v-if="phase === 'CornCirclePhase'" class="text">Crop Circle:<br>{{ local ? 'You' : 'Player' }} may place a meeple next to already present one.</div>
 
     <!-- key composed from phase meepls trigers properly mounted when one action follows another
