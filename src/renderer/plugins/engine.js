@@ -239,13 +239,13 @@ export default ({ app }, inject) => {
         const s = require('net').Socket()
         s.connect(remote.port, remote.host)
         spawnedEngine = new SocketEngine(s, loggingEnabled)
-        return spawnedEngine
       } else {
         spawnedEngine = new Engine(spawn(this.getJavaExecutable(), this.getJavaArgs()), loggingEnabled)
-        spawnedEngine.engineProcess.on('exit', () => {
-          spawnedEngine = null
-        })
       }
+      spawnedEngine.engineProcess.on('exit', () => {
+        spawnedEngine = null
+      })
+      return spawnedEngine
     },
 
     kill () {
