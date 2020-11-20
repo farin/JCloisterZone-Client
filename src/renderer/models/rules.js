@@ -234,5 +234,3 @@ export const TINY_CITY_SCORING = Rule.TINY_CITY_SCORING = new Rule('tiny-city-sc
     { value: '2', text: '2' }
   ]
 )
-
-
