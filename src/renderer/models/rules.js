@@ -179,6 +179,15 @@ export const LABYRINTH_VARIANT = Rule.LABYRINTH_VARIANT = new Rule('labyrinth-va
   }
 )
 
+export const COC_FINAL_SCORING = Rule.COC_FINAL_SCORING = new Rule('coc-final-scoring',
+  'Moving meeples from the City of Carcassonne before final scoring',
+  null,
+  [
+    { value: 'market-only', text: 'is allowed only from market district (C2)' },
+    { value: 'any-district', text: 'is not limited (C1)' }
+  ]
+)
+
 // Scoring
 
 export const LITTLE_BUILDINGS_SCORING = Rule.LITTLE_BUILDINGS_SCORING = new Rule('little-buildings-scoring',
@@ -215,3 +224,5 @@ export const TINY_CITY_SCORING = Rule.TINY_CITY_SCORING = new Rule('tiny-city-sc
     { value: '2', text: '2' }
   ]
 )
+
+

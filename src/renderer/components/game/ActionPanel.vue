@@ -95,6 +95,7 @@ const MAPPING = {
   ChangeFerriesPhase: FerryPhaseAction,
   CocFollowerPhase: ActionPhaseAction,
   CocScoringPhase: ActionPhaseAction,
+  CocFinalScoringPhase: ActionPhaseAction,
   PlaceFerryPhase: FerryPhaseAction,
   PhantomPhase: ActionPhaseAction,
   WagonPhase: ActionPhaseAction

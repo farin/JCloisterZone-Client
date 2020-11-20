@@ -256,6 +256,17 @@
           </template>
         </RuleBox>
 
+        <RuleBox :item="Expansion.COUNT">
+          <template #icon>
+            <ExpansionSymbol :expansion="Expansion.COUNT" />
+          </template>
+          <template #rules="{ selected }">
+            <div class="rule-line">
+              Moving meeples from the City of Carcassonne before final scoring <RuleSelect :rule="Rule.COC_FINAL_SCORING" :enabled="selected" xlong />.
+            </div>
+          </template>
+        </RuleBox>
+
         <RuleBox :item="Expansion.LABYRINTH">
           <template #icon>
             <ExpansionSymbol :expansion="Expansion.LABYRINTH" />

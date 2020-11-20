@@ -1,8 +1,9 @@
 <template>
   <section :class="{ local }">
     <div v-if="phase === 'CocFollowerPhase'" class="text">{{ local ? 'You' : 'Player' }} may place a meeple in a city district.</div>
-    <div v-if="phase === 'CocScoringPhase'" class="text">{{ local ? 'You' : 'Player' }} may move a meeple from city district.</div>
-    <div v-if="phase === 'CocFinalScoringPhase'" class="text">{{ local ? 'You' : 'Player' }} may move a meeple from city district before final scoring.</div>
+    <div v-if="phase === 'CocScoringPhase'" class="text">{{ local ? 'You' : 'Player' }} may move a meeple from a city district.</div>
+    <div v-if="phase === 'CocFinalScoringPhase' && rules['coc-final-scoring'] === 'market-only'" class="text">{{ local ? 'You' : 'Player' }} may move a meeple from the market district before final scoring.</div>
+    <div v-if="phase === 'CocFinalScoringPhase' && rules['coc-final-scoring'] !== 'market-only'" class="text">{{ local ? 'You' : 'Player' }} may move a meeple from a city district before final scoring.</div>
     <div v-if="phase === 'CornCirclePhase'" class="text">Crop Circle:<br>{{ local ? 'You' : 'Player' }} may place a meeple next to already present one.</div>
 
     <!-- key composed from phase meepls trigers properly mounted when one action follows another
@@ -19,7 +20,7 @@
         :meeple="item.meeple"
         :options="item.options"
         :active="idx === selected"
-        :coc="phase === 'CocScoringPhase'"
+        :coc="phase === 'CocScoringPhase' || phase === 'CocFinalScoringPhase'"
       />
       <MoveFairyNextToItem
         v-else-if="item.type == 'MoveFairyNextTo'"
@@ -76,6 +77,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import BridgeItem from '@/components/game/actions/items/BridgeItem.vue'
 import LittleBuildingItem from '@/components/game/actions/items/LittleBuildingItem.vue'
 import MeeplePlacementItem from '@/components/game/actions/items/MeeplePlacementItem.vue'
@@ -112,6 +114,10 @@ export default {
   },
 
   computed: {
+    ...mapState({
+      rules: state => state.game.setup.rules
+    }),
+
     items () {
       const items = []
       this.action.items.forEach(item => {
