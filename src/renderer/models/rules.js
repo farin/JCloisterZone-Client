@@ -188,6 +188,16 @@ export const COC_FINAL_SCORING = Rule.COC_FINAL_SCORING = new Rule('coc-final-sc
   ]
 )
 
+export const COUNT_MOVE = Rule.COUNT_MOVE = new Rule('count-move',
+  'When meeple is deployed to the City of C. then the Count is moved ',
+  null,
+  [
+    { value: 'by-player', text: 'by player' },
+    { value: 'clockwise', text: 'clockwise to the next district' },
+    { value: 'follow-meeple', text: 'to whichever district as the meeple' }
+  ]
+)
+
 // Scoring
 
 export const LITTLE_BUILDINGS_SCORING = Rule.LITTLE_BUILDINGS_SCORING = new Rule('little-buildings-scoring',
