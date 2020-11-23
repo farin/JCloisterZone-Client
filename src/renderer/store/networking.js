@@ -38,6 +38,8 @@ class ConnectionHandler {
       commit('connectionStatus', STATUS_CONNECTED)
       commit('reconnectAttempt', null)
       this.resolve()
+    } else if (type === 'CHANNEL') {
+      this.$router.push('/online')
     } else if (type === 'SLOT') {
       await dispatch('game/handleSlotMessage', payload, { root: true })
     } else if (type === 'START') {
@@ -90,7 +92,7 @@ class ConnectionHandler {
       reconnectTimeout = setTimeout(async () => {
         reconnectTimeout = null
         try {
-          await dispatch('connect', this.host)
+          await dispatch('connect', { host: this.host })
         } catch (err) {
           if (!err.error?.errno) {
             // unexpected error
@@ -107,6 +109,7 @@ class ConnectionHandler {
 
 export const state = () => ({
   sessionId: null,
+  connectionType: null, // direct / online
   connectionStatus: null,
   reconnectAttempt: null
 })
@@ -114,6 +117,10 @@ export const state = () => ({
 export const mutations = {
   sessionId (state, sessionId) {
     state.sessionId = sessionId
+  },
+
+  connectionType (state, connectionType) {
+    state.connectionType = connectionType
   },
 
   connectionStatus (state, value) {
@@ -126,22 +133,33 @@ export const mutations = {
 }
 
 export const actions = {
-  async startServer ({ commit, dispatch }, game) {
-    const { $server } = this._vm
+  async startServer ({ state, commit, dispatch }, game) {
     commit('game/clear', null, { root: true })
-    await $server.start(game)
-    try {
-      await dispatch('connect', 'localhost')
-    } catch (err) {
-      console.error(err)
-      const { dialog } = remote
-      dialog.showErrorBox('Engine error', err.message || err + '')
+    if (state.connectionType === 'online') {
+      const { $connection } = this._vm
+      $connection.send({
+        type: 'CREATE_GAME',
+        payload: {
+          name: 'Test game'
+        }
+      })
+    } else {
+      const { $server } = this._vm
+      await $server.start(game)
+      try {
+        await dispatch('connect', { host: 'localhost', connectionType: 'direct' })
+      } catch (err) {
+        console.error(err)
+        const { dialog } = remote
+        dialog.showErrorBox('Engine error', err.message || err + '')
+      }
     }
   },
 
-  async connect (ctx, host) {
+  async connect (ctx, { host, connectionType }) {
     const { state, commit, rootState } = ctx
     if (state.connectionStatus !== STATUS_RECONNECTING) {
+      commit('connectionType', connectionType)
       commit('connectionStatus', STATUS_CONNECTING)
     }
     commit('gameSetup/clear', null, { root: true })
@@ -164,7 +182,7 @@ export const actions = {
   },
 
   async connectPlayOnline ({ dispatch, rootState }) {
-    dispatch('connect', rootState.settings.playOnlineUrl)
+    dispatch('connect', { host: rootState.settings.playOnlineUrl, connectionType: 'online' })
   },
 
   close () {
