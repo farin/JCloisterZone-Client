@@ -189,7 +189,7 @@ export class GameServer {
           }
           this.broadcast({
             type: 'SLOT',
-            payload: slot
+            payload: { ...slot, gameId: this.game.gameId }
           })
         })
       }
@@ -301,7 +301,7 @@ export class GameServer {
     assignedSlots.forEach(slot => {
       this.broadcast({
         type: 'SLOT',
-        payload: slot
+        payload: { ...slot, gameId: this.game.gameId }
       })
     })
   }
@@ -360,7 +360,7 @@ export class GameServer {
     slot.clientId = ws.clientId
     this.broadcast({
       type: 'SLOT',
-      payload: slot
+      payload: { ...slot, gameId: this.game.gameId }
     })
   }
 
@@ -387,7 +387,7 @@ export class GameServer {
     slot.name = name
     this.broadcast({
       type: 'SLOT',
-      payload: slot
+      payload: { ...slot, gameId: this.game.gameId }
     })
   }
 
@@ -416,7 +416,7 @@ export class GameServer {
       slot.clientId = null
       this.broadcast({
         type: 'SLOT',
-        payload: slot
+        payload: { ...slot, gameId: this.game.gameId }
       })
     }
   }

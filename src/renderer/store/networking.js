@@ -39,6 +39,7 @@ class ConnectionHandler {
       commit('reconnectAttempt', null)
       this.resolve()
     } else if (type === 'CHANNEL') {
+      commit('channel', payload.name)
       this.$router.push('/online')
     } else if (type === 'SLOT') {
       await dispatch('game/handleSlotMessage', payload, { root: true })
@@ -87,6 +88,7 @@ class ConnectionHandler {
         delay = 6000
       }
       commit('connectionStatus', STATUS_RECONNECTING)
+      commit('channel', null)
       commit('reconnectAttempt', attempt)
       console.log(`Connection interrupted. Next attempt (${attempt}) in ${delay}ms`)
       reconnectTimeout = setTimeout(async () => {
@@ -111,7 +113,8 @@ export const state = () => ({
   sessionId: null,
   connectionType: null, // direct / online
   connectionStatus: null,
-  reconnectAttempt: null
+  reconnectAttempt: null,
+  channel: null
 })
 
 export const mutations = {
@@ -129,6 +132,10 @@ export const mutations = {
 
   reconnectAttempt (state, value) {
     state.reconnectAttempt = value
+  },
+
+  channel (state, value) {
+    state.channel = value
   }
 }
 
@@ -140,7 +147,8 @@ export const actions = {
       $connection.send({
         type: 'CREATE_GAME',
         payload: {
-          name: 'Test game'
+          name: 'Test game',
+          channel: state.channel
         }
       })
     } else {
