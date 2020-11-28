@@ -178,7 +178,6 @@ export const actions = {
 
     dispatch('settings/addRecentGameSetup', setup, { root: true })
     dispatch('networking/startServer', {
-      gameId: randomId(),
       setup,
       slots: getEmptySlots(),
       gameAnnotations: state.gameAnnotations

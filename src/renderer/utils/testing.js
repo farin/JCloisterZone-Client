@@ -5,9 +5,8 @@ const findPlayerIndex = (state, name) => {
 }
 
 class PointsAssert {
-  REGEXP = /(\w+) has (\d+) points?/
-
   constructor (state) {
+    this.REGEXP = /(\w+) has (\d+) points?/
     this.state = state
   }
 
@@ -22,9 +21,8 @@ class PointsAssert {
 }
 
 class FeatureScoredAssert {
-  REGEXP = /(\w+) scored (\w+) for (\d+) points?/
-
   constructor (state) {
+    this.REGEXP = /(\w+) scored (\w+) for (\d+) points?/
     this.state = state
   }
 
@@ -59,13 +57,13 @@ class PassAssert {
     if (assertion === "Player can't pass") {
       return { result: !this.state.action.canPass }
     }
-    if (assertion === "Player can pass") {
+    if (assertion === 'Player can pass') {
       return { result: this.state.action.canPass }
     }
   }
 }
 
-export function verifyScenario(state, { description, assertions }) {
+export function verifyScenario (state, { description, assertions }) {
   const result = {
     description,
     assertions: []
@@ -77,9 +75,9 @@ export function verifyScenario(state, { description, assertions }) {
     new PassAssert(state)
   ]
 
-  for (let assertion of assertions) {
+  for (const assertion of assertions) {
     let assertionResult = null
-    for (let rule of rules) {
+    for (const rule of rules) {
       const ruleResult = rule.verify(assertion)
       if (!isNil(ruleResult)) {
         assertionResult = {

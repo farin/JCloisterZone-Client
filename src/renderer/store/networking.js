@@ -143,12 +143,15 @@ export const actions = {
   async startServer ({ state, commit, dispatch }, game) {
     commit('game/clear', null, { root: true })
     if (state.connectionType === 'online') {
+      console.log(game)
       const { $connection } = this._vm
       $connection.send({
         type: 'CREATE_GAME',
         payload: {
           name: 'Test game',
-          channel: state.channel
+          channel: state.channel,
+          setup: game.setup,
+          slots: game.slots.length
         }
       })
     } else {

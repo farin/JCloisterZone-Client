@@ -468,6 +468,9 @@ export default ({ app }, inject) => {
       const { settings } = app.store.state
       const appVersion = getAppVersion()
       const engineVersion = app.store.state.engine.version
+      if (!game.gameId) {
+        game = { gameId: randomId(), ...game }
+      }
       gameServer = new GameServer(game, settings.clientId, {
         appVersion,
         engineVersion
