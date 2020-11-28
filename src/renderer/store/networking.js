@@ -39,7 +39,7 @@ class ConnectionHandler {
       commit('reconnectAttempt', null)
       this.resolve()
     } else if (type === 'CHANNEL') {
-      commit('channel', payload.name)
+      commit('online/channel', payload.name, { root: true })
       this.$router.push('/online')
     } else if (type === 'SLOT') {
       await dispatch('game/handleSlotMessage', payload, { root: true })
@@ -66,14 +66,16 @@ class ConnectionHandler {
           }
         }
       }
+    } else if (type === 'GAME_UPDATE') {
+      await dispatch('online/gameUpdate', payload, { root: true })
     } else {
       console.error(payload)
       throw new Error(`Unhandled message ${type}`)
     }
   }
 
-  onClose (errCode) {
-    const { state, commit, dispatch } = this.ctx
+  async onClose (errCode) {
+    const { state, commit, dispatch, rootState } = this.ctx
     const reconnecting = state.connectionStatus === STATUS_RECONNECTING
     if (errCode === 1006 || reconnecting) {
       const attempt = reconnecting ? state.reconnectAttempt + 1 : 1
@@ -87,8 +89,10 @@ class ConnectionHandler {
       } else {
         delay = 6000
       }
+      if (rootState.online.channel) {
+        await dispatch('online/onClose', null, { root: true })
+      }
       commit('connectionStatus', STATUS_RECONNECTING)
-      commit('channel', null)
       commit('reconnectAttempt', attempt)
       console.log(`Connection interrupted. Next attempt (${attempt}) in ${delay}ms`)
       reconnectTimeout = setTimeout(async () => {
@@ -113,8 +117,7 @@ export const state = () => ({
   sessionId: null,
   connectionType: null, // direct / online
   connectionStatus: null,
-  reconnectAttempt: null,
-  channel: null
+  reconnectAttempt: null
 })
 
 export const mutations = {
@@ -132,24 +135,19 @@ export const mutations = {
 
   reconnectAttempt (state, value) {
     state.reconnectAttempt = value
-  },
-
-  channel (state, value) {
-    state.channel = value
   }
 }
 
 export const actions = {
-  async startServer ({ state, commit, dispatch }, game) {
+  async startServer ({ state, commit, dispatch, rootState }, game) {
     commit('game/clear', null, { root: true })
     if (state.connectionType === 'online') {
-      console.log(game)
       const { $connection } = this._vm
       $connection.send({
         type: 'CREATE_GAME',
         payload: {
           name: 'Test game',
-          channel: state.channel,
+          channel: rootState.online.channel,
           setup: game.setup,
           slots: game.slots.length
         }
