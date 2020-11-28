@@ -17,6 +17,7 @@ class ConnectionPlugin {
     this.ws = null
     this.recentlyUsedSourceHash = null
     this.emitter = new EventEmitter()
+    this.heartbeat = HEARTBEAT_INTERVAL
   }
 
   // TODO use emitter instead callback
@@ -35,9 +36,11 @@ class ConnectionPlugin {
     return new Promise((resolve, reject) => {
       const heartbeat = () => {
         clearTimeout(pingTimeout)
-        pingTimeout = setTimeout(() => {
-          this.ws.terminate()
-        }, HEARTBEAT_INTERVAL + 2000)
+        if (this.heartbeat !== null) {
+          pingTimeout = setTimeout(() => {
+            this.ws.terminate()
+          }, this.heartbeat + 2000)
+        }
       }
 
       console.log('%c client %c trying to connect to ' + host, CONSOLE_CLIENT_COLOR, '')
@@ -91,6 +94,12 @@ class ConnectionPlugin {
         if (msg.type === 'WELCOME') {
           console.log('%c client %c session id assigned ' + msg.payload.sessionId, CONSOLE_CLIENT_COLOR, '')
           fulfilled = true
+          if (msg.heartbeat) {
+            this.heartbeat = msg.heartbeat
+          } else {
+            this.heartbeat = null
+          }
+          heartbeat()
           resolve()
         }
         onMessage(msg)
