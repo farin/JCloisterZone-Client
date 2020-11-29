@@ -227,8 +227,8 @@ export default {
       const gameRunning = routeName === 'game'
       this.menu.getMenuItemById('playonline-connect').enabled = !this.onlineConnected && !gameOpen
       this.menu.getMenuItemById('playonline-disconnect').enabled = this.onlineConnected
-      this.menu.getMenuItemById('new-game').enabled = !gameOpen
-      this.menu.getMenuItemById('join-game').enabled = !gameOpen
+      this.menu.getMenuItemById('new-game').enabled = !this.onlineConnected && !gameOpen
+      this.menu.getMenuItemById('join-game').enabled = !this.onlineConnected && !gameOpen
       this.menu.getMenuItemById('leave-game').enabled = gameOpen
       this.menu.getMenuItemById('save-game').enabled = gameRunning
       this.menu.getMenuItemById('load-game').enabled = !gameOpen
