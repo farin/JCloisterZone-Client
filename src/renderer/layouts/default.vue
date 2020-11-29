@@ -61,7 +61,8 @@ export default {
 
   computed: {
     ...mapState({
-      java: state => state.java
+      java: state => state.java,
+      onlineConnected: state => state.networking.connectionType === 'online'
     }),
 
     ...mapGetters({
@@ -95,6 +96,10 @@ export default {
     },
 
     undoAllowed () {
+      this.updateMenu()
+    },
+
+    onlineConnected () {
       this.updateMenu()
     },
 
@@ -133,6 +138,9 @@ export default {
       {
         label: 'Session',
         submenu: [
+          { id: 'playonline-connect', label: 'Play Online', accelerator: 'CommandOrControl+P', click: this.playOnline },
+          { id: 'playonline-disconnect', label: 'Disconnect', click: this.disconnect },
+          { type: 'separator' },
           { id: 'new-game', label: 'New Game', accelerator: 'CommandOrControl+N', click: this.newGame },
           { id: 'join-game', label: 'Join Game', accelerator: 'CommandOrControl+J', click: this.joinGame },
           { type: 'separator' },
@@ -155,7 +163,6 @@ export default {
           { id: 'zoom-out', label: 'Zoom Out', accelerator: 'numsub', click: this.zoomOut },
           { type: 'separator' },
           { id: 'toggle-history', label: 'Toggle history', accelerator: 'h', click: this.toggleGameHistory }
-
         ]
       }, {
         label: 'Help',
@@ -218,6 +225,8 @@ export default {
       const routeName = this.$route.name
       const gameOpen = routeName === 'game-setup' || routeName === 'open-game' || routeName === 'game'
       const gameRunning = routeName === 'game'
+      this.menu.getMenuItemById('playonline-connect').enabled = !this.onlineConnected && !gameOpen
+      this.menu.getMenuItemById('playonline-disconnect').enabled = this.onlineConnected
       this.menu.getMenuItemById('new-game').enabled = !gameOpen
       this.menu.getMenuItemById('join-game').enabled = !gameOpen
       this.menu.getMenuItemById('leave-game').enabled = gameOpen
@@ -237,6 +246,15 @@ export default {
       }
     },
 
+    playOnline () {
+      this.$store.dispatch('networking/connectPlayOnline')
+    },
+
+    disconnect () {
+      this.$store.dispatch('networking/close')
+      this.$router.push('/')
+    },
+
     newGame () {
       this.$store.dispatch('gameSetup/newGame')
     },
@@ -246,8 +264,17 @@ export default {
     },
 
     leaveGame () {
-      this.$store.dispatch('game/close')
-      this.$router.push('/')
+      if (this.onlineConnected) {
+        const { $connection } = this
+        const gameId = this.$store.state.game.id
+        if (gameId) {
+          $connection.send({ type: 'LEAVE_GAME', payload: { gameId } })
+        }
+        this.$router.push('/online')
+      } else {
+        this.$store.dispatch('game/close')
+        this.$router.push('/')
+      }
     },
 
     async saveGame () {
