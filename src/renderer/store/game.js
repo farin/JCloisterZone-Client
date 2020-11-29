@@ -439,7 +439,7 @@ export const actions = {
     commit('setup', payload.setup)
     commit('slots', payload.slots)
     commit('initialSeed', payload.initialSeed)
-    commit('gameAnnotations', payload.gameAnnotations)
+    commit('gameAnnotations', payload.gameAnnotations || {})
     commit('gameMessages', payload.replay)
     commit('owner', payload.owner)
   },

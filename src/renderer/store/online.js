@@ -1,17 +1,17 @@
 
 export const state = () => ({
-  channel: null
+  gameList: []
 })
 
 export const mutations = {
-  channel (state, value) {
-    state.channel = value
+  gameList (state, value) {
+    state.gameList = value
   }
 }
 
 export const actions = {
   onClose ({ commit }) {
-    commit('channel', null)
+    commit('gameList', [])
   },
 
   gameUpdate ({ state, commit }, payload) {

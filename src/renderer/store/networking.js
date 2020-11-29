@@ -38,8 +38,8 @@ class ConnectionHandler {
       commit('connectionStatus', STATUS_CONNECTED)
       commit('reconnectAttempt', null)
       this.resolve()
-    } else if (type === 'CHANNEL') {
-      commit('online/channel', payload.name, { root: true })
+    } else if (type === 'GAME_LIST') {
+      commit('online/gameList', payload.games, { root: true })
       this.$router.push('/online')
     } else if (type === 'SLOT') {
       await dispatch('game/handleSlotMessage', payload, { root: true })
@@ -75,7 +75,7 @@ class ConnectionHandler {
   }
 
   async onClose (errCode) {
-    const { state, commit, dispatch, rootState } = this.ctx
+    const { state, commit, dispatch } = this.ctx
     const reconnecting = state.connectionStatus === STATUS_RECONNECTING
     if (errCode === 1006 || reconnecting) {
       const attempt = reconnecting ? state.reconnectAttempt + 1 : 1
@@ -89,7 +89,7 @@ class ConnectionHandler {
       } else {
         delay = 6000
       }
-      if (rootState.online.channel) {
+      if (state.connectionType === 'online') {
         await dispatch('online/onClose', null, { root: true })
       }
       commit('connectionStatus', STATUS_RECONNECTING)
@@ -147,7 +147,6 @@ export const actions = {
         type: 'CREATE_GAME',
         payload: {
           name: 'Test game',
-          channel: rootState.online.channel,
           setup: game.setup,
           slots: game.slots.length
         }
