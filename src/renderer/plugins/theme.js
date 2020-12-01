@@ -34,19 +34,38 @@ const makeAbsPathProp = (prefix, obj, prop) => {
 }
 
 class Theme {
-  constructor (vue) {
+  constructor (ctx) {
     this.artworks = {}
     this.tiles = {}
-    this.vue = vue
+    this.ctx = ctx
   }
 
   async loadPlugins () {
+    const { settings } = this.ctx.store.state
+
     const lookupFolders = [
       path.join(remote.app.getPath('userData'), 'artworks'),
       __resources + '/artworks/'
     ]
 
     const installedArtworks = []
+
+    async function readArtwork (id, fullPath) {
+      const stats = await fs.promises.stat(fullPath)
+      if (stats.isDirectory()) {
+        const jsonPath = path.join(fullPath, 'artwork.json')
+        try {
+          await fs.promises.access(jsonPath, fs.constants.R_OK)
+          installedArtworks.push({
+            id,
+            folder: fullPath,
+            jsonFile: jsonPath
+          })
+        } catch (e) {
+          // not plugin folder, do nothing
+        }
+      }
+    }
 
     for (const lookupFolder of lookupFolders) {
       let listing
@@ -58,21 +77,12 @@ class Theme {
       }
       for (const f of listing) {
         const fullPath = path.join(lookupFolder, f)
-        const stats = await fs.promises.stat(fullPath)
-        if (stats.isDirectory()) {
-          const jsonPath = path.join(fullPath, 'artwork.json')
-          try {
-            await fs.promises.access(jsonPath, fs.constants.R_OK)
-            installedArtworks.push({
-              id: f,
-              folder: fullPath,
-              jsonFile: jsonPath
-            })
-          } catch (e) {
-            // not plugin folder, do nothing
-          }
-        }
+        await readArtwork(f, fullPath)
       }
+    }
+
+    for (const fullPath of settings.userArtworks) {
+      await readArtwork(path.basename(fullPath), fullPath)
     }
 
     this.installedArtworks = installedArtworks
@@ -83,8 +93,13 @@ class Theme {
     this._artworks = {}
     this._tiles = {}
 
-    for (const artwork of this.installedArtworks) {
-      await this.loadArtwork(artwork)
+    const { settings } = this.ctx.store.state
+
+    for (const id of settings.enabledArtworks) {
+      const artwork = this.installedArtworks.find(a => a.id === id)
+      if (artwork) {
+        await this.loadArtwork(artwork)
+      }
     }
 
     this.artworks = this._artworks
@@ -209,13 +224,15 @@ class Theme {
   }
 }
 
-let theme = null
+export default (ctx, inject) => {
+  let theme = null
 
-Object.defineProperty(Vue.prototype, '$theme', {
-  get () {
-    if (theme === null) {
-      theme = new Theme(this)
+  Object.defineProperty(Vue.prototype, '$theme', {
+    get () {
+      if (theme === null) {
+        theme = new Theme(ctx)
+      }
+      return theme
     }
-    return theme
-  }
-})
+  })
+}

@@ -13,8 +13,8 @@ const RECENT_SETUPS_COUNT = 3
 
 /* eslint quote-props: 0 */
 export const state = () => ({
-  // theme: 'light',
-  // artworks: ['classic'], //active artworks
+  userArtworks: [],
+  enabledArtworks: ['classic'],
   lastGameSetup: null,
   recentSaves: [],
   recentGameSetups: [],
