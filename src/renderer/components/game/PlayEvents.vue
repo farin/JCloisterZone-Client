@@ -130,7 +130,6 @@ export default {
       if (ev.clientX < 52) {
         const availableHeight = document.documentElement.clientHeight - BASE_Y
         const maxOffset = this.eventsHeight - availableHeight
-        console.log(availableHeight, this.eventsHeight, maxOffset)
         // handle wheel only on first item
         this.offset += ev.deltaY / 3
         if (this.offset < 0) {
