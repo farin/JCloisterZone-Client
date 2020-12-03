@@ -242,7 +242,7 @@ export default ({ app }, inject) => {
       } else {
         spawnedEngine = new Engine(spawn(this.getJavaExecutable(), this.getJavaArgs()), loggingEnabled)
       }
-      spawnedEngine.engineProcess.on('exit', () => {
+      spawnedEngine.on('exit', () => {
         spawnedEngine = null
       })
       return spawnedEngine

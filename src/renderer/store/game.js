@@ -496,7 +496,7 @@ export const actions = {
     const engine = this._vm.$engine.spawn({ loggingEnabled })
     engine.on('error', data => {
       const { dialog } = remote
-      dialog.showErrorBox('Engine error', data)
+      dialog.showErrorBox('Engine error', data + '')
     })
 
     if (state.gameMessages?.length) {
