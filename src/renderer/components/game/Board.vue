@@ -157,8 +157,16 @@ export default {
 
   mounted () {
     const rect = this.$el.getBoundingClientRect()
-    this.offsetX = parseInt((rect.width - this.boardWidth) / 2)
-    this.offsetY = ACTION_PANEL_HEIGHT + parseInt((rect.height - this.boardHeight - ACTION_PANEL_HEIGHT) / 2)
+    if (this.boardWidth > rect.width) {
+      this.offsetX = parseInt(rect.width / 2)
+    } else {
+      this.offsetX = parseInt((rect.width - this.boardWidth) / 2)
+    }
+    if (this.boardHeight > rect.height -  ACTION_PANEL_HEIGHT) {
+      this.offsetY = ACTION_PANEL_HEIGHT + parseInt((rect.height - ACTION_PANEL_HEIGHT) / 2)
+    } else {
+      this.offsetY = ACTION_PANEL_HEIGHT + parseInt((rect.height - this.boardHeight - ACTION_PANEL_HEIGHT) / 2)
+    }
 
     this.pressedKeys = {}
     window.addEventListener('keydown', this.onKeyDown)
