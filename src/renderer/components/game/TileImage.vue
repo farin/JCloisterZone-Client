@@ -22,16 +22,16 @@ import sortBy from 'lodash/sortBy'
 import isString from 'lodash/isString'
 
 const ZINDEX = {
-  'N': 10,
-  'NW': 11,
-  'NE': 12,
-  'W': 20,
-  'SW': 21,
-  'E': 30,
-  'S': 40,
-  'SE': 41,
-  'TOWER': 50,
-  'CLOISTER': 51
+  N: 10,
+  NW: 11,
+  NE: 12,
+  W: 20,
+  SW: 21,
+  E: 30,
+  S: 40,
+  SE: 41,
+  TOWER: 50,
+  CLOISTER: 51
 }
 
 export default {
@@ -130,8 +130,7 @@ export default {
         }
       }
 
-      sortBy(layers, 'z')
-      return layers
+      return sortBy(layers, 'z')
     }
   }
 }
