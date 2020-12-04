@@ -8,9 +8,15 @@ import isObject from 'lodash/isObject'
 
 import Location from '@/models/Location'
 
-const makeAbsPath = (prefix, path) => {
+const makeAbsPath = (prefix, path, artworkId = null) => {
   if (!path || path[0] === '/') {
     return path
+  }
+  if (path[0] === '#') {
+    if (!artworkId) {
+      throw new Error('artworkId is mandatory for #ref conversions')
+    }
+    return `#${artworkId}-${path.substring(1)}`
   }
   return prefix + path
 }
@@ -85,6 +91,15 @@ class Theme {
       await readArtwork(path.basename(fullPath), fullPath)
     }
 
+    let resourcesContainer = document.getElementById('theme-resources')
+    if (resourcesContainer) {
+      resourcesContainer.innerHTML = ''
+    } else {
+      resourcesContainer = document.createElement('div')
+      resourcesContainer.setAttribute('id', 'theme-resources')
+      document.body.appendChild(resourcesContainer)
+    }
+
     this.installedArtworks = installedArtworks
     await this.loadArtworks()
   }
@@ -110,7 +125,16 @@ class Theme {
 
   async loadArtwork ({ id, folder, jsonFile }) {
     const artwork = this._artworks[id] = JSON.parse(await fs.promises.readFile(jsonFile))
+    const artworkRootDir = path.dirname(jsonFile)
     const pathPrefix = `file:///${folder}/`
+
+    for (const res of artwork.resources || []) {
+      let content = await fs.promises.readFile(path.join(artworkRootDir, res))
+      // HACK, would better use DOM parser
+      content = content.toString().replaceAll('<symbol id="', '<symbol id="' + id + '-')
+      content = content.replaceAll('<image href="', '<image href="' + pathPrefix)
+      document.getElementById('theme-resources').innerHTML += content
+    }
 
     artwork.id = id
     if (artwork.background) {
@@ -118,11 +142,11 @@ class Theme {
     }
     Object.entries(artwork.features).forEach(([featureId, data]) => {
       data.id = featureId
-      if (isString(data.image)) data.image = makeAbsPath(pathPrefix, data.image)
-      if (data.image && data.image.href) data.image.href = makeAbsPath(pathPrefix, data.image.href)
+      if (isString(data.image)) data.image = makeAbsPath(pathPrefix, data.image, id)
+      if (data.image && data.image.href) data.image.href = makeAbsPath(pathPrefix, data.image.href, id)
       forEachRotation(data, item => {
-        if (isString(item.image)) item.image = makeAbsPath(pathPrefix, item.image)
-        if (item.image && item.image.href) item.image.href = makeAbsPath(pathPrefix, item.image.href)
+        if (isString(item.image)) item.image = makeAbsPath(pathPrefix, item.image, id)
+        if (item.image && item.image.href) item.image.href = makeAbsPath(pathPrefix, item.image.href, id)
       })
     })
     Object.entries(artwork.tiles).forEach(([tileId, data]) => {

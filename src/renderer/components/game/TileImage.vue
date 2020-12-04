@@ -59,7 +59,7 @@ export default {
         } else {
           href = image
         }
-        const svgRef = href.includes('.svg#')
+        const svgRef = href[0] === '#' || href.includes('.svg#')
         const layer = {
           tag: svgRef ? 'use' : 'image',
           props: {
