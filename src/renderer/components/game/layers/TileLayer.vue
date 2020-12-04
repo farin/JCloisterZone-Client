@@ -66,7 +66,7 @@
     </g>
 
     <TileImage
-      v-for="({position: pos, rotation: rot, id}) in tiles"
+      v-for="({position: pos, rotation: rot, id}) in tilesSorted"
       :key="positionAsKey(pos)"
       :transform="transformPosition(pos)"
       :tile-id="id"
@@ -90,6 +90,7 @@
 </template>
 
 <script>
+import sortBy from 'lodash/sortBy'
 import { mapGetters, mapState } from 'vuex'
 
 import LayerMixin from '@/components/game/layers/LayerMixin'
@@ -132,6 +133,10 @@ export default {
       }
       placements.reverse()
       return placements
+    },
+
+    tilesSorted () {
+      return sortBy(this.tiles, t => t.position[1] << 8 + t.position[0])
     },
 
     tilesByArtwork () {
