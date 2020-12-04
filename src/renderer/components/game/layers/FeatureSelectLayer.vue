@@ -79,6 +79,11 @@ export default {
           feature: this.$theme.getFeature(tile, option.location, this.bridges),
           abbotChoice: null
         }
+
+        if (!opt.feature.clip) {
+          console.error('Clipping is not defined for', opt.feature)
+        }
+
         optionsWithFeature.push(opt)
         if (option.location === 'CLOISTER') {
           cloisterOptionsWithFeature.push(opt)

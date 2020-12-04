@@ -59,12 +59,26 @@ export default {
         } else {
           href = image
         }
+
+        let y = 0
+        let height = 1000
+        if (image.ratio) {
+          if (image.ratio[0] < image.ratio[1]) {
+            height = image.ratio[1] / image.ratio[0] * 1000
+            y = (1000 - height) / 2
+          }
+          if (image.ratio[0] > image.ratio[1]) {
+            throw new Error('Not supported')
+          }
+        }
+
         const svgRef = href[0] === '#' || href.includes('.svg#')
         const layer = {
           tag: svgRef ? 'use' : 'image',
           props: {
-            width: '1000',
-            height: '1000',
+            width: 1000,
+            height,
+            y,
             href
           }
         }

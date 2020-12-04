@@ -229,7 +229,7 @@ class Theme {
 
     // console.log(bridges)
     const tile = this.getTile(id)
-    const feature = tile.features[loc]
+    let feature = tile.features[loc]
 
     if (!feature) {
       throw new Error(`Can't find feature for ${id} ${loc}`)
@@ -238,7 +238,13 @@ class Theme {
     let r = feature.rotation || 0
     if (tile.artwork.perspective === 'rotate') {
       r = (r + rotation) % 360
+    } else {
+      const rotKey = '@' + (rotation / 90)
+      if (feature[rotKey]) {
+        feature = feature[rotKey]
+      }
     }
+
     return {
       clip: feature.clip,
       point: feature.point,
