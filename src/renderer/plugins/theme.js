@@ -129,11 +129,16 @@ class Theme {
     const pathPrefix = `file:///${folder}/`
 
     for (const res of artwork.resources || []) {
-      let content = await fs.promises.readFile(path.join(artworkRootDir, res))
-      // HACK, would better use DOM parser
-      content = content.toString().replaceAll('<symbol id="', '<symbol id="' + id + '-')
-      content = content.replaceAll('<image href="', '<image href="' + pathPrefix)
-      document.getElementById('theme-resources').innerHTML += content
+      if (path.extname(res) !== '.svg') {
+        console.error('Only SVG resources are allowed')
+        continue
+      }
+      const content = await fs.promises.readFile(path.join(artworkRootDir, res))
+      const parser = new DOMParser()
+      const doc = parser.parseFromString(content, 'image/svg+xml')
+      doc.querySelectorAll('symbol').forEach(el => el.setAttribute('id', `${id}-${el.getAttribute('id')}`))
+      doc.querySelectorAll('image').forEach(el => el.setAttribute('href', pathPrefix + el.getAttribute('href')))
+      document.getElementById('theme-resources').innerHTML = doc.documentElement.outerHTML
     }
 
     artwork.id = id
