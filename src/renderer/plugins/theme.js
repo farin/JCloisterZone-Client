@@ -7,15 +7,13 @@ import isString from 'lodash/isString'
 import isObject from 'lodash/isObject'
 
 import Location from '@/models/Location'
+import { includes } from 'lodash'
 
 const makeAbsPath = (prefix, path, artworkId = null) => {
   if (!path || path[0] === '/') {
     return path
   }
   if (path[0] === '#') {
-    if (!artworkId) {
-      throw new Error('artworkId is mandatory for #ref conversions')
-    }
     return `#${artworkId}-${path.substring(1)}`
   }
   return prefix + path
@@ -29,12 +27,12 @@ const forEachRotation = (obj, cb) => {
   }
 }
 
-const makeAbsPathProp = (prefix, obj, prop) => {
+const makeAbsPathProp = (prefix, obj, prop, artworkId) => {
   if (isString(obj[prop])) {
-    obj[prop] = makeAbsPath(prefix, obj[prop])
+    obj[prop] = makeAbsPath(prefix, obj[prop], artworkId)
   } else if (isObject(obj[prop])) {
     forEachRotation(obj[prop], (item, rot) => {
-      obj[prop][rot] = makeAbsPath(prefix, item)
+      obj[prop][rot] = makeAbsPath(prefix, item, artworkId)
     })
   }
 }
@@ -129,6 +127,9 @@ class Theme {
     const pathPrefix = `file:///${folder}/`
 
     artwork.symbols = {}
+    artwork.features = artwork.features || {}
+    artwork.tiles = artwork.tiles || {}
+
     for (const res of artwork.resources || []) {
       if (path.extname(res) !== '.svg') {
         console.error('Only SVG resources are allowed')
@@ -153,7 +154,8 @@ class Theme {
     if (artwork.background) {
       artwork.background.image = makeAbsPath(pathPrefix, artwork.background.image)
     }
-    Object.entries(artwork.features).forEach(([featureId, data]) => {
+
+    const processFeature = (featureId, data) => {
       data.id = featureId
       if (isString(data.image)) data.image = makeAbsPath(pathPrefix, data.image, id)
       if (data.image && data.image.href) data.image.href = makeAbsPath(pathPrefix, data.image.href, id)
@@ -161,8 +163,18 @@ class Theme {
         if (isString(item.image)) item.image = makeAbsPath(pathPrefix, item.image, id)
         if (item.image && item.image.href) item.image.href = makeAbsPath(pathPrefix, item.image.href, id)
       })
-    })
-    Object.entries(artwork.tiles).forEach(([tileId, data]) => {
+    }
+
+    Object.entries(artwork.features).forEach(([featureId, data]) => processFeature(featureId, data))
+    for (const fname of artwork['features-include'] || []) {
+      const content = JSON.parse(await fs.promises.readFile(path.join(artworkRootDir, fname)))
+      Object.entries(content).forEach(([featureId, data]) => {
+        processFeature(featureId, data)
+        artwork.features[featureId] = data
+      })
+    }
+
+    const processTile = (tileId, data) => {
       if (this._tiles[tileId]) {
         // tile already registred by prev artwork
         // currently there is time load fixed order
@@ -177,11 +189,11 @@ class Theme {
       }
 
       if (data.background) {
-        makeAbsPathProp(pathPrefix, data, 'background')
+        makeAbsPathProp(pathPrefix, data, 'background', id)
         tile.background = data.background
       }
       if (data.foreground) {
-        makeAbsPathProp(pathPrefix, data, 'foreground')
+        makeAbsPathProp(pathPrefix, data, 'foreground', id)
         tile.foreground = data.foreground
       }
 
@@ -198,7 +210,13 @@ class Theme {
       })
 
       this._tiles[tileId] = tile
-    })
+    }
+
+    Object.entries(artwork.tiles).forEach(([tileId, data]) => processTile(tileId, data))
+    for (const fname of artwork['tiles-include'] || []) {
+      const content = JSON.parse(await fs.promises.readFile(path.join(artworkRootDir, fname)))
+      Object.entries(content).forEach(([tileId, data]) => processTile(tileId, data))
+    }
 
     delete artwork.features
     delete artwork.tiles

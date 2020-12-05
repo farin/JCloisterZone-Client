@@ -124,6 +124,7 @@ export default {
         }
       }
 
+      // console.log(tile, tile.features)
       Object.entries(tile.features).forEach(([loc, f]) => {
         const perspective = f.perspective || artwork.perspective
         let r = this.rotation
