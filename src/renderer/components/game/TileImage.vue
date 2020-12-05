@@ -51,7 +51,7 @@ export default {
         return []
       }
 
-      const createLayer = (image, featureTransform, perspective, rotation) => {
+      const createLayer = (artwork, image, featureTransform, perspective, rotation) => {
         let href
         const transform = []
         if (image.href) {
@@ -60,19 +60,24 @@ export default {
           href = image
         }
 
+        const svgRef = href[0] === '#' || href.includes('.svg#')
+        let ratio = image.ratio
+        if (svgRef && !ratio) {
+          ratio = artwork.symbols[href.substring(1)]?.ratio
+        }
+
         let y = 0
         let height = 1000
-        if (image.ratio) {
-          if (image.ratio[0] < image.ratio[1]) {
-            height = image.ratio[1] / image.ratio[0] * 1000
+        if (ratio) {
+          if (ratio[0] < ratio[1]) {
+            height = ratio[1] / ratio[0] * 1000
             y = (1000 - height) / 2
           }
-          if (image.ratio[0] > image.ratio[1]) {
+          if (ratio[0] > ratio[1]) {
             throw new Error('Not supported')
           }
         }
 
-        const svgRef = href[0] === '#' || href.includes('.svg#')
         const layer = {
           tag: svgRef ? 'use' : 'image',
           props: {
@@ -113,7 +118,7 @@ export default {
       if (tile.background) {
         const background = getRecordForRotation(tile.background, this.rotation)
         if (isString(background) || background.href) {
-          const layer = createLayer(background, null, artwork.perspective, this.rotation)
+          const layer = createLayer(artwork, background, null, artwork.perspective, this.rotation)
           layer.z = 1
           layers.push(layer)
         }
@@ -129,7 +134,7 @@ export default {
         f = getRecordForRotation(f, r)
         if (f.image) {
           const z = ZINDEX[loc]
-          const layer = createLayer(f.image, f.transform, perspective, r)
+          const layer = createLayer(artwork, f.image, f.transform, perspective, r)
           layer.z = z === undefined ? 9 : z
           layers.push(layer)
         }
@@ -138,7 +143,7 @@ export default {
       if (tile.foreground) {
         const foreground = getRecordForRotation(tile.foreground, this.rotation)
         if (isString(foreground) || foreground.href) {
-          const layer = createLayer(foreground, null, artwork.perspective, this.rotation)
+          const layer = createLayer(artwork, foreground, null, artwork.perspective, this.rotation)
           layer.z = 100
           layers.push(layer)
         }

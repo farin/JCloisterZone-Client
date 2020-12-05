@@ -128,6 +128,7 @@ class Theme {
     const artworkRootDir = path.dirname(jsonFile)
     const pathPrefix = `file:///${folder}/`
 
+    artwork.symbols = {}
     for (const res of artwork.resources || []) {
       if (path.extname(res) !== '.svg') {
         console.error('Only SVG resources are allowed')
@@ -136,7 +137,14 @@ class Theme {
       const content = await fs.promises.readFile(path.join(artworkRootDir, res))
       const parser = new DOMParser()
       const doc = parser.parseFromString(content, 'image/svg+xml')
-      doc.querySelectorAll('symbol').forEach(el => el.setAttribute('id', `${id}-${el.getAttribute('id')}`))
+      doc.querySelectorAll('symbol').forEach(el => {
+        const symbolId = `${id}-${el.getAttribute('id')}`
+        el.setAttribute('id', symbolId)
+        const [w, h] = el.getAttribute('viewBox').split(' ').slice(2).map(val => parseInt(val))
+        if (w !== h) {
+          artwork.symbols[symbolId] = { ratio: [w, h] }
+        }
+      })
       doc.querySelectorAll('image').forEach(el => el.setAttribute('href', pathPrefix + el.getAttribute('href')))
       document.getElementById('theme-resources').innerHTML = doc.documentElement.outerHTML
     }
