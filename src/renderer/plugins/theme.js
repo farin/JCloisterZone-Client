@@ -159,9 +159,21 @@ class Theme {
       data.id = featureId
       if (isString(data.image)) data.image = makeAbsPath(pathPrefix, data.image, id)
       if (data.image && data.image.href) data.image.href = makeAbsPath(pathPrefix, data.image.href, id)
+      if (data.images) {
+        for (let i = 0; i < data.images.length; i++) {
+          if (isString(data.images[i])) data.images[i] = makeAbsPath(pathPrefix, data.images[i], id)
+          if (data.images[i] && data.images[i].href) data.images[i].href = makeAbsPath(pathPrefix, data.images[i].href, id)
+        }
+      }
       forEachRotation(data, item => {
         if (isString(item.image)) item.image = makeAbsPath(pathPrefix, item.image, id)
         if (item.image && item.image.href) item.image.href = makeAbsPath(pathPrefix, item.image.href, id)
+        if (item.images) {
+          for (let i = 0; i < item.images.length; i++) {
+            if (isString(item.images[i])) item.images[i] = makeAbsPath(pathPrefix, item.images[i], id)
+            if (item.images[i] && item.images[i].href) item.images[i].href = makeAbsPath(pathPrefix, item.images[i].href, id)
+          }
+        }
       })
     }
 

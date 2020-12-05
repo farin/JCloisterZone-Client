@@ -21,7 +21,7 @@
 import sortBy from 'lodash/sortBy'
 import isString from 'lodash/isString'
 
-const ZINDEX = {
+const FEATURE_ORDER = {
   N: 10,
   NW: 11,
   NE: 12,
@@ -119,7 +119,7 @@ export default {
         const background = getRecordForRotation(tile.background, this.rotation)
         if (isString(background) || background.href) {
           const layer = createLayer(artwork, background, null, artwork.perspective, this.rotation)
-          layer.z = 1
+          layer.order = 1
           layers.push(layer)
         }
       }
@@ -133,11 +133,19 @@ export default {
         }
 
         f = getRecordForRotation(f, r)
-        if (f.image) {
-          const z = ZINDEX[loc]
-          const layer = createLayer(artwork, f.image, f.transform, perspective, r)
-          layer.z = z === undefined ? 9 : z
+
+        const processImage = image => {
+          const order = FEATURE_ORDER[loc]
+          const layer = createLayer(artwork, image, f.transform, perspective, r)
+          layer.order = order === undefined ? 9 : order
           layers.push(layer)
+        }
+
+        if (f.image) {
+          processImage(f.image)
+        }
+        if (f.images) {
+          f.images.forEach(img => processImage(img))
         }
       })
 
@@ -145,12 +153,12 @@ export default {
         const foreground = getRecordForRotation(tile.foreground, this.rotation)
         if (isString(foreground) || foreground.href) {
           const layer = createLayer(artwork, foreground, null, artwork.perspective, this.rotation)
-          layer.z = 100
+          layer.order = 100
           layers.push(layer)
         }
       }
 
-      return sortBy(layers, 'z')
+      return sortBy(layers, 'order')
     }
   }
 }
