@@ -61,35 +61,24 @@ export default {
         }
 
         const svgRef = href[0] === '#' || href.includes('.svg#')
-        let ratio = image.ratio
-        if (svgRef && !ratio) {
-          ratio = artwork.symbols[href.substring(1)]?.ratio
-        }
+        let width = artwork.tileSize
+        let height = artwork.tileSize
+        const x = image.x || 0
+        const y = image.y || 0
 
-        let y = 0
-        let height = 1000
-        if (ratio) {
-          if (ratio[0] < ratio[1]) {
-            height = ratio[1] / ratio[0] * 1000
-            y = (1000 - height) / 2
-          }
-          if (ratio[0] > ratio[1]) {
-            throw new Error('Not supported')
-          }
+        if (svgRef) {
+          const size = artwork.symbols[href.substring(1)]?.size
+          width = size[0]
+          height = size[1]
         }
 
         const layer = {
           tag: svgRef ? 'use' : 'image',
-          props: {
-            width: 1000,
-            height,
-            y,
-            href
-          }
+          props: { x, y, width, height, href }
         }
 
         if (perspective === 'rotate' && rotation) {
-          transform.push(`rotate(${rotation} 500 500)`)
+          transform.push(`rotate(${rotation} ${artwork.tileSize / 2} ${artwork.tileSize / 2})`)
         }
         if (featureTransform) {
           transform.push(featureTransform)

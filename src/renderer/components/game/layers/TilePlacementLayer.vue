@@ -10,15 +10,16 @@
         opacity="0.8"
         clip-path="polygon(0 0, 1000 0, 1000 1000, 0 1000)"
       >
-        <image
-          v-if="background"
-          :href="background.image"
-          :transform="backgroundScale"
-        />
-        <TileImage
-          :tile-id="tileId"
-          :rotation="getForcedRotation(rotations)"
-        />
+        <g :transform="scale">
+          <image
+            v-if="background"
+            :href="background.image"
+          />
+          <TileImage
+            :tile-id="tileId"
+            :rotation="getForcedRotation(rotations)"
+          />
+        </g>
       </g>
       <rect
         v-else
@@ -64,9 +65,20 @@ export default {
   },
 
   computed: {
+    artwork () {
+      return this.$theme.getTileArtwork(this.tileId)
+    },
+
+    scale () {
+      if (!this.artwork || this.artwork.tileSize === 1000) {
+        return ''
+      }
+      const s = 1000 / this.artwork.tileSize
+      return `scale(${s} ${s})`
+    },
+
     background () {
-      const artwork = this.$theme.getTileArtwork(this.tileId)
-      return artwork ? artwork.background : null
+      return this.artwork?.background
     },
 
     backgroundScale () {

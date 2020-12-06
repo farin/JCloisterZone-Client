@@ -7,7 +7,7 @@
           :key="artwork.id + '/bg'"
           :width="artwork.background.cols * 1000"
           :height="artwork.background.rows * 1000"
-          :viewBox="`0 0 ${artwork.background.width} ${artwork.background.height}`"
+          :viewBox="`0 0 ${artwork.background.cols * artwork.tileSize} ${artwork.background.rows * artwork.tileSize}`"
           patternUnits="userSpaceOnUse"
         >
           <image :href="artwork.background.image" />
@@ -65,13 +65,16 @@
       </g>
     </g>
 
-    <TileImage
+    <g
       v-for="({position: pos, rotation: rot, id}) in tilesSorted"
       :key="positionAsKey(pos)"
-      :transform="transformPosition(pos)"
-      :tile-id="id"
-      :rotation="rot"
-    />
+      :transform="`${transformPosition(pos)} ${scale(id)}`"
+    >
+      <TileImage
+        :tile-id="id"
+        :rotation="rot"
+      />
+    </g>
 
     <g
       v-for="({ position: pos, player }) in lastPlacements"
@@ -154,6 +157,17 @@ export default {
 
     artworksWithBackground () {
       return Object.keys(this.tilesByArtwork).map(id => this.$theme.getArtwork(id)).filter(artwork => artwork && artwork.background)
+    }
+  },
+
+  methods: {
+    scale (id) {
+      const artwork = this.$theme.getTileArtwork(id)
+      if (!artwork || artwork.tileSize === 1000) {
+        return ''
+      }
+      const s = 1000 / artwork.tileSize
+      return `scale(${s} ${s})`
     }
   }
 }

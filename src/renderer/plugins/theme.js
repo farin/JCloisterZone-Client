@@ -52,22 +52,32 @@ class Theme {
       __resources + '/artworks/'
     ]
 
-    const installedArtworks = []
-
     async function readArtwork (id, fullPath) {
       const stats = await fs.promises.stat(fullPath)
       if (stats.isDirectory()) {
         const jsonPath = path.join(fullPath, 'artwork.json')
         try {
           await fs.promises.access(jsonPath, fs.constants.R_OK)
-          installedArtworks.push({
+          return {
             id,
             folder: fullPath,
             jsonFile: jsonPath
-          })
+          }
         } catch (e) {
           // not plugin folder, do nothing
         }
+      }
+      return null
+    }
+
+    const installedArtworks = []
+    const installedArtworksIds = new Set()
+
+    for (const fullPath of settings.userArtworks) {
+      const artwork = await readArtwork(path.basename(fullPath), fullPath)
+      if (artwork && !installedArtworksIds.has(artwork.id)) {
+        installedArtworks.push(artwork)
+        installedArtworksIds.add(artwork.id)
       }
     }
 
@@ -79,14 +89,18 @@ class Theme {
         console.log(`${lookupFolder} does not exist`)
         continue
       }
-      for (const f of listing) {
-        const fullPath = path.join(lookupFolder, f)
-        await readArtwork(f, fullPath)
+      for (const id of listing) {
+        // when same artwok is on path twice, register first found
+        // this allowes overide from user path
+        if (!installedArtworksIds.has(id)) {
+          const fullPath = path.join(lookupFolder, id)
+          const artwork = await readArtwork(id, fullPath)
+          if (artwork) {
+            installedArtworks.push(artwork)
+            installedArtworksIds.add(id)
+          }
+        }
       }
-    }
-
-    for (const fullPath of settings.userArtworks) {
-      await readArtwork(path.basename(fullPath), fullPath)
     }
 
     let resourcesContainer = document.getElementById('theme-resources')
@@ -98,6 +112,7 @@ class Theme {
       document.body.appendChild(resourcesContainer)
     }
 
+    // console.log('Installed artworks: ', installedArtworks)
     this.installedArtworks = installedArtworks
     await this.loadArtworks()
   }
@@ -129,6 +144,8 @@ class Theme {
     artwork.symbols = {}
     artwork.features = artwork.features || {}
     artwork.tiles = artwork.tiles || {}
+    artwork.tileSize = parseInt(artwork['tile-size'])
+    delete artwork['tile-size']
 
     for (const res of artwork.resources || []) {
       if (path.extname(res) !== '.svg') {
@@ -142,9 +159,7 @@ class Theme {
         const symbolId = `${id}-${el.getAttribute('id')}`
         el.setAttribute('id', symbolId)
         const [w, h] = el.getAttribute('viewBox').split(' ').slice(2).map(val => parseInt(val))
-        if (w !== h) {
-          artwork.symbols[symbolId] = { ratio: [w, h] }
-        }
+        artwork.symbols[symbolId] = { size: [w, h] }
       })
       doc.querySelectorAll('image').forEach(el => el.setAttribute('href', pathPrefix + el.getAttribute('href')))
       document.getElementById('theme-resources').innerHTML = doc.documentElement.outerHTML

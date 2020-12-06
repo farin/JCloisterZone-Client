@@ -1,13 +1,12 @@
 <template>
   <svg
     class="tile-img"
-    viewBox="0 0 1000 1000"
+    :viewBox="`0 0 ${artwork.tileSize} ${artwork.tileSize}`"
     v-bind="sizeAttrs"
   >
     <image
       v-if="background"
       :href="background.image"
-      :transform="backgroundScale"
     />
     <TileImage
       :tile-id="tileId"
@@ -31,9 +30,12 @@ export default {
   },
 
   computed: {
+    artwork () {
+      return this.$theme.getTileArtwork(this.tileId)
+    },
+
     background () {
-      const tile = this.$theme.getTileArtwork(this.tileId)
-      return tile ? tile.background : null
+      return this.artwork?.background
     },
 
     sizeAttrs () {
@@ -42,12 +44,6 @@ export default {
         return { width: size, height: size }
       }
       return {}
-    },
-
-    backgroundScale () {
-      const w = this.background.width / this.background.cols
-      const h = this.background.height / this.background.rows
-      return `scale(${1000 / w} ${1000 / h})`
     }
   }
 }
