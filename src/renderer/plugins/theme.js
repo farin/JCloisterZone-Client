@@ -5,9 +5,22 @@ import { remote } from 'electron'
 
 import isString from 'lodash/isString'
 import isObject from 'lodash/isObject'
+import sortBy from 'lodash/sortBy'
 
 import Location from '@/models/Location'
-import { includes } from 'lodash'
+
+const FEATURE_ORDER = {
+  N: 10,
+  NW: 11,
+  NE: 12,
+  W: 20,
+  SW: 21,
+  E: 30,
+  S: 40,
+  SE: 41,
+  TOWER: 50,
+  CLOISTER: 51
+}
 
 const makeAbsPath = (prefix, path, artworkId = null) => {
   if (!path || path[0] === '/') {
@@ -215,13 +228,14 @@ class Theme {
         features: {}
       }
 
-      if (data.background) {
-        makeAbsPathProp(pathPrefix, data, 'background', id)
-        tile.background = data.background
-      }
-      if (data.foreground) {
-        makeAbsPathProp(pathPrefix, data, 'foreground', id)
-        tile.foreground = data.foreground
+      if (data.image) {
+        if (data.image.href) {
+          makeAbsPathProp(pathPrefix, data.image, 'href', id)
+          tile.image = data.image
+        } else {
+          makeAbsPathProp(pathPrefix, data, 'image', id)
+          tile.image = data.image
+        }
       }
 
       Object.entries(data.features).forEach(([loc, f]) => {
@@ -309,6 +323,107 @@ class Theme {
       transform: feature.transform,
       rotation: r
     }
+  }
+
+  _createTileLayer (artwork, image, featureTransform, perspective, rotation) {
+    let href
+    if (image.href) {
+      href = image.href
+    } else {
+      href = image
+    }
+
+    const svgRef = href[0] === '#' || href.includes('.svg#')
+    let width = artwork.tileSize
+    let height = artwork.tileSize
+    const x = image.x || 0
+    const y = image.y || 0
+
+    if (svgRef) {
+      const size = artwork.symbols[href.substring(1)]?.size
+      if (size === undefined) {
+        console.warn(`Size symbol is missing for ${href}`)
+      } else {
+        width = size[0]
+        height = size[1]
+      }
+    }
+
+    const layer = {
+      tag: svgRef ? 'use' : 'image',
+      props: { x, y, width, height, href }
+    }
+
+    const transform = []
+    if (perspective === 'rotate' && rotation) {
+      transform.push(`rotate(${rotation} ${artwork.tileSize / 2} ${artwork.tileSize / 2})`)
+    }
+    if (featureTransform) {
+      transform.push(featureTransform)
+    }
+    if (image.transform) {
+      transform.push(image.transform)
+    }
+    if (transform.length) {
+      layer.props.transform = transform.join(' ')
+    }
+
+    return layer
+  }
+
+  getTileLayers (id, rotation) {
+    const tile = this.getTile(id)
+    if (!tile) {
+      return []
+    }
+
+    const getRecordForRotation = (obj, rotation) => {
+      const rotKey = '@' + (rotation / 90)
+      if (obj && obj[rotKey]) {
+        obj = obj[rotKey]
+      }
+      return obj
+    }
+
+    const { artwork } = tile
+    const layers = []
+
+    if (tile.image) {
+      const image = getRecordForRotation(tile.image, rotation)
+      if (isString(image) || image.href) {
+        const layer = this._createTileLayer(artwork, image, null, artwork.perspective, rotation)
+        layer.order = 1
+        layers.push(layer)
+      }
+    }
+
+    Object.entries(tile.features).forEach(([loc, f]) => {
+      const perspective = f.perspective || artwork.perspective
+      let r = rotation
+      if (f.rotate) {
+        r = (r + f.rotate) % 360
+      }
+
+      f = getRecordForRotation(f, r)
+
+      const processImage = (image, t) => {
+        const order = FEATURE_ORDER[loc]
+        const layer = this._createTileLayer(artwork, image, f.transform, perspective, r)
+        layer.order = order === undefined ? 9 : order
+        layers.push(layer)
+      }
+
+      if (f.image) {
+        processImage(f.image)
+      }
+      if (f.images) {
+        for (const img of f.images) {
+          processImage(img)
+        }
+      }
+    })
+
+    return sortBy(layers, 'order')
   }
 }
 
