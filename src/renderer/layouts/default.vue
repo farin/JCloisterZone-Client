@@ -359,4 +359,7 @@ svg, g, use
 .settings-dialog
   height: 80vh
   display: grid
+
+#theme-resources
+  display: none
 </style>

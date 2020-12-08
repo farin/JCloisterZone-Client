@@ -10,7 +10,7 @@
         opacity="0.8"
         clip-path="polygon(0 0, 1000 0, 1000 1000, 0 1000)"
       >
-        <g :transform="scale">
+        <g :transform="artwork.scaleTransform">
           <image
             v-if="background"
             :href="background.image"
@@ -67,14 +67,6 @@ export default {
   computed: {
     artwork () {
       return this.$theme.getTileArtwork(this.tileId)
-    },
-
-    scale () {
-      if (!this.artwork || this.artwork.tileSize === 1000) {
-        return ''
-      }
-      const s = 1000 / this.artwork.tileSize
-      return `scale(${s} ${s})`
     },
 
     background () {

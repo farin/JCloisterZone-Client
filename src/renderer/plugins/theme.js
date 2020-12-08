@@ -54,6 +54,7 @@ class Theme {
   constructor (ctx) {
     this.artworks = {}
     this.tiles = {}
+    this.tileLayers = {}
     this.ctx = ctx
   }
 
@@ -145,6 +146,7 @@ class Theme {
 
     this.artworks = this._artworks
     this.tiles = this._tiles
+    this.tileLayers = {}
     delete this._artwork
     delete this._tiles
   }
@@ -157,8 +159,15 @@ class Theme {
     artwork.symbols = {}
     artwork.features = artwork.features || {}
     artwork.tiles = artwork.tiles || {}
-    artwork.tileSize = parseInt(artwork['tile-size'])
+    artwork.tileSize = parseInt(artwork['tile-size']) || 1000
     delete artwork['tile-size']
+
+    if (artwork.tileSize === 1000) {
+      artwork.scaleTransform = ''
+    } else {
+      const s = 1000 / artwork.tileSize
+      artwork.scaleTransform = `scale(${s} ${s})`
+    }
 
     for (const res of artwork.resources || []) {
       if (path.extname(res) !== '.svg') {
@@ -181,6 +190,9 @@ class Theme {
     artwork.id = id
     if (artwork.background) {
       artwork.background.image = makeAbsPath(pathPrefix, artwork.background.image)
+      // and preload
+      const img = new Image()
+      img.src = artwork.background.image
     }
 
     const processFeature = (featureId, data) => {
@@ -372,9 +384,15 @@ class Theme {
   }
 
   getTileLayers (id, rotation) {
+    const cacheKey = `${id}@${rotation}`
+    const cachedValue = this.tileLayers[cacheKey]
+    if (cachedValue) {
+      return cachedValue
+    }
+
     const tile = this.getTile(id)
     if (!tile) {
-      return []
+      throw new Error(`Unknown tile id ${id}`)
     }
 
     const getRecordForRotation = (obj, rotation) => {
@@ -423,7 +441,10 @@ class Theme {
       }
     })
 
-    return sortBy(layers, 'order')
+    return (this.tileLayers[cacheKey] = {
+      artwork,
+      layers: sortBy(layers, 'order')
+    })
   }
 }
 

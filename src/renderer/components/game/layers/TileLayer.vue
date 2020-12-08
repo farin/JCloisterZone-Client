@@ -1,7 +1,7 @@
 <template>
   <g id="tile-layer">
     <defs>
-      <template v-for="artwork in artworksWithBackground">
+      <template v-for="({ artwork, positions }) in artworksWithBackground">
         <pattern
           :id="artwork.id + '/bg'"
           :key="artwork.id + '/bg'"
@@ -18,7 +18,7 @@
           :key="artwork.id + '/placed-tiles-clip'"
         >
           <rect
-            v-for="({position: pos}) in tilesByArtwork[artwork.id]"
+            v-for="pos in positions"
             :key="'clip-' + positionAsKey(pos)"
             width="1000"
             height="1000"
@@ -41,7 +41,7 @@
     </g>
 
     <rect
-      v-for="artwork in artworksWithBackground"
+      v-for="({ artwork }) in artworksWithBackground"
       :key="artwork.id + '/bg-rect'"
       :x="1000 * bounds.x"
       :y="1000 * bounds.y"
@@ -106,6 +106,13 @@ export default {
 
   mixins: [LayerMixin],
 
+  data () {
+    return {
+      artworks: {},
+      artworksWithBackground: []
+    }
+  },
+
   computed: {
     ...mapState({
       tiles: state => state.game.placedTiles,
@@ -140,34 +147,44 @@ export default {
 
     tilesSorted () {
       return sortBy(this.tiles, t => t.position[1] << 8 + t.position[0])
-    },
-
-    tilesByArtwork () {
-      const res = {}
-      this.tiles.forEach(t => {
-        const { artwork } = this.$theme.getTile(t.id)
-        let tiles = res[artwork.id]
-        if (!tiles) {
-          tiles = res[artwork.id] = []
-        }
-        tiles.push(t)
-      })
-      return res
-    },
-
-    artworksWithBackground () {
-      return Object.keys(this.tilesByArtwork).map(id => this.$theme.getArtwork(id)).filter(artwork => artwork && artwork.background)
     }
+  },
+
+  watch: {
+    tiles (tiles) {
+      this.onTilesChange(tiles)
+    }
+  },
+
+  mounted () {
+    this.onTilesChange(this.tiles)
   },
 
   methods: {
     scale (id) {
       const artwork = this.$theme.getTileArtwork(id)
-      if (!artwork || artwork.tileSize === 1000) {
-        return ''
+      return artwork.scaleTransform
+    },
+
+    onTilesChange (tiles) {
+      console.log('TILES', tiles)
+      // const tilesAndLayers = []
+      const artworks = {}
+      for (const tile of sortBy(this.tiles, t => t.position[1] << 8 + t.position[0])) {
+        const { artwork, layers } = this.$theme.getTileLayers(tile.id, tile.rotation)
+        let artworkData = artworks[artwork.id]
+        if (!artworkData) {
+          artworkData = artworks[artwork.id] = {
+            artwork: this.$theme.getArtwork(artwork.id),
+            positions: []
+          }
+        }
+        artworkData.positions.push(tile.position)
       }
-      const s = 1000 / artwork.tileSize
-      return `scale(${s} ${s})`
+      this.artworks = Object.values(artworks)
+      this.artworksWithBackground = this.artworks.filter(({ artwork }) => artwork.background)
+      console.log(this.artworks)
+      console.log(this.artworksWithBackground)
     }
   }
 }

@@ -26,7 +26,7 @@ export default {
 
   computed: {
     layers () {
-      return this.$theme.getTileLayers(this.tileId, this.rotation)
+      return this.$theme.getTileLayers(this.tileId, this.rotation)?.layers
     }
   }
 }
