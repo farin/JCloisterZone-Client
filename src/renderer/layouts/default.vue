@@ -151,7 +151,7 @@ export default {
           { id: 'zoom-in', label: 'Zoom In', accelerator: 'numadd', click: this.zoomIn },
           { id: 'zoom-out', label: 'Zoom Out', accelerator: 'numsub', click: this.zoomOut },
           { type: 'separator' },
-          { id: 'toggle-history', label: 'Toggle history', accelerator: 'h', click: this.toggleGameHistory },
+          { id: 'toggle-history', label: 'Toggle history', accelerator: 'h', click: this.toggleGameHistory }
 
         ]
       }, {
@@ -280,7 +280,7 @@ export default {
         engineVersion: this.$store.state.engine?.version,
         date: (new Date()).toISOString(),
         os: `${os.platform()} ${os.release()}`,
-        java: this.java ? `${this.java.vendor} ${this.java.version}`: '',
+        java: this.java ? `${this.java.vendor} ${this.java.version}` : '',
         ...this.$server.getServer().dump()
       }
 

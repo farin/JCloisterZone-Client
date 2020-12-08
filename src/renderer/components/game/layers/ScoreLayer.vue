@@ -59,7 +59,7 @@ export default {
           if (ev.type === 'points') {
             ev.points.forEach(p => {
               if (p.ptr) {
-                items.push(this.gameEnd && i != len-1 ? {...p, inGame: true} : p)
+                items.push(this.gameEnd && i !== len - 1 ? { ...p, inGame: true } : p)
               }
             })
           }
