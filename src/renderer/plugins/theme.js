@@ -71,12 +71,11 @@ class Theme {
       if (stats.isDirectory()) {
         const jsonPath = path.join(fullPath, 'artwork.json')
         try {
-          await fs.promises.access(jsonPath, fs.constants.R_OK)
-          return {
-            id,
-            folder: fullPath,
-            jsonFile: jsonPath
+          const json = JSON.parse(await fs.promises.readFile(jsonPath))
+          if (json.icon) {
+            json.icon = path.join(fullPath, json.icon)
           }
+          return { id, folder: fullPath, json }
         } catch (e) {
           // not plugin folder, do nothing
         }
@@ -151,16 +150,23 @@ class Theme {
     delete this._tiles
   }
 
-  async loadArtwork ({ id, folder, jsonFile }) {
-    const artwork = this._artworks[id] = JSON.parse(await fs.promises.readFile(jsonFile))
-    const artworkRootDir = path.dirname(jsonFile)
+  async loadArtwork ({ id, folder, json, jsonFile }) {
+    const artwork = this._artworks[id] = {
+      id,
+      title: json.title || id,
+      icon: json.icon,
+      artist: json.artist,
+      description: json.description,
+      version: json.version,
+      perspective: json.perspective || 'rotate',
+      background: null,
+      tileSize: parseInt(json['tile-size']) || 1000
+    }
     const pathPrefix = `file:///${folder}/`
 
     artwork.symbols = {}
-    artwork.features = artwork.features || {}
-    artwork.tiles = artwork.tiles || {}
-    artwork.tileSize = parseInt(artwork['tile-size']) || 1000
-    delete artwork['tile-size']
+    artwork.features = {}
+    artwork.tiles = {}
 
     if (artwork.tileSize === 1000) {
       artwork.scaleTransform = ''
@@ -169,12 +175,18 @@ class Theme {
       artwork.scaleTransform = `scale(${s} ${s})`
     }
 
-    for (const res of artwork.resources || []) {
+    if (json.background) {
+      artwork.background = { ...json.background }
+      artwork.background.image = makeAbsPath(pathPrefix, artwork.background.image)
+      // TODO preload background
+    }
+
+    for (const res of json.resources || []) {
       if (path.extname(res) !== '.svg') {
         console.error('Only SVG resources are allowed')
         continue
       }
-      const content = await fs.promises.readFile(path.join(artworkRootDir, res))
+      const content = await fs.promises.readFile(path.join(folder, res))
       const parser = new DOMParser()
       const doc = parser.parseFromString(content, 'image/svg+xml')
       doc.querySelectorAll('symbol').forEach(el => {
@@ -185,12 +197,6 @@ class Theme {
       })
       doc.querySelectorAll('image').forEach(el => el.setAttribute('href', pathPrefix + el.getAttribute('href')))
       document.getElementById('theme-resources').innerHTML = doc.documentElement.outerHTML
-    }
-
-    artwork.id = id
-    if (artwork.background) {
-      artwork.background.image = makeAbsPath(pathPrefix, artwork.background.image)
-      // TODO preload background
     }
 
     const processFeature = (featureId, data) => {
@@ -215,12 +221,13 @@ class Theme {
       })
     }
 
-    Object.entries(artwork.features).forEach(([featureId, data]) => processFeature(featureId, data))
-    for (const fname of artwork['features-include'] || []) {
-      const content = JSON.parse(await fs.promises.readFile(path.join(artworkRootDir, fname)))
+    const features = {}
+
+    for (const fname of json['features-include'] || []) {
+      const content = JSON.parse(await fs.promises.readFile(path.join(folder, fname)))
       Object.entries(content).forEach(([featureId, data]) => {
         processFeature(featureId, data)
-        artwork.features[featureId] = data
+        features[featureId] = data
       })
     }
 
@@ -250,10 +257,10 @@ class Theme {
 
       Object.entries(data.features).forEach(([loc, f]) => {
         if (isString(f)) {
-          f = artwork.features[f]
+          f = features[f]
         } else if (isObject(f)) {
           if (f.id) {
-            const sharedFeature = artwork.features[f.id]
+            const sharedFeature = features[f.id]
             Object.assign(f, sharedFeature)
           }
         }
@@ -263,14 +270,10 @@ class Theme {
       this._tiles[tileId] = tile
     }
 
-    Object.entries(artwork.tiles).forEach(([tileId, data]) => processTile(tileId, data))
-    for (const fname of artwork['tiles-include'] || []) {
-      const content = JSON.parse(await fs.promises.readFile(path.join(artworkRootDir, fname)))
+    for (const fname of json['tiles-include'] || []) {
+      const content = JSON.parse(await fs.promises.readFile(path.join(folder, fname)))
       Object.entries(content).forEach(([tileId, data]) => processTile(tileId, data))
     }
-
-    delete artwork.features
-    delete artwork.tiles
 
     console.log(`Loaded artwork '${id}' from ${folder}`)
   }

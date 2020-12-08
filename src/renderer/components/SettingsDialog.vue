@@ -104,6 +104,23 @@
                 value="dark"
               />
             </v-radio-group>
+
+            <h4>Artworks</h4>
+
+            <div
+              v-for="{ json: artwork } in $theme.installedArtworks"
+              :key="artwork.id"
+              class="artwork-box"
+            >
+              <div class="artwork-icon">
+                <img v-if="artwork.icon" :src="artwork.icon">
+              </div>
+              <div>
+                <h5>{{ artwork.title }}</h5>
+                <p>{{ artwork.description }}</p>
+                <p v-if="artwork.artist" class="artist">(illustrated by {{ artwork.artist }})</p>
+              </div>
+            </div>
           </template>
 
           <template v-if="section === 3">
@@ -296,4 +313,31 @@ em
 .checkboxes-wrapper
   .v-input
     margin-top: 0
+
+.artwork-box
+  display: flex
+  padding: 16px
+  margin-top: 20px
+
+  +theme using ($theme)
+    background: map-get($theme, 'board-bg')
+
+  h5
+    font-size: 16px
+    margin-bottom: 10px
+
+  p
+    margin-bottom: 2px
+
+  .artwork-icon
+    width: 120px
+    height: 120px
+    margin-right: 16px
+
+    +theme using ($theme)
+      background: map-get($theme, 'cards-bg')
+
+    img
+      object-fit: cover
+      max-width: 100%
 </style>
