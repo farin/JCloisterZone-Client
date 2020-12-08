@@ -66,13 +66,15 @@
     </g>
 
     <g
-      v-for="({position: pos, rotation: rot, id}) in tilesSorted"
-      :key="positionAsKey(pos)"
-      :transform="`${transformPosition(pos)} ${scale(id)}`"
+      v-for="bucket in layerBuckets"
+      :key="bucket.id"
+      :transform="bucket.transform"
     >
-      <TileImage
-        :tile-id="id"
-        :rotation="rot"
+      <component
+        :is="layer.tag"
+        v-for="(layer, idx) in bucket.layers"
+        :key="idx"
+        v-bind="layer.props"
       />
     </g>
 
@@ -109,7 +111,8 @@ export default {
   data () {
     return {
       artworks: {},
-      artworksWithBackground: []
+      artworksWithBackground: [],
+      layerBuckets: []
     }
   },
 
@@ -161,14 +164,8 @@ export default {
   },
 
   methods: {
-    scale (id) {
-      const artwork = this.$theme.getTileArtwork(id)
-      return artwork.scaleTransform
-    },
-
     onTilesChange (tiles) {
-      console.log('TILES', tiles)
-      // const tilesAndLayers = []
+      const tileLayers = {}
       const artworks = {}
       for (const tile of sortBy(this.tiles, t => t.position[1] << 8 + t.position[0])) {
         const { artwork, layers } = this.$theme.getTileLayers(tile.id, tile.rotation)
@@ -180,11 +177,37 @@ export default {
           }
         }
         artworkData.positions.push(tile.position)
+
+        for (const layer of layers) {
+          let zval = tileLayers[layer.zindex]
+          if (!zval) {
+            zval = tileLayers[layer.zindex] = []
+          }
+          zval.push({ tile, artwork, layer })
+        }
       }
+      const zindexes = Object.keys(tileLayers).map(k => ~~k)
+      zindexes.sort((a, b) => a - b)
+      const buckets = []
+      for (const z of zindexes) {
+        let bucket = null
+        for (const { tile, artwork, layer } of tileLayers[z]) {
+          // positions can be compared as ref because equal positions must originate from same tile instance
+          if (!bucket || tile.position !== bucket.position) {
+            bucket = {
+              id: `${this.positionAsKey(tile.position)}^${z}`,
+              position: tile.position,
+              transform: `${this.transformPosition(tile.position)} ${artwork.scaleTransform}`,
+              layers: []
+            }
+            buckets.push(bucket)
+          }
+          bucket.layers.push(layer)
+        }
+      }
+      this.layerBuckets = buckets
       this.artworks = Object.values(artworks)
       this.artworksWithBackground = this.artworks.filter(({ artwork }) => artwork.background)
-      console.log(this.artworks)
-      console.log(this.artworksWithBackground)
     }
   }
 }

@@ -190,9 +190,7 @@ class Theme {
     artwork.id = id
     if (artwork.background) {
       artwork.background.image = makeAbsPath(pathPrefix, artwork.background.image)
-      // and preload
-      const img = new Image()
-      img.src = artwork.background.image
+      // TODO preload background
     }
 
     const processFeature = (featureId, data) => {
@@ -363,7 +361,8 @@ class Theme {
 
     const layer = {
       tag: svgRef ? 'use' : 'image',
-      props: { x, y, width, height, href }
+      props: { x, y, width, height, href },
+      zindex: image.zindex || 1
     }
 
     const transform = []
@@ -404,7 +403,7 @@ class Theme {
     }
 
     const { artwork } = tile
-    const layers = []
+    let layers = []
 
     if (tile.image) {
       const image = getRecordForRotation(tile.image, rotation)
@@ -441,9 +440,13 @@ class Theme {
       }
     })
 
+    layers = sortBy(layers, 'order')
+    layers = sortBy(layers, 'zindex')
+    layers.forEach(layer => { delete layer.order })
+
     return (this.tileLayers[cacheKey] = {
       artwork,
-      layers: sortBy(layers, 'order')
+      layers
     })
   }
 }
