@@ -3,7 +3,6 @@ import path from 'path'
 import Vue from 'vue'
 import { remote } from 'electron'
 
-
 import isString from 'lodash/isString'
 import isObject from 'lodash/isObject'
 import sortBy from 'lodash/sortBy'

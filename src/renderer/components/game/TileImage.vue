@@ -4,7 +4,8 @@
       :is="layer.tag"
       v-for="(layer, idx) in layers"
       :key="idx"
-      v-bind="layer.props">{{ layer.content }}</component>
+      v-bind="layer.props"
+    />
   </g>
 </template>
 
