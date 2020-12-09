@@ -3,6 +3,7 @@ import path from 'path'
 import Vue from 'vue'
 import { remote } from 'electron'
 
+
 import isString from 'lodash/isString'
 import isObject from 'lodash/isObject'
 import sortBy from 'lodash/sortBy'
@@ -65,6 +66,14 @@ class Theme {
     this.tiles = {}
     this.tileLayers = {}
     this.ctx = ctx
+
+    this.REMOTE_ARTWORKS = {
+      classic: {
+        url: 'https://jcloisterzone.com/artworks/classic/classic-2-5.3.0.zip',
+        version: '2 (5.3.0)',
+        sha256: '32aa7bbfc5e74bb9cdeb718af956741d79223237e015a5c198c92d7506b3b842'
+      }
+    }
   }
 
   async loadPlugins () {
@@ -75,19 +84,44 @@ class Theme {
       __resources + '/artworks/'
     ]
 
-    async function readArtwork (id, fullPath) {
+    const readArtwork = async (id, fullPath) => {
       const stats = await fs.promises.stat(fullPath)
       if (stats.isDirectory()) {
         const jsonPath = path.join(fullPath, 'artwork.json')
+        let json
         try {
-          const json = JSON.parse(await fs.promises.readFile(jsonPath))
+          json = JSON.parse(await fs.promises.readFile(jsonPath))
+        } catch (e) {
+          // not plugin folder, do nothing
+          return null
+        }
+        try {
           json.id = id
           if (json.icon) {
             json.icon = path.join(fullPath, json.icon)
           }
-          return { id, folder: fullPath, json }
+          const artwork = {
+            id,
+            folder: fullPath,
+            json,
+            remote: this.REMOTE_ARTWORKS[id] || null
+          }
+          if (artwork.remote) {
+            if (artwork.json.version !== artwork.remote.version) {
+              // temporary migration to new version scheme
+              const currentVersion = id === 'classic' && artwork.json.version === '5.0.4' ? 0 : ~~artwork.json.version.split(' ')[0]
+              const requiredVersion = ~~artwork.remote.version.split(' ')[0]
+              if (currentVersion < requiredVersion) {
+                console.log(`Artwork ${id} is outdated (current ${currentVersion}, reqired ${requiredVersion})`)
+                artwork.outdated = true
+              }
+            }
+          }
+
+          return artwork
         } catch (e) {
-          // not plugin folder, do nothing
+          // unexpected error
+          console.error(e)
         }
       }
       return null
