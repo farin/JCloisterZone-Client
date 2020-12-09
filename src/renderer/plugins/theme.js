@@ -9,6 +9,12 @@ import sortBy from 'lodash/sortBy'
 
 import Location from '@/models/Location'
 
+const NULL_ARTWORK = {
+  id: '_null',
+  tileSize: 1000,
+  background: null
+}
+
 const FEATURE_ORDER = {
   N: 10,
   NW: 11,
@@ -72,6 +78,7 @@ class Theme {
         const jsonPath = path.join(fullPath, 'artwork.json')
         try {
           const json = JSON.parse(await fs.promises.readFile(jsonPath))
+          json.id = id
           if (json.icon) {
             json.icon = path.join(fullPath, json.icon)
           }
@@ -103,7 +110,7 @@ class Theme {
         continue
       }
       for (const id of listing) {
-        // when same artwok is on path twice, register first found
+        // when same artwork is on path twice, register first found
         // this allowes overide from user path
         if (!installedArtworksIds.has(id)) {
           const fullPath = path.join(lookupFolder, id)
@@ -394,7 +401,10 @@ class Theme {
 
     const tile = this.getTile(id)
     if (!tile) {
-      throw new Error(`Unknown tile id ${id}`)
+      return {
+        artwork: NULL_ARTWORK,
+        layers: []
+      }
     }
 
     const getRecordForRotation = (obj, rotation) => {

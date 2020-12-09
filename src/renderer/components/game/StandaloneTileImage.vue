@@ -1,7 +1,7 @@
 <template>
   <svg
     class="tile-img"
-    :viewBox="`0 0 ${artwork.tileSize} ${artwork.tileSize}`"
+    :viewBox="`0 0 ${tileSize} ${tileSize}`"
     v-bind="sizeAttrs"
   >
     <image
@@ -32,6 +32,10 @@ export default {
   computed: {
     artwork () {
       return this.$theme.getTileArtwork(this.tileId)
+    },
+
+    tileSize () {
+      return this.artwork?.tileSize || 1000
     },
 
     background () {

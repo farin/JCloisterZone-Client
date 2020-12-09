@@ -111,6 +111,7 @@
               v-for="{ json: artwork } in $theme.installedArtworks"
               :key="artwork.id"
               class="artwork-box"
+              :class="{ disabled: !isArtworkEnabled(artwork.id) }"
             >
               <div class="artwork-icon">
                 <img v-if="artwork.icon" :src="artwork.icon">
@@ -272,6 +273,10 @@ export default {
       if (!this.engine && this.java?.ok) {
         this.$store.dispatch('checkEngineVersion')
       }
+    },
+
+    isArtworkEnabled (id) {
+      return this.$store.state.settings.enabledArtworks.includes(id)
     }
   }
 }
@@ -340,4 +345,11 @@ em
     img
       object-fit: cover
       max-width: 100%
+
+  &.disabled
+    filter: grayscale(100%)
+
+    p
+      opacity: 0.75
+
 </style>
