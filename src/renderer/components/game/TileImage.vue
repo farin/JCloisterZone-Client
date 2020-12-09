@@ -4,16 +4,7 @@
       :is="layer.tag"
       v-for="(layer, idx) in layers"
       :key="idx"
-      v-bind="layer.props"
-    />
-    <text
-      v-if="!layers.length"
-      x="150"
-      y="480"
-      :style="{ 'font-size': '128px', 'fill': 'red' }"
-    >
-      {{ tileId }}
-    </text>
+      v-bind="layer.props">{{ layer.content }}</component>
   </g>
 </template>
 
@@ -26,7 +17,7 @@ export default {
 
   computed: {
     layers () {
-      return this.$theme.getTileLayers(this.tileId, this.rotation)?.layers
+      return this.$theme.getTileLayers(this.tileId, this.rotation).layers
     }
   }
 }

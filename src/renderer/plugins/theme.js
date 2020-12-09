@@ -12,7 +12,8 @@ import Location from '@/models/Location'
 const NULL_ARTWORK = {
   id: '_null',
   tileSize: 1000,
-  background: null
+  background: null,
+  scaleTransform: ''
 }
 
 const FEATURE_ORDER = {
@@ -27,6 +28,8 @@ const FEATURE_ORDER = {
   TOWER: 50,
   CLOISTER: 51
 }
+
+const MISC_SVG = require('~/assets/misc.svg')
 
 const makeAbsPath = (prefix, path, artworkId = null) => {
   if (!path || path[0] === '/') {
@@ -403,7 +406,7 @@ class Theme {
     if (!tile) {
       return {
         artwork: NULL_ARTWORK,
-        layers: []
+        layers: [{ tag: 'use', props: { 'data-tile-id': id, 'href': `${MISC_SVG}#missing-image` }, zindex: 1 }]
       }
     }
 
