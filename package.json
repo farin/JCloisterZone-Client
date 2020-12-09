@@ -42,15 +42,15 @@
     "electron-builder": "22.9.1",
     "electron-debug": "3.1.0",
     "electron-devtools-installer": "^3.1.1",
-    "eslint": "7.11.0",
+    "eslint": "7.15.0",
     "eslint-friendly-formatter": "4.0.1",
     "eslint-loader": "4.0.2",
     "native-ext-loader": "2.3.0",
     "node-sass": "4.14.1",
-    "nuxt": "2.14.7",
+    "nuxt": "2.14.10",
     "roboto-fontface": "0.10.0",
-    "sass-loader": "10.0.4",
-    "vuetify": "2.3.15",
+    "sass-loader": "10.1.0",
+    "vuetify": "2.3.21",
     "webpack": "4.44.2",
     "webpack-node-externals": "2.5.2"
   },
@@ -66,7 +66,7 @@
     "typeface-roboto": "^1.1.13",
     "unzipper": "^0.10.11",
     "username": "^5.1.0",
-    "uuid": "^8.3.1",
-    "ws": "^7.3.1"
+    "uuid": "^8.3.2",
+    "ws": "^7.4.1"
   }
 }
