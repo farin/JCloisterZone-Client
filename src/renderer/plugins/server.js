@@ -19,7 +19,6 @@ export class GameServer {
     this.app = app // hack for now, read replay from game store
     this.engineVersion = engineVersion
     this.appVersion = appVersion
-    console.log(game.replay)
     this.game = {
       gameId: game.gameId,
       setup: game.setup,
@@ -309,7 +308,7 @@ export class GameServer {
 
   createGameMessage () {
     const started = this.status === 'started'
-    let game = {
+    const game = {
       ...this.game,
       replay: this.status === 'new' ? null : this.replay
     }

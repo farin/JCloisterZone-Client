@@ -3,11 +3,34 @@ import path from 'path'
 import Vue from 'vue'
 import { remote } from 'electron'
 
+
 import isString from 'lodash/isString'
 import isObject from 'lodash/isObject'
+import sortBy from 'lodash/sortBy'
 
 import Location from '@/models/Location'
-import { includes } from 'lodash'
+
+const NULL_ARTWORK = {
+  id: '_null',
+  tileSize: 1000,
+  background: null,
+  scaleTransform: ''
+}
+
+const FEATURE_ORDER = {
+  N: 10,
+  NW: 11,
+  NE: 12,
+  W: 20,
+  SW: 21,
+  E: 30,
+  S: 40,
+  SE: 41,
+  TOWER: 50,
+  CLOISTER: 51
+}
+
+const MISC_SVG = require('~/assets/misc.svg')
 
 const makeAbsPath = (prefix, path, artworkId = null) => {
   if (!path || path[0] === '/') {
@@ -41,7 +64,16 @@ class Theme {
   constructor (ctx) {
     this.artworks = {}
     this.tiles = {}
+    this.tileLayers = {}
     this.ctx = ctx
+
+    this.REMOTE_ARTWORKS = {
+      classic: {
+        url: 'https://jcloisterzone.com/artworks/classic/classic-2-5.3.0.zip',
+        version: '2 (5.3.0)',
+        sha256: '32aa7bbfc5e74bb9cdeb718af956741d79223237e015a5c198c92d7506b3b842'
+      }
+    }
   }
 
   async loadPlugins () {
@@ -52,22 +84,57 @@ class Theme {
       __resources + '/artworks/'
     ]
 
-    const installedArtworks = []
-
-    async function readArtwork (id, fullPath) {
+    const readArtwork = async (id, fullPath) => {
       const stats = await fs.promises.stat(fullPath)
       if (stats.isDirectory()) {
         const jsonPath = path.join(fullPath, 'artwork.json')
+        let json
         try {
-          await fs.promises.access(jsonPath, fs.constants.R_OK)
-          installedArtworks.push({
-            id,
-            folder: fullPath,
-            jsonFile: jsonPath
-          })
+          json = JSON.parse(await fs.promises.readFile(jsonPath))
         } catch (e) {
           // not plugin folder, do nothing
+          return null
         }
+        try {
+          json.id = id
+          if (json.icon) {
+            json.icon = path.join(fullPath, json.icon)
+          }
+          const artwork = {
+            id,
+            folder: fullPath,
+            json,
+            remote: this.REMOTE_ARTWORKS[id] || null
+          }
+          if (artwork.remote) {
+            if (artwork.json.version !== artwork.remote.version) {
+              // temporary migration to new version scheme
+              const currentVersion = id === 'classic' && artwork.json.version === '5.0.4' ? 0 : ~~artwork.json.version.split(' ')[0]
+              const requiredVersion = ~~artwork.remote.version.split(' ')[0]
+              if (currentVersion < requiredVersion) {
+                console.log(`Artwork ${id} is outdated (current ${currentVersion}, reqired ${requiredVersion})`)
+                artwork.outdated = true
+              }
+            }
+          }
+
+          return artwork
+        } catch (e) {
+          // unexpected error
+          console.error(e)
+        }
+      }
+      return null
+    }
+
+    const installedArtworks = []
+    const installedArtworksIds = new Set()
+
+    for (const fullPath of settings.userArtworks) {
+      const artwork = await readArtwork(path.basename(fullPath), fullPath)
+      if (artwork && !installedArtworksIds.has(artwork.id)) {
+        installedArtworks.push(artwork)
+        installedArtworksIds.add(artwork.id)
       }
     }
 
@@ -79,14 +146,18 @@ class Theme {
         console.log(`${lookupFolder} does not exist`)
         continue
       }
-      for (const f of listing) {
-        const fullPath = path.join(lookupFolder, f)
-        await readArtwork(f, fullPath)
+      for (const id of listing) {
+        // when same artwork is on path twice, register first found
+        // this allowes overide from user path
+        if (!installedArtworksIds.has(id)) {
+          const fullPath = path.join(lookupFolder, id)
+          const artwork = await readArtwork(id, fullPath)
+          if (artwork) {
+            installedArtworks.push(artwork)
+            installedArtworksIds.add(id)
+          }
+        }
       }
-    }
-
-    for (const fullPath of settings.userArtworks) {
-      await readArtwork(path.basename(fullPath), fullPath)
     }
 
     let resourcesContainer = document.getElementById('theme-resources')
@@ -98,6 +169,7 @@ class Theme {
       document.body.appendChild(resourcesContainer)
     }
 
+    // console.log('Installed artworks: ', installedArtworks)
     this.installedArtworks = installedArtworks
     await this.loadArtworks()
   }
@@ -117,60 +189,89 @@ class Theme {
 
     this.artworks = this._artworks
     this.tiles = this._tiles
+    this.tileLayers = {}
     delete this._artwork
     delete this._tiles
   }
 
-  async loadArtwork ({ id, folder, jsonFile }) {
-    const artwork = this._artworks[id] = JSON.parse(await fs.promises.readFile(jsonFile))
-    const artworkRootDir = path.dirname(jsonFile)
+  async loadArtwork ({ id, folder, json, jsonFile }) {
+    const artwork = this._artworks[id] = {
+      id,
+      title: json.title || id,
+      icon: json.icon,
+      artist: json.artist,
+      description: json.description,
+      version: json.version,
+      perspective: json.perspective || 'rotate',
+      background: null,
+      tileSize: parseInt(json['tile-size']) || 1000
+    }
     const pathPrefix = `file:///${folder}/`
 
     artwork.symbols = {}
-    artwork.features = artwork.features || {}
-    artwork.tiles = artwork.tiles || {}
+    artwork.features = {}
+    artwork.tiles = {}
 
-    for (const res of artwork.resources || []) {
+    if (artwork.tileSize === 1000) {
+      artwork.scaleTransform = ''
+    } else {
+      const s = 1000 / artwork.tileSize
+      artwork.scaleTransform = `scale(${s} ${s})`
+    }
+
+    if (json.background) {
+      artwork.background = { ...json.background }
+      artwork.background.image = makeAbsPath(pathPrefix, artwork.background.image)
+      // TODO preload background
+    }
+
+    for (const res of json.resources || []) {
       if (path.extname(res) !== '.svg') {
         console.error('Only SVG resources are allowed')
         continue
       }
-      const content = await fs.promises.readFile(path.join(artworkRootDir, res))
+      const content = await fs.promises.readFile(path.join(folder, res))
       const parser = new DOMParser()
       const doc = parser.parseFromString(content, 'image/svg+xml')
       doc.querySelectorAll('symbol').forEach(el => {
         const symbolId = `${id}-${el.getAttribute('id')}`
         el.setAttribute('id', symbolId)
         const [w, h] = el.getAttribute('viewBox').split(' ').slice(2).map(val => parseInt(val))
-        if (w !== h) {
-          artwork.symbols[symbolId] = { ratio: [w, h] }
-        }
+        artwork.symbols[symbolId] = { size: [w, h] }
       })
       doc.querySelectorAll('image').forEach(el => el.setAttribute('href', pathPrefix + el.getAttribute('href')))
       document.getElementById('theme-resources').innerHTML = doc.documentElement.outerHTML
-    }
-
-    artwork.id = id
-    if (artwork.background) {
-      artwork.background.image = makeAbsPath(pathPrefix, artwork.background.image)
     }
 
     const processFeature = (featureId, data) => {
       data.id = featureId
       if (isString(data.image)) data.image = makeAbsPath(pathPrefix, data.image, id)
       if (data.image && data.image.href) data.image.href = makeAbsPath(pathPrefix, data.image.href, id)
+      if (data.images) {
+        for (let i = 0; i < data.images.length; i++) {
+          if (isString(data.images[i])) data.images[i] = makeAbsPath(pathPrefix, data.images[i], id)
+          if (data.images[i] && data.images[i].href) data.images[i].href = makeAbsPath(pathPrefix, data.images[i].href, id)
+        }
+      }
       forEachRotation(data, item => {
         if (isString(item.image)) item.image = makeAbsPath(pathPrefix, item.image, id)
         if (item.image && item.image.href) item.image.href = makeAbsPath(pathPrefix, item.image.href, id)
+        if (item.images) {
+          for (let i = 0; i < item.images.length; i++) {
+            if (isString(item.images[i])) item.images[i] = makeAbsPath(pathPrefix, item.images[i], id)
+            if (item.images[i] && item.images[i].href) item.images[i].href = makeAbsPath(pathPrefix, item.images[i].href, id)
+          }
+        }
       })
     }
 
-    Object.entries(artwork.features).forEach(([featureId, data]) => processFeature(featureId, data))
-    for (const fname of artwork['features-include'] || []) {
-      const content = JSON.parse(await fs.promises.readFile(path.join(artworkRootDir, fname)))
+    const features = {}
+
+    for (const fname of json['features-include'] || []) {
+      const content = JSON.parse(await fs.promises.readFile(path.join(folder, fname)))
       Object.entries(content).forEach(([featureId, data]) => {
         processFeature(featureId, data)
-        artwork.features[featureId] = data
+        features[featureId] = data
       })
     }
 
@@ -188,21 +289,22 @@ class Theme {
         features: {}
       }
 
-      if (data.background) {
-        makeAbsPathProp(pathPrefix, data, 'background', id)
-        tile.background = data.background
-      }
-      if (data.foreground) {
-        makeAbsPathProp(pathPrefix, data, 'foreground', id)
-        tile.foreground = data.foreground
+      if (data.image) {
+        if (data.image.href) {
+          makeAbsPathProp(pathPrefix, data.image, 'href', id)
+          tile.image = data.image
+        } else {
+          makeAbsPathProp(pathPrefix, data, 'image', id)
+          tile.image = data.image
+        }
       }
 
       Object.entries(data.features).forEach(([loc, f]) => {
         if (isString(f)) {
-          f = artwork.features[f]
+          f = features[f]
         } else if (isObject(f)) {
           if (f.id) {
-            const sharedFeature = artwork.features[f.id]
+            const sharedFeature = features[f.id]
             Object.assign(f, sharedFeature)
           }
         }
@@ -212,14 +314,10 @@ class Theme {
       this._tiles[tileId] = tile
     }
 
-    Object.entries(artwork.tiles).forEach(([tileId, data]) => processTile(tileId, data))
-    for (const fname of artwork['tiles-include'] || []) {
-      const content = JSON.parse(await fs.promises.readFile(path.join(artworkRootDir, fname)))
+    for (const fname of json['tiles-include'] || []) {
+      const content = JSON.parse(await fs.promises.readFile(path.join(folder, fname)))
       Object.entries(content).forEach(([tileId, data]) => processTile(tileId, data))
     }
-
-    delete artwork.features
-    delete artwork.tiles
 
     console.log(`Loaded artwork '${id}' from ${folder}`)
   }
@@ -282,6 +380,124 @@ class Theme {
       transform: feature.transform,
       rotation: r
     }
+  }
+
+  _createTileLayer (artwork, image, featureTransform, perspective, rotation) {
+    let href
+    if (image.href) {
+      href = image.href
+    } else {
+      href = image
+    }
+
+    const svgRef = href[0] === '#' || href.includes('.svg#')
+    let width = artwork.tileSize
+    let height = artwork.tileSize
+    const x = image.x || 0
+    const y = image.y || 0
+
+    if (svgRef) {
+      const size = artwork.symbols[href.substring(1)]?.size
+      if (size === undefined) {
+        console.warn(`Size symbol is missing for ${href}`)
+      } else {
+        width = size[0]
+        height = size[1]
+      }
+    }
+
+    const layer = {
+      tag: svgRef ? 'use' : 'image',
+      props: { x, y, width, height, href },
+      zindex: image.zindex || 1
+    }
+
+    const transform = []
+    if (perspective === 'rotate' && rotation) {
+      transform.push(`rotate(${rotation} ${artwork.tileSize / 2} ${artwork.tileSize / 2})`)
+    }
+    if (featureTransform) {
+      transform.push(featureTransform)
+    }
+    if (image.transform) {
+      transform.push(image.transform)
+    }
+    if (transform.length) {
+      layer.props.transform = transform.join(' ')
+    }
+
+    return layer
+  }
+
+  getTileLayers (id, rotation) {
+    const cacheKey = `${id}@${rotation}`
+    const cachedValue = this.tileLayers[cacheKey]
+    if (cachedValue) {
+      return cachedValue
+    }
+
+    const tile = this.getTile(id)
+    if (!tile) {
+      return {
+        artwork: NULL_ARTWORK,
+        layers: [{ tag: 'use', props: { 'data-tile-id': id, 'href': `${MISC_SVG}#missing-image` }, zindex: 1 }]
+      }
+    }
+
+    const getRecordForRotation = (obj, rotation) => {
+      const rotKey = '@' + (rotation / 90)
+      if (obj && obj[rotKey]) {
+        obj = obj[rotKey]
+      }
+      return obj
+    }
+
+    const { artwork } = tile
+    let layers = []
+
+    if (tile.image) {
+      const image = getRecordForRotation(tile.image, rotation)
+      if (isString(image) || image.href) {
+        const layer = this._createTileLayer(artwork, image, null, artwork.perspective, rotation)
+        layer.order = 1
+        layers.push(layer)
+      }
+    }
+
+    Object.entries(tile.features).forEach(([loc, f]) => {
+      const perspective = f.perspective || artwork.perspective
+      let r = rotation
+      if (f.rotate) {
+        r = (r + f.rotate) % 360
+      }
+
+      f = getRecordForRotation(f, r)
+
+      const processImage = (image, t) => {
+        const order = FEATURE_ORDER[loc]
+        const layer = this._createTileLayer(artwork, image, f.transform, perspective, r)
+        layer.order = order === undefined ? 9 : order
+        layers.push(layer)
+      }
+
+      if (f.image) {
+        processImage(f.image)
+      }
+      if (f.images) {
+        for (const img of f.images) {
+          processImage(img)
+        }
+      }
+    })
+
+    layers = sortBy(layers, 'order')
+    layers = sortBy(layers, 'zindex')
+    layers.forEach(layer => { delete layer.order })
+
+    return (this.tileLayers[cacheKey] = {
+      artwork,
+      layers
+    })
   }
 }
 

@@ -78,10 +78,14 @@ export default {
 
   computed: {
     featurePlaces () {
-      if (this.emphasis.type === 'feature') {
-        return this.emphasis.places.map(({ tile, location }) => {
-          return { tile, ...this.$theme.getFeature(tile, location, this.bridges) }
-        })
+      try {
+        if (this.emphasis.type === 'feature') {
+          return this.emphasis.places.map(({ tile, location }) => {
+            return { tile, ...this.$theme.getFeature(tile, location, this.bridges) }
+          })
+        }
+      } catch (e) {
+        console.error(e)
       }
       return null
     }

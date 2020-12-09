@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="missing-image" viewBox="0 0 1000 1000">
+    <rect width="1000" height="1000" fill="transparent" stroke="#ff0000" />
+    <text x="250" y="480" style="font-size: 128px; fill: red">Missing</text>
+    <text x="250" y="620" style="font-size: 128px; fill: red">artwork</text>
+  </symbol>
+</svg>
