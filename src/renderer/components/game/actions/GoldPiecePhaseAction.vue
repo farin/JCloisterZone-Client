@@ -55,9 +55,7 @@ export default {
     },
 
     hideLayer () {
-      if (this.local) {
-        this.$store.dispatch('board/hideLayer', { layer: 'TileSelectLayer' })
-      }
+      this.$store.dispatch('board/hideLayer', { layer: 'TileSelectLayer' })
     },
 
     async onSelect (opt) {

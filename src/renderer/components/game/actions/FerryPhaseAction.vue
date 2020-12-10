@@ -59,9 +59,7 @@ export default {
     },
 
     hideLayer () {
-      if (this.local) {
-        this.$store.dispatch('board/hideLayer', { layer: 'FerryChangeLayer' })
-      }
+      this.$store.dispatch('board/hideLayer', { layer: 'FerryChangeLayer' })
     },
 
     async onSelect (opt) {

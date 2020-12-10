@@ -40,6 +40,14 @@ export default {
   watch: {
     actionItem (val) {
       this.showLayer()
+    },
+
+    local (val) {
+      if (val) {
+        this.showLayer()
+      } else {
+        this.hideLayer()
+      }
     }
   },
 
@@ -66,9 +74,7 @@ export default {
     },
 
     hideLayer () {
-      if (this.local) {
-        this.$store.dispatch('board/hideLayer', { layer: 'DragonMoveLayer' })
-      }
+      this.$store.dispatch('board/hideLayer', { layer: 'DragonMoveLayer' })
     },
 
     async onSelect (position) {
