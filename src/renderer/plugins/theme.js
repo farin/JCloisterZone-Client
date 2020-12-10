@@ -70,7 +70,7 @@ class Theme {
       classic: {
         url: 'https://jcloisterzone.com/artworks/classic/classic-2-5.3.0.zip',
         version: '2 (5.3.0)',
-        sha256: '32aa7bbfc5e74bb9cdeb718af956741d79223237e015a5c198c92d7506b3b842'
+        sha256: '454cce838b338f3c3bcc3bb5b0adeac98e6b13156779ad1308791eea5618ff65'
       }
     }
   }
