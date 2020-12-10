@@ -19,7 +19,8 @@ module.exports = {
     '~/plugins/connection',
     '~/plugins/tiles',
     '~/plugins/theme',
-    { ssr: true, src: '@/plugins/icons.js' }
+    { ssr: true, src: '@/plugins/icons.js' },
+    '~/plugins/router-patch'
   ],
   buildModules: [
     '@nuxtjs/style-resources'
