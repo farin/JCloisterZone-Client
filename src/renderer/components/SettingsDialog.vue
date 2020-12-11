@@ -93,7 +93,6 @@
             <h4>Theme</h4>
             <v-radio-group
               v-model="theme"
-              @change="onThemeChange"
             >
               <v-radio
                 label="Light"
@@ -227,16 +226,6 @@ export default {
   methods: {
     clean () {
       this.notJavaError = false
-    },
-
-    onThemeChange (val) {
-      if (val === 'dark') {
-        this.$vuetify.theme.dark = true
-        remote.nativeTheme.themeSource = 'dark'
-      } else {
-        this.$vuetify.theme.dark = false
-        remote.nativeTheme.themeSource = 'light'
-      }
     },
 
     async selectJava () {

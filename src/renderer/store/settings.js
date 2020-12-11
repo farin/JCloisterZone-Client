@@ -35,10 +35,24 @@ export const state = () => ({
   devMode: process.env.NODE_ENV === 'development'
 })
 
+const changeCallbacks = {}
+
+let fileModifiedBySave = false
+let watcher = null
+
 export const mutations = {
   settings (state, settings) {
+    const changed = []
     Object.keys(settings).forEach(key => {
+      if (state[key] !== settings[key]) {
+        changed.push(key)
+      }
       Vue.set(state, key, settings[key])
+    })
+
+    changed.forEach(key => {
+      const cb = changeCallbacks[key]
+      if (cb) cb(settings[key])
     })
   },
 
@@ -66,6 +80,27 @@ export const getters = {
 }
 
 export const actions = {
+  async watchSettingsFile ({ dispatch, getters }) {
+    try {
+      watcher = fs.watch(getters.settingsFile, eventType => {
+        if (eventType === 'change' && !fileModifiedBySave) {
+          dispatch('load')
+        }
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  },
+
+  async unwatchSettingsFile () {
+    watcher?.close()
+    watcher = null
+  },
+
+  registerChangeCallback (ctx, [key, cb]) {
+    changeCallbacks[key] = cb
+  },
+
   async load ({ commit, getters, dispatch }) {
     const settingsFile = getters.settingsFile
     let missingKey = false
@@ -121,8 +156,10 @@ export const actions = {
         delete data.devMode
       }
       data.clientId = data.clientId.split('--')[0] // for dev mode, do not store changed id
+      fileModifiedBySave = true
       await fs.promises.writeFile(settingsFile, JSON.stringify(data, null, 2))
       console.log(`%c settings %c writing ${settingsFile}`, CONSOLE_SETTINGS_COLOR, '')
+      fileModifiedBySave = false
     } catch (e) {
       console.error(e)
       // do nothong, settings doesnt exist

@@ -115,15 +115,18 @@ export default {
     webFrame.setZoomLevel(0)
     webFrame.setVisualZoomLevelLimits(1, 1)
 
-    await this.$store.dispatch('settings/load')
-
-    if (this.$store.state.settings.theme === 'dark') {
-      this.$vuetify.theme.dark = true
-      remote.nativeTheme.themeSource = 'dark'
-    } else {
-      this.$vuetify.theme.dark = false
-      remote.nativeTheme.themeSource = 'light'
+    const onThemeChange = val => {
+      if (val === 'dark') {
+        this.$vuetify.theme.dark = true
+        remote.nativeTheme.themeSource = 'dark'
+      } else {
+        this.$vuetify.theme.dark = false
+        remote.nativeTheme.themeSource = 'light'
+      }
     }
+
+    await this.$store.dispatch('settings/load')
+    onThemeChange(this.$store.state.settings.theme)
 
     const isMac = process.platform === 'darwin'
     const template = [
@@ -189,9 +192,18 @@ export default {
     this.$store.dispatch('loadPlugins')
 
     window.addEventListener('keydown', this.onKeyDown)
+
+    this.$store.dispatch('settings/watchSettingsFile')
+    // todo watch also artworks folder
+
+    await this.$store.dispatch('settings/registerChangeCallback', ['theme', onThemeChange])
+    await this.$store.dispatch('settings/registerChangeCallback', ['dev', () => {
+      this.updateMenu()
+    }])
   },
 
   beforeDestroy () {
+    this.$store.dispatch('settings/unwatchSettingsFile')
     window.removeEventListener('keydown', this.onKeyDown)
   },
 
