@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section :class="{remote: !local}">
     <span class="text">{{ local ? 'You are allowed to place' : 'Player is allowed to place' }}</span>
     <img src="~/assets/figures/castle.png" height="70">
     <slot />
@@ -26,8 +26,10 @@ export default {
   },
 
   mounted () {
-    this.$root.$on('feature.select', this.onSelect)
-    this.showLayer()
+    if (this.local) {
+      this.$root.$on('feature.select', this.onSelect)
+      this.showLayer()
+    }
   },
 
   beforeDestroy () {
@@ -72,4 +74,11 @@ export default {
 
 img
   margin: 0 10px 0 30px
+
+.remote img
+  filter: grayscale(1)
+
+  &:hover
+    filter: none
+
 </style>
