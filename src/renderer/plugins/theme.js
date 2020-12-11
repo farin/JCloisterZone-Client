@@ -363,7 +363,8 @@ class Theme {
       throw new Error(`Can't find feature for ${id} ${loc}`)
     }
 
-    let r = feature.rotation || 0
+    // TODO migrate classic to rotate instead rotation amd drop rotation here
+    let r = feature.rotation || feature.rotate || 0
     if (tile.artwork.perspective === 'rotate') {
       r = (r + rotation) % 360
     } else {
