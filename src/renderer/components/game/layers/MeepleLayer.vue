@@ -22,7 +22,7 @@
     <g
       v-for="group in meeples"
       :key="group.id"
-      :transform="transformPoint(group)"
+      :transform="group.customTransform ? group.customTransform : transformPoint(group)"
     >
       <g
         v-for="meeple in group.meeples"
@@ -162,6 +162,7 @@ export default {
 
   computed: {
     ...mapState({
+      castles: state => state.game.features.filter(f => f.type === 'Castle'),
       dragon: state => state.game.neutralFigures.dragon,
       fairy: state => state.game.neutralFigures.fairy,
       count: state => state.game.neutralFigures.count,
@@ -186,6 +187,12 @@ export default {
         return `${ptr.position[0]},${ptr.position[1]},${ptr.location}`
       }
 
+      const castlePlaces = {}
+      this.castles.forEach(c => {
+        castlePlaces[this.pointerAsKey(c.places[0])] = c
+        castlePlaces[this.pointerAsKey(c.places[1])] = c
+      })
+
       const selectable = this.meepleSelect ? keyBy(this.meepleSelect.options, 'meepleId') : null
       const filtered = this.$store.state.game.deployedMeeples.filter(m => m.type !== 'Barn' && !this.isDeployedOnBridge(m) ^ this.deployedOnBridge)
       const groupped = groupBy(filtered, getGroupKey)
@@ -205,12 +212,15 @@ export default {
 
         let x = 0
         let y = 0
-        const deployedOnFarm = Location.parse(meeples[0].location).isFarmLocation()
+        const sample = meeples[0]
+        const deployedOnFarm = Location.parse(sample.location).isFarmLocation()
 
+        const castle = castlePlaces[this.pointerAsKey(sample)]
         const group = {
           key,
-          position: meeples[0].position,
-          location: meeples[0].location,
+          customTransform: castle ? this.getCastleTransformation(castle, sample.position) : null,
+          position: sample.position,
+          location: sample.location,
           meeples: meeples.map(m => {
             const mapped = {
               ...m,
@@ -231,7 +241,7 @@ export default {
             return
           }
           const { placement } = this[figure]
-          if (isSameFeature(placement, meeples[0]) && !(this.isDeployedOnBridge(placement) ^ this.deployedOnBridge)) {
+          if (isSameFeature(placement, sample) && !(this.isDeployedOnBridge(placement) ^ this.deployedOnBridge)) {
             neutralInGroup[figure] = true
             group.neutral.push({ type: figure, x, y })
             x += 140
@@ -320,6 +330,20 @@ export default {
       } else {
         return this.transformPosition(placement) + ' translate(410 200)'
       }
+    },
+
+    getCastleTransformation ({ places }, position) {
+      let t
+      if (places[0][0] === places[1][0]) { /// compare X
+        // vertical
+        const upperY = Math.min(places[0][1], places[1][1])
+        t = position[1] === upperY ? 'translate(500 1000)' : 'translate(500 0)'
+      } else {
+        // horizontla
+        const leftX = Math.min(places[0][0], places[1][0])
+        t = position[0] === leftX ? 'translate(1000 500)' : 'translate(0 500)'
+      }
+      return this.transformPosition(position) + ' ' + t
     }
   }
 }

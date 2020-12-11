@@ -15,6 +15,9 @@ export default {
     },
 
     pointerAsKey (ptr) {
+      if (ptr?.length === 3) {
+        return ptr.join(',')
+      }
       return `${ptr.position[0]},${ptr.position[1]},${ptr.location}`
     },
 

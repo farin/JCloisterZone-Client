@@ -33,7 +33,7 @@ export default {
 
   computed: {
     ...mapGetters({
-      'castles': 'game/castles'
+      castles: 'game/castles'
     })
   },
 
@@ -46,7 +46,7 @@ export default {
         return positions[0][1] < positions[1][1] ? `translate(${500 - w2}, ${1000 - h2})` : `translate(${500 - w2}, ${-h2})`
       } else {
         // horizontla
-        return (positions[0][0] < positions[1][0] ? `translate(${1000 + h2}, ${500 - w2})` : `translate(${h2}, ${500 - w2})`) + ` rotate(90 0 0)`
+        return (positions[0][0] < positions[1][0] ? `translate(${1000 + h2}, ${500 - w2})` : `translate(${h2}, ${500 - w2})`) + ' rotate(90 0 0)'
       }
     }
   }
