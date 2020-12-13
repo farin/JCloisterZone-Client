@@ -44,11 +44,13 @@ export const mutations = {
   settings (state, settings) {
     const changed = []
     Object.keys(settings).forEach(key => {
-      if (state[key] !== settings[key]) {
+      if (JSON.stringify(state[key]) !== JSON.stringify(settings[key])) {
         changed.push(key)
       }
       Vue.set(state, key, settings[key])
     })
+
+    console.log('Changed settings: ' + changed)
 
     changed.forEach(key => {
       const cb = changeCallbacks[key]

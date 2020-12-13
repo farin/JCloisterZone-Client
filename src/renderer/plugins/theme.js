@@ -76,6 +76,7 @@ class Theme {
   }
 
   async loadPlugins () {
+    console.log('Looking for installed artworks.')
     const { settings } = this.ctx.store.state
 
     const lookupFolders = [
@@ -178,6 +179,7 @@ class Theme {
     this._tiles = {}
 
     const { settings } = this.ctx.store.state
+    console.log(`Loading enabled artworks. (${settings.enabledArtworks})`)
 
     for (const id of settings.enabledArtworks) {
       const artwork = this.installedArtworks.find(a => a.id === id)

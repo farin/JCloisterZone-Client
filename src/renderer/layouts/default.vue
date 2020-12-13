@@ -197,6 +197,8 @@ export default {
     // todo watch also artworks folder
 
     await this.$store.dispatch('settings/registerChangeCallback', ['theme', onThemeChange])
+    await this.$store.dispatch('settings/registerChangeCallback', ['userArtworks', () => { this.$theme.loadPlugins() }])
+    await this.$store.dispatch('settings/registerChangeCallback', ['enabledArtworks', () => { this.$theme.loadArtworks() }])
     await this.$store.dispatch('settings/registerChangeCallback', ['dev', () => {
       this.updateMenu()
     }])
