@@ -370,16 +370,17 @@ class Theme {
     if (tile.artwork.perspective === 'rotate') {
       r = (r + rotation) % 360
     } else {
-      const rotKey = '@' + (rotation / 90)
+      const rotKey = '@' + (((r + rotation) / 90) % 4)
       if (feature[rotKey]) {
         feature = feature[rotKey]
       }
     }
 
+    const transform = feature.transform || ' '
     return {
       clip: feature.clip,
       point: feature.point,
-      transform: feature.transform,
+      transform: `${transform} ${tile.artwork.scaleTransform}`,
       rotation: r
     }
   }
