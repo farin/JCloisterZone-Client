@@ -6,6 +6,7 @@ export const state = () => ({
   dragging: null,
   pointsExpression: null,
   layers: {},
+  tilePlacementMouseOver: null, // select tile from TilePlacementLayer must be drawn together with regular tils by TileLayer
   zoom: DEFAULT_ZOOM
 })
 
@@ -39,6 +40,10 @@ export const mutations = {
 
   hideLayer (state, { layer }) {
     Vue.delete(state.layers, layer)
+  },
+
+  tilePlacementMouseOver (state, value) {
+    state.tilePlacementMouseOver = value
   },
 
   resetZoom (state) {

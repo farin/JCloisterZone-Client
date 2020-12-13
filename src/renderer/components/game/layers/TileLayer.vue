@@ -13,7 +13,7 @@
           <image :href="artwork.background.image" />
         </pattern>
 
-        <clipPath
+        <mask
           :id="artwork.id + '/placed-tiles-clip'"
           :key="artwork.id + '/placed-tiles-clip'"
         >
@@ -22,9 +22,11 @@
             :key="'clip-' + positionAsKey(pos)"
             width="1000"
             height="1000"
+            fill="white"
             :transform="transformPosition(pos)"
+            :opacity="tilePlacementMouseOver && tilePlacementMouseOver[0] === pos ? PREVIEW_OPACITY : 1"
           />
-        </clipPath>
+        </mask>
       </template>
     </defs>
 
@@ -43,12 +45,12 @@
     <rect
       v-for="({ artwork }) in artworksWithBackground"
       :key="artwork.id + '/bg-rect'"
-      :x="1000 * bounds.x"
-      :y="1000 * bounds.y"
-      :width="1000 * bounds.width"
-      :height="1000 * bounds.height"
+      :x="1000 * (bounds.x - 1)"
+      :y="1000 * (bounds.y - 1)"
+      :width="1000 * (bounds.width + 2)"
+      :height="1000 * (bounds.height + 2)"
       :fill="`url(#${artwork.id}/bg)`"
-      :clip-path="`url(#${artwork.id}/placed-tiles-clip)`"
+      :mask="`url(#${artwork.id}/placed-tiles-clip)`"
     />
 
     <g
@@ -69,6 +71,7 @@
       v-for="bucket in layerBuckets"
       :key="bucket.id"
       :transform="bucket.transform"
+      :opacity="bucket.opacity"
     >
       <component
         :is="layer.tag"
@@ -101,6 +104,8 @@ import { mapGetters, mapState } from 'vuex'
 import LayerMixin from '@/components/game/layers/LayerMixin'
 import TileImage from '@/components/game/TileImage'
 
+const PREVIEW_OPACITY = 0.8
+
 export default {
   components: {
     TileImage
@@ -110,6 +115,7 @@ export default {
 
   data () {
     return {
+      PREVIEW_OPACITY,
       artworks: {},
       artworksWithBackground: [],
       layerBuckets: []
@@ -121,7 +127,8 @@ export default {
       tiles: state => state.game.placedTiles,
       layers: state => state.board.layers,
       playersCount: state => state.game.players.length,
-      history: state => state.game.history
+      history: state => state.game.history,
+      tilePlacementMouseOver: state => state.board.tilePlacementMouseOver
     }),
 
     ...mapGetters({
@@ -146,16 +153,22 @@ export default {
       }
       placements.reverse()
       return placements
-    },
-
-    tilesSorted () {
-      return sortBy(this.tiles, t => t.position[1] << 8 + t.position[0])
     }
   },
 
   watch: {
     tiles (tiles) {
       this.onTilesChange(tiles)
+    },
+
+    tilePlacementMouseOver (val) {
+      if (val) {
+        const [position, rotation] = val
+        const { tileId } = this.$store.state.board.layers.TilePlacementLayer
+        this.onTilesChange([...this.tiles, { id: tileId, position, rotation }], position)
+      } else {
+        this.onTilesChange(this.tiles)
+      }
     }
   },
 
@@ -164,10 +177,10 @@ export default {
   },
 
   methods: {
-    onTilesChange (tiles) {
+    onTilesChange (tiles, previewPosition) {
       const tileLayers = {}
       const artworks = {}
-      for (const tile of sortBy(this.tiles, t => t.position[1] << 8 + t.position[0])) {
+      for (const tile of sortBy(tiles, t => t.position[1] << 8 + t.position[0])) {
         const { artwork, layers } = this.$theme.getTileLayers(tile.id, tile.rotation)
         let artworkData = artworks[artwork.id]
         if (!artworkData) {
@@ -185,6 +198,10 @@ export default {
           }
           zval.push({ tile, artwork, layer })
         }
+
+        // if (tile.position === previewPosition) {
+        //   (tileLayers[99] = []).push({ tile, artwork, layer: { tag: 'rect', props: { x: 0, y: 0, width: 900, height: 900, fill: 'gray', opacity: '0.6' } } })
+        // }
       }
       const zindexes = Object.keys(tileLayers).map(k => ~~k)
       zindexes.sort((a, b) => a - b)
@@ -198,7 +215,8 @@ export default {
               id: `${this.positionAsKey(tile.position)}^${z}`,
               position: tile.position,
               transform: `${this.transformPosition(tile.position)} ${artwork.scaleTransform}`,
-              layers: []
+              layers: [],
+              opacity: tile.position === previewPosition ? PREVIEW_OPACITY : 1
             }
             buckets.push(bucket)
           }

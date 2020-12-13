@@ -9,11 +9,11 @@
     @click.right="onRightClick"
   >
     <g :transform="transform">
+      <TileLayer />
       <TilePlacementLayer
         v-if="layers.TilePlacementLayer"
         v-bind="layers.TilePlacementLayer"
       />
-      <TileLayer />
       <CastleLayer v-if="elements.castle" />
       <TowerLayer v-if="elements.tower" />
       <TokenLayer />
@@ -162,7 +162,7 @@ export default {
     } else {
       this.offsetX = parseInt((rect.width - this.boardWidth) / 2)
     }
-    if (this.boardHeight > rect.height -  ACTION_PANEL_HEIGHT) {
+    if (this.boardHeight > rect.height - ACTION_PANEL_HEIGHT) {
       this.offsetY = ACTION_PANEL_HEIGHT + parseInt((rect.height - ACTION_PANEL_HEIGHT) / 2)
     } else {
       this.offsetY = ACTION_PANEL_HEIGHT + parseInt((rect.height - this.boardHeight - ACTION_PANEL_HEIGHT) / 2)
