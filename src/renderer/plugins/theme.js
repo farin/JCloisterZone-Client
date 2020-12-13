@@ -367,19 +367,32 @@ class Theme {
 
     // TODO migrate classic to rotate instead rotation amd drop rotation here
     let r = feature.rotation || feature.rotate || 0
+    let root = null
     if (tile.artwork.perspective === 'rotate') {
       r = (r + rotation) % 360
     } else {
-      const rotKey = '@' + (rotation / 90)
+      const rotKey = '@' + (((r + rotation) / 90) % 4)
       if (feature[rotKey]) {
+        root = feature
         feature = feature[rotKey]
       }
     }
 
+    let clip = feature.clip
+    let point = feature.point
+
+    if (!clip && root?.clip) {
+      // although fixed perspective, clip is declared as rotation of base shape
+      clip = root.clip
+      point = root.point
+      r = (r + rotation) % 360
+    }
+
+    const transform = feature.transform || ' '
     return {
-      clip: feature.clip,
-      point: feature.point,
-      transform: feature.transform,
+      clip,
+      point,
+      transform: `${transform} ${tile.artwork.scaleTransform}`,
       rotation: r
     }
   }
@@ -467,7 +480,11 @@ class Theme {
     }
 
     Object.entries(tile.features).forEach(([loc, f]) => {
-      const perspective = f.perspective || artwork.perspective
+      if (!f) {
+        throw new Error(`Misssing definition for feature ${tile.id} ${loc}`)
+      }
+
+      const perspective = f.perspective || artwork?.perspective
       let r = rotation
       if (f.rotate) {
         r = (r + f.rotate) % 360

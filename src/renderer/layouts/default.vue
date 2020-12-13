@@ -228,7 +228,11 @@ export default {
       this.menu.getMenuItemById('toggle-history').enabled = gameRunning
 
       if (this.$store.state.settings.devMode) {
-        this.menu.getMenuItemById('dump-server').enabled = this.$server.isRunning()
+        // devMode can be change in runtime, then menu item may not exist
+        const item = this.menu.getMenuItemById('dump-server')
+        if (item) {
+          item.enabled = this.$server.isRunning()
+        }
       }
     },
 
