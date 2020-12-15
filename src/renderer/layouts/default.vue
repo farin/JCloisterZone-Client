@@ -172,7 +172,8 @@ export default {
         submenu: [
           { role: 'toggleDevTools', label: 'Toggle DevTools' },
           { label: 'Change clientId', click: this.changeClientId },
-          { id: 'dump-server', label: 'Dump hosted game server state', click: this.dumpServer }
+          { id: 'dump-server', label: 'Dump hosted game server state', click: this.dumpServer },
+          { label: 'Reload artwokrs', click: () => { this.$theme.loadArtworks() } }
         ]
       })
     }
