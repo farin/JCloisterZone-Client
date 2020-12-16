@@ -9,6 +9,8 @@ import sortBy from 'lodash/sortBy'
 
 import Location from '@/models/Location'
 
+const FEATURE_PATTERN = /([^[]+)(?:\[([^\]]+)\])/
+
 const NULL_ARTWORK = {
   id: '_null',
   tileSize: 1000,
@@ -271,6 +273,11 @@ class Theme {
     for (const fname of json['features-include'] || []) {
       const content = JSON.parse(await fs.promises.readFile(path.join(folder, fname)))
       Object.entries(content).forEach(([featureId, data]) => {
+        const m = FEATURE_PATTERN.exec(featureId)
+        if (m) {
+          featureId = m[1]
+          data.params = m[2].split(',')
+        }
         processFeature(featureId, data)
         features[featureId] = data
       })
@@ -300,12 +307,69 @@ class Theme {
         }
       }
 
+      const isMatchingParams = (img, params) => {
+        if (!img.if) {
+          return true
+        }
+        if (img.if[0] === '!') {
+          const p = img.if.substring(1)
+          return !params.includes(p)
+        }
+        return params.includes(img.if)
+      }
+
+      const getFeature = id => {
+        const m = FEATURE_PATTERN.exec(id)
+        const baseId = m ? m[1] : id
+        const baseFeature = features[baseId]
+
+        if (!baseFeature) {
+          throw new Error(`Feature ${id} is not defined for ${tileId}`)
+        }
+        if (!baseFeature.params) {
+          return baseFeature
+        }
+
+        let params
+        if (m) {
+          params = m[2].split(',')
+          params.sort()
+        } else {
+          params = []
+        }
+
+        params.sort()
+        const key = `${baseId}[${params.join(',')}]`
+        let feature = features[key]
+        if (feature) {
+          return feature
+        }
+
+        feature = { ...baseFeature }
+        if (feature.images) {
+          feature.images = feature.images.filter(img => isMatchingParams(img, params))
+        }
+        for (let i = 0; i < 4; i++) {
+          const key = '@' + i
+          if (feature[key]) {
+            if (feature[key].images) {
+              feature[key] = {
+                ...feature[key],
+                images: feature[key].images.filter(img => isMatchingParams(img, params))
+              }
+            }
+          }
+        }
+        features[key] = feature
+        return feature
+      }
+
       Object.entries(data.features).forEach(([loc, f]) => {
         if (isString(f)) {
-          f = features[f]
+          f = getFeature(f)
         } else if (isObject(f)) {
           if (f.id) {
-            const sharedFeature = features[f.id]
+            const sharedFeature = getFeature(f.id)
             Object.assign(f, sharedFeature)
           }
         }
@@ -319,6 +383,8 @@ class Theme {
       const content = JSON.parse(await fs.promises.readFile(path.join(folder, fname)))
       Object.entries(content).forEach(([tileId, data]) => processTile(tileId, data))
     }
+
+    console.log(features)
 
     console.log(`Loaded artwork '${id}' from ${folder}`)
   }
