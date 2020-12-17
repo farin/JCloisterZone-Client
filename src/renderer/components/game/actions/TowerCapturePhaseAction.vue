@@ -3,6 +3,7 @@
     <div class="text">
       {{ local ? 'Take a prisoner' : 'Player can take a prisoner' }}
     </div>
+    <slot />
   </section>
 </template>
 
