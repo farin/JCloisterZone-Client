@@ -68,7 +68,8 @@ export default {
         item.rows = []
         item.events.forEach(ev => {
           const isScore = ev.type === 'points' || ev.type === 'token-received'
-          if (isScore !== lastRowIsScore) {
+          const isTileAuctioned = ev.type === 'tile-auctioned'
+          if (isScore !== lastRowIsScore || isTileAuctioned) {
             row = { events: [], height: isScore ? 27 : 41 }
             item.rows.unshift(row)
             lastRowIsScore = isScore
