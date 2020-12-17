@@ -21,7 +21,7 @@
             <img src="~/assets/features/C1/garden.png" width="80" height="55">
           </template>
           <template #description>Can be occupied by an abbot.</template>
-          <template #disabled>Abbot is not selected</template>
+          <template #disabled>Abbot is not selected.</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.CATHEDRAL">
@@ -29,7 +29,7 @@
             <img src="~/assets/features/C1/cathedral.png" height="55">
           </template>
           <template #description>Completed cities with cathedral x3 instead of x2, no points during final scoring.</template>
-          <template #disabled>Inns &amp; Cathedrals expansion is not selected</template>
+          <template #disabled>Inns &amp; Cathedrals expansion is not selected.</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.INN">
@@ -37,7 +37,7 @@
             <img src="~/assets/features/C1/inn.png" width="80">
           </template>
           <template #description>Completed roads with inn x2, no points during final scoring.</template>
-          <template #disabled>No tile with Inn is selected</template>
+          <template #disabled>No tile with Inn is in the game.</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.PRINCESS">
@@ -45,7 +45,7 @@
             <img src="~/assets/features/C1/princess.png" height="42">
           </template>
           <template #description>Princess can remove knight from a city.</template>
-          <template #disabled>Princess &amp; Dragon expansion is not selected</template>
+          <template #disabled>Princess &amp; Dragon expansion is not selected.</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.PORTAL">
@@ -53,7 +53,7 @@
             <img src="~/assets/features/C1/magic_portal.png" height="55">
           </template>
           <template #description>Through portal meeple can be placed on any tile.</template>
-          <template #disabled>Princess &amp; Dragon expansion is not selected</template>
+          <template #disabled>Princess &amp; Dragon expansion is not selected.</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.BAZAAR">
@@ -61,7 +61,7 @@
             <img src="~/assets/features/C1/bazaar.png" height="55">
           </template>
           <template #description>Land tiles are auctioned when bazaar comes into play.</template>
-          <template #disabled>Bridges, Castles and Bazaars expansion is not selected</template>
+          <template #disabled>Bridges, Castles and Bazaars expansion is not selected.</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.HILL">
@@ -69,7 +69,7 @@
             <img src="~/assets/features/C1/hill.png" height="55">
           </template>
           <template #description>Used as tiebreaker. Also hides one random tile under it.</template>
-          <template #disabled>Hills and Sheep expansion is not selected</template>
+          <template #disabled>Hills and Sheep expansion is not selected.</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.VINEYARD">
@@ -77,7 +77,7 @@
             <img src="~/assets/features/C1/vineyard.png" height="55">
           </template>
           <template #description>Additional points for nearby cloisters.</template>
-          <template #disabled>Hills and Sheep expansion is not selected</template>
+          <template #disabled>Hills and Sheep expansion is not selected.</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.PIG_HERD">
