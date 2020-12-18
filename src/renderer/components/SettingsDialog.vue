@@ -47,7 +47,6 @@
                 @click="() => { preferredColor = i }"
               >
                 <template v-if="preferredColor === i">x</template>
-                <template v-else>&nbsp;</template>
               </v-btn>
             </div>
           </template>
