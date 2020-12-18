@@ -5,7 +5,7 @@
     </header>
 
     <header class="tiles-header">
-      <TilePackSize :size="$tiles.getPackSize(sets, rules)" />
+      <TilePackSize :size="packSize" />
     </header>
 
     <main>
@@ -31,7 +31,18 @@ export default {
     ...mapState({
       sets: state => state.gameSetup.sets,
       rules: state => state.gameSetup.rules
-    })
+    }),
+
+    packSize () {
+      let size = 0
+      let { sets } = this
+      if (this.sets.count) {
+        sets = { ...sets }
+        delete sets.count
+        size = 1
+      }
+      return size + this.$tiles.getPackSize(sets, this.rules)
+    }
   }
 }
 </script>

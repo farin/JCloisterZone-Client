@@ -33,7 +33,7 @@
         <TileSetButtons :set="set">
           <h4 :title="set.note">{{ set.title }}</h4>
         </TileSetButtons>
-    </div>
+      </div>
     </template>
   </div>
 </template>
@@ -150,7 +150,6 @@ export default {
       &:hover .v-icon
         +theme using ($theme)
           color: map-get($theme, 'cards-selected-text')
-
 
 .multiset
   .exp-title

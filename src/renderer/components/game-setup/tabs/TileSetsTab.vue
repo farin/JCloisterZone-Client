@@ -52,7 +52,7 @@
       v-model="detailOpen"
       max-width="800"
     >
-      <ExpansionDetailDialog :expansion="detailExpansion" @close="detailOpen = false"/>
+      <ExpansionDetailDialog :expansion="detailExpansion" @close="detailOpen = false" />
     </v-dialog>
   </div>
 </template>

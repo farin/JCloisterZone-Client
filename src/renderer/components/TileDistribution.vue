@@ -13,16 +13,23 @@
       />
       <div class="count">{{ count }}</div>
     </div>
+
+    <div v-if="sets.count" class="tile">
+      <CountMiniboard :tile-size="77" />
+      <div class="count">1</div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
+import CountMiniboard from '@/components/game-setup/details/CountMiniboard'
 
 export default {
   components: {
-    StandaloneTileImage
+    StandaloneTileImage,
+    CountMiniboard
   },
 
   props: {
@@ -52,7 +59,13 @@ export default {
         return ae.r - be.r // less roads first
       }
 
-      const counts = this.$tiles.getTilesCounts(this.sets, this.rules, this.edition, this.start)
+      let { sets } = this
+      if (this.sets.count) {
+        sets = { ...sets }
+        delete sets.count
+      }
+
+      const counts = this.$tiles.getTilesCounts(sets, this.rules, this.edition, this.start)
       const tiles = Object.keys(counts).map(id => ({ id, ...this.$tiles.tiles[id] }))
       tiles.sort(sortByEdge)
 
@@ -75,9 +88,12 @@ export default {
   flex-wrap: wrap
   justify-content: flex-start
 
-  svg
+  svg, .miniboard
     display: block
     margin: 0 2px
+
+  .miniboard
+    // height: 100px
 
   .count
     text-align: center

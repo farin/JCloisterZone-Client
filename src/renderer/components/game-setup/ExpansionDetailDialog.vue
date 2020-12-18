@@ -9,7 +9,7 @@
       <component :is="detailComponent" />
     </v-card-text>
     <v-card-actions>
-      <v-spacer></v-spacer>
+      <v-spacer/>
       <v-btn
         text
         @click="$emit('close')"
@@ -49,47 +49,46 @@ import TradersAndBuildersDetail from '@/components/game-setup/details/TradersAnd
 import WinterEditionDetail from '@/components/game-setup/details/WinterEditionDetail'
 import WindRosesDetail from '@/components/game-setup/details/WindRosesDetail'
 
-
 export default {
-  props: {
-    expansion: { type: Object, required: true }
-  },
-
   components: {
     ExpansionSymbol
+  },
+
+  props: {
+    expansion: { type: Object, required: true }
   },
 
   computed: {
     detailComponent () {
       return {
-        'ABBEY_AND_MAYOR': AbbeyAndMayorDetail,
-        'BASIC': BasicGameDetail,
-        'BRIDGES_CASTLES_AND_BAZAARS': BridgesCastlesAndBazaarsDetail,
-        'CORN_CIRCLES': CornCirclesDetail,
-        'COUNT': CountDetail,
-        'CULT': CultDetail,
-        'DARMSTADT': DarmstadtDetail,
-        'FERRIES': FerriesDetail,
-        'FESTIVAL': FestivalDetail,
-        'FLIER': FlierDetail,
-        'GOLDMINES': GoldminesDetail,
-        'GQ11': GQ11Detail,
-        'HILLS_AND_SHEEP': HillsAndSheepDetail,
-        'INNS_AND_CATHEDRALS': InnsAndCathedralsDetail,
-        'KING_AND_ROBBER': KingAndRobberDetail,
-        'LABYRINTH': LabyrinthDetail,
-        'MAGE_AND_WITCH': MageAndWitchDetail,
-        'MONASTERIES': MonasteriesDetail,
-        'PRINCESS_AND_DRAGON': PrincessAndDragonDetail,
-        'RIVER': RiverDetail,
-        'RUSSIAN_PROMOS': RussianPromosDetail,
-        'SIEGE': SiegeDetail,
-        'SPIEL_DOCH': SpielDochDetail,
-        'TOWER': TowerDetail,
-        'TUNNEL': TunnelDetail,
-        'TRADERS_AND_BUILDERS': TradersAndBuildersDetail,
-        'WINTER': WinterEditionDetail,
-        'WIND_ROSES': WindRosesDetail
+        ABBEY_AND_MAYOR: AbbeyAndMayorDetail,
+        BASIC: BasicGameDetail,
+        BRIDGES_CASTLES_AND_BAZAARS: BridgesCastlesAndBazaarsDetail,
+        CORN_CIRCLES: CornCirclesDetail,
+        COUNT: CountDetail,
+        CULT: CultDetail,
+        DARMSTADT: DarmstadtDetail,
+        FERRIES: FerriesDetail,
+        FESTIVAL: FestivalDetail,
+        FLIER: FlierDetail,
+        GOLDMINES: GoldminesDetail,
+        GQ11: GQ11Detail,
+        HILLS_AND_SHEEP: HillsAndSheepDetail,
+        INNS_AND_CATHEDRALS: InnsAndCathedralsDetail,
+        KING_AND_ROBBER: KingAndRobberDetail,
+        LABYRINTH: LabyrinthDetail,
+        MAGE_AND_WITCH: MageAndWitchDetail,
+        MONASTERIES: MonasteriesDetail,
+        PRINCESS_AND_DRAGON: PrincessAndDragonDetail,
+        RIVER: RiverDetail,
+        RUSSIAN_PROMOS: RussianPromosDetail,
+        SIEGE: SiegeDetail,
+        SPIEL_DOCH: SpielDochDetail,
+        TOWER: TowerDetail,
+        TUNNEL: TunnelDetail,
+        TRADERS_AND_BUILDERS: TradersAndBuildersDetail,
+        WINTER: WinterEditionDetail,
+        WIND_ROSES: WindRosesDetail
       }[this.expansion.name]
     }
   }
