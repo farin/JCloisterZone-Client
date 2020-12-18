@@ -12,7 +12,7 @@
       active
       :local="local"
     />
-    <slot />
+    <slot :label="phase === 'AbbeyPhase' ? 'Draw a tile' : null" />
   </section>
 </template>
 
@@ -26,6 +26,7 @@ export default {
 
   props: {
     action: { type: Object, required: true },
+    phase: { type: String, required: true },
     local: { type: Boolean }
   },
 
