@@ -1,10 +1,34 @@
 <template>
   <section :class="{ local }">
-    <div v-if="phase === 'CocFollowerPhase'" class="text">{{ local ? 'You' : 'Player' }} may place a meeple in a city district.</div>
-    <div v-if="phase === 'CocScoringPhase'" class="text">{{ local ? 'You' : 'Player' }} may move a meeple from a city district.</div>
-    <div v-if="phase === 'CocFinalScoringPhase' && rules['coc-final-scoring'] === 'market-only'" class="text">{{ local ? 'You' : 'Player' }} may move a meeple from the market district before final scoring.</div>
-    <div v-if="phase === 'CocFinalScoringPhase' && rules['coc-final-scoring'] !== 'market-only'" class="text">{{ local ? 'You' : 'Player' }} may move a meeple from a city district before final scoring.</div>
-    <div v-if="phase === 'CornCirclePhase'" class="text">Crop Circle:<br>{{ local ? 'You' : 'Player' }} may place a meeple next to already present one.</div>
+    <div v-if="phase === 'CocFollowerPhase'" class="text-with-icons text-center">
+      <v-icon>fas fa-arrow-right</v-icon>
+      <v-icon>fab fa-fort-awesome-alt</v-icon>
+      <br>
+      {{ local ? 'You' : 'Player' }} may place a meeple in a city district.
+    </div>
+    <div v-if="phase === 'CocScoringPhase'" class="text-with-icons text-center">
+      <v-icon>fab fa-fort-awesome-alt</v-icon>
+      <v-icon>fas fa-arrow-right</v-icon>
+      <br>
+      {{ local ? 'You' : 'Player' }} may move a meeple from a city district.
+    </div>
+    <div v-if="phase === 'CocFinalScoringPhase' && rules['coc-final-scoring'] === 'market-only'" class="text-with-icons text-center">
+      <v-icon>fab fa-fort-awesome-alt</v-icon>
+      <v-icon>fas fa-arrow-right</v-icon>
+      <br>
+      {{ local ? 'You' : 'Player' }} may move a meeple from the market district before final scoring.
+    </div>
+    <div v-if="phase === 'CocFinalScoringPhase' && rules['coc-final-scoring'] !== 'market-only'" class="text-with-icons text-center">
+      <v-icon>fab fa-fort-awesome-alt</v-icon>
+      <v-icon>fas fa-arrow-right</v-icon>
+      <br>
+      {{ local ? 'You' : 'Player' }} may move a meeple from a city district before final scoring.
+    </div>
+    <div v-if="phase === 'CornCirclePhase'" class="text-with-icons text-center">
+      <ExpansionSymbol :expansion="Expansion.CORN_CIRCLES" :style="{ width: 30, height: 30 }" /> Corn circle:
+      <br>
+      {{ local ? 'You' : 'Player' }} may place a meeple next to already present one.
+    </div>
 
     <!-- key composed from phase meepls trigers properly mounted when one action follows another
          eg phantom action -->
@@ -78,6 +102,9 @@
 
 <script>
 import { mapState } from 'vuex'
+
+import { Expansion } from '@/models/expansions'
+import ExpansionSymbol from '@/components/ExpansionSymbol'
 import BridgeItem from '@/components/game/actions/items/BridgeItem.vue'
 import LittleBuildingItem from '@/components/game/actions/items/LittleBuildingItem.vue'
 import MeeplePlacementItem from '@/components/game/actions/items/MeeplePlacementItem.vue'
@@ -91,6 +118,7 @@ import TunnelItem from '@/components/game/actions/items/TunnelItem.vue'
 export default {
   components: {
     BridgeItem,
+    ExpansionSymbol,
     LittleBuildingItem,
     MeeplePlacementItem,
     MoveFairyNextToItem,
@@ -109,6 +137,7 @@ export default {
 
   data () {
     return {
+      Expansion,
       selected: this.local ? 0 : null
     }
   },
@@ -181,6 +210,15 @@ section
     font-size: 20px
     font-weight: 300
     margin-right: 20px
+
+  .text-with-icons
+    font-size: 18px
+    font-weight: 300
+    margin-right: 20px
+
+    i
+      font-size: 30px
+      margin-bottom: 4px
 
   .action-item
     width: 120px
