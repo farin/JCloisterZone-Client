@@ -1,12 +1,12 @@
 <template>
   <div class="game-setup-grid view">
-    <header>
+    <header class="primary-header">
       <slot name="header" />
     </header>
 
-    <div class="detail-header">
-      <slot name="detail-header" />
-    </div>
+    <header class="tiles-header">
+      <TilePackSize :size="$tiles.getPackSize(sets, rules)" />
+    </header>
 
     <main>
       <slot name="main" />
@@ -19,32 +19,57 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import TilePackSize from '@/components/game/TilePackSize'
+
 export default {
+  components: {
+    TilePackSize
+  },
+
+  computed: {
+    ...mapState({
+      sets: state => state.gameSetup.sets,
+      rules: state => state.gameSetup.rules
+    })
+  }
 }
 </script>
 
 <style lang="sass" scoped>
-
 .game-setup-grid
   display: grid
   grid-template-columns: minmax(0, 1560px) minmax(372px, 1fr)
-  grid-template-rows: $action-bar-height auto
-  grid-template-areas: "header detail-header" "main detail"
-  gap: $panel-gap
+  grid-template-rows: 72px auto
+  grid-template-areas: "header tiles-header" "main detail"
 
   +theme using ($theme)
     background: map-get($theme, 'board-bg')
 
+  ::v-deep .tile-pack-size
+    .v-icon, .size
+      font-size: 36px !important
+
 header
-  grid-area: header
   display: flex
-  align-items: center
-  justify-content: flex-end
-  padding: 0 30px
+  position: sticky
+  top: 0
+  z-index: 99
 
   +theme using ($theme)
     background-color: map-get($theme, 'cards-bg')
     color: map-get($theme, 'gray-text-color')
+    border-bottom: 2px solid map-get($theme, 'board-bg')
+
+  .text
+    font-size: 20px
+    font-weight: 300
+
+.primary-header
+  grid-area: header
+  align-items: center
+  justify-content: flex-end
+  padding: 0 30px
 
   .tabs
     flex: 1
@@ -52,43 +77,26 @@ header
   .v-btn
     margin-left: $button-gap
 
-  .tile-pack-size
-    margin: 0 20px 0 40px
-
-  .text
-    font-size: 20px
-    font-weight: 300
-
-.detail-header
-  grid-area: detail-header
-  display: flex
+.tiles-header
+  grid-area: tiles-header
   align-items: center
-  justify-content: center
-
-  +theme using ($theme)
-    background-color: map-get($theme, 'cards-bg')
-
-  h2
-    // style copied from v-tab
-    font-size: 0.875rem
-    font-weight: 500
-    justify-content: center
-    letter-spacing: 0.0892857143em
-    line-height: normal
-    text-transform: uppercase
+  justify-content: flex-start
+  padding-left: 30px
 
 main
   grid-area: main
   overflow-y: overlay
   padding-bottom: $panel-gap * 2
+  margin-right: $panel-gap
+  margin-top: -2px
 
 aside
   overflow-y: overlay
+  margin-top: -2px
 
 @media (max-width: 1164px)
   .game-setup-grid
     grid-template-columns: 1fr
     grid-template-rows: $action-bar-height auto $action-bar-height auto
     grid-template-areas: "header" "main" "detail-header" "detail"
-
 </style>

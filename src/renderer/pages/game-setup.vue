@@ -1,7 +1,7 @@
 <template>
   <GameSetupGrid v-if="loaded">
     <template #header>
-      <v-tabs v-model="tab">
+      <v-tabs v-model="tab" @change="onTabChange">
         <v-tab>Tiles</v-tab>
         <v-tab>Components</v-tab>
         <v-tab>Rules</v-tab>
@@ -9,14 +9,6 @@
       </v-tabs>
 
       <HeaderGameButton title="Create" @click="createGame" />
-
-      <TilePackSize :size="$tiles.getPackSize(sets, rules)" />
-    </template>
-
-    <template #detail-header>
-      <template>
-        <h2 class="tile-pack-header">Selected tiles</h2>
-      </template>
     </template>
 
     <template #main>
@@ -28,6 +20,7 @@
 
     <template #detail>
       <div class="detail-pack">
+        <h2>Selected tiles</h2>
         <TileDistribution :sets="sets" :rules="rules" @tile-click="onTileClick" />
         <GameAnnotationsPanel v-if="settings.devMode" ref="annotationsPanel" />
       </div>
@@ -43,7 +36,6 @@ import GameAnnotationsPanel from '@/components/dev/GameAnnotationsPanel'
 import GameSetupGrid from '@/components/game-setup/GameSetupGrid'
 import HeaderGameButton from '@/components/game-setup/HeaderGameButton'
 import TileDistribution from '@/components/TileDistribution'
-import TilePackSize from '@/components/game/TilePackSize'
 import TileSetsTab from '@/components/game-setup/tabs/TileSetsTab'
 import TimerTab from '@/components/game-setup/tabs/TimerTab'
 import RulesTab from '@/components/game-setup/tabs/RulesTab'
@@ -55,7 +47,6 @@ export default {
     GameAnnotationsPanel,
     HeaderGameButton,
     TileDistribution,
-    TilePackSize,
     TileSetsTab,
     TimerTab,
     RulesTab
@@ -90,6 +81,10 @@ export default {
       if (this.settings.devMode) {
         this.$refs.annotationsPanel.appendTile(tileId)
       }
+    },
+
+    onTabChange () {
+      window.scrollTo(0, 0)
     }
   }
 }
@@ -98,6 +93,17 @@ export default {
 <style lang="sass" scoped>
 .detail-pack
   padding: 20px
+
+  h2
+    text-align: center
+    margin-bottom: $panel-gap
+
+    font-weight: 300
+    font-size: 16px
+    text-transform: uppercase
+
+    +theme using ($theme)
+      color: map-get($theme, 'gray-text-color')
 
 header
   .warning-text, .info-text

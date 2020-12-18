@@ -18,7 +18,6 @@ section
   display: flex
   justify-content: center
   align-items: center
-  height: $action-bar-height
 
 .v-icon, .size
   font-size: 42px

@@ -11,11 +11,6 @@
       <template v-else>
         <span class="text">Waiting for host to start the game.</span>
       </template>
-      <TilePackSize :size="$tiles.getPackSize(sets)" />
-    </template>
-
-    <template #detail-header>
-      <h2>Game Setup</h2>
     </template>
 
     <template #main>
@@ -45,15 +40,13 @@ import GameSetupOverview from '@/components/game-setup/overview/GameSetupOvervie
 import GameSetupGrid from '@/components/game-setup/GameSetupGrid'
 import HeaderGameButton from '@/components/game-setup/HeaderGameButton'
 import PlayerSlot from '@/components/game-setup/PlayerSlot'
-import TilePackSize from '@/components/game/TilePackSize'
 
 export default {
   components: {
     GameSetupOverview,
     GameSetupGrid,
     HeaderGameButton,
-    PlayerSlot,
-    TilePackSize
+    PlayerSlot
   },
 
   data () {
@@ -106,10 +99,6 @@ export default {
   },
 
   methods: {
-    showTilePack () {
-      this.$store.commit('gameSetup/detail', { view: 'tile-pack' })
-    },
-
     async startGame () {
       await this.$store.dispatch('game/start')
     }
