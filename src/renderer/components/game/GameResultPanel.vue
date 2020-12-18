@@ -1,24 +1,34 @@
 <template>
   <section>
-    <div
-      v-for="r in ranks"
-      :key="r.rank"
-      class="rank"
-    >
-      <div class="num">{{ r.rank }}</div>
+    <div class="standing">
       <div
-        v-for="p in r.players"
-        :key="p.index"
-        :class="colorCssClass(p.index)"
+        v-for="r in ranks"
+        :key="r.rank"
+        class="rank"
       >
-        <Meeple type="SmallFollower" />
+        <div class="num">{{ r.rank }}</div>
+        <div
+          v-for="p in r.players"
+          :key="p.index"
+          :class="colorCssClass(p.index)"
+        >
+          <Meeple type="SmallFollower" />
+        </div>
       </div>
+    </div>
+
+    <div class="play-again">
+      <v-btn large color="secondary" @click="playAgain">
+        <v-icon left>fas fa-play</v-icon>
+        Play Again
+      </v-btn>
     </div>
   </section>
 </template>
 
 <script>
 import groupBy from 'lodash/groupBy'
+import mapKeys from 'lodash/mapKeys'
 
 import { mapGetters, mapState } from 'vuex'
 import Meeple from '@/components/game/Meeple'
@@ -52,6 +62,19 @@ export default {
     ...mapGetters({
       colorCssClass: 'game/colorCssClass'
     })
+  },
+
+  methods: {
+    async playAgain () {
+      const { setup, gameAnnotations } = this.$store.state.game
+      await this.$store.dispatch('game/close')
+      this.$store.commit('gameSetup/setup', {
+        ...setup,
+        sets: mapKeys(setup.sets, (val, key) => key.split(':')[0])
+      })
+      this.$store.commit('gameSetup/gameAnnotations', gameAnnotations)
+      await this.$store.dispatch('gameSetup/createGame')
+    }
   }
 }
 </script>
@@ -59,8 +82,19 @@ export default {
 <style lang="sass" scoped>
 section
   display: flex
+
+.standing
+  padding-top: 20px
+  flex-grow: 1
+  display: flex
   justify-content: center
   align-items: center
+
+.play-again
+  display: flex
+  justify-content: center
+  align-items: center
+  padding-right: 20px
 
 svg.meeple
   width: 55px

@@ -2,7 +2,7 @@
   <div class="view game-view">
     <template v-if="phase">
       <div v-if="forcedDraw" class="forced-draw">
-        Game is created in development mode.<br>
+        Game was created in development mode.<br>
         Tile draw order is predefined.
       </div>
       <TestResult v-if="testScenarioResult" :result="testScenarioResult" />
@@ -43,9 +43,9 @@
 </template>
 
 <script>
+import path from 'path'
 import { mapState } from 'vuex'
 import { remote } from 'electron'
-import path from 'path'
 
 import ActionPanel from '@/components/game/ActionPanel.vue'
 import Board from '@/components/game/Board.vue'
@@ -118,14 +118,18 @@ export default {
     window.addEventListener('resize', this.onRezize)
     this.checkOverflow()
     this.setPlayerIcon(this.activePlayerIdx)
+    this.gameId = this.$store.state.game.id
   },
 
   beforeDestroy () {
     this._ro?.disconnect()
     window.removeEventListener('resize', this.onRezize)
     clearTimeout(this.checkOverflowTimeout)
-    this.$store.dispatch('game/close')
     this.setPlayerIcon(null)
+    if (this.gameId === this.$store.state.game.id) {
+      // close only if not already closed (eg by Play Again button )
+      this.$store.dispatch('game/close')
+    }
   },
 
   methods: {

@@ -315,10 +315,6 @@ export default {
     top: 7px
     transform: scale(1.1)
 
-  .game-over
-    text-align: center
-    padding-top: 20px
-
 .active-player-marker
   position: absolute
   top: 0

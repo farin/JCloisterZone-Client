@@ -560,8 +560,9 @@ export const actions = {
     commit('lockUi', false)
   },
 
-  close ({ dispatch }) {
+  close ({ dispatch, commit }) {
     console.log('Game close requested')
+    commit('id', null)
     const { $engine } = this._vm
     dispatch('networking/close', null, { root: true })
     $engine.kill()
