@@ -9,6 +9,18 @@
     </header>
     <main>
       <h2>Started Games</h2>
+
+      <div class="game-list">
+        <div
+          v-for="game in gameList"
+          :key="game.gameId"
+          class="game"
+        >
+          {{ game.gameId }}
+
+          <v-btn large color="secondary" @click="resume(game)">Resume</v-btn>
+        </div>
+      </div>
     </main>
   </div>
 </template>
@@ -27,6 +39,7 @@ export default {
 
   computed: {
     ...mapState({
+      gameList: state => state.online.gameList
     }),
 
     ...mapGetters({
@@ -55,6 +68,10 @@ export default {
   methods: {
     createGame () {
       this.$store.dispatch('gameSetup/newGame')
+    },
+
+    resume (game) {
+      this.$connection.send({ type: 'JOIN_GAME', payload: { gameId: game.id } })
     }
   }
 }
@@ -93,4 +110,18 @@ h2
 
   +theme using ($theme)
     color: map-get($theme, 'gray-text-color')
+
+.game-list
+  padding: 0 20px
+  display: flex
+  flex-wrap: wrap
+
+.game
+  width: 300px
+  padding: 20px
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)
+
+  +theme using ($theme)
+    color: map-get($theme, 'cards-text')
+    background-color: map-get($theme, 'cards-bg')
 </style>
