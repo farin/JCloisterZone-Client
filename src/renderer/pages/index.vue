@@ -5,7 +5,7 @@
       <div class="disclaimer-content">
         <p>The new JCloisterZone client still missing several important features.</p>
         <ul>
-          <li>play through public server (just direct connection between clients are possible)</li>
+          <li>play through public server (just direct connections between clients are possible)</li>
           <li>AI</li>
           <li>localization</li>
           <li>artwork plugins</li>
