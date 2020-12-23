@@ -5,11 +5,11 @@
       <div class="disclaimer-content">
         <p>The new JCloisterZone client still missing several important features.</p>
         <ul>
-          <li>play through public server (just direct connection between clints is possible)</li>
+          <li>play through public server (just direct connection between clients are possible)</li>
           <li>AI</li>
           <li>localization</li>
           <li>artwork plugins</li>
-          <li>game hints (farm hints, projected points ...)</li>
+          <li>game hints (farm hints, projected points…)</li>
         </ul>
       </div>
     </div>
