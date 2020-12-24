@@ -384,8 +384,6 @@ class Theme {
       Object.entries(content).forEach(([tileId, data]) => processTile(tileId, data))
     }
 
-    console.log(features)
-
     console.log(`Loaded artwork '${id}' from ${folder}`)
   }
 

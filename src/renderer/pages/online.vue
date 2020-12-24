@@ -71,7 +71,7 @@ export default {
     },
 
     resume (game) {
-      this.$connection.send({ type: 'JOIN_GAME', payload: { gameId: game.id } })
+      this.$connection.send({ type: 'JOIN_GAME', payload: { gameId: game.gameId } })
     }
   }
 }
