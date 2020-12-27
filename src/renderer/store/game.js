@@ -560,12 +560,14 @@ export const actions = {
     commit('lockUi', false)
   },
 
-  close ({ dispatch, commit }) {
+  close ({ dispatch, commit, rootState }) {
     console.log('Game close requested')
     commit('id', null)
-    const { $engine } = this._vm
-    dispatch('networking/close', null, { root: true })
-    $engine.kill()
+    if (rootState.networking.connectionType !== 'online') {
+      const { $engine } = this._vm
+      dispatch('networking/close', null, { root: true })
+      $engine.kill()
+    }
   },
 
   async apply ({ state }, { type, payload }) {
