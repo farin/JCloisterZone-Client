@@ -29,7 +29,7 @@ class ConnectionHandler {
   }
 
   async processMessage (message) {
-    const { commit, dispatch, rootState } = this.ctx
+    const { commit, state, dispatch, rootState } = this.ctx
     const { type, payload } = message
     if (ENGINE_MESSAGES.has(type)) {
       await dispatch('game/handleEngineMessage', message, { root: true })
@@ -37,10 +37,12 @@ class ConnectionHandler {
       commit('sessionId', payload.sessionId)
       commit('connectionStatus', STATUS_CONNECTED)
       commit('reconnectAttempt', null)
+      if (state.connectionType === 'online') {
+        this.$router.push('/online')
+      }
       this.resolve()
     } else if (type === 'GAME_LIST') {
       commit('online/gameList', payload.games, { root: true })
-      this.$router.push('/online')
     } else if (type === 'SLOT') {
       await dispatch('game/handleSlotMessage', payload, { root: true })
     } else if (type === 'START') {

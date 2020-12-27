@@ -59,6 +59,8 @@ export default {
       // TODO print message
       this.$router.push('/')
     })
+
+    this.$connection.send({ type: 'LIST_GAMES', payload: {} })
   },
 
   beforeDestroy () {
