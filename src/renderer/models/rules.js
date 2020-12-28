@@ -65,7 +65,7 @@ export const BARN_PLACEMENT = Rule.BARN_PLACEMENT = new Rule('barn-placement',
 )
 
 export const WAGON_MOVE = Rule.WAGON_MOVE = new Rule('wagon-move',
-  'After scored, wagon can me moved to adjacent unoccupied, incomplete feature. Adjacent means ',
+  'After scored, wagon can be moved to an adjacent unoccupied, incomplete feature. Adjacent means ',
   { elements: ['wagon'] },
   [
     { value: 'C1', text: 'connected (road crossing or road heading to a city/cloister) (1st ed.)' },
@@ -88,7 +88,7 @@ export const HILL_TIEBREAKER = Rule.HILL_TIEBREAKER = new Rule('hill-tiebreaker'
   { elements: ['bazaar'] },
   [
     { value: 'at-least-one-follower', text: 'at least one follower' },
-    { value: 'number-of-followers', text: 'number of followerts' }
+    { value: 'number-of-followers', text: 'number of followers' }
   ],
   {
     link: 'http://wikicarpedia.com/index.php/Hills_%26_Sheep_(1st_edition)#cite_note-9'
@@ -96,7 +96,7 @@ export const HILL_TIEBREAKER = Rule.HILL_TIEBREAKER = new Rule('hill-tiebreaker'
 )
 
 export const ESCAPE_VARIANT = Rule.ESCAPE_VARIANT = new Rule('espace-variant',
-  'Cloister must be placed adjacent to {} of a besieged city to espace.',
+  'Cloister must be placed adjacent to {} of a besieged city to escape.',
   { elements: ['escape'] },
   [
     { value: 'any-tile', text: 'any tile', flags: ['RGG'] },
