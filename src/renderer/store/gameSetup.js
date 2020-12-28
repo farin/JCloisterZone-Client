@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import uniq from 'lodash/uniq'
 import mapKeys from 'lodash/mapKeys'
-import { randomId } from '@/utils/random'
 
 import { GameElement, isConfigValueEnabled, getDefaultElements } from '@/models/elements'
 import { getDefaultRules } from '@/models/rules'

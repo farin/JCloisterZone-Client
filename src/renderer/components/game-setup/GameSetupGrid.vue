@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import TilePackSize from '@/components/game/TilePackSize'
 
 export default {
@@ -27,16 +26,16 @@ export default {
     TilePackSize
   },
 
-  computed: {
-    ...mapState({
-      sets: state => state.gameSetup.sets,
-      rules: state => state.gameSetup.rules
-    }),
+  props: {
+    sets: { type: Object, required: true },
+    rules: { type: Object, required: true }
+  },
 
+  computed: {
     packSize () {
       let size = 0
       let { sets } = this
-      if (this.sets.count) {
+      if (sets.count) {
         sets = { ...sets }
         delete sets.count
         size = 1

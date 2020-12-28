@@ -1,5 +1,5 @@
 <template>
-  <GameSetupGrid v-if="loaded && gameId">
+  <GameSetupGrid v-if="loaded && gameId" :sets="sets" :rules="rules">
     <template #header>
       <template v-if="isOwner">
         <HeaderGameButton
@@ -60,6 +60,7 @@ export default {
     ...mapState({
       gameId: state => state.game.id,
       sets: state => state.game.setup?.sets,
+      rules: state => state.game.setup?.rules,
       elements: state => state.game.setup?.elements,
       timer: state => state.game.setup?.timer,
       slots: state => state.game.slots,

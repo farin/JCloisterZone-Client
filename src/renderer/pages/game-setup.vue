@@ -1,5 +1,5 @@
 <template>
-  <GameSetupGrid v-if="loaded">
+  <GameSetupGrid v-if="loaded" :sets="sets" :rules="rules">
     <template #header>
       <v-tabs v-model="tab" @change="onTabChange">
         <v-tab>Tiles</v-tab>
