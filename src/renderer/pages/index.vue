@@ -229,18 +229,20 @@ export default {
   .ribbon
     position: fixed
     width: 320px
-    left: -90px
-    top: 60px
+    left: -120px
+    top: 40px
     background-color: #AD1457
     color: white
     text-transform: uppercase
     text-align: center
-    padding: 10px 80px
+    padding: 4px 0 4px 10px
     transform: rotate(-45deg)
+    font-size: 14px
 
   .disclaimer
-    padding: 20px 0
+    padding: 10px 0
     margin-bottom: 40px
+    font-size: 12px
 
     #app.theme--light &
       background-color: #D7CCC8
@@ -255,7 +257,7 @@ export default {
     margin: 0 auto
 
     p
-      font-size: 18px
+      font-size: 14px
 
 main
   flex: 1 0
