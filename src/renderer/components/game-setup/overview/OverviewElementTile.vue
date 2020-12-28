@@ -35,7 +35,9 @@
     <img v-else-if="element === 'escape'" src="~/assets/features/C1/escape.png" height="55">
 
     <template #quantity>
-      {{ enabled ? '+' : '-' }}
+      <div class="quantity">
+        {{ enabled ? '+' : '-' }}
+      </div>
     </template>
 
     <template #title>

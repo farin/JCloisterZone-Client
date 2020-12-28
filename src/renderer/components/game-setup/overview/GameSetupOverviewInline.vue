@@ -80,41 +80,21 @@ export default {
 .game-setup-overview-inline.small
   grid-template-columns: repeat(9, 36px)
   grid-auto-rows: 80px
-  padding-bottom: 40px
+  padding-bottom: 30px
+
+  .element-box
+    ::v-deep
+      .quantity
+        display: inline-block
+        padding: 4px
+        background: var(--v-primary-base)
+        color: white
+        transform: translateY(-10px)
+        border-radius: 2px
 
   .element-box:nth-child(9n+2),
   .element-box:nth-child(9n+4),
   .element-box:nth-child(9n+6),
   .element-box:nth-child(9n+8)
     transform: translateY(40px)
-    //background-color: red !important
-  // .element-box
-  //   width: 40px
-  //   height: 53px
-
-  //   ::v-deep
-  //     .symbol
-  //       height: 40px
-
-  //       > *
-  //         transform: scale(0.5)
-
-  //     .quantity
-  //       font-size: 12px
-
-  //     .symbol.name
-  //       font-size: 7px
-
-// .game-setup-overview-inline.size-6x1
-//   grid-template-rows: repeat(1, 66px)
-//   height: 66px
-
-// .game-setup-overview-inline.size-6x2
-//   grid-template-rows: repeat(2, 66px)
-//   height: 132px
-
-// .game-setup-overview-inline.size-6x2
-//   grid-template-rows: repeat(3, 66px)
-//   height: 198px
-
 </style>

@@ -3,7 +3,11 @@
     <ExpansionSymbol :expansion="expansion" />
 
     <template #title>{{ set.title }}</template>
-    <template #quantity>{{ quantity > 1 ? quantity : '' }}</template>
+    <template #quantity>
+      <div v-if="quantity > 1" class="quantity">
+        {{ quantity }}
+      </div>
+    </template>
   </OverviewTile>
 </template>
 

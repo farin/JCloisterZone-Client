@@ -9,9 +9,7 @@
     <div class="symbol name">
       <slot name="title" />
     </div>
-    <div class="quantity">
-      <slot name="quantity" />
-    </div>
+    <slot name="quantity" />
   </div>
 </template>
 
@@ -25,6 +23,10 @@ export default {
 
 <style lang="sass" scoped>
 .element-box
+  display: flex
+  flex-direction: column
+  align-items: center
+
   .symbol
     display: flex
     align-items: center
