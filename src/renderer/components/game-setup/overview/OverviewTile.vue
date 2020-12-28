@@ -64,10 +64,4 @@ export default {
     +theme using ($theme)
       fill: map-get($theme, 'overview-tile-off-fill')
       color: map-get($theme, 'overview-tile-off-overlay')
-
-  .name
-    text-decoration: line-through
-
-    +theme using ($theme)
-      text-decoration-color: map-get($theme, 'removed-color')
 </style>

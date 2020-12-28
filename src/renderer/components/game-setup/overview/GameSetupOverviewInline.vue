@@ -45,15 +45,11 @@ export default {
 
   computed: {
     sizeClass () {
-      return ''
-      // const size = this.configElementsSize
-      // if (size <= 6) {
-      //   return 'size-6x1'
-      // }
-      // if (size <= 12) {
-      //   return 'size-6x2'
-      // }
-      // return 'size-6x3'
+      const size = this.configElementsSize
+      if (size > 18) {
+        return 'small'
+      }
+      return 'normal'
     }
   }
 }
@@ -62,27 +58,48 @@ export default {
 <style lang="sass" scoped>
 .game-setup-overview-inline
   display: grid
-  width: 300px
-  grid-template-columns: repeat(6, 50px)
-  grid-auto-rows: 66px
+  width: 360px
+  grid-template-columns: repeat(6, 60px)
+  grid-auto-rows: 80px
 
   .element-box
     margin: 0.5px
-    width: 50px
-    height: 66px
+    width: 60px
+    height: 80px
 
     ::v-deep
       .symbol
         height: 50px
 
         > *
-          transform: scale(0.625)
+          transform: scale(0.75)
 
       .quantity
-        font-size: 16px
+        font-size: 18px
 
       .symbol.name
-        font-size: 8px
+        font-size: 10px
+
+.game-setup-overview-inline.small
+  grid-template-columns: repeat(9, 40px)
+  grid-auto-rows: 53px
+
+  .element-box
+    width: 40px
+    height: 53px
+
+    ::v-deep
+      .symbol
+        height: 40px
+
+        > *
+          transform: scale(0.5)
+
+      .quantity
+        font-size: 12px
+
+      .symbol.name
+        font-size: 7px
 
 // .game-setup-overview-inline.size-6x1
 //   grid-template-rows: repeat(1, 66px)
@@ -96,11 +113,4 @@ export default {
 //   grid-template-rows: repeat(3, 66px)
 //   height: 198px
 
-.section-delimiter
-  padding-top: 15px
-  text-align: center
-  width: 50px
-
-  .v-icon
-    font-size: 12px
 </style>
