@@ -43,6 +43,10 @@ export default {
 
     removals () {
       return this.nonDefaultElements.filter(el => !isConfigValueEnabled(el[1]))
+    },
+
+    configElementsSize () {
+      return this.tileSets.length + this.nonDefaultElements.length
     }
   },
 

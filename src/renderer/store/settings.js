@@ -9,7 +9,7 @@ import { remote } from 'electron'
 import { CONSOLE_SETTINGS_COLOR } from '@/constants/logging'
 
 const RECENT_GAMES_COUNT = 14
-const RECENT_SETUPS_COUNT = 3
+const RECENT_SETUPS_COUNT = 4
 
 /* eslint quote-props: 0 */
 export const state = () => ({

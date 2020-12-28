@@ -108,6 +108,11 @@ aside
 @media (max-width: 1164px)
   .game-setup-grid
     grid-template-columns: 1fr
-    grid-template-rows: $action-bar-height auto $action-bar-height auto
-    grid-template-areas: "header" "main" "detail-header" "detail"
+    grid-template-rows: 72px auto 72px auto
+    grid-template-areas: "header" "main" "tiles-header" "detail"
+
+    .tiles-header
+      position: static
+      justify-content: center
+      z-index: 0
 </style>

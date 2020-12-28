@@ -1,5 +1,5 @@
 <template>
-  <div class="game-setup-overview-inline">
+  <div class="game-setup-overview-inline" :class="sizeClass">
     <OverviewTileSetTile
       v-for="{ expansion, set, quantity } in tileSets"
       :key="'s' + set.id"
@@ -7,9 +7,6 @@
       :set="set"
       :quantity="quantity"
     />
-    <div v-if="additions.length" class="section-delimiter">
-      <v-icon>fas fa-plus</v-icon>
-    </div>
     <OverviewElementTile
       v-for="([element, value]) in additions"
       :key="'a' + element"
@@ -17,9 +14,6 @@
       :value="value"
       :small="small"
     />
-    <div v-if="removals.length" class="section-delimiter">
-      <v-icon>fas fa-minus</v-icon>
-    </div>
     <OverviewElementTile
       v-for="([element, value]) in removals"
       :key="'r' + element"
@@ -47,19 +41,35 @@ export default {
     sets: { type: Object, required: true },
     elements: { type: Object, required: true },
     small: { type: Boolean }
+  },
+
+  computed: {
+    sizeClass () {
+      return ''
+      // const size = this.configElementsSize
+      // if (size <= 6) {
+      //   return 'size-6x1'
+      // }
+      // if (size <= 12) {
+      //   return 'size-6x2'
+      // }
+      // return 'size-6x3'
+    }
   }
 }
 </script>
 
 <style lang="sass" scoped>
 .game-setup-overview-inline
-  display: flex
-  flex-wrap: wrap
+  display: grid
+  width: 300px
+  grid-template-columns: repeat(6, 50px)
+  grid-auto-rows: 66px
 
   .element-box
+    margin: 0.5px
     width: 50px
     height: 66px
-    margin: 0.5px
 
     ::v-deep
       .symbol
@@ -73,6 +83,18 @@ export default {
 
       .symbol.name
         font-size: 8px
+
+// .game-setup-overview-inline.size-6x1
+//   grid-template-rows: repeat(1, 66px)
+//   height: 66px
+
+// .game-setup-overview-inline.size-6x2
+//   grid-template-rows: repeat(2, 66px)
+//   height: 132px
+
+// .game-setup-overview-inline.size-6x2
+//   grid-template-rows: repeat(3, 66px)
+//   height: 198px
 
 .section-delimiter
   padding-top: 15px

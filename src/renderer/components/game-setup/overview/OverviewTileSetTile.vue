@@ -1,8 +1,9 @@
 <template>
-  <OverviewTile enabled :quantity="quantity">
+  <OverviewTile enabled>
     <ExpansionSymbol :expansion="expansion" />
 
     <template #title>{{ set.title }}</template>
+    <template #quantity>{{ quantity > 1 ? quantity : '' }}</template>
   </OverviewTile>
 </template>
 

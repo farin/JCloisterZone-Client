@@ -1,6 +1,6 @@
 <template>
   <OverviewTile
-    :enabled="isConfigValueEnabled(value)"
+    :enabled="enabled"
   >
     <svg v-if="isMeeple(element)" class="meeple" :width="70" :height="70">
       <use :href="`${MEEPLES_SVG}#${element}`" />
@@ -30,9 +30,13 @@
     <img v-else-if="element === 'vineyard'" src="~/assets/features/C1/vineyard.png" height="55">
     <img v-else-if="element === 'bazaar'" src="~/assets/features/C1/bazaar.png" height="45">
     <img v-else-if="element === 'hill'" src="~/assets/features/C1/hill.png" height="55">
-    <img v-else-if="element === 'shrine'"  src="~/assets/features/C1/shrine.jpg" height="55">
+    <img v-else-if="element === 'shrine'" src="~/assets/features/C1/shrine.jpg" height="55">
     <img v-else-if="element === 'festival'" src="~/assets/features/C1/festival.png" height="55">
     <img v-else-if="element === 'escape'" src="~/assets/features/C1/escape.png" height="55">
+
+    <template #quantity>
+      {{ enabled ? '+' : '-' }}
+    </template>
 
     <template #title>
       <template v-if="element === 'traders'">Trade Goods</template>
@@ -66,13 +70,15 @@ export default {
     return { MEEPLES_SVG }
   },
 
+  computed: {
+    enabled () {
+      return isConfigValueEnabled(this.value)
+    }
+  },
+
   methods: {
     isMeeple (el) {
       return MEEPLES.includes(el)
-    },
-
-    isConfigValueEnabled (val) {
-      return isConfigValueEnabled(val)
     }
   }
 }

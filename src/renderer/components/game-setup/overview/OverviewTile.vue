@@ -9,15 +9,16 @@
     <div class="symbol name">
       <slot name="title" />
     </div>
-    <div v-if="quantity > 1" class="quantity">{{ quantity }}</div>
+    <div class="quantity">
+      <slot name="quantity" />
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    enabled: { type: Boolean },
-    quantity: { type: Number, default: 1 }
+    enabled: { type: Boolean }
   }
 }
 </script>
