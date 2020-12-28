@@ -60,60 +60,66 @@
         <div v-html="updateInfo.releaseNotes" />
       </div>
     </div>
-    <main>
-      <div>
-        <v-btn large color="secondary" @click="newGame()">
-          New game
-        </v-btn>
 
-        <template v-if="recentGameSetups.length && $store.state.loaded.plugins">
-          <h2>Recent Game Setups</h2>
+    <section class="online-hosted">
+      <h2>Public server hosted</h2>
 
-          <div class="recent-list d-flex flex-column align-end">
-            <div
-              v-for="(setup, idx) in recentGameSetups"
-              :key="idx"
-              class="recent-setup"
-              @click="loadSetup(setup)"
-            >
-              <GameSetupOverviewInline :sets="setup.sets" :elements="setup.elements" />
-            </div>
-            <a class="clear" href="#" @click="clearRecentGameSetups"><v-icon>fas fa-times</v-icon> clear list</a>
-          </div>
-        </template>
-      </div>
+      <v-btn large color="secondary" @click="playOnline()">
+        Play online
+        <v-icon right>fa-cloud</v-icon>
+      </v-btn>
+    </section>
 
-      <div>
-        <div class="d-flex">
-          <v-btn large color="secondary" @click="loadGame()">
-            Load game
+    <section class="player-hosted">
+      <h2>User hosted</h2>
+
+      <div class="player-hosted-content">
+        <div>
+          <v-btn large color="secondary" @click="newGame()">
+            New game
           </v-btn>
 
-          <div class="join-wrapper">
-            <v-btn large color="secondary" @click="joinGame()">
-              Join game
-            </v-btn>
-          </div>
+          <template v-if="recentGameSetups.length && $store.state.loaded.plugins">
+            <h3>Recent Game Setups</h3>
 
-          <div  v-if="featureEnabledPlayOnline" class="join-wrapper">
-            <v-btn large color="secondary" @click="playOnline()">
-              Play online (DEV)
-            </v-btn>
-          </div>
+            <div class="recent-list d-flex flex-column align-end">
+              <div
+                v-for="(setup, idx) in recentGameSetups"
+                :key="idx"
+                class="recent-setup"
+                @click="loadSetup(setup)"
+              >
+                <GameSetupOverviewInline :sets="setup.sets" :elements="setup.elements" />
+              </div>
+              <a class="clear" href="#" @click="clearRecentGameSetups"><v-icon>fas fa-times</v-icon> clear list</a>
+            </div>
+          </template>
         </div>
 
-        <template v-if="recentGames.length">
-          <h2>Recent games</h2>
+        <div>
+          <div class="d-flex">
+            <v-btn large color="secondary" @click="loadGame()">
+              Load game
+            </v-btn>
 
-          <div class="recent-list">
-            <a v-for="file in recentGames" :key="file" href="#" @click="loadGame(file)">{{ file }}</a>
-            <a class="clear" href="#" @click="clearRecentGames"><v-icon>fas fa-times</v-icon> clear list</a>
+            <div class="join-wrapper">
+              <v-btn large color="secondary" @click="joinGame()">
+                Join game
+              </v-btn>
+            </div>
           </div>
-        </template>
+
+          <template v-if="recentGames.length">
+            <h3>Recent games</h3>
+
+            <div class="recent-list">
+              <a v-for="file in recentGames" :key="file" href="#" @click="loadGame(file)">{{ file }}</a>
+              <a class="clear" href="#" @click="clearRecentGames"><v-icon>fas fa-times</v-icon> clear list</a>
+            </div>
+          </template>
+        </div>
       </div>
-    </main>
-    <!-- <footer>
-    </footer> -->
+    </section>
   </div>
 </template>
 
@@ -135,7 +141,6 @@ export default {
   data () {
     return {
       isMac,
-      featureEnabledPlayOnline: process.env.NODE_ENV === 'development',
       // do not bind it to store
       recentGames: [...this.$store.state.settings.recentSaves],
       recentGameSetups: [...this.$store.state.settings.recentGameSetups],
@@ -227,7 +232,7 @@ export default {
   flex-direction: column
 
   .ribbon
-    position: fixed
+    position: absolute
     width: 320px
     left: -120px
     top: 40px
@@ -259,12 +264,43 @@ export default {
     p
       font-size: 14px
 
-main
+h2, h3
+  font-weight: 300
+  font-size: 16px
+  margin-bottom: 10px
+
+h2
+  font-size: 18px
+  margin: 0 0 20px
+
+  +theme using ($theme)
+    color: map-get($theme, 'gray-text-color')
+
+h3
+  font-size: 16px
+  text-transform: uppercase
+  margin-top: 30px
+
+.online-hosted
+  padding: 20px 20px 25px
+  text-align: center
+
+  +theme using ($theme)
+    background: map-get($theme, 'board-bg')
+
+  .v-btn i
+    margin-left: 20px
+
+.player-hosted
   flex: 1 0
+  padding-top: 40px
+  text-align: center
+
+.player-hosted-content
   display: flex
   justify-content: center
   align-items: stretch
-  padding-top: 40px
+  text-align: left
 
   > div
     padding: 5px 30px
@@ -282,16 +318,6 @@ main
 
     +theme using ($theme)
       border-left: 1px solid #{map-get($theme, 'line-color')}
-
-  h2
-    font-weight: 300
-    font-size: 16px
-    text-transform: uppercase
-    margin-top: 30px
-    margin-bottom: 10px
-
-    +theme using ($theme)
-      color: map-get($theme, 'gray-text-color')
 
   .recent-setup
     cursor: pointer
@@ -323,11 +349,6 @@ main
 
   .update-action
     margin: 20px 0
-
-// footer
-//   font-size: 14px
-//   text-align: right
-//   padding: 1px 2px
 
 @media (max-height: 1199px)
   .landing-view
