@@ -1,6 +1,7 @@
 <template>
   <OverviewTile
     :enabled="enabled"
+    :z-index="zIndex"
   >
     <svg v-if="isMeeple(element)" class="meeple" :width="70" :height="70">
       <use :href="`${MEEPLES_SVG}#${element}`" />
@@ -35,7 +36,7 @@
     <img v-else-if="element === 'escape'" src="~/assets/features/C1/escape.png" height="55">
 
     <template #quantity>
-      <div class="quantity">
+      <div class="quantity" :class="enabled ? 'addition': 'removal'">
         {{ enabled ? '+' : '-' }}
       </div>
     </template>
@@ -65,7 +66,8 @@ export default {
 
   props: {
     element: { type: String, required: true },
-    value: { type: [String, Number, Boolean], required: true }
+    value: { type: [String, Number, Boolean], required: true },
+    zIndex: { type: Number, default: 1 }
   },
 
   data () {

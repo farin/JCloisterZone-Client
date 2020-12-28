@@ -1,10 +1,13 @@
 <template>
-  <OverviewTile enabled>
+  <OverviewTile
+    enabled
+    :z-index="zIndex"
+  >
     <ExpansionSymbol :expansion="expansion" />
 
     <template #title>{{ set.title }}</template>
     <template #quantity>
-      <div v-if="quantity > 1" class="quantity">
+      <div v-if="quantity > 1" class="quantity tile-set">
         {{ quantity }}
       </div>
     </template>
@@ -24,7 +27,8 @@ export default {
   props: {
     expansion: { type: Object, required: true },
     set: { type: Object, required: true },
-    quantity: { type: Number, default: 1 }
+    quantity: { type: Number, default: 1 },
+    zIndex: { type: Number, default: 1 }
   }
 }
 </script>

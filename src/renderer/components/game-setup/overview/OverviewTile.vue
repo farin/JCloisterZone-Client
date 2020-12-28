@@ -1,7 +1,8 @@
 <template>
   <div
     class="element-box"
-    :class="{off: !enabled, titled: $slots.title}"
+    :class="{ off: !enabled, titled: $slots.title }"
+    :style="{ zIndex }"
   >
     <div class="symbol ico">
       <slot />
@@ -16,7 +17,8 @@
 <script>
 export default {
   props: {
-    enabled: { type: Boolean }
+    enabled: { type: Boolean },
+    zIndex: { type: Number, default: 1 }
   }
 }
 </script>

@@ -1,23 +1,26 @@
 <template>
   <div class="game-setup-overview-inline" :class="sizeClass">
     <OverviewTileSetTile
-      v-for="{ expansion, set, quantity } in tileSets"
+      v-for="({ expansion, set, quantity }, idx) in tileSets"
       :key="'s' + set.id"
       :expansion="expansion"
       :set="set"
       :quantity="quantity"
+      :z-index="toZindex(idx)"
     />
     <OverviewElementTile
-      v-for="([element, value]) in additions"
+      v-for="([element, value], idx) in additions"
       :key="'a' + element"
       :element="element"
       :value="value"
+      :z-index="toZindex(idx + tileSets.length)"
     />
     <OverviewElementTile
-      v-for="([element, value]) in removals"
+      v-for="([element, value], idx) in removals"
       :key="'r' + element"
       :element="element"
       :value="value"
+      :z-index="toZindex(idx + tileSets.length + additions.length)"
     />
   </div>
 </template>
@@ -48,7 +51,17 @@ export default {
       }
       return 'normal'
     }
+  },
+
+  methods: {
+    toZindex (idx) {
+      const row = Math.floor(idx / 9)
+      const div = idx % 9
+      const rowIdx = div % 2 === 0 ? div / 2 : 5 + Math.floor(div / 2)
+      return 900 - (row * 9 + rowIdx)
+    }
   }
+
 }
 </script>
 
@@ -87,10 +100,17 @@ export default {
       .quantity
         display: inline-block
         padding: 4px
-        background: var(--v-primary-base)
+        background: #03a9f4
         color: white
         transform: translateY(-10px)
         border-radius: 2px
+        opacity: 0.8
+
+        &.addition
+          background: #009900
+
+        &.removal
+          background: #ef0000
 
   .element-box:nth-child(9n+2),
   .element-box:nth-child(9n+4),
