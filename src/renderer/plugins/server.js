@@ -32,7 +32,7 @@ export class GameServer {
     this.ownerClientId = clientId
     this.wss = null
     this.clients = null
-    this.heartBeatInterval = null
+    this.heartbeatInterval = null
     this.replay = game.replay || []
     this.initialClock = game.clock || 0
     this.receivedMessageIds = new Set()
@@ -80,7 +80,7 @@ export class GameServer {
         dialog.showErrorBox(`Can't start server on port ${port}`, msg)
       })
 
-      this.heartBeatInterval = setInterval(() => {
+      this.heartbeatInterval = setInterval(() => {
         this.wss.clients.forEach(ws => {
           if (ws.isAlive === false) {
             ws.terminate()
@@ -99,7 +99,7 @@ export class GameServer {
       return new Promise(resolve => {
         this.closing = resolve
 
-        clearInterval(this.heartBeatInterval)
+        clearInterval(this.heartbeatInterval)
         this.clients.forEach(ws => {
           ws.close()
         })
@@ -189,7 +189,7 @@ export class GameServer {
           }
           this.broadcast({
             type: 'SLOT',
-            payload: slot
+            payload: { ...slot, gameId: this.game.gameId }
           })
         })
       }
@@ -277,7 +277,8 @@ export class GameServer {
     this.send(ws, {
       type: 'WELCOME',
       payload: {
-        sessionId
+        sessionId,
+        heartbeat: HEARTBEAT_INTERVAL
       }
     })
 
@@ -301,7 +302,7 @@ export class GameServer {
     assignedSlots.forEach(slot => {
       this.broadcast({
         type: 'SLOT',
-        payload: slot
+        payload: { ...slot, gameId: this.game.gameId }
       })
     })
   }
@@ -360,7 +361,7 @@ export class GameServer {
     slot.clientId = ws.clientId
     this.broadcast({
       type: 'SLOT',
-      payload: slot
+      payload: { ...slot, gameId: this.game.gameId }
     })
   }
 
@@ -387,7 +388,7 @@ export class GameServer {
     slot.name = name
     this.broadcast({
       type: 'SLOT',
-      payload: slot
+      payload: { ...slot, gameId: this.game.gameId }
     })
   }
 
@@ -416,7 +417,7 @@ export class GameServer {
       slot.clientId = null
       this.broadcast({
         type: 'SLOT',
-        payload: slot
+        payload: { ...slot, gameId: this.game.gameId }
       })
     }
   }
@@ -468,6 +469,9 @@ export default ({ app }, inject) => {
       const { settings } = app.store.state
       const appVersion = getAppVersion()
       const engineVersion = app.store.state.engine.version
+      if (!game.gameId) {
+        game = { gameId: randomId(), ...game }
+      }
       gameServer = new GameServer(game, settings.clientId, {
         appVersion,
         engineVersion

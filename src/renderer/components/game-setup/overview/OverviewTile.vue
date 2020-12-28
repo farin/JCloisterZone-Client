@@ -1,7 +1,8 @@
 <template>
   <div
     class="element-box"
-    :class="{off: !enabled, titled: $slots.title}"
+    :class="{ off: !enabled, titled: $slots.title }"
+    :style="{ zIndex }"
   >
     <div class="symbol ico">
       <slot />
@@ -9,7 +10,7 @@
     <div class="symbol name">
       <slot name="title" />
     </div>
-    <div v-if="quantity > 1" class="quantity">{{ quantity }}</div>
+    <slot name="quantity" />
   </div>
 </template>
 
@@ -17,15 +18,17 @@
 export default {
   props: {
     enabled: { type: Boolean },
-    quantity: { type: Number, default: 1 }
+    zIndex: { type: Number, default: 1 }
   }
 }
 </script>
 
 <style lang="sass" scoped>
 .element-box
-  +theme using ($theme)
-    background-color: map-get($theme, 'overview-tile-bg')
+  display: flex
+  flex-direction: column
+  align-items: center
+
   .symbol
     display: flex
     align-items: center
@@ -34,6 +37,10 @@ export default {
     svg
       +theme using ($theme)
         fill: map-get($theme, 'overview-tile-fill')
+
+    svg.meeple
+      +theme using ($theme)
+        fill: map-get($theme, 'overview-tile-meeple-fill')
 
   .quantity
     text-align: center
@@ -56,17 +63,8 @@ export default {
       display: flex
 
 .element-box.off
-  +theme using ($theme)
-    background: map-get($theme, 'overview-tile-off-bg')
-
   svg
     +theme using ($theme)
       fill: map-get($theme, 'overview-tile-off-fill')
       color: map-get($theme, 'overview-tile-off-overlay')
-
-  .name
-    text-decoration: line-through
-
-    +theme using ($theme)
-      text-decoration-color: map-get($theme, 'removed-color')
 </style>

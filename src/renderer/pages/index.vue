@@ -3,14 +3,8 @@
     <div class="ribbon">Beta</div>
     <div class="disclaimer">
       <div class="disclaimer-content">
-        <p>The new JCloisterZone client still missing several important features.</p>
-        <ul>
-          <li>play through public server (just direct connections between clients are possible)</li>
-          <li>AI</li>
-          <li>localization</li>
-          <li>artwork plugins</li>
-          <li>game hints (farm hints, projected points…)</li>
-        </ul>
+        <p>The new JCloisterZone client still missing several features available in legacy Java app.</p>
+        <p>Public server hosted games, AI, Localization, Artwork plugins and game hints (farm hints, projected points…)</p>
       </div>
     </div>
     <div>
@@ -60,60 +54,65 @@
         <div v-html="updateInfo.releaseNotes" />
       </div>
     </div>
-    <main>
-      <div>
-        <v-btn large color="secondary" @click="newGame()">
-          New game
-        </v-btn>
 
-        <template v-if="recentGameSetups.length && $store.state.loaded.plugins">
-          <h2>Recent Game Setups</h2>
+    <section v-if="!settingsLoaded || $store.state.settings.playOnlineUrl" class="online-hosted">
+      <h2>Public server hosted games</h2>
+      <v-btn large color="secondary" @click="playOnline()">
+        Play online
+        <v-icon right>fa-cloud</v-icon>
+      </v-btn>
+    </section>
 
-          <div class="recent-list d-flex flex-column align-end">
-            <div
-              v-for="(setup, idx) in recentGameSetups"
-              :key="idx"
-              class="recent-setup"
-              @click="loadSetup(setup)"
-            >
-              <GameSetupOverviewInline :sets="setup.sets" :elements="setup.elements" />
-            </div>
-            <a class="clear" href="#" @click="clearRecentGameSetups"><v-icon>fas fa-times</v-icon> clear list</a>
-          </div>
-        </template>
-      </div>
+    <section class="player-hosted">
+      <h2>User hosted games</h2>
 
-      <div>
-        <div class="d-flex">
-          <v-btn large color="secondary" @click="loadGame()">
-            Load game
+      <div class="player-hosted-content">
+        <div>
+          <v-btn large color="secondary" @click="newGame()">
+            New game
           </v-btn>
 
-          <div class="join-wrapper">
-            <v-btn large color="secondary" @click="joinGame()">
-              Join game
-            </v-btn>
-          </div>
+          <template v-if="recentGameSetups.length && $store.state.loaded.plugins">
+            <h3>Recent Game Setups</h3>
 
-          <div  v-if="featureEnabledPlayOnline" class="join-wrapper">
-            <v-btn large color="secondary" @click="playOnline()">
-              Play online (DEV)
-            </v-btn>
-          </div>
+            <div class="recent-list d-flex flex-column align-end">
+              <div
+                v-for="(setup, idx) in recentGameSetups"
+                :key="idx"
+                class="recent-setup"
+                @click="loadSetup(setup)"
+              >
+                <GameSetupOverviewInline :sets="setup.sets" :elements="setup.elements" />
+              </div>
+              <a class="clear" href="#" @click="clearRecentGameSetups"><v-icon>fas fa-times</v-icon> clear list</a>
+            </div>
+          </template>
         </div>
 
-        <template v-if="recentGames.length">
-          <h2>Recent games</h2>
+        <div>
+          <div class="d-flex">
+            <v-btn large color="secondary" @click="loadGame()">
+              Load game
+            </v-btn>
 
-          <div class="recent-list">
-            <a v-for="file in recentGames" :key="file" href="#" @click="loadGame(file)">{{ file }}</a>
-            <a class="clear" href="#" @click="clearRecentGames"><v-icon>fas fa-times</v-icon> clear list</a>
+            <div class="join-wrapper">
+              <v-btn large color="secondary" @click="joinGame()">
+                Join game
+              </v-btn>
+            </div>
           </div>
-        </template>
+
+          <template v-if="recentGames.length">
+            <h3>Recent games</h3>
+
+            <div class="recent-list">
+              <a v-for="file in recentGames" :key="file" href="#" @click="loadGame(file)">{{ file }}</a>
+              <a class="clear" href="#" @click="clearRecentGames"><v-icon>fas fa-times</v-icon> clear list</a>
+            </div>
+          </template>
+        </div>
       </div>
-    </main>
-    <!-- <footer>
-    </footer> -->
+    </section>
   </div>
 </template>
 
@@ -135,7 +134,6 @@ export default {
   data () {
     return {
       isMac,
-      featureEnabledPlayOnline: process.env.NODE_ENV === 'development',
       // do not bind it to store
       recentGames: [...this.$store.state.settings.recentSaves],
       recentGameSetups: [...this.$store.state.settings.recentGameSetups],
@@ -227,20 +225,22 @@ export default {
   flex-direction: column
 
   .ribbon
-    position: fixed
+    position: absolute
     width: 320px
-    left: -90px
-    top: 60px
+    left: -140px
+    top: 20px
     background-color: #AD1457
     color: white
     text-transform: uppercase
     text-align: center
-    padding: 10px 80px
+    padding: 4px 0 4px 10px
     transform: rotate(-45deg)
+    font-size: 14px
 
   .disclaimer
-    padding: 20px 0
-    margin-bottom: 40px
+    padding: 10px 0
+    font-size: 12px
+    margin-bottom: 20px
 
     #app.theme--light &
       background-color: #D7CCC8
@@ -255,14 +255,45 @@ export default {
     margin: 0 auto
 
     p
-      font-size: 18px
+      font-size: 14px
 
-main
+h2, h3
+  font-weight: 300
+  font-size: 16px
+  margin-bottom: 10px
+
+h2
+  font-size: 18px
+  margin: 0 0 20px
+
+  +theme using ($theme)
+    color: map-get($theme, 'gray-text-color')
+
+h3
+  font-size: 16px
+  text-transform: uppercase
+  margin-top: 30px
+
+.online-hosted
+  padding: 20px 20px 25px
+  text-align: center
+
+  +theme using ($theme)
+    background: map-get($theme, 'board-bg')
+
+  .v-btn i
+    margin-left: 20px
+
+.player-hosted
   flex: 1 0
+  padding-top: 30px
+  text-align: center
+
+.player-hosted-content
   display: flex
   justify-content: center
   align-items: stretch
-  padding-top: 40px
+  text-align: left
 
   > div
     padding: 5px 30px
@@ -281,19 +312,11 @@ main
     +theme using ($theme)
       border-left: 1px solid #{map-get($theme, 'line-color')}
 
-  h2
-    font-weight: 300
-    font-size: 16px
-    text-transform: uppercase
-    margin-top: 30px
-    margin-bottom: 10px
-
-    +theme using ($theme)
-      color: map-get($theme, 'gray-text-color')
-
   .recent-setup
     cursor: pointer
-    margin-bottom: 10px
+    padding-top: 5px
+    margin-bottom: 20px
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 3px 10px 0 rgba(0, 0, 0, 0.03)
 
     +theme using ($theme)
       border: 1px solid #{map-get($theme, 'line-color')}
@@ -321,11 +344,6 @@ main
 
   .update-action
     margin: 20px 0
-
-// footer
-//   font-size: 14px
-//   text-align: right
-//   padding: 1px 2px
 
 @media (max-height: 1199px)
   .landing-view

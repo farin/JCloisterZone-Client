@@ -1,4 +1,3 @@
-import { mapGetters } from 'vuex'
 import uniq from 'lodash/uniq'
 
 import { Expansion } from '@/models/expansions'
@@ -44,14 +43,14 @@ export default {
 
     removals () {
       return this.nonDefaultElements.filter(el => !isConfigValueEnabled(el[1]))
+    },
+
+    configElementsSize () {
+      return this.tileSets.length + this.nonDefaultElements.length
     }
   },
 
   methods: {
-    isMeeple (el) {
-      return MEEPLES.includes(el)
-    },
-
     isConfigValueEnabled (val) {
       return isConfigValueEnabled(val)
     }

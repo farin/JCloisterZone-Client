@@ -34,7 +34,7 @@
         </v-card-title>
         <v-card-text>
           <v-container>
-              <v-text-field label="Name" v-model="editName" @keydown.enter="rename"></v-text-field>
+            <v-text-field label="Name" v-model="editName" @keydown.enter="rename"></v-text-field>
           </v-container>
         </v-card-text>
         <v-card-actions>

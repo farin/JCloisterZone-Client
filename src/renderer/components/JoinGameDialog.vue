@@ -54,7 +54,7 @@ export default {
       this.connecting = true
       this.error = null
       try {
-        await this.$store.dispatch('networking/connect', this.host)
+        await this.$store.dispatch('networking/connect', { host: this.host, connectionType: 'direct' })
         this.$store.dispatch('settings/addRecentJoinedGame', this.host)
         this.connecting = false
         this.$emit('close')

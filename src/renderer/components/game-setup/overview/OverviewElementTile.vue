@@ -1,13 +1,14 @@
 <template>
   <OverviewTile
-    :enabled="isConfigValueEnabled(value)"
+    :enabled="enabled"
+    :z-index="zIndex"
   >
     <svg v-if="isMeeple(element)" class="meeple" :width="70" :height="70">
       <use :href="`${MEEPLES_SVG}#${element}`" />
     </svg>
     <img v-else-if="element === 'garden'" src="~/assets/features/C1/garden.png" width="80" height="55">
     <NeutralFigure v-else-if="element === 'fairy'" figure="fairy" :width="70" :height="70" />
-    <NeutralFigure v-else-if="element === 'dragon'" figure="dragon" :width="110" :height="55" />
+    <NeutralFigure v-else-if="element === 'dragon'" figure="dragon" :width="80" :height="40" />
     <NeutralFigure v-else-if="element === 'count'" figure="count" :width="70" :height="70" />
     <StandaloneTileImage v-else-if="element === 'abbey'" tile-id="AM/A" :size="70" />
     <img v-else-if="element === 'tower'" src="~/assets/figures/tower-alt.png" height="45">
@@ -30,9 +31,15 @@
     <img v-else-if="element === 'vineyard'" src="~/assets/features/C1/vineyard.png" height="55">
     <img v-else-if="element === 'bazaar'" src="~/assets/features/C1/bazaar.png" height="45">
     <img v-else-if="element === 'hill'" src="~/assets/features/C1/hill.png" height="55">
-    <img v-else-if="element === 'shrine'"  src="~/assets/features/C1/shrine.jpg" height="55">
+    <img v-else-if="element === 'shrine'" src="~/assets/features/C1/shrine.jpg" height="55">
     <img v-else-if="element === 'festival'" src="~/assets/features/C1/festival.png" height="55">
     <img v-else-if="element === 'escape'" src="~/assets/features/C1/escape.png" height="55">
+
+    <template #quantity>
+      <div class="quantity" :class="enabled ? 'addition': 'removal'">
+        {{ enabled ? '+' : '-' }}
+      </div>
+    </template>
 
     <template #title>
       <template v-if="element === 'traders'">Trade Goods</template>
@@ -42,12 +49,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import uniq from 'lodash/uniq'
-
-import { Expansion } from '@/models/expansions'
-import { isConfigValueEnabled, getDefaultElements } from '@/models/elements'
-import ExpansionSymbol from '@/components/ExpansionSymbol'
+import { isConfigValueEnabled } from '@/models/elements'
 import NeutralFigure from '@/components/game/NeutralFigure'
 import OverviewTile from '@/components/game-setup/overview/OverviewTile'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
@@ -57,7 +59,6 @@ const MEEPLES = ['small-follower', 'abbot', 'phantom', 'big-follower', 'builder'
 
 export default {
   components: {
-    ExpansionSymbol,
     NeutralFigure,
     OverviewTile,
     StandaloneTileImage
@@ -66,19 +67,22 @@ export default {
   props: {
     element: { type: String, required: true },
     value: { type: [String, Number, Boolean], required: true },
+    zIndex: { type: Number, default: 1 }
   },
 
   data () {
     return { MEEPLES_SVG }
   },
 
+  computed: {
+    enabled () {
+      return isConfigValueEnabled(this.value)
+    }
+  },
+
   methods: {
     isMeeple (el) {
       return MEEPLES.includes(el)
-    },
-
-    isConfigValueEnabled (val) {
-      return isConfigValueEnabled(val)
     }
   }
 }
@@ -87,7 +91,4 @@ export default {
 <style lang="sass" scoped>
 .tile-img, img
   filter: grayscale(100%)
-
-// .meeple, .fairy, .dragon, .count
-//   fill: #f0f0f0
 </style>
