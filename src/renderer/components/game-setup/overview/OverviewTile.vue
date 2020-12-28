@@ -25,8 +25,6 @@ export default {
 
 <style lang="sass" scoped>
 .element-box
-  +theme using ($theme)
-    background-color: map-get($theme, 'overview-tile-bg')
   .symbol
     display: flex
     align-items: center
@@ -57,9 +55,6 @@ export default {
       display: flex
 
 .element-box.off
-  +theme using ($theme)
-    background: map-get($theme, 'overview-tile-off-bg')
-
   svg
     +theme using ($theme)
       fill: map-get($theme, 'overview-tile-off-fill')

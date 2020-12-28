@@ -79,6 +79,13 @@ section
     height: 105px
     margin: 1.5px
 
+    +theme using ($theme)
+      background-color: map-get($theme, 'overview-tile-bg')
+
+    &.off
+      +theme using ($theme)
+        background: map-get($theme, 'overview-tile-off-bg')
+
     ::v-deep .symbol
       height: 80px
 

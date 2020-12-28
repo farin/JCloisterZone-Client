@@ -12,14 +12,12 @@
       :key="'a' + element"
       :element="element"
       :value="value"
-      :small="small"
     />
     <OverviewElementTile
       v-for="([element, value]) in removals"
       :key="'r' + element"
       :element="element"
       :value="value"
-      :small="small"
     />
   </div>
 </template>
@@ -39,8 +37,7 @@ export default {
 
   props: {
     sets: { type: Object, required: true },
-    elements: { type: Object, required: true },
-    small: { type: Boolean }
+    elements: { type: Object, required: true }
   },
 
   computed: {
@@ -81,25 +78,32 @@ export default {
         font-size: 10px
 
 .game-setup-overview-inline.small
-  grid-template-columns: repeat(9, 40px)
-  grid-auto-rows: 53px
+  grid-template-columns: repeat(9, 36px)
+  grid-auto-rows: 80px
+  padding-bottom: 40px
 
-  .element-box
-    width: 40px
-    height: 53px
+  .element-box:nth-child(9n+2),
+  .element-box:nth-child(9n+4),
+  .element-box:nth-child(9n+6),
+  .element-box:nth-child(9n+8)
+    transform: translateY(40px)
+    //background-color: red !important
+  // .element-box
+  //   width: 40px
+  //   height: 53px
 
-    ::v-deep
-      .symbol
-        height: 40px
+  //   ::v-deep
+  //     .symbol
+  //       height: 40px
 
-        > *
-          transform: scale(0.5)
+  //       > *
+  //         transform: scale(0.5)
 
-      .quantity
-        font-size: 12px
+  //     .quantity
+  //       font-size: 12px
 
-      .symbol.name
-        font-size: 7px
+  //     .symbol.name
+  //       font-size: 7px
 
 // .game-setup-overview-inline.size-6x1
 //   grid-template-rows: repeat(1, 66px)
