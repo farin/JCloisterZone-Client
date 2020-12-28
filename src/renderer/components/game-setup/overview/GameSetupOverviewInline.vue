@@ -46,7 +46,7 @@ export default {
   computed: {
     sizeClass () {
       const size = this.configElementsSize
-      if (size > 18) {
+      if (size > 6) {
         return 'small'
       }
       return 'normal'
@@ -58,7 +58,7 @@ export default {
       const row = Math.floor(idx / 9)
       const div = idx % 9
       const rowIdx = div % 2 === 0 ? div / 2 : 5 + Math.floor(div / 2)
-      return 900 - (row * 9 + rowIdx)
+      return 99 - (row * 9 + rowIdx)
     }
   }
 
@@ -70,12 +70,12 @@ export default {
   display: grid
   width: 360px
   grid-template-columns: repeat(6, 60px)
-  grid-auto-rows: 80px
+  grid-auto-rows: 70px
 
   .element-box
     margin: 0.5px
     width: 60px
-    height: 80px
+    height: 70px
 
     ::v-deep
       .symbol
@@ -85,7 +85,22 @@ export default {
           transform: scale(0.75)
 
       .quantity
+        display: inline-block
+        padding: 4px
+        color: white
+        transform: translateY(-10px)
+        border-radius: 2px
         font-size: 18px
+        opacity: 0.9
+
+        +theme using ($theme)
+          background: map-get($theme, 'overview-tile-quantity')
+
+          &.addition
+            background: #009900
+
+          &.removal
+            background: #ef0000
 
       .symbol.name
         font-size: 10px
@@ -94,23 +109,6 @@ export default {
   grid-template-columns: repeat(9, 36px)
   grid-auto-rows: 80px
   padding-bottom: 30px
-
-  .element-box
-    ::v-deep
-      .quantity
-        display: inline-block
-        padding: 4px
-        background: #03a9f4
-        color: white
-        transform: translateY(-10px)
-        border-radius: 2px
-        opacity: 0.8
-
-        &.addition
-          background: #009900
-
-        &.removal
-          background: #ef0000
 
   .element-box:nth-child(9n+2),
   .element-box:nth-child(9n+4),

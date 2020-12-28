@@ -16,9 +16,12 @@
           :key="game.gameId"
           class="game"
         >
-          {{ game.gameId }}
+          <GameSetupOverviewInline :sets="game.setup.sets" :elements="game.setup.elements" />
 
-          <v-btn large color="secondary" @click="resume(game)">Resume</v-btn>
+          <div class="buttons">
+            <v-btn color="primary" @click="resume(game)"><v-icon left>fa-play</v-icon> Resume</v-btn>
+            <v-btn color="secondary" @click="del(game)"><v-icon>fa-trash-alt</v-icon></v-btn>
+          </div>
         </div>
       </div>
     </main>
@@ -28,8 +31,11 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 
+import GameSetupOverviewInline from '@/components/game-setup/overview/GameSetupOverviewInline'
+
 export default {
   components: {
+    GameSetupOverviewInline
   },
 
   data () {
@@ -48,10 +54,9 @@ export default {
 
   beforeCreate () {
     // useful for dev mode, reload on this page redirects back to home
-    // if (!this.$connection.isConnectedOrConnecting()) {
-    //   this.$store.dispatch('game/close')
-    //   this.$router.push('/')
-    // }
+    if (!this.$connection.isConnectedOrConnecting()) {
+      this.$router.push('/')
+    }
   },
 
   mounted () {
@@ -74,6 +79,10 @@ export default {
 
     resume (game) {
       this.$connection.send({ type: 'JOIN_GAME', payload: { gameId: game.gameId } })
+    },
+
+    del (game) {
+      this.$connection.send({ type: 'ABANDON_GAME', payload: { gameId: game.gameId } })
     }
   }
 }
@@ -119,9 +128,16 @@ h2
   flex-wrap: wrap
 
 .game
-  width: 300px
-  padding: 20px
+  width: 380px
+  padding: 20px 10px
+  margin: 10px
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)
+
+  .buttons
+    margin: 0 20px
+
+    .v-btn
+      margin-right: 10px
 
   +theme using ($theme)
     color: map-get($theme, 'cards-text')

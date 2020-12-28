@@ -38,6 +38,10 @@ export default {
       +theme using ($theme)
         fill: map-get($theme, 'overview-tile-fill')
 
+    svg.meeple
+      +theme using ($theme)
+        fill: map-get($theme, 'overview-tile-meeple-fill')
+
   .quantity
     text-align: center
     font-size: 25px

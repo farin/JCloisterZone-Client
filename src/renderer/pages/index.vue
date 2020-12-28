@@ -321,7 +321,8 @@ h3
 
   .recent-setup
     cursor: pointer
-    margin-bottom: 15px
+    padding-top: 5px
+    margin-bottom: 20px
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 3px 10px 0 rgba(0, 0, 0, 0.03)
 
     +theme using ($theme)

@@ -8,7 +8,7 @@
     </svg>
     <img v-else-if="element === 'garden'" src="~/assets/features/C1/garden.png" width="80" height="55">
     <NeutralFigure v-else-if="element === 'fairy'" figure="fairy" :width="70" :height="70" />
-    <NeutralFigure v-else-if="element === 'dragon'" figure="dragon" :width="110" :height="55" />
+    <NeutralFigure v-else-if="element === 'dragon'" figure="dragon" :width="80" :height="40" />
     <NeutralFigure v-else-if="element === 'count'" figure="count" :width="70" :height="70" />
     <StandaloneTileImage v-else-if="element === 'abbey'" tile-id="AM/A" :size="70" />
     <img v-else-if="element === 'tower'" src="~/assets/figures/tower-alt.png" height="45">
