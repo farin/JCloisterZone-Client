@@ -42,12 +42,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import uniq from 'lodash/uniq'
-
-import { Expansion } from '@/models/expansions'
-import { isConfigValueEnabled, getDefaultElements } from '@/models/elements'
-import ExpansionSymbol from '@/components/ExpansionSymbol'
+import { isConfigValueEnabled } from '@/models/elements'
 import NeutralFigure from '@/components/game/NeutralFigure'
 import OverviewTile from '@/components/game-setup/overview/OverviewTile'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
@@ -57,7 +52,6 @@ const MEEPLES = ['small-follower', 'abbot', 'phantom', 'big-follower', 'builder'
 
 export default {
   components: {
-    ExpansionSymbol,
     NeutralFigure,
     OverviewTile,
     StandaloneTileImage
@@ -65,7 +59,7 @@ export default {
 
   props: {
     element: { type: String, required: true },
-    value: { type: [String, Number, Boolean], required: true },
+    value: { type: [String, Number, Boolean], required: true }
   },
 
   data () {
@@ -87,7 +81,4 @@ export default {
 <style lang="sass" scoped>
 .tile-img, img
   filter: grayscale(100%)
-
-// .meeple, .fairy, .dragon, .count
-//   fill: #f0f0f0
 </style>

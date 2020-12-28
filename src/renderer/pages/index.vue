@@ -293,7 +293,7 @@ h3
 
 .player-hosted
   flex: 1 0
-  padding-top: 40px
+  padding-top: 30px
   text-align: center
 
 .player-hosted-content

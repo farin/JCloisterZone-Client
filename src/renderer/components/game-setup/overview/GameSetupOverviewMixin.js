@@ -1,4 +1,3 @@
-import { mapGetters } from 'vuex'
 import uniq from 'lodash/uniq'
 
 import { Expansion } from '@/models/expansions'
@@ -48,10 +47,6 @@ export default {
   },
 
   methods: {
-    isMeeple (el) {
-      return MEEPLES.includes(el)
-    },
-
     isConfigValueEnabled (val) {
       return isConfigValueEnabled(val)
     }
