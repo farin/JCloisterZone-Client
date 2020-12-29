@@ -28,13 +28,20 @@
     </template>
 
     <template #detail>
-      <div v-if="!readOnly" class="options">
+      <div class="options">
         <h2>Options</h2>
         <v-checkbox
+          v-if="!readOnly"
           v-model="randomizeSeating"
           dense hide-details
           label="Randomize seating order"
           :disabled="!isOwner"
+        />
+        <v-checkbox
+          v-model="puristTiles"
+          dense hide-details
+          label="Purist - disallow remaining tiles list"
+          :disabled="readOnly || !isOwner"
         />
       </div>
 
@@ -105,6 +112,24 @@ export default {
 
       get () {
         return this.options.randomizeSeating
+      }
+    },
+
+    puristTiles: {
+      set (value) {
+        this.$store.commit('game/options', { puristTiles: value })
+        this.$connection.send({
+          type: 'GAME_OPTION',
+          payload: {
+            gameId: this.gameId,
+            key: 'puristTiles',
+            value
+          }
+        })
+      },
+
+      get () {
+        return this.options.puristTiles
       }
     }
   },

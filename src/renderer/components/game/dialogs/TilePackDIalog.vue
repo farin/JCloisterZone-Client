@@ -21,7 +21,10 @@
       </template>
 
       <h2>Remaining tiles</h2>
-      <TileDistributionLive :sets="sets" :rules="rules" />
+      <p v-if="options.puristTiles">
+        Game was created with "Purist" option which disallow remaining tiles listing.
+      </p>
+      <TileDistributionLive v-else :sets="sets" :rules="rules" />
     </v-card-text>
     <v-card-actions>
       <v-spacer />
@@ -52,7 +55,8 @@ export default {
     ...mapState({
       sets: state => state.game.setup?.sets,
       rules: state => state.game.setup?.rules,
-      removedTiles: state => state.game.discardedTiles
+      removedTiles: state => state.game.discardedTiles,
+      options: state => state.game.setup.options
     })
   }
 }
@@ -76,4 +80,9 @@ h2
 
   svg
     margin: 0 2px
+
+p
+  text-align: center
+  margin-top: 20px
+  font-size: 18px
 </style>
