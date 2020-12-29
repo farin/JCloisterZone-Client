@@ -40,7 +40,7 @@
         <v-checkbox
           v-model="puristTiles"
           dense hide-details
-          label="Purist - disallow remaining tiles list"
+          label="Purist mode - hide remaining tiles list"
           :disabled="readOnly || !isOwner"
         />
       </div>

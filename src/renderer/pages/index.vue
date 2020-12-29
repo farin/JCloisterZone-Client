@@ -73,7 +73,7 @@
           </v-btn>
 
           <template v-if="recentGameSetups.length && $store.state.loaded.plugins">
-            <h3>Recent Game Setups</h3>
+            <h3>Recent Setups</h3>
 
             <div class="recent-list setup-list d-flex flex-column align-end">
               <div
@@ -103,7 +103,7 @@
           </div>
 
           <template v-if="recentGames.length">
-            <h3>Recent games</h3>
+            <h3>Recent Saves</h3>
 
             <div class="recent-list saved-games-list">
               <a v-for="file in recentGames" :key="file" href="#" @click="loadGame(file)">{{ file }}</a>
