@@ -45,11 +45,17 @@
     </template>
 
     <v-dialog
-      v-if="tilePackOpen"
       v-model="tilePackOpen"
       max-width="800"
     >
       <TilePackDialog @close="tilePackOpen = false" />
+    </v-dialog>
+
+    <v-dialog
+      v-model="showGameSetup"
+      max-width="800"
+    >
+      <GameSetupDialog @close="showGameSetup = false" />
     </v-dialog>
   </div>
 </template>
@@ -63,18 +69,20 @@ import ActionPanel from '@/components/game/ActionPanel.vue'
 import Board from '@/components/game/Board.vue'
 import FinalScoringEvents from '@/components/game/FinalScoringEvents.vue'
 import ChooseMonkOrAbbotDialog from '@/components/game/dialogs/ChooseMonkOrAbbotDialog.vue'
-import TilePackDialog from '@/components/game/dialogs/TilePackDialog.vue'
 import PlayerPanel from '@/components/game/PlayerPanel.vue'
 import PlayEvents from '@/components/game/PlayEvents.vue'
 import TestResult from '@/components/game/TestResult.vue'
+import TilePackDialog from '@/components/game/dialogs/TilePackDialog.vue'
 import TilePackSize from '@/components/game/TilePackSize.vue'
+import GameSetupDialog from '@/components/game/dialogs/GameSetupDialog.vue'
 
 export default {
   components: {
     ActionPanel,
     Board,
-    FinalScoringEvents,
     ChooseMonkOrAbbotDialog,
+    FinalScoringEvents,
+    GameSetupDialog,
     PlayerPanel,
     PlayEvents,
     TestResult,
@@ -115,6 +123,16 @@ export default {
 
       set (value) {
         this.$store.commit('showGameTiles', value)
+      }
+    },
+
+    showGameSetup: {
+      get () {
+        return this.$store.state.showGameSetup
+      },
+
+      set (value) {
+        this.$store.commit('showGameSetup', value)
       }
     }
   },
@@ -158,6 +176,7 @@ export default {
       this.$store.dispatch('game/close')
     }
     this.$store.commit('showGameTiles', false)
+    this.$store.commit('showGameSetup', false)
   },
 
   methods: {

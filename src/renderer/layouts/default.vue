@@ -169,7 +169,9 @@ export default {
           { id: 'zoom-out', label: 'Zoom Out', accelerator: 'numsub', click: this.zoomOut },
           { type: 'separator' },
           { id: 'game-tiles', label: 'Tiles', accelerator: 't', click: this.toggleRemainingTiles },
-          { id: 'toggle-history', label: 'Toggle History', accelerator: 'h', click: this.toggleGameHistory }
+          { id: 'toggle-history', label: 'Toggle History', accelerator: 'h', click: this.toggleGameHistory },
+          { type: 'separator' },
+          { id: 'game-setup', label: 'Show game setup', click: this.showGameSetup }
         ]
       }, {
         label: 'Help',
@@ -312,6 +314,10 @@ export default {
 
     toggleGameHistory () {
       this.$store.commit('toggleGameHistory')
+    },
+
+    showGameSetup () {
+      this.$store.commit('showGameSetup', true)
     },
 
     showRules () {

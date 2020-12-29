@@ -17,6 +17,7 @@ export const state = () => ({
   showSettings: false,
   showGameHistory: true,
   showGameTiles: false,
+  showGameSetup: false,
   java: null, // { version, outdated, error }
   engine: null,
   download: null,
@@ -54,6 +55,10 @@ export const mutations = {
 
   showGameTiles (state, value) {
     state.showGameTiles = value
+  },
+
+  showGameSetup (state, value) {
+    state.showGameSetup = value
   },
 
   java (state, value) {
