@@ -7,7 +7,7 @@
       </div>
       <TestResult v-if="testScenarioResult" :result="testScenarioResult" />
       <Board />
-      <TilePackSize :size="tilePackSize" />
+      <TilePackSize :size="tilePackSize" @click.native="tilePackOpen = !tilePackOpen"/>
       <aside ref="aside" :class="`shrink-${shrink}`">
         <PlayerPanel
           v-for="(player, idx) in players"
@@ -39,6 +39,13 @@
         <v-progress-circular indeterminate />
       </v-row>
     </template>
+
+    <v-dialog
+      v-model="tilePackOpen"
+      max-width="800"
+    >
+      <TilePackDialog @close="tilePackOpen = false" />
+    </v-dialog>
   </div>
 </template>
 
@@ -51,6 +58,7 @@ import ActionPanel from '@/components/game/ActionPanel.vue'
 import Board from '@/components/game/Board.vue'
 import FinalScoringEvents from '@/components/game/FinalScoringEvents.vue'
 import ChooseMonkOrAbbotDialog from '@/components/game/dialogs/ChooseMonkOrAbbotDialog.vue'
+import TilePackDialog from '@/components/game/dialogs/TilePackDialog.vue'
 import PlayerPanel from '@/components/game/PlayerPanel.vue'
 import PlayEvents from '@/components/game/PlayEvents.vue'
 import TestResult from '@/components/game/TestResult.vue'
@@ -65,12 +73,14 @@ export default {
     PlayerPanel,
     PlayEvents,
     TestResult,
+    TilePackDialog,
     TilePackSize
   },
 
   data () {
     return {
-      shrink: 0
+      shrink: 0,
+      tilePackOpen: false
     }
   },
 
@@ -236,6 +246,7 @@ export default {
   right: 0
   width: var(--aside-width)
   height: $action-bar-height
+  cursor: pointer
 
   +theme using ($theme)
     background: map-get($theme, 'opaque-bg')

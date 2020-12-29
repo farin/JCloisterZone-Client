@@ -28,7 +28,7 @@
     </template>
 
     <template #detail>
-      <div class="options">
+      <div v-if="!readOnly" class="options">
         <h2>Options</h2>
         <v-checkbox
           v-model="randomizeSeating"

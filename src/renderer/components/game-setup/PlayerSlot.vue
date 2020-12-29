@@ -1,7 +1,7 @@
 <template>
   <div :class="`player-slot color-${number} ${slotState} ${readOnly ? '' : 'editable'}`" @click="toggle">
     <div
-      v-if="order !== null && !randomized"
+      v-if="order !== null && (readOnly || !randomized)"
       :class="`order order-${order}`"
     >
       {{ order }}
