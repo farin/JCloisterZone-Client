@@ -7,7 +7,11 @@
       </div>
       <TestResult v-if="testScenarioResult" :result="testScenarioResult" />
       <Board />
-      <TilePackSize :size="tilePackSize" @click.native="tilePackOpen = !tilePackOpen" />
+      <TilePackSize
+        :size="tilePackSize"
+        :removed-tiles-size="removedTilesSize"
+        @click.native="tilePackOpen = !tilePackOpen"
+      />
       <aside ref="aside" :class="`shrink-${shrink}`">
         <PlayerPanel
           v-for="(player, idx) in players"
@@ -41,6 +45,7 @@
     </template>
 
     <v-dialog
+      v-if="tilePackOpen"
       v-model="tilePackOpen"
       max-width="800"
     >
@@ -91,6 +96,7 @@ export default {
       phase: state => state.game.phase,
       players: state => state.game.players,
       tilePackSize: state => state.game.tilePack.size,
+      removedTilesSize: state => state.game.discardedTiles.length,
       testScenarioResult: state => state.game.testScenarioResult,
       forcedDraw: state => {
         if (process.env.NODE_ENV === 'development') {

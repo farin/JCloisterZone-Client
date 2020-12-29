@@ -4,6 +4,22 @@
       Tiles
     </v-card-title>
     <v-card-text>
+      <template v-if="removedTiles.length">
+        <h2>Removed Tiles</h2>
+        <div class="removed-tiles-list">
+          <div
+            v-for="(id, idx) in removedTiles"
+            :key="idx"
+            class="tile"
+          >
+            <StandaloneTileImage
+              :tile-id="id"
+              :size="100"
+            />
+          </div>
+        </div>
+      </template>
+
       <h2>Remaining tiles</h2>
       <TileDistributionLive :sets="sets" :rules="rules" />
     </v-card-text>
@@ -21,9 +37,11 @@
 import { mapState } from 'vuex'
 
 import TileDistributionLive from '@/components/game/dialogs/TileDistributionLive'
+import StandaloneTileImage from '@/components/game/StandaloneTileImage'
 
 export default {
   components: {
+    StandaloneTileImage,
     TileDistributionLive
   },
 
@@ -34,6 +52,7 @@ export default {
     ...mapState({
       sets: state => state.game.setup?.sets,
       rules: state => state.game.setup?.rules,
+      removedTiles: state => state.game.discardedTiles
     })
   }
 }
@@ -51,4 +70,10 @@ h2
   +theme using ($theme)
     color: map-get($theme, 'gray-text-color')
 
+.removed-tiles-list
+  display: flex
+  flex-wrap: wrap
+
+  svg
+    margin: 0 2px
 </style>
