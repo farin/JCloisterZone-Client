@@ -61,7 +61,6 @@ export default {
       return 99 - (row * 9 + rowIdx)
     }
   }
-
 }
 </script>
 
@@ -73,7 +72,6 @@ export default {
   grid-auto-rows: 70px
 
   .element-box
-    margin: 0.5px
     width: 60px
     height: 70px
 
@@ -108,12 +106,26 @@ export default {
 
 .game-setup-overview-inline.small
   grid-template-columns: repeat(9, 36px)
-  grid-auto-rows: 80px
+  grid-auto-rows: 40px
   padding-bottom: 30px
 
-  .element-box:nth-child(9n+2),
-  .element-box:nth-child(9n+4),
-  .element-box:nth-child(9n+6),
-  .element-box:nth-child(9n+8)
-    transform: translateY(40px)
+  .element-box
+    grid-column-end: span 2
+
+  .element-box:nth-child(9n+5)
+    grid-column-end: span 1
+
+  .element-box:nth-child(9n+6)
+    grid-column-start: 2
+
+// .game-setup-overview-inline.small
+//   grid-template-columns: repeat(9, 36px)
+//   grid-auto-rows: 80px
+//   padding-bottom: 30px
+
+//   .element-box:nth-child(9n+2),
+//   .element-box:nth-child(9n+4),
+//   .element-box:nth-child(9n+6),
+//   .element-box:nth-child(9n+8)
+//     transform: translateY(40px)
 </style>
