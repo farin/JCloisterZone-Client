@@ -64,7 +64,7 @@
     </section>
 
     <section class="player-hosted">
-      <h2>User hosted games</h2>
+      <h2>Client hosted games</h2>
 
       <div class="player-hosted-content">
         <div>

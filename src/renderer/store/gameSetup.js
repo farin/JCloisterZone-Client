@@ -161,7 +161,7 @@ export const actions = {
     })
   },
 
-  createGame ({ state, getters, dispatch }) {
+  createGame ({ state, commit, getters, dispatch }) {
     const { $tiles } = this._vm
     const sets = mapKeys(state.sets, (value, key) => {
       return $tiles.sets[key] ? key : key + ':' + getters.getSelectedEdition
@@ -181,6 +181,8 @@ export const actions = {
       slots: getEmptySlots(),
       gameAnnotations: state.gameAnnotations
     }, { root: true })
+    // update game/setup immediately to avoid tile pack size flash before game message is received
+    // commit('game/setup', setup, { root: true })
   }
 }
 

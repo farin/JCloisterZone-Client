@@ -142,7 +142,6 @@ export const mutations = {
 
 export const actions = {
   async startServer ({ state, commit, dispatch, rootState }, game) {
-    commit('game/clear', null, { root: true })
     if (state.connectionType === 'online') {
       const { $connection } = this._vm
       $connection.send({
@@ -172,7 +171,6 @@ export const actions = {
       commit('connectionType', connectionType)
       commit('connectionStatus', STATUS_CONNECTING)
     }
-    commit('gameSetup/clear', null, { root: true })
     const { $connection } = this._vm
     if (!host.match(/:\d+/)) {
       host = `${host}:${rootState.settings.port}`
