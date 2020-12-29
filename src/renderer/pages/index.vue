@@ -75,7 +75,7 @@
           <template v-if="recentGameSetups.length && $store.state.loaded.plugins">
             <h3>Recent Game Setups</h3>
 
-            <div class="recent-list d-flex flex-column align-end">
+            <div class="recent-list setup-list d-flex flex-column align-end">
               <div
                 v-for="(setup, idx) in recentGameSetups"
                 :key="idx"
@@ -105,7 +105,7 @@
           <template v-if="recentGames.length">
             <h3>Recent games</h3>
 
-            <div class="recent-list">
+            <div class="recent-list saved-games-list">
               <a v-for="file in recentGames" :key="file" href="#" @click="loadGame(file)">{{ file }}</a>
               <a class="clear" href="#" @click="clearRecentGames"><v-icon>fas fa-times</v-icon> clear list</a>
             </div>
@@ -287,6 +287,7 @@ h3
 .player-hosted
   flex: 1 0
   padding-top: 30px
+  padding-bottom: 10px
   text-align: center
 
 .player-hosted-content
@@ -329,12 +330,17 @@ h3
         color: map-get($theme, 'text-color')
 
     &.clear
-      margin-top: 10px
       font-size: 14px
 
       i
         color: inherit !important
         font-size: inherit !important
+
+  .saved-games-list a.clear
+    margin-top: 10px
+
+  .setup-list a.clear
+    margin-top: -10px
 
 .update-box
   padding: 20px
