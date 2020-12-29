@@ -140,6 +140,12 @@ export const mutations = {
     state.setup = value
   },
 
+  options (state, options) {
+    Object.entries(options).forEach(([key, value]) => {
+      Vue.set(state.setup.options, key, value)
+    })
+  },
+
   slot (state, slot) {
     const idx = state.slots.findIndex(s => s.number === slot.number)
     Vue.set(state.slots, idx, slot)
@@ -406,9 +412,10 @@ export const actions = {
         slots.forEach(s => { s.clientId = rootState.settings.clientId })
       }
 
+      commit('game/clear', null, { root: true })
       await dispatch('networking/startServer', {
         gameId: sg.gameId,
-        setup: sg.setup,
+        setup: { options: {}, ...sg.setup },
         initialSeed: sg.initialSeed,
         gameAnnotations: sg.gameAnnotations || {},
         slots,
@@ -476,6 +483,15 @@ export const actions = {
   },
 
   async handleStartMessage ({ state, commit, dispatch, rootState }, message) {
+    if (message.payload.seating) {
+      const { seating } = message.payload
+      state.slots.forEach(slot => {
+        if (seating[slot.number]) {
+          slot.order = seating[slot.number]
+        }
+      })
+    }
+
     const players = state.slots.filter(s => s.clientId).map(s => ({ ...s }))
     players.sort((a, b) => a.order - b.order)
     players.forEach(s => {

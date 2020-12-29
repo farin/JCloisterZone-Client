@@ -204,8 +204,10 @@ export const actions = {
   },
 
   async addRecentGameSetup ({ state, commit, dispatch }, setup) {
-    const recentGameSetups = state.recentGameSetups.filter(s => !isEqual(s, setup)) // if file is contained, it will be only reordered to begining
-    recentGameSetups.unshift(setup)
+    const bareSetup = { ...setup }
+    delete bareSetup.options
+    const recentGameSetups = state.recentGameSetups.filter(s => !isEqual(s, bareSetup)) // if file is contained, it will be only reordered to begining
+    recentGameSetups.unshift(bareSetup)
     recentGameSetups.splice(RECENT_SETUPS_COUNT, recentGameSetups.length)
     commit('recentGameSetups', recentGameSetups)
     dispatch('save')

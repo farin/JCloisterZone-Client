@@ -172,7 +172,8 @@ export const actions = {
       elements: state.elements,
       rules: state.rules,
       timer: state.timer,
-      start: getters.selectedStartingTiles.value
+      start: getters.selectedStartingTiles.value,
+      options: {}
     }
 
     dispatch('settings/addRecentGameSetup', setup, { root: true })
@@ -181,8 +182,6 @@ export const actions = {
       slots: getEmptySlots(),
       gameAnnotations: state.gameAnnotations
     }, { root: true })
-    // update game/setup immediately to avoid tile pack size flash before game message is received
-    // commit('game/setup', setup, { root: true })
   }
 }
 

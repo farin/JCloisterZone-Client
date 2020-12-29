@@ -4,6 +4,7 @@ import Vue from 'vue'
 import { remote } from 'electron'
 
 import camelCase from 'lodash/camelCase'
+import shuffle from 'lodash/shuffle'
 
 import { NETWORK_PROTOCOL_COMPATIBILITY } from '@/constants/versions'
 import { getAppVersion } from '@/utils/version'
@@ -432,14 +433,42 @@ export class GameServer {
       this.send(ws, { type: 'ERR', code: 'game-owner', message: 'Not a game owner' })
       return
     }
+
+    const payload = {}
+
+    if (this.game.setup.options.randomizeSeating) {
+      const slots = shuffle(this.game.slots.filter(s => s.order))
+      const seating = {}
+      slots.forEach((slot, idx) => {
+        slot.order = idx + 1
+        seating[slot.number] = slot.order
+      })
+      payload.seating = seating
+    }
+
     this.status = 'started'
     this.startedAt = Date.now() - this.initialClock
     this.broadcast({
       id: message.id,
       type: 'START',
-      payload: {},
+      payload,
       clock: this.initialClock
     })
+  }
+
+  handleGameOption (ws, message) {
+    if (this.status === 'started') {
+      this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game already started' })
+      return
+    }
+
+    if (this.game.owner !== ws.sessionId) {
+      this.send(ws, { type: 'ERR', code: 'game-owner', message: 'Not a game owner' })
+      return
+    }
+
+    this.game.setup.options[message.payload.key] = message.payload.value
+    this.broadcast(message)
   }
 
   handleEngineMessage (ws, { id, type, payload, player, sourceHash }) {

@@ -70,6 +70,8 @@ class ConnectionHandler {
       }
     } else if (type === 'GAME_UPDATE') {
       await dispatch('online/gameUpdate', payload, { root: true })
+    } else if (type === 'GAME_OPTION') {
+      commit('game/options', { [payload.key]: payload.value }, { root: true })
     } else {
       console.error(payload)
       throw new Error(`Unhandled message ${type}`)

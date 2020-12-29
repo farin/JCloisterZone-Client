@@ -1,7 +1,7 @@
 <template>
   <div :class="`player-slot color-${number} ${slotState} ${readOnly ? '' : 'editable'}`" @click="toggle">
     <div
-      v-if="order !== null"
+      v-if="order !== null && !randomized"
       :class="`order order-${order}`"
     >
       {{ order }}
@@ -34,11 +34,11 @@
         </v-card-title>
         <v-card-text>
           <v-container>
-            <v-text-field label="Name" v-model="editName" @keydown.enter="rename"></v-text-field>
+            <v-text-field v-model="editName" label="Name" @keydown.enter="rename" />
           </v-container>
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
+          <v-spacer />
           <v-btn text @click="edit = false">Cancel</v-btn>
           <v-btn text @click="rename">Confirm</v-btn>
         </v-card-actions>
@@ -48,7 +48,6 @@
 </template>
 
 <script>
-import sample from 'lodash/sample'
 import { mapState } from 'vuex'
 
 const MEEPLES_SVG = require('~/assets/meeples.svg')
@@ -72,7 +71,8 @@ export default {
 
   computed: {
     ...mapState({
-      sessionId: state => state.networking.sessionId
+      sessionId: state => state.networking.sessionId,
+      randomized: state => state.game.setup.options.randomizeSeating
     }),
 
     slotState () {
