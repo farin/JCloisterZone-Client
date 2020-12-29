@@ -4,6 +4,7 @@
       Tiles
     </v-card-title>
     <v-card-text>
+      <h2>Remaining tiles</h2>
       <TileDistributionLive :sets="sets" :rules="rules" />
     </v-card-text>
     <v-card-actions>
@@ -40,5 +41,14 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+h2
+  font-weight: 300
+  font-size: 16px
+  text-transform: uppercase
+  text-align: center
+  margin: 10px 0
+
+  +theme using ($theme)
+    color: map-get($theme, 'gray-text-color')
 
 </style>

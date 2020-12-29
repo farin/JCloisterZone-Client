@@ -1,5 +1,5 @@
 <template>
-  <div class="tile-distribution">
+  <div class="tile-distribution-live">
     <div
       v-for="{id, count, remainingCount, rotation } in tiles"
       :key="id"
@@ -97,7 +97,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.tile-distribution
+.tile-distribution-live
   display: flex
   flex-wrap: wrap
   justify-content: flex-start

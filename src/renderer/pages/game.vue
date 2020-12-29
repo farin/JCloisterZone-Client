@@ -7,7 +7,7 @@
       </div>
       <TestResult v-if="testScenarioResult" :result="testScenarioResult" />
       <Board />
-      <TilePackSize :size="tilePackSize" @click.native="tilePackOpen = !tilePackOpen"/>
+      <TilePackSize :size="tilePackSize" @click.native="tilePackOpen = !tilePackOpen" />
       <aside ref="aside" :class="`shrink-${shrink}`">
         <PlayerPanel
           v-for="(player, idx) in players"
@@ -79,28 +79,39 @@ export default {
 
   data () {
     return {
-      shrink: 0,
-      tilePackOpen: false
+      shrink: 0
     }
   },
 
-  computed: mapState({
-    action: state => state.game.action,
-    activePlayerIdx: state => state.game.action?.player,
-    gameDialog: state => state.gameDialog,
-    phase: state => state.game.phase,
-    players: state => state.game.players,
-    tilePackSize: state => state.game.tilePack.size,
-    testScenarioResult: state => state.game.testScenarioResult,
-    forcedDraw: state => {
-      if (process.env.NODE_ENV === 'development') {
-        return false
+  computed: {
+    ...mapState({
+      action: state => state.game.action,
+      activePlayerIdx: state => state.game.action?.player,
+      gameDialog: state => state.gameDialog,
+      phase: state => state.game.phase,
+      players: state => state.game.players,
+      tilePackSize: state => state.game.tilePack.size,
+      testScenarioResult: state => state.game.testScenarioResult,
+      forcedDraw: state => {
+        if (process.env.NODE_ENV === 'development') {
+          return false
+        }
+        const { drawOrder, endTurn } = state.game.gameAnnotations
+        return !!(drawOrder || endTurn)
+      },
+      gameHash: state => state.game.hash
+    }),
+
+    tilePackOpen: {
+      get () {
+        return this.$store.state.showGameTiles
+      },
+
+      set (value) {
+        this.$store.commit('showGameTiles', value)
       }
-      const { drawOrder, endTurn } = state.game.gameAnnotations
-      return !!(drawOrder || endTurn)
-    },
-    gameHash: state => state.game.hash
-  }),
+    }
+  },
 
   watch: {
     phase (newVal, oldVal) {
@@ -140,6 +151,7 @@ export default {
       // close only if not already closed (eg by Play Again button )
       this.$store.dispatch('game/close')
     }
+    this.$store.commit('showGameTiles', false)
   },
 
   methods: {

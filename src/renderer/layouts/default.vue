@@ -168,7 +168,8 @@ export default {
           { id: 'zoom-in', label: 'Zoom In', accelerator: 'numadd', click: this.zoomIn },
           { id: 'zoom-out', label: 'Zoom Out', accelerator: 'numsub', click: this.zoomOut },
           { type: 'separator' },
-          { id: 'toggle-history', label: 'Toggle history', accelerator: 'h', click: this.toggleGameHistory }
+          { id: 'game-tiles', label: 'Tiles', accelerator: 't', click: this.toggleRemainingTiles },
+          { id: 'toggle-history', label: 'Toggle History', accelerator: 'h', click: this.toggleGameHistory }
         ]
       }, {
         label: 'Help',
@@ -243,6 +244,7 @@ export default {
       this.menu.getMenuItemById('zoom-in').enabled = gameRunning
       this.menu.getMenuItemById('zoom-out').enabled = gameRunning
       this.menu.getMenuItemById('toggle-history').enabled = gameRunning
+      this.menu.getMenuItemById('game-tiles').enabled = gameRunning
 
       if (this.$store.state.settings.devMode) {
         // devMode can be change in runtime, then menu item may not exist
@@ -302,6 +304,10 @@ export default {
 
     zoomOut () {
       this.$store.commit('board/changeZoom', -2)
+    },
+
+    toggleRemainingTiles () {
+      this.$store.commit('showGameTiles', !this.$store.state.showGameTiles)
     },
 
     toggleGameHistory () {
