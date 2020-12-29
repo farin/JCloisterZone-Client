@@ -80,6 +80,7 @@ export default {
     ::v-deep
       .symbol
         height: 50px
+        min-height: 50px // required for title
 
         > *
           transform: scale(0.75)
