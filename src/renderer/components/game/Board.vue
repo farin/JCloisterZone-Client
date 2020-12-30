@@ -6,6 +6,7 @@
     @mousedown="onMouseDown"
     @mousemove="onMouseMove"
     @mouseup="onMouseUp"
+    @mouseout="onMouseOut"
     @click.right="onRightClick"
   >
     <g :transform="transform">
@@ -222,6 +223,7 @@ export default {
 
       this.offsetX = -(pointerX * this.tileSize - ev.offsetX)
       this.offsetY = -(pointerY * this.tileSize - ev.offsetY)
+      this.adjustAfterMove()
     },
 
     onMouseDown (ev) {
@@ -252,10 +254,14 @@ export default {
         // (it is ignored if mouse is )
         setTimeout(() => {
           Vue.nextTick(() => {
-            this.$store.commit('board/dragging', null)
+            this.dragging && this.$store.commit('board/dragging', null)
           })
         })
       }
+    },
+
+    onMouseOut (ev) {
+      this.dragging && this.$store.commit('board/dragging', null)
     },
 
     onRightClick (ev) {
