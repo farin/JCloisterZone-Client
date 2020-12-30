@@ -165,6 +165,7 @@ export default {
     this.pressedKeys = {}
     window.addEventListener('keydown', this.onKeyDown)
     window.addEventListener('keyup', this.onKeyUp)
+    window.addEventListener('mouseup', this.onMouseUp) // reset it even if mouse is putside
     this.$root.$on('request-zoom', this.onRequestZoom)
   },
 
@@ -172,6 +173,7 @@ export default {
     clearInterval(this.pressedKeysInterval)
     window.removeEventListener('keydown', this.onKeyDown)
     window.removeEventListener('keyup', this.onKeyUp)
+    window.removeEventListener('mouseup', this.onMouseUp)
     this.$root.$off('request-zoom', this.onRequestZoom)
   },
 
@@ -273,10 +275,6 @@ export default {
         })
       }
     },
-
-    // onMouseOut (ev) {
-    //   this.dragging && this.$store.commit('board/dragging', null)
-    // },
 
     onRightClick (ev) {
       this.$root.$emit('rclick', ev)

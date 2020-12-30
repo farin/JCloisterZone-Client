@@ -27,6 +27,7 @@ section
   justify-content: center
   align-items: center
   position: relative
+  user-select: none
 
 .v-icon, .size
   font-size: 42px
