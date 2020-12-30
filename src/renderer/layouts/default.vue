@@ -301,11 +301,11 @@ export default {
     },
 
     zoomIn () {
-      this.$store.commit('board/changeZoom', 1.4)
+      this.$root.$emit('request-zoom', 1.4)
     },
 
     zoomOut () {
-      this.$store.commit('board/changeZoom', -1.4)
+      this.$root.$emit('request-zoom', -1.4)
     },
 
     toggleRemainingTiles () {

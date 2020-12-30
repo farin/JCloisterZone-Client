@@ -6,7 +6,6 @@
     @mousedown="onMouseDown"
     @mousemove="onMouseMove"
     @mouseup="onMouseUp"
-    @mouseout="onMouseOut"
     @click.right="onRightClick"
   >
     <g :transform="transform">
@@ -166,12 +165,14 @@ export default {
     this.pressedKeys = {}
     window.addEventListener('keydown', this.onKeyDown)
     window.addEventListener('keyup', this.onKeyUp)
+    this.$root.$on('request-zoom', this.onRequestZoom)
   },
 
   beforeDestroy () {
     clearInterval(this.pressedKeysInterval)
     window.removeEventListener('keydown', this.onKeyDown)
     window.removeEventListener('keyup', this.onKeyUp)
+    this.$root.$off('request-zoom', this.onRequestZoom)
   },
 
   methods: {
@@ -216,13 +217,26 @@ export default {
     },
 
     onWheel (ev) {
-      const pointerX = (ev.offsetX - this.offsetX) / this.tileSize
-      const pointerY = (ev.offsetY - this.offsetY) / this.tileSize
       const steps = -ev.deltaY / 140.0
-      this.$store.commit('board/changeZoom', steps)
+      this.changeZoom(ev.offsetX, ev.offsetY, steps)
+    },
 
-      this.offsetX = -(pointerX * this.tileSize - ev.offsetX)
-      this.offsetY = -(pointerY * this.tileSize - ev.offsetY)
+    onRequestZoom (change) {
+      const { width, height } = this.$refs.svg.getBoundingClientRect()
+      const adjustedWidth = width - 210 - 80 // approx 210px for players panel and 80 px for history
+      const adjustedHeight = height - 84 // action panel
+      const eventX = 80 + adjustedWidth / 2
+      const eventY = 84 + adjustedHeight / 2
+      this.changeZoom(eventX, eventY, change)
+    },
+
+    changeZoom (eventX, eventY, change) {
+      const pointerX = (eventX - this.offsetX) / this.tileSize
+      const pointerY = (eventY - this.offsetY) / this.tileSize
+      this.$store.commit('board/changeZoom', change)
+
+      this.offsetX = -(pointerX * this.tileSize - eventX)
+      this.offsetY = -(pointerY * this.tileSize - eventY)
       this.adjustAfterMove()
     },
 
@@ -260,9 +274,9 @@ export default {
       }
     },
 
-    onMouseOut (ev) {
-      this.dragging && this.$store.commit('board/dragging', null)
-    },
+    // onMouseOut (ev) {
+    //   this.dragging && this.$store.commit('board/dragging', null)
+    // },
 
     onRightClick (ev) {
       this.$root.$emit('rclick', ev)
