@@ -18,6 +18,7 @@
     <img v-else-if="element === 'king'" src="~/assets/figures/king.png" width="70" height="70">
     <img v-else-if="element === 'robber'" src="~/assets/figures/robber.png" width="70" height="70">
     <img v-else-if="element === 'traders'" src="~/assets/figures/trade.png" height="28">
+    <img v-else-if="element === 'gold'" src="~/assets/figures/gold.png" width="70" height="37">
     <img v-else-if="element === 'inn'" src="~/assets/features/C1/inn.png" width="55" height="55">
     <img v-else-if="element === 'cathedral'" src="~/assets/features/C1/cathedral.png" width="55" height="55">
     <svg v-else-if="element === 'farmers'" class="meeple" :width="70" :height="70">

@@ -38,7 +38,7 @@ export default {
       +theme using ($theme)
         fill: map-get($theme, 'overview-tile-fill')
 
-    svg.meeple
+    svg.meeple, svg.neutral
       +theme using ($theme)
         fill: map-get($theme, 'overview-tile-meeple-fill')
 
@@ -63,7 +63,7 @@ export default {
       display: flex
 
 .element-box.off
-  svg
+  svg.meeple, svg.neutral
     +theme using ($theme)
       fill: map-get($theme, 'overview-tile-off-fill')
       color: map-get($theme, 'overview-tile-off-overlay')
