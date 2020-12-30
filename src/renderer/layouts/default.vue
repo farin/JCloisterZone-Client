@@ -151,7 +151,7 @@ export default {
       isMac ? { role: 'close' } : { role: 'quit' }
     ]
 
-    if (!this.$store.state.settings.playOnlineUrl) {
+    if (!this.$store.state.settings['experimental.playOnline']) {
       sessionSubmenu.splice(0, 3)
     }
 
@@ -217,7 +217,7 @@ export default {
     await this.$store.dispatch('settings/registerChangeCallback', ['userArtworks', () => { this.$theme.loadPlugins() }])
     await this.$store.dispatch('settings/registerChangeCallback', ['enabledArtworks', () => { this.$theme.loadArtworks() }])
     await this.$store.dispatch('settings/registerChangeCallback', ['dev', () => { this.updateMenu() }])
-    await this.$store.dispatch('settings/registerChangeCallback', ['playOnlineUrl', () => { this.updateMenu() }])
+    await this.$store.dispatch('settings/registerChangeCallback', ['experimental.playOnline', () => { this.updateMenu() }])
   },
 
   beforeDestroy () {

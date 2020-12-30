@@ -31,8 +31,8 @@ export const state = () => ({
   theme: 'light',
   enginePath: null, // explicit engine path
   javaPath: null, // exolicit java path
-  // playOnlineUrl: 'play.jcloisterzone.com/ws',
-  playOnlineUrl: null,
+  playOnlineUrl: 'play.jcloisterzone.com/ws',
+  'experimental.playOnline': false,
   devMode: process.env.NODE_ENV === 'development'
 })
 
@@ -131,6 +131,10 @@ export const actions = {
       if (!settings.nickname) {
         missingKey = true
         settings.nickname = await username()
+      }
+      if (settings.playOnlineUrl === null) {
+        missingKey = true
+        settings.playOnlineUrl = 'play.jcloisterzone.com/ws'
       }
       commit('settings', settings)
       console.log(`%c settings %c loaded ${settingsFile}`, CONSOLE_SETTINGS_COLOR, '')

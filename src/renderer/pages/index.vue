@@ -55,7 +55,7 @@
       </div>
     </div>
 
-    <section v-if="!settingsLoaded || $store.state.settings.playOnlineUrl" class="online-hosted">
+    <section v-if="!settingsLoaded || $store.state.settings['experimental.playOnline']" class="online-hosted">
       <h2>Public server hosted games</h2>
       <v-btn large color="secondary" @click="playOnline()">
         Play online
