@@ -319,4 +319,12 @@ export default {
   position: absolute
   top: 0
   right: 0
+
+@media (max-width: 1080px)
+  .action-panel > section
+    .skip-text
+      margin-left: 20px
+
+    .pass-item
+      margin-left: 20px
 </style>

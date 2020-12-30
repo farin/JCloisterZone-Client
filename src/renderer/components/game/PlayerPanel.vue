@@ -161,8 +161,11 @@ section
 
 .name
   display: flex
-  justify-content: center
+  justify-content: flex-start
   align-items: center
+  word-wrap: none
+  white-space: nowrap
+  padding-left: 16px
 
   +theme using ($theme)
     color: map-get($theme, 'player-panel-name-color')
@@ -253,7 +256,7 @@ aside.shrink-0
     height: 60px
 
   .name
-    font-size: 22px
+    font-size: 18px
     margin-left: 65px
 
   .points
@@ -283,8 +286,8 @@ aside.shrink-1
     height: 50px
 
   .name
-    font-size: 20px
-    margin-left: 65px
+    font-size: 16px
+    margin-left: 55px
 
   .points
     border-radius: 25px
@@ -314,8 +317,8 @@ aside.shrink-2
     height: 40px
 
   .name
-    font-size: 18px
-    margin-left: 65px
+    font-size: 14px
+    margin-left: 45px
 
   .points
     border-radius: 20px

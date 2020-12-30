@@ -222,9 +222,8 @@ export default {
     },
 
     onWheel (ev) {
-      // TODO tune smoothness
       // TODO zoom to center
-      const steps = -ev.deltaY / 65.0
+      const steps = -ev.deltaY / 120.0
       this.$store.commit('board/changeZoom', steps)
     },
 
