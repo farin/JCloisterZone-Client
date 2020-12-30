@@ -215,9 +215,13 @@ export default {
     },
 
     onWheel (ev) {
-      // TODO zoom to center
-      const steps = -ev.deltaY / 120.0
+      const pointerX = (ev.offsetX - this.offsetX) / this.tileSize
+      const pointerY = (ev.offsetY - this.offsetY) / this.tileSize
+      const steps = -ev.deltaY / 140.0
       this.$store.commit('board/changeZoom', steps)
+
+      this.offsetX = -(pointerX * this.tileSize - ev.offsetX)
+      this.offsetY = -(pointerY * this.tileSize - ev.offsetY)
     },
 
     onMouseDown (ev) {
