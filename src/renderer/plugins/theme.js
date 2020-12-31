@@ -439,6 +439,7 @@ class Theme {
       if (feature[rotKey]) {
         root = feature
         feature = feature[rotKey]
+        r = 0 // rotation is already projected to rotKEy
       }
     }
 
