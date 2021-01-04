@@ -149,7 +149,7 @@ export const BRIDGE = GameElement.BRIDGE = new GameElement('bridge', 'Bridges', 
   '*': 0,
   'bridges-castles-and-bazaars': 1
 })
-export const CASTLE = GameElement.CASTLE = new GameElement('castle', 'Catles', {
+export const CASTLE = GameElement.CASTLE = new GameElement('castle', 'Castles', {
   '*': 0,
   'bridges-castles-and-bazaars': 1
 })
