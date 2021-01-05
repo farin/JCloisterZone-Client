@@ -283,6 +283,24 @@ class Theme {
       })
     }
 
+    const inlineClipRefs = feature => {
+      if (feature.clip) {
+        feature.clip = feature.clip.replace(/\$\{([^}]+)\}/g, (match, p1) => {
+          const [id, rotKey] = p1.split('@')
+          let feature = features[id]
+          if (rotKey !== undefined) {
+            feature = feature['@' + rotKey]
+          }
+          return feature.clip
+        })
+      }
+    }
+
+    for (const feature of Object.values(features)) {
+      inlineClipRefs(feature)
+      forEachRotation(feature, inlineClipRefs)
+    }
+
     const processTile = (tileId, data) => {
       if (this._tiles[tileId]) {
         // tile already registred by prev artwork
@@ -429,7 +447,7 @@ class Theme {
       throw new Error(`Can't find feature for ${id} ${loc}`)
     }
 
-    // TODO migrate classic to rotate instead rotation amd drop rotation here
+    // TODO migrate classic to rotate instead rotation and drop rotation here
     const rotateFeature = feature.rotation || feature.rotate || 0
     let r = rotateFeature
     let root = null
