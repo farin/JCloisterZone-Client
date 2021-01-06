@@ -468,7 +468,7 @@ class Theme {
     // TODO migrate classic to rotate instead rotation and drop rotation here
     const rotateFeature = feature.rotation || feature.rotate || 0
     let r = rotateFeature
-    let root = null
+    let root = feature
     if (tile.artwork.perspective === 'rotate') {
       r = (r + rotation) % 360
     } else {
@@ -480,17 +480,19 @@ class Theme {
       }
     }
 
-    let clip = feature.clip
-    let point = feature.point
+    let clip = feature.clip || root.clip
+    let point = feature.point || root.point
 
-    if (!clip && root?.clip) {
+    if (!clip && root?.['clip-rotate']) {
+      if (!root['point-rotate']) {
+        throw new Error('clipe-rotate must be declared together with point-rotate')
+      }
       // although fixed perspective, clip is declared as rotation of base shape
-      clip = root.clip
-      point = root.point
+      clip = root['clip-rotate']
+      point = root['point-rotate']
       r = (rotateFeature + rotation) % 360
     }
 
-    console.log(feature)
     const transform = feature.transform || ' '
     return {
       clip,

@@ -506,8 +506,6 @@ export const actions = {
     }
     commit('resetClock')
 
-    console.log(state.setup, state.gameAnnotations)
-
     const loggingEnabled = rootState.settings.devMode
     const engine = this._vm.$engine.spawn({ loggingEnabled })
     engine.on('error', data => {
