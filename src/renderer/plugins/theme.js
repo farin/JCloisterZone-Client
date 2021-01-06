@@ -15,7 +15,8 @@ const NULL_ARTWORK = {
   id: '_null',
   tileSize: 1000,
   background: null,
-  scaleTransform: ''
+  scaleTransform: '',
+  inverseScaleTransform: ''
 }
 
 const FEATURE_ORDER = {
@@ -217,9 +218,12 @@ class Theme {
 
     if (artwork.tileSize === 1000) {
       artwork.scaleTransform = ''
+      artwork.inverseScaleTransform = ''
     } else {
-      const s = 1000 / artwork.tileSize
+      const s = 1000.0 / artwork.tileSize
+      const inv = artwork.tileSize / 1000.0
       artwork.scaleTransform = `scale(${s} ${s})`
+      artwork.inverseScaleTransform = `scale(${inv} ${inv})`
     }
 
     if (json.background) {
@@ -248,8 +252,15 @@ class Theme {
 
     const processFeature = (featureId, data) => {
       data.id = featureId
-      if (isString(data.image)) data.image = makeAbsPath(pathPrefix, data.image, id)
-      if (data.image && data.image.href) data.image.href = makeAbsPath(pathPrefix, data.image.href, id)
+      if (data.image) {
+        if (data.images) {
+          console.warn(`Feature ${featureId} shouldn't declare 'image' either 'images' property`)
+          data.images.push(data.image)
+        } else {
+          data.images = [data.image]
+        }
+        delete data.image
+      }
       if (data.images) {
         for (let i = 0; i < data.images.length; i++) {
           if (isString(data.images[i])) data.images[i] = makeAbsPath(pathPrefix, data.images[i], id)
@@ -257,8 +268,15 @@ class Theme {
         }
       }
       forEachRotation(data, item => {
-        if (isString(item.image)) item.image = makeAbsPath(pathPrefix, item.image, id)
-        if (item.image && item.image.href) item.image.href = makeAbsPath(pathPrefix, item.image.href, id)
+        if (item.image) {
+          if (item.images) {
+            console.warn(`Feature ${featureId} shouldn't declare 'image' either 'images' property`)
+            item.images.push(item.image)
+          } else {
+            item.images = [item.image]
+          }
+          delete item.image
+        }
         if (item.images) {
           for (let i = 0; i < item.images.length; i++) {
             if (isString(item.images[i])) item.images[i] = makeAbsPath(pathPrefix, item.images[i], id)
@@ -472,11 +490,13 @@ class Theme {
       r = (rotateFeature + rotation) % 360
     }
 
+    console.log(feature)
     const transform = feature.transform || ' '
     return {
       clip,
       point,
-      transform: `${transform} ${tile.artwork.scaleTransform}`,
+      transform: `${tile.artwork.scaleTransform} ${transform}`,
+      inverseScaleTransform: tile.artwork.inverseScaleTransform,
       rotation: r
     }
   }
@@ -546,7 +566,7 @@ class Theme {
     const getRecordForRotation = (obj, rotation) => {
       const rotKey = '@' + (rotation / 90)
       if (obj && obj[rotKey]) {
-        obj = obj[rotKey]
+        return { ...obj, ...obj[rotKey] }
       }
       return obj
     }
@@ -583,9 +603,6 @@ class Theme {
         layers.push(layer)
       }
 
-      if (f.image) {
-        processImage(f.image)
-      }
       if (f.images) {
         for (const img of f.images) {
           processImage(img)

@@ -1,5 +1,5 @@
 <template>
-  <g id="meeple-layer">
+  <g :id="'meeple-layer' + (deployedOnBridge ? '-bridges' : '')">
     <!--
       MeepleSelectLayer is just virtual layer used from this class
       because selection operates with meeple positions and position change if meeples are stacked
