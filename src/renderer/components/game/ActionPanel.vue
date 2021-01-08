@@ -159,11 +159,16 @@ export default {
     },
 
     actionComponent () {
+      const itemType = this.action.items.length ? this.action.items[0].type : null
+      if (itemType === 'Confirm') {
+        return CommitActionPhaseAction
+      }
+
       const component = MAPPING[this.phase]
       if (component) {
         return component
       }
-      const itemType = this.action.items.length ? this.action.items[0].type : null
+
       if (this.phase === 'CornCirclePhase') {
         if (itemType === 'CornCircleSelectDeployOrRemove') {
           return CornCircleChoice
