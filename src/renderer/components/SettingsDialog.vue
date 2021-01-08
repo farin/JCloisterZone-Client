@@ -53,25 +53,27 @@
           <template v-if="section === 1">
             <h3 class="mt-2 mb-4">Game Interface</h3>
 
-            <h4>End turn confirmation</h4>
-            <em>Confirmation allows player undo performed action actions before activity is passed to a next player.
-              Enable explicit confirmation at the turn end&hellip;</em>
+            <h4>Confirmation</h4>
+            <em>
+              Confirmation allows player undo performed actions before activity is passed to a next player.
+              It happens before scoring or eg. in during opponent turn when you move wagon, etc.
+              Enable explicit confirmation&hellip;</em>
             <div class="checkboxes-wrapper">
               <v-checkbox
                 v-model="confirmAlways"
                 dense hide-details
-                label="After each turn"
+                label="always"
               />
               <v-checkbox
                 v-model="confirmField"
                 :disabled="confirmAlways"
                 dense hide-details
-                label="When meeple was deployed on a field"
+                label="only when meeple was deployed on a field"
               />
               <v-checkbox
                 :disabled="confirmAlways"
                 dense hide-details
-                label="When meeple was deployed on a tower"
+                label="only when meeple was deployed on a tower"
               />
             </div>
 
