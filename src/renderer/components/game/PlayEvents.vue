@@ -62,6 +62,10 @@ export default {
         if (this.history[i].finalScoring) {
           continue
         }
+        if (i < this.history.length - 1 && !this.history[i].events.length) {
+          // ignore empty rows - curently only if player pass during AbbeYEndGamePhase
+          continue
+        }
         const item = { ...this.history[i] }
         let lastRowIsScore = null
         let row = null

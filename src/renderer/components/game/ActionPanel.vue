@@ -92,6 +92,7 @@ import TowerCapturePhaseAction from '@/components/game/actions/TowerCapturePhase
 
 const MAPPING = {
   AbbeyPhase: TilePhaseAction,
+  AbbeyEndGamePhase: TilePhaseAction,
   ChangeFerriesPhase: FerryPhaseAction,
   CocFollowerPhase: ActionPhaseAction,
   CocScoringPhase: ActionPhaseAction,
