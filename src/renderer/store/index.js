@@ -21,7 +21,8 @@ export const state = () => ({
   java: null, // { version, outdated, error }
   engine: null,
   download: null,
-  updateInfo: null
+  updateInfo: null,
+  updateProgress: null
 })
 
 export const mutations = {
@@ -75,6 +76,10 @@ export const mutations = {
 
   updateInfo (state, value) {
     state.updateInfo = value
+  },
+
+  updateProgress (state, value) {
+    state.updateProgress = value
   }
 }
 

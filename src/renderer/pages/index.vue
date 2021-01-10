@@ -47,7 +47,8 @@
             <a :href="updateInfoFile">{{ updateInfoFile }}</a>
           </template>
           <v-btn v-else-if="!updating" color="secondary" @click="updateApp">Update to {{ updateInfo.version }}</v-btn>
-          <v-progress-linear v-else indeterminate />
+          <v-progress-linear v-else-if="updateProgres === null" indeterminate />
+          <v-progress-linear v-else :value="updateProgress" />
         </div>
 
         <h4>Release Notes</h4>
@@ -148,7 +149,8 @@ export default {
       engine: state => state.engine,
       download: state => state.download,
       settingsLoaded: state => state.loaded.settings,
-      updateInfo: state => state.updateInfo
+      updateInfo: state => state.updateInfo,
+      updateProgress: state => state.updateProgress
     }),
 
     updateInfoFile () {
@@ -350,6 +352,9 @@ h3
 
   .update-action
     margin: 20px 0
+
+  ::v-deep ul
+    list-style: none
 
 @media (max-height: 1199px)
   .landing-view

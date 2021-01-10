@@ -114,6 +114,9 @@ export default {
     ipcRenderer.on('app-update', (event, updateInfo) => {
       this.$store.commit('updateInfo', updateInfo)
     })
+    ipcRenderer.on('update-progress', (event, progress) => {
+      this.$store.commit('updateProgress', progress.percent)
+    })
   },
 
   async mounted () {
