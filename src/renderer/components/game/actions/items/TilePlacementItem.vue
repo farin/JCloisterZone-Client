@@ -6,6 +6,11 @@
 import LayeredItemMixin from '@/components/game/actions/items/LayeredItemMixin.js'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
 
+const getNextRotation = r => {
+  if (r === 270) return 0
+  return r + 90
+}
+
 export default {
   components: {
     StandaloneTileImage
@@ -41,11 +46,20 @@ export default {
   mounted () {
     this.onRightClick = ev => {
       if (this.local) {
-        if (this.rotation === 270) {
-          this.rotation = 0
-        } else {
-          this.rotation += 90
+        const mouseOver = this.$store.state.board.tilePlacementMouseOver
+        if (mouseOver) {
+          const pos = mouseOver[0]
+          const rotations = this.options.find(({ position: p }) => p[0] === pos[0] && p[1] === pos[1])?.rotations
+          if (rotations?.length) {
+            while (true) {
+              this.rotation = getNextRotation(this.rotation)
+              if (rotations.includes(this.rotation)) {
+                return
+              }
+            }
+          }
         }
+        this.rotation = getNextRotation(this.rotation)
       }
     }
     this.$root.$on('rclick', this.onRightClick)
