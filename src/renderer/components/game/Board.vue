@@ -215,14 +215,17 @@ export default {
           }, 40)
         }
       }
-      if (ev.key === 'Shift') {
+      if (ev.key === 'Tab') {
+        this.$root.$emit('rclick', ev)
+      }
+      if (ev.key === 'z') {
         this.overlay = true
       }
     },
 
     onKeyUp (ev) {
       delete this.pressedKeys[ev.key]
-      if (ev.key === 'Shift') {
+      if (ev.key === 'z') {
         this.overlay = false
       }
     },
