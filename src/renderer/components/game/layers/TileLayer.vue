@@ -235,4 +235,7 @@ export default {
 .tiles-border
   +theme using ($theme)
     fill: map-get($theme, 'cards-bg')
+
+.board.overlay #tile-layer
+  opacity: 0.3
 </style>

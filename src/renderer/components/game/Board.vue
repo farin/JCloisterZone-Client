@@ -1,7 +1,9 @@
 <template>
   <svg
     ref="svg"
-    class="board" draggable
+    class="board"
+    :class="{ 'overlay': overlay }"
+    draggable
     @wheel.passive="onWheel"
     @mousedown="onMouseDown"
     @mousemove="onMouseMove"
@@ -116,7 +118,8 @@ export default {
   data () {
     return {
       offsetX: 0,
-      offsetY: 0
+      offsetY: 0,
+      overlay: false
     }
   },
 
@@ -179,7 +182,7 @@ export default {
 
   methods: {
     onKeyDown (ev) {
-      if (['a', 's', 'd', 'w'].includes(ev.key) !== -1 && !this.$store.state.gameDialog) {
+      if (['a', 's', 'd', 'w'].includes(ev.key) && !this.$store.state.gameDialog) {
         if (ev.ctrlKey || ev.metaKey || ev.altKey || ev.shiftKey) {
           return
         }
@@ -212,10 +215,16 @@ export default {
           }, 40)
         }
       }
+      if (ev.key === 'Shift') {
+        this.overlay = true
+      }
     },
 
     onKeyUp (ev) {
       delete this.pressedKeys[ev.key]
+      if (ev.key === 'Shift') {
+        this.overlay = false
+      }
     },
 
     onWheel (ev) {
