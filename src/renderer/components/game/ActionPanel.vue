@@ -247,10 +247,12 @@ export default {
     },
 
     async pass () {
-      await this.$store.dispatch('game/apply', {
-        type: 'PASS',
-        payload: {}
-      })
+      if (this.local) {
+        await this.$store.dispatch('game/apply', {
+          type: 'PASS',
+          payload: {}
+        })
+      }
     },
 
     onPlayerActivated () {
