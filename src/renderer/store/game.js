@@ -483,16 +483,21 @@ export const actions = {
   },
 
   async handleStartMessage ({ state, commit, dispatch, rootState }, message) {
+    let slots
     if (message.payload.seating) {
       const { seating } = message.payload
-      state.slots.forEach(slot => {
+      slots = state.slots.map(slot => {
         if (seating[slot.number]) {
-          slot.order = seating[slot.number]
+          return { ...slot, order: seating[slot.number] }
         }
+        return slot
       })
+      commit('slots', slots)
+    } else {
+      slots = state.slots
     }
 
-    const players = state.slots.filter(s => s.clientId).map(s => ({ ...s }))
+    const players = slots.filter(s => s.clientId).map(s => ({ ...s }))
     players.sort((a, b) => a.order - b.order)
     players.forEach(s => {
       s.slot = s.number
