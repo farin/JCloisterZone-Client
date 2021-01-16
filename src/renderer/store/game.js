@@ -622,7 +622,8 @@ export const actions = {
     const local = rootState.networking.sessionId === state.players[response.action?.player]?.sessionId
     let autoCommit = false
     if (local && allowAutoCommit) {
-      if (response.phase === 'CommitActionPhase') {
+      const itemType = response.action.items.length ? response.action.items[0].type : null
+      if (itemType === 'Confirm') {
         let confirm = response.undo.allowed && message?.type !== 'PASS' && message?.type !== 'EXCHANGE_FOLLOWER'
         if (confirm) {
           confirm = rootState.settings['confirm.always']
