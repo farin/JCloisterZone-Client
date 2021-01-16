@@ -1,5 +1,14 @@
 <template>
-  <div>
+  <div :class="{'valid-only': showValidRulesOnly}">
+    <div class="checkbox-wrapper">
+      <v-switch
+        v-model="showValidRulesOnly"
+        dense
+        hide-details
+        label="show available only"
+      />
+    </div>
+
     <ConfigSection title="Optional Game Mechanics">
       <div class="rules-section game-mechanics">
         <GameMechanicsBox :item="GameElement.FARMERS">
@@ -375,11 +384,18 @@ export default {
     }
   },
 
-  computed: mapState({
-    detail: state => state.gameSetup.detail,
-    figures: state => state.gameSetup.figures,
-    rules: state => state.gameSetup.rules
-  })
+  computed: {
+    ...mapState({
+      detail: state => state.gameSetup.detail,
+      figures: state => state.gameSetup.figures,
+      rules: state => state.gameSetup.rules
+    }),
+
+    showValidRulesOnly: {
+      get () { return this.$store.state.settings.showValidRulesOnly },
+      set (val) { this.$store.dispatch('settings/update', { showValidRulesOnly: val }) }
+    }
+  }
 }
 </script>
 
@@ -439,6 +455,17 @@ export default {
   .unselected
     img
       filter: grayscale(100%)
+
+.checkbox-wrapper
+  display: flex
+  justify-content: flex-end
+  padding-right: 22px
+
+.valid-only
+  .game-mechanics-box.disabled:not(.selected)
+    display: none
+  .rule-box.unselected
+    display: none
 
 </style>
 

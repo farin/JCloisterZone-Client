@@ -19,6 +19,7 @@ export const state = () => ({
   recentSaves: [],
   recentGameSetups: [],
   recentJoinedGames: [],
+  showValidRulesOnly: false,
   clientId: null,
   secret: null,
   port: 37447,
