@@ -74,6 +74,9 @@ export default {
       if (Array.isArray(ptr)) {
         return this.transformPosition(ptr) + 'translate(500 500)'
       }
+      if (ptr.position && !ptr.location) {
+        return this.transformPosition(ptr.position) + 'translate(500 500)'
+      }
       return this.transformPoint(ptr)
     },
 
