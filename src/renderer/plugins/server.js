@@ -436,7 +436,7 @@ export class GameServer {
 
     const payload = {}
 
-    if (this.game.setup.options.randomizeSeating) {
+    if (this.game.setup.options.randomizeSeating && this.status === 'new') {
       const slots = shuffle(this.game.slots.filter(s => s.order))
       const seating = {}
       slots.forEach((slot, idx) => {
