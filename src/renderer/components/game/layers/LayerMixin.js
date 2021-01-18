@@ -51,7 +51,7 @@ export default {
 
     transformPoint (ptr) { // ptr is { position, location }
       const { tile, point, rotation, transform, inverseScaleTransform } = this.getTilePoint(ptr)
-      return `${this.transformPosition(tile.position)} ${this.transformRotation(rotation)} ${transform} translate(${point[0]} ${point[1]}) rotate(${-rotation} 0 0) ${inverseScaleTransform}`
+      return `${this.transformPosition(tile.position)} ${this.transformRotation(rotation)} ${transform || ''} translate(${point[0]} ${point[1]}) rotate(${-rotation} 0 0) ${inverseScaleTransform || ''}`
     },
 
     transformTunnelEnd (ptr) {
