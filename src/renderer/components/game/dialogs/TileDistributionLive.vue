@@ -53,20 +53,6 @@ export default {
     }),
 
     tiles () {
-      function sortByEdge (a, b) {
-        const ae = { c: 0, r: 0, i: 0 }
-        const be = { c: 0, r: 0, i: 0 }
-        a.edge.split('').forEach(ch => { ae[ch] += 1 })
-        b.edge.split('').forEach(ch => { be[ch] += 1 })
-        if (ae.i !== be.i) {
-          return ae.i - be.i
-        }
-        if (ae.c !== be.c) {
-          return be.c - ae.c
-        }
-        return ae.r - be.r // less roads first
-      }
-
       let { sets } = this
       if (this.sets.count) {
         sets = { ...sets }
@@ -75,7 +61,7 @@ export default {
 
       const counts = this.$tiles.getTilesCounts(sets, this.rules, this.edition, this.start)
       const tiles = Object.keys(counts).map(id => ({ id, ...this.$tiles.tiles[id] }))
-      tiles.sort(sortByEdge)
+      tiles.sort(this.$tiles.sortByEdge)
 
       const actionItem = this.action?.items[0]
       const drawnId = actionItem.type === 'TilePlacement' ? actionItem.tileId : null

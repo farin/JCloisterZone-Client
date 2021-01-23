@@ -192,7 +192,8 @@ export default {
           { role: 'toggleDevTools', label: 'Toggle DevTools' },
           { label: 'Change clientId', click: this.changeClientId },
           { id: 'dump-server', label: 'Dump hosted game server state', click: this.dumpServer },
-          { label: 'Reload artwokrs', click: () => { this.$theme.loadArtworks() } }
+          { label: 'Reload artwokrs', click: () => { this.$theme.loadArtworks() } },
+          { id: 'theme-inspector', label: 'Theme inspector', click: () => { this.$router.push('/theme-inspector') } }
         ]
       })
     }
@@ -253,9 +254,13 @@ export default {
 
       if (this.$store.state.settings.devMode) {
         // devMode can be change in runtime, then menu item may not exist
-        const item = this.menu.getMenuItemById('dump-server')
-        if (item) {
-          item.enabled = this.$server.isRunning()
+        const dumpServerItem = this.menu.getMenuItemById('dump-server')
+        if (dumpServerItem) {
+          dumpServerItem.enabled = this.$server.isRunning()
+        }
+        const inspectorItem = this.menu.getMenuItemById('theme-inspector')
+        if (inspectorItem) {
+          inspectorItem.enabled = !gameOpen
         }
       }
     },
