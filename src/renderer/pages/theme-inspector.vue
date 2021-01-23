@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="theme-inspector">
     <v-container>
       <v-row align="center" class="header">
-        <v-col cols="8">
+        <v-col cols="6">
           <v-select
             v-model="selected"
             :items="sets"
@@ -12,7 +12,7 @@
             single-line
           />
         </v-col>
-        <v-col cols="4">
+        <v-col cols="3">
           <v-select
             v-model="edition"
             :items="editions"
@@ -20,27 +20,34 @@
             single-line
           />
         </v-col>
+        <v-col cols="3">
+          <v-select
+            v-model="size"
+            :items="sizes"
+            label="Size"
+            single-line
+          />
+        </v-col>
       </v-row>
-      <template v-if="selected">
-        <v-row
-          v-for="tile in tiles"
-          :key="tile.id"
-          align="center"
-        >
-          <v-col cols="2">{{ tile.id }}</v-col>
-          <v-col v-for="n in 4" :key="n" cols="2">
-            <StandaloneTileImage
-              :tile-id="tile.id"
-              :size="140"
-              :rotation="(n - 1) * 90"
-            />
-          </v-col>
-        </v-row>
-      </template>
     </v-container>
+    <template v-if="selected">
+      <div
+        v-for="tile in tiles"
+        :key="tile.id"
+        class="tile-row"
+      >
+        <div class="tile-id">{{ tile.id }}</div>
+        <StandaloneTileImage
+          v-for="n in 4" :key="n"
+          :tile-id="tile.id"
+          :size="size"
+          :padding="[0, 73]"
+          :rotation="(n - 1) * 90"
+        />
+      </div>
+    </template>
   </div>
 </template>
-
 
 <script>
 import { Expansion } from '@/models/expansions'
@@ -57,9 +64,18 @@ export default {
       sets.push(...exp.sets)
     }
     return {
-      selected: 'basic',
+      selected: this.$store.state.loaded.tiles ? 'basic' : null,
       edition: 1,
       editions: [{ text: '1st edition', value: 1 }, { text: '2nd edition', value: 2 }],
+      size: 240,
+      sizes: [
+        { text: '40', value: 40 },
+        { text: '100', value: 100 },
+        { text: '140', value: 140 },
+        { text: '180', value: 180 },
+        { text: '240', value: 240 },
+        { text: '300', value: 300 }
+      ],
       sets
     }
   },
@@ -87,7 +103,25 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.theme-inspector
+  padding-bottom: 40px
+
 .header
   margin-bottom: 40px
 
+.tile-id
+  width: 160px
+  font-size: 20px
+  text-align: right
+  padding-right: 30px
+  color: gray
+
+.tile-row
+  display: flex
+  justify-content: center
+  align-items: center
+  margin-bottom: 15px
+
+  svg
+    margin: 0 5px
 </style>
