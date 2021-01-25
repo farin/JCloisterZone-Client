@@ -597,10 +597,11 @@ class Theme {
       }
 
       f = getRecordForRotation(f, r)
-      const rotatedLoc = Location.parse(loc).rotateCW(rotation).name
+      const locObj = Location.parse(loc)
+      const actualLoc = locObj ? locObj.rotateCW(rotation).name : loc
 
       const processImage = (image, t) => {
-        const order = FEATURE_ORDER[rotatedLoc]
+        const order = FEATURE_ORDER[actualLoc]
         const layer = this._createTileLayer(artwork, image, f.transform, perspective, r)
         layer.order = order === undefined ? 9 : order
         layers.push(layer)
