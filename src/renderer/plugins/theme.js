@@ -525,11 +525,20 @@ class Theme {
         width = size[0]
         height = size[1]
       }
+    } else {
+      if (image.width) width = image.width
+      if (image.height) height = image.height
+    }
+
+    const props = { x, y, width, height, href }
+
+    if (image.style) {
+      props.style = image.style
     }
 
     const layer = {
       tag: svgRef ? 'use' : 'image',
-      props: { x, y, width, height, href },
+      props,
       zindex: image.zindex || 1
     }
 
