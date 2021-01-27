@@ -208,7 +208,8 @@ class Theme {
       version: json.version,
       perspective: json.perspective || 'rotate',
       background: null,
-      tileSize: parseInt(json['tile-size']) || 1000
+      tileSize: parseInt(json['tile-size']) || 1000,
+      classes: json.classes || {}
     }
     const pathPrefix = `file:///${folder}/`
 
@@ -511,11 +512,18 @@ class Theme {
       href = image
     }
 
+    const attrs = {}
+    if (image.class) {
+      image.class.split(/\s+/).forEach(cls => {
+        Object.assign(attrs, artwork.classes[cls] || {})
+      })
+    }
+
     const svgRef = href[0] === '#' || href.includes('.svg#')
     let width = artwork.tileSize
     let height = artwork.tileSize
-    const x = image.x || 0
-    const y = image.y || 0
+    const x = image.x || attrs.x || 0
+    const y = image.y || attrs.y || 0
 
     if (svgRef) {
       const size = artwork.symbols[href.substring(1)]?.size
@@ -526,20 +534,21 @@ class Theme {
         height = size[1]
       }
     } else {
+      if (attrs.width) width = attrs.width
       if (image.width) width = image.width
+      if (attrs.height) height = attrs.height
       if (image.height) height = image.height
     }
 
     const props = { x, y, width, height, href }
 
-    if (image.style) {
-      props.style = image.style
-    }
+    if (attrs.style) props.style = attrs.style
+    if (image.style) props.style = image.style
 
     const layer = {
       tag: svgRef ? 'use' : 'image',
       props,
-      zindex: image.zindex || 1
+      zindex: attrs.zindex || image.zindex || 1
     }
 
     const transform = []
@@ -548,6 +557,9 @@ class Theme {
     }
     if (featureTransform) {
       transform.push(featureTransform)
+    }
+    if (attrs.transform) {
+      transform.push(attrs.transform)
     }
     if (image.transform) {
       transform.push(image.transform)
