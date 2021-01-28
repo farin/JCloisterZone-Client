@@ -348,11 +348,24 @@ class Theme {
         if (!img.if) {
           return true
         }
-        if (img.if[0] === '!') {
-          const p = img.if.substring(1)
-          return !params.includes(p)
+        let conditions
+        const or = img.if.includes('||')
+        const and = img.if.includes('&&')
+        if (or && and) {
+          throw new Error('both || and && is not allowed in one expression')
         }
-        return params.includes(img.if)
+        if (and) {
+          conditions = img.if.split(/\s*&&\s*/)
+        } else if (or) {
+          conditions = img.if.split(/\s*\|\|\s*/)
+        } else {
+          conditions = [img.if]
+        }
+        const values = conditions.map(cond => cond[0] === '!' ? !params.includes(cond.substring(1)) : params.includes(cond))
+        if (or) {
+          return values.includes(true)
+        }
+        return !values.includes(false)
       }
 
       const getFeature = id => {
