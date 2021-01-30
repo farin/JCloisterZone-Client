@@ -1,5 +1,8 @@
 # JCloisterZone Client
 
+Main platform repository https://github.com/farin/JCloisterZone
+(report issue there)
+
 #### Build Setup
 
 ``` bash

@@ -51,7 +51,7 @@ class ConnectionHandler {
     } else if (type === 'GAME') {
       await dispatch('game/handleGameMessage', payload, { root: true })
       if (payload.started) {
-        await dispatch('game/handleStartMessage', { clock: message.clock, id: null }, { root: true })
+        await dispatch('game/handleStartMessage', { clock: message.clock, id: null, payload: {} }, { root: true })
         if (this.$router.currentRoute.path !== '/game') {
           commit('board/resetZoom', null, { root: true })
           this.$router.push('/game')
