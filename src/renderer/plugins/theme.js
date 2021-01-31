@@ -24,8 +24,8 @@ const FEATURE_ORDER = {
   NW: 11,
   NE: 12,
   W: 20,
-  SW: 21,
   E: 30,
+  SW: 35,
   S: 40,
   SE: 41,
   TOWER: 50,
@@ -329,7 +329,7 @@ class Theme {
 
       const tile = {
         id: tileId,
-        rotation: data.rotation,
+        rotation: data.rotation || 0,
         artwork,
         features: {}
       }
