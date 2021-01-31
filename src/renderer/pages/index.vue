@@ -39,7 +39,7 @@
         <v-progress-linear indeterminate />
       </div>
       <div v-if="updateInfo" class="update-box">
-        <h3>New JCloisterZone version is avaialable.</h3>
+        <h3>New JCloisterZone version is available.</h3>
 
         <div class="update-action">
           <template v-if="isMac">
