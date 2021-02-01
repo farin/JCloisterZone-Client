@@ -210,7 +210,8 @@ class Theme {
       background: null,
       tileSize: parseInt(json['tile-size']) || 1000,
       classes: json.classes || {},
-      defaultZindex: json.defaultZindex === undefined ? 1 : json.defaultZindex
+      defaultZindex: json.defaultZindex === undefined ? 1 : json.defaultZindex,
+      aliases: json.aliases || {}
     }
     const pathPrefix = `file:///${folder}/`
 
@@ -434,6 +435,10 @@ class Theme {
       const content = JSON.parse(await fs.promises.readFile(path.join(folder, fname)))
       Object.entries(content).forEach(([tileId, data]) => processTile(tileId, data))
     }
+
+    Object.entries(artwork.aliases).forEach(([id, alias]) => {
+      this._tiles[id] = this._tiles[alias]
+    })
 
     console.log(`Loaded artwork '${id}' from ${folder}`)
   }
