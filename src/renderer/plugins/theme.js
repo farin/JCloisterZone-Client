@@ -209,7 +209,8 @@ class Theme {
       perspective: json.perspective || 'rotate',
       background: null,
       tileSize: parseInt(json['tile-size']) || 1000,
-      classes: json.classes || {}
+      classes: json.classes || {},
+      defaultZindex: json.defaultZindex === undefined ? 1 : json.defaultZindex
     }
     const pathPrefix = `file:///${folder}/`
 
@@ -561,7 +562,7 @@ class Theme {
     const layer = {
       tag: svgRef ? 'use' : 'image',
       props,
-      zindex: attrs.zindex || image.zindex || 1
+      zindex: [attrs.zindex, image.zindex, artwork.defaultZindex].find(z => z !== null && z !== undefined)
     }
 
     const transform = []
