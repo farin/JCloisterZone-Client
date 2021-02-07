@@ -4,25 +4,25 @@
     <template #row>
       <TokenImage
         v-for="i in expr.args.SHEEP_1X"
-        :key="i"
+        :key="`1x-${i}`"
         token="SHEEP_1X"
         :height="46"
       />
       <TokenImage
         v-for="i in expr.args.SHEEP_2X"
-        :key="i"
+        :key="`2x-${i}`"
         token="SHEEP_2X"
         :height="46"
       />
       <TokenImage
         v-for="i in expr.args.SHEEP_3X"
-        :key="i"
+        :key="`3x-${i}`"
         token="SHEEP_3X"
         :height="46"
       />
       <TokenImage
         v-for="i in expr.args.SHEEP_4X"
-        :key="i"
+        :key="`4x-${i}`"
         token="SHEEP_4X"
         :height="46"
       />
