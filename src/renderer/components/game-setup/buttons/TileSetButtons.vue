@@ -17,7 +17,7 @@ export default {
   },
 
   props: {
-    set: { type: Object, required: true },
+    set: { type: [Object, Array], required: true },
     mutable: { type: Boolean, default: true }
   },
 
@@ -25,11 +25,17 @@ export default {
     quantity: {
       get () {
         const sets = this.$store.state.gameSetup.sets || {}
-        return sets[this.set.id] || 0
+        return sets[Array.isArray(this.set) ? this.set[0].id : this.set.id] || 0
       },
 
       set (value) {
-        this.$store.dispatch('gameSetup/setTileSetQuantity', { id: this.set.id, quantity: value })
+        if (Array.isArray(this.set)) {
+          this.set.forEach(set => {
+            this.$store.dispatch('gameSetup/setTileSetQuantity', { id: set.id, quantity: value })
+          })
+        } else {
+          this.$store.dispatch('gameSetup/setTileSetQuantity', { id: this.set.id, quantity: value })
+        }
       }
     }
   }

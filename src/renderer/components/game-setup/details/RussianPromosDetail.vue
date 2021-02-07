@@ -9,7 +9,7 @@
     <TileDistribution :sets="{'russian-promos/2013': 1}" />
 
     <h5>Tiles from 2016</h5>
-    Will be added.
+    <TileDistribution :sets="{'russian-promos/2016': 1}" />
   </div>
 </template>
 

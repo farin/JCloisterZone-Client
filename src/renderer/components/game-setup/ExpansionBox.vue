@@ -12,8 +12,8 @@
       <v-icon>fas fa-layer-group</v-icon>
     </a>
 
-    <template v-if="expansion.sets.length === 1">
-      <TileSetButtons :set="expansion.sets[0]">
+    <template v-if="expansion.sets.length === 1 || expansion.name === 'RUSSIAN_PROMOS'">
+      <TileSetButtons :set="expansion.sets">
         <div class="exp-title">
           <ExpansionSymbol :expansion="expansion" />
           <h3>{{ expansion.title }}</h3>
