@@ -82,12 +82,18 @@ export default {
         if (this.emphasis.type === 'feature') {
           return this.emphasis.places.map(({ tile, location }) => {
             return { tile, ...this.$theme.getFeature(tile, location, this.bridges) }
+          }).filter(f => {
+            // be defensive
+            if (!f.clip) {
+              console.warn('Feature without clip', f)
+            }
+            return f.clip
           })
         }
       } catch (e) {
         console.error(e)
       }
-      return null
+      return []
     }
   },
 
