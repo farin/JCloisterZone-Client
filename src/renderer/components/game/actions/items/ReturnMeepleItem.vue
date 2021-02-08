@@ -3,7 +3,7 @@
     <img v-if="source === 'PRINCESS'" src="~/assets/features/C1/princess.png" height="54">
     <div
       v-else-if="source === 'ABBOT_RETURN'"
-      :class="{'abbot-return': true, [colorCssClass(player)]: active}"
+      :class="{'meeple-return': true, 'abbot-return': true, [colorCssClass(player)]: active}"
     >
       <Meeple
         :class="{inactive: !active}"
@@ -14,7 +14,15 @@
     <div v-else-if="source === 'FESTIVAL'">
       <img src="~/assets/features/C1/festival.png" height="74">
     </div>
-    <div v-else>Return Meeple</div>
+    <div
+      :class="{'meeple-return': true, [colorCssClass(player)]: active}"
+    >
+      <Meeple
+        :class="{inactive: !active}"
+        :type="getTypeFromId(options)"
+      />
+      <v-icon class="color-overlay">fas fa-undo</v-icon>
+    </div>
   </div>
 </template>
 
@@ -76,6 +84,13 @@ export default {
           }
         })
       }
+    },
+
+    getTypeFromId (options) {
+      const t = options[0].meepleId.split('.')[1]
+      if (t === 'small') return 'SmallFollower'
+      if (t === 'big') return 'BigFollower'
+      return t
     }
   }
 }
@@ -88,7 +103,7 @@ img
 .active img
   filter: none
 
-.abbot-return
+.meeple-return
   position: relative
 
   svg
@@ -102,6 +117,11 @@ img
   i
     position: absolute
     left: calc(50% - 12px)
-    top: calc(50%)
+    top: calc(35%)
     font-size: 24px
+
+.abbot-return
+  i
+    top: calc(50%)
+
 </style>

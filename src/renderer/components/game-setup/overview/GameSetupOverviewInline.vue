@@ -1,10 +1,10 @@
 <template>
   <div class="game-setup-overview-inline" :class="sizeClass">
     <OverviewTileSetTile
-      v-for="({ expansion, set, quantity }, idx) in tileSets"
-      :key="'s' + set.id"
+      v-for="({ expansion, id, title, quantity }, idx) in tileSets"
+      :key="'s' + id"
       :expansion="expansion"
-      :set="set"
+      :title="title"
       :quantity="quantity"
       :z-index="toZindex(idx)"
     />
