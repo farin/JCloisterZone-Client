@@ -53,11 +53,11 @@ class ConnectionHandler {
       if (payload.started) {
         await dispatch('game/handleStartMessage', { clock: message.clock, id: null, payload: {} }, { root: true })
         if (this.$router.currentRoute.path !== '/game') {
-          commit('board/resetZoom', null, { root: true })
+          commit('board/reset', null, { root: true })
           this.$router.push('/game')
         }
       } else {
-        commit('board/resetZoom', null, { root: true })
+        commit('board/reset', null, { root: true })
         this.$router.push('/open-game')
         const { preferredColor } = rootState.settings
         if (preferredColor !== null && !payload.replay) {

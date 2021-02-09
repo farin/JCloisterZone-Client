@@ -25,7 +25,7 @@ Run engine listening to socket. It will be usualy started using Java IDE.
 Add program args to run configuration
 
 ```
---socket 9000
+-port 9000
 ```
 
 Add engine's socket address to jcz-config.json
