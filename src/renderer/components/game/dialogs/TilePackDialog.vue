@@ -22,7 +22,7 @@
 
       <h2>Remaining tiles</h2>
       <p v-if="options.puristTiles">
-        Game was created with "Purist" option which disallow remaining tiles listing.
+        Game was created with option which doesn't allow showing remaining tiles cheat sheet.
       </p>
       <TileDistributionLive v-else :sets="sets" :rules="rules" />
     </v-card-text>
