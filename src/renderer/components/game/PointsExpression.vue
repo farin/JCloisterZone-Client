@@ -65,6 +65,7 @@ import ExprRoadIncompleteInn from '@/components/game/expressions/ExprRoadIncompl
 import ExprRobber from '@/components/game/expressions/ExprRobber'
 import ExprTradeGoods from '@/components/game/expressions/ExprTradeGoods'
 import ExprUnknown from '@/components/game/expressions/ExprUnknown'
+import ExprVodyanoy from '@/components/game/expressions/ExprVodyanoy'
 import ExprWindRose from '@/components/game/expressions/ExprWindRose'
 import ExprYagaHut from '@/components/game/expressions/ExprYagaHut'
 import NeutralFigure from '@/components/game/NeutralFigure'
@@ -95,6 +96,7 @@ export default {
     ExprRobber,
     ExprTradeGoods,
     ExprUnknown,
+    ExprVodyanoy,
     ExprWindRose,
     ExprYagaHut,
     NeutralFigure,
@@ -159,6 +161,7 @@ export default {
       if (type === 'robber') return 'ExprRobber'
       if (type === 'monastery') return 'ExprMonastery'
       if (type === 'gold') return 'ExprGold'
+      if (type === 'vodyanoy') return 'ExprVodyanoy'
 
       return 'ExprUnknown'
     }
