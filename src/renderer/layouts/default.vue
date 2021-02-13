@@ -168,8 +168,8 @@ export default {
         submenu: [
           { id: 'undo', label: 'Undo', accelerator: 'CommandOrControl+Z', click: this.undo },
           { type: 'separator' },
-          { id: 'zoom-in', label: 'Zoom In', accelerator: 'numadd', click: this.zoomIn },
-          { id: 'zoom-out', label: 'Zoom Out', accelerator: 'numsub', click: this.zoomOut },
+          { id: 'zoom-in', label: 'Zoom In', accelerator: 'numadd', registerAccelerator: false, click: this.zoomIn },
+          { id: 'zoom-out', label: 'Zoom Out', accelerator: 'numsub', registerAccelerator: false, click: this.zoomOut },
           { type: 'separator' },
           { id: 'game-tiles', label: 'Tiles', accelerator: 't', click: this.toggleRemainingTiles },
           { id: 'toggle-history', label: 'Toggle History', accelerator: 'h', click: this.toggleGameHistory },
@@ -333,6 +333,14 @@ export default {
     },
 
     onKeyDown (ev) {
+      if (ev.key === '+') { // bind both + and numpad +
+        this.zoomIn()
+        return
+      }
+      if (ev.key === '-') {
+        this.zoomOut()
+        return
+      }
       if (ev.key === 'Escape' && this.showAbout) {
         this.showAbout = false
         ev.preventDefault()
