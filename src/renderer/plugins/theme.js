@@ -71,9 +71,9 @@ class Theme {
 
     this.REMOTE_ARTWORKS = {
       classic: {
-        url: 'https://jcloisterzone.com/artworks/classic/classic-2-5.3.0.zip',
-        version: '2 (5.3.0)',
-        sha256: '454cce838b338f3c3bcc3bb5b0adeac98e6b13156779ad1308791eea5618ff65'
+        url: 'https://jcloisterzone.com/artworks/classic/classic-3-5.5.0.zip',
+        version: '3 (5.5.0)',
+        sha256: '9e3c89fe21a0380479f068efd3e3135dfb4c5f83ddf44f4c86ad3c3fc1535899'
       }
     }
   }

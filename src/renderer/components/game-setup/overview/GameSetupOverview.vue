@@ -5,10 +5,10 @@
     </div>
     <section>
       <OverviewTileSetTile
-        v-for="{ expansion, set, quantity } in tileSets"
-        :key="set.id"
+        v-for="{ expansion, id, title, quantity } in tileSets"
+        :key="id"
         :expansion="expansion"
-        :set="set"
+        :title="title"
         :quantity="quantity"
       />
     </section>

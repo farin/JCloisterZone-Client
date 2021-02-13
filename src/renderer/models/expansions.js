@@ -13,7 +13,7 @@ export class TileSet {
 TileSet.configType = Number
 
 export class Expansion {
-  constructor (name, title, sets = null) {
+  constructor (name, title, sets = null, options = {}) {
     this.name = name
     this.title = title
     if (sets === null) {
@@ -22,6 +22,7 @@ export class Expansion {
       this.sets = sets
     }
     this.sets.forEach(s => { s.expansion = this })
+    this.mergeSets = options.mergeSets || false
   }
 
   static all () {
@@ -78,8 +79,9 @@ export const GOLDMINES = Expansion.GOLDMINES = new Expansion('GOLDMINES', 'The G
 export const MAGE_AND_WITCH = Expansion.MAGE_AND_WITCH = new Expansion('MAGE_AND_WITCH', 'Mage & Witch')
 
 export const RUSSIAN_PROMOS = Expansion.RUSSIAN_PROMOS = new Expansion('RUSSIAN_PROMOS', 'Russian Promos', [
-  new TileSet('russian-promos/2013', 'Russian Promos')
-])
+  new TileSet('russian-promos/2013', 'Russian Promos 2013'),
+  new TileSet('russian-promos/2016', 'Russian Promos 2016')
+], { mergeSets: true })
 export const LABYRINTH = Expansion.LABYRINTH = new Expansion('LABYRINTH', 'The Labyrinth')
 export const DARMSTADT = Expansion.DARMSTADT = new Expansion('DARMSTADT', 'Darmstadt')
 export const SPIEL_DOCH = Expansion.SPIEL_DOCH = new Expansion('SPIEL_DOCH', 'Spiel Doch')

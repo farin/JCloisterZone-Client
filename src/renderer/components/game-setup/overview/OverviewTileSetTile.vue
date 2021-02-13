@@ -5,7 +5,7 @@
   >
     <ExpansionSymbol :expansion="expansion" />
 
-    <template #title>{{ set.title }}</template>
+    <template #title>{{ title }}</template>
     <template #quantity>
       <div v-if="quantity > 1" class="quantity tile-set">
         {{ quantity }}
@@ -26,7 +26,7 @@ export default {
 
   props: {
     expansion: { type: Object, required: true },
-    set: { type: Object, required: true },
+    title: { type: String, required: true },
     quantity: { type: Number, default: 1 },
     zIndex: { type: Number, default: 1 }
   }

@@ -4,16 +4,16 @@
       'exp-box': true,
       [expansion.name]: true,
       'selected': selected,
-      'multiset': expansion.sets.length > 1,
-      ['multiset-' + expansion.sets.length]: expansion.sets.length > 1
+      'multiset': expansion.sets.length > 1 && !expansion.mergeSets,
+      ['multiset-' + expansion.sets.length]: expansion.sets.length > 1 && !expansion.mergeSets
     }"
   >
     <a href="#" class="detail-link" @click.prevent="open">
       <v-icon>fas fa-layer-group</v-icon>
     </a>
 
-    <template v-if="expansion.sets.length === 1">
-      <TileSetButtons :set="expansion.sets[0]">
+    <template v-if="expansion.sets.length === 1 || expansion.mergeSets">
+      <TileSetButtons :set="expansion.sets">
         <div class="exp-title">
           <ExpansionSymbol :expansion="expansion" />
           <h3>{{ expansion.title }}</h3>

@@ -987,6 +987,14 @@
       "symmetry": 4,
       "edge": "rrrr"
     },
+    "RU/SR": {
+      "symmetry": 2,
+      "edge": "frfr"
+    },
+    "RU/V": {
+      "symmetry": 4,
+      "edge": "rrrr"
+    },
     "SI.BE/Ccc": {
       "symmetry": 0,
       "edge": "ccfc"
@@ -1856,6 +1864,12 @@
       "tiles": {
         "RU/L": 1,
         "RU/RRrr": 1
+      }
+    },
+    "russian-promos/2016": {
+      "tiles": {
+        "RU/SR": 1,
+        "RU/V": 1
       }
     },
     "siege/besiegers": {

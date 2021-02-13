@@ -55,6 +55,14 @@ export const mutations = {
     if (zoom < 0.03) { zoom = 0.03 };
     if (zoom > 0.36) { zoom = 0.36 };
     state.zoom = zoom
+  },
+
+  reset (state) {
+    state.dragging = null
+    state.pointsExpression = null
+    state.layers = {}
+    state.tilePlacementMouseOver = null
+    state.zoom = DEFAULT_ZOOM
   }
 }
 

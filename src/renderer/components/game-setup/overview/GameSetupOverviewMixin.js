@@ -8,12 +8,17 @@ export default {
     tileSets () {
       const tileSets = []
       Expansion.all().forEach(expansion => {
-        expansion.sets.forEach(set => {
+        for (const set of expansion.sets) {
           const quantity = this.sets[set.id] || this.sets[set.id + ':1'] || this.sets[set.id + ':2']
           if (quantity) {
-            tileSets.push({ expansion, set, quantity })
+            if (expansion.mergeSets) {
+              tileSets.push({ expansion, id: expansion.name, title: expansion.title, quantity })
+              break
+            } else {
+              tileSets.push({ expansion, id: set.id, title: set.title, quantity })
+            }
           }
-        })
+        }
       })
       return tileSets
     },
