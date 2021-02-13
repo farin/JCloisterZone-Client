@@ -251,6 +251,7 @@ export default {
       this.menu.getMenuItemById('zoom-out').enabled = gameRunning
       this.menu.getMenuItemById('toggle-history').enabled = gameRunning
       this.menu.getMenuItemById('game-tiles').enabled = gameRunning
+      this.menu.getMenuItemById('game-setup').enabled = gameRunning
 
       if (this.$store.state.settings.devMode) {
         // devMode can be change in runtime, then menu item may not exist
