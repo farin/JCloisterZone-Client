@@ -99,6 +99,7 @@ const MAPPING = {
   CocFinalScoringPhase: ActionPhaseAction,
   PlaceFerryPhase: FerryPhaseAction,
   PhantomPhase: ActionPhaseAction,
+  TunnelPhase: ActionPhaseAction,
   WagonPhase: ActionPhaseAction
 }
 
