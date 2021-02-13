@@ -1,6 +1,7 @@
 <template>
   <svg
     class="tile-img"
+    :data-tile-id="tileId"
     :viewBox="`${-padding[0]} ${-padding[1]} ${tileSize + 2 * padding[0]} ${tileSize + 2 * padding[1]}`"
     v-bind="sizeAttrs"
   >

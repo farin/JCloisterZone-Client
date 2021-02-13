@@ -15,6 +15,21 @@
       <img src="~/assets/features/C1/festival.png" height="74">
     </div>
     <div
+      v-else-if="source === 'TRAP'"
+      class="meeple-return trap"
+    >
+      <StandaloneTileImage
+        tile-id="RU/V"
+        :size="48"
+      />
+      <StandaloneTileImage
+        tile-id="RU/SR"
+        :size="48"
+      />
+      <v-icon class="color-overlay">fas fa-undo</v-icon>
+    </div>
+    <div
+      v-else
       :class="{'meeple-return': true, [colorCssClass(player)]: active}"
     >
       <Meeple
@@ -30,11 +45,13 @@
 import { mapGetters } from 'vuex'
 
 import Meeple from '@/components/game/Meeple'
+import StandaloneTileImage from '@/components/game/StandaloneTileImage'
 import LayeredItemMixin from '@/components/game/actions/items/LayeredItemMixin.js'
 
 export default {
   components: {
-    Meeple
+    Meeple,
+    StandaloneTileImage
   },
 
   mixins: [LayeredItemMixin],
@@ -97,11 +114,12 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-img
+img, svg
   filter: grayscale(100%)
 
-.active img
-  filter: none
+.active
+  img, svg
+    filter: none
 
 .meeple-return
   position: relative
@@ -124,4 +142,21 @@ img
   i
     top: calc(50%)
 
+.trap
+  svg.tile-img
+    width: auto
+    height: auto
+    position: relative
+
+  i
+    color: white
+    font-size: 28px
+
+  [data-tile-id='RU/V']
+    top: -5px
+    left: 15px
+
+  [data-tile-id='RU/SR']
+    top: 14px
+    left: -17px
 </style>

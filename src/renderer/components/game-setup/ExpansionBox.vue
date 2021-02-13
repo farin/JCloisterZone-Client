@@ -4,8 +4,8 @@
       'exp-box': true,
       [expansion.name]: true,
       'selected': selected,
-      'multiset': expansion.sets.length > 1,
-      ['multiset-' + expansion.sets.length]: expansion.sets.length > 1
+      'multiset': expansion.sets.length > 1 && !expansion.mergeSets,
+      ['multiset-' + expansion.sets.length]: expansion.sets.length > 1 && !expansion.mergeSets
     }"
   >
     <a href="#" class="detail-link" @click.prevent="open">
