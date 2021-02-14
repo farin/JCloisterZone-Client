@@ -267,8 +267,7 @@ export const getters = {
     if (!state.history.length) {
       return false
     }
-    const currentTurn = state.history[state.history.length - 1]
-    return !currentTurn.events.find(ev => ev.type === 'ransom-paid')
+    return !state.flags.ransomPaid
   },
 
   currentTurnLastEvent: state => {
