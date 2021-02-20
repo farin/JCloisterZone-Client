@@ -51,6 +51,8 @@
           <v-progress-linear v-else :value="updateProgress" />
         </div>
 
+        <div class="update-note">Autoupdate may be unreliable. If update is not finished in few minutes plese go to project <a href="#" @click="openLink('https://jcloisterzone.com')">website</a> and download new version directly.</div>
+
         <h4>Release Notes</h4>
         <div v-html="updateInfo.releaseNotes" />
       </div>
@@ -352,6 +354,10 @@ h3
 
   .update-action
     margin: 20px 0
+
+  .update-note
+    font-style: italic
+    margin-bottom: 10px
 
   ::v-deep ul
     list-style: none
