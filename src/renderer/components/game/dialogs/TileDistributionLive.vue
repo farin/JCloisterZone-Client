@@ -64,7 +64,7 @@ export default {
       tiles.sort(this.$tiles.sortByEdge)
 
       const actionItem = this.action?.items[0]
-      const drawnId = actionItem.type === 'TilePlacement' ? actionItem.tileId : null
+      const drawnId = actionItem?.type === 'TilePlacement' ? actionItem.tileId : null
       const placedTiles = countBy(this.placedTiles, 'id')
 
       return tiles.map(t => {
