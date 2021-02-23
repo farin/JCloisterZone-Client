@@ -8,7 +8,7 @@
         @click="select(option)"
       >
         <Miniboard
-          :tile-size="enabledTileSize(option.value.length)"
+          :size="enabledTileSize(option.value.length)"
           :tiles="option.value"
         />
         <h3>{{ option.title }}</h3>
@@ -28,7 +28,7 @@
         class="item"
       >
         <Miniboard
-          :tile-size="disabledTileSize(option.value.length)"
+          :size="disabledTileSize(option.value.length)"
           :tiles="option.value"
         />
         <h3>{{ option.title }}</h3>

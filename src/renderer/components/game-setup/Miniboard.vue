@@ -1,20 +1,35 @@
 <template>
   <svg
     class="miniboard"
-    :width="tileSize * columns" :height="tileSize * rows"
     :viewBox="`0 0 ${1000 * columns} ${1000 * rows}`"
+    v-bind="sizeAttrs"
   >
-    <TileImage
-      v-for="pt in tiles"
-      :key="`${pt.x},${pt.y})`"
-      :transform="`translate(${(pt.x + x) * 1000} ${(pt.y + y) * 1000})`"
-      :tile-id="pt.tile"
-      :rotation="pt.rotation"
-    />
+    <defs>
+      <clipPath :id="`clip-${uuid}`">
+        <rect x="0" y="0" :width="tileSize * columns" :height="tileSize * rows" />
+      </clipPath>
+    </defs>
+
+    <g>
+      <image
+        v-if="background"
+        :href="background.image"
+        :clip-path="`url(#clip-${uuid})`"
+      />
+
+      <TileImage
+        v-for="pt in tiles"
+        :key="`${pt.x},${pt.y})`"
+        :transform="`translate(${(pt.x + x) * tileSize} ${(pt.y + y) * tileSize})`"
+        :tile-id="pt.tile"
+        :rotation="pt.rotation"
+      />
+    </g>
   </svg>
 </template>
 
 <script>
+import { v4 as uuidv4 } from 'uuid'
 import TileImage from '@/components/game/TileImage'
 
 export default {
@@ -23,11 +38,29 @@ export default {
   },
 
   props: {
-    tileSize: { type: Number, required: true },
+    size: { type: Number, default: null },
     tiles: { type: Array, required: true }
   },
 
+  data () {
+    return {
+      uuid: uuidv4()
+    }
+  },
+
   computed: {
+    artwork () {
+      return this.$theme.getTileArtwork(this.tiles[0].tile)
+    },
+
+    tileSize () {
+      return this.artwork?.tileSize || 1000
+    },
+
+    background () {
+      return this.artwork?.background
+    },
+
     x () {
       const xs = this.tiles.map(t => t.x)
       return 0 - Math.min(...xs)
@@ -46,6 +79,14 @@ export default {
     rows () {
       const ys = this.tiles.map(t => t.y)
       return Math.max(...ys) - Math.min(...ys) + 1
+    },
+
+    sizeAttrs () {
+      const { size } = this
+      if (size !== null) {
+        return { width: size * this.columns, height: size * this.rows }
+      }
+      return {}
     }
   }
 }

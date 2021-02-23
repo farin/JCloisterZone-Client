@@ -30,7 +30,12 @@
         </v-col>
       </v-row>
     </v-container>
-    <template v-if="selected">
+    <template v-if="selected === 'count'">
+      <div class="tile-row">
+        <CountMiniboard :size="size" />
+      </div>
+    </template>
+    <template v-else-if="selected">
       <div
         v-for="tile in tiles"
         :key="tile.id"
@@ -52,10 +57,12 @@
 <script>
 import { Expansion } from '@/models/expansions'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
+import CountMiniboard from '@/components/game-setup/details/CountMiniboard'
 
 export default {
   components: {
-    StandaloneTileImage
+    StandaloneTileImage,
+    CountMiniboard
   },
 
   data () {

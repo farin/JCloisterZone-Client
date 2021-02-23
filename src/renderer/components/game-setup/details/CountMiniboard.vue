@@ -1,6 +1,6 @@
 <template>
   <Miniboard
-    :tile-size="tileSize"
+    :size="size"
     :tiles="countTiles"
   />
 </template>
@@ -14,7 +14,7 @@ export default {
   },
 
   props: {
-    tileSize: { type: Number, required: true }
+    size: { type: Number, default: null }
   },
 
   data () {

@@ -16,7 +16,7 @@
     </div>
 
     <div v-if="sets.count" class="tile noleft">
-      <CountMiniboard :tile-size="77" />
+      <CountMiniboard :size="77" />
       <div class="count">1 <span class="total">/ 1</span></div>
     </div>
   </div>

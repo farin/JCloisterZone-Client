@@ -6,7 +6,7 @@
       <RulesLink title="Rules (1st ed.)" href="http://wikicarpedia.com/index.php/Count,_King_and_Robber_(1st_edition)" />
     </p>
 
-    <CountMiniboard :tile-size="80" />
+    <CountMiniboard :size="80" />
   </div>
 </template>
 
