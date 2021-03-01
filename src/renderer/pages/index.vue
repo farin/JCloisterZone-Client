@@ -42,16 +42,14 @@
         <h3>New JCloisterZone version is available.</h3>
 
         <div class="update-action">
-          <template v-if="isMac">
-            Automatic updates are not supported on Mac platform. Please update manually<br>
+          <template v-if="isMac || isWin">
+            Automatic updates are currently supported only on Linux platform. Please download new version directly and update manually<br>
             <a :href="updateInfoFile">{{ updateInfoFile }}</a>
           </template>
           <v-btn v-else-if="!updating" color="secondary" @click="updateApp">Update to {{ updateInfo.version }}</v-btn>
           <v-progress-linear v-else-if="updateProgres === null" indeterminate />
           <v-progress-linear v-else :value="updateProgress" />
         </div>
-
-        <div class="update-note">Autoupdate may be unreliable. If update is not finished in few minutes plese go to project <a href="#" @click="openLink('https://jcloisterzone.com')">website</a> and download new version directly.</div>
 
         <h4>Release Notes</h4>
         <div v-html="updateInfo.releaseNotes" />
@@ -128,6 +126,7 @@ import { mapState } from 'vuex'
 import GameSetupOverviewInline from '@/components/game-setup/overview/GameSetupOverviewInline'
 
 const isMac = process.platform === 'darwin'
+const isWin = process.platform === 'win32'
 
 export default {
   components: {
@@ -137,6 +136,7 @@ export default {
   data () {
     return {
       isMac,
+      isWin,
       // do not bind it to store
       recentGames: [...this.$store.state.settings.recentSaves],
       recentGameSetups: [...this.$store.state.settings.recentGameSetups],
