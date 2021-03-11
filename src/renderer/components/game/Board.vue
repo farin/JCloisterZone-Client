@@ -23,6 +23,10 @@
       <MeepleLayer />
       <BridgeLayer v-if="elements.bridge" />
       <MeepleLayer deployed-on-bridge />
+      <WagonPhaseLayer
+        v-if="layers.WagonPhaseLayer"
+        v-bind="layers.WagonPhaseLayer"
+      />
     </g>
     <EmphasizeLayer
       v-if="layers.EmphasizeLayer"
@@ -89,6 +93,7 @@ import TilePlacementLayer from '@/components/game/layers/TilePlacementLayer'
 import TileSelectLayer from '@/components/game/layers/TileSelectLayer'
 import TowerSelectLayer from '@/components/game/layers/TowerSelectLayer'
 import TunnelSelectLayer from '@/components/game/layers/TunnelSelectLayer'
+import WagonPhaseLayer from '@/components/game/layers/WagonPhaseLayer'
 
 const ACTION_PANEL_HEIGHT = 160
 const KEY_PRESSED_OFFSET = 30
@@ -112,7 +117,8 @@ export default {
     TokenLayer,
     TowerLayer,
     TowerSelectLayer,
-    TunnelSelectLayer
+    TunnelSelectLayer,
+    WagonPhaseLayer
   },
 
   data () {

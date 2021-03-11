@@ -117,6 +117,7 @@ export default {
         if (aFarm !== bFarm) {
           return bFarm - aFarm
         }
+        return 0
       })
 
       return optionsWithFeature

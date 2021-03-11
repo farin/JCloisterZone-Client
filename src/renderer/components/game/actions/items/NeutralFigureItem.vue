@@ -21,12 +21,6 @@ export default {
     active: { type: Boolean }
   },
 
-  data () {
-    return {
-      layer: 'FeatureSelectLayer'
-    }
-  },
-
   computed: {
     ...mapGetters({
       featureOn: 'game/featureOn'
@@ -36,12 +30,12 @@ export default {
       return this.figureId.split('.')[0]
     },
 
-    layerProps () {
-      return {
+    layers () {
+      return [['FeatureSelectLayer', {
         player: this.player,
         options: this.options,
         cssClass: this.figure
-      }
+      }]]
     }
   },
 

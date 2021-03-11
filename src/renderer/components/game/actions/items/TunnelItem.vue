@@ -25,19 +25,13 @@ export default {
     active: { type: Boolean }
   },
 
-  data () {
-    return {
-      layer: 'TunnelSelectLayer'
-    }
-  },
-
   computed: {
-    layerProps () {
-      return {
+    layers () {
+      return [['TunnelSelectLayer', {
         player: this.player,
         token: this.token,
         options: this.options
-      }
+      }]]
     }
   },
 

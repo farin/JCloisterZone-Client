@@ -43,6 +43,8 @@
         :player="action.player"
         :meeple="item.meeple"
         :options="item.options"
+        :origin="item.origin"
+        :phase="phase"
         :active="idx === selected"
         :coc="phase === 'CocScoringPhase' || phase === 'CocFinalScoringPhase'"
       />

@@ -13,17 +13,11 @@ export default {
     active: { type: Boolean }
   },
 
-  data () {
-    return {
-      layer: 'TowerSelectLayer'
-    }
-  },
-
   computed: {
-    layerProps () {
-      return {
+    layers () {
+      return [['TowerSelectLayer', {
         options: this.options
-      }
+      }]]
     }
   },
 

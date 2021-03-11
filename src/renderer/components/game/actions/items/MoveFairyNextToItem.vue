@@ -19,19 +19,13 @@ export default {
     active: { type: Boolean }
   },
 
-  data () {
-    return {
-      layer: 'MeepleSelectLayer'
-    }
-  },
-
   computed: {
-    layerProps () {
-      return {
+    layers () {
+      return [['MeepleSelectLayer', {
         options: this.options,
         css: 'fairy-select',
         local: true
-      }
+      }]]
     }
   },
 

@@ -19,18 +19,12 @@ export default {
     active: { type: Boolean }
   },
 
-  data () {
-    return {
-      layer: 'TileSelectLayer'
-    }
-  },
-
   computed: {
-    layerProps () {
-      return {
+    layers () {
+      return [['TileSelectLayer', {
         options: this.options,
         color: '#fdf1d7'
-      }
+      }]]
     }
   },
 

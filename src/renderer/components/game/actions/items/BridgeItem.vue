@@ -19,16 +19,13 @@ export default {
 
   data () {
     return {
-      TOKENS_SVG,
-      layer: 'BridgeSelectLayer'
+      TOKENS_SVG
     }
   },
 
   computed: {
-    layerProps () {
-      return {
-        options: this.options
-      }
+    layers () {
+      return [['BridgeSelectLayer', { options: this.options }]]
     }
   },
 

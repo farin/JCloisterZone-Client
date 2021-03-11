@@ -29,14 +29,10 @@ export default {
     player: { type: Number, required: true },
     meeple: { type: String, required: true },
     options: { type: Array, required: true },
+    phase: { type: String, required: true },
+    origin: { type: Object, default: null },
     active: { type: Boolean },
     coc: { type: Boolean }
-  },
-
-  data () {
-    return {
-      layer: 'FeatureSelectLayer'
-    }
   },
 
   computed: {
@@ -46,12 +42,19 @@ export default {
       featureOn: 'game/featureOn'
     }),
 
-    layerProps () {
-      return {
+    layers () {
+      const layers = [['FeatureSelectLayer', {
         player: this.player,
         options: this.options,
         meeple: this.meeple
+      }]]
+      if (this.phase === 'WagonPhase') {
+        layers.push(['WagonPhaseLayer', {
+          origin: this.origin
+        }])
       }
+
+      return layers
     }
   },
 

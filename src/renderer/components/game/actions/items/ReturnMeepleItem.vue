@@ -63,22 +63,16 @@ export default {
     active: { type: Boolean }
   },
 
-  data () {
-    return {
-      layer: 'MeepleSelectLayer'
-    }
-  },
-
   computed: {
     ...mapGetters({
       colorCssClass: 'game/colorCssClass'
     }),
 
-    layerProps () {
-      return {
+    layers () {
+      return [['MeepleSelectLayer', {
         options: this.options,
         local: true
-      }
+      }]]
     }
   },
 

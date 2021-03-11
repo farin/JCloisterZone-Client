@@ -27,19 +27,18 @@ export default {
 
   data () {
     return {
-      layer: 'TilePlacementLayer',
       rotation: 0
     }
   },
 
   computed: {
-    layerProps () {
-      return {
+    layers () {
+      return [['TilePlacementLayer', {
         tileId: this.tileId,
         rotation: this.rotation,
         options: this.options,
         local: this.local
-      }
+      }]]
     }
   },
 

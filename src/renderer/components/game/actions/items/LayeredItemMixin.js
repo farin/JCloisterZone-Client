@@ -10,7 +10,7 @@ export default {
       }
     },
 
-    layerProps (val) {
+    layers (val) {
       if (this.active) {
         this.showLayer()
       }
@@ -33,15 +33,16 @@ export default {
     showLayer () {
       // wait for parallel hide called from other items. hide must be resolved first
       Vue.nextTick(() => {
-        this.$store.dispatch('board/showLayer', {
-          layer: this.layer,
-          props: this.layerProps
+        this.layers.forEach(([layer, props]) => {
+          this.$store.dispatch('board/showLayer', { layer, props })
         })
       })
     },
 
     hideLayer () {
-      this.$store.dispatch('board/hideLayer', { layer: this.layer })
+      this.layers.forEach(([layer]) => {
+        this.$store.dispatch('board/hideLayer', { layer })
+      })
     }
   }
 }
