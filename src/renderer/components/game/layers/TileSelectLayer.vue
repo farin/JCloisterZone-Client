@@ -1,5 +1,5 @@
 <template>
-  <g id="dragon-move-layer">
+  <g id="tile-select-layer">
     <g
       v-for="pos in options"
       :key="positionAsKey(pos)"

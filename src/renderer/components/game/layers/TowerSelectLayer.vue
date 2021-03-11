@@ -1,5 +1,5 @@
 <template>
-  <g id="dragon-move-layer">
+  <g id="tower-select-layer">
     <g
       v-for="{ position, reachPolygon } in towers"
       :key="positionAsKey(position)"

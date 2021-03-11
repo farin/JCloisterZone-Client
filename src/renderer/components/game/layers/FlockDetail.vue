@@ -1,8 +1,8 @@
 <template>
-  <g>
+  <g id="flock-detail-layer">
     <!-- in rare case flock can be unset, eg deploying Shepherd on ferry tile, in time between ferry is set and sheep drawn -->
     <g v-if="flock">
-      <rect      
+      <rect
         :width="width" height="270"
         rx="30" ry="30"
         fill="#8bc75f" fill-opacity="0.85"
@@ -43,14 +43,14 @@ export default {
 
   computed: {
     ...mapState({
-      flocks: state => state.game.sheep.flocks      
+      flocks: state => state.game.sheep.flocks
     }),
 
-    flock () {      
+    flock () {
       return this.flocks.find(f => isSameFeature(this.meeple, f))
     },
 
-    tokens () {      
+    tokens () {
       return this.flock.tokens.map(t => parseInt(t.replace('SHEEP_', '').replace('X', '')))
     },
 
