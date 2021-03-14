@@ -44,6 +44,7 @@ export default {
   computed: {
     ...mapState({
       placedTiles: state => state.game.placedTiles,
+      discardedTiles: state => state.game.discardedTiles,
       action: state => state.game.action
     }),
 
@@ -65,14 +66,21 @@ export default {
 
       const actionItem = this.action?.items[0]
       const drawnId = actionItem?.type === 'TilePlacement' ? actionItem.tileId : null
-      const placedTiles = countBy(this.placedTiles, 'id')
+      const usedTiles = countBy(this.placedTiles, 'id')
+      this.discardedTiles.forEach(id => {
+        if (usedTiles[id]) {
+          usedTiles[id] += 1
+        } else {
+          usedTiles[id] = 1
+        }
+      })
 
       return tiles.map(t => {
         const themeTile = this.$theme.getTile(t.id)
         const count = counts[t.id]
         return {
           id: t.id,
-          remainingCount: count - (placedTiles[t.id] || 0) - (drawnId === t.id ? 1 : 0),
+          remainingCount: count - (usedTiles[t.id] || 0) - (drawnId === t.id ? 1 : 0),
           count,
           rotation: themeTile ? themeTile.rotation : 0
         }
