@@ -264,10 +264,7 @@ export const getters = {
     if (state.action === null || state.action.player !== player) {
       return false
     }
-    if (!state.history.length) {
-      return false
-    }
-    return !state.flags.ransomPaid
+    return !state.flags.ransomPaid && state.history.length && state.players[player].points >= 3
   },
 
   currentTurnLastEvent: state => {
