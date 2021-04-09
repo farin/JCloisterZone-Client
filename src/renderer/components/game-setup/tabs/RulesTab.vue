@@ -120,6 +120,15 @@
           <template #description>Espace allowed via a&nbsp;neighboring cloister.</template>
           <template #disabled>Siege expansion is not in the game.</template>
         </GameMechanicsBox>
+
+        <GameMechanicsBox :item="GameElement.WATCHTOWER">
+          <template #icon>
+            <img src="~/assets/features/C2/watchtower.png" height="42">
+          </template>
+          <template #description>Meeple on Watchtower earns extra bonus points.</template>
+          <template #disabled>The Watchtowers expansion is not selected.</template>
+        </GameMechanicsBox>
+
       </div>
     </ConfigSection>
 

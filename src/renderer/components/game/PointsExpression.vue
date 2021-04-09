@@ -66,6 +66,7 @@ import ExprRobber from '@/components/game/expressions/ExprRobber'
 import ExprTradeGoods from '@/components/game/expressions/ExprTradeGoods'
 import ExprUnknown from '@/components/game/expressions/ExprUnknown'
 import ExprVodyanoy from '@/components/game/expressions/ExprVodyanoy'
+import ExprWatchtower from '@/components/game/expressions/ExprWatchtower'
 import ExprWindRose from '@/components/game/expressions/ExprWindRose'
 import ExprYagaHut from '@/components/game/expressions/ExprYagaHut'
 import NeutralFigure from '@/components/game/NeutralFigure'
@@ -97,6 +98,7 @@ export default {
     ExprTradeGoods,
     ExprUnknown,
     ExprVodyanoy,
+    ExprWatchtower,
     ExprWindRose,
     ExprYagaHut,
     NeutralFigure,
@@ -145,11 +147,13 @@ export default {
       }
       if (type === 'garden') return 'ExprGarden'
       if (type === 'castle') return 'ExprCastle'
+      if (type === 'watchtower') return 'ExprWatchtower'
 
       if (type === 'fairy') {
         if (subtype === 'turn') return 'ExprFairyTurn'
         if (subtype === 'completed') return 'ExprFairyCompletedOnly'
       }
+
       if (type === 'flock') return 'ExprFlock'
       if (type === 'wind-rose') return 'ExprWindRose'
       if (type === 'yaga-hut') return 'ExprYagaHut'
