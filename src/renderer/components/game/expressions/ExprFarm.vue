@@ -5,7 +5,7 @@
       <template v-if="expr.args.pigs || expr.args.pigHerds">(&ensp;</template>
       {{ basePoints }}
       <template v-if="expr.args.pigs">
-        &ensp;+
+        &ensp;+&ensp;
         <div class="value-units nobg">{{ expr.args.pigs }}
           <svg class="meeple mt-2" :width="24" :height="24">
             <use :href="`${MEEPLES_SVG}#pig`" />
@@ -13,17 +13,26 @@
         </div>
       </template>
       <template v-if="expr.args.pigHerds">
-        &ensp;+
+        &ensp;+&ensp;
         <div class="value-units nobg">{{ expr.args.pigHerds }}
           <img src="~/assets/features/C1/pig_herd.jpg" height="24">
         </div>
       </template>
       <template v-if="expr.args.pigs || expr.args.pigHerds">&ensp;)</template>
       &ensp;×&ensp;
+      <template v-if="expr.args.coc">(&ensp;</template>
       <div class="value-units">
         {{ expr.args.cities || 0 }}
         <img src="~/assets/icons/city-icon.png" height="32">
-      </div>&ensp;
+      </div>
+      <template v-if="expr.args.coc">
+      	&ensp;+&ensp;
+        <div class="value-units">
+          {{ expr.args.coc || 0 }}
+          <ExpansionSymbol :expansion="Expansion.COUNT" :style="{ width: 24, height: 24 }" />
+        </div>
+        &ensp;)
+      </template>
       <template v-if="expr.args.besieged">
         +&ensp;{{ basePoints * 2 }}&ensp;×&ensp;
         <div class="value-units">
