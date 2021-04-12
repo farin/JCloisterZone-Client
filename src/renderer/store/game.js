@@ -260,8 +260,11 @@ export const getters = {
     return state.players[playerIdx].meeples[meepleType][1]
   },
 
-  canPayRansom: state => player => {
+  canPayRansom: (state, getters, rootState) => player => {
     if (state.action === null || state.action.player !== player) {
+      return false
+    }
+    if (state.players[player].sessionId !== rootState.networking.sessionId) {
       return false
     }
     return !state.flags.ransomPaid && state.history.length && state.players[player].points >= 3
