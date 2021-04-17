@@ -9,10 +9,21 @@
       <template v-if="expr.args.inn">
         2&ensp;×&ensp;
       </template>
+      <template v-if="expr.args.wells">
+        (&ensp;
+      </template>
       <div class="value-units">
         {{ expr.args.tiles }}
         <v-icon title="Tiles">far fa-square</v-icon>
       </div>
+      <template v-if="expr.args.wells">
+        &ensp;+&ensp;
+        <div class="value-units">
+          {{ expr.args.wells }}
+          <img src="~/assets/features/C2/well.png" height="40">
+        </div>
+        &ensp;)
+      </template>
       &ensp;
       <template v-if="expr.args.meeples">
         +&ensp;2&ensp;×&ensp;

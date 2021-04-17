@@ -120,6 +120,15 @@
           <template #description>Espace allowed via a&nbsp;neighboring cloister.</template>
           <template #disabled>Siege expansion is not in the game.</template>
         </GameMechanicsBox>
+
+        <GameMechanicsBox :item="GameElement.WELL">
+          <template #icon>
+            <img src="~/assets/features/C2/well.png" height="55">
+          </template>
+          <template #description>Add point per well on roads. Road with in gets 2 points when completed but no points on final scoring.</template>
+          <template #disabled>No tile with Well is in the game.</template>
+        </GameMechanicsBox>
+
       </div>
     </ConfigSection>
 
