@@ -72,7 +72,7 @@ export default {
         let meepleId
         if (this.coc) {
           const quarter = FEATURE_QUARTERS[this.featureOn(opt).type]
-          meepleId = this.$store.state.game.deployedMeeples.find(m => m.player === this.player && m.location === quarter).id
+          meepleId = this.$store.state.game.deployedMeeples.find(m => m.player === this.player && m.location === quarter && m.type === this.meeple).id
         } else {
           meepleId = this.meepleIdFromSupply(this.player, this.meeple)
         }
