@@ -5,11 +5,13 @@
     :label="rule.title"
     :disabled="!enabled"
     hide-details
-    color="#3E2723"
+    :color="theme === 'light' ? '#3E2723' : '#bbb'"
   />
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   props: {
     rule: { type: Object, required: true },
@@ -17,6 +19,10 @@ export default {
   },
 
   computed: {
+    ...mapState({
+      theme: state => state.settings.theme
+    }),
+
     value: {
       get () {
         return this.$store.state.gameSetup.rules[this.rule.id]
