@@ -1,6 +1,6 @@
 import fs from 'fs'
 import { extname } from 'path'
-import { remote } from 'electron'
+import remote from '@electron/remote'
 import compareVersions from 'compare-versions'
 import { randomId } from '@/utils/random'
 

@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { remote } from 'electron'
+import remote from '@electron/remote'
 import { mapGetters, mapState } from 'vuex'
 
 import ActionPhaseAction from '@/components/game/actions/ActionPhaseAction.vue'

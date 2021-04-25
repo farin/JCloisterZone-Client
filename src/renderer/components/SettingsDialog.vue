@@ -165,7 +165,7 @@
 
 <script>
 import path from 'path'
-import { remote } from 'electron'
+import remote from '@electron/remote'
 import { mapState } from 'vuex'
 
 export default {

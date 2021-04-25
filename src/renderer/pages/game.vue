@@ -63,7 +63,7 @@
 <script>
 import path from 'path'
 import { mapState } from 'vuex'
-import { remote } from 'electron'
+import remote from '@electron/remote'
 
 import ActionPanel from '@/components/game/ActionPanel.vue'
 import Board from '@/components/game/Board.vue'

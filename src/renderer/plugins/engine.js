@@ -4,7 +4,7 @@ import { spawn } from 'child_process'
 import debounce from 'lodash/debounce'
 import Vue from 'vue'
 
-import { remote } from 'electron'
+import remote from '@electron/remote'
 
 class BaseEngine {
   async enableBulkMode () {

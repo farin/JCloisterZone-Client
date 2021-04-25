@@ -1,5 +1,5 @@
 import { ENGINE_MESSAGES } from '@/constants/messages'
-import { remote } from 'electron'
+import remote from '@electron/remote'
 
 const STATUS_CONNECTING = 'connecting'
 const STATUS_RECONNECTING = 'reconnecting'

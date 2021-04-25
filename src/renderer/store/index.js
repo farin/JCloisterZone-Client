@@ -4,7 +4,7 @@ import https from 'https'
 import { execFile } from 'child_process'
 import unzipper from 'unzipper'
 import sha256File from 'sha256-file'
-import { remote } from 'electron'
+import remote from '@electron/remote'
 
 export const state = () => ({
   loaded: {

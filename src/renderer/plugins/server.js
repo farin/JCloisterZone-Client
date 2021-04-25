@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { remote } from 'electron'
+import remote from '@electron/remote'
 
 import { getAppVersion } from '@/utils/version'
 import { randomId } from '@/utils/random'
