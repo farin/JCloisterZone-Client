@@ -1,6 +1,6 @@
 import fs from 'fs'
 import { extname } from 'path'
-import { remote } from 'electron'
+import { ipcRenderer } from 'electron'
 import compareVersions from 'compare-versions'
 import { randomId } from '@/utils/random'
 
@@ -316,8 +316,7 @@ export const getters = {
 export const actions = {
   async save ({ state, dispatch }) {
     return new Promise(async (resolve, reject) => { /* eslint no-async-promise-executor: 0 */
-      const { dialog } = remote
-      let { filePath } = await dialog.showSaveDialog({
+      let { filePath } = await ipcRenderer.invoke('dialog.showSaveDialog', {
         title: 'Save Game',
         filters: SAVED_GAME_FILTERS,
         properties: ['createDirectory', 'showOverwriteConfirmation']
@@ -369,9 +368,8 @@ export const actions = {
 
   async load ({ commit, dispatch, rootState }, filePath) {
     return new Promise(async (resolve, reject) => {
-      const { dialog } = remote
       if (!filePath) {
-        const { filePaths } = await dialog.showOpenDialog({
+        const { filePaths } = await ipcRenderer.invoke('dialog.showOpenDialog', {
           title: 'Load Game',
           filters: SAVED_GAME_FILTERS,
           properties: ['openFile']
@@ -388,7 +386,7 @@ export const actions = {
         sg = JSON.parse(data)
         if (compareVersions(SAVED_GAME_COMPATIBILITY, sg.appVersion) === 1) {
           const msg = `Saves created prior ${SAVED_GAME_COMPATIBILITY} are not supported.`
-          dialog.showErrorBox('Load Error', msg)
+          ipcRenderer.invoke('dialog.showErrorBox', { title: 'Load Error', content: msg })
           reject(msg)
           return
         }
@@ -513,8 +511,7 @@ export const actions = {
     const loggingEnabled = rootState.settings.devMode
     const engine = this._vm.$engine.spawn({ loggingEnabled })
     engine.on('error', data => {
-      const { dialog } = remote
-      dialog.showErrorBox('Engine error', data + '')
+      ipcRenderer.invoke('dialog.showErrorBox', { title: 'Engine error', content: data + '' })
     })
 
     if (state.gameMessages?.length) {

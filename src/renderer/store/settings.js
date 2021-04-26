@@ -1,11 +1,10 @@
 import fs from 'fs'
-import path from 'path'
 import Vue from 'vue'
 import isEqual from 'lodash/isEqual'
 import { randomId } from '@/utils/random'
+import { ipcRenderer } from 'electron'
 
 import username from 'username'
-import { remote } from 'electron'
 import { CONSOLE_SETTINGS_COLOR } from '@/constants/logging'
 
 const RECENT_GAMES_COUNT = 14
@@ -13,6 +12,7 @@ const RECENT_SETUPS_COUNT = 4
 
 /* eslint quote-props: 0 */
 export const state = () => ({
+  file: null,
   userArtworks: [],
   enabledArtworks: ['classic'],
   lastGameSetup: null,
@@ -38,9 +38,6 @@ export const state = () => ({
 })
 
 const changeCallbacks = {}
-
-let fileModifiedBySave = false
-let watcher = null
 
 export const mutations = {
   settings (state, settings) {
@@ -77,48 +74,18 @@ export const mutations = {
   }
 }
 
-export const getters = {
-  settingsFile: state => {
-    return path.join(remote.app.getPath('userData'), 'jcz-config.json')
-  }
-}
-
 export const actions = {
-  async watchSettingsFile ({ dispatch, getters }) {
-    try {
-      watcher = fs.watch(getters.settingsFile, eventType => {
-        if (eventType === 'change' && !fileModifiedBySave) {
-          dispatch('load')
-        }
-      })
-    } catch (e) {
-      console.error(e)
-    }
-  },
-
-  async unwatchSettingsFile () {
-    watcher?.close()
-    watcher = null
-  },
-
   registerChangeCallback (ctx, [key, cb]) {
     changeCallbacks[key] = cb
   },
 
-  async load ({ commit, getters, dispatch }) {
-    const settingsFile = getters.settingsFile
+  async loaded ({ commit, dispatch }, { settings, file }) {
     let missingKey = false
-    try {
-      await fs.promises.access(settingsFile, fs.constants.R_OK)
-      const settings = JSON.parse(await fs.promises.readFile(settingsFile))
+    if (settings) {
+      settings = { ...settings, file }
       if (!settings.clientId) {
         missingKey = true
         settings.clientId = randomId()
-      }
-      // migrate old format
-      if (settings.clientId.includes('-')) {
-        missingKey = true
-        settings.clientId = settings.clientId.replaceAll('-', '')
       }
       if (!settings.secret) {
         missingKey = true
@@ -138,16 +105,16 @@ export const actions = {
         settings.playOnlineUrl = 'play.jcloisterzone.com/ws'
       }
       commit('settings', settings)
-      console.log(`%c settings %c loaded ${settingsFile}`, CONSOLE_SETTINGS_COLOR, '')
-    } catch (e) {
-      // do nothong, settings doesn't exist
+      console.log(`%c settings %c loaded ${file}`, CONSOLE_SETTINGS_COLOR, '')
+    } else {
       missingKey = true
       commit('settings', {
+        file,
         clientId: randomId(),
         secret: randomId(),
         nickname: await username()
       })
-      console.log(`%c settings %c file ${settingsFile} doesn't exist. Creating default one.`, CONSOLE_SETTINGS_COLOR, '')
+      console.log(`%c settings %c file ${file} doesn't exist. Creating default one.`, CONSOLE_SETTINGS_COLOR, '')
     }
     if (missingKey) {
       dispatch('save')
@@ -156,18 +123,16 @@ export const actions = {
     commit('settingsLoaded', true, { root: true })
   },
 
-  async save ({ state, getters }) {
-    const settingsFile = getters.settingsFile
+  async save ({ state }) {
     try {
       const data = { ...state }
+      delete data.file
       if (data.devMode !== process.env.NODE_ENV === 'development') {
         delete data.devMode
       }
       data.clientId = data.clientId.split('--')[0] // for dev mode, do not store changed id
-      fileModifiedBySave = true
-      await fs.promises.writeFile(settingsFile, JSON.stringify(data, null, 2))
-      console.log(`%c settings %c writing ${settingsFile}`, CONSOLE_SETTINGS_COLOR, '')
-      fileModifiedBySave = false
+      await ipcRenderer.invoke('settings.save', data)
+      console.log(`%c settings %c saved to ${state.file}`, CONSOLE_SETTINGS_COLOR, '')
     } catch (e) {
       console.error(e)
       // do nothong, settings doesnt exist

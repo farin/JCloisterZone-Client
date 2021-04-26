@@ -1,9 +1,17 @@
 /* globals INCLUDE_RESOURCES_PATH */
-import { app, protocol, ipcMain } from 'electron'
+import path from 'path'
+
+import { app, protocol, BrowserWindow, ipcMain } from 'electron'
 import { autoUpdater } from 'electron-updater'
 import electronLogger from 'electron-log'
-import compareVersions from 'compare-versions'
-import winHandler from './mainWindow'
+
+import settings from './settings'
+import menu from './modules/menu'
+import theme from './modules/theme'
+import dialog from './modules/dialog'
+import updater from './modules/updater'
+import winevents from './modules/winevents'
+import settingsWatch from './modules/settingsWatch'
 
 autoUpdater.logger = electronLogger
 autoUpdater.logger.transports.file.level = 'info'
@@ -15,6 +23,74 @@ global.__resources = undefined // eslint-disable-line no-underscore-dangle
 INCLUDE_RESOURCES_PATH // eslint-disable-line no-unused-expressions
 if (__resources === undefined) console.error('[Main-process]: Resources path is undefined')
 
+const modules = []
+
+function createWindow () {
+  const win = new BrowserWindow({
+    height: 600,
+    width: 1000,
+    icon: path.join(__dirname, '..', 'resources', 'icon.ico'),
+    webPreferences: {
+      zoomFactor: 1,
+      webSecurity: false,
+      nodeIntegration: true, // allow loading modules via the require () function
+      contextIsolation: false,
+      additionalArguments: [
+        '--user-data=' + app.getPath('userData'),
+        '--app-path' + app.getAppPath(),
+        '--app-version=' + app.getVersion()
+      ],
+      devTools: !process.env.SPECTRON // disable on e2e test environment
+    }
+  })
+
+  if (process.env.NODE_ENV === 'development') {
+    win.loadURL(process.env.DEV_SERVER_URL)
+  } else {
+    win.loadFile(path.join(__dirname, '..', 'renderer', 'index.html'))
+  }
+
+  win.maximize()
+
+  if (process.env.NODE_ENV !== 'production') {
+    win.webContents.openDevTools()
+  }
+
+  modules.forEach(m => m.winCreated(win))
+  win.on('close', ev => {
+    modules.forEach(m => m.winClosed(win))
+  })
+
+  return win
+}
+
+app.whenReady().then(() => {
+  protocol.registerFileProtocol('file', (request, callback) => {
+    const pathname = request.url.replace('file:///', '')
+    callback(pathname)
+  })
+
+  settings().then(settings => {
+    modules.push(settingsWatch(settings))
+    modules.push(theme(settings))
+    modules.push(menu(settings))
+    modules.push(dialog(settings))
+    modules.push(winevents(settings))
+
+    if (process.env.NODE_ENV === 'production') {
+      modules.push(updater(settings))
+    }
+
+    createWindow()
+  })
+})
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow()
+  }
+})
+
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
   // On macOS it is common for applications and their menu bar
@@ -24,105 +100,3 @@ app.on('window-all-closed', function () {
   // fpr now quit it alsi on Mac
   app.quit()
 })
-
-// https://github.com/electron/electron/issues/23757
-// fixes file protocol electron 9+
-app.whenReady().then(() => {
-  protocol.registerFileProtocol('file', (request, callback) => {
-    const pathname = request.url.replace('file:///', '')
-    callback(pathname)
-  })
-})
-
-let diffDown = {
-  percent: 0,
-  bytesPerSecond: 0,
-  total: 0,
-  transferred: 0
-}
-let diffDownHelper = {
-  startTime: 0,
-  lastTime: 0,
-  lastSize: 0
-}
-
-if (process.env.NODE_ENV === 'production') {
-  winHandler.onCreated(win => {
-    // https://gist.github.com/the3moon/0e9325228f6334dabac6dadd7a3fc0b9
-    electronLogger.hooks.push((msg, transport) => {
-      if (transport !== electronLogger.transports.console) {
-        return msg
-      }
-
-      let match = /Full: ([\d,.]+) ([GMKB]+), To download: ([\d,.]+) ([GMKB]+)/.exec(
-        msg.data[0]
-      )
-      if (match) {
-        let multiplier = 1
-        if (match[4] === 'KB') multiplier *= 1024
-        if (match[4] === 'MB') multiplier *= 1024 * 1024
-        if (match[4] === 'GB') multiplier *= 1024 * 1024 * 1024
-
-        diffDown = {
-          percent: 0,
-          bytesPerSecond: 0,
-          total: Number(match[3].split(',').join('')) * multiplier,
-          transferred: 0
-        }
-        diffDownHelper = {
-          startTime: Date.now(),
-          lastTime: Date.now(),
-          lastSize: 0
-        }
-        return msg
-      }
-
-      match = /download range: bytes=(\d+)-(\d+)/.exec(msg.data[0])
-      if (match) {
-        const currentSize = Number(match[2]) - Number(match[1])
-        const currentTime = Date.now()
-        const deltaTime = currentTime - diffDownHelper.startTime
-
-        diffDown.transferred += diffDownHelper.lastSize
-        diffDown.bytesPerSecond = Math.floor(
-          (diffDown.transferred * 1000) / deltaTime
-        )
-        diffDown.percent = (diffDown.transferred * 100) / diffDown.total
-
-        diffDownHelper.lastSize = currentSize
-        diffDownHelper.lastTime = currentTime
-        win.webContents.send('update-progress', diffDown)
-        return msg
-      }
-      return msg
-    })
-
-    ipcMain.on('do-update', async () => {
-      await autoUpdater.downloadUpdate()
-      win.webContents.send('update-progress', { percent: 100 })
-      autoUpdater.quitAndInstall()
-    })
-
-    win.webContents.on('did-finish-load', () => {
-      app.whenReady().then(() => {
-        // const log = require(''electron-log')
-        // log.transports.file.level = 'debug'
-        // autoUpdater.logger = log
-        autoUpdater.autoDownload = false
-        autoUpdater.setFeedURL({
-          provider: 'github',
-          owner: 'farin',
-          repo: 'JCloisterZone-Client'
-        })
-        autoUpdater.checkForUpdates().then(result => {
-          // console.log(result)
-          if (compareVersions(result.updateInfo.version, app.getVersion()) === 1) {
-            win.webContents.send('app-update', result.updateInfo)
-          }
-        }).catch(err => {
-          console.error(err)
-        })
-      })
-    })
-  })
-}
