@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import remote from '@electron/remote'
+import { ipcRenderer } from 'electron'
 import { mapGetters, mapState } from 'vuex'
 
 import ActionPhaseAction from '@/components/game/actions/ActionPhaseAction.vue'
@@ -207,6 +207,7 @@ export default {
     if (this.local) {
       this.onPlayerActivated()
     }
+
     this._restored = () => {
       this.clearProgress()
     }
@@ -216,24 +217,22 @@ export default {
       }
     }
 
-    const win = remote.getCurrentWindow()
-    win.on('restore', this._restored)
-    win.on('show', this._restored)
-    win.on('focus', this._restored)
-    win.on('minimize', this._minimized)
-    win.on('hide', this._minimized)
-    win.on('blur', this._minimized)
+    ipcRenderer.on('win.restore', this._restored)
+    ipcRenderer.on('win.show', this._restored)
+    ipcRenderer.on('win.focus', this._restored)
+    ipcRenderer.on('win.minimize', this._minimized)
+    ipcRenderer.on('win.hide', this._minimized)
+    ipcRenderer.on('win.blur', this._minimized)
   },
 
   beforeDestroy () {
     window.removeEventListener('keydown', this.onKeyDown)
-    const win = remote.getCurrentWindow()
-    win.off('restore', this._restored)
-    win.off('show', this._restored)
-    win.off('focus', this._restored)
-    win.off('minimize', this._minimized)
-    win.off('hide', this._minimized)
-    win.off('blur', this._minimized)
+    ipcRenderer.off('win.restore', this._restored)
+    ipcRenderer.off('win.show', this._restored)
+    ipcRenderer.off('win.focus', this._restored)
+    ipcRenderer.off('win.minimize', this._minimized)
+    ipcRenderer.off('win.hide', this._minimized)
+    ipcRenderer.off('win.blur', this._minimized)
   },
 
   methods: {
@@ -256,12 +255,12 @@ export default {
       }
     },
 
-    onPlayerActivated () {
+    async onPlayerActivated () {
       if (this.beep) {
         this.$refs.beep.play()
       }
-      const win = remote.getCurrentWindow()
-      if (win.isMinimized() || !win.isVisible()) {
+      const visible = await ipcRenderer.invoke('win.isVisible')
+      if (!visible) {
         this.setupProgress()
       }
     },
@@ -271,15 +270,13 @@ export default {
     },
 
     setupProgress () {
-      const win = remote.getCurrentWindow()
-      win.setProgressBar(1, {
+      ipcRenderer.invoke('win.setProgressBar', [1, {
         mode: 'indeterminate'
-      })
+      }])
     },
 
     clearProgress () {
-      const win = remote.getCurrentWindow()
-      win.setProgressBar(-1)
+      ipcRenderer.invoke('win.setProgressBar', [-1])
     }
   }
 }

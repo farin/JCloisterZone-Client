@@ -5,11 +5,12 @@ import { app, protocol, BrowserWindow, ipcMain } from 'electron'
 import { autoUpdater } from 'electron-updater'
 import electronLogger from 'electron-log'
 
-import settings from './modules/settings'
+import settings from './settings'
 import menu from './modules/menu'
 import theme from './modules/theme'
 import dialog from './modules/dialog'
 import updater from './modules/updater'
+import winevents from './modules/winevents'
 import settingsWatch from './modules/settingsWatch'
 
 autoUpdater.logger = electronLogger
@@ -22,6 +23,8 @@ global.__resources = undefined // eslint-disable-line no-underscore-dangle
 INCLUDE_RESOURCES_PATH // eslint-disable-line no-unused-expressions
 if (__resources === undefined) console.error('[Main-process]: Resources path is undefined')
 
+const modules = []
+
 function createWindow () {
   const win = new BrowserWindow({
     height: 600,
@@ -29,11 +32,14 @@ function createWindow () {
     icon: path.join(__dirname, '..', 'resources', 'icon.ico'),
     webPreferences: {
       zoomFactor: 1,
-      enableRemoteModule: true,
       webSecurity: false,
       nodeIntegration: true, // allow loading modules via the require () function
       contextIsolation: false,
-      additionalArguments: ['--user-data=' + app.getPath('userData')],
+      additionalArguments: [
+        '--user-data=' + app.getPath('userData'),
+        '--app-path' + app.getAppPath(),
+        '--app-version=' + app.getVersion()
+      ],
       devTools: !process.env.SPECTRON // disable on e2e test environment
     }
   })
@@ -45,6 +51,16 @@ function createWindow () {
   }
 
   win.maximize()
+
+  if (process.env.NODE_ENV !== 'production') {
+    win.webContents.openDevTools()
+  }
+
+  modules.forEach(m => m.winCreated(win))
+  win.on('close', ev => {
+    modules.forEach(m => m.winClosed(win))
+  })
+
   return win
 }
 
@@ -55,25 +71,24 @@ app.whenReady().then(() => {
   })
 
   settings().then(settings => {
-    const win = createWindow()
-
-    settingsWatch(win)
-    theme(win)
-    menu(win, settings)
-    dialog(win)
+    modules.push(settingsWatch(settings))
+    modules.push(theme(settings))
+    modules.push(menu(settings))
+    modules.push(dialog(settings))
+    modules.push(winevents(settings))
 
     if (process.env.NODE_ENV === 'production') {
-      updater(win)
-    } else {
-      win.webContents.openDevTools()
+      modules.push(updater(settings))
     }
-  })
 
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow()
-    }
+    createWindow()
   })
+})
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow()
+  }
 })
 
 // Quit when all windows are closed.

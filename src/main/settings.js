@@ -11,6 +11,10 @@ export function isSaveInProgress () {
   return saving
 }
 
+export async function getSettings () {
+  return settings || {}
+}
+
 export async function loadSettings () {
   try {
     await fs.promises.access(SETTINGS_FILE, fs.constants.R_OK)

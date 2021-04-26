@@ -63,7 +63,7 @@
 <script>
 import path from 'path'
 import { mapState } from 'vuex'
-import remote from '@electron/remote'
+import { ipcRenderer } from 'electron'
 
 import ActionPanel from '@/components/game/ActionPanel.vue'
 import Board from '@/components/game/Board.vue'
@@ -189,18 +189,7 @@ export default {
         icon = 'default.png'
       }
 
-      try {
-        const { BrowserWindow, app } = remote
-        const w = BrowserWindow.getAllWindows()[0]
-        if (process.env.NODE_ENV === 'development') {
-          w.setIcon(path.join('icons', icon))
-        } else {
-          const basePath = path.dirname(app.getAppPath())
-          w.setIcon(path.join(basePath, 'icons', icon))
-        }
-      } catch (e) {
-        console.error(e)
-      }
+      ipcRenderer.invoke('win.setIcon', icon)
     },
 
     onRezize () {

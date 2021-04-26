@@ -1,9 +1,10 @@
 import { Menu, ipcMain } from 'electron'
+import { getSettings } from '../settings'
 
 let menu
 
-function createMenu (win, settings) {
-  settings = settings || {}
+function createMenu (win) {
+  const settings = getSettings()
 
   const isMac = process.platform === 'darwin'
   const sessionSubmenu = [
@@ -73,9 +74,7 @@ function createMenu (win, settings) {
   Menu.setApplicationMenu(menu)
 }
 
-export default function (win, settings) {
-  createMenu(win, settings)
-
+export default function () {
   ipcMain.handle('update-menu', (ev, update) => {
     Object.entries(update).forEach(([id, enabled]) => {
       const item = menu.getMenuItemById(id)
@@ -84,4 +83,11 @@ export default function (win, settings) {
       }
     })
   })
+
+  return {
+    winCreated (win) {
+      createMenu(win)
+    },
+    winClosed (win) {}
+  }
 }

@@ -1,7 +1,6 @@
 import fs from 'fs'
 import path from 'path'
 import Vue from 'vue'
-import remote from '@electron/remote'
 
 import isString from 'lodash/isString'
 import isObject from 'lodash/isObject'

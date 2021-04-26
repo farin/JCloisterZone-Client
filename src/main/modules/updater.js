@@ -15,7 +15,10 @@ let diffDownHelper = {
   lastSize: 0
 }
 
-export default function (win) {
+let win = null
+let updateInfo = null
+
+export default function () {
   // https://gist.github.com/the3moon/0e9325228f6334dabac6dadd7a3fc0b9
   electronLogger.hooks.push((msg, transport) => {
     if (transport !== electronLogger.transports.console) {
@@ -67,29 +70,40 @@ export default function (win) {
 
   ipcMain.on('do-update', async () => {
     await autoUpdater.downloadUpdate()
-    win.webContents.send('update-progress', { percent: 100 })
+    if (win) {
+      win.webContents.send('update-progress', { percent: 100 })
+    }
     autoUpdater.quitAndInstall()
   })
 
-  win.webContents.on('did-finish-load', () => {
-    app.whenReady().then(() => {
-      // const log = require(''electron-log')
-      // log.transports.file.level = 'debug'
-      // autoUpdater.logger = log
-      autoUpdater.autoDownload = false
-      autoUpdater.setFeedURL({
-        provider: 'github',
-        owner: 'farin',
-        repo: 'JCloisterZone-Client'
-      })
-      autoUpdater.checkForUpdates().then(result => {
-        // console.log(result)
-        if (compareVersions(result.updateInfo.version, app.getVersion()) === 1) {
-          win.webContents.send('app-update', result.updateInfo)
-        }
-      }).catch(err => {
-        console.error(err)
-      })
-    })
+  // const log = require(''electron-log')
+  // log.transports.file.level = 'debug'
+  // autoUpdater.logger = log
+  autoUpdater.autoDownload = false
+  autoUpdater.setFeedURL({
+    provider: 'github',
+    owner: 'farin',
+    repo: 'JCloisterZone-Client'
   })
+  autoUpdater.checkForUpdates().then(result => {
+    // console.log(result)
+    if (compareVersions(result.updateInfo.version, app.getVersion()) === 1) {
+      updateInfo = result.updateInfo
+      if (win) {
+        win.webContents.send('app-update', updateInfo)
+      }
+    }
+  }).catch(err => {
+    console.error(err)
+  })
+
+  return {
+    winCreated (_win) {
+      win = _win
+      if (updateInfo) {
+        win.webContents.send('app-update', updateInfo)
+      }
+    },
+    winClosed (_win) { win = null }
+  }
 }
