@@ -197,6 +197,7 @@ export default {
 
     await this.$store.dispatch('settings/loaded', await ipcRenderer.invoke('settings.get'))
     onThemeChange(this.$store.state.settings.theme)
+    this.updateMenu()
 
     ipcRenderer.on('settings.changed', (ev, value) => {
       this.$store.dispatch('settings/loaded', value)
@@ -227,40 +228,27 @@ export default {
 
   methods: {
     updateMenu () {
-      if (!this.menu) {
-        return
-      }
-
       const routeName = this.$route.name
       const gameOpen = routeName === 'game-setup' || routeName === 'open-game' || routeName === 'game'
       const gameRunning = routeName === 'game'
-      const playOnlineConnect = this.menu.getMenuItemById('playonline-connect')
-      const playOnlineDisConnect = this.menu.getMenuItemById('playonline-disconnect')
-      playOnlineConnect && (playOnlineConnect.enabled = !this.onlineConnected && !gameOpen)
-      playOnlineDisConnect && (playOnlineDisConnect.enabled = this.onlineConnected)
-      this.menu.getMenuItemById('new-game').enabled = !this.onlineConnected && !gameOpen
-      this.menu.getMenuItemById('join-game').enabled = !this.onlineConnected && !gameOpen
-      this.menu.getMenuItemById('leave-game').enabled = gameOpen
-      this.menu.getMenuItemById('save-game').enabled = gameRunning
-      this.menu.getMenuItemById('load-game').enabled = !gameOpen
-      this.menu.getMenuItemById('undo').enabled = gameRunning && this.undoAllowed
-      this.menu.getMenuItemById('zoom-in').enabled = gameRunning
-      this.menu.getMenuItemById('zoom-out').enabled = gameRunning
-      this.menu.getMenuItemById('toggle-history').enabled = gameRunning
-      this.menu.getMenuItemById('game-tiles').enabled = gameRunning
-      this.menu.getMenuItemById('game-setup').enabled = gameRunning
 
-      if (this.$store.state.settings.devMode) {
-        // devMode can be change in runtime, then menu item may not exist
-        const dumpServerItem = this.menu.getMenuItemById('dump-server')
-        if (dumpServerItem) {
-          dumpServerItem.enabled = this.$server.isRunning()
-        }
-        const inspectorItem = this.menu.getMenuItemById('theme-inspector')
-        if (inspectorItem) {
-          inspectorItem.enabled = !gameOpen
-        }
-      }
+      ipcRenderer.invoke('update-menu', {
+        'playonline-connect': !this.onlineConnected && !gameOpen,
+        'playonline-disconnect': this.onlineConnected,
+        'new-game': !this.onlineConnected && !gameOpen,
+        'join-game': !this.onlineConnected && !gameOpen,
+        'leave-game': gameOpen,
+        'save-game': gameRunning,
+        'load-game': !gameOpen,
+        'undo': gameRunning && this.undoAllowed,
+        'zoom-in': gameRunning,
+        'zoom-out': gameRunning,
+        'toggle-history': gameRunning,
+        'game-tiles': gameRunning,
+        'game-setup': gameRunning,
+        'dump-server': this.$server.isRunning(),
+        'theme-inspector': !gameOpen
+      })
     },
 
     leaveGame () {

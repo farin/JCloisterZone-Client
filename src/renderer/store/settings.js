@@ -80,7 +80,6 @@ export const actions = {
   },
 
   async loaded ({ commit, dispatch }, { settings, file }) {
-    console.log("LOADED", settings, file)
     let missingKey = false
     if (settings) {
       settings = { ...settings, file }

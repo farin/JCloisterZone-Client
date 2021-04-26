@@ -1,4 +1,4 @@
-import { Menu } from 'electron'
+import { Menu, ipcMain } from 'electron'
 
 let menu
 
@@ -75,4 +75,13 @@ function createMenu (win, settings) {
 
 export default function (win, settings) {
   createMenu(win, settings)
+
+  ipcMain.handle('update-menu', (ev, update) => {
+    Object.entries(update).forEach(([id, enabled]) => {
+      const item = menu.getMenuItemById(id)
+      if (item) {
+        item.enabled = enabled
+      }
+    })
+  })
 }
