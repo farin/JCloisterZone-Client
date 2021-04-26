@@ -37,7 +37,6 @@ import os from 'os'
 import fs from 'fs'
 import { extname } from 'path'
 import { webFrame, shell, ipcRenderer } from 'electron'
-import remote from '@electron/remote'
 import { mapState, mapGetters } from 'vuex'
 
 import AboutDialog from '@/components/AboutDialog'
@@ -298,8 +297,7 @@ export default {
         ...this.$server.getServer().dump()
       }
 
-      const { dialog } = remote
-      let { filePath } = await dialog.showSaveDialog({
+      let { filePath } = await ipcRenderer.invoke('dialog.showSaveDialog', {
         title: 'Save Server Dump',
         filters: [{ name: 'JSON files', extensions: ['json'] }],
         properties: ['createDirectory', 'showOverwriteConfirmation']

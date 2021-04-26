@@ -165,7 +165,7 @@
 
 <script>
 import path from 'path'
-import remote from '@electron/remote'
+import { ipcRenderer } from 'electron'
 import { mapState } from 'vuex'
 
 export default {
@@ -230,7 +230,6 @@ export default {
     },
 
     async selectJava () {
-      const { dialog } = remote
       const opts = {
         title: 'Select java executable',
         properties: ['openFile']
@@ -238,7 +237,7 @@ export default {
       if (this.platform === 'win32') {
         opts.filters = [{ name: 'Executable', extensions: ['exe'] }]
       }
-      const { filePaths } = await dialog.showOpenDialog(opts)
+      const { filePaths } = await ipcRenderer.invoke('dialog.showOpenDialog', opts)
       if (filePaths.length) {
         const f = filePaths[0]
         if (['java', 'java.exe', 'javaw.exe'].includes(path.basename(f))) {

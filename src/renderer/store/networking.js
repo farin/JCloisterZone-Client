@@ -1,5 +1,5 @@
 import { ENGINE_MESSAGES } from '@/constants/messages'
-import remote from '@electron/remote'
+import { ipcRenderer } from 'electron'
 
 const STATUS_CONNECTING = 'connecting'
 const STATUS_RECONNECTING = 'reconnecting'
@@ -161,8 +161,7 @@ export const actions = {
         await dispatch('connect', { host: 'localhost', connectionType: 'direct' })
       } catch (err) {
         console.error(err)
-        const { dialog } = remote
-        dialog.showErrorBox('Engine error', err.message || err + '')
+        ipcRenderer.invoke('dialog.showErrorBox', { title: 'Engine error', content: err.message || err + '' })
       }
     }
   },

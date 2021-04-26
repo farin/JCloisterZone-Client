@@ -8,6 +8,7 @@ import electronLogger from 'electron-log'
 import settings from './modules/settings'
 import menu from './modules/menu'
 import theme from './modules/theme'
+import dialog from './modules/dialog'
 import updater from './modules/updater'
 import settingsWatch from './modules/settingsWatch'
 
@@ -59,6 +60,7 @@ app.whenReady().then(() => {
     settingsWatch(win)
     theme(win)
     menu(win, settings)
+    dialog(win)
 
     if (process.env.NODE_ENV === 'production') {
       updater(win)
