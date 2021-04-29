@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { app, ipcMain } from 'electron'
 
-export const SETTINGS_FILE = path.join(app.getPath('userData'), 'jcz-config.json')
+export const SETTINGS_FILE = process.env.JCZ_CONFIG || path.join(app.getPath('userData'), 'jcz-config.json')
 
 let settings = null
 let saving = false
@@ -37,5 +37,6 @@ export default async function () {
     saving = false
   })
 
+  console.log(`Loading settings from ${SETTINGS_FILE}`)
   return await loadSettings()
 }
