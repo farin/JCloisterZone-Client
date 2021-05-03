@@ -135,7 +135,7 @@ export default {
     background: map-get($theme, 'board-bg')
 
 header
-  height: $action-bar-height
+  height: var(--action-bar-height)
   display: flex
   align-items: center
   justify-content: center

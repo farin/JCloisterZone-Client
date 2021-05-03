@@ -6,7 +6,7 @@
     >
       {{ order }}
     </div>
-    <svg class="meeple" :width="105" :height="105">
+    <svg class="meeple" :width="$vuetify.breakpoint.height > 768 ? 105 : 80" :height="$vuetify.breakpoint.height > 768 ? 105 : 80">
       <use :href="`${MEEPLES_SVG}#small-follower`" />
     </svg>
     <div class="state">
@@ -193,4 +193,25 @@ export default {
   &.open
     .order
       color: #ccc
+
+@media (max-height: 768px)
+  .player-slot
+    padding: 20px 0 10px 0
+
+    svg
+      margin-bottom: 20px
+
+    .state, .name
+      font-size: 20px
+
+    .order
+      font-size: 136px
+      top: -30px
+      right: -22px
+
+    .order-1
+      right: -29px
+
+    .order-4
+      right: -21px
 </style>

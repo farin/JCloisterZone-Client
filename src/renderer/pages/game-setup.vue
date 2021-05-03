@@ -21,7 +21,12 @@
     <template #detail>
       <div class="detail-pack">
         <h2>Selected tiles</h2>
-        <TileDistribution :sets="sets" :rules="rules" @tile-click="onTileClick" />
+        <TileDistribution
+          :tile-size="$vuetify.breakpoint.height > 768 ? 100 : 80"
+          :sets="sets"
+          :rules="rules"
+          @tile-click="onTileClick"
+        />
         <GameAnnotationsPanel v-if="settings.devMode" ref="annotationsPanel" />
       </div>
     </template>
@@ -126,4 +131,9 @@ header
   h5
     margin-top: 10px
     text-align: center
+
+@media (max-height: 768px)
+  .detail-pack
+    padding: 10px
+
 </style>

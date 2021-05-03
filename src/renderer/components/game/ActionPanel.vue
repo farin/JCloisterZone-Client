@@ -37,7 +37,7 @@
         <template v-if="local">
           <span v-if="plain !== ''" class="skip-text text">or</span>
           <div class="pass-item">
-            <v-btn large color="secondary" @click="pass">{{ label || 'Skip action' }}</v-btn>
+            <v-btn :large="$vuetify.breakpoint.height > 768" color="secondary" @click="pass">{{ label || 'Skip action' }}</v-btn>
           </div>
         </template>
         <template v-else>
@@ -288,7 +288,7 @@ export default {
   top: 0
   left: 0px
   width: calc(100% - var(--aside-width-plus-gap))
-  height: $action-bar-height
+  height: var(--action-bar-height)
   display: flex
   align-items: stretch
   user-select: none
@@ -333,4 +333,14 @@ export default {
 
     .pass-item
       margin-left: 20px
+
+@media (max-height: 768px)
+  .action-panel
+    .text
+      font-size: 18px
+
+    .tile-img
+      width: 72px
+      height: 72px
+      transform: none
 </style>

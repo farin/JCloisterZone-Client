@@ -1,7 +1,7 @@
 <template>
   <section :class="{remote: !local}">
     <span class="text">{{ local ? 'You are allowed to place' : 'Player is allowed to place' }}</span>
-    <img src="~/assets/figures/castle.png" height="70">
+    <img src="~/assets/figures/castle.png" :height="$vuetify.breakpoint.height > 768 ? 70 : 50">
     <slot />
   </section>
 </template>

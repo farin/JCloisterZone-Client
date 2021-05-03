@@ -66,4 +66,12 @@ section
       left: 5px
       top: 5.5px
       color: white !important
+
+@media (max-height: 768px)
+  .v-icon, .size
+    font-size: 28px
+
+  .removed-tiles
+    .v-icon, span
+      font-size: 16px
 </style>

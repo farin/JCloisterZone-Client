@@ -1,6 +1,6 @@
 <template>
   <section>
-    <img src="~/assets/features/C1/escape.png" height="54">
+    <img src="~/assets/features/C1/escape.png" :height="$vuetify.breakpoint.height > 768 ? 54 : 37">
     <div class="text">
       {{ local ? 'You' : 'Player' }} can escape a besieged city.
     </div>

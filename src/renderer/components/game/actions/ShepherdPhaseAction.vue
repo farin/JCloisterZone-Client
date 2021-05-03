@@ -17,7 +17,7 @@
             v-for="(token, idx) in flock.tokens"
             :key="idx"
             :token="token"
-            :height="30"
+            :height="$vuetify.breakpoint.height > 768 ? 30 : 20"
           />
         </span>
       </div>

@@ -1,5 +1,9 @@
 <template>
-  <NeutralFigure figure="fairy" :width="74" :height="74" />
+  <NeutralFigure
+    figure="fairy"
+    :width="$vuetify.breakpoint.height > 768 ? 74 : 50"
+    :height="$vuetify.breakpoint.height > 768 ? 74 : 50"
+  />
 </template>
 
 <script>

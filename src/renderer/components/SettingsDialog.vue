@@ -88,7 +88,7 @@
             </div>
 
             <h4>Player List</h4>
-            <em>How to rotate player list (sidebar on right)</em>
+            <em>You may enable player list (right sidebar) rotation </em>
             <v-radio-group
               v-model="playerListRotate"
               dense hide-details

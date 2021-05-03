@@ -2,7 +2,7 @@
   <TokenImage
     :token="token"
     :player="player"
-    :height="74"
+    :height="$vuetify.breakpoint.height > 768 ? 74 : 50"
     :inactive="!active"
   />
 </template>

@@ -368,6 +368,14 @@ h3
       margin-top: 20px
       margin-bottom: 20px
 
+@media (max-height: 768px)
+  .player-hosted
+    padding-top: 0
+
+  .landing-view .disclaimer-content p
+    margin-bottom: 8px
+
+
 </style>
 
 <style lang="sass">

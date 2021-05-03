@@ -79,4 +79,8 @@ export default {
 svg
   width: 74px
   height: 74px
+
+  @media (max-height: 768px)
+    width: 54px
+    height: 54px
 </style>

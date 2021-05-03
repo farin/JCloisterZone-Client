@@ -272,7 +272,7 @@ export default {
 
   .forced-draw, .test-result
     position: absolute
-    top: #{$action-bar-height + $panel-gap}
+    top: calc(var(--action-bar-height) + #{$panel-gap})
     right: var(--aside-width-plus-gap)
 
   .forced-draw
@@ -291,7 +291,7 @@ export default {
   top: 0
   right: 0
   width: var(--aside-width)
-  height: $action-bar-height
+  height: var(--action-bar-height)
   cursor: pointer
 
   +theme using ($theme)
@@ -299,10 +299,9 @@ export default {
 
 aside
   position: absolute
-  top: #{$action-bar-height + $panel-gap}
+  top: calc(var(--action-bar-height) + #{$panel-gap})
   right: 0
   width: var(--aside-width)
-  // max-height: calc(100vh - #{$action-bar-height + $panel-gap})
   user-select: none
   display: flex
   flex-direction: column

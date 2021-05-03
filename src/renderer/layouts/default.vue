@@ -329,6 +329,8 @@ export default {
 :root
   --aside-width: 290px
   --aside-width-plus-gap: #{290px + $panel-gap}
+  --action-bar-height: 84px
+  --game-setup-header-height: 72px
 
   @media #{map-get($display-breakpoints, 'lg-and-down')}
     --aside-width: 250px
@@ -337,6 +339,10 @@ export default {
   @media #{map-get($display-breakpoints, 'md-and-down')}
     --aside-width: 210px
     --aside-width-plus-gap: #{210px + $panel-gap}
+
+  @media (max-height: 768px)
+    --action-bar-height: 60px
+    --game-setup-header-height: 50px
 
 html
   overflow-y: auto

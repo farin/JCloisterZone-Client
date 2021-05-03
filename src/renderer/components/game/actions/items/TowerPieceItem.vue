@@ -1,5 +1,8 @@
 <template>
-  <img src="~/assets/figures/tower-alt.png" height="55">
+  <img
+    src="~/assets/figures/tower-alt.png"
+    :height="$vuetify.breakpoint.height > 768 ? 55 : 39"
+  >
 </template>
 
 <script>

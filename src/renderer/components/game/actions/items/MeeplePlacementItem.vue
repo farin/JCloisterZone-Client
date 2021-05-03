@@ -95,6 +95,10 @@ svg
   width: 74px
   height: 74px
 
+  @media (max-height: 768px)
+    width: 54px
+    height: 54px
+
 svg.inactive
   +theme using ($theme)
     fill: map-get($theme, 'action-panel-disabled-fill')

@@ -224,7 +224,7 @@ section
 
   .action-item
     width: 120px
-    height: $action-bar-height + 10px
+    height: calc(var(--action-bar-height) + 10px)
     margin: -5px
     display: flex
     justify-content: center
@@ -243,4 +243,10 @@ section.local
     &:hover
       +theme using ($theme)
         background: radial-gradient(circle, #{map-get($theme, 'action-panel-hover-bg')} 72%, transparent 73%)
+
+@media (max-height: 768px)
+  section
+    .action-item
+      width: 80px
+
 </style>

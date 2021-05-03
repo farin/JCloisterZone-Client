@@ -198,4 +198,10 @@ header .v-alert
   .slots
     grid-template-columns: 1fr
 
+@media (max-height: 768px)
+  .slots
+    margin-top: 20px
+
+  .options
+    padding-top: 15px
 </style>
