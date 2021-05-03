@@ -308,6 +308,14 @@ export const getters = {
     return clientSessionId === actionSessionId
   },
 
+  localPlayers (state, getters, rootState) {
+    const clientSessionId = rootState.networking.sessionId
+    return state.players
+      .map((p, index) => ({ sessionId: p.sessionId, index }))
+      .filter(p => clientSessionId === p.sessionId)
+      .map(p => p.index)
+  },
+
   isUndoAllowed: (state, getters) => {
     return state.undo?.allowed && getters.isActionLocal
   }

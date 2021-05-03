@@ -29,6 +29,7 @@ export const state = () => ({
   'confirm.field': true,
   'confirm.tower': true,
   beep: true,
+  playerListRotate: 'none', // none | active-on-top | local-on-top
   theme: 'light',
   enginePath: null, // explicit engine path
   javaPath: null, // exolicit java path

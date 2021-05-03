@@ -14,9 +14,9 @@
       />
       <aside ref="aside" :class="`shrink-${shrink}`">
         <PlayerPanel
-          v-for="(player, idx) in players"
-          :key="idx"
-          :index="idx"
+          v-for="({player, index}) in orderedPlayers"
+          :key="index"
+          :index="index"
           :player="player"
         />
       </aside>
@@ -61,8 +61,7 @@
 </template>
 
 <script>
-import path from 'path'
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import { ipcRenderer } from 'electron'
 
 import ActionPanel from '@/components/game/ActionPanel.vue'
@@ -113,8 +112,29 @@ export default {
         const { drawOrder, endTurn } = state.game.gameAnnotations
         return !!(drawOrder || endTurn)
       },
-      gameHash: state => state.game.hash
+      gameHash: state => state.game.hash,
+      playerListRotate: state => state.settings.playerListRotate
     }),
+
+    ...mapGetters({
+      localPlayers: 'game/localPlayers'
+    }),
+
+    orderedPlayers () {
+      const players = this.players.map((player, index) => ({ player, index }))
+
+      if (this.playerListRotate === 'active-on-top' && this.activePlayerIdx) {
+        const n = this.activePlayerIdx
+        return [...players.slice(n, players.length), ...players.slice(0, n)]
+      }
+
+      if (this.playerListRotate === 'local-on-top' && this.localPlayers.length) {
+        const n = this.localPlayers[0]
+        return [...players.slice(n, players.length), ...players.slice(0, n)]
+      }
+
+      return players
+    },
 
     tilePackOpen: {
       get () {

@@ -86,6 +86,26 @@
                 label="Enable beep"
               />
             </div>
+
+            <h4>Player List</h4>
+            <em>How to rotate player list (sidebar on right)</em>
+            <v-radio-group
+              v-model="playerListRotate"
+              dense hide-details
+            >
+              <v-radio
+                label="No rotate"
+                value="none"
+              />
+              <v-radio
+                label="Keep active player always on top"
+                value="active-on-top"
+              />
+              <v-radio
+                label="Keep local player always on top"
+                value="local-on-top"
+              />
+            </v-radio-group>
           </template>
 
           <template v-if="section === 2">
@@ -94,6 +114,7 @@
             <h4>Theme</h4>
             <v-radio-group
               v-model="theme"
+              dense hide-details
             >
               <v-radio
                 label="Light"
@@ -213,6 +234,11 @@ export default {
       set (val) { this.$store.dispatch('settings/update', { beep: val }) }
     },
 
+    playerListRotate: {
+      get () { return this.$store.state.settings.playerListRotate },
+      set (val) { this.$store.dispatch('settings/update', { playerListRotate: val }) }
+    },
+
     theme: {
       get () { return this.$store.state.settings.theme },
       set (val) { this.$store.dispatch('settings/update', { theme: val }) }
@@ -304,9 +330,11 @@ em
       padding: 0 !important
       min-width: 30px !important
 
-.checkboxes-wrapper
-  .v-input
-    margin-top: 0
+.checkboxes-wrapper .v-input, .v-input--radio-group
+  margin-top: 0
+
+.v-radio
+  margin-bottom: 4px !important
 
 .artwork-box
   display: flex
