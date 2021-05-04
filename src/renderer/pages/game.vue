@@ -230,7 +230,7 @@ export default {
             this.shrinkChanged = false
           } else {
             // triggered by changed content
-            this.shrinkSizes = [null, null, null]
+            this.shrinkSizes = [null, null, null, null]
             this.checkOverflow()
           }
         })
@@ -245,7 +245,7 @@ export default {
         sizes[this.shrink] = height
       }
 
-      if (availableHeight < height && this.shrink < 2) {
+      if (availableHeight < height && this.shrink < 3) {
         this.shrink += 1
         this.shrinkChanged = true
         setTimeout(this.checkOverflow, 1)
@@ -305,6 +305,9 @@ aside
   user-select: none
   display: flex
   flex-direction: column
+
+  &.shrink-3
+    top: calc(var(--action-bar-height) + 2px)
 
 .game-modal
   position: absolute

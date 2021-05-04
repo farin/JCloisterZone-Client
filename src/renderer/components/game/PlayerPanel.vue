@@ -309,7 +309,7 @@ aside.shrink-1
       top: -6px
       margin-right: -14px
 
-aside.shrink-2
+aside.shrink-2, aside.shrink-3
   section
     padding-top: 5px
 
@@ -327,6 +327,9 @@ aside.shrink-2
     > div
       font-size: 26px
 
+  .item
+    height: 28px
+
   .resources
     padding: 9px 6px 3px
 
@@ -339,4 +342,34 @@ aside.shrink-2
       left: -12px
       top: -4px
       margin-right: -18px
+
+aside.shrink-3
+  section
+    margin-bottom: 2px
+
+  .name-box
+    display: inline-block
+    float: left
+
+  .name
+    display: none
+
+  .points
+    height: 28px
+    width: 50px
+    border-radius: 14px
+    margin-top: -1px
+
+    > div
+      font-size: 20px
+
+  .item
+    height: 26px
+
+  .resources
+    padding: 3px 2px 3px 6px
+
+    .item:first-child
+      padding-left: 25px
+
 </style>
