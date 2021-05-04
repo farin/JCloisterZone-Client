@@ -1,6 +1,7 @@
 <template>
   <svg
     class="tile-img"
+    :class="{ disabled: isNotSupported }"
     :data-tile-id="tileId"
     :viewBox="`${-padding[0]} ${-padding[1]} ${tileSize + 2 * padding[0]} ${tileSize + 2 * padding[1]}`"
     v-bind="sizeAttrs"
@@ -28,6 +29,7 @@
 <script>
 import { v4 as uuidv4 } from 'uuid'
 import TileImage from '@/components/game/TileImage'
+import Vue from 'vue'
 
 export default {
   components: {
@@ -66,7 +68,24 @@ export default {
         return { width: size, height: size }
       }
       return {}
+    },
+
+    isNotSupported () {
+      return Vue.prototype.$tiles.tiles[this.tileId]?.notSupported || false;
     }
-  }
+
+}
 }
 </script>
+
+<style lang="sass" scoped>
+
+  .tile-img.disabled
+
+    filter: grayscale(100%)
+
+    p
+      opacity: 0.75
+
+
+</style>

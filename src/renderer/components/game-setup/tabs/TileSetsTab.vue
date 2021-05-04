@@ -48,6 +48,20 @@
       </div>
     </ConfigSection>
 
+    <template>
+      <ConfigSection title="Unofficial Plugins">
+        <div class="expansions">
+          <template v-for="{ json: artwork } in $theme.installedArtworks">
+            <template v-if="isArtworkEnabled(artwork.id) && artwork.expansions">
+              <template v-for="expansion in artwork.expansions">
+                <ExpansionBox :expansion="new Expansion(expansion.id, expansion.name, null, { symbol: expansion.symbol })" @open-detail="openPluginDetail" />
+              </template>
+            </template>
+          </template>
+        </div>
+      </ConfigSection>
+    </template>
+
     <v-dialog
       v-model="detailOpen"
       max-width="800"
@@ -58,6 +72,7 @@
 </template>
 
 <script>
+import { remote } from 'electron'
 import { mapState } from 'vuex'
 import ConfigSection from '@/components/game-setup/ConfigSection'
 import { Expansion } from '@/models/expansions'
@@ -87,7 +102,18 @@ export default {
     openDetail (exp) {
       this.detailExpansion = exp
       this.detailOpen = true
+    },
+
+    openPluginDetail(exp) {
+      exp.name='PLUGIN';
+      this.detailExpansion = exp
+      this.detailOpen = true
+    },
+
+    isArtworkEnabled (id) {
+      return this.$store.state.settings.enabledArtworks.includes(id)
     }
+ 
   }
 }
 </script>

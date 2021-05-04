@@ -6,7 +6,7 @@
       {{ expansion.title }}
     </v-card-title>
     <v-card-text>
-      <component :is="detailComponent" />
+      <component :is="detailComponent" :expansion="expansion" />
     </v-card-text>
     <v-card-actions>
       <v-spacer/>
@@ -38,6 +38,7 @@ import KingAndRobberDetail from '@/components/game-setup/details/KingAndRobberDe
 import LabyrinthDetail from '@/components/game-setup/details/LabyrinthDetail'
 import MageAndWitchDetail from '@/components/game-setup/details/MageAndWitchDetail'
 import MonasteriesDetail from '@/components/game-setup/details/MonasteriesDetail'
+import PluginDetail from '@/components/game-setup/details/PluginDetail'
 import PrincessAndDragonDetail from '@/components/game-setup/details/PrincessAndDragonDetail'
 import RiverDetail from '@/components/game-setup/details/RiverDetail'
 import RussianPromosDetail from '@/components/game-setup/details/RussianPromosDetail'
@@ -79,6 +80,7 @@ export default {
         LABYRINTH: LabyrinthDetail,
         MAGE_AND_WITCH: MageAndWitchDetail,
         MONASTERIES: MonasteriesDetail,
+        PLUGIN: PluginDetail,
         PRINCESS_AND_DRAGON: PrincessAndDragonDetail,
         RIVER: RiverDetail,
         RUSSIAN_PROMOS: RussianPromosDetail,

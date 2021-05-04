@@ -19,6 +19,9 @@
             <v-list-item>
               <v-list-item-title>Java</v-list-item-title>
             </v-list-item>
+            <v-list-item>
+              <v-list-item-title>Plugins</v-list-item-title>
+            </v-list-item>
           </v-list-item-group>
         </v-list>
 
@@ -153,6 +156,20 @@
               </v-alert>
             </div>
           </template>
+
+          <template v-if="section === 4">
+            <h3 class="mt-2 mb-4">Plugins</h3>
+
+            <h4>Install new plugin</h4>
+            <v-btn color="secondary" small @click="selectPluginFile">Select file</v-btn>
+
+            <div class="mt-4">
+              <v-alert v-if="ZIPFileError" type="warning" dense>
+                {{ ZIPFileError }}
+              </v-alert>
+            </div>
+
+          </template>
         </div>
       </div>
     </v-card-text>
@@ -167,13 +184,16 @@
 import path from 'path'
 import { remote } from 'electron'
 import { mapState } from 'vuex'
+import unzipper from 'unzipper'
+import fs from 'fs'
 
 export default {
   data () {
     return {
       section: 0,
       platform: process.platform,
-      notJavaError: false
+      notJavaError: false,
+      ZIPFileError: null
     }
   },
 
@@ -222,11 +242,13 @@ export default {
       get () { return this.$store.state.settings.javaPath },
       set (val) { this.$store.dispatch('settings/update', { javaPath: val }) }
     }
+
   },
 
   methods: {
     clean () {
       this.notJavaError = false
+      this.ZIPFileError = null
     },
 
     async selectJava () {
@@ -267,6 +289,55 @@ export default {
 
     isArtworkEnabled (id) {
       return this.$store.state.settings.enabledArtworks.includes(id)
+    },
+    
+    async selectPluginFile () {
+      const { dialog } = remote
+      const opts = {
+        title: 'Select plugin file',
+        properties: ['openFile']
+      }
+      if (this.platform === 'win32') {
+        opts.filters = [{ name: 'ZIP File', extensions: ['zip'] }]
+      }
+      const { filePaths } = await dialog.showOpenDialog(opts)
+      if (filePaths.length) {
+        const f = filePaths[0]
+        if (path.extname(f) == '.zip') {
+          this.ZIPFileError = ''
+          console.log('Reading plugin file')
+          const name = path.basename(f,path.extname(f));
+          let artwork;
+          try {
+            const directory = await unzipper.Open.file(f);
+            const file = directory.files.find(d => d.path === 'artwork.json');
+            const content = await file.buffer();
+            const artworkDef = JSON.parse(content);
+            artwork = artworkDef.dir;
+          } catch {
+            this.ZIPFileError = 'Not ZIP File or corrupted file or not plugin file'
+            return
+          }
+          const pluginFolder = path.join(remote.app.getPath('userData'), path.join('artworks', artwork))
+          await fs.promises.mkdir(pluginFolder, { recursive: true })
+          try {
+            await fs.createReadStream(f)
+              .pipe(unzipper.Extract({ path: pluginFolder }))
+              .promise()
+          } catch {
+            this.ZIPFileError = 'Not ZIP File or corrupted ZIP file'
+            return
+          }
+          if (!this.$store.state.settings.enabledArtworks.includes(artwork)) {
+            this.$store.state.settings.enabledArtworks.push(artwork);
+          }
+
+          this.$store.dispatch('settings/update', {});
+          await this.$theme.loadPlugins() // reload
+        } else {
+          this.ZIPFileError = 'Not ZIP File'
+        }
+      }
     }
   }
 }

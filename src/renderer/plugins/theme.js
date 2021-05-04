@@ -89,6 +89,14 @@ class Theme {
 
     const readArtwork = async (id, fullPath) => {
       const stats = await fs.promises.stat(fullPath)
+      const $tiles = Vue.prototype.$tiles
+      const supportedEdges = [
+      	'r',
+      	'c',
+      	'f',
+      	'i',
+      	'*'
+      ]
       if (stats.isDirectory()) {
         const jsonPath = path.join(fullPath, 'artwork.json')
         let json
@@ -102,6 +110,34 @@ class Theme {
           json.id = id
           if (json.icon) {
             json.icon = path.join(fullPath, json.icon)
+          }
+          if (json.expansions) {
+            for (const id in json.expansions) {
+              json.expansions[id].symbol = path.join(fullPath, json.expansions[id].symbol)
+              const tiles = JSON.parse(await fs.promises.readFile(path.join(fullPath, json.expansions[id].tiles)))
+              for (const tile_id in tiles.tiles) {
+                let tile = tiles.tiles[tile_id];
+                if (!tile.hasOwnProperty(tile_id)) {
+                  const edges = tile.edge.split('')
+                  let supported = true
+                  for (const edge in edges) {
+                    supported &= supportedEdges.includes(edges[edge])
+                  }
+                  if (!supported) {
+                    tile.notSupported = true
+                  }
+                  $tiles.tiles[tile_id] = tile
+                }
+              }
+              $tiles.multiTiles = {
+                ...$tiles.multiTiles,
+                ...tiles.multiTiles
+              }
+              $tiles.sets = {
+                ...$tiles.sets,
+                ...tiles.sets
+              }
+            }
           }
           const artwork = {
             id,
@@ -127,6 +163,7 @@ class Theme {
           console.error(e)
         }
       }
+      Vue.prototype.$tiles = $tiles;
       return null
     }
 
