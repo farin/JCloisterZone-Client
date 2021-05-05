@@ -1,10 +1,10 @@
 <template>
   <div class="tile-distribution-live">
     <div
-      v-for="{id, count, remainingCount, rotation } in tiles"
+      v-for="{id, count, remainingCount, rotation, notSupported } in tiles"
       :key="id"
       class="tile"
-      :class="{noleft: remainingCount === 0}"
+      :class="{noleft: remainingCount === 0, disabled: notSupported }"
     >
       <StandaloneTileImage
         :tile-id="id"
@@ -25,6 +25,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import countBy from 'lodash/countBy'
+import Vue from 'vue'
 
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
 import CountMiniboard from '@/components/game-setup/details/CountMiniboard'
@@ -82,7 +83,8 @@ export default {
           id: t.id,
           remainingCount: count - (usedTiles[t.id] || 0) - (drawnId === t.id ? 1 : 0),
           count,
-          rotation: themeTile ? themeTile.rotation : 0
+          rotation: themeTile ? themeTile.rotation : 0,
+      	  notSupported: Vue.prototype.$tiles.tiles[t.id]?.notSupported || false
         }
       })
     }
@@ -115,4 +117,8 @@ export default {
 
   .tile.noleft
     filter: grayscale(100%)
+    
+  .tile.disabled
+    display: none
+
 </style>
