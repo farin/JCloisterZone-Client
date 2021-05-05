@@ -125,175 +125,175 @@
 
     <ConfigSection title="Gameplay Variants">
       <div class="rules-section other-rules">
-        <RuleBox :item="Expansion.MONASTERIES">
+        <RuleBox :depends-on="Expansion.MONASTERIES">
           <template #icon>
             <ExpansionSymbol :expansion="Expansion.MONASTERIES" />
           </template>
-          <template #rules="{ selected }">
+          <template #rules="{ available }">
             <div class="rule-line">
-              Special monasteries <RuleSelect :rule="Rule.KEEP_MONASTERIES" :enabled="selected" long />.
+              Special monasteries <RuleSelect :rule="Rule.KEEP_MONASTERIES" :enabled="available" long />.
             </div>
           </template>
         </RuleBox>
 
-        <RuleBox :item="GameElement.PIG_HERD">
+        <RuleBox :depends-on="GameElement.PIG_HERD">
           <template #icon>
             <StandaloneTileImage tile-id="GQ/F" :size="45" />
           </template>
-          <template #rules="{ selected }">
+          <template #rules="{ available }">
             <div class="rule-line">
-              Field tile from Game Quarterly 11 expansion <RuleSelect :rule="Rule.GQ11_PIG_HERD" :enabled="selected" />.
+              Field tile from Game Quarterly 11 expansion <RuleSelect :rule="Rule.GQ11_PIG_HERD" :enabled="available" />.
             </div>
           </template>
         </RuleBox>
 
-        <RuleBox :item="GameElement.WAGON">
+        <RuleBox :depends-on="GameElement.WAGON">
           <template #icon>
             <svg class="meeple" :width="45" :height="45">
               <use :href="`${MEEPLES_SVG}#wagon`" />
             </svg>
           </template>
-          <template #rules="{ selected }">
+          <template #rules="{ available }">
             <div class="rule-line">
               After scored, wagon can me moved to adjacent unoccupied, incomplete feature. Adjacent means:
-              <RuleSelect :rule="Rule.WAGON_MOVE" :enabled="selected" xlong />.
+              <RuleSelect :rule="Rule.WAGON_MOVE" :enabled="available" xlong />.
             </div>
           </template>
         </RuleBox>
 
-        <RuleBox :item="GameElement.BARN">
+        <RuleBox :depends-on="GameElement.BARN">
           <template #icon>
             <svg class="meeple" :width="45" :height="45">
               <use :href="`${MEEPLES_SVG}#barn`" />
             </svg>
           </template>
-          <template #rules="{ selected }">
+          <template #rules="{ available }">
             <div class="rule-line">
-              Barn <RuleSelect :rule="Rule.BARN_PLACEMENT" :enabled="selected" short /> be placed on a&nbsp;field already occupied by another barn.
+              Barn <RuleSelect :rule="Rule.BARN_PLACEMENT" :enabled="available" short /> be placed on a&nbsp;field already occupied by another barn.
             </div>
           </template>
         </RuleBox>
 
-        <RuleBox :item="GameElement.FAIRY">
+        <RuleBox :depends-on="GameElement.FAIRY">
           <template #icon>
             <NeutralFigure figure="fairy" :width="45" :height="45" />
           </template>
-          <template #rules="{ selected }">
+          <template #rules="{ available }">
             <div class="rule-line">
-              The Fairy is deployed  <RuleSelect :rule="Rule.FAIRY_PLACEMENT" :enabled="selected" />.
+              The Fairy is deployed <RuleSelect :rule="Rule.FAIRY_PLACEMENT" :enabled="available" />.
             </div>
           </template>
         </RuleBox>
 
-        <RuleBox :item="GameElement.DRAGON">
+        <RuleBox :depends-on="GameElement.DRAGON">
           <template #icon>
             <NeutralFigure figure="dragon" :width="90" :height="45" />
           </template>
-          <template #rules="{ selected }">
+          <template #rules="{ available }">
             <div class="rule-line">
-              Dragon movement occurs  <RuleSelect :rule="Rule.DRAGON_MOVEMENT" :enabled="selected" short /> scoring.
+              Dragon movement occurs <RuleSelect :rule="Rule.DRAGON_MOVEMENT" :enabled="available" short /> scoring.
             </div>
           </template>
         </RuleBox>
 
-        <RuleBox :item="GameElement.PRINCESS">
+        <RuleBox :depends-on="GameElement.PRINCESS">
           <template #icon>
             <img src="~/assets/features/C1/princess.png" height="35">
           </template>
-          <template #rules="{ selected }">
+          <template #rules="{ available }">
             <div class="rule-line">
-              The Princess <RuleSelect :rule="Rule.PRINCESS_ACTION" :enabled="selected" short /> remove knight from a city.
+              The Princess <RuleSelect :rule="Rule.PRINCESS_ACTION" :enabled="available" short /> remove knight from a city.
             </div>
           </template>
         </RuleBox>
 
-        <RuleBox :item="GameElement.BAZAAR">
+        <RuleBox :depends-on="GameElement.BAZAAR">
           <template #icon>
             <img src="~/assets/features/C1/bazaar.png" height="45">
           </template>
-          <template #rules="{ selected }">
+          <template #rules="{ available }">
             <div class="rule-line">
-              <RuleSwitch :rule="Rule.BAZAAR_NO_AUCTION" :enabled="selected" />
+              <RuleSwitch :rule="Rule.BAZAAR_NO_AUCTION" :enabled="available" />
             </div>
           </template>
         </RuleBox>
 
-        <RuleBox :item="GameElement.HILL">
+        <RuleBox :depends-on="GameElement.HILL">
           <template #icon>
             <img src="~/assets/features/C1/hill.png" height="45">
           </template>
-          <template #rules="{ selected }">
+          <template #rules="{ available }">
             <div class="rule-line">
-              Tiebreaker method: <RuleSelect :rule="Rule.HILL_TIEBREAKER" :enabled="selected" /> on hills.
+              Tiebreaker method: <RuleSelect :rule="Rule.HILL_TIEBREAKER" :enabled="available" /> on hills.
             </div>
           </template>
         </RuleBox>
 
-        <RuleBox :item="GameElement.FESTIVAL">
+        <RuleBox :depends-on="GameElement.FESTIVAL">
           <template #icon>
             <img src="~/assets/features/C1/festival.png" height="45">
           </template>
-          <template #rules="{ selected }">
+          <template #rules="{ available }">
             <div class="rule-line">
-              Player may return one of one’s own <RuleSelect :rule="Rule.FESTIVAL_RETURN" :enabled="selected" />.
+              Player may return one of one’s own <RuleSelect :rule="Rule.FESTIVAL_RETURN" :enabled="available" />.
             </div>
           </template>
         </RuleBox>
 
-        <RuleBox :item="GameElement.ESCAPE">
+        <RuleBox :depends-on="GameElement.ESCAPE">
           <template #icon>
             <img src="~/assets/features/C1/escape.png" height="45">
           </template>
-          <template #rules="{ selected }">
+          <template #rules="{ available }">
             <div class="rule-line">
-              Cloister must be placed adjacent to <RuleSelect :rule="Rule.ESCAPE_VARIANT" :enabled="selected" /> of a&nbsp;besieged city to espace.
+              Cloister must be placed adjacent to <RuleSelect :rule="Rule.ESCAPE_VARIANT" :enabled="available" /> of a&nbsp;besieged city to espace.
             </div>
           </template>
         </RuleBox>
 
-        <RuleBox :item="GameElement.TUNNEL">
+        <RuleBox :depends-on="GameElement.TUNNEL">
           <template #icon>
             <ExpansionSymbol :expansion="Expansion.TUNNEL" />
           </template>
-          <template #rules="{ selected }">
+          <template #rules="{ available }">
             <div class="rule-line">
-              <RuleSwitch :rule="Rule.TUNNELIZE_OTHER_EXPANSIONS" :enabled="selected" />
+              <RuleSwitch :rule="Rule.TUNNELIZE_OTHER_EXPANSIONS" :enabled="available" />
             </div>
             <div class="rule-line">
-              Assign <RuleSelect :rule="Rule.MORE_TUNNEL_TOKENS" :enabled="selected" short /> token sets to each player in game of two/three.
+              Assign <RuleSelect :rule="Rule.MORE_TUNNEL_TOKENS" :enabled="available" short /> token sets to each player in game of two/three.
             </div>
           </template>
         </RuleBox>
 
-        <RuleBox :item="Expansion.COUNT">
+        <RuleBox :depends-on="Expansion.COUNT">
           <template #icon>
             <ExpansionSymbol :expansion="Expansion.COUNT" />
           </template>
-          <template #rules="{ selected }">
+          <template #rules="{ available }">
             <div class="rule-line">
-              Moving meeples from the City of Carcassonne before final scoring <RuleSelect :rule="Rule.COC_FINAL_SCORING" :enabled="selected" xlong />.
+              Moving meeples from the City of Carcassonne before final scoring <RuleSelect :rule="Rule.COC_FINAL_SCORING" :enabled="available" xlong />.
             </div>
           </template>
         </RuleBox>
 
-        <RuleBox :item="Expansion.COUNT">
+        <RuleBox :depends-on="Expansion.COUNT">
           <template #icon>
             <ExpansionSymbol :expansion="Expansion.COUNT" />
           </template>
-          <template #rules="{ selected }">
+          <template #rules="{ available }">
             <div class="rule-line">
-              When meeple is deployed to the City of C. then the Count is moved <RuleSelect :rule="Rule.COUNT_MOVE" :enabled="selected" long />.
+              When meeple is deployed to the City of C. then the Count is moved <RuleSelect :rule="Rule.COUNT_MOVE" :enabled="available" long />.
             </div>
           </template>
         </RuleBox>
 
-        <RuleBox :item="Expansion.LABYRINTH">
+        <RuleBox :depends-on="Expansion.LABYRINTH">
           <template #icon>
             <ExpansionSymbol :expansion="Expansion.LABYRINTH" />
           </template>
-          <template #rules="{ selected }">
+          <template #rules="{ available }">
             <div class="rule-line">
-              Play <RuleSelect :rule="Rule.LABYRINTH_VARIANT" :enabled="selected" short /> labyrinth variant.
+              Play <RuleSelect :rule="Rule.LABYRINTH_VARIANT" :enabled="available" short /> labyrinth variant.
             </div>
           </template>
         </RuleBox>
@@ -302,25 +302,25 @@
 
     <ConfigSection title="Scoring Variants">
       <div class="rules-section other-rules">
-        <RuleBox :item="GameElement.LITTLE_BUILDINGS">
+        <RuleBox :depends-on="GameElement.LITTLE_BUILDINGS">
           <template #icon>
             <img src="~/assets/figures/lb.png" width="45" height="45">
           </template>
-          <template #rules="{ selected }">
+          <template #rules="{ available }">
             <div class="rule-line">
-              Assign <RuleSelect :rule="Rule.LITTLE_BUILDINGS_SCORING" :enabled="selected" short /> points for tower/house/shed.
+              Assign <RuleSelect :rule="Rule.LITTLE_BUILDINGS_SCORING" :enabled="available" short /> points for tower/house/shed.
             </div>
           </template>
         </RuleBox>
 
-        <RuleBox :item="[GameElement.KING, GameElement.ROBBER]">
+        <RuleBox :depends-on="[GameElement.KING, GameElement.ROBBER]">
           <template #icon>
             <img src="~/assets/figures/king_robber.png" width="45" height="45">
           </template>
-          <template #rules="{ selected }">
+          <template #rules="{ available }">
             <div class="rule-line">
               <!-- TODO hide at the end of the game if continuosly is selected -->
-              Score <RuleSelect :rule="Rule.KING_AND_ROBBER_SCORING" :enabled="selected" xlong />
+              Score <RuleSelect :rule="Rule.KING_AND_ROBBER_SCORING" :enabled="available" xlong />
               <span :style="{ opacity: rules['king-and-robber-scoring'] === 'continuously' ? 0.2 : 1 }"> at the end of the game.</span>
             </div>
           </template>
@@ -462,9 +462,9 @@ export default {
   padding-right: 22px
 
 .valid-only
-  .game-mechanics-box.disabled:not(.selected)
+  .game-mechanics-box.disabled:not(.available)
     display: none
-  .rule-box.unselected
+  .rule-box.unavailable
     display: none
 
 </style>

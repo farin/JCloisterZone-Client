@@ -2,15 +2,15 @@
   <div
     :class="{
       'rule-box': true,
-      'selected': selected,
-      'unselected': !selected,
+      'available': available,
+      'unavailable': !available,
     }"
   >
     <div class="rule-icon">
       <slot name="icon" />
     </div>
     <div class="rule-lines">
-      <slot name="rules" :selected="selected" />
+      <slot name="rules" :available="available" />
     </div>
   </div>
 </template>
@@ -22,7 +22,7 @@ import { Expansion } from '@/models/expansions'
 
 export default {
   props: {
-    item: { type: [Object, Array], default: null }
+    dependsOn: { type: [Object, Array], default: null }
   },
 
   computed: {
@@ -31,12 +31,12 @@ export default {
       elements: state => state.gameSetup.elements
     }),
 
-    selected () {
-      if (this.item === null) {
+    available () {
+      if (this.dependsOn === null) {
         return true
       }
 
-      const isItemSelected = item => {
+      const isItemAvailable = item => {
         if (item instanceof GameElement) {
           return !!this.elements[item.id]
         }
@@ -47,10 +47,10 @@ export default {
         throw new Error('Invalid type')
       }
 
-      if (Array.isArray(this.item)) {
-        return this.item.reduce((acc, val) => acc || isItemSelected(val), false)
+      if (Array.isArray(this.dependsOn)) {
+        return this.dependsOn.reduce((acc, val) => acc || isItemAvailable(val), false)
       } else {
-        return isItemSelected(this.item)
+        return isItemAvailable(this.dependsOn)
       }
     }
   }
@@ -86,7 +86,7 @@ export default {
   .v-select
     margin: 0 5px
 
-  &.unselected
+  &.unavailable
     opacity: $rules-disabled-opacity
     background: transparent
 
