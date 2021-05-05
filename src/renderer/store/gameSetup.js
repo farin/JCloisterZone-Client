@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import uniq from 'lodash/uniq'
 import mapKeys from 'lodash/mapKeys'
+import { Expansion } from '@/models/expansions'
 
 import { GameElement, isConfigValueEnabled, getDefaultElements } from '@/models/elements'
 import { getDefaultRules } from '@/models/rules'
@@ -166,16 +167,27 @@ export const actions = {
     const sets = mapKeys(state.sets, (value, key) => {
       return $tiles.sets[key] ? key : key + ':' + getters.getSelectedEdition
     })
-
     const setup = {
       sets,
       elements: state.elements,
       rules: state.rules,
       timer: state.timer,
       start: getters.selectedStartingTiles.value,
+      disabledTiles: [],
+      xmls: [],
       options: {}
     }
-
+    for (const tile in $tiles.tiles) {
+      if ($tiles.tiles[tile].notSupported) {
+        setup.disabledTiles.push(tile)
+      }
+    }
+    Expansion.all().forEach(expansion => {
+      if (expansion.xml) {
+        setup.xmls.push(expansion.xml);
+      }
+    })
+    
     dispatch('settings/addRecentGameSetup', setup, { root: true })
     dispatch('networking/startServer', {
       setup,

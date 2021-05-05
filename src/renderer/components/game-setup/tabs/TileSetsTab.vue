@@ -54,7 +54,7 @@
           <template v-for="{ json: artwork } in $theme.installedArtworks">
             <template v-if="isArtworkEnabled(artwork.id) && artwork.expansions">
               <template v-for="expansion in artwork.expansions">
-                <ExpansionBox :expansion="new Expansion(expansion.id, expansion.name, null, { symbol: expansion.symbol })" @open-detail="openPluginDetail" />
+                <ExpansionBox :expansion="new Expansion(expansion.id, expansion.name, null, expansion)" @open-detail="openPluginDetail" />
               </template>
             </template>
           </template>

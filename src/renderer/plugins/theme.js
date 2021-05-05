@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import Vue from 'vue'
 import { remote } from 'electron'
+import { Expansion } from '@/models/expansions'
 
 import isString from 'lodash/isString'
 import isObject from 'lodash/isObject'
@@ -114,6 +115,8 @@ class Theme {
           if (json.expansions) {
             for (const id in json.expansions) {
               json.expansions[id].symbol = path.join(fullPath, json.expansions[id].symbol)
+              json.expansions[id].xml = path.join(fullPath, json.expansions[id].xml)
+              Expansion[json.expansions[id].id] = new Expansion(json.expansions[id].id, json.expansions[id].name, null, json.expansions[id])
               const tiles = JSON.parse(await fs.promises.readFile(path.join(fullPath, json.expansions[id].tiles)))
               for (const tile_id in tiles.tiles) {
                 let tile = tiles.tiles[tile_id];

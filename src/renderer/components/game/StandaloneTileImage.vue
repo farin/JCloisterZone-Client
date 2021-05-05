@@ -71,7 +71,7 @@ export default {
     },
 
     isNotSupported () {
-      return Vue.prototype.$tiles.tiles[this.tileId]?.notSupported || false;
+      return Vue.prototype.$tiles.tiles[this.tileId]?.notSupported || false
     }
 
 }

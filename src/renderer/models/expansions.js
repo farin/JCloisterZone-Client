@@ -24,6 +24,7 @@ export class Expansion {
     this.sets.forEach(s => { s.expansion = this })
     this.mergeSets = options.mergeSets || false
     this.symbol = options.symbol || false
+    this.xml = options.xml || false
   }
 
   static all () {
