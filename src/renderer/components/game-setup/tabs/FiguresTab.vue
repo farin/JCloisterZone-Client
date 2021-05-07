@@ -2,7 +2,7 @@
   <div>
     <ConfigSection title="Followers">
       <div class="components">
-        <GameElementBox :item="GameElement.SMALL_FOLLOWER" :mutable="false" :max="7">
+        <GameElementBox :item="GameElement.SMALL_FOLLOWER" :mutable="true" :min="4" :max="14">
           <svg class="meeple" :width="55" :height="55">
             <use :href="`${MEEPLES_SVG}#small-follower`" />
           </svg>

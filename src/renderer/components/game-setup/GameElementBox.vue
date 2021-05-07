@@ -10,6 +10,7 @@
     <GameElementButtons
       :mutable="mutable && enabled"
       :item="item"
+      :min="min"
       :max="max"
     >
       <div class="box-title">
@@ -40,6 +41,7 @@ export default {
   props: {
     item: { type: Object, required: true },
     mutable: { type: Boolean, default: true },
+    min: { type: Number, default: 0 },
     max: { type: Number, default: 1 }
   },
 

@@ -1,6 +1,7 @@
 <template>
   <QuantityButtons
     v-model="quantity"
+    :min="set.min || 0"
     :max="set.max || 3"
     :mutable="mutable"
   >
