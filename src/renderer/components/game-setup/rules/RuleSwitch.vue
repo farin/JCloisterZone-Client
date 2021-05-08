@@ -3,7 +3,7 @@
     v-model="value"
     class="rule-switch"
     :label="rule.title"
-    :disabled="!enabled"
+    :disabled="!enabled || readOnly"
     hide-details
     :color="theme === 'light' ? '#3E2723' : '#bbb'"
   />
@@ -15,7 +15,8 @@ import { mapState } from 'vuex'
 export default {
   props: {
     rule: { type: Object, required: true },
-    enabled: { type: Boolean, default: true }
+    enabled: { type: Boolean, default: true },
+    readOnly: { type: Boolean, defaukt: false }
   },
 
   computed: {

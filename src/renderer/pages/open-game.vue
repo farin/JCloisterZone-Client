@@ -46,6 +46,16 @@
       </div>
 
       <GameSetupOverview :sets="sets" :elements="elements" :timer="timer" />
+
+      <div class="rules">
+        <h2>Gameplay Variants</h2>
+        <GameplayVariants show="changed" read-only />
+      </div>
+
+      <div class="rules">
+        <h2>Scoring Variants</h2>
+        <ScoringVariants show="changed" read-only />
+      </div>
     </template>
   </GameSetupGrid>
 </template>
@@ -57,10 +67,14 @@ import GameSetupOverview from '@/components/game-setup/overview/GameSetupOvervie
 import GameSetupGrid from '@/components/game-setup/GameSetupGrid'
 import HeaderGameButton from '@/components/game-setup/HeaderGameButton'
 import PlayerSlot from '@/components/game-setup/PlayerSlot'
+import GameplayVariants from '@/components/game-setup/rules/GameplayVariants'
+import ScoringVariants from '@/components/game-setup/rules/ScoringVariants'
 
 export default {
   components: {
     GameSetupOverview,
+    GameplayVariants,
+    ScoringVariants,
     GameSetupGrid,
     HeaderGameButton,
     PlayerSlot
@@ -178,17 +192,23 @@ header .v-alert
 .game-setup-overview
   margin: 40px 0
 
+h2
+  font-weight: 300
+  font-size: 16px
+  text-transform: uppercase
+  text-align: center
+
+  +theme using ($theme)
+    color: map-get($theme, 'gray-text-color')
+
 .options
   padding: 30px 20px 0
 
-  h2
-    font-weight: 300
-    font-size: 16px
-    text-transform: uppercase
-    text-align: center
+.rules
+  padding-right: 20px
 
-    +theme using ($theme)
-      color: map-get($theme, 'gray-text-color')
+  h2
+    margin: 0 -20px 20px 0
 
 @media (max-width: 1079px)
   .slots

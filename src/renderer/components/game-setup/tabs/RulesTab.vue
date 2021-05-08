@@ -124,11 +124,17 @@
     </ConfigSection>
 
     <ConfigSection title="Gameplay Variants">
-      <GameplayVariants class="rules-section other-rules" />
+      <GameplayVariants
+        class="rules-section other-rules"
+        :show="showValidRulesOnly ? 'available' : 'all'"
+      />
     </ConfigSection>
 
     <ConfigSection title="Scoring Variants">
-      <ScoringVariants class="rules-section other-rules" />
+      <ScoringVariants
+        class="rules-section other-rules"
+        :show="showValidRulesOnly ? 'available' : 'all'"
+      />
     </ConfigSection>
 
     <ConfigSection title="Starting tile(s) configuration">
@@ -248,7 +254,5 @@ export default {
 
 .valid-only ::v-deep
   .game-mechanics-box.disabled:not(.available)
-    display: none
-  .rule-box.unavailable
     display: none
 </style>

@@ -2,18 +2,21 @@
   <div
     :class="{
       'rule-select': true,
+      'editable': !readOnly,
       short,
       long,
       xlong
     }"
   >
     <v-select
+      v-if="!readOnly"
       v-model="value"
       :items="rule.values"
       :disabled="!enabled"
       dense
       hide-details
     />
+    <span v-else class="ro-value">{{ value }}</span>
   </div>
 </template>
 
@@ -24,7 +27,8 @@ export default {
     enabled: { type: Boolean, default: true },
     short: { type: Boolean, default: false },
     long: { type: Boolean, default: false },
-    xlong: { type: Boolean, default: false }
+    xlong: { type: Boolean, default: false },
+    readOnly: { type: Boolean, defaukt: false }
   },
 
   computed: {
@@ -44,15 +48,21 @@ export default {
 <style lang="sass">
 .rule-select
   display: inline-block
-  width: 200px
-  padding: 0 2px
 
-  &.short
-    width: 120px
+  &.editable
+    width: 200px
+    padding: 0 2px
 
-  &.long
-    width: 300px
+    &.short
+      width: 120px
 
-  &.xlong
-    width: 360px
+    &.long
+      width: 300px
+
+    &.xlong
+      width: 360px
+
+  .ro-value
+    text-decoration: underline
+    text-decoration-color: var(--v-primary-base)
 </style>

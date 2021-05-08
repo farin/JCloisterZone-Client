@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div :class="'show-' + show">
     <RuleBox :depends-on="Expansion.MONASTERIES">
       <template #icon>
         <ExpansionSymbol :expansion="Expansion.MONASTERIES" />
       </template>
       <template #rules="{ available }">
         <div class="rule-line">
-          Special monasteries <RuleSelect :rule="Rule.KEEP_MONASTERIES" :enabled="available" long />.
+          Special monasteries <RuleSelect :rule="Rule.KEEP_MONASTERIES" :enabled="available" long :read-only="readOnly" />.
         </div>
       </template>
     </RuleBox>
@@ -17,7 +17,7 @@
       </template>
       <template #rules="{ available }">
         <div class="rule-line">
-          Field tile from Game Quarterly 11 expansion <RuleSelect :rule="Rule.GQ11_PIG_HERD" :enabled="available" />.
+          Field tile from Game Quarterly 11 expansion <RuleSelect :rule="Rule.GQ11_PIG_HERD" :enabled="available" :read-only="readOnly" />.
         </div>
       </template>
     </RuleBox>
@@ -31,7 +31,7 @@
       <template #rules="{ available }">
         <div class="rule-line">
           After scored, wagon can me moved to adjacent unoccupied, incomplete feature. Adjacent means:
-          <RuleSelect :rule="Rule.WAGON_MOVE" :enabled="available" xlong />.
+          <RuleSelect :rule="Rule.WAGON_MOVE" :enabled="available" xlong :read-only="readOnly" />.
         </div>
       </template>
     </RuleBox>
@@ -44,7 +44,7 @@
       </template>
       <template #rules="{ available }">
         <div class="rule-line">
-          Barn <RuleSelect :rule="Rule.BARN_PLACEMENT" :enabled="available" short /> be placed on a&nbsp;field already occupied by another barn.
+          Barn <RuleSelect :rule="Rule.BARN_PLACEMENT" :enabled="available" short :read-only="readOnly" /> be placed on a&nbsp;field already occupied by another barn.
         </div>
       </template>
     </RuleBox>
@@ -55,7 +55,7 @@
       </template>
       <template #rules="{ available }">
         <div class="rule-line">
-          The Fairy is deployed <RuleSelect :rule="Rule.FAIRY_PLACEMENT" :enabled="available" />.
+          The Fairy is deployed <RuleSelect :rule="Rule.FAIRY_PLACEMENT" :enabled="available" :read-only="readOnly" />.
         </div>
       </template>
     </RuleBox>
@@ -66,7 +66,7 @@
       </template>
       <template #rules="{ available }">
         <div class="rule-line">
-          Dragon movement occurs <RuleSelect :rule="Rule.DRAGON_MOVEMENT" :enabled="available" short /> scoring.
+          Dragon movement occurs <RuleSelect :rule="Rule.DRAGON_MOVEMENT" :enabled="available" short :read-only="readOnly" /> scoring.
         </div>
       </template>
     </RuleBox>
@@ -77,7 +77,7 @@
       </template>
       <template #rules="{ available }">
         <div class="rule-line">
-          The Princess <RuleSelect :rule="Rule.PRINCESS_ACTION" :enabled="available" short /> remove knight from a city.
+          The Princess <RuleSelect :rule="Rule.PRINCESS_ACTION" :enabled="available" short :read-only="readOnly" /> remove knight from a city.
         </div>
       </template>
     </RuleBox>
@@ -88,7 +88,7 @@
       </template>
       <template #rules="{ available }">
         <div class="rule-line">
-          <RuleSwitch :rule="Rule.BAZAAR_NO_AUCTION" :enabled="available" />
+          <RuleSwitch :rule="Rule.BAZAAR_NO_AUCTION" :enabled="available" :read-only="readOnly" />
         </div>
       </template>
     </RuleBox>
@@ -99,7 +99,7 @@
       </template>
       <template #rules="{ available }">
         <div class="rule-line">
-          Tiebreaker method: <RuleSelect :rule="Rule.HILL_TIEBREAKER" :enabled="available" /> on hills.
+          Tiebreaker method: <RuleSelect :rule="Rule.HILL_TIEBREAKER" :enabled="available" :read-only="readOnly" /> on hills.
         </div>
       </template>
     </RuleBox>
@@ -110,7 +110,7 @@
       </template>
       <template #rules="{ available }">
         <div class="rule-line">
-          Player may return one of one’s own <RuleSelect :rule="Rule.FESTIVAL_RETURN" :enabled="available" />.
+          Player may return one of one’s own <RuleSelect :rule="Rule.FESTIVAL_RETURN" :enabled="available" :read-only="readOnly" />.
         </div>
       </template>
     </RuleBox>
@@ -121,7 +121,7 @@
       </template>
       <template #rules="{ available }">
         <div class="rule-line">
-          Cloister must be placed adjacent to <RuleSelect :rule="Rule.ESCAPE_VARIANT" :enabled="available" /> of a&nbsp;besieged city to espace.
+          Cloister must be placed adjacent to <RuleSelect :rule="Rule.ESCAPE_VARIANT" :enabled="available" :read-only="readOnly" /> of a&nbsp;besieged city to espace.
         </div>
       </template>
     </RuleBox>
@@ -132,21 +132,10 @@
       </template>
       <template #rules="{ available }">
         <div class="rule-line">
-          <RuleSwitch :rule="Rule.TUNNELIZE_OTHER_EXPANSIONS" :enabled="available" />
+          <RuleSwitch :rule="Rule.TUNNELIZE_OTHER_EXPANSIONS" :enabled="available" :read-only="readOnly" />
         </div>
         <div class="rule-line">
-          Assign <RuleSelect :rule="Rule.MORE_TUNNEL_TOKENS" :enabled="available" short /> token sets to each player in game of two/three.
-        </div>
-      </template>
-    </RuleBox>
-
-    <RuleBox :depends-on="Expansion.COUNT">
-      <template #icon>
-        <ExpansionSymbol :expansion="Expansion.COUNT" />
-      </template>
-      <template #rules="{ available }">
-        <div class="rule-line">
-          Moving meeples from the City of Carcassonne before final scoring <RuleSelect :rule="Rule.COC_FINAL_SCORING" :enabled="available" xlong />.
+          Assign <RuleSelect :rule="Rule.MORE_TUNNEL_TOKENS" :enabled="available" short :read-only="readOnly" /> token sets to each player in game of two/three.
         </div>
       </template>
     </RuleBox>
@@ -157,7 +146,18 @@
       </template>
       <template #rules="{ available }">
         <div class="rule-line">
-          When meeple is deployed to the City of C. then the Count is moved <RuleSelect :rule="Rule.COUNT_MOVE" :enabled="available" long />.
+          Moving meeples from the City of Carcassonne before final scoring <RuleSelect :rule="Rule.COC_FINAL_SCORING" :enabled="available" xlong :read-only="readOnly" />.
+        </div>
+      </template>
+    </RuleBox>
+
+    <RuleBox :depends-on="Expansion.COUNT">
+      <template #icon>
+        <ExpansionSymbol :expansion="Expansion.COUNT" />
+      </template>
+      <template #rules="{ available }">
+        <div class="rule-line">
+          When meeple is deployed to the City of C. then the Count is moved <RuleSelect :rule="Rule.COUNT_MOVE" :enabled="available" long :read-only="readOnly" />.
         </div>
       </template>
     </RuleBox>
@@ -168,7 +168,7 @@
       </template>
       <template #rules="{ available }">
         <div class="rule-line">
-          Play <RuleSelect :rule="Rule.LABYRINTH_VARIANT" :enabled="available" short /> labyrinth variant.
+          Play <RuleSelect :rule="Rule.LABYRINTH_VARIANT" :enabled="available" short :read-only="readOnly" /> labyrinth variant.
         </div>
       </template>
     </RuleBox>
@@ -200,6 +200,11 @@ export default {
     StandaloneTileImage
   },
 
+  props: {
+    show: { type: String, required: true }, // all, available, changed
+    readOnly: { type: Boolean, defaukt: false }
+  },
+
   data () {
     return {
       MEEPLES_SVG,
@@ -210,3 +215,9 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+.show-available, .show-changed
+  .rule-box.unavailable
+    display: none
+</style>
