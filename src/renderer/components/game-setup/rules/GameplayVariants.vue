@@ -1,6 +1,14 @@
 <template>
-  <div :class="'show-' + show">
-    <RuleBox :depends-on="Expansion.MONASTERIES">
+  <div
+    :class="{
+      ['show-' + show]: true,
+      'read-only': readOnly
+    }"
+  >
+    <RuleBox
+      :depends-on="Expansion.MONASTERIES"
+      :rules="[Rule.KEEP_MONASTERIES]"
+    >
       <template #icon>
         <ExpansionSymbol :expansion="Expansion.MONASTERIES" />
       </template>
@@ -11,7 +19,10 @@
       </template>
     </RuleBox>
 
-    <RuleBox :depends-on="GameElement.PIG_HERD">
+    <RuleBox
+      :depends-on="GameElement.PIG_HERD"
+      :rules="[Rule.GQ11_PIG_HERD]"
+    >
       <template #icon>
         <StandaloneTileImage tile-id="GQ/F" :size="45" />
       </template>
@@ -22,7 +33,10 @@
       </template>
     </RuleBox>
 
-    <RuleBox :depends-on="GameElement.WAGON">
+    <RuleBox
+      :depends-on="GameElement.WAGON"
+      :rules="[Rule.WAGON_MOVE]"
+    >
       <template #icon>
         <svg class="meeple" :width="45" :height="45">
           <use :href="`${MEEPLES_SVG}#wagon`" />
@@ -36,7 +50,10 @@
       </template>
     </RuleBox>
 
-    <RuleBox :depends-on="GameElement.BARN">
+    <RuleBox
+      :depends-on="GameElement.BARN"
+      :rules="[Rule.BARN_PLACEMENT]"
+    >
       <template #icon>
         <svg class="meeple" :width="45" :height="45">
           <use :href="`${MEEPLES_SVG}#barn`" />
@@ -49,7 +66,10 @@
       </template>
     </RuleBox>
 
-    <RuleBox :depends-on="GameElement.FAIRY">
+    <RuleBox
+      :depends-on="GameElement.FAIRY"
+      :rules="[Rule.FAIRY_PLACEMENT]"
+    >
       <template #icon>
         <NeutralFigure figure="fairy" :width="45" :height="45" />
       </template>
@@ -60,7 +80,10 @@
       </template>
     </RuleBox>
 
-    <RuleBox :depends-on="GameElement.DRAGON">
+    <RuleBox
+      :depends-on="GameElement.DRAGON"
+      :rules="[Rule.DRAGON_MOVEMENT]"
+    >
       <template #icon>
         <NeutralFigure figure="dragon" :width="90" :height="45" />
       </template>
@@ -71,7 +94,10 @@
       </template>
     </RuleBox>
 
-    <RuleBox :depends-on="GameElement.PRINCESS">
+    <RuleBox
+      :depends-on="GameElement.PRINCESS"
+      :rules="[Rule.PRINCESS_ACTION]"
+    >
       <template #icon>
         <img src="~/assets/features/C1/princess.png" height="35">
       </template>
@@ -82,7 +108,10 @@
       </template>
     </RuleBox>
 
-    <RuleBox :depends-on="GameElement.BAZAAR">
+    <RuleBox
+      :depends-on="GameElement.BAZAAR"
+      :rules="[Rule.BAZAAR_NO_AUCTION]"
+    >
       <template #icon>
         <img src="~/assets/features/C1/bazaar.png" height="45">
       </template>
@@ -93,7 +122,10 @@
       </template>
     </RuleBox>
 
-    <RuleBox :depends-on="GameElement.HILL">
+    <RuleBox
+      :depends-on="GameElement.HILL"
+      :rules="[Rule.HILL_TIEBREAKER]"
+    >
       <template #icon>
         <img src="~/assets/features/C1/hill.png" height="45">
       </template>
@@ -104,7 +136,10 @@
       </template>
     </RuleBox>
 
-    <RuleBox :depends-on="GameElement.FESTIVAL">
+    <RuleBox
+      :depends-on="GameElement.FESTIVAL"
+      :rules="[Rule.FESTIVAL_RETURN]"
+    >
       <template #icon>
         <img src="~/assets/features/C1/festival.png" height="45">
       </template>
@@ -115,7 +150,10 @@
       </template>
     </RuleBox>
 
-    <RuleBox :depends-on="GameElement.ESCAPE">
+    <RuleBox
+      :depends-on="GameElement.ESCAPE"
+      :rules="[Rule.ESCAPE_VARIANT]"
+    >
       <template #icon>
         <img src="~/assets/features/C1/escape.png" height="45">
       </template>
@@ -126,7 +164,10 @@
       </template>
     </RuleBox>
 
-    <RuleBox :depends-on="GameElement.TUNNEL">
+    <RuleBox
+      :depends-on="GameElement.TUNNEL"
+      :rules="[Rule.TUNNELIZE_OTHER_EXPANSIONS, Rule.MORE_TUNNEL_TOKENS]"
+    >
       <template #icon>
         <ExpansionSymbol :expansion="Expansion.TUNNEL" />
       </template>
@@ -140,7 +181,10 @@
       </template>
     </RuleBox>
 
-    <RuleBox :depends-on="Expansion.COUNT">
+    <RuleBox
+      :depends-on="Expansion.COUNT"
+      :rules="[Rule.COC_FINAL_SCORING]"
+    >
       <template #icon>
         <ExpansionSymbol :expansion="Expansion.COUNT" />
       </template>
@@ -151,7 +195,10 @@
       </template>
     </RuleBox>
 
-    <RuleBox :depends-on="Expansion.COUNT">
+    <RuleBox
+      :depends-on="Expansion.COUNT"
+      :rules="[Rule.COUNT_MOVE]"
+    >
       <template #icon>
         <ExpansionSymbol :expansion="Expansion.COUNT" />
       </template>
@@ -162,7 +209,10 @@
       </template>
     </RuleBox>
 
-    <RuleBox :depends-on="Expansion.LABYRINTH">
+    <RuleBox
+      :depends-on="Expansion.LABYRINTH"
+      :rules="[Rule.LABYRINTH_VARIANT]"
+    >
       <template #icon>
         <ExpansionSymbol :expansion="Expansion.LABYRINTH" />
       </template>
@@ -220,4 +270,11 @@ export default {
 .show-available, .show-changed
   .rule-box.unavailable
     display: none
+
+.show-changed
+  .rule-box.default-value
+    display: none
+
+.read-only
+  filter: grayscale(1)
 </style>

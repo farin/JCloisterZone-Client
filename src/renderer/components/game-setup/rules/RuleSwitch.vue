@@ -1,12 +1,14 @@
 <template>
   <v-checkbox
+    v-if="!readOnly"
     v-model="value"
     class="rule-switch"
     :label="rule.title"
-    :disabled="!enabled || readOnly"
+    :disabled="!enabled"
     hide-details
     :color="theme === 'light' ? '#3E2723' : '#bbb'"
   />
+  <span v-else class="ro-value"><v-icon>fas {{ value ? 'fa-check' : 'fa-times' }}</v-icon> {{ rule.title }}</span>
 </template>
 
 <script>

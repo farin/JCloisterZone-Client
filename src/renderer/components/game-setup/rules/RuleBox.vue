@@ -4,6 +4,7 @@
       'rule-box': true,
       'available': available,
       'unavailable': !available,
+      'default-value': defaultValue,
     }"
   >
     <div class="rule-icon">
@@ -22,14 +23,20 @@ import { Expansion } from '@/models/expansions'
 
 export default {
   props: {
-    dependsOn: { type: [Object, Array], default: null }
+    dependsOn: { type: [Object, Array], default: null },
+    rules: { type: Array, required: true }
   },
 
   computed: {
     ...mapState({
       sets: state => state.gameSetup.sets,
-      elements: state => state.gameSetup.elements
+      elements: state => state.gameSetup.elements,
+      setupRules: state => state.gameSetup.rules
     }),
+
+    defaultValue () {
+      return this.rules.every(r => r.default === this.setupRules[r.id])
+    },
 
     available () {
       if (this.dependsOn === null) {

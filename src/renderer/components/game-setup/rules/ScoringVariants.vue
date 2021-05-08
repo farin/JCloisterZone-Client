@@ -1,6 +1,14 @@
 <template>
-  <div  :class="'show-' + show">
-    <RuleBox :depends-on="GameElement.LITTLE_BUILDINGS">
+  <div
+    :class="{
+      ['show-' + show]: true,
+      'read-only': readOnly
+    }"
+  >
+    <RuleBox
+      :depends-on="GameElement.LITTLE_BUILDINGS"
+      :rules="[Rule.LITTLE_BUILDINGS_SCORING]"
+    >
       <template #icon>
         <img src="~/assets/figures/lb.png" width="45" height="45">
       </template>
@@ -11,7 +19,10 @@
       </template>
     </RuleBox>
 
-    <RuleBox :depends-on="[GameElement.KING, GameElement.ROBBER]">
+    <RuleBox
+      :depends-on="[GameElement.KING, GameElement.ROBBER]"
+      :rules="[Rule.KING_AND_ROBBER_SCORING]"
+    >
       <template #icon>
         <img src="~/assets/figures/king_robber.png" width="45" height="45">
       </template>
@@ -24,7 +35,9 @@
       </template>
     </RuleBox>
 
-    <RuleBox>
+    <RuleBox
+      :rules="[Rule.TINY_CITY_SCORING]"
+    >
       <template #icon>
         <img src="~/assets/features/C1/tiny-city.png" width="45" height="45">
       </template>
@@ -78,4 +91,11 @@ export default {
 .show-available, .show-changed
   .rule-box.unavailable
     display: none
+
+.show-changed
+  .rule-box.default-value
+    display: none
+
+.read-only
+  filter: grayscale(1)
 </style>

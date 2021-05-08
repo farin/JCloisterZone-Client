@@ -190,7 +190,7 @@ header .v-alert
   margin-top: 40px
 
 .game-setup-overview
-  margin: 40px 0
+  margin-top: 40px
 
 h2
   font-weight: 300
@@ -206,9 +206,10 @@ h2
 
 .rules
   padding-right: 20px
+  font-size: 14px
 
   h2
-    margin: 0 -20px 20px 0
+    margin: 30px -20px 10px 0
 
 @media (max-width: 1079px)
   .slots

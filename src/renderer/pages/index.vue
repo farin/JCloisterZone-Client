@@ -374,8 +374,6 @@ h3
 
   .landing-view .disclaimer-content p
     margin-bottom: 8px
-
-
 </style>
 
 <style lang="sass">

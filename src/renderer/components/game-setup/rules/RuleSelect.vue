@@ -16,7 +16,7 @@
       dense
       hide-details
     />
-    <span v-else class="ro-value">{{ value }}</span>
+    <span v-else class="ro-value">{{ title }}</span>
   </div>
 </template>
 
@@ -40,6 +40,10 @@ export default {
       set (value) {
         this.$store.dispatch('gameSetup/setRuleConfig', { id: this.rule.id, config: value })
       }
+    },
+
+    title () {
+      return this.rule.values.find(v => v.value === this.value).text
     }
   }
 }
@@ -63,6 +67,10 @@ export default {
       width: 360px
 
   .ro-value
-    text-decoration: underline
-    text-decoration-color: var(--v-primary-base)
+    padding: 3px
+    border-radius: 3px
+
+    +theme using ($theme)
+      background: #{map-get($theme, 'line-color')}
+
 </style>
