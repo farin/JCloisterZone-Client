@@ -16,6 +16,7 @@ import { mapState } from 'vuex'
 
 export default {
   props: {
+    setup: { type: Object, required: true },
     rule: { type: Object, required: true },
     enabled: { type: Boolean, default: true },
     readOnly: { type: Boolean, defaukt: false }
@@ -28,10 +29,13 @@ export default {
 
     value: {
       get () {
-        return this.$store.state.gameSetup.rules[this.rule.id]
+        return this.setup.rules[this.rule.id]
       },
 
       set (value) {
+        // bound directlu to gemaSetup action
+        // not much clear, when setup values is no prop
+        // but working hack as dispatching action is only handling for editable rule
         this.$store.dispatch('gameSetup/setRuleConfig', { id: this.rule.id, config: value })
       }
     }

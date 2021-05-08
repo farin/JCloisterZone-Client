@@ -125,6 +125,7 @@
 
     <ConfigSection title="Gameplay Variants">
       <GameplayVariants
+        :setup="setup"
         class="rules-section other-rules"
         :show="showValidRulesOnly ? 'available' : 'all'"
       />
@@ -132,6 +133,7 @@
 
     <ConfigSection title="Scoring Variants">
       <ScoringVariants
+        :setup="setup"
         class="rules-section other-rules"
         :show="showValidRulesOnly ? 'available' : 'all'"
       />
@@ -178,6 +180,7 @@ export default {
 
   computed: {
     ...mapState({
+      setup: state => state.gameSetup,
       detail: state => state.gameSetup.detail,
       figures: state => state.gameSetup.figures
     }),

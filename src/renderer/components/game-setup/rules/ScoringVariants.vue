@@ -6,6 +6,7 @@
     }"
   >
     <RuleBox
+      :setup="setup"
       :depends-on="GameElement.LITTLE_BUILDINGS"
       :rules="[Rule.LITTLE_BUILDINGS_SCORING]"
     >
@@ -14,12 +15,13 @@
       </template>
       <template #rules="{ available }">
         <div class="rule-line">
-          Assign <RuleSelect :rule="Rule.LITTLE_BUILDINGS_SCORING" :enabled="available" short :read-only="readOnly" /> points for tower/house/shed.
+          Assign <RuleSelect :setup="setup" :rule="Rule.LITTLE_BUILDINGS_SCORING" :enabled="available" short :read-only="readOnly" /> points for tower/house/shed.
         </div>
       </template>
     </RuleBox>
 
     <RuleBox
+      :setup="setup"
       :depends-on="[GameElement.KING, GameElement.ROBBER]"
       :rules="[Rule.KING_AND_ROBBER_SCORING]"
     >
@@ -29,13 +31,14 @@
       <template #rules="{ available }">
         <div class="rule-line">
           <!-- TODO hide at the end of the game if continuosly is selected -->
-          Score <RuleSelect :rule="Rule.KING_AND_ROBBER_SCORING" :enabled="available" xlong :read-only="readOnly" />
+          Score <RuleSelect :setup="setup" :rule="Rule.KING_AND_ROBBER_SCORING" :enabled="available" xlong :read-only="readOnly" />
           <span :style="{ opacity: rules['king-and-robber-scoring'] === 'continuously' ? 0.2 : 1 }"> at the end of the game.</span>
         </div>
       </template>
     </RuleBox>
 
     <RuleBox
+      :setup="setup"
       :rules="[Rule.TINY_CITY_SCORING]"
     >
       <template #icon>
@@ -43,7 +46,7 @@
       </template>
       <template #rules>
         <div class="rule-line">
-          Score tiny city for <RuleSelect :rule="Rule.TINY_CITY_SCORING" enabled short :read-only="readOnly" /> points.
+          Score tiny city for <RuleSelect :setup="setup" :rule="Rule.TINY_CITY_SCORING" enabled short :read-only="readOnly" /> points.
         </div>
       </template>
     </RuleBox>
@@ -68,6 +71,7 @@ export default {
   },
 
   props: {
+    setup: { type: Object, required: true },
     show: { type: String, required: true }, // all, available, changed
     readOnly: { type: Boolean, defaukt: false }
   },

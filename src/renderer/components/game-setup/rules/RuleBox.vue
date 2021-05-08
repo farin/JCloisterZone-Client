@@ -17,25 +17,19 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import { GameElement } from '@/models/elements'
 import { Expansion } from '@/models/expansions'
 
 export default {
   props: {
+    setup: { type: Object, required: true },
     dependsOn: { type: [Object, Array], default: null },
     rules: { type: Array, required: true }
   },
 
   computed: {
-    ...mapState({
-      sets: state => state.gameSetup.sets,
-      elements: state => state.gameSetup.elements,
-      setupRules: state => state.gameSetup.rules
-    }),
-
     defaultValue () {
-      return this.rules.every(r => r.default === this.setupRules[r.id])
+      return this.rules.every(r => r.default === this.setup.rules[r.id])
     },
 
     available () {
@@ -45,10 +39,10 @@ export default {
 
       const isItemAvailable = item => {
         if (item instanceof GameElement) {
-          return !!this.elements[item.id]
+          return !!this.setup.elements[item.id]
         }
         if (item instanceof Expansion) {
-          return item.sets.reduce((acc, set) => acc || !!this.sets[set.id], false)
+          return item.sets.reduce((acc, set) => acc || !!this.setup.sets[set.id], false)
         }
         console.error(item)
         throw new Error('Invalid type')

@@ -48,13 +48,13 @@
       <GameSetupOverview :sets="sets" :elements="elements" :timer="timer" />
 
       <div class="rules">
-        <h2>Gameplay Variants</h2>
-        <GameplayVariants show="changed" read-only />
+        <h2>Altered Gameplay</h2>
+        <GameplayVariants :setup="setup" show="changed" read-only />
       </div>
 
       <div class="rules">
-        <h2>Scoring Variants</h2>
-        <ScoringVariants show="changed" read-only />
+        <h2>Altered Scoring</h2>
+        <ScoringVariants :setup="setup" show="changed" read-only />
       </div>
     </template>
   </GameSetupGrid>
@@ -89,6 +89,7 @@ export default {
 
   computed: {
     ...mapState({
+      setup: state => state.game.setup,
       gameId: state => state.game.id,
       sets: state => state.game.setup?.sets,
       rules: state => state.game.setup?.rules,
