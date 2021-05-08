@@ -5,6 +5,16 @@
     </v-card-title>
     <v-card-text>
       <GameSetupOverview :sets="sets" :elements="elements" :timer="timer" />
+
+      <div class="rules">
+        <h2>Altered Gameplay</h2>
+        <GameplayVariants :setup="setup" show="changed" read-only />
+      </div>
+
+      <div class="rules">
+        <h2>Altered Scoring</h2>
+        <ScoringVariants :setup="setup" show="changed" read-only />
+      </div>
     </v-card-text>
     <v-card-actions>
       <v-spacer />
@@ -20,10 +30,14 @@
 import { mapState } from 'vuex'
 
 import GameSetupOverview from '@/components/game-setup/overview/GameSetupOverview'
+import GameplayVariants from '@/components/game-setup/rules/GameplayVariants'
+import ScoringVariants from '@/components/game-setup/rules/ScoringVariants'
 
 export default {
   components: {
-    GameSetupOverview
+    GameSetupOverview,
+    GameplayVariants,
+    ScoringVariants
   },
 
   props: {
@@ -31,6 +45,7 @@ export default {
 
   computed: {
     ...mapState({
+      setup: state => state.game.setup,
       sets: state => state.game.setup?.sets,
       elements: state => state.game.setup?.elements,
       timer: state => state.game.setup?.timer
