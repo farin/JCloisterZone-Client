@@ -96,6 +96,7 @@ export default {
     display: flex
     align-items: center
     justify-content: center
+    flex-shrink: 0
 
   .v-select
     margin: 0 5px
