@@ -144,18 +144,7 @@
     <RuleBox
       :setup="setup"
       :depends-on="Expansion.COUNT"
-      :rules="[Rule.COC_FINAL_SCORING]"
-      :read-only="readOnly"
-    >
-      <template #icon>
-        <ExpansionSymbol :expansion="Expansion.COUNT" />
-      </template>
-    </RuleBox>
-
-    <RuleBox
-      :setup="setup"
-      :depends-on="Expansion.COUNT"
-      :rules="[Rule.COUNT_MOVE]"
+      :rules="[Rule.COC_FINAL_SCORING, Rule.COUNT_MOVE]"
       :read-only="readOnly"
     >
       <template #icon>
