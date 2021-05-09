@@ -10,6 +10,7 @@ export class Rule {
     } else {
       this.default = values === Boolean ? false : values[0].value
     }
+    this.options = options
   }
 
   static all () {
@@ -29,16 +30,17 @@ export function getDefaultRules () {
 }
 
 export const PRINCESS_ACTION = Rule.PRINCESS_ACTION = new Rule('princess-action',
-  'Princess {} remove knight from a city.',
+  'The Princess {} remove knight from a city.',
   { elements: ['princess'] },
   [
     { value: 'may', text: 'may', flags: ['HiG'] },
     { value: 'must', text: 'must', flags: ['RGG', 'ZMG'] }
-  ]
+  ],
+  { style: 'short' }
 )
 
 export const FAIRY_PLACEMENT = Rule.FAIRY_PLACEMENT = new Rule('fairy-placement',
-  'Fairy is deployed {}.',
+  'The Fairy is deployed {}.',
   { elements: ['fairy'] },
   [
     { value: 'next-follower', text: 'next to a follower', flags: ['HiG'] },
@@ -52,26 +54,28 @@ export const DRAGON_MOVEMENT = Rule.DRAGON_MOVEMENT = new Rule('dragon-move',
   [
     { value: 'before-scoring', text: 'before', flags: ['HiG', 'ZMG'] },
     { value: 'after-scoring', text: 'after', flags: ['RGG'] }
-  ]
+  ],
+  { style: 'short' }
 )
 
 export const BARN_PLACEMENT = Rule.BARN_PLACEMENT = new Rule('barn-placement',
-  'Barn {} be placed on a field already occupied by another barn',
+  'Barn {} be placed on a\u00A0field already occupied by another barn.',
   { elements: ['barn'] },
   [
     { value: 'not-occupied', text: "can't " },
     { value: 'occupied', text: 'can' }
-  ]
+  ],
+  { style: 'short' }
 )
 
 export const WAGON_MOVE = Rule.WAGON_MOVE = new Rule('wagon-move',
-  'After scored, wagon can be moved to an adjacent unoccupied, incomplete feature. Adjacent means ',
+  'After scored, wagon can me moved to adjacent unoccupied, incomplete feature. Adjacent means: {}',
   { elements: ['wagon'] },
   [
     { value: 'C1', text: 'connected (road crossing or road heading to a city/cloister) (1st ed.)' },
     { value: 'C2', text: 'feature on the same or an adjacent tile (2nd ed.)' }
   ],
-  { default: 'C2' }
+  { default: 'C2', style: 'xlong' }
 )
 
 export const BAZAAR_NO_AUCTION = Rule.BAZAAR_NO_AUCTION = new Rule('bazaar-no-auction',
@@ -84,7 +88,7 @@ export const BAZAAR_NO_AUCTION = Rule.BAZAAR_NO_AUCTION = new Rule('bazaar-no-au
 )
 
 export const HILL_TIEBREAKER = Rule.HILL_TIEBREAKER = new Rule('hill-tiebreaker',
-  'Tiebreaker method: {} on hills',
+  'Tiebreaker method: {} on hills.',
   { elements: ['bazaar'] },
   [
     { value: 'at-least-one-follower', text: 'at least one follower' },
@@ -96,7 +100,7 @@ export const HILL_TIEBREAKER = Rule.HILL_TIEBREAKER = new Rule('hill-tiebreaker'
 )
 
 export const ESCAPE_VARIANT = Rule.ESCAPE_VARIANT = new Rule('espace-variant',
-  'Cloister must be placed adjacent to {} of a besieged city to escape.',
+  'Cloister must be placed adjacent to {} of a\u00A0;besieged city to espace.',
   { elements: ['escape'] },
   [
     { value: 'any-tile', text: 'any tile', flags: ['RGG'] },
@@ -138,7 +142,8 @@ export const MORE_TUNNEL_TOKENS = Rule.MORE_TUNNEL_TOKENS = new Rule('more-tunne
     { value: '1/1', text: '1/1' }
   ],
   {
-    link: 'http://wikicarpedia.com/index.php/The_Tunnel_(1st_edition)#Preparation'
+    link: 'http://wikicarpedia.com/index.php/The_Tunnel_(1st_edition)#Preparation',
+    style: 'short'
   }
 )
 
@@ -155,14 +160,15 @@ export const FESTIVAL_RETURN = Rule.FESTIVAL_RETURN = new Rule('festival-return'
 )
 
 export const KEEP_MONASTERIES = Rule.KEEP_MONASTERIES = new Rule('keep-monasteries',
-  'Special monasteries {}',
+  'Special monasteries {}.',
   { tiles: ['monasteries'] },
   [
     { value: 'replace', text: 'replace orignal monasteries' },
     { value: 'add', text: 'are just added' }
   ],
   {
-    link: 'http://wikicarpedia.com/index.php/Monasteries#cite_note-1'
+    link: 'http://wikicarpedia.com/index.php/Monasteries#cite_note-1',
+    style: 'long'
   }
 )
 
@@ -176,26 +182,29 @@ export const LABYRINTH_VARIANT = Rule.LABYRINTH_VARIANT = new Rule('labyrinth-va
   {
     default: 'advanced',
     link: 'http://wikicarpedia.com/index.php/The_Labyrinths'
-  }
+  },
+  { style: 'short' }
 )
 
 export const COC_FINAL_SCORING = Rule.COC_FINAL_SCORING = new Rule('coc-final-scoring',
-  'Moving meeples from the City of Carcassonne before final scoring',
-  null,
+  'Moving meeples from the City of Carcassonne before final scoring {}.',
+  { tiles: ['count'] },
   [
     { value: 'market-only', text: 'is allowed only from market district (C2)' },
     { value: 'any-district', text: 'is not limited (C1)' }
-  ]
+  ],
+  { style: 'xlong' }
 )
 
 export const COUNT_MOVE = Rule.COUNT_MOVE = new Rule('count-move',
-  'When meeple is deployed to the City of C. then the Count is moved ',
-  null,
+  'When meeple is deployed to the City of C. then the Count is moved {}.',
+  { tiles: ['count'] },
   [
     { value: 'by-player', text: 'by player' },
     { value: 'clockwise', text: 'clockwise to the next district' },
     { value: 'follow-meeple', text: 'to whichever district as the meeple' }
-  ]
+  ],
+  { style: 'long ' }
 )
 
 // Scoring
@@ -208,7 +217,8 @@ export const LITTLE_BUILDINGS_SCORING = Rule.LITTLE_BUILDINGS_SCORING = new Rule
     { value: '3/2/1', text: '3/2/1' }
   ],
   {
-    link: 'http://wikicarpedia.com/index.php/Little_Buildings_(1st_edition)#Variant'
+    link: 'http://wikicarpedia.com/index.php/Little_Buildings_(1st_edition)#Variant',
+    style: 'short'
   }
 )
 
@@ -222,7 +232,9 @@ export const KING_AND_ROBBER_SCORING = Rule.KING_AND_ROBBER_SCORING = new Rule('
     { value: 'continuously', text: 'points continuously during play' }
   ],
   {
-    link: 'http://wikicarpedia.com/index.php/Count,_King_and_Robber_(1st_edition)#House_Rules'
+    link: 'http://wikicarpedia.com/index.php/Count,_King_and_Robber_(1st_edition)#House_Rules',
+    style: 'xlong',
+    hideTitleSuffixIfValueEquals: 'continuously'
   }
 )
 
@@ -232,5 +244,6 @@ export const TINY_CITY_SCORING = Rule.TINY_CITY_SCORING = new Rule('tiny-city-sc
   [
     { value: '4', text: '4' },
     { value: '2', text: '2' }
-  ]
+  ],
+  { style: 'short' }
 )

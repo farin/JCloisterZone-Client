@@ -11,7 +11,14 @@
       <slot name="icon" />
     </div>
     <div class="rule-lines">
-      <slot name="rules" :available="available" />
+      <RuleLine
+        v-for="rule in rules"
+        :key="rule.id"
+        :setup="setup"
+        :rule="rule"
+        :available="available"
+        :read-only="readOnly"
+      />
     </div>
   </div>
 </template>
@@ -19,12 +26,18 @@
 <script>
 import { GameElement } from '@/models/elements'
 import { Expansion } from '@/models/expansions'
+import RuleLine from '@/components/game-setup/rules/RuleLine'
 
 export default {
+  components: {
+    RuleLine
+  },
+
   props: {
     setup: { type: Object, required: true },
     dependsOn: { type: [Object, Array], default: null },
-    rules: { type: Array, required: true }
+    rules: { type: Array, required: true },
+    readOnly: { type: Boolean, defaukt: false }
   },
 
   computed: {
