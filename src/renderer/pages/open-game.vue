@@ -153,8 +153,8 @@ export default {
   },
 
   methods: {
-    async startGame () {
-      await this.$store.dispatch('game/start')
+    startGame () {
+      this.$store.dispatch('game/start')
     }
   }
 }
@@ -196,8 +196,6 @@ h2
 
 .options
   padding: 30px 20px 0
-
-
 
 @media (max-width: 1079px)
   .slots

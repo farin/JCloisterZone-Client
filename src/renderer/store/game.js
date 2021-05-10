@@ -322,10 +322,10 @@ export const getters = {
 }
 
 export const actions = {
-  async save ({ state, dispatch }) {
+  async save ({ state, dispatch }, { onlySetup = false } = {}) {
     return new Promise(async (resolve, reject) => { /* eslint no-async-promise-executor: 0 */
       let { filePath } = await ipcRenderer.invoke('dialog.showSaveDialog', {
-        title: 'Save Game',
+        title: onlySetup ? 'Save Game Setup' : 'Save Game',
         filters: SAVED_GAME_FILTERS,
         properties: ['createDirectory', 'showOverwriteConfirmation']
       })
@@ -333,25 +333,34 @@ export const actions = {
         if (extname(filePath) === '') {
           filePath += '.jcz'
         }
-        const clock = state.lastMessageClock + Date.now() - state.lastMessageClockLocal
-        const content = {
-          appVersion: getAppVersion(),
-          gameId: state.id,
-          name: '',
-          initialSeed: state.initialSeed,
-          created: (new Date()).toISOString(),
-          clock,
-          setup: state.setup,
-          players: state.players.map(p => ({
-            name: p.name,
-            slot: p.slot,
-            clientId: p.clientId
-          })),
-          replay: state.gameMessages.map(m => {
-            m = pick(m, ['type', 'payload', 'player', 'clock'])
-            m.payload = omit(m.payload, ['gameId'])
-            return m
-          })
+        let content
+        if (onlySetup) {
+          content = {
+            appVersion: getAppVersion(),
+            created: (new Date()).toISOString(),
+            setup: state.setup
+          }
+        } else {
+          const clock = state.lastMessageClock + Date.now() - state.lastMessageClockLocal
+          content = {
+            appVersion: getAppVersion(),
+            gameId: state.id,
+            name: '',
+            initialSeed: state.initialSeed,
+            created: (new Date()).toISOString(),
+            clock,
+            setup: state.setup,
+            players: state.players.map(p => ({
+              name: p.name,
+              slot: p.slot,
+              clientId: p.clientId
+            })),
+            replay: state.gameMessages.map(m => {
+              m = pick(m, ['type', 'payload', 'player', 'clock'])
+              m.payload = omit(m.payload, ['gameId'])
+              return m
+            })
+          }
         }
 
         if (Object.keys(state.gameAnnotations).length) {
@@ -396,6 +405,11 @@ export const actions = {
           const msg = `Saves created prior ${SAVED_GAME_COMPATIBILITY} are not supported.`
           ipcRenderer.invoke('dialog.showErrorBox', { title: 'Load Error', content: msg })
           reject(msg)
+          return
+        }
+
+        if (sg.setup && (!sg.players || !sg.initialSeed || !sg.replay || !sg.clock || !sg.gameId)) {
+          dispatch('gameSetup/createGame', sg.setup, { root: true })
           return
         }
 

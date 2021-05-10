@@ -57,6 +57,10 @@
       </div>
       <ScoringVariants :setup="setup" show="changed" read-only />
     </div>
+
+    <div class="setup-buttons">
+      <v-btn small color="secondary" @click="saveGameSetup">Save Game Setup</v-btn>
+    </div>
   </div>
 </template>
 
@@ -69,7 +73,6 @@ import OverviewElementTile from '@/components/game-setup/overview/OverviewElemen
 import OverviewTileSetTile from '@/components/game-setup/overview/OverviewTileSetTile'
 import ScoringVariants from '@/components/game-setup/rules/ScoringVariants'
 import TimerValue from '@/components/game-setup/overview/TimerValue'
-
 
 export default {
   components: {
@@ -98,6 +101,12 @@ export default {
 
     scoringAltred () {
       return Rule.all().filter(r => r.kind === SCORING).some(r => r.default !== this.rules[r.id])
+    }
+  },
+
+  methods: {
+    saveGameSetup () {
+      this.$store.dispatch('game/save', { onlySetup: true })
     }
   }
 }
@@ -141,4 +150,8 @@ section
     +theme using ($theme)
       color: map-get($theme, 'gray-text-color')
 
+.setup-buttons
+  padding-top: 20px
+  display: flex
+  justify-content: flex-start
 </style>
