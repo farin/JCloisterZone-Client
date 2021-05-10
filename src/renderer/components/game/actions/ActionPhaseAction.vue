@@ -173,12 +173,10 @@ export default {
 
   mounted () {
     this.$root.$on('rclick', this.selectNext)
-    window.addEventListener('keydown', this.onKeyDown)
   },
 
   beforeDestroy () {
     this.$root.$off('rclick', this.selectNext)
-    window.removeEventListener('keydown', this.onKeyDown)
   },
 
   methods: {
@@ -191,13 +189,6 @@ export default {
     selectNext () {
       if (this.local) {
         this.select((this.selected + 1) % this.items.length)
-      }
-    },
-
-    onKeyDown (ev) {
-      if (this.local && ev.key === 'Tab' && !this.$store.state.gameDialog) {
-        this.selectNext()
-        ev.preventDefault()
       }
     }
   }

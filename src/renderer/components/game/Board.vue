@@ -221,7 +221,7 @@ export default {
           }, 40)
         }
       }
-      if (ev.key === 'Tab') {
+      if (ev.key === 'Tab' && !this.$store.state.gameDialog) {
         this.$root.$emit('rclick', ev)
       }
       if (ev.key === 'z') {
