@@ -7,7 +7,6 @@
   >
     <RuleBox
       :setup="setup"
-      :depends-on="GameElement.LITTLE_BUILDINGS"
       :rules="[Rule.LITTLE_BUILDINGS_SCORING]"
       :read-only="readOnly"
     >
@@ -18,7 +17,6 @@
 
     <RuleBox
       :setup="setup"
-      :depends-on="[GameElement.KING, GameElement.ROBBER]"
       :rules="[Rule.KING_AND_ROBBER_SCORING]"
       :read-only="readOnly"
     >

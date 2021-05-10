@@ -7,7 +7,6 @@
   >
     <RuleBox
       :setup="setup"
-      :depends-on="Expansion.MONASTERIES"
       :rules="[Rule.KEEP_MONASTERIES]"
       :read-only="readOnly"
     >
@@ -18,7 +17,6 @@
 
     <RuleBox
       :setup="setup"
-      :depends-on="GameElement.PIG_HERD"
       :rules="[Rule.GQ11_PIG_HERD]"
       :read-only="readOnly"
     >
@@ -29,7 +27,6 @@
 
     <RuleBox
       :setup="setup"
-      :depends-on="GameElement.WAGON"
       :rules="[Rule.WAGON_MOVE]"
       :read-only="readOnly"
     >
@@ -42,7 +39,6 @@
 
     <RuleBox
       :setup="setup"
-      :depends-on="GameElement.BARN"
       :rules="[Rule.BARN_PLACEMENT]"
       :read-only="readOnly"
     >
@@ -55,7 +51,6 @@
 
     <RuleBox
       :setup="setup"
-      :depends-on="GameElement.FAIRY"
       :rules="[Rule.FAIRY_PLACEMENT]"
       :read-only="readOnly"
     >
@@ -66,7 +61,6 @@
 
     <RuleBox
       :setup="setup"
-      :depends-on="GameElement.DRAGON"
       :rules="[Rule.DRAGON_MOVEMENT]"
       :read-only="readOnly"
     >
@@ -77,7 +71,6 @@
 
     <RuleBox
       :setup="setup"
-      :depends-on="GameElement.PRINCESS"
       :rules="[Rule.PRINCESS_ACTION]"
       :read-only="readOnly"
     >
@@ -88,7 +81,6 @@
 
     <RuleBox
       :setup="setup"
-      :depends-on="GameElement.BAZAAR"
       :rules="[Rule.BAZAAR_NO_AUCTION]"
       :read-only="readOnly"
     >
@@ -99,7 +91,6 @@
 
     <RuleBox
       :setup="setup"
-      :depends-on="GameElement.HILL"
       :rules="[Rule.HILL_TIEBREAKER]"
       :read-only="readOnly"
     >
@@ -110,7 +101,6 @@
 
     <RuleBox
       :setup="setup"
-      :depends-on="GameElement.FESTIVAL"
       :rules="[Rule.FESTIVAL_RETURN]"
       :read-only="readOnly"
     >
@@ -121,7 +111,6 @@
 
     <RuleBox
       :setup="setup"
-      :depends-on="GameElement.ESCAPE"
       :rules="[Rule.ESCAPE_VARIANT]"
       :read-only="readOnly"
     >
@@ -132,7 +121,6 @@
 
     <RuleBox
       :setup="setup"
-      :depends-on="GameElement.TUNNEL"
       :rules="[Rule.TUNNELIZE_OTHER_EXPANSIONS, Rule.MORE_TUNNEL_TOKENS]"
       :read-only="readOnly"
     >
@@ -143,7 +131,6 @@
 
     <RuleBox
       :setup="setup"
-      :depends-on="Expansion.COUNT"
       :rules="[Rule.COC_FINAL_SCORING, Rule.COUNT_MOVE]"
       :read-only="readOnly"
     >
@@ -154,7 +141,6 @@
 
     <RuleBox
       :setup="setup"
-      :depends-on="Expansion.LABYRINTH"
       :rules="[Rule.LABYRINTH_VARIANT]"
       :read-only="readOnly"
     >

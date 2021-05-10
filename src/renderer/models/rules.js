@@ -22,6 +22,21 @@ export class Rule {
     }
     return Rule.__all
   }
+
+  isAvailable ({ elements, sets }) {
+    if (!this.deps.length) {
+      return true
+    }
+    return this.deps.reduce((acc, item) => {
+      if (item instanceof GameElement) {
+        return acc || !!elements[item.id]
+      }
+      if (item instanceof Expansion) {
+        return acc || item.sets.reduce((acc, set) => acc || !!sets[set.id], false)
+      }
+      throw new Error('Invalid type')
+    }, false)
+  }
 }
 
 export function getDefaultRules () {

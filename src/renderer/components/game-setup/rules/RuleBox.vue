@@ -24,8 +24,6 @@
 </template>
 
 <script>
-import { GameElement } from '@/models/elements'
-import { Expansion } from '@/models/expansions'
 import RuleLine from '@/components/game-setup/rules/RuleLine'
 
 export default {
@@ -35,7 +33,6 @@ export default {
 
   props: {
     setup: { type: Object, required: true },
-    dependsOn: { type: [Object, Array], default: null },
     rules: { type: Array, required: true },
     readOnly: { type: Boolean, defaukt: false }
   },
@@ -46,26 +43,7 @@ export default {
     },
 
     available () {
-      if (this.dependsOn === null) {
-        return true
-      }
-
-      const isItemAvailable = item => {
-        if (item instanceof GameElement) {
-          return !!this.setup.elements[item.id]
-        }
-        if (item instanceof Expansion) {
-          return item.sets.reduce((acc, set) => acc || !!this.setup.sets[set.id], false)
-        }
-        console.error(item)
-        throw new Error('Invalid type')
-      }
-
-      if (Array.isArray(this.dependsOn)) {
-        return this.dependsOn.reduce((acc, val) => acc || isItemAvailable(val), false)
-      } else {
-        return isItemAvailable(this.dependsOn)
-      }
+      return this.rules.some(r => r.isAvailable(this.setup))
     }
   }
 }
