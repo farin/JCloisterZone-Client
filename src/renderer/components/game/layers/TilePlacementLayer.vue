@@ -77,16 +77,7 @@ export default {
     },
 
     getForcedRotation (rotations) {
-      if (rotations.length === 1) {
-        return rotations[0]
-      }
-      if (this.$tiles.tiles[this.tileId].symmetry === 2 && rotations.length === 2) {
-        if (rotations.includes(this.rotation)) {
-          return this.rotation
-        }
-        return (this.rotation + 90) % 360
-      }
-      return this.rotation
+      return rotations[0]
     },
 
     onClick (ev, rotations, position) {
