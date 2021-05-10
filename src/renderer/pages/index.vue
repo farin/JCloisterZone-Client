@@ -73,10 +73,15 @@
             New game
           </v-btn>
 
-          <template v-if="recentGameSetups.length && $store.state.loaded.plugins">
+          <template v-if="recentSetupSaves.length || recentGameSetups.length">
             <h3>Recent Setups</h3>
 
-            <div class="recent-list setup-list d-flex flex-column align-end">
+            <div v-if="recentSetupSaves.length" class="recent-list saved-games-list">
+              <a v-for="file in recentSetupSaves" :key="file" href="#" @click="loadSavedSetup(file)">{{ file }}</a>
+              <a v-if="!recentGameSetups.length" class="clear" href="#" @click="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a>
+            </div>
+
+            <div v-if="recentGameSetups.length && $store.state.loaded.plugins" class="recent-list setup-list d-flex flex-column align-end">
               <div
                 v-for="(setup, idx) in recentGameSetups"
                 :key="idx"
@@ -85,7 +90,7 @@
               >
                 <GameSetupOverviewInline :sets="setup.sets" :elements="setup.elements" />
               </div>
-              <a class="clear" href="#" @click="clearRecentGameSetups"><v-icon>fas fa-times</v-icon> clear list</a>
+              <a class="clear" href="#" @click="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a>
             </div>
           </template>
         </div>
@@ -103,12 +108,12 @@
             </div>
           </div>
 
-          <template v-if="recentGames.length">
-            <h3>Recent Saves</h3>
+          <template v-if="recentSaves.length">
+            <h3>Recent Games</h3>
 
             <div class="recent-list saved-games-list">
-              <a v-for="file in recentGames" :key="file" href="#" @click="loadGame(file)">{{ file }}</a>
-              <a class="clear" href="#" @click="clearRecentGames"><v-icon>fas fa-times</v-icon> clear list</a>
+              <a v-for="file in recentSaves" :key="file" href="#" @click="loadSavedGame(file)">{{ file }}</a>
+              <a class="clear" href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> clear list</a>
             </div>
           </template>
         </div>
@@ -138,7 +143,8 @@ export default {
       isMac,
       isWin,
       // do not bind it to store
-      recentGames: [...this.$store.state.settings.recentSaves],
+      recentSaves: [...this.$store.state.settings.recentSaves],
+      recentSetupSaves: [...this.$store.state.settings.recentSetupSaves],
       recentGameSetups: [...this.$store.state.settings.recentGameSetups],
       updating: false
     }
@@ -165,7 +171,8 @@ export default {
 
   watch: {
     settingsLoaded () {
-      this.recentGames = [...this.$store.state.settings.recentSaves]
+      this.recentSaves = [...this.$store.state.settings.recentSaves]
+      this.recentSetupSaves = [...this.$store.state.settings.recentSetupSaves]
       this.recentGameSetups = [...this.$store.state.settings.recentGameSetups]
     }
   },
@@ -183,12 +190,25 @@ export default {
       this.$store.dispatch('networking/connectPlayOnline')
     },
 
-    async loadGame (file) {
+    loadGame () {
+      this.$store.dispatch('game/load')
+    },
+
+    async loadSavedGame (file) {
       try {
         await this.$store.dispatch('game/load', file)
       } catch {
         await this.$store.dispatch('settings/validateRecentSaves')
-        this.recentGames = [...this.$store.state.settings.recentSaves]
+        this.recentSaves = [...this.$store.state.settings.recentSaves]
+      }
+    },
+
+    async loadSavedSetup (file) {
+      try {
+        await this.$store.dispatch('game/load', file)
+      } catch {
+        await this.$store.dispatch('settings/validateRecentSetupSaves')
+        this.recentSetupSaves = [...this.$store.state.settings.recentSetupSaves]
       }
     },
 
@@ -204,14 +224,16 @@ export default {
       shell.openExternal(href)
     },
 
-    clearRecentGames () {
+    clearRecentSaves () {
       this.$store.dispatch('settings/clearRecentSaves')
-      this.recentGames = []
+      this.recentSaves = []
     },
 
-    clearRecentGameSetups () {
+    clearSetups () {
       this.$store.dispatch('settings/clearRecentGameSetups')
+      this.$store.dispatch('settings/clearRecentSetupSaves')
       this.recentGameSetups = []
+      this.recentSetupSaves = []
     },
 
     updateApp () {
@@ -340,8 +362,11 @@ h3
         color: inherit !important
         font-size: inherit !important
 
-  .saved-games-list a.clear
-    margin-top: 10px
+  .saved-games-list
+    margin-bottom: 20px
+
+    a.clear
+      margin-top: 10px
 
   .setup-list a.clear
     margin-top: -10px

@@ -372,7 +372,7 @@ export const actions = {
             reject(err)
           } else {
             Vue.nextTick(() => {
-              dispatch('settings/addRecentSave', filePath, { root: true })
+              dispatch(onlySetup ? 'settings/addRecentSetupSave' : 'settings/addRecentSave', filePath, { root: true })
             })
             resolve(filePath)
           }
@@ -410,6 +410,9 @@ export const actions = {
 
         if (sg.setup && (!sg.players || !sg.initialSeed || !sg.replay || !sg.clock || !sg.gameId)) {
           dispatch('gameSetup/createGame', sg.setup, { root: true })
+          Vue.nextTick(() => {
+            dispatch('settings/addRecentSetupSave', filePath, { root: true })
+          })
           return
         }
 

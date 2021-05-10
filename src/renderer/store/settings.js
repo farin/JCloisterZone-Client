@@ -17,6 +17,7 @@ export const state = () => ({
   enabledArtworks: ['classic'],
   lastGameSetup: null,
   recentSaves: [],
+  recentSetupSaves: [],
   recentGameSetups: [],
   recentJoinedGames: [],
   showValidRulesOnly: false,
@@ -68,6 +69,10 @@ export const mutations = {
 
   recentSaves (state, value) {
     state.recentSaves = value
+  },
+
+  recentSetupSaves (state, value) {
+    state.recentSetupSaves = value
   },
 
   recentGameSetups (state, value) {
@@ -148,8 +153,21 @@ export const actions = {
     dispatch('save')
   },
 
+  async addRecentSetupSave ({ state, commit, dispatch }, file) {
+    const recentSaves = state.recentSetupSaves.filter(f => f !== file) // if file is contained, it will be only reordered to begining
+    recentSaves.unshift(file)
+    recentSaves.splice(RECENT_GAMES_COUNT, recentSaves.length)
+    commit('recentSetupSaves', recentSaves)
+    dispatch('save')
+  },
+
   async clearRecentSaves ({ commit, dispatch }) {
     commit('recentSaves', [])
+    dispatch('save')
+  },
+
+  async clearRecentSetupSaves ({ commit, dispatch }) {
+    commit('recentSetupSaves', [])
     dispatch('save')
   },
 
@@ -171,6 +189,22 @@ export const actions = {
     }
     if (containsInvalid) {
       commit('recentSaves', state.recentSaves.filter(f => !invalid[f]))
+    }
+  },
+
+  async validateRecentSetupSaves ({ state, commit }) {
+    const invalid = {}
+    let containsInvalid = false
+    for (const f of state.recentSetupSaves) {
+      try {
+        await fs.promises.access(f, fs.constants.R_OK)
+      } catch (e) {
+        invalid[f] = true
+        containsInvalid = true
+      }
+    }
+    if (containsInvalid) {
+      commit('recentSetupSaves', state.recentSetupSaves.filter(f => !invalid[f]))
     }
   },
 

@@ -17,7 +17,7 @@ function createMenu (win) {
     { id: 'leave-game', label: 'Leave Game', click () { win.webContents.send('menu.leave-game') } },
     { type: 'separator' },
     { id: 'save-game', label: 'Save Game', accelerator: 'CommandOrControl+S', click () { win.webContents.send('menu.save-game') } },
-    { id: 'load-game', label: 'Load Game', accelerator: 'CommandOrControl+L', click () { win.webContents.send('menu.load-game') } },
+    { id: 'load-game', label: 'Load Game / Setup', accelerator: 'CommandOrControl+L', click () { win.webContents.send('menu.load-game') } },
     { type: 'separator' },
     { id: 'settigns', label: 'Settings', accelerator: 'CommandOrControl+,', click () { win.webContents.send('menu.show-settings') } },
     { type: 'separator' },
