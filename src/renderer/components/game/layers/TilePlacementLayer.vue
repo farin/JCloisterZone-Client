@@ -77,7 +77,7 @@ export default {
     },
 
     getForcedRotation (rotations) {
-      return rotations[0]
+      return rotations[0] 
     },
 
     onClick (ev, rotations, position) {
