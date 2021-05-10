@@ -2,8 +2,9 @@ import { GameElement } from '@/models/elements'
 import { Expansion } from '@/models/expansions'
 
 export class Rule {
-  constructor (id, title, deps, values, options = {}) {
+  constructor (id, kind, title, deps, values, options = {}) {
     this.id = id
+    this.kind = kind
     this.title = title
     this.deps = deps
     this.values = values
@@ -47,7 +48,10 @@ export function getDefaultRules () {
   return defaults
 }
 
-export const PRINCESS_ACTION = Rule.PRINCESS_ACTION = new Rule('princess-action',
+export const GAMEPLAY = 'gameplay'
+export const SCORING = 'scoring'
+
+export const PRINCESS_ACTION = Rule.PRINCESS_ACTION = new Rule('princess-action', GAMEPLAY,
   'The Princess {} remove knight from a city.',
   [GameElement.PRINCESS],
   [
@@ -57,7 +61,7 @@ export const PRINCESS_ACTION = Rule.PRINCESS_ACTION = new Rule('princess-action'
   { style: 'short' }
 )
 
-export const FAIRY_PLACEMENT = Rule.FAIRY_PLACEMENT = new Rule('fairy-placement',
+export const FAIRY_PLACEMENT = Rule.FAIRY_PLACEMENT = new Rule('fairy-placement', GAMEPLAY,
   'The Fairy is deployed {}.',
   [GameElement.FAIRY],
   [
@@ -66,7 +70,7 @@ export const FAIRY_PLACEMENT = Rule.FAIRY_PLACEMENT = new Rule('fairy-placement'
   ]
 )
 
-export const DRAGON_MOVEMENT = Rule.DRAGON_MOVEMENT = new Rule('dragon-move',
+export const DRAGON_MOVEMENT = Rule.DRAGON_MOVEMENT = new Rule('dragon-move', GAMEPLAY,
   'Dragon movement occurs {} scoring.',
   [GameElement.DRAGON],
   [
@@ -76,7 +80,7 @@ export const DRAGON_MOVEMENT = Rule.DRAGON_MOVEMENT = new Rule('dragon-move',
   { style: 'short' }
 )
 
-export const BARN_PLACEMENT = Rule.BARN_PLACEMENT = new Rule('barn-placement',
+export const BARN_PLACEMENT = Rule.BARN_PLACEMENT = new Rule('barn-placement', GAMEPLAY,
   'Barn {} be placed on a\u00A0field already occupied by another barn.',
   [GameElement.BARN],
   [
@@ -86,7 +90,7 @@ export const BARN_PLACEMENT = Rule.BARN_PLACEMENT = new Rule('barn-placement',
   { style: 'short' }
 )
 
-export const WAGON_MOVE = Rule.WAGON_MOVE = new Rule('wagon-move',
+export const WAGON_MOVE = Rule.WAGON_MOVE = new Rule('wagon-move', GAMEPLAY,
   'After scored, wagon can me moved to adjacent unoccupied, incomplete feature. Adjacent means: {}',
   [GameElement.WAGON],
   [
@@ -96,7 +100,7 @@ export const WAGON_MOVE = Rule.WAGON_MOVE = new Rule('wagon-move',
   { default: 'C2', style: 'xlong' }
 )
 
-export const BAZAAR_NO_AUCTION = Rule.BAZAAR_NO_AUCTION = new Rule('bazaar-no-auction',
+export const BAZAAR_NO_AUCTION = Rule.BAZAAR_NO_AUCTION = new Rule('bazaar-no-auction', GAMEPLAY,
   'No bazaar bidding. Each player just chooses one tile.',
   [GameElement.BAZAAR],
   Boolean,
@@ -105,7 +109,7 @@ export const BAZAAR_NO_AUCTION = Rule.BAZAAR_NO_AUCTION = new Rule('bazaar-no-au
   }
 )
 
-export const HILL_TIEBREAKER = Rule.HILL_TIEBREAKER = new Rule('hill-tiebreaker',
+export const HILL_TIEBREAKER = Rule.HILL_TIEBREAKER = new Rule('hill-tiebreaker', GAMEPLAY,
   'Tiebreaker method: {} on hills.',
   [GameElement.HILL],
   [
@@ -117,7 +121,7 @@ export const HILL_TIEBREAKER = Rule.HILL_TIEBREAKER = new Rule('hill-tiebreaker'
   }
 )
 
-export const ESCAPE_VARIANT = Rule.ESCAPE_VARIANT = new Rule('espace-variant',
+export const ESCAPE_VARIANT = Rule.ESCAPE_VARIANT = new Rule('espace-variant', GAMEPLAY,
   'Cloister must be placed adjacent to {} of a\u00A0;besieged city to espace.',
   [GameElement.ESCAPE],
   [
@@ -129,7 +133,7 @@ export const ESCAPE_VARIANT = Rule.ESCAPE_VARIANT = new Rule('espace-variant',
   }
 )
 
-export const GQ11_PIG_HERD = Rule.GQ11_PIG_HERD = new Rule('gq11-pig-herd',
+export const GQ11_PIG_HERD = Rule.GQ11_PIG_HERD = new Rule('gq11-pig-herd', GAMEPLAY,
   'Field tile from Game Quarterly 11 expansion {}.',
   [GameElement.PIG_HERD],
   [
@@ -141,7 +145,7 @@ export const GQ11_PIG_HERD = Rule.GQ11_PIG_HERD = new Rule('gq11-pig-herd',
   }
 )
 
-export const TUNNELIZE_OTHER_EXPANSIONS = Rule.TUNNELIZE_OTHER_EXPANSIONS = new Rule('tunnelize-other-expansions',
+export const TUNNELIZE_OTHER_EXPANSIONS = Rule.TUNNELIZE_OTHER_EXPANSIONS = new Rule('tunnelize-other-expansions', GAMEPLAY,
   'Apply tunnel rule on tiles from other expansions with depicted tunnels.',
   [GameElement.TUNNEL],
   Boolean,
@@ -151,7 +155,7 @@ export const TUNNELIZE_OTHER_EXPANSIONS = Rule.TUNNELIZE_OTHER_EXPANSIONS = new 
   }
 )
 
-export const MORE_TUNNEL_TOKENS = Rule.MORE_TUNNEL_TOKENS = new Rule('more-tunnel-tokens',
+export const MORE_TUNNEL_TOKENS = Rule.MORE_TUNNEL_TOKENS = new Rule('more-tunnel-tokens', GAMEPLAY,
   'Assign {} token sets to each player in game of two/three.',
   [GameElement.TUNNEL],
   [
@@ -165,7 +169,7 @@ export const MORE_TUNNEL_TOKENS = Rule.MORE_TUNNEL_TOKENS = new Rule('more-tunne
   }
 )
 
-export const FESTIVAL_RETURN = Rule.FESTIVAL_RETURN = new Rule('festival-return',
+export const FESTIVAL_RETURN = Rule.FESTIVAL_RETURN = new Rule('festival-return', GAMEPLAY,
   'Player may return one of one’s own {}.',
   [GameElement.FESTIVAL],
   [
@@ -177,7 +181,7 @@ export const FESTIVAL_RETURN = Rule.FESTIVAL_RETURN = new Rule('festival-return'
   }
 )
 
-export const KEEP_MONASTERIES = Rule.KEEP_MONASTERIES = new Rule('keep-monasteries',
+export const KEEP_MONASTERIES = Rule.KEEP_MONASTERIES = new Rule('keep-monasteries', GAMEPLAY,
   'Special monasteries {}.',
   [Expansion.MONASTERIES],
   [
@@ -190,7 +194,7 @@ export const KEEP_MONASTERIES = Rule.KEEP_MONASTERIES = new Rule('keep-monasteri
   }
 )
 
-export const LABYRINTH_VARIANT = Rule.LABYRINTH_VARIANT = new Rule('labyrinth-variant',
+export const LABYRINTH_VARIANT = Rule.LABYRINTH_VARIANT = new Rule('labyrinth-variant', GAMEPLAY,
   'Play {} labyrinth variant',
   [Expansion.LABYRINTH],
   [
@@ -204,7 +208,7 @@ export const LABYRINTH_VARIANT = Rule.LABYRINTH_VARIANT = new Rule('labyrinth-va
   { style: 'short' }
 )
 
-export const COC_FINAL_SCORING = Rule.COC_FINAL_SCORING = new Rule('coc-final-scoring',
+export const COC_FINAL_SCORING = Rule.COC_FINAL_SCORING = new Rule('coc-final-scoring', GAMEPLAY,
   'Moving meeples from the City of Carcassonne before final scoring {}.',
   [Expansion.COUNT],
   [
@@ -214,7 +218,7 @@ export const COC_FINAL_SCORING = Rule.COC_FINAL_SCORING = new Rule('coc-final-sc
   { style: 'xlong' }
 )
 
-export const COUNT_MOVE = Rule.COUNT_MOVE = new Rule('count-move',
+export const COUNT_MOVE = Rule.COUNT_MOVE = new Rule('count-move', GAMEPLAY,
   'When meeple is deployed to the City of C. then the Count is moved {}.',
   [Expansion.COUNT],
   [
@@ -227,7 +231,7 @@ export const COUNT_MOVE = Rule.COUNT_MOVE = new Rule('count-move',
 
 // Scoring
 
-export const LITTLE_BUILDINGS_SCORING = Rule.LITTLE_BUILDINGS_SCORING = new Rule('little-buildings-scoring',
+export const LITTLE_BUILDINGS_SCORING = Rule.LITTLE_BUILDINGS_SCORING = new Rule('little-buildings-scoring', SCORING,
   'Assign {} points for tower/house/shed.',
   [GameElement.LITTLE_BUILDINGS],
   [
@@ -240,7 +244,7 @@ export const LITTLE_BUILDINGS_SCORING = Rule.LITTLE_BUILDINGS_SCORING = new Rule
   }
 )
 
-export const KING_AND_ROBBER_SCORING = Rule.KING_AND_ROBBER_SCORING = new Rule('king-and-robber-scoring',
+export const KING_AND_ROBBER_SCORING = Rule.KING_AND_ROBBER_SCORING = new Rule('king-and-robber-scoring', SCORING,
   'Score {} at the end of the game.',
   [GameElement.KING, GameElement.ROBBER],
   [
@@ -256,7 +260,7 @@ export const KING_AND_ROBBER_SCORING = Rule.KING_AND_ROBBER_SCORING = new Rule('
   }
 )
 
-export const TINY_CITY_SCORING = Rule.TINY_CITY_SCORING = new Rule('tiny-city-scoring',
+export const TINY_CITY_SCORING = Rule.TINY_CITY_SCORING = new Rule('tiny-city-scoring', SCORING,
   'Tiny city is scored for {} points',
   [],
   [

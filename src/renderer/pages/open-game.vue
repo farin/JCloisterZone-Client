@@ -45,17 +45,7 @@
         />
       </div>
 
-      <GameSetupOverview :sets="sets" :elements="elements" :timer="timer" />
-
-      <div class="rules">
-        <h2>Altered Gameplay</h2>
-        <GameplayVariants :setup="setup" show="changed" read-only />
-      </div>
-
-      <div class="rules">
-        <h2>Altered Scoring</h2>
-        <ScoringVariants :setup="setup" show="changed" read-only />
-      </div>
+      <GameSetupOverview :setup="setup" />
     </template>
   </GameSetupGrid>
 </template>
@@ -67,14 +57,10 @@ import GameSetupOverview from '@/components/game-setup/overview/GameSetupOvervie
 import GameSetupGrid from '@/components/game-setup/GameSetupGrid'
 import HeaderGameButton from '@/components/game-setup/HeaderGameButton'
 import PlayerSlot from '@/components/game-setup/PlayerSlot'
-import GameplayVariants from '@/components/game-setup/rules/GameplayVariants'
-import ScoringVariants from '@/components/game-setup/rules/ScoringVariants'
 
 export default {
   components: {
     GameSetupOverview,
-    GameplayVariants,
-    ScoringVariants,
     GameSetupGrid,
     HeaderGameButton,
     PlayerSlot
@@ -90,11 +76,9 @@ export default {
   computed: {
     ...mapState({
       setup: state => state.game.setup,
-      gameId: state => state.game.id,
       sets: state => state.game.setup?.sets,
       rules: state => state.game.setup?.rules,
-      elements: state => state.game.setup?.elements,
-      timer: state => state.game.setup?.timer,
+      gameId: state => state.game.id,
       options: state => state.game.setup?.options,
       slots: state => state.game.slots,
       isOwner: state => state.game.owner === state.networking.sessionId
@@ -192,6 +176,14 @@ header .v-alert
 
 .game-setup-overview
   margin-top: 40px
+  margin-bottom: 20px
+
+  ::v-deep .rules
+    padding-right: 20px
+    font-size: 14px
+
+    h2
+      margin-right: -20px
 
 h2
   font-weight: 300
@@ -205,12 +197,7 @@ h2
 .options
   padding: 30px 20px 0
 
-.rules
-  padding-right: 20px
-  font-size: 14px
 
-  h2
-    margin: 30px -20px 10px 0
 
 @media (max-width: 1079px)
   .slots
