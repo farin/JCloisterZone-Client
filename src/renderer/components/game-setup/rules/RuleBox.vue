@@ -4,54 +4,46 @@
       'rule-box': true,
       'available': available,
       'unavailable': !available,
+      'default-value': defaultValue,
     }"
   >
     <div class="rule-icon">
       <slot name="icon" />
     </div>
     <div class="rule-lines">
-      <slot name="rules" :available="available" />
+      <RuleLine
+        v-for="rule in rules"
+        :key="rule.id"
+        :setup="setup"
+        :rule="rule"
+        :available="available"
+        :read-only="readOnly"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { GameElement } from '@/models/elements'
-import { Expansion } from '@/models/expansions'
+import RuleLine from '@/components/game-setup/rules/RuleLine'
 
 export default {
+  components: {
+    RuleLine
+  },
+
   props: {
-    dependsOn: { type: [Object, Array], default: null }
+    setup: { type: Object, required: true },
+    rules: { type: Array, required: true },
+    readOnly: { type: Boolean, defaukt: false }
   },
 
   computed: {
-    ...mapState({
-      sets: state => state.gameSetup.sets,
-      elements: state => state.gameSetup.elements
-    }),
+    defaultValue () {
+      return this.rules.every(r => r.default === this.setup.rules[r.id])
+    },
 
     available () {
-      if (this.dependsOn === null) {
-        return true
-      }
-
-      const isItemAvailable = item => {
-        if (item instanceof GameElement) {
-          return !!this.elements[item.id]
-        }
-        if (item instanceof Expansion) {
-          return item.sets.reduce((acc, set) => acc || !!this.sets[set.id], false)
-        }
-        console.error(item)
-        throw new Error('Invalid type')
-      }
-
-      if (Array.isArray(this.dependsOn)) {
-        return this.dependsOn.reduce((acc, val) => acc || isItemAvailable(val), false)
-      } else {
-        return isItemAvailable(this.dependsOn)
-      }
+      return this.rules.some(r => r.isAvailable(this.setup))
     }
   }
 }
@@ -82,6 +74,7 @@ export default {
     display: flex
     align-items: center
     justify-content: center
+    flex-shrink: 0
 
   .v-select
     margin: 0 5px

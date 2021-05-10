@@ -43,28 +43,62 @@
         &emsp;+&thinsp;<TimerValue :value="timer.turn" />
       </template>
     </section>
+
+    <div v-if="gameplayAltred" class="rules">
+      <div class="label">
+        <h2>Altered Gameplay</h2>
+      </div>
+      <GameplayVariants :setup="setup" show="changed" read-only />
+    </div>
+
+    <div v-if="scoringAltred" class="rules">
+      <div class="label">
+        <h2>Altered Scoring</h2>
+      </div>
+      <ScoringVariants :setup="setup" show="changed" read-only />
+    </div>
   </div>
 </template>
 
 <script>
+import { GAMEPLAY, SCORING, Rule } from '@/models/rules'
+
 import GameSetupOverviewMixin from '@/components/game-setup/overview/GameSetupOverviewMixin'
+import GameplayVariants from '@/components/game-setup/rules/GameplayVariants'
 import OverviewElementTile from '@/components/game-setup/overview/OverviewElementTile'
 import OverviewTileSetTile from '@/components/game-setup/overview/OverviewTileSetTile'
+import ScoringVariants from '@/components/game-setup/rules/ScoringVariants'
 import TimerValue from '@/components/game-setup/overview/TimerValue'
+
 
 export default {
   components: {
+    GameplayVariants,
     OverviewElementTile,
     OverviewTileSetTile,
+    ScoringVariants,
     TimerValue
   },
 
   mixins: [GameSetupOverviewMixin],
 
   props: {
-    sets: { type: Object, required: true },
-    elements: { type: Object, required: true },
-    timer: { type: Object, default: null }
+    setup: { type: Object, required: true }
+  },
+
+  computed: {
+    sets () { return this.setup?.sets },
+    rules () { return this.setup?.rules },
+    elements () { return this.setup?.elements },
+    timer () { return this.setup?.timer },
+
+    gameplayAltred () {
+      return Rule.all().filter(r => r.kind === GAMEPLAY).some(r => r.default !== this.rules[r.id])
+    },
+
+    scoringAltred () {
+      return Rule.all().filter(r => r.kind === SCORING).some(r => r.default !== this.rules[r.id])
+    }
   }
 }
 </script>

@@ -45,7 +45,7 @@
         />
       </div>
 
-      <GameSetupOverview :sets="sets" :elements="elements" :timer="timer" />
+      <GameSetupOverview :setup="setup" />
     </template>
   </GameSetupGrid>
 </template>
@@ -75,11 +75,10 @@ export default {
 
   computed: {
     ...mapState({
-      gameId: state => state.game.id,
+      setup: state => state.game.setup,
       sets: state => state.game.setup?.sets,
       rules: state => state.game.setup?.rules,
-      elements: state => state.game.setup?.elements,
-      timer: state => state.game.setup?.timer,
+      gameId: state => state.game.id,
       options: state => state.game.setup?.options,
       slots: state => state.game.slots,
       isOwner: state => state.game.owner === state.networking.sessionId
@@ -176,19 +175,29 @@ header .v-alert
   margin-top: 40px
 
 .game-setup-overview
-  margin: 40px 0
+  margin-top: 40px
+  margin-bottom: 20px
+
+  ::v-deep .rules
+    padding-right: 20px
+    font-size: 14px
+
+    h2
+      margin-right: -20px
+
+h2
+  font-weight: 300
+  font-size: 16px
+  text-transform: uppercase
+  text-align: center
+
+  +theme using ($theme)
+    color: map-get($theme, 'gray-text-color')
 
 .options
   padding: 30px 20px 0
 
-  h2
-    font-weight: 300
-    font-size: 16px
-    text-transform: uppercase
-    text-align: center
 
-    +theme using ($theme)
-      color: map-get($theme, 'gray-text-color')
 
 @media (max-width: 1079px)
   .slots
