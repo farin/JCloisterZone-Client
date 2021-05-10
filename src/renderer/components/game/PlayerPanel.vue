@@ -2,10 +2,11 @@
   <section
     :class="{
       'active-turn': index === turnPlayer,
-      'active-action': index === actionPlayer
+      'active-action': index === actionPlayer,
+      [colorCssClass(index)]: true
     }"
   >
-    <div :class="'name-box ' + colorCssClass(index)">
+    <div class="name-box">
       <div class="points">
         <div>{{ player.points }}</div>
       </div>
@@ -183,8 +184,15 @@ section
     text-decoration: underline dotted
 
 .active-action
+  .name-box
+    +theme using ($theme)
+      background: map-get($theme, 'player-panel-active-name-bg')
+
   .name
     text-decoration: underline solid
+
+    +theme using ($theme)
+      color: map-get($theme, 'player-panel-active-name-color')
 
 .points
   position: absolute
