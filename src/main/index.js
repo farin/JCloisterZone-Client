@@ -1,7 +1,7 @@
 /* globals INCLUDE_RESOURCES_PATH */
 import path from 'path'
 
-import { app, protocol, BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow } from 'electron'
 import { autoUpdater } from 'electron-updater'
 import electronLogger from 'electron-log'
 
@@ -37,27 +37,38 @@ function createWindow () {
     }
   })
 
+  // console.log('BrowserWindow created')
   win.loadURL(process.env.NODE_ENV === 'development' ? process.env.DEV_SERVER_URL : 'app://./index.html')
+  // console.log('BrowserWindow loadURL called')
+
   win.once('ready-to-show', () => {
+    // console.log('BrowserWindow ready to show')
     win.maximize()
     win.show()
+
+    // console.log('winCreated notification for modules')
+    modules.forEach(m => m.winCreated(win))
   })
 
-  modules.forEach(m => m.winCreated(win))
-  win.on('close', ev => {
+  win.on('closed', ev => {
+    // console.log("WIN CLOSED")
     modules.forEach(m => m.winClosed(win))
   })
 
   return win
 }
 
+app.disableHardwareAcceleration()
+
 app.whenReady().then(() => {
+  // console.log('app is ready')
   // protocol.registerFileProtocol('file', (request, callback) => {
   //   const pathname = request.url.replace('file:///', '')
   //   callback(pathname)
   // })
 
   settings().then(settings => {
+    // console.log('creating modules')
     modules.push(settingsWatch(settings))
     modules.push(theme(settings))
     modules.push(menu(settings))
@@ -73,13 +84,16 @@ app.whenReady().then(() => {
 })
 
 app.on('activate', () => {
+  // currently not used, because app us quit when main vindow is closed
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow()
   }
 })
 
-// Quit when all windows are closed.
+// // Quit when all windows are closed.
 app.on('window-all-closed', function () {
+  // console.log('window-all-closed emitted')
+
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   // if (process.platform !== 'darwin') app.quit()
