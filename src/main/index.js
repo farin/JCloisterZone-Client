@@ -44,7 +44,6 @@ function createWindow () {
   win.once('ready-to-show', () => {
     // console.log('BrowserWindow ready to show')
     win.maximize()
-    win.show()
 
     // console.log('winCreated notification for modules')
     modules.forEach(m => m.winCreated(win))
