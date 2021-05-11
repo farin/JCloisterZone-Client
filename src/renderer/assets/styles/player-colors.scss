@@ -68,11 +68,11 @@ $colors: (
     }
   }
 
-  #app.theme--light aside section.active-action.color-#{$i - 1} {
+  #app.theme--light aside.active-player-indicator-bg-color section.active-action.color-#{$i - 1} {
     background-color: map-get($slot, activebglight);
   }
 
-  #app.theme--dark aside section.active-action.color-#{$i - 1} {
+  #app.theme--dark aside.active-player-indicator-bg-color section.active-action.color-#{$i - 1} {
     background-color: map-get($slot, activebgdark);
   }
 }

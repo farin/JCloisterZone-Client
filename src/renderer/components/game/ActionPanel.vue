@@ -53,7 +53,7 @@
     />
 
     <svg
-      v-if="action"
+      v-if="action && activePlayerIndicatorTriangle"
       :class="`active-player-marker ${colorCssClass(action.player)} color-fill`"
       width="42" height="42"
     >
@@ -145,7 +145,8 @@ export default {
     ...mapState({
       connectionState: state => state.networking.connectionStatus,
       pointsExpression: state => state.board.pointsExpression,
-      beep: state => state.settings.beep
+      beep: state => state.settings.beep,
+      activePlayerIndicatorTriangle: state => state.settings.activePlayerIndicatorTriangle
     }),
 
     playerIndex () {

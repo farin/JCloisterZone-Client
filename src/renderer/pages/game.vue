@@ -12,7 +12,13 @@
         :removed-tiles-size="removedTilesSize"
         @click.native="tilePackOpen = !tilePackOpen"
       />
-      <aside ref="aside" :class="`shrink-${shrink}`">
+      <aside
+        ref="aside"
+        :class="{
+          [`shrink-${shrink}`]: true,
+          'active-player-indicator-bg-color': activePlayerIndicatorBgColor
+        }"
+      >
         <PlayerPanel
           v-for="({player, index}) in orderedPlayers"
           :key="index"
@@ -113,7 +119,8 @@ export default {
         return !!(drawOrder || endTurn)
       },
       gameHash: state => state.game.hash,
-      playerListRotate: state => state.settings.playerListRotate
+      playerListRotate: state => state.settings.playerListRotate,
+      activePlayerIndicatorBgColor: state => state.settings.activePlayerIndicatorBgColor
     }),
 
     ...mapGetters({

@@ -87,8 +87,23 @@
               />
             </div>
 
+            <h4>Active player indication</h4>
+            <em>Multiple indicators are allowed.</em>
+            <div class="checkboxes-wrapper">
+              <v-checkbox
+                v-model="activePlayerIndicatorBgColor"
+                dense hide-details
+                label="colored background in right sidebar"
+              />
+              <v-checkbox
+                v-model="activePlayerIndicatorTriangle"
+                dense hide-details
+                label="triangle in top bar"
+              />
+            </div>
+
             <h4>Player List</h4>
-            <em>You may enable player list (right sidebar) rotation </em>
+            <em>You may enable player list (right sidebar) rotation.</em>
             <v-radio-group
               v-model="playerListRotate"
               dense hide-details
@@ -232,6 +247,16 @@ export default {
     beep: {
       get () { return this.$store.state.settings.beep },
       set (val) { this.$store.dispatch('settings/update', { beep: val }) }
+    },
+
+    activePlayerIndicatorBgColor: {
+      get () { return this.$store.state.settings.activePlayerIndicatorBgColor },
+      set (val) { this.$store.dispatch('settings/update', { activePlayerIndicatorBgColor: val }) }
+    },
+
+    activePlayerIndicatorTriangle: {
+      get () { return this.$store.state.settings.activePlayerIndicatorTriangle },
+      set (val) { this.$store.dispatch('settings/update', { activePlayerIndicatorTriangle: val }) }
     },
 
     playerListRotate: {
