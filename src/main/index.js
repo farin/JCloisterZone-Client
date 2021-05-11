@@ -15,13 +15,6 @@ import settingsWatch from './modules/settingsWatch'
 
 autoUpdater.logger = electronLogger
 autoUpdater.logger.transports.file.level = 'info'
-/**
- * Set `__resources` path to resources files in renderer process
- */
-global.__resources = undefined // eslint-disable-line no-underscore-dangle
-// noinspection BadExpressionStatementJS
-INCLUDE_RESOURCES_PATH // eslint-disable-line no-unused-expressions
-if (__resources === undefined) console.error('[Main-process]: Resources path is undefined')
 
 const modules = []
 
@@ -44,17 +37,8 @@ function createWindow () {
     }
   })
 
-  if (process.env.NODE_ENV === 'development') {
-    win.loadURL(process.env.DEV_SERVER_URL)
-  } else {
-    win.loadFile(path.join(__dirname, '..', 'renderer', 'index.html'))
-  }
-
+  win.loadURL(process.env.NODE_ENV === 'development' ? process.env.DEV_SERVER_URL : 'app://./index.html')
   win.maximize()
-
-  if (process.env.NODE_ENV !== 'production') {
-    win.webContents.openDevTools()
-  }
 
   modules.forEach(m => m.winCreated(win))
   win.on('close', ev => {
@@ -65,10 +49,10 @@ function createWindow () {
 }
 
 app.whenReady().then(() => {
-  protocol.registerFileProtocol('file', (request, callback) => {
-    const pathname = request.url.replace('file:///', '')
-    callback(pathname)
-  })
+  // protocol.registerFileProtocol('file', (request, callback) => {
+  //   const pathname = request.url.replace('file:///', '')
+  //   callback(pathname)
+  // })
 
   settings().then(settings => {
     modules.push(settingsWatch(settings))

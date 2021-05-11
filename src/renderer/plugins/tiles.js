@@ -70,7 +70,7 @@ export default ({ app }, inject) => {
   Vue.prototype.$tiles = $tiles
 
   // in dev script is in plugins dir, in production all is compiled by webpack to a single file in rendeder root
-  fs.readFile(path.join(__resources, 'tiles.json'), (err, data) => {
+  fs.readFile(path.join(process.resourcesPath, 'tiles.json'), (err, data) => {
     if (err) {
       console.error(err)
       return

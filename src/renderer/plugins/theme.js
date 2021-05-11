@@ -85,7 +85,7 @@ class Theme {
 
     const lookupFolders = [
       path.join(userDataPath, 'artworks'),
-      __resources + '/artworks/'
+      process.resourcesPath + '/artworks/'
     ]
 
     const readArtwork = async (id, fullPath) => {
