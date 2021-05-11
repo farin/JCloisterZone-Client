@@ -62,7 +62,7 @@
 
     <audio
       ref="beep"
-      src="~/assets/beep.wav"
+      :src="BEEP_URL"
     />
   </div>
 </template>
@@ -131,8 +131,10 @@ export default {
   },
 
   data () {
+    const src = require('~/assets/beep.wav')
     return {
-      selected: 0
+      selected: 0,
+      BEEP_URL: src?.default ? src.default : src // hack, Nuxt doesn't convert asset to string directly (at least in dev mode)
     }
   },
 
