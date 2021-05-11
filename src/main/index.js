@@ -38,7 +38,10 @@ function createWindow () {
   })
 
   win.loadURL(process.env.NODE_ENV === 'development' ? process.env.DEV_SERVER_URL : 'app://./index.html')
-  win.maximize()
+  win.once('ready-to-show', () => {
+    win.maximize()
+    win.show()
+  })
 
   modules.forEach(m => m.winCreated(win))
   win.on('close', ev => {
