@@ -3,8 +3,8 @@ import { getSettings } from '../settings'
 
 let menu
 
-function createMenu (win) {
-  const settings = getSettings()
+async function createMenu (win) {
+  const settings = await getSettings()
 
   const isMac = process.platform === 'darwin'
   const sessionSubmenu = [
