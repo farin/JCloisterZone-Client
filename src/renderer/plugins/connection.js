@@ -2,7 +2,7 @@ import { EventEmitter } from 'events'
 
 import WebSocket from 'ws'
 import Vue from 'vue'
-import { randomId } from '@/utils/random'
+import { randomId, randomInt } from '@/utils/random'
 
 import { getAppVersion } from '@/utils/version'
 import { CONSOLE_CLIENT_COLOR } from '@/constants/logging'
@@ -18,6 +18,14 @@ class ConnectionPlugin {
     this.recentlyUsedSourceHash = null
     this.emitter = new EventEmitter()
     this.heartbeat = HEARTBEAT_INTERVAL
+
+    if (process.env.JCZ_NETWORK_DELAY) {
+      this.debugDelay = process.env.JCZ_NETWORK_DELAY.split('-').map(bound => +bound)
+      if (this.debugDelay.length === 1) {
+        // make interval from it
+        this.debugDelay.push(this.debugDelay[0])
+      }
+    }
   }
 
   // TODO use emitter instead callback
@@ -77,33 +85,42 @@ class ConnectionPlugin {
       })
 
       this.ws.addEventListener('message', ev => {
-        const msg = JSON.parse(ev.data)
-        if (isDev) {
-          console.log('%c client %c received message', CONSOLE_CLIENT_COLOR, '')
-          console.debug(msg)
-        }
-        // console.debug(`%c client %c received ${msg.type}`, CONSOLE_CLIENT_COLOR, '')
-        if (msg.type === 'ERR') {
-          if (!fulfilled) {
+        const handle = () => {
+          const msg = JSON.parse(ev.data)
+          if (isDev) {
+            console.log('%c client %c received message', CONSOLE_CLIENT_COLOR, '')
+            console.debug(msg)
+          }
+          // console.debug(`%c client %c received ${msg.type}`, CONSOLE_CLIENT_COLOR, '')
+          if (msg.type === 'ERR') {
+            if (!fulfilled) {
+              fulfilled = true
+              reject(msg)
+            }
+            this.emitter.emit('error', msg.payload)
+            return
+          }
+          if (msg.type === 'WELCOME') {
+            console.log('%c client %c session id assigned ' + msg.payload.sessionId, CONSOLE_CLIENT_COLOR, '')
             fulfilled = true
-            reject(msg)
+            if (msg.heartbeat) {
+              this.heartbeat = msg.heartbeat
+            } else {
+              this.heartbeat = null
+            }
+            heartbeat()
+            resolve()
           }
-          this.emitter.emit('error', msg.payload)
-          return
+          onMessage(msg)
+          this.emitter.emit('message', msg)
         }
-        if (msg.type === 'WELCOME') {
-          console.log('%c client %c session id assigned ' + msg.payload.sessionId, CONSOLE_CLIENT_COLOR, '')
-          fulfilled = true
-          if (msg.heartbeat) {
-            this.heartbeat = msg.heartbeat
-          } else {
-            this.heartbeat = null
-          }
-          heartbeat()
-          resolve()
+        if (this.debugDelay) {
+          setTimeout(() => {
+            handle()
+          }, randomInt(...this.debugDelay))
+        } else {
+          handle()
         }
-        onMessage(msg)
-        this.emitter.emit('message', msg)
       })
 
       this.ws.addEventListener('close', ev => {
@@ -147,7 +164,14 @@ class ConnectionPlugin {
       if (!message.id) {
         message = { id: randomId(), ...message }
       }
-      this.ws.send(JSON.stringify(message))
+      if (this.debugDelay) {
+        setTimeout(() => {
+          this.ws.send(JSON.stringify(message))
+        }, randomInt(...this.debugDelay))
+      } else {
+        this.ws.send(JSON.stringify(message))
+      }
+
       return true
     }
     return false
