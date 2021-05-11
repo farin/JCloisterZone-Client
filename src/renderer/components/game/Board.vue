@@ -224,16 +224,18 @@ export default {
       if (ev.key === 'Tab' && !this.$store.state.gameDialog) {
         this.$root.$emit('rclick', ev)
       }
-      if (ev.key === 'z') {
-        this.overlay = true
-      }
+      // probably causes issue - https://github.com/farin/JCloisterZone/issues/383
+      // don't use z for it
+      // if (ev.key === 'z') {
+      //   this.overlay = true
+      // }
     },
 
     onKeyUp (ev) {
       delete this.pressedKeys[ev.key]
-      if (ev.key === 'z') {
-        this.overlay = false
-      }
+      // if (ev.key === 'z') {
+      //   this.overlay = false
+      // }
     },
 
     onWheel (ev) {
