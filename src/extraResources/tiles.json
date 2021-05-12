@@ -1315,54 +1315,54 @@
       "symmetry": 0,
       "edge": "cfrr"
     },
-	"Watchtowers/CCRF_2T": {
-	  "symmetry": 0,
-	  "edge": "ccrf"
-	},
-	"Watchtowers/CFff_3C": {
-	  "symmetry": 0,
-	  "edge": "cfff"
-	},
-	"Watchtowers/CFRF_1C": {
-	  "symmetry": 0,
-	  "edge": "cfrf"
-	},
-	"Watchtowers/CFRF_2M": {
-	  "symmetry": 0,
-	  "edge": "cfrf"
-	},
-	"Watchtowers/CRFR_1R": {
-	  "symmetry": 0,
-	  "edge": "crfr"
-	},
-	"Watchtowers/CRRC_2M": {
-	  "symmetry": 0,
-	  "edge": "crrc"
-	},
-	"Watchtowers/FCFC_1C": {
-	  "symmetry": 0,
-	  "edge": "fcfc"
-	},
-	"Watchtowers/FCRC_2T": {
-	  "symmetry": 0,
-	  "edge": "fcrc"
-	},
-	"Watchtowers/FfRC_1R": {
-	  "symmetry": 0,
-	  "edge": "ffrc"
-	},
-	"Watchtowers/FRFC_1C": {
-	  "symmetry": 0,
-	  "edge": "frfc"
-	},
-	"Watchtowers/FRFR_3C": {
-	  "symmetry": 0,
-	  "edge": "frfr"
-	},
-	"Watchtowers/FRRF_1R": {
-	  "symmetry": 0,
-	  "edge": "frrf"
-	}
+    "Watchtowers/CCRF_2T": {
+      "symmetry": 0,
+      "edge": "ccrf"
+    },
+    "Watchtowers/CFff_3C": {
+      "symmetry": 0,
+      "edge": "cfff"
+    },
+    "Watchtowers/CFRF_1C": {
+      "symmetry": 0,
+      "edge": "cfrf"
+    },
+    "Watchtowers/CFRF_2M": {
+      "symmetry": 0,
+      "edge": "cfrf"
+    },
+    "Watchtowers/CRFR_1R": {
+      "symmetry": 0,
+      "edge": "crfr"
+    },
+    "Watchtowers/CRRC_2M": {
+      "symmetry": 0,
+      "edge": "crrc"
+    },
+    "Watchtowers/FCFC_1C": {
+      "symmetry": 0,
+      "edge": "fcfc"
+    },
+    "Watchtowers/FCRC_2T": {
+      "symmetry": 0,
+      "edge": "fcrc"
+    },
+    "Watchtowers/FfRC_1R": {
+      "symmetry": 0,
+      "edge": "ffrc"
+    },
+    "Watchtowers/FRFC_1C": {
+      "symmetry": 0,
+      "edge": "frfc"
+    },
+    "Watchtowers/FRFR_3C": {
+      "symmetry": 0,
+      "edge": "frfr"
+    },
+    "Watchtowers/FRRF_1R": {
+      "symmetry": 0,
+      "edge": "frrf"
+    }
   },
   "multiTiles": {},
   "sets": {
@@ -2056,22 +2056,22 @@
         "TU/RRRR": 1
       }
     },
-	"watchtowers": {
-	  "tiles": {
-	    "Watchtowers/CCRF_2T": 1,
-	    "Watchtowers/CFff_3C": 1,
-	    "Watchtowers/CFRF_1C": 1,
-	    "Watchtowers/CFRF_2M": 1,
-	    "Watchtowers/CRFR_1R": 1,
-	    "Watchtowers/CRRC_2M": 1,
-	    "Watchtowers/FCFC_1C": 1,
-	    "Watchtowers/FCRC_2T": 1,
-	    "Watchtowers/FfRC_1R": 1,
-	    "Watchtowers/FRFC_1C": 1,
-	    "Watchtowers/FRFR_3C": 1,
-	    "Watchtowers/FRRF_1R": 1
-	  }
-	},
+    "watchtowers": {
+      "tiles": {
+        "Watchtowers/CCRF_2T": 1,
+        "Watchtowers/CFff_3C": 1,
+        "Watchtowers/CFRF_1C": 1,
+        "Watchtowers/CFRF_2M": 1,
+        "Watchtowers/CRFR_1R": 1,
+        "Watchtowers/CRRC_2M": 1,
+        "Watchtowers/FCFC_1C": 1,
+        "Watchtowers/FCRC_2T": 1,
+        "Watchtowers/FfRC_1R": 1,
+        "Watchtowers/FRFC_1C": 1,
+        "Watchtowers/FRFR_3C": 1,
+        "Watchtowers/FRRF_1R": 1
+      }
+    },
     "wind-roses": {
       "tiles": {
         "WR/Cc.1": 1,

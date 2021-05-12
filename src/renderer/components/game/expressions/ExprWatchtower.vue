@@ -4,16 +4,16 @@
       Watchtower Bonus
     </template>
     <template #row>
-      <template v-if="expr.args.pennant">
-        2
+      <template v-if="expr.args.bonusPennant>0 && expr.args.pennant>0">
+        {{ expr.args.bonusPennant }}
         &ensp;×&ensp;
         <div class="value-units">
           {{ expr.args.pennant }}
           <v-icon title="Coats of arms">fas fa-shield-alt</v-icon>
         </div>
       </template>
-      <template v-else-if="expr.args.meeple">
-        2
+      <template v-else-if="expr.args.bonusMeeple>0 && expr.args.meeple>0">
+        {{ expr.args.bonusMeeple }}
         &ensp;×&ensp;
         <div class="value-units">
           {{ expr.args.meeple }}
@@ -22,24 +22,24 @@
           </svg>
         </div>
       </template>
-      <template v-else-if="expr.args.monastery">
-        3
+      <template v-else-if="expr.args.bonusMonastery>0 && expr.args.monastery>0">
+        {{ expr.args.bonusMonastery }}
         &ensp;×&ensp;
         <div class="value-units">
           {{ expr.args.monastery }}
           <img src="~/assets/features/C1/cloister.png" height="24">
         </div>
       </template>
-      <template v-else-if="expr.args.road">
-        1
+      <template v-else-if="expr.args.bonusRoad>0 && expr.args.road>0">
+        {{ expr.args.bonusRoad }}
         &ensp;×&ensp;
         <div class="value-units">
           {{ expr.args.road }}
         <img src="~/assets/icons/road-icon.png" height="32">
         </div>
       </template>
-      <template v-else-if="expr.args.city">
-        1
+      <template v-else-if="expr.args.bonusCity>0 && expr.args.city>0">
+        {{ expr.args.bonusCity }}
         &ensp;×&ensp;
         <div class="value-units">
           {{ expr.args.city }}

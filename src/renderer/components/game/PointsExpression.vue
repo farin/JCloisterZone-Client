@@ -125,6 +125,7 @@ export default {
     },
 
     component () {
+    console.log(this);
       const [type, subtype] = this.names[0].split('.')
       if (type === 'city') {
         if (!subtype) return 'ExprCity'
