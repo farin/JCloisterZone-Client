@@ -6,7 +6,7 @@
       </v-btn>
       <template v-if="undoAllowed">
         or
-        <v-btn @click="confirm">Undo</v-btn>
+        <v-btn @click="undo">Undo</v-btn>
       </template>
       <span class="text">
         your action
