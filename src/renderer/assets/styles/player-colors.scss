@@ -2,16 +2,17 @@
 // primary overlay
 // inactive - used https://meyerweb.com/eric/tools/color-blend/ blended with #EEEEEE, 3 mid points, used last
 $colors: (
-  (primary: #ef0000, inactive: #EEB3B3, activebglight: #ff000040, activebgdark: #f4343496, overlay: white), // 0 red
-  (primary: #03a9f4, inactive: #B3DDF0, activebglight: #03a9f440, activebgdark: #03a9f470, overlay: white), // 1 blue
-  (primary: #ffed00, inactive: #F2EEB3, activebglight: #ffed0040, activebgdark: #ffed0070, overlay: black), // 2 yellow
-  (primary: #009900, inactive: #B3D9B3, activebglight: #00990040, activebgdark: #00990070, overlay: white), // 3 green
-  (primary: #ff9800, inactive: #F2D9B3, activebglight: #ff980040, activebgdark: #ff980070, overlay: black), // 4 orange
-  (primary: #673ab7, inactive: #CCC1E0, activebglight: #673ab740, activebgdark: #673ab770, overlay: white), // 5 purple
-  (primary: #f48fb1, inactive: #F0D6DF, activebglight: #f48fb140, activebgdark: #f48fb170, overlay: white), // 6 pink
-  (primary: #fffce0, inactive: #F2F2F2, activebglight: #fffce090, activebgdark: #fffce090, overlay: black), // 7 white
-  (primary: #302f2b, inactive: #B3B3B3, activebglight: #302f2b40, activebgdark: #000, overlay: white), // 8 black
+  (primary: #ef0000, inactive: #EEB3B3, activebglight: #f7b2b2ea, activebgdark: #aa3134ea, overlay: white), // 0 red
+  (primary: #03a9f4, inactive: #B3DDF0, activebglight: #b2e0f4ea, activebgdark: #16678fea, overlay: white), // 1 blue
+  (primary: #ffed00, inactive: #F2EEB3, activebglight: #f7f2b2ea, activebgdark: #8e881bea, overlay: black), // 2 yellow
+  (primary: #009900, inactive: #B3D9B3, activebglight: #b2dbb2ea, activebgdark: #14601bea, overlay: white), // 3 green
+  (primary: #ff9800, inactive: #F2D9B3, activebglight: #f7dbb2ea, activebgdark: #8e5f1bea, overlay: black), // 4 orange
+  (primary: #673ab7, inactive: #CCC1E0, activebglight: #cec1e4ea, activebgdark: #463272ea, overlay: white), // 5 purple
+  (primary: #f48fb1, inactive: #F0D6DF, activebglight: #f4d9e2ea, activebgdark: #895b6fea, overlay: white), // 6 pink
+  (primary: #fffce0, inactive: #F2F2F2, activebglight: #fbf9e8ea, activebgdark: #abab9dea, overlay: black), // 7 white
+  (primary: #302f2b, inactive: #B3B3B3, activebglight: #bfbebdea, activebgdark: #000000ea, overlay: white), // 8 black
 );
+
 
 @for $i from 1 through length($colors) {
   $slot: nth($colors, $i);
