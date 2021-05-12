@@ -58,6 +58,7 @@ const computeClock = (playersCount, messages) => {
 // theme $engine is used instead to store engine instance
 export const state = () => ({
   id: null,
+  pin: null,
   hash: null,
   lastMessageId: null,
   owner: null,
@@ -92,6 +93,7 @@ export const state = () => ({
 export const mutations = {
   clear (state) {
     state.id = null
+    state.pin = null
     state.hash = null
     state.lastMessageId = null
     state.owner = null
@@ -122,6 +124,10 @@ export const mutations = {
 
   id (state, value) {
     state.id = value
+  },
+
+  pin (state, value) {
+    state.pin = value ? value.substring(0, 3) + '-' + value.substring(3) : null
   },
 
   hash (state, value) {
@@ -465,6 +471,7 @@ export const actions = {
       commit('clear')
       commit('id', payload.gameId)
     }
+    commit('pin', payload.pin || null)
     commit('setup', payload.setup)
     commit('slots', payload.slots)
     commit('initialSeed', payload.initialSeed)

@@ -14,6 +14,11 @@
     </template>
 
     <template #main>
+      <div v-if="pin" class="pin">
+        <span>Share the key with other players to let them connect to your game.</span>
+        <strong>{{ pin }}</strong>
+      </div>
+
       <div class="slots">
         <PlayerSlot
           v-for="slot in slots"
@@ -75,6 +80,7 @@ export default {
 
   computed: {
     ...mapState({
+      pin: state => state.game.pin,
       setup: state => state.game.setup,
       sets: state => state.game.setup?.sets,
       rules: state => state.game.setup?.rules,
@@ -165,6 +171,24 @@ header .v-alert
   position: relative
   top: 8px
   width: 300px
+
+.pin
+  margin: 20px 30px -20px
+  text-align: right
+
+  span
+    font-style: italic
+
+  strong
+    font-size: 30px
+    font-weight: 400
+    letter-spacing: 0.5px
+    margin-left: 20px
+    padding: 4px 10px
+    border-radius: 6px
+
+    +theme using ($theme)
+      background: map-get($theme, 'cards-selected-bg')
 
 .slots
   padding: 0 30px
