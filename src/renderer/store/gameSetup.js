@@ -95,6 +95,14 @@ export const actions = {
     this.$router.push('/game-setup')
   },
 
+  load ({ commit }, setup) {
+    commit('setup', {
+      ...setup,
+      sets: mapKeys(setup.sets, (val, key) => key.split(':')[0])
+    })
+    this.$router.push('/game-setup')
+  },
+
   setTileSetQuantity ({ state, commit }, { id, quantity }) {
     const enabledStateChanged = (state.sets[id] > 0) !== (quantity > 0)
     const before = enabledStateChanged ? getDefaultElements(state.sets) : null

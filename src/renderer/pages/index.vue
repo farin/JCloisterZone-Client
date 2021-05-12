@@ -213,11 +213,7 @@ export default {
     },
 
     async loadSetup (setup) {
-      this.$store.commit('gameSetup/setup', {
-        ...setup,
-        sets: mapKeys(setup.sets, (val, key) => key.split(':')[0])
-      })
-      this.$router.push('/game-setup')
+      this.$store.dispatch('gameSetup/load', setup)
     },
 
     openLink (href) {
