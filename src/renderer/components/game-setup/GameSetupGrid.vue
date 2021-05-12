@@ -50,7 +50,7 @@ export default {
 .game-setup-grid
   display: grid
   grid-template-columns: minmax(0, 1560px) minmax(372px, 1fr)
-  grid-template-rows: 72px auto
+  grid-template-rows: var(--game-setup-header-height) auto
   grid-template-areas: "header tiles-header" "main detail"
 
   +theme using ($theme)
@@ -107,11 +107,17 @@ aside
 @media (max-width: 1164px)
   .game-setup-grid
     grid-template-columns: 1fr
-    grid-template-rows: 72px auto 72px auto
+    grid-template-rows: var(--game-setup-header-height) auto var(--game-setup-header-height) auto
     grid-template-areas: "header" "main" "tiles-header" "detail"
 
     .tiles-header
       position: static
       justify-content: center
       z-index: 0
+
+@media (max-height: 768px)
+  .game-setup-grid
+    ::v-deep .tile-pack-size
+      .v-icon, .size
+        font-size: 28px !important
 </style>

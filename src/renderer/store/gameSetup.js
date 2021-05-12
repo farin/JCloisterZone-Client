@@ -161,19 +161,28 @@ export const actions = {
     })
   },
 
-  createGame ({ state, commit, getters, dispatch }) {
+  createGame ({ state, commit, getters, dispatch }, loadedSetup) {
     const { $tiles } = this._vm
-    const sets = mapKeys(state.sets, (value, key) => {
-      return $tiles.sets[key] ? key : key + ':' + getters.getSelectedEdition
-    })
+    let setup
 
-    const setup = {
-      sets,
-      elements: state.elements,
-      rules: state.rules,
-      timer: state.timer,
-      start: getters.selectedStartingTiles.value,
-      options: {}
+    if (loadedSetup) {
+      setup = {
+        options: {},
+        ...loadedSetup
+      }
+    } else {
+      const sets = mapKeys(state.sets, (value, key) => {
+        return $tiles.sets[key] ? key : key + ':' + getters.getSelectedEdition
+      })
+
+      setup = {
+        sets,
+        elements: state.elements,
+        rules: state.rules,
+        timer: state.timer,
+        start: getters.selectedStartingTiles.value,
+        options: {}
+      }
     }
 
     dispatch('settings/addRecentGameSetup', setup, { root: true })

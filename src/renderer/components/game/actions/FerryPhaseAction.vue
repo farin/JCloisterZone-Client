@@ -7,7 +7,7 @@
       <template v-else>
         {{ phase === 'PlaceFerryPhase' ? 'Player must place a ferry' : 'Player can move ferries' }}
       </template>
-      <img src="~/assets/figures/ferry.png" height="30">
+      <img src="~/assets/figures/ferry.png" :height="$vuetify.breakpoint.height > 768 ? 30 : 20">
     </div>
     <slot
       plain

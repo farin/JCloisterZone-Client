@@ -1,5 +1,5 @@
 <template>
-  <TokenImage :token="token" :height="70" />
+  <TokenImage :token="token" :height="$vuetify.breakpoint.height > 768 ? 70 : 50" />
 </template>
 
 <script>
@@ -18,7 +18,6 @@ export default {
     position: { type: Array, required: true },
     active: { type: Boolean }
   },
-
 
   computed: {
     layers () {

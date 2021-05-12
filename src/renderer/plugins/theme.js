@@ -1,7 +1,6 @@
 import fs from 'fs'
 import path from 'path'
 import Vue from 'vue'
-import { remote } from 'electron'
 
 import isString from 'lodash/isString'
 import isObject from 'lodash/isObject'
@@ -82,9 +81,11 @@ class Theme {
     console.log('Looking for installed artworks.')
     const { settings } = this.ctx.store.state
 
+    const userDataPath = window.process.argv.find(arg => arg.startsWith('--user-data=')).replace('--user-data=', '')
+
     const lookupFolders = [
-      path.join(remote.app.getPath('userData'), 'artworks'),
-      __resources + '/artworks/'
+      path.join(userDataPath, 'artworks'),
+      process.resourcesPath + '/artworks/'
     ]
 
     const readArtwork = async (id, fullPath) => {

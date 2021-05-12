@@ -89,7 +89,7 @@ export default {
   position: absolute
   left: 0
   max-width: 210px
-  height: $action-bar-height
+  height: var(--action-bar-height)
   line-height: 1
   display: flex
   align-items: center

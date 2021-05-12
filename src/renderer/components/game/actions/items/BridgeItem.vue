@@ -1,5 +1,5 @@
 <template>
-  <svg width="70" height="55">
+  <svg>
     <use :href="TOKENS_SVG + '#bridge'" />
   </svg>
 </template>
@@ -55,6 +55,13 @@ export default {
 
 <style lang="sass" scoped>
 svg
+  width: 70px
+  height: 55px
+
+  @media (max-height: 768px)
+    width: 50px
+    height: 39px
+
   +theme using ($theme)
     fill: map-get($theme, 'cards-text')
 

@@ -173,12 +173,10 @@ export default {
 
   mounted () {
     this.$root.$on('rclick', this.selectNext)
-    window.addEventListener('keydown', this.onKeyDown)
   },
 
   beforeDestroy () {
     this.$root.$off('rclick', this.selectNext)
-    window.removeEventListener('keydown', this.onKeyDown)
   },
 
   methods: {
@@ -191,13 +189,6 @@ export default {
     selectNext () {
       if (this.local) {
         this.select((this.selected + 1) % this.items.length)
-      }
-    },
-
-    onKeyDown (ev) {
-      if (this.local && ev.key === 'Tab' && !this.$store.state.gameDialog) {
-        this.selectNext()
-        ev.preventDefault()
       }
     }
   }
@@ -224,7 +215,7 @@ section
 
   .action-item
     width: 120px
-    height: $action-bar-height + 10px
+    height: calc(var(--action-bar-height) + 10px)
     margin: -5px
     display: flex
     justify-content: center
@@ -243,4 +234,10 @@ section.local
     &:hover
       +theme using ($theme)
         background: radial-gradient(circle, #{map-get($theme, 'action-panel-hover-bg')} 72%, transparent 73%)
+
+@media (max-height: 768px)
+  section
+    .action-item
+      width: 80px
+
 </style>

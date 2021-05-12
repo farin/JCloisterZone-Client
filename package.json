@@ -1,6 +1,6 @@
 {
   "name": "jcloisterzone",
-  "version": "5.5.3",
+  "version": "5.6.0",
   "description": "JCloisterZone UI client",
   "repository": "github:farin/JCloisterZone-Client",
   "license": "AGPL-3.0-or-later",
@@ -21,45 +21,45 @@
   },
   "keywords": [],
   "engines": {
-    "node": ">=12.13.0"
+    "node": ">=14.16.0"
   },
   "resolutions": {
-    "@types/node": "12.12.6"
+    "@types/node": "14.14.41"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "5.15.2",
-    "@nuxtjs/eslint-config": "5.0.0",
+    "@fortawesome/fontawesome-free": "5.15.3",
+    "@nuxtjs/eslint-config": "6.0.0",
     "@nuxtjs/vuetify": "1.11.3",
-    "@xpda-dev/core": "^0.1.5",
+    "@xpda-dev/core": "^0.1.6",
     "@xpda-dev/electron-builder": "^0.2.1",
-    "@xpda-dev/electron-launcher": "^0.2.1",
-    "@xpda-dev/webpack-step": "^0.1.2",
+    "@xpda-dev/electron-launcher": "^0.3.0",
+    "@xpda-dev/webpack-step": "^0.1.5",
     "babel-eslint": "11.0.0-beta.2",
     "browser-env": "3.3.0",
     "cross-env": "7.0.3",
     "deepmerge": "4.2.2",
-    "electron": "11.2.3",
-    "electron-builder": "22.9.1",
+    "electron": "12.0.7",
+    "electron-builder": "22.11.3",
     "electron-debug": "3.2.0",
     "electron-devtools-installer": "^3.1.1",
-    "eslint": "7.19.0",
+    "eslint": "7.26.0",
     "eslint-friendly-formatter": "4.0.1",
     "eslint-loader": "4.0.2",
     "native-ext-loader": "2.3.0",
-    "node-sass": "4.14.1",
-    "nuxt": "2.14.12",
+    "node-sass": "5.0.0",
+    "nuxt": "2.15.5",
     "roboto-fontface": "0.10.0",
     "sass-loader": "10.1.1",
-    "vuetify": "2.4.3",
+    "vuetify": "2.5.0",
     "webpack": "4.44.2",
     "webpack-node-externals": "2.5.2"
   },
   "dependencies": {
     "@nuxtjs/style-resources": "^1.0.0",
     "compare-versions": "^3.6.0",
-    "electron-log": "^4.3.1",
-    "electron-updater": "^4.3.5",
-    "lodash": "^4.17.15",
+    "electron-log": "^4.3.5",
+    "electron-updater": "^4.3.9",
+    "lodash": "^4.17.21",
     "portal-vue": "^2.1.7",
     "random-bigint": "^0.0.1",
     "sha256-file": "^1.0.0",
@@ -67,6 +67,6 @@
     "unzipper": "^0.10.11",
     "username": "^5.1.0",
     "uuid": "^8.3.2",
-    "ws": "^7.4.3"
+    "ws": "^7.4.5"
   }
 }

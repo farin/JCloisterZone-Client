@@ -2,10 +2,11 @@
   <section
     :class="{
       'active-turn': index === turnPlayer,
-      'active-action': index === actionPlayer
+      'active-action': index === actionPlayer,
+      [colorCssClass(index)]: true
     }"
   >
-    <div :class="'name-box ' + colorCssClass(index)">
+    <div class="name-box">
       <div class="points">
         <div>{{ player.points }}</div>
       </div>
@@ -183,8 +184,15 @@ section
     text-decoration: underline dotted
 
 .active-action
+  .name-box
+    +theme using ($theme)
+      background: map-get($theme, 'player-panel-active-name-bg')
+
   .name
     text-decoration: underline solid
+
+    +theme using ($theme)
+      color: map-get($theme, 'player-panel-active-name-color')
 
 .points
   position: absolute
@@ -309,7 +317,7 @@ aside.shrink-1
       top: -6px
       margin-right: -14px
 
-aside.shrink-2
+aside.shrink-2, aside.shrink-3
   section
     padding-top: 5px
 
@@ -327,6 +335,9 @@ aside.shrink-2
     > div
       font-size: 26px
 
+  .item
+    height: 28px
+
   .resources
     padding: 9px 6px 3px
 
@@ -339,4 +350,34 @@ aside.shrink-2
       left: -12px
       top: -4px
       margin-right: -18px
+
+aside.shrink-3
+  section
+    margin-bottom: 2px
+
+  .name-box
+    display: inline-block
+    float: left
+
+  .name
+    display: none
+
+  .points
+    height: 28px
+    width: 50px
+    border-radius: 14px
+    margin-top: -1px
+
+    > div
+      font-size: 20px
+
+  .item
+    height: 26px
+
+  .resources
+    padding: 3px 2px 3px 6px
+
+    .item:first-child
+      padding-left: 25px
+
 </style>

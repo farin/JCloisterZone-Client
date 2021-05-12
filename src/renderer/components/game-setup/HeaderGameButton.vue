@@ -16,7 +16,7 @@
       {{ info }}
     </div>
 
-    <v-btn large color="primary" :disabled="!engine || !engine.ok || !containsCoreSet || !!info" @click="ev => $emit('click', ev)">
+    <v-btn :large="$vuetify.breakpoint.height > 768" color="primary" :disabled="!engine || !engine.ok || !containsCoreSet || !!info" @click="ev => $emit('click', ev)">
       <v-icon left>fas fa-play</v-icon>
       {{ title }}
     </v-btn>

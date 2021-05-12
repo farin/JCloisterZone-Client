@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { remote } from 'electron'
+import { ipcRenderer } from 'electron'
 
 import { getAppVersion } from '@/utils/version'
 import { randomId } from '@/utils/random'
@@ -23,14 +23,13 @@ export default ({ app }, inject) => {
       })
       gameServer.on('error', err => {
         console.error(err)
-        const { dialog } = remote
         let msg
         if (err.errno === 'EADDRINUSE') {
           msg = 'Have you alredy created game from another app instance?'
         } else {
           msg = err.message || '' + err
         }
-        dialog.showErrorBox(`Can't start server on port ${settings.port}`, msg)
+        ipcRenderer.invoke('dialog.showErrorBox', { title: `Can't start server on port ${settings.port}`, content: msg })
       })
 
       await gameServer.start(settings.port)

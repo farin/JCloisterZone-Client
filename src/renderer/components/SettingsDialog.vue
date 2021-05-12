@@ -86,6 +86,41 @@
                 label="Enable beep"
               />
             </div>
+
+            <h4>Active player indication</h4>
+            <em>Multiple indicators are allowed.</em>
+            <div class="checkboxes-wrapper">
+              <v-checkbox
+                v-model="activePlayerIndicatorBgColor"
+                dense hide-details
+                label="colored background in right sidebar"
+              />
+              <v-checkbox
+                v-model="activePlayerIndicatorTriangle"
+                dense hide-details
+                label="triangle in top bar"
+              />
+            </div>
+
+            <h4>Player List</h4>
+            <em>You may enable player list (right sidebar) rotation.</em>
+            <v-radio-group
+              v-model="playerListRotate"
+              dense hide-details
+            >
+              <v-radio
+                label="No rotate"
+                value="none"
+              />
+              <v-radio
+                label="Keep active player always on top"
+                value="active-on-top"
+              />
+              <v-radio
+                label="Keep local player always on top"
+                value="local-on-top"
+              />
+            </v-radio-group>
           </template>
 
           <template v-if="section === 2">
@@ -94,6 +129,7 @@
             <h4>Theme</h4>
             <v-radio-group
               v-model="theme"
+              dense hide-details
             >
               <v-radio
                 label="Light"
@@ -165,7 +201,7 @@
 
 <script>
 import path from 'path'
-import { remote } from 'electron'
+import { ipcRenderer } from 'electron'
 import { mapState } from 'vuex'
 
 export default {
@@ -213,6 +249,21 @@ export default {
       set (val) { this.$store.dispatch('settings/update', { beep: val }) }
     },
 
+    activePlayerIndicatorBgColor: {
+      get () { return this.$store.state.settings.activePlayerIndicatorBgColor },
+      set (val) { this.$store.dispatch('settings/update', { activePlayerIndicatorBgColor: val }) }
+    },
+
+    activePlayerIndicatorTriangle: {
+      get () { return this.$store.state.settings.activePlayerIndicatorTriangle },
+      set (val) { this.$store.dispatch('settings/update', { activePlayerIndicatorTriangle: val }) }
+    },
+
+    playerListRotate: {
+      get () { return this.$store.state.settings.playerListRotate },
+      set (val) { this.$store.dispatch('settings/update', { playerListRotate: val }) }
+    },
+
     theme: {
       get () { return this.$store.state.settings.theme },
       set (val) { this.$store.dispatch('settings/update', { theme: val }) }
@@ -230,7 +281,6 @@ export default {
     },
 
     async selectJava () {
-      const { dialog } = remote
       const opts = {
         title: 'Select java executable',
         properties: ['openFile']
@@ -238,7 +288,7 @@ export default {
       if (this.platform === 'win32') {
         opts.filters = [{ name: 'Executable', extensions: ['exe'] }]
       }
-      const { filePaths } = await dialog.showOpenDialog(opts)
+      const { filePaths } = await ipcRenderer.invoke('dialog.showOpenDialog', opts)
       if (filePaths.length) {
         const f = filePaths[0]
         if (['java', 'java.exe', 'javaw.exe'].includes(path.basename(f))) {
@@ -305,9 +355,11 @@ em
       padding: 0 !important
       min-width: 30px !important
 
-.checkboxes-wrapper
-  .v-input
-    margin-top: 0
+.checkboxes-wrapper .v-input, .v-input--radio-group
+  margin-top: 0
+
+.v-radio
+  margin-bottom: 4px !important
 
 .artwork-box
   display: flex

@@ -95,7 +95,7 @@ export default {
 <style lang="sass" scoped>
 .final-scoring-events
   position: absolute
-  top: #{$action-bar-height + $panel-gap}
+  top: calc(var(--action-bar-height) + #{$panel-gap})
   left: 0
   user-select: none
   min-height: 0

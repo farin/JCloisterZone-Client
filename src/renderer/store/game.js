@@ -1,6 +1,6 @@
 import fs from 'fs'
 import { extname } from 'path'
-import { remote } from 'electron'
+import { ipcRenderer } from 'electron'
 import compareVersions from 'compare-versions'
 import { randomId } from '@/utils/random'
 
@@ -58,6 +58,7 @@ const computeClock = (playersCount, messages) => {
 // theme $engine is used instead to store engine instance
 export const state = () => ({
   id: null,
+  pin: null,
   hash: null,
   lastMessageId: null,
   owner: null,
@@ -92,6 +93,7 @@ export const state = () => ({
 export const mutations = {
   clear (state) {
     state.id = null
+    state.pin = null
     state.hash = null
     state.lastMessageId = null
     state.owner = null
@@ -122,6 +124,10 @@ export const mutations = {
 
   id (state, value) {
     state.id = value
+  },
+
+  pin (state, value) {
+    state.pin = value ? value.substring(0, 3) + '-' + value.substring(3) : null
   },
 
   hash (state, value) {
@@ -260,8 +266,11 @@ export const getters = {
     return state.players[playerIdx].meeples[meepleType][1]
   },
 
-  canPayRansom: state => player => {
+  canPayRansom: (state, getters, rootState) => player => {
     if (state.action === null || state.action.player !== player) {
+      return false
+    }
+    if (state.players[player].sessionId !== rootState.networking.sessionId) {
       return false
     }
     return !state.flags.ransomPaid && state.history.length && state.players[player].points >= 3
@@ -305,17 +314,24 @@ export const getters = {
     return clientSessionId === actionSessionId
   },
 
+  localPlayers (state, getters, rootState) {
+    const clientSessionId = rootState.networking.sessionId
+    return state.players
+      .map((p, index) => ({ sessionId: p.sessionId, index }))
+      .filter(p => clientSessionId === p.sessionId)
+      .map(p => p.index)
+  },
+
   isUndoAllowed: (state, getters) => {
     return state.undo?.allowed && getters.isActionLocal
   }
 }
 
 export const actions = {
-  async save ({ state, dispatch }) {
+  async save ({ state, dispatch }, { onlySetup = false } = {}) {
     return new Promise(async (resolve, reject) => { /* eslint no-async-promise-executor: 0 */
-      const { dialog } = remote
-      let { filePath } = await dialog.showSaveDialog({
-        title: 'Save Game',
+      let { filePath } = await ipcRenderer.invoke('dialog.showSaveDialog', {
+        title: onlySetup ? 'Save Game Setup' : 'Save Game',
         filters: SAVED_GAME_FILTERS,
         properties: ['createDirectory', 'showOverwriteConfirmation']
       })
@@ -323,25 +339,34 @@ export const actions = {
         if (extname(filePath) === '') {
           filePath += '.jcz'
         }
-        const clock = state.lastMessageClock + Date.now() - state.lastMessageClockLocal
-        const content = {
-          appVersion: getAppVersion(),
-          gameId: state.id,
-          name: '',
-          initialSeed: state.initialSeed,
-          created: (new Date()).toISOString(),
-          clock,
-          setup: state.setup,
-          players: state.players.map(p => ({
-            name: p.name,
-            slot: p.slot,
-            clientId: p.clientId
-          })),
-          replay: state.gameMessages.map(m => {
-            m = pick(m, ['type', 'payload', 'player', 'clock'])
-            m.payload = omit(m.payload, ['gameId'])
-            return m
-          })
+        let content
+        if (onlySetup) {
+          content = {
+            appVersion: getAppVersion(),
+            created: (new Date()).toISOString(),
+            setup: state.setup
+          }
+        } else {
+          const clock = state.lastMessageClock + Date.now() - state.lastMessageClockLocal
+          content = {
+            appVersion: getAppVersion(),
+            gameId: state.id,
+            name: '',
+            initialSeed: state.initialSeed,
+            created: (new Date()).toISOString(),
+            clock,
+            setup: state.setup,
+            players: state.players.map(p => ({
+              name: p.name,
+              slot: p.slot,
+              clientId: p.clientId
+            })),
+            replay: state.gameMessages.map(m => {
+              m = pick(m, ['type', 'payload', 'player', 'clock'])
+              m.payload = omit(m.payload, ['gameId'])
+              return m
+            })
+          }
         }
 
         if (Object.keys(state.gameAnnotations).length) {
@@ -353,7 +378,7 @@ export const actions = {
             reject(err)
           } else {
             Vue.nextTick(() => {
-              dispatch('settings/addRecentSave', filePath, { root: true })
+              dispatch(onlySetup ? 'settings/addRecentSetupSave' : 'settings/addRecentSave', filePath, { root: true })
             })
             resolve(filePath)
           }
@@ -366,9 +391,8 @@ export const actions = {
 
   async load ({ commit, dispatch, rootState }, filePath) {
     return new Promise(async (resolve, reject) => {
-      const { dialog } = remote
       if (!filePath) {
-        const { filePaths } = await dialog.showOpenDialog({
+        const { filePaths } = await ipcRenderer.invoke('dialog.showOpenDialog', {
           title: 'Load Game',
           filters: SAVED_GAME_FILTERS,
           properties: ['openFile']
@@ -385,8 +409,16 @@ export const actions = {
         sg = JSON.parse(data)
         if (compareVersions(SAVED_GAME_COMPATIBILITY, sg.appVersion) === 1) {
           const msg = `Saves created prior ${SAVED_GAME_COMPATIBILITY} are not supported.`
-          dialog.showErrorBox('Load Error', msg)
+          ipcRenderer.invoke('dialog.showErrorBox', { title: 'Load Error', content: msg })
           reject(msg)
+          return
+        }
+
+        if (sg.setup && (!sg.players || !sg.initialSeed || !sg.replay || !sg.clock || !sg.gameId)) {
+          dispatch('gameSetup/createGame', sg.setup, { root: true })
+          Vue.nextTick(() => {
+            dispatch('settings/addRecentSetupSave', filePath, { root: true })
+          })
           return
         }
 
@@ -439,6 +471,7 @@ export const actions = {
       commit('clear')
       commit('id', payload.gameId)
     }
+    commit('pin', payload.pin || null)
     commit('setup', payload.setup)
     commit('slots', payload.slots)
     commit('initialSeed', payload.initialSeed)
@@ -510,8 +543,7 @@ export const actions = {
     const loggingEnabled = rootState.settings.devMode
     const engine = this._vm.$engine.spawn({ loggingEnabled })
     engine.on('error', data => {
-      const { dialog } = remote
-      dialog.showErrorBox('Engine error', data + '')
+      ipcRenderer.invoke('dialog.showErrorBox', { title: 'Engine error', content: data + '' })
     })
 
     if (state.gameMessages?.length) {

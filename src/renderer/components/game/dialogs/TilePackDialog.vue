@@ -20,11 +20,15 @@
         </div>
       </template>
 
-      <h2>Remaining tiles</h2>
-      <p v-if="options.puristTiles">
-        Game was created with option which doesn't allow showing remaining tiles cheat sheet.
-      </p>
-      <TileDistributionLive v-else :sets="sets" :rules="rules" />
+      <template v-if="options.puristTiles">
+        <h2>Game Tiles</h2>
+        <p>The game was created with option which doesn't allow showing remaining tiles count.</p>
+        <TileDistribution :sets="sets" :rules="rules" />
+      </template>
+      <template v-else>
+        <h2>Remaining tiles</h2>
+        <TileDistributionLive :sets="sets" :rules="rules" />
+      </template>
     </v-card-text>
     <v-card-actions>
       <v-spacer />
@@ -40,11 +44,13 @@
 import { mapState } from 'vuex'
 
 import TileDistributionLive from '@/components/game/dialogs/TileDistributionLive'
+import TileDistribution from '@/components/TileDistribution'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
 
 export default {
   components: {
     StandaloneTileImage,
+    TileDistribution,
     TileDistributionLive
   },
 
@@ -83,6 +89,6 @@ h2
 
 p
   text-align: center
-  margin-top: 20px
-  font-size: 18px
+  margin-top: 10px
+  font-style: italic
 </style>

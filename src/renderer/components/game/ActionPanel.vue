@@ -37,7 +37,7 @@
         <template v-if="local">
           <span v-if="plain !== ''" class="skip-text text">or</span>
           <div class="pass-item">
-            <v-btn large color="secondary" @click="pass">{{ label || 'Skip action' }}</v-btn>
+            <v-btn :large="$vuetify.breakpoint.height > 768" color="secondary" @click="pass">{{ label || 'Skip action' }}</v-btn>
           </div>
         </template>
         <template v-else>
@@ -53,7 +53,7 @@
     />
 
     <svg
-      v-if="action"
+      v-if="action && activePlayerIndicatorTriangle"
       :class="`active-player-marker ${colorCssClass(action.player)} color-fill`"
       width="42" height="42"
     >
@@ -62,13 +62,13 @@
 
     <audio
       ref="beep"
-      src="~/assets/beep.wav"
+      :src="BEEP_URL"
     />
   </div>
 </template>
 
 <script>
-import { remote } from 'electron'
+import { ipcRenderer } from 'electron'
 import { mapGetters, mapState } from 'vuex'
 
 import ActionPhaseAction from '@/components/game/actions/ActionPhaseAction.vue'
@@ -131,8 +131,10 @@ export default {
   },
 
   data () {
+    const src = require('~/assets/beep.wav')
     return {
-      selected: 0
+      selected: 0,
+      BEEP_URL: src?.default ? src.default : src // hack, Nuxt doesn't convert asset to string directly (at least in dev mode)
     }
   },
 
@@ -145,7 +147,8 @@ export default {
     ...mapState({
       connectionState: state => state.networking.connectionStatus,
       pointsExpression: state => state.board.pointsExpression,
-      beep: state => state.settings.beep
+      beep: state => state.settings.beep,
+      activePlayerIndicatorTriangle: state => state.settings.activePlayerIndicatorTriangle
     }),
 
     playerIndex () {
@@ -207,6 +210,7 @@ export default {
     if (this.local) {
       this.onPlayerActivated()
     }
+
     this._restored = () => {
       this.clearProgress()
     }
@@ -216,24 +220,22 @@ export default {
       }
     }
 
-    const win = remote.getCurrentWindow()
-    win.on('restore', this._restored)
-    win.on('show', this._restored)
-    win.on('focus', this._restored)
-    win.on('minimize', this._minimized)
-    win.on('hide', this._minimized)
-    win.on('blur', this._minimized)
+    ipcRenderer.on('win.restore', this._restored)
+    ipcRenderer.on('win.show', this._restored)
+    ipcRenderer.on('win.focus', this._restored)
+    ipcRenderer.on('win.minimize', this._minimized)
+    ipcRenderer.on('win.hide', this._minimized)
+    ipcRenderer.on('win.blur', this._minimized)
   },
 
   beforeDestroy () {
     window.removeEventListener('keydown', this.onKeyDown)
-    const win = remote.getCurrentWindow()
-    win.off('restore', this._restored)
-    win.off('show', this._restored)
-    win.off('focus', this._restored)
-    win.off('minimize', this._minimized)
-    win.off('hide', this._minimized)
-    win.off('blur', this._minimized)
+    ipcRenderer.off('win.restore', this._restored)
+    ipcRenderer.off('win.show', this._restored)
+    ipcRenderer.off('win.focus', this._restored)
+    ipcRenderer.off('win.minimize', this._minimized)
+    ipcRenderer.off('win.hide', this._minimized)
+    ipcRenderer.off('win.blur', this._minimized)
   },
 
   methods: {
@@ -256,12 +258,12 @@ export default {
       }
     },
 
-    onPlayerActivated () {
+    async onPlayerActivated () {
       if (this.beep) {
         this.$refs.beep.play()
       }
-      const win = remote.getCurrentWindow()
-      if (win.isMinimized() || !win.isVisible()) {
+      const visible = await ipcRenderer.invoke('win.isVisible')
+      if (!visible) {
         this.setupProgress()
       }
     },
@@ -271,15 +273,13 @@ export default {
     },
 
     setupProgress () {
-      const win = remote.getCurrentWindow()
-      win.setProgressBar(1, {
+      ipcRenderer.invoke('win.setProgressBar', [1, {
         mode: 'indeterminate'
-      })
+      }])
     },
 
     clearProgress () {
-      const win = remote.getCurrentWindow()
-      win.setProgressBar(-1)
+      ipcRenderer.invoke('win.setProgressBar', [-1])
     }
   }
 }
@@ -291,7 +291,7 @@ export default {
   top: 0
   left: 0px
   width: calc(100% - var(--aside-width-plus-gap))
-  height: $action-bar-height
+  height: var(--action-bar-height)
   display: flex
   align-items: stretch
   user-select: none
@@ -336,4 +336,14 @@ export default {
 
     .pass-item
       margin-left: 20px
+
+@media (max-height: 768px)
+  .action-panel
+    .text
+      font-size: 18px
+
+    .tile-img
+      width: 72px
+      height: 72px
+      transform: none
 </style>

@@ -236,6 +236,11 @@ export default {
           neutral: []
         }
 
+        if (this.fairy && meeples.find(m => m.id === this.fairy.placement.meepleId)) {
+          x += 140
+          y += 20
+        }
+
         NEUTRAL_FIGURES.forEach(figure => {
           if (!this[figure]) {
             return

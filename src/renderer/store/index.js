@@ -4,7 +4,6 @@ import https from 'https'
 import { execFile } from 'child_process'
 import unzipper from 'unzipper'
 import sha256File from 'sha256-file'
-import { remote } from 'electron'
 
 export const state = () => ({
   loaded: {
@@ -96,7 +95,9 @@ export const actions = {
       console.log('Downloading classic artwork.')
       const link = $theme.REMOTE_ARTWORKS.classic.url
       commit('download', { name: 'classic.zip', description: 'Downloading classic artwork', link })
-      const artworksFolder = path.join(remote.app.getPath('userData'), 'artworks')
+
+      const userDataPath = window.process.argv.find(arg => arg.startsWith('--user-data=')).replace('--user-data=', '')
+      const artworksFolder = path.join(userDataPath, 'artworks')
       await fs.promises.mkdir(artworksFolder, { recursive: true })
       const zipName = path.join(artworksFolder, 'classic.zip')
       try {
