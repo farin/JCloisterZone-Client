@@ -9,7 +9,7 @@ async function createMenu (win) {
   const isMac = process.platform === 'darwin'
   const sessionSubmenu = [
     { id: 'playonline-connect', label: 'Play Online', accelerator: 'CommandOrControl+P', click () { win.webContents.send('menu.playonline-connect') } },
-    { id: 'playonline-disconnect', label: 'Disconnect', click () { win.webContents.send('menu.playonline-dicconnect') } },
+    { id: 'playonline-disconnect', label: 'Disconnect', click () { win.webContents.send('menu.playonline-disconnect') } },
     { type: 'separator' },
     { id: 'new-game', label: 'New Game', accelerator: 'CommandOrControl+N', click () { win.webContents.send('menu.new-game') } },
     { id: 'join-game', label: 'Join Game', accelerator: 'CommandOrControl+J', click () { win.webContents.send('menu.join-game') } },
