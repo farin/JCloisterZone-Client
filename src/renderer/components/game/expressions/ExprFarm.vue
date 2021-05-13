@@ -2,50 +2,32 @@
   <ExprContent :expr="expr">
     <template #title>{{ title }}</template>
     <template #row>
-      <template v-if="expr.args.pigs || expr.args.pigHerds">(&ensp;</template>
-      {{ basePoints }}
-      <template v-if="expr.args.pigs">
-        &ensp;+&ensp;
-        <div class="value-units nobg">{{ expr.args.pigs }}
-          <svg class="meeple mt-2" :width="24" :height="24">
-            <use :href="`${MEEPLES_SVG}#pig`" />
-          </svg>
-        </div>
-      </template>
-      <template v-if="expr.args.pigHerds">
-        &ensp;+&ensp;
-        <div class="value-units nobg">{{ expr.args.pigHerds }}
-          <img src="~/assets/features/C1/pig_herd.jpg" height="24">
-        </div>
-      </template>
-      <template v-if="expr.args.pigs || expr.args.pigHerds">&ensp;)</template>
-      &ensp;×&ensp;
       <template v-if="expr.args.coc">(&ensp;</template>
       <div class="value-units">
         {{ expr.args.cities || 0 }}
         <img src="~/assets/icons/city-icon.png" height="32">
       </div>
       <template v-if="expr.args.coc">
-      	&ensp;+&ensp;
+        &ensp;+&ensp;
         <div class="value-units">
           {{ expr.args.coc || 0 }}
           <ExpansionSymbol :expansion="Expansion.COUNT" :style="{ width: 24, height: 24 }" />
         </div>
         &ensp;)
       </template>
+      &ensp;×&ensp;
+      <FarmItemPoints :expr="expr">{{ basePoints }}</FarmItemPoints>&ensp;
       <template v-if="expr.args.besieged">
-        +&ensp;{{ basePoints * 2 }}&ensp;×&ensp;
-        <div class="value-units">
+        +&ensp;<div class="value-units">
           {{ expr.args.besieged }}
           <ExpansionSymbol :expansion="Expansion.SIEGE" :style="{ width: 24, height: 24 }" />
-        </div>&ensp;
+        </div>&ensp;×&ensp;<FarmItemPoints :expr="expr">{{ basePoints * 2 }}</FarmItemPoints>&ensp;
       </template>
       <template v-if="expr.args.castles">
-        +&ensp;{{ basePoints + 1}}&ensp;×&ensp;
-        <div class="value-units">
+        +&ensp;<div class="value-units">
           {{ expr.args.castles }}
           <TokenImage token="CASTLE" :height="32" />
-        </div>&ensp;
+        </div>&ensp;×&ensp;<FarmItemPoints :expr="expr">{{ basePoints + 1 }}</FarmItemPoints>&ensp;
       </template>
       <slot />=&ensp;
     </template>
@@ -57,6 +39,7 @@ import { Expansion } from '@/models/expansions'
 import ExpansionSymbol from '@/components/ExpansionSymbol'
 import ExprContent from '@/components/game/expressions/ExprContent'
 import ExprMixin from '@/components/game/expressions/ExprMixin'
+import FarmItemPoints from '@/components/game/expressions/FarmItemPoints'
 import TokenImage from '@/components/game/TokenImage'
 
 const MEEPLES_SVG = require('~/assets/meeples.svg')
@@ -65,7 +48,8 @@ export default {
   components: {
     ExpansionSymbol,
     ExprContent,
-    TokenImage
+    TokenImage,
+    FarmItemPoints
   },
 
   mixins: [ExprMixin],

@@ -58,7 +58,7 @@ export default {
     +theme using ($theme)
       color: map-get($theme, 'gray-text-color')
 
-    .value-units
+    ::v-deep .value-units
       position: relative
       display: flex
       flex-direction: column

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="action-panel"
+    :class="{ 'action-panel': true, 'full-height': pointsExpression || phase === 'GameOverPhase'}"
     @click.right="onRightClick"
   >
     <div v-if="notifyConnectionClosed" class="flex-grow-1">
@@ -295,6 +295,9 @@ export default {
   display: flex
   align-items: stretch
   user-select: none
+
+  &.full-height
+    height: 84px
 
   +theme using ($theme)
     background: map-get($theme, 'opaque-bg')
