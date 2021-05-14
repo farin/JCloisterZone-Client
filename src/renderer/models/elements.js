@@ -240,3 +240,7 @@ export const ESCAPE = GameElement.ESCAPE = new GameElement('escape', 'Escaping a
   '*': 'off',
   'siege/*': true
 })
+export const WATCHTOWER = GameElement.WATCHTOWER = new GameElement('watchtower', 'Watchtowers', {
+  '*': 'off',
+  'watchtowers': true
+})

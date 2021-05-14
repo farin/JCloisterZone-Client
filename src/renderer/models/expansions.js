@@ -85,3 +85,5 @@ export const RUSSIAN_PROMOS = Expansion.RUSSIAN_PROMOS = new Expansion('RUSSIAN_
 export const LABYRINTH = Expansion.LABYRINTH = new Expansion('LABYRINTH', 'The Labyrinth')
 export const DARMSTADT = Expansion.DARMSTADT = new Expansion('DARMSTADT', 'Darmstadt')
 export const SPIEL_DOCH = Expansion.SPIEL_DOCH = new Expansion('SPIEL_DOCH', 'Spiel Doch')
+
+export const WATCHTOWERS = Expansion.WATCHTOWERS = new Expansion('WATCHTOWERS', 'The Watchtowers')

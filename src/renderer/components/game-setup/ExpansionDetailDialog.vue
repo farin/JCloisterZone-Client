@@ -46,6 +46,7 @@ import SpielDochDetail from '@/components/game-setup/details/SpielDochDetail'
 import TunnelDetail from '@/components/game-setup/details/TunnelDetail'
 import TowerDetail from '@/components/game-setup/details/TowerDetail'
 import TradersAndBuildersDetail from '@/components/game-setup/details/TradersAndBuildersDetail'
+import WatchtowersDetail from '@/components/game-setup/details/WatchtowersDetail'
 import WinterEditionDetail from '@/components/game-setup/details/WinterEditionDetail'
 import WindRosesDetail from '@/components/game-setup/details/WindRosesDetail'
 
@@ -87,6 +88,7 @@ export default {
         TOWER: TowerDetail,
         TUNNEL: TunnelDetail,
         TRADERS_AND_BUILDERS: TradersAndBuildersDetail,
+        WATCHTOWERS: WatchtowersDetail,
         WINTER: WinterEditionDetail,
         WIND_ROSES: WindRosesDetail
       }[this.expansion.name]

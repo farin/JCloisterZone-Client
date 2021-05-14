@@ -36,6 +36,7 @@
         <ExpansionBox :expansion="Expansion.FERRIES" @open-detail="openDetail" />
         <ExpansionBox :expansion="Expansion.GOLDMINES" @open-detail="openDetail" />
         <ExpansionBox :expansion="Expansion.MAGE_AND_WITCH" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.WATCHTOWERS" @open-detail="openDetail" />
       </div>
     </ConfigSection>
 
