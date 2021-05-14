@@ -9,6 +9,7 @@ import pick from 'lodash/pick'
 import omit from 'lodash/omit'
 import range from 'lodash/range'
 import zip from 'lodash/zip'
+import isNil from 'lodash/isNil'
 import Vue from 'vue'
 
 import { SAVED_GAME_COMPATIBILITY } from '@/constants/versions'
@@ -420,7 +421,7 @@ export const actions = {
           return
         }
 
-        if (sg.setup && (!sg.players || !sg.initialSeed || !sg.replay || !sg.clock || !sg.gameId)) {
+        if (sg.setup && !sg.test && (isNil(sg.players) || isNil(sg.initialSeed) || isNil(sg.replay) || isNil(sg.clock) || isNil(sg.gameId))) {
           Vue.nextTick(() => {
             dispatch('settings/addRecentSetupSave', filePath, { root: true })
           })
