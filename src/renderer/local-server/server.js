@@ -18,6 +18,7 @@ export default class GameServer {
     this.appVersion = appVersion
     this.game = {
       gameId: game.gameId,
+      originAppVersion: game.originAppVersion || appVersion,
       setup: game.setup,
       initialSeed: game.initialSeed || randomLong().toString(),
       gameAnnotations: game.gameAnnotations || {},

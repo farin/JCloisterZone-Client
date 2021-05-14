@@ -58,6 +58,7 @@ const computeClock = (playersCount, messages) => {
 // theme $engine is used instead to store engine instance
 export const state = () => ({
   id: null,
+  compatAppVersion: null, // original app version in which was game created
   pin: null,
   hash: null,
   lastMessageId: null,
@@ -93,6 +94,7 @@ export const state = () => ({
 export const mutations = {
   clear (state) {
     state.id = null
+    state.originAppVersion = null
     state.pin = null
     state.hash = null
     state.lastMessageId = null
@@ -124,6 +126,10 @@ export const mutations = {
 
   id (state, value) {
     state.id = value
+  },
+
+  originAppVersion (state, value) {
+    state.originAppVersion = value
   },
 
   pin (state, value) {
@@ -349,7 +355,7 @@ export const actions = {
         } else {
           const clock = state.lastMessageClock + Date.now() - state.lastMessageClockLocal
           content = {
-            appVersion: getAppVersion(),
+            appVersion: state.originAppVersion || getAppVersion(),
             gameId: state.id,
             name: '',
             initialSeed: state.initialSeed,
@@ -444,6 +450,7 @@ export const actions = {
       commit('game/clear', null, { root: true })
       await dispatch('networking/startServer', {
         gameId: sg.gameId,
+        originAppVersion: sg.appVersion,
         setup: { options: {}, ...sg.setup },
         initialSeed: sg.initialSeed,
         gameAnnotations: sg.gameAnnotations || {},
@@ -471,6 +478,7 @@ export const actions = {
     if (state.id !== payload.gameId) {
       commit('clear')
       commit('id', payload.gameId)
+      commit('originAppVersion', payload.originAppVersion)
     }
     commit('pin', payload.pin || null)
     commit('setup', payload.setup)
@@ -546,6 +554,10 @@ export const actions = {
     engine.on('error', data => {
       ipcRenderer.invoke('dialog.showErrorBox', { title: 'Engine error', content: data + '' })
     })
+
+    if (state.originAppVersion && state.originAppVersion !== getAppVersion()) {
+      await engine.write(`%compat ${state.originAppVersion}`)
+    }
 
     if (state.gameMessages?.length) {
       await engine.enableBulkMode()

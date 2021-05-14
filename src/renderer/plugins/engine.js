@@ -18,6 +18,10 @@ class BaseEngine {
     })
   }
 
+  async write (cmd) {
+    await this._write(cmd)
+  }
+
   writeMessage (message) {
     if (this.loggingEnabled) {
       console.groupCollapsed(message.type)
