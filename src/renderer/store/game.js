@@ -413,7 +413,12 @@ export const actions = {
       let sg, slots
       try {
         const data = await fs.promises.readFile(filePath)
-        sg = JSON.parse(data)
+        try {
+          sg = JSON.parse(data)
+        } catch (err) {
+          ipcRenderer.invoke('dialog.showErrorBox', { title: 'File is not valid', content: err + '' })
+          reject(err)
+        }
         if (compareVersions(SAVED_GAME_COMPATIBILITY, sg.appVersion) === 1) {
           const msg = `Saves created prior ${SAVED_GAME_COMPATIBILITY} are not supported.`
           ipcRenderer.invoke('dialog.showErrorBox', { title: 'Load Error', content: msg })

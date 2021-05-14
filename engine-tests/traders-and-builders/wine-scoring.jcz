@@ -1,0 +1,124 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "1",
+  "name": "",
+  "initialSeed": "-7432254796250432831",
+  "created": "2021-05-14T19:58:28.276Z",
+  "clock": 0,
+  "test": {
+    "description": "Wine scoring",
+    "assertions": [
+      "Oskar has 10 points",
+      "Carol has 6 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "traders-and-builders:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "builder": 1,
+      "pig": 1,
+      "traders": true,
+      "pig-herd": true
+    },
+    "rules": {
+      "tiny-city-scoring": "4"
+    },
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Carol",
+      "slot": 0
+    },
+    {
+      "name": "Oskar",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "TB/CCc.w",
+        "rotation": "R90",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 5045
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -1
+          ],
+          "location": "NS"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 5583
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-8196549294661436111"
+      },
+      "player": 0,
+      "clock": 11339
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CFC.2",
+        "rotation": "R0",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 1,
+      "clock": 13645
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 16277
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-5570323790334517512"
+      },
+      "player": 1,
+      "clock": 16297
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "TB/CCc.w",
+      "BA/CFC.2"
+    ],
+    "endTurn": 2
+  }
+}

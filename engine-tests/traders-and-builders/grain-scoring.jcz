@@ -1,0 +1,143 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "1",
+  "name": "",
+  "initialSeed": "-8751171668661362147",
+  "created": "2021-05-14T20:09:14.054Z",
+  "clock": 0,
+  "test": {
+    "description": "Grain scoring",
+    "assertions": [
+      "Alice has 10 points",
+      "Bob has 0 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "traders-and-builders:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "builder": 1,
+      "pig": 1,
+      "traders": true,
+      "pig-herd": true
+    },
+    "rules": {
+      "tiny-city-scoring": "4"
+    },
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "TB/RCc.g",
+        "rotation": "R180",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 2972
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 6208
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-1598628822618607422"
+      },
+      "player": 0,
+      "clock": 6220
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "TB/CRc.g",
+        "rotation": "R0",
+        "position": [
+          1,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 7122
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 7433
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-6401676093207640819"
+      },
+      "player": 1,
+      "clock": 7444
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R270",
+        "position": [
+          2,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 8421
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 9208
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-3847683927813497155"
+      },
+      "player": 0,
+      "clock": 10497
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "TB/RCc.g",
+      "TB/CRc.g",
+      "BA/C"
+    ],
+    "endTurn": 3
+  }
+}
