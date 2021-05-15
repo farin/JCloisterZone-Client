@@ -1,12 +1,18 @@
 import fs from 'fs'
-import path from 'path'
 
 import Vue from 'vue'
+
+const SIDES = ['N', 'E', 'S', 'W']
+const EDGE_CODE = {
+  city: 'c',
+  road: 'r',
+  farm: 'f',
+  river: 'i'
+}
 
 class Tiles {
   constructor (vue) {
     this.tiles = {}
-    this.multiTiles = {}
     this.sets = {}
     this.loaded = false
   }
@@ -65,27 +71,109 @@ class Tiles {
   }
 }
 
-async function readTilesXMl (ctx, $tiles) {
+function getFeatureSignature (feature) {
+  const attrs = feature.attributes
+  const alist = [feature.tagName]
+  for (let i = attrs.length - 1; i >= 0; i--) {
+    alist.push(attrs[i].name + '=' + attrs[i].value)
+  }
+  alist.sort()
+  // save edge code to first char for getEdge
+  return EDGE_CODE[feature.tagName] + '|' + alist.join(',')
+}
+
+function getSymmetry (features) {
+  const sym0 = (features.N !== features.S || features.NL !== features.SL || features.WR !== features.SR ||
+          features.W !== features.E || features.WL !== features.EL || features.WR !== features.ER)
+  if (sym0) return 0
+
+  const sym2 = features.N !== features.E || features.NL !== features.EL || features.NR !== features.ER
+  return sym2 ? 2 : 4
+}
+
+function getEdges (features) {
+  const sides = []
+  SIDES.forEach(side => {
+    const f = features[side]
+    if (f) {
+      sides.push(f.charAt(0))
+    } else {
+      sides.push(features[side + 'L'] ? 'f' : '*')
+    }
+  })
+  return sides.join('')
+}
+
+async function readTilesXMl ({ app }, $tiles) {
   const lookupFolder = process.resourcesPath + '/tiles/'
   const listing = await fs.promises.readdir(lookupFolder)
   $tiles.xmls = listing.filter(f => {
     const ext = f.substr(f.lastIndexOf('.') + 1)
     return ext === 'xml'
   }).map(f => lookupFolder + f)
-}
 
-async function readTilesJson ({ app }, $tiles) {
-  // in dev script is in plugins dir, in production all is compiled by webpack to a single file in rendeder root
-  const data = await fs.promises.readFile(path.join(process.resourcesPath, 'tiles.json'))
+  const tiles = {}
+  const sets = {}
+  const parser = new DOMParser()
+  for (const xml of $tiles.xmls) {
+    const content = await fs.promises.readFile(xml)
+    const doc = parser.parseFromString(content, 'application/xml')
 
-  const json = JSON.parse(data)
-  $tiles.tiles = json.tiles
-  $tiles.tiles['AM/A'] = {
+    doc.querySelectorAll('tile[id]').forEach(t => {
+      const id = t.getAttribute('id')
+      const features = {}
+      for (const feature of t.children) {
+        if (feature.childElementCount) continue // wagon move etc
+        const content = feature.textContent.trim()
+        if (content) {
+          const signature = getFeatureSignature(feature)
+          content.split(/\s+/).forEach(loc => {
+            features[loc] = signature
+          })
+        }
+      }
+
+      const tile = {
+        symmetry: getSymmetry(features),
+        edge: getEdges(features)
+      }
+
+      const mx = t.getAttribute('max')
+      if (mx) {
+        tile.max = parseInt(mx)
+      }
+
+      tiles[id] = tile
+    })
+
+    doc.querySelectorAll('tile-set[id]').forEach(ts => {
+      const id = ts.getAttribute('id')
+      const max = ts.getAttribute('max')
+      const setTiles = {}
+      ts.querySelectorAll('ref').forEach(ref => {
+        const count = ref.getAttribute('count')
+        setTiles[ref.getAttribute('tile')] = parseInt(count || 1)
+      })
+      const set = { tiles: setTiles }
+      if (max) {
+        set.max = parseInt(max)
+      }
+      const remove = Array.from(ts.querySelectorAll('remove')).map(r => r.getAttribute('tile'))
+      if (remove.length) {
+        set.remove = remove
+      }
+
+      sets[id] = set
+    })
+  }
+
+  tiles['AM/A'] = {
     symmetry: 4,
     edge: '****'
   }
-  $tiles.multiTiles = json.multiTiles
-  $tiles.sets = json.sets
+
+  $tiles.tiles = tiles
+  $tiles.sets = sets
   $tiles.loaded = true
   console.log('tiles.json loaded')
 
@@ -96,10 +184,5 @@ export default (ctx, inject) => {
   const $tiles = new Tiles()
   Vue.prototype.$tiles = $tiles
 
-  Promise.all([
-    readTilesXMl(ctx, $tiles),
-    readTilesJson(ctx, $tiles)
-  ]).then(() => {
-    $tiles.loaded = true
-  })
+  readTilesXMl(ctx, $tiles)
 }
