@@ -7,14 +7,14 @@
   "author": "Roman Krejcik <farin@farin.cz>",
   "main": "./dist/main/index.js",
   "scripts": {
-    "validate-jcz-engine": "node build-scripts/jcz-engine-exists.js",
+    "download-game-engine": "node build-scripts/download-game-engine.js",
     "dev": "node .electron-nuxt/dev.js",
-    "build": "yarn run validate-jcz-engine && node .electron-nuxt/build.js",
+    "build": "yarn run download-game-engine && node .electron-nuxt/build.js",
     "test": "",
     "lint": "node_modules/.bin/eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter ./src",
     "lint:fix": "yarn run lint -- --fix",
     "preinstall": "node .electron-nuxt/check-engines.js",
-    "postinstall": "electron-builder install-app-deps",
+    "postinstall": "electron-builder install-app-deps && yarn run download-game-engine",
     "package": "yarn run build && electron-builder -c builder.config.js"
   },
   "build": {
