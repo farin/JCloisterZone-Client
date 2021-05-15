@@ -10,6 +10,7 @@
     "download-game-engine": "node build-scripts/download-game-engine.js",
     "dev": "node .electron-nuxt/dev.js",
     "build": "yarn run download-game-engine && node .electron-nuxt/build.js",
+    "rebuild": "node .electron-nuxt/build.js",
     "test": "",
     "lint": "node_modules/.bin/eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter ./src",
     "lint:fix": "yarn run lint -- --fix",

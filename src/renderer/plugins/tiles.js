@@ -65,28 +65,41 @@ class Tiles {
   }
 }
 
-export default ({ app }, inject) => {
+async function readTilesXMl (ctx, $tiles) {
+  const lookupFolder = process.resourcesPath + '/tiles/'
+  const listing = await fs.promises.readdir(lookupFolder)
+  $tiles.xmls = listing.filter(f => {
+    const ext = f.substr(f.lastIndexOf('.') + 1)
+    return ext === 'xml'
+  }).map(f => lookupFolder + f)
+}
+
+async function readTilesJson ({ app }, $tiles) {
+  // in dev script is in plugins dir, in production all is compiled by webpack to a single file in rendeder root
+  const data = await fs.promises.readFile(path.join(process.resourcesPath, 'tiles.json'))
+
+  const json = JSON.parse(data)
+  $tiles.tiles = json.tiles
+  $tiles.tiles['AM/A'] = {
+    symmetry: 4,
+    edge: '****'
+  }
+  $tiles.multiTiles = json.multiTiles
+  $tiles.sets = json.sets
+  $tiles.loaded = true
+  console.log('tiles.json loaded')
+
+  app.store.commit('tilesLoaded')
+}
+
+export default (ctx, inject) => {
   const $tiles = new Tiles()
   Vue.prototype.$tiles = $tiles
 
-  // in dev script is in plugins dir, in production all is compiled by webpack to a single file in rendeder root
-  fs.readFile(path.join(process.resourcesPath, 'tiles.json'), (err, data) => {
-    if (err) {
-      console.error(err)
-      return
-    }
-
-    const json = JSON.parse(data)
-    $tiles.tiles = json.tiles
-    $tiles.tiles['AM/A'] = {
-      symmetry: 4,
-      edge: '****'
-    }
-    $tiles.multiTiles = json.multiTiles
-    $tiles.sets = json.sets
+  Promise.all([
+    readTilesXMl(ctx, $tiles),
+    readTilesJson(ctx, $tiles)
+  ]).then(() => {
     $tiles.loaded = true
-    console.log('tiles.json loaded')
-
-    app.store.commit('tilesLoaded')
   })
 }

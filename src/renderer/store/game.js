@@ -565,6 +565,10 @@ export const actions = {
       await engine.write(`%compat ${state.originAppVersion}`)
     }
 
+    for (const xml of this._vm.$tiles.xmls) {
+      await engine.write(`%load ${xml}`)
+    }
+
     if (state.gameMessages?.length) {
       await engine.enableBulkMode()
     }
