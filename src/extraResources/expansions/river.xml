@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pack>
+<defs>
   <tiles>
     <tile id="RI/s" max="1" group="river-spring">
       <farm>NL NR EL ER SL SR WL WR</farm>
@@ -216,4 +216,4 @@
       <ref count="1" tile="RI.2/RrII" />
     </tile-set>
   </sets>
-</pack>
+</defs>

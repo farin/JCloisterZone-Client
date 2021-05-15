@@ -210,6 +210,8 @@ export default {
     } catch {
       // do nothing, state flags asre set
     }
+
+    await this.$tiles.loadExpansions()
     this.$store.dispatch('loadPlugins')
 
     window.addEventListener('keydown', this.onKeyDown)

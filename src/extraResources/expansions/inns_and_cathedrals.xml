@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pack>
+<defs>
   <tiles>
     <tile id="IC/Cccc.c">
       <city cathedral="yes">N W S E</city>
@@ -186,4 +186,4 @@
       <ref count="1" tile="IC/RrRr" />
     </tile-set>
   </sets>
-</pack>
+</defs>

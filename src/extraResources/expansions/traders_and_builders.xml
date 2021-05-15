@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pack>
+<defs>
 	<tiles>
 		<tile id="TB/Cc.g">
 			<city resource="grain">N W</city>
@@ -286,4 +286,4 @@
       <ref count="1" tile="TB/RRrr" />
     </tile-set>
   </sets>
-</pack>
+</defs>

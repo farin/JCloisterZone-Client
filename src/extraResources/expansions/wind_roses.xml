@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pack>
+<defs>
   <tiles>
     <tile id="WR/Cc.1" wind-rose="NE">
       <city>N W</city>
@@ -46,4 +46,4 @@
       <ref count="1" tile="WR/RrC" />
     </tile-set>
   </sets>
-</pack>
+</defs>

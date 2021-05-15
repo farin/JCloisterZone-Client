@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 
 import Vue from 'vue'
 
@@ -10,8 +11,42 @@ const EDGE_CODE = {
   river: 'i'
 }
 
+function getFeatureSignature (feature) {
+  const attrs = feature.attributes
+  const alist = [feature.tagName]
+  for (let i = attrs.length - 1; i >= 0; i--) {
+    alist.push(attrs[i].name + '=' + attrs[i].value)
+  }
+  alist.sort()
+  // save edge code to first char for getEdge
+  return EDGE_CODE[feature.tagName] + '|' + alist.join(',')
+}
+
+function getSymmetry (features) {
+  const sym0 = (features.N !== features.S || features.NL !== features.SL || features.WR !== features.SR ||
+          features.W !== features.E || features.WL !== features.EL || features.WR !== features.ER)
+  if (sym0) return 0
+
+  const sym2 = features.N !== features.E || features.NL !== features.EL || features.NR !== features.ER
+  return sym2 ? 2 : 4
+}
+
+function getEdges (features) {
+  const sides = []
+  SIDES.forEach(side => {
+    const f = features[side]
+    if (f) {
+      sides.push(f.charAt(0))
+    } else {
+      sides.push(features[side + 'L'] ? 'f' : '*')
+    }
+  })
+  return sides.join('')
+}
+
 class Tiles {
-  constructor (vue) {
+  constructor (ctx) {
+    this.ctx = ctx
     this.tiles = {}
     this.sets = {}
     this.loaded = false
@@ -69,120 +104,141 @@ class Tiles {
     }
     return ae.r - be.r // less roads first
   }
-}
 
-function getFeatureSignature (feature) {
-  const attrs = feature.attributes
-  const alist = [feature.tagName]
-  for (let i = attrs.length - 1; i >= 0; i--) {
-    alist.push(attrs[i].name + '=' + attrs[i].value)
-  }
-  alist.sort()
-  // save edge code to first char for getEdge
-  return EDGE_CODE[feature.tagName] + '|' + alist.join(',')
-}
+  async loadExpansions () {
+    const { settings } = this.ctx.store.state
+    const userDataPath = window.process.argv.find(arg => arg.startsWith('--user-data=')).replace('--user-data=', '')
 
-function getSymmetry (features) {
-  const sym0 = (features.N !== features.S || features.NL !== features.SL || features.WR !== features.SR ||
-          features.W !== features.E || features.WL !== features.EL || features.WR !== features.ER)
-  if (sym0) return 0
+    const lookupFolders = [
+      path.join(userDataPath, 'expansions'),
+      process.resourcesPath + '/expansions/'
+    ]
 
-  const sym2 = features.N !== features.E || features.NL !== features.EL || features.NR !== features.ER
-  return sym2 ? 2 : 4
-}
+    const xmls = []
 
-function getEdges (features) {
-  const sides = []
-  SIDES.forEach(side => {
-    const f = features[side]
-    if (f) {
-      sides.push(f.charAt(0))
-    } else {
-      sides.push(features[side + 'L'] ? 'f' : '*')
+    for (const lookupFolder of lookupFolders) {
+      let listing
+      try {
+        listing = await fs.promises.readdir(lookupFolder)
+      } catch (e) {
+        console.log(`${lookupFolder} does not exist`)
+        continue
+      }
+      listing.filter(f => {
+        const ext = f.substr(f.lastIndexOf('.') + 1)
+        return ext === 'xml'
+      }).forEach(f => xmls.push(lookupFolder + f))
     }
-  })
-  return sides.join('')
-}
 
-async function readTilesXMl ({ app }, $tiles) {
-  const lookupFolder = process.resourcesPath + '/tiles/'
-  const listing = await fs.promises.readdir(lookupFolder)
-  $tiles.xmls = listing.filter(f => {
-    const ext = f.substr(f.lastIndexOf('.') + 1)
-    return ext === 'xml'
-  }).map(f => lookupFolder + f)
-
-  const tiles = {}
-  const sets = {}
-  const parser = new DOMParser()
-  for (const xml of $tiles.xmls) {
-    const content = await fs.promises.readFile(xml)
-    const doc = parser.parseFromString(content, 'application/xml')
-
-    doc.querySelectorAll('tile[id]').forEach(t => {
-      const id = t.getAttribute('id')
-      const features = {}
-      for (const feature of t.children) {
-        if (feature.childElementCount) continue // wagon move etc
-        const content = feature.textContent.trim()
-        if (content) {
-          const signature = getFeatureSignature(feature)
-          content.split(/\s+/).forEach(loc => {
-            features[loc] = signature
-          })
+    for (const fullPath of settings.userExpansions) {
+      try {
+        const stats = await fs.promises.stat(fullPath)
+        if (stats.isFile()) {
+          console.log(`Loading user expansion ${fullPath}`)
+          xmls.push(fullPath)
         }
+      } catch (err) {
+        console.log(`${fullPath} is not accesible`)
       }
+    }
 
-      const tile = {
-        symmetry: getSymmetry(features),
-        edge: getEdges(features)
-      }
+    const tiles = {}
+    const sets = {}
+    const parser = new DOMParser()
+    for (const xml of xmls) {
+      const content = await fs.promises.readFile(xml)
+      const doc = parser.parseFromString(content, 'application/xml')
 
-      const mx = t.getAttribute('max')
-      if (mx) {
-        tile.max = parseInt(mx)
-      }
+      doc.querySelectorAll('tile[id]').forEach(t => {
+        const id = t.getAttribute('id')
+        const features = {}
+        for (const feature of t.children) {
+          if (feature.childElementCount) continue // wagon move etc
+          const content = feature.textContent.trim()
+          if (content) {
+            const signature = getFeatureSignature(feature)
+            content.split(/\s+/).forEach(loc => {
+              features[loc] = signature
+            })
+          }
+        }
 
-      tiles[id] = tile
-    })
+        const tile = {
+          symmetry: getSymmetry(features),
+          edge: getEdges(features)
+        }
 
-    doc.querySelectorAll('tile-set[id]').forEach(ts => {
-      const id = ts.getAttribute('id')
-      const max = ts.getAttribute('max')
-      const setTiles = {}
-      ts.querySelectorAll('ref').forEach(ref => {
-        const count = ref.getAttribute('count')
-        setTiles[ref.getAttribute('tile')] = parseInt(count || 1)
+        const mx = t.getAttribute('max')
+        if (mx) {
+          tile.max = parseInt(mx)
+        }
+
+        tiles[id] = tile
       })
-      const set = { tiles: setTiles }
-      if (max) {
-        set.max = parseInt(max)
-      }
-      const remove = Array.from(ts.querySelectorAll('remove')).map(r => r.getAttribute('tile'))
-      if (remove.length) {
-        set.remove = remove
-      }
 
-      sets[id] = set
-    })
+      doc.querySelectorAll('tile-set[id]').forEach(ts => {
+        const id = ts.getAttribute('id')
+        const max = ts.getAttribute('max')
+        const setTiles = {}
+        ts.querySelectorAll('ref').forEach(ref => {
+          const count = ref.getAttribute('count')
+          setTiles[ref.getAttribute('tile')] = parseInt(count || 1)
+        })
+        const set = { tiles: setTiles }
+        if (max) {
+          set.max = parseInt(max)
+        }
+        const remove = Array.from(ts.querySelectorAll('remove')).map(r => r.getAttribute('tile'))
+        if (remove.length) {
+          set.remove = remove
+        }
+
+        sets[id] = set
+      })
+    }
+
+    tiles['AM/A'] = {
+      symmetry: 4,
+      edge: '****'
+    }
+
+    this.xmls = xmls
+    this.tiles = tiles
+    this.sets = sets
+    this.loaded = true
+
+    console.log('Expansions definitions loaded.')
+    this.ctx.app.store.commit('tilesLoaded')
   }
 
-  tiles['AM/A'] = {
-    symmetry: 4,
-    edge: '****'
-  }
+  // async readUserExpansions () {
+  //   const { settings } = this.ctx.store.state
 
-  $tiles.tiles = tiles
-  $tiles.sets = sets
-  $tiles.loaded = true
-  console.log('tiles.json loaded')
+  //   // const userDataPath = window.process.argv.find(arg => arg.startsWith('--user-data=')).replace('--user-data=', '')
 
-  app.store.commit('tilesLoaded')
+  //   // const lookupFolders = [
+  //   //   path.join(userDataPath, 'expansions'),
+  //   //   process.resourcesPath + '/expansions/'
+  //   // ]
+
+  //   // const installedArtworks = []
+  //   //   const installedArtworksIds = new Set()
+
+  //   //   for (const fullPath of settings.userArtworks) {
+  //   //     const artwork = await readArtwork(path.basename(fullPath), fullPath)
+  //   //     if (artwork && !installedArtworksIds.has(artwork.id)) {
+  //   //       installedArtworks.push(artwork)
+  //   //       installedArtworksIds.add(artwork.id)
+  //   //     }
+  //   //   }
+
+  //   //   for (const lookupFolder of lookupFolders) {
+  //   //     let listing
+  //   //     try {
+  // }
 }
 
 export default (ctx, inject) => {
-  const $tiles = new Tiles()
+  const $tiles = new Tiles(ctx)
   Vue.prototype.$tiles = $tiles
-
-  readTilesXMl(ctx, $tiles)
 }

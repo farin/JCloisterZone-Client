@@ -14,6 +14,7 @@ const RECENT_SETUPS_COUNT = 4
 export const state = () => ({
   file: null,
   userArtworks: [],
+  userExpansions: [],
   enabledArtworks: ['classic'],
   lastGameSetup: null,
   recentSaves: [],
@@ -52,8 +53,6 @@ export const mutations = {
       }
       Vue.set(state, key, settings[key])
     })
-
-    console.log('Changed settings: ' + changed)
 
     changed.forEach(key => {
       const cb = changeCallbacks[key]

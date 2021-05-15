@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pack>
+<defs>
   <tiles>
     <tile id="GQ/RFI" max="1" group="river-spring">
       <river>E</river>
@@ -130,4 +130,4 @@
       <ref count="1" tile="GQ/CICI" />      
     </tile-set>
   </sets>
-</pack>
+</defs>

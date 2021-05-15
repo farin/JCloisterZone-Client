@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pack>
+<defs>
   <tile id="FE/CCc">
     <festival />
     <city>W E</city>
@@ -105,4 +105,4 @@
       <ref count="1" tile="FE/RrRr" />
     </tile-set>
   </sets>
-</pack>
+</defs>

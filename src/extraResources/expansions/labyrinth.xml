@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pack>
+<defs>
   <tiles>
     <tile id="LA/Rrrr">
       <road labyrinth="true">N W E S</road>
@@ -14,4 +14,4 @@
       <ref count="1" tile="LA/Rrrr" />
     </tile-set>
   </sets>
-</pack>
+</defs>

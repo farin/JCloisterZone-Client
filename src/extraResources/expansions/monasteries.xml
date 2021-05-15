@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pack>
+<defs>
   <tiles>
     <tile id="MO/M1">
       <cloister monastery="yes" />
@@ -44,4 +44,4 @@
       <ref count="1" tile="MO/MR2" />
     </tile-set>
   </sets>
-</pack>
+</defs>
