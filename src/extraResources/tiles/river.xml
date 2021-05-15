@@ -183,7 +183,7 @@
       <ref count="1" tile="RI.1/IIG" />
     </tile-set>
 
-    <tile-set id="river/2:1" max="1">
+    <tile-set id="river/2:1">
       <remove tile="RI.1/I.e" />
 
       <ref count="1" tile="RI/s" />
@@ -199,7 +199,7 @@
       <ref count="1" tile="RI.2/II+" />
       <ref count="1" tile="RI.2/RrII" />
     </tile-set>
-    <tile-set id="river/2:2" max="1">
+    <tile-set id="river/2:2">
       <remove tile="RI.1/I.e" />
 
       <ref count="1" tile="RI/s" />

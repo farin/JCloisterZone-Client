@@ -1,7 +1,7 @@
 <template>
   <QuantityButtons
     v-model="quantity"
-    :max="set.max || 3"
+    :max="max || 3"
     :mutable="mutable"
   >
     <slot/>
@@ -9,7 +9,11 @@
 </template>
 
 <script>
+import isNil from 'lodash/isNil'
+
 import QuantityButtons from '@/components/game-setup/buttons/QuantityButtons'
+
+const DEFAULT_MAX = 3
 
 export default {
   components: {
@@ -22,6 +26,19 @@ export default {
   },
 
   computed: {
+    max () {
+      if (Array.isArray(this.set)) {
+        let mx = DEFAULT_MAX
+        this.set.forEach(s => {
+          if (!isNil(s.max)) {
+            mx = Math.min(mx, s.max)
+          }
+        })
+        return mx
+      }
+      return isNil(this.set.max) ? DEFAULT_MAX : this.set.max
+    },
+
     quantity: {
       get () {
         const sets = this.$store.state.gameSetup.sets || {}

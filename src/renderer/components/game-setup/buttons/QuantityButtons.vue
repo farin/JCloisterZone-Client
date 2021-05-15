@@ -138,7 +138,6 @@ export default {
   +theme using ($theme)
     color: map-get($theme, 'gray-text-color')
 
-
 .remove, .quantity, .add
   flex: 1
 
