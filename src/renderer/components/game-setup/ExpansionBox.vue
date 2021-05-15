@@ -4,16 +4,16 @@
       'exp-box': true,
       [expansion.name]: true,
       'selected': selected,
-      'multiset': expansion.sets.length > 1 && !expansion.mergeSets,
-      ['multiset-' + expansion.sets.length]: expansion.sets.length > 1 && !expansion.mergeSets
+      'multiset': expansion.releases.length > 1,
+      ['multiset-' + expansion.releases.length]: expansion.releases.length > 1
     }"
   >
     <a href="#" class="detail-link" @click.prevent="open">
       <v-icon>fas fa-layer-group</v-icon>
     </a>
 
-    <template v-if="expansion.sets.length === 1 || expansion.mergeSets">
-      <TileSetButtons :set="expansion.sets">
+    <template v-if="expansion.releases.length === 1">
+      <TileSetButtons :sets="expansion.releases[0].sets">
         <div class="exp-title">
           <ExpansionSymbol :expansion="expansion" />
           <h3>{{ expansion.title }}</h3>
@@ -26,12 +26,12 @@
         <h3>{{ expansion.title }}</h3>
       </div>
       <div
-        v-for="set in expansion.sets"
-        :key="set.id"
+        v-for="(release, idx) in expansion.releases"
+        :key="idx"
         class="tile-set-row"
       >
-        <TileSetButtons :set="set">
-          <h4 :title="set.note">{{ set.title }}</h4>
+        <TileSetButtons :sets="release.sets">
+          <h4 :title="release.note">{{ release.title }}</h4>
         </TileSetButtons>
       </div>
     </template>
@@ -59,7 +59,14 @@ export default {
     }),
 
     selected () {
-      return this.expansion.sets.reduce((acc, set) => acc || !!this.sets[set.id], false)
+      for (const release of this.expansion.releases) {
+        for (const id of release.sets) {
+          if (this.sets[id]) {
+            return true
+          }
+        }
+      }
+      return false
     }
   },
 
@@ -70,11 +77,13 @@ export default {
 
     onMultisetTitleClick () {
       if (this.selected) {
-        this.expansion.sets.forEach(set => {
-          this.$store.dispatch('gameSetup/setTileSetQuantity', { id: set.id, quantity: 0 })
-        })
+        for (const release of this.expansion.releases) {
+          for (const id of release.sets) {
+            this.$store.dispatch('gameSetup/setTileSetQuantity', { id, quantity: 0 })
+          }
+        }
       } else {
-        this.$store.dispatch('gameSetup/setTileSetQuantity', { id: this.expansion.sets[0].id, quantity: 1 })
+        this.$store.dispatch('gameSetup/setTileSetQuantity', { id: this.expansion.releases[0].sets[0], quantity: 1 })
       }
     }
   }

@@ -4,7 +4,7 @@
     :max="max"
     :mutable="mutable"
   >
-    <slot/>
+    <slot />
 
     <template v-if="$slots.hover" #hover>
       <slot name="hover" />

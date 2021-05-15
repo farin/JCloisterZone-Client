@@ -28,15 +28,22 @@ export class Rule {
     if (!this.deps.length) {
       return true
     }
-    return this.deps.reduce((acc, item) => {
-      if (item instanceof GameElement) {
-        return acc || !!elements[item.id]
+    for (const dep of this.deps) {
+      if (dep instanceof GameElement) {
+        if (elements[dep.id]) return true
+      } else if (dep instanceof Expansion) {
+        for (const release of dep.releases) {
+          for (const id of release.sets) {
+            if (sets[id]) {
+              return true
+            }
+          }
+        }
+      } else {
+        console.error('Invalid type', dep)
       }
-      if (item instanceof Expansion) {
-        return acc || item.sets.reduce((acc, set) => acc || !!sets[set.id], false)
-      }
-      throw new Error('Invalid type')
-    }, false)
+    }
+    return false
   }
 }
 

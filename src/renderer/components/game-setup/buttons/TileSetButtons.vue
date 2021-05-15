@@ -21,38 +21,31 @@ export default {
   },
 
   props: {
-    set: { type: [Object, Array], required: true },
+    sets: { type: Array, required: true },
     mutable: { type: Boolean, default: true }
   },
 
   computed: {
     max () {
-      if (Array.isArray(this.set)) {
-        let mx = DEFAULT_MAX
-        this.set.forEach(s => {
-          if (!isNil(s.max)) {
-            mx = Math.min(mx, s.max)
-          }
-        })
-        return mx
-      }
-      return isNil(this.set.max) ? DEFAULT_MAX : this.set.max
+      let mx = DEFAULT_MAX
+      this.sets.forEach(s => {
+        if (!isNil(s.max)) {
+          mx = Math.min(mx, s.max)
+        }
+      })
+      return mx
     },
 
     quantity: {
       get () {
         const sets = this.$store.state.gameSetup.sets || {}
-        return sets[Array.isArray(this.set) ? this.set[0].id : this.set.id] || 0
+        return sets[this.sets[0]] || 0
       },
 
       set (value) {
-        if (Array.isArray(this.set)) {
-          this.set.forEach(set => {
-            this.$store.dispatch('gameSetup/setTileSetQuantity', { id: set.id, quantity: value })
-          })
-        } else {
-          this.$store.dispatch('gameSetup/setTileSetQuantity', { id: this.set.id, quantity: value })
-        }
+        this.sets.forEach(id => {
+          this.$store.dispatch('gameSetup/setTileSetQuantity', { id, quantity: value })
+        })
       }
     }
   }

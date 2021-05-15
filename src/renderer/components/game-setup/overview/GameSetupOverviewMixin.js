@@ -5,22 +5,20 @@ import { isConfigValueEnabled, getDefaultElements } from '@/models/elements'
 
 export default {
   computed: {
-    tileSets () {
-      const tileSets = []
+    releases () {
+      const releases = []
       Expansion.all().forEach(expansion => {
-        for (const set of expansion.sets) {
-          const quantity = this.sets[set.id] || this.sets[set.id + ':1'] || this.sets[set.id + ':2']
-          if (quantity) {
-            if (expansion.mergeSets) {
-              tileSets.push({ expansion, id: expansion.name, title: expansion.title, quantity })
-              break
-            } else {
-              tileSets.push({ expansion, id: set.id, title: set.title, quantity })
-            }
+        for (const release of expansion.releases) {
+          const quantities = release.sets.map(id => this.sets[id] || this.sets[id + ':1'] || this.sets[id + ':2'] || 0)
+          const min = Math.min(...quantities)
+          const max = Math.max(...quantities)
+          const quantity = min === max ? min : -1
+          if (quantity !== 0) {
+            releases.push({ expansion, id: expansion.name, title: release.title, quantity })
           }
         }
       })
-      return tileSets
+      return releases
     },
 
     nonDefaultElements () {
@@ -51,7 +49,7 @@ export default {
     },
 
     configElementsSize () {
-      return this.tileSets.length + this.nonDefaultElements.length
+      return this.releases.length + this.nonDefaultElements.length
     }
   },
 

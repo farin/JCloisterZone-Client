@@ -7,8 +7,8 @@
 
     <template #title>{{ title }}</template>
     <template #quantity>
-      <div v-if="quantity > 1" class="quantity tile-set">
-        {{ quantity }}
+      <div v-if="quantity !== 1" class="quantity tile-set">
+        {{ quantity === -1 ? '?' : quantity }}
       </div>
     </template>
   </OverviewTile>

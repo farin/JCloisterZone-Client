@@ -4,8 +4,8 @@
       <h2>Selected Tiles</h2>
     </div>
     <section>
-      <OverviewTileSetTile
-        v-for="{ expansion, id, title, quantity } in tileSets"
+      <OverviewExpansionTile
+        v-for="{ expansion, id, title, quantity } in releases"
         :key="id"
         :expansion="expansion"
         :title="title"
@@ -70,7 +70,7 @@ import { GAMEPLAY, SCORING, Rule } from '@/models/rules'
 import GameSetupOverviewMixin from '@/components/game-setup/overview/GameSetupOverviewMixin'
 import GameplayVariants from '@/components/game-setup/rules/GameplayVariants'
 import OverviewElementTile from '@/components/game-setup/overview/OverviewElementTile'
-import OverviewTileSetTile from '@/components/game-setup/overview/OverviewTileSetTile'
+import OverviewExpansionTile from '@/components/game-setup/overview/OverviewExpansionTile'
 import ScoringVariants from '@/components/game-setup/rules/ScoringVariants'
 import TimerValue from '@/components/game-setup/overview/TimerValue'
 
@@ -78,7 +78,7 @@ export default {
   components: {
     GameplayVariants,
     OverviewElementTile,
-    OverviewTileSetTile,
+    OverviewExpansionTile,
     ScoringVariants,
     TimerValue
   },

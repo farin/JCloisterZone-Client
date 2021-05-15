@@ -1,28 +1,27 @@
 // import ConfigurableItem from './ConfigurableItem'
 
-export class TileSet {
-  constructor (id, title, options = {}) {
-    this.id = id
+export class Release {
+  constructor (title, sets, options = {}) {
     this.title = title
+    this.sets = sets
     this.max = options.max || null
     this.note = options.note || null
     this.expansion = null
   }
 }
 
-TileSet.configType = Number
+Release.configType = Number
 
 export class Expansion {
-  constructor (name, title, sets = null, options = {}) {
+  constructor (name, title, releases = null) {
     this.name = name
     this.title = title
-    if (sets === null) {
-      this.sets = [new TileSet(name.toLowerCase().replace(/_/g, '-'), title)]
+    if (releases === null) {
+      this.releases = [new Release(title, [name.toLowerCase().replace(/_/g, '-')])]
     } else {
-      this.sets = sets
+      this.releases = releases
     }
-    this.sets.forEach(s => { s.expansion = this })
-    this.mergeSets = options.mergeSets || false
+    this.releases.forEach(r => { r.expansion = this })
   }
 
   static all () {
@@ -47,26 +46,26 @@ export const HILLS_AND_SHEEP = Expansion.HILLS_AND_SHEEP = new Expansion('HILLS_
 
 export const KING_AND_ROBBER = Expansion.KING_AND_ROBBER = new Expansion('KING_AND_ROBBER', 'King and Robber')
 export const RIVER = Expansion.RIVER = new Expansion('RIVER', 'The River', [
-  new TileSet('river/1', 'The River I'),
-  new TileSet('river/2', 'The River II')
+  new Release('The River I', ['river/1']),
+  new Release('The River II', ['river/2'])
 ])
 export const SIEGE = Expansion.SIEGE = new Expansion('SIEGE', 'Siege', [
-  new TileSet('siege/cathars', 'The Cathars / Siege', { note: 'The Cathars (2004), reprinted as Siege (2008)' }),
-  new TileSet('siege/besiegers', 'The Besiegers', { note: '(2013)' })
+  new Release('The Cathars / Siege', ['siege/cathars'], { note: 'The Cathars (2004), reprinted as Siege (2008)' }),
+  new Release('The Besiegers', ['siege/besiegers'], { note: '(2013)' })
 ])
 
 export const COUNT = Expansion.COUNT = new Expansion('COUNT', 'The Count of Carcassonne', [
-  new TileSet('count', 'The Count of Carcassonne', { max: 1 })
+  new Release('The Count of Carcassonne', ['count'], { max: 1 })
 ])
 export const GQ11 = Expansion.GQ11 = new Expansion('GQ11', 'The Mini Expansion (GQ11)')
 export const CULT = Expansion.CULT = new Expansion('CULT', 'The Cult', [
-  new TileSet('cult/6', 'Cult Places', { note: '6 tiles (HiG)' }),
-  new TileSet('cult/5', 'Heretics and Shrines', { note: '5 tiles (RGG)' })
+  new Release('Cult Places', ['cult/6'], { note: '6 tiles (HiG)' }),
+  new Release('Heretics and Shrines', ['cult/5'], { note: '5 tiles (RGG)' })
 ])
 export const TUNNEL = Expansion.TUNNEL = new Expansion('TUNNEL', 'The Tunnel')
 export const CORN_CIRCLES = Expansion.CORN_CIRCLES = new Expansion('CORN_CIRCLES', 'Corn Circles', [
-  new TileSet('corn-circles/1', 'Corn Circles I'),
-  new TileSet('corn-circles/2', 'Corn Circle II', { note: 'mini #7' })
+  new Release('Corn Circles I', ['corn-circles/1']),
+  new Release('Corn Circle II', ['corn-circles/2'], { note: 'mini #7' })
 ])
 
 export const FESTIVAL = Expansion.FESTIVAL = new Expansion('FESTIVAL', 'The Festival')
@@ -79,9 +78,8 @@ export const GOLDMINES = Expansion.GOLDMINES = new Expansion('GOLDMINES', 'The G
 export const MAGE_AND_WITCH = Expansion.MAGE_AND_WITCH = new Expansion('MAGE_AND_WITCH', 'Mage & Witch')
 
 export const RUSSIAN_PROMOS = Expansion.RUSSIAN_PROMOS = new Expansion('RUSSIAN_PROMOS', 'Russian Promos', [
-  new TileSet('russian-promos/2013', 'Russian Promos 2013'),
-  new TileSet('russian-promos/2016', 'Russian Promos 2016')
-], { mergeSets: true })
+  new Release('Russian Promos', ['russian-promos/2013', 'russian-promos/2013'])
+])
 export const LABYRINTH = Expansion.LABYRINTH = new Expansion('LABYRINTH', 'The Labyrinth')
 export const DARMSTADT = Expansion.DARMSTADT = new Expansion('DARMSTADT', 'Darmstadt')
 export const SPIEL_DOCH = Expansion.SPIEL_DOCH = new Expansion('SPIEL_DOCH', 'Spiel Doch')

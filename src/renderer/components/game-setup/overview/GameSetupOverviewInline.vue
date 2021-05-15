@@ -1,8 +1,8 @@
 <template>
   <div class="game-setup-overview-inline" :class="sizeClass">
-    <OverviewTileSetTile
-      v-for="({ expansion, id, title, quantity }, idx) in tileSets"
-      :key="'s' + id"
+    <OverviewExpansionTile
+      v-for="({ expansion, title, quantity }, idx) in releases"
+      :key="'r' + expansion.name + idx"
       :expansion="expansion"
       :title="title"
       :quantity="quantity"
@@ -28,12 +28,12 @@
 <script>
 import GameSetupOverviewMixin from '@/components/game-setup/overview/GameSetupOverviewMixin'
 import OverviewElementTile from '@/components/game-setup/overview/OverviewElementTile'
-import OverviewTileSetTile from '@/components/game-setup/overview/OverviewTileSetTile'
+import OverviewExpansionTile from '@/components/game-setup/overview/OverviewExpansionTile'
 
 export default {
   components: {
     OverviewElementTile,
-    OverviewTileSetTile
+    OverviewExpansionTile
   },
 
   mixins: [GameSetupOverviewMixin],
