@@ -48,6 +48,20 @@
       </div>
     </ConfigSection>
 
+    <ConfigSection
+      v-if="$tiles.expansions.length"
+      title="Fan Expansions"
+    >
+      <div class="expansions">
+        <ExpansionBox
+          v-for="exp in $tiles.expansions"
+          :key="exp.name"
+          :expansion="exp"
+          @open-detail="openDetail"
+        />
+      </div>
+    </ConfigSection>
+
     <v-dialog
       v-model="detailOpen"
       max-width="800"

@@ -8,7 +8,7 @@
       ['multiset-' + expansion.releases.length]: expansion.releases.length > 1
     }"
   >
-    <a href="#" class="detail-link" @click.prevent="open">
+    <a v-if="!expansion.fan" href="#" class="detail-link" @click.prevent="open">
       <v-icon>fas fa-layer-group</v-icon>
     </a>
 

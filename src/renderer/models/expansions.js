@@ -13,7 +13,7 @@ export class Release {
 Release.configType = Number
 
 export class Expansion {
-  constructor (name, title, releases = null) {
+  constructor (name, title, releases = null, options = {}) {
     this.name = name
     this.title = title
     if (releases === null) {
@@ -22,6 +22,7 @@ export class Expansion {
       this.releases = releases
     }
     this.releases.forEach(r => { r.expansion = this })
+    this.fan = options.fan || false
   }
 
   static all () {

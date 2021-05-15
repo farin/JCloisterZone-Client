@@ -2,6 +2,9 @@ import fs from 'fs'
 import path from 'path'
 
 import Vue from 'vue'
+import sortBy from 'lodash/sortBy'
+
+import { Expansion, Release } from '@/models/expansions'
 
 const SIDES = ['N', 'E', 'S', 'W']
 const EDGE_CODE = {
@@ -50,6 +53,7 @@ class Tiles {
     this.tiles = {}
     this.sets = {}
     this.loaded = false
+    this.expansions = []
   }
 
   getTilesCounts (sets, rules, edition, start = null) {
@@ -144,6 +148,8 @@ class Tiles {
 
     const tiles = {}
     const sets = {}
+    const expansions = []
+
     const parser = new DOMParser()
     for (const xml of xmls) {
       const content = await fs.promises.readFile(xml)
@@ -195,6 +201,22 @@ class Tiles {
 
         sets[id] = set
       })
+
+      doc.querySelectorAll('expansion').forEach(el => {
+        const name = el.getAttribute('id')
+        const title = el.querySelector('title').textContent || name
+        const tileSets = Array.from(el.querySelectorAll('ref[tile-set]')).map(ref => ref.getAttribute('tile-set'))
+
+        if (Expansion[name]) {
+          console.error(`Expansion ${name} is already defined`)
+          return
+        }
+
+        const exp = new Expansion(name, title, [new Release(name, tileSets)], { fan: true })
+
+        Expansion[name] = exp
+        expansions.push(exp)
+      })
     }
 
     tiles['AM/A'] = {
@@ -205,37 +227,12 @@ class Tiles {
     this.xmls = xmls
     this.tiles = tiles
     this.sets = sets
+    this.expansions = sortBy(expansions, 'name')
     this.loaded = true
 
     console.log('Expansions definitions loaded.')
     this.ctx.app.store.commit('tilesLoaded')
   }
-
-  // async readUserExpansions () {
-  //   const { settings } = this.ctx.store.state
-
-  //   // const userDataPath = window.process.argv.find(arg => arg.startsWith('--user-data=')).replace('--user-data=', '')
-
-  //   // const lookupFolders = [
-  //   //   path.join(userDataPath, 'expansions'),
-  //   //   process.resourcesPath + '/expansions/'
-  //   // ]
-
-  //   // const installedArtworks = []
-  //   //   const installedArtworksIds = new Set()
-
-  //   //   for (const fullPath of settings.userArtworks) {
-  //   //     const artwork = await readArtwork(path.basename(fullPath), fullPath)
-  //   //     if (artwork && !installedArtworksIds.has(artwork.id)) {
-  //   //       installedArtworks.push(artwork)
-  //   //       installedArtworksIds.add(artwork.id)
-  //   //     }
-  //   //   }
-
-  //   //   for (const lookupFolder of lookupFolders) {
-  //   //     let listing
-  //   //     try {
-  // }
 }
 
 export default (ctx, inject) => {
