@@ -7,8 +7,9 @@
   "author": "Roman Krejcik <farin@farin.cz>",
   "main": "./dist/main/index.js",
   "scripts": {
+    "validate-jcz-engine": "node build-scripts/jcz-engine-exists.js",
     "dev": "node .electron-nuxt/dev.js",
-    "build": "node .electron-nuxt/build.js",
+    "build": "yarn run validate-jcz-engine && node .electron-nuxt/build.js",
     "test": "",
     "lint": "node_modules/.bin/eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter ./src",
     "lint:fix": "yarn run lint -- --fix",

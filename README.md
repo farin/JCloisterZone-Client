@@ -19,8 +19,15 @@ yarn run package
 yarn run lint
 ```
 
+## Engine for local dev
+
+Engine.jar is not included in repository. (to avoid storing continuosly changing binary in git history)
+To client only development take it from installed JCloisterZone app or make fresh build in main repository https://github.com/farin/JCloisterZone
+Then put Engine.jar it to the project root.
+
 ## Run client against remote engine
 
+Another option is running against dev version of engine.
 Run engine listening to socket. It will be usualy started using Java IDE.
 Add program args to run configuration
 
