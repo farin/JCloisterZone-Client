@@ -8,6 +8,8 @@ import sortBy from 'lodash/sortBy'
 
 import Location from '@/models/Location'
 
+const isDev = process.env.NODE_ENV === 'development'
+
 const FEATURE_PATTERN = /([^[]+)(?:\[([^\]]+)\])/
 
 const NULL_ARTWORK = {
@@ -103,6 +105,9 @@ class Theme {
           json.id = id
           if (json.icon) {
             json.icon = path.join(fullPath, json.icon)
+            if (isDev) {
+              json.icon = 'file://' + json.icon
+            }
           }
           const artwork = {
             id,
