@@ -146,6 +146,11 @@ class Tiles {
       }
     }
 
+    // clean priosly loaded
+    this.expansions.forEach(exp => {
+      delete Expansion[exp.name]
+    })
+
     const tiles = {}
     const sets = {}
     const expansions = []

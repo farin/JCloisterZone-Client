@@ -219,6 +219,7 @@ export default {
     await this.$store.dispatch('settings/registerChangeCallback', ['theme', onThemeChange])
     await this.$store.dispatch('settings/registerChangeCallback', ['userArtworks', () => { this.$theme.loadPlugins() }])
     await this.$store.dispatch('settings/registerChangeCallback', ['enabledArtworks', () => { this.$theme.loadArtworks() }])
+    await this.$store.dispatch('settings/registerChangeCallback', ['userExpansions', () => { this.$tiles.loadExpansions() }])
     await this.$store.dispatch('settings/registerChangeCallback', ['dev', () => { this.updateMenu() }])
     await this.$store.dispatch('settings/registerChangeCallback', ['experimental.playOnline', () => { this.updateMenu() }])
   },

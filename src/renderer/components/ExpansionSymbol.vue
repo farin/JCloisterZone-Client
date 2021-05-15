@@ -27,11 +27,12 @@ export default {
   computed: {
     letters () {
       const { name } = this.expansion
-      const idx = name.indexOf(' ')
-      if (idx === -1) {
+      if (!name) return '?'
+      const words = name.split(/\\s+/, 2)
+      if (words.length === 1) {
         return name.substring(0, 2)
       } else {
-        return name.charAt(0) + name.charAt(idx + 1)
+        return words[0].charAt(0) + words[1].charAt(0)
       }
     }
   }

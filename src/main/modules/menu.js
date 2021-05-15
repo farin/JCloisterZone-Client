@@ -63,7 +63,7 @@ async function createMenu (win) {
         { role: 'toggleDevTools', label: 'Toggle DevTools' },
         { label: 'Change clientId', click () { win.webContents.send('menu.change-client-id') } },
         { id: 'dump-server', label: 'Dump hosted game server state', click () { win.webContents.send('menu.dump-server') } },
-        { label: 'Reload artwokrs', click () { win.webContents.send('menu.reload-artworks') } },
+        { label: 'Reload artworks', click () { win.webContents.send('menu.reload-artworks') } },
         { id: 'theme-inspector', label: 'Theme inspector', click () { win.webContents.send('menu.theme-inspector') } }
       ]
     })
