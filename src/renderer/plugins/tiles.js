@@ -186,9 +186,7 @@ class Tiles {
     }
 
     // clean priosly loaded
-    this.expansions.forEach(exp => {
-      delete Expansion[exp.name]
-    })
+    Expansion.unregisterAll()
     Expansion.all().forEach(exp => {
       delete exp.requiredBy
     })
@@ -277,12 +275,8 @@ class Tiles {
         const tileSets = Array.from(el.querySelectorAll('ref[tile-set]')).map(ref => ref.getAttribute('tile-set'))
         const enforces = Array.from(el.querySelectorAll('enforces[element]')).map(ref => ref.getAttribute('element'))
 
-        const exp = new Expansion(name, title, [new Release(name, tileSets)], {
-          enforces,
-          fan: true
-        })
-
-        Expansion[name] = exp
+        const exp = new Expansion(name, title, { enforces }, [new Release(name, tileSets)])
+        Expansion.register(exp)
         expansions.push(exp)
       })
     }
