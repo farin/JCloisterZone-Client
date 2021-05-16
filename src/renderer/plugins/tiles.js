@@ -143,7 +143,7 @@ class Tiles {
     console.log(setup, expansions)
     Object.keys(expansions).forEach(expId => {
       const expansion = Expansion[expId]
-      expansion.enforce.forEach(id => { elements[id] = true })
+      expansion.enforces.forEach(id => { elements[id] = true })
     })
     return { ...setup, elements }
   }
@@ -275,10 +275,10 @@ class Tiles {
 
         const title = el.querySelector('title').textContent || name
         const tileSets = Array.from(el.querySelectorAll('ref[tile-set]')).map(ref => ref.getAttribute('tile-set'))
-        const enforce = Array.from(el.querySelectorAll('enforce[element]')).map(ref => ref.getAttribute('element'))
+        const enforces = Array.from(el.querySelectorAll('enforces[element]')).map(ref => ref.getAttribute('element'))
 
         const exp = new Expansion(name, title, [new Release(name, tileSets)], {
-          enforce,
+          enforces,
           fan: true
         })
 

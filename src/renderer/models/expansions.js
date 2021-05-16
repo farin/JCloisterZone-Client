@@ -21,7 +21,7 @@ export class Expansion {
       this.releases = releases
     }
     this.releases.forEach(r => { r.expansion = this })
-    this.enforce = options.enforce || []
+    this.enforces = options.enforces || []
     this.fan = options.fan || false
   }
 
@@ -46,11 +46,11 @@ export const KING_AND_ROBBER = Expansion.KING_AND_ROBBER = new Expansion('KING_A
 export const RIVER = Expansion.RIVER = new Expansion('RIVER', 'The River', [
   new Release('The River I', ['river/1']),
   new Release('The River II', ['river/2'])
-], { enforce: ['river'] })
+], { enforces: ['river'] })
 export const SIEGE = Expansion.SIEGE = new Expansion('SIEGE', 'Siege', [
   new Release('The Cathars / Siege', ['siege/cathars'], { note: 'The Cathars (2004), reprinted as Siege (2008)' }),
   new Release('The Besiegers', ['siege/besiegers'], { note: '(2013)' })
-], { enforce: ['siege'] })
+], { enforces: ['siege'] })
 
 export const COUNT = Expansion.COUNT = new Expansion('COUNT', 'The Count of Carcassonne', [
   new Release('The Count of Carcassonne', ['count'], { max: 1 })
@@ -66,20 +66,20 @@ export const TUNNEL = Expansion.TUNNEL = new Expansion('TUNNEL', 'The Tunnel')
 export const CORN_CIRCLES = Expansion.CORN_CIRCLES = new Expansion('CORN_CIRCLES', 'Corn Circles', [
   new Release('Corn Circles I', ['corn-circles/1']),
   new Release('Corn Circle II', ['corn-circles/2'], { note: 'mini #7' })
-], { enforce: ['corn-circle'] })
+], { enforces: ['corn-circle'] })
 
 export const FESTIVAL = Expansion.FESTIVAL = new Expansion('FESTIVAL', 'The Festival')
-export const WIND_ROSES = Expansion.WIND_ROSES = new Expansion('WIND_ROSES', 'The Wind Roses', null, { enforce: ['wind-rose'] })
-export const MONASTERIES = Expansion.MONASTERIES = new Expansion('MONASTERIES', 'Monasteries', null, { enforce: ['monastery'] })
+export const WIND_ROSES = Expansion.WIND_ROSES = new Expansion('WIND_ROSES', 'The Wind Roses', null, { enforces: ['wind-rose'] })
+export const MONASTERIES = Expansion.MONASTERIES = new Expansion('MONASTERIES', 'Monasteries', null, { enforces: ['monastery'] })
 
-export const FLIER = Expansion.FLIER = new Expansion('FLIER', 'The Flying Machines', null, { enforce: ['flier'] })
+export const FLIER = Expansion.FLIER = new Expansion('FLIER', 'The Flying Machines', null, { enforces: ['flier'] })
 export const FERRIES = Expansion.FERRIES = new Expansion('FERRIES', 'The Ferries')
 export const GOLDMINES = Expansion.GOLDMINES = new Expansion('GOLDMINES', 'The Goldmines')
 export const MAGE_AND_WITCH = Expansion.MAGE_AND_WITCH = new Expansion('MAGE_AND_WITCH', 'Mage & Witch')
 
 export const RUSSIAN_PROMOS = Expansion.RUSSIAN_PROMOS = new Expansion('RUSSIAN_PROMOS', 'Russian Promos', [
   new Release('Russian Promos', ['russian-promos/2013', 'russian-promos/2016'])
-], { enforce: ['yaga', 'russian-trap'] })
-export const LABYRINTH = Expansion.LABYRINTH = new Expansion('LABYRINTH', 'The Labyrinth', null, { enforce: ['labyrinth'] })
-export const DARMSTADT = Expansion.DARMSTADT = new Expansion('DARMSTADT', 'Darmstadt', null, { enforce: ['church'] })
+], { enforces: ['yaga', 'russian-trap'] })
+export const LABYRINTH = Expansion.LABYRINTH = new Expansion('LABYRINTH', 'The Labyrinth', null, { enforces: ['labyrinth'] })
+export const DARMSTADT = Expansion.DARMSTADT = new Expansion('DARMSTADT', 'Darmstadt', null, { enforces: ['church'] })
 export const SPIEL_DOCH = Expansion.SPIEL_DOCH = new Expansion('SPIEL_DOCH', 'Spiel Doch')
