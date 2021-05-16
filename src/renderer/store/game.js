@@ -458,7 +458,10 @@ export const actions = {
       await dispatch('networking/startServer', {
         gameId: sg.gameId,
         originAppVersion: sg.appVersion,
-        setup: { options: {}, ...sg.setup },
+        setup: {
+          options: {},
+          ...sg.setup
+        },
         initialSeed: sg.initialSeed,
         gameAnnotations: sg.gameAnnotations || {},
         slots,
@@ -528,6 +531,7 @@ export const actions = {
   },
 
   async handleStartMessage ({ state, commit, dispatch, rootState }, message) {
+    const { $tiles } = this._vm
     let slots
     if (message.payload.seating) {
       const { seating } = message.payload
@@ -596,7 +600,7 @@ export const actions = {
     const setupMessage = {
       type: 'GAME_SETUP',
       payload: {
-        ...state.setup,
+        ...$tiles.getFullSetup(state.setup),
         gameId: state.id,
         players: players.length,
         initialSeed: state.initialSeed,

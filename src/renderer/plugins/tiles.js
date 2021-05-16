@@ -135,6 +135,19 @@ class Tiles {
     return ae.r - be.r // less roads first
   }
 
+  // returns setup with enforced elements by expansion definitions
+  getFullSetup (setup) {
+    const edition = setup.elements.garden ? 2 : 1
+    const expansions = this.getExpansions(setup.sets, edition)
+    const elements = { ...setup.elements }
+    console.log(setup, expansions)
+    Object.keys(expansions).forEach(expId => {
+      const expansion = Expansion[expId]
+      expansion.enforce.forEach(id => { elements[id] = true })
+    })
+    return { ...setup, elements }
+  }
+
   async loadExpansions () {
     const { settings } = this.ctx.store.state
     const userDataPath = window.process.argv.find(arg => arg.startsWith('--user-data=')).replace('--user-data=', '')
@@ -254,15 +267,20 @@ class Tiles {
 
       doc.querySelectorAll('expansion').forEach(el => {
         const name = el.getAttribute('id')
-        const title = el.querySelector('title').textContent || name
-        const tileSets = Array.from(el.querySelectorAll('ref[tile-set]')).map(ref => ref.getAttribute('tile-set'))
 
         if (Expansion[name]) {
           console.error(`Expansion ${name} is already defined`)
           return
         }
 
-        const exp = new Expansion(name, title, [new Release(name, tileSets)], { fan: true })
+        const title = el.querySelector('title').textContent || name
+        const tileSets = Array.from(el.querySelectorAll('ref[tile-set]')).map(ref => ref.getAttribute('tile-set'))
+        const enforce = Array.from(el.querySelectorAll('enforce[element]')).map(ref => ref.getAttribute('element'))
+
+        const exp = new Expansion(name, title, [new Release(name, tileSets)], {
+          enforce,
+          fan: true
+        })
 
         Expansion[name] = exp
         expansions.push(exp)
