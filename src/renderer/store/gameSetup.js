@@ -4,6 +4,7 @@ import mapKeys from 'lodash/mapKeys'
 
 import { GameElement, isConfigValueEnabled, getDefaultElements } from '@/models/elements'
 import { getDefaultRules } from '@/models/rules'
+import { Expansion } from '@/models/expansions'
 
 const DEFAULT_SETS = {
   basic: 1
@@ -51,7 +52,7 @@ export const mutations = {
 
   setup (state, setup) {
     state.sets = setup.sets
-    state.excludedSets = {}
+    state.excludedSets = setup.excludedSets
     state.elements = setup.elements
     state.rules = setup.rules
     state.start = setup.start
@@ -106,9 +107,26 @@ export const actions = {
   },
 
   load ({ commit }, setup) {
+    const { $tiles } = this._vm
+    const sets = mapKeys(setup.sets, (val, key) => key.split(':')[0])
+    const excludedSets = {}
+    const edition = setup.elements.garden ? 2 : 1
+    const expansions = $tiles.getExpansions(sets, edition)
+    Object.entries(expansions).forEach(([expId, quantity]) => {
+      const expansion = Expansion[expId]
+      for (const release of expansion.releases) {
+        release.sets.forEach(id => {
+          if ($tiles.isTileSetExcluded(id, expansions, edition)) {
+            excludedSets[id] = quantity
+          }
+        })
+      }
+    })
+
     commit('setup', {
       ...setup,
-      sets: mapKeys(setup.sets, (val, key) => key.split(':')[0])
+      sets,
+      excludedSets
     })
   },
 

@@ -61,7 +61,11 @@ class Tiles {
     Object.entries(sets).forEach(([id, setCount]) => {
       if (setCount) {
         const set = this.sets[id] || this.sets[id + ':' + edition]
-        expansions[set.expansion] = true
+        if (expansions[set.expansion]) {
+          expansions[set.expansion] = Math.max(expansions[set.expansion], setCount)
+        } else {
+          expansions[set.expansion] = setCount
+        }
       }
     })
     return expansions
@@ -70,7 +74,7 @@ class Tiles {
   isTileSetExcluded (id, expansions, edition) {
     const set = this.sets[id] || this.sets[id + ':' + edition]
     const expDeps = set.dependencies?.expansion
-    return expDeps && !expDeps.every(d => expansions[d])
+    return expDeps && !expDeps.every(d => d in expansions)
   }
 
   getTilesCounts (sets, rules, edition, start = null) {

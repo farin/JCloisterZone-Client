@@ -429,9 +429,9 @@ export const actions = {
         if (sg.setup && !sg.test && (isNil(sg.players) || isNil(sg.initialSeed) || isNil(sg.replay) || isNil(sg.clock) || isNil(sg.gameId))) {
           Vue.nextTick(() => {
             dispatch('settings/addRecentSetupSave', filePath, { root: true })
+            this.$router.push('/game-setup')
           })
           dispatch('gameSetup/load', sg.setup, { root: true })
-          this.$router.push('/game-setup')
           resolve(sg)
           return
         }
