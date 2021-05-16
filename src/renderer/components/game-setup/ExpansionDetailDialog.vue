@@ -6,7 +6,7 @@
       {{ expansion.title }}
     </v-card-title>
     <v-card-text>
-      <component :is="detailComponent" />
+      <component :is="detailComponent" :expansion="expansion" />
     </v-card-text>
     <v-card-actions>
       <v-spacer/>
@@ -30,6 +30,7 @@ import ExpansionSymbol from '@/components/ExpansionSymbol'
 import FerriesDetail from '@/components/game-setup/details/FerriesDetail'
 import FestivalDetail from '@/components/game-setup/details/FestivalDetail'
 import FlierDetail from '@/components/game-setup/details/FlierDetail'
+import GenericExpansionDetail from '@/components/game-setup/details/GenericExpansionDetail'
 import GoldminesDetail from '@/components/game-setup/details/GoldminesDetail'
 import GQ11Detail from '@/components/game-setup/details/GQ11Detail'
 import HillsAndSheepDetail from '@/components/game-setup/details/HillsAndSheepDetail'
@@ -89,7 +90,7 @@ export default {
         TRADERS_AND_BUILDERS: TradersAndBuildersDetail,
         WINTER: WinterEditionDetail,
         WIND_ROSES: WindRosesDetail
-      }[this.expansion.name]
+      }[this.expansion.name] || GenericExpansionDetail
     }
   }
 }
