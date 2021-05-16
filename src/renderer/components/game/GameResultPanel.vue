@@ -68,10 +68,7 @@ export default {
     async playAgain () {
       const { setup, gameAnnotations } = this.$store.state.game
       await this.$store.dispatch('game/close')
-      this.$store.commit('gameSetup/setup', {
-        ...setup,
-        sets: mapKeys(setup.sets, (val, key) => key.split(':')[0])
-      })
+      this.$store.dispatch('gameSetup/load', setup)
       this.$store.commit('gameSetup/gameAnnotations', gameAnnotations)
       await this.$store.dispatch('gameSetup/createGame')
     }

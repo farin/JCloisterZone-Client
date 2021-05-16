@@ -107,6 +107,7 @@ export default {
   methods: {
     createGame () {
       this.$store.dispatch('gameSetup/newGame')
+      this.$router.push('/game-setup')
     },
 
     resume (game) {

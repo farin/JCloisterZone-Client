@@ -125,6 +125,7 @@ export default {
     })
     ipcRenderer.on('menu.new-game', () => {
       this.$store.dispatch('gameSetup/newGame')
+      this.$router.push('/game-setup')
     })
     ipcRenderer.on('menu.join-game', () => {
       this.showJoinDialog = true

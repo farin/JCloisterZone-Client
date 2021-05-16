@@ -30,9 +30,9 @@ export default {
       if (!title) return '?'
       const words = title.split(/\s+/, 2)
       if (words.length > 1) {
-        return words[0].charAt(0) + words[1].charAt(0)
+        return (words[0].charAt(0) + words[1].charAt(0)).toUpperCase()
       } else {
-        return title.substring(0, 2)
+        return title.substring(0, 2).toUpperCase()
       }
     }
   }

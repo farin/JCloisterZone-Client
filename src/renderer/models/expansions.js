@@ -26,10 +26,7 @@ export class Expansion {
   }
 
   static all () {
-    if (Expansion.__all === undefined) {
-      Expansion.__all = Object.values(Expansion).filter(prop => prop instanceof Expansion)
-    }
-    return Expansion.__all
+    return Object.values(Expansion).filter(prop => prop instanceof Expansion)
   }
 }
 
@@ -58,7 +55,9 @@ export const SIEGE = Expansion.SIEGE = new Expansion('SIEGE', 'Siege', [
 export const COUNT = Expansion.COUNT = new Expansion('COUNT', 'The Count of Carcassonne', [
   new Release('The Count of Carcassonne', ['count'], { max: 1 })
 ])
-export const GQ11 = Expansion.GQ11 = new Expansion('GQ11', 'The Mini Expansion (GQ11)')
+export const GQ11 = Expansion.GQ11 = new Expansion('GQ11', 'The Mini Expansion (GQ11)', [
+  new Release('The Mini Expansion (GQ11)', ['gq11', 'gq11/river'])
+])
 export const CULT = Expansion.CULT = new Expansion('CULT', 'The Cult', [
   new Release('Cult Places', ['cult/6'], { note: '6 tiles (HiG)' }),
   new Release('Heretics and Shrines', ['cult/5'], { note: '5 tiles (RGG)' })
@@ -79,7 +78,7 @@ export const GOLDMINES = Expansion.GOLDMINES = new Expansion('GOLDMINES', 'The G
 export const MAGE_AND_WITCH = Expansion.MAGE_AND_WITCH = new Expansion('MAGE_AND_WITCH', 'Mage & Witch')
 
 export const RUSSIAN_PROMOS = Expansion.RUSSIAN_PROMOS = new Expansion('RUSSIAN_PROMOS', 'Russian Promos', [
-  new Release('Russian Promos', ['russian-promos/2013', 'russian-promos/2013'])
+  new Release('Russian Promos', ['russian-promos/2013', 'russian-promos/2016'])
 ])
 export const LABYRINTH = Expansion.LABYRINTH = new Expansion('LABYRINTH', 'The Labyrinth')
 export const DARMSTADT = Expansion.DARMSTADT = new Expansion('DARMSTADT', 'Darmstadt')

@@ -13,12 +13,12 @@
     </a>
 
     <template v-if="expansion.releases.length === 1">
-      <TileSetButtons :sets="expansion.releases[0].sets">
+      <ReleaseButtons :release="expansion.releases[0]">
         <div class="exp-title">
           <ExpansionSymbol :expansion="expansion" />
           <h3>{{ expansion.title }}</h3>
         </div>
-      </TileSetButtons>
+      </ReleaseButtons>
     </template>
     <template v-else>
       <div class="exp-title" @click="onMultisetTitleClick">
@@ -30,9 +30,9 @@
         :key="idx"
         class="tile-set-row"
       >
-        <TileSetButtons :sets="release.sets">
+        <ReleaseButtons :release="release">
           <h4 :title="release.note">{{ release.title }}</h4>
-        </TileSetButtons>
+        </ReleaseButtons>
       </div>
     </template>
   </div>
@@ -41,12 +41,12 @@
 <script>
 import { mapState } from 'vuex'
 import ExpansionSymbol from '@/components/ExpansionSymbol'
-import TileSetButtons from '@/components/game-setup/buttons/TileSetButtons'
+import ReleaseButtons from '@/components/game-setup/buttons/ReleaseButtons'
 
 export default {
   components: {
     ExpansionSymbol,
-    TileSetButtons
+    ReleaseButtons
   },
 
   props: {
@@ -78,12 +78,10 @@ export default {
     onMultisetTitleClick () {
       if (this.selected) {
         for (const release of this.expansion.releases) {
-          for (const id of release.sets) {
-            this.$store.dispatch('gameSetup/setTileSetQuantity', { id, quantity: 0 })
-          }
+          this.$store.dispatch('gameSetup/setReleaseQuantity', { release, quantity: 0 })
         }
       } else {
-        this.$store.dispatch('gameSetup/setTileSetQuantity', { id: this.expansion.releases[0].sets[0], quantity: 1 })
+        this.$store.dispatch('gameSetup/setReleaseQuantity', { release: this.expansion.releases[0], quantity: 1 })
       }
     }
   }

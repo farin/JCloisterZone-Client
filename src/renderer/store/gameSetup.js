@@ -4,6 +4,7 @@ import mapKeys from 'lodash/mapKeys'
 
 import { GameElement, isConfigValueEnabled, getDefaultElements } from '@/models/elements'
 import { getDefaultRules } from '@/models/rules'
+import { Expansion } from '@/models/expansions'
 
 const DEFAULT_SETS = {
   basic: 1
@@ -30,6 +31,7 @@ function getEmptySlots () {
 
 export const state = () => ({
   sets: { ...DEFAULT_SETS },
+  excludedSets: {},
   elements: getDefaultElements(DEFAULT_SETS),
   rules: getDefaultRules(),
   start: null,
@@ -40,6 +42,7 @@ export const state = () => ({
 export const mutations = {
   clear (state) {
     state.sets = { ...DEFAULT_SETS }
+    state.excludedSets = {}
     state.elements = getDefaultElements(DEFAULT_SETS)
     state.rules = getDefaultRules()
     state.start = null
@@ -49,6 +52,7 @@ export const mutations = {
 
   setup (state, setup) {
     state.sets = setup.sets
+    state.excludedSets = setup.excludedSets
     state.elements = setup.elements
     state.rules = setup.rules
     state.start = setup.start
@@ -65,6 +69,14 @@ export const mutations = {
       Vue.set(state.sets, id, quantity)
     } else {
       Vue.delete(state.sets, id)
+    }
+  },
+
+  tileSetExcludedQuantity (state, { id, quantity }) {
+    if (isConfigValueEnabled(quantity)) {
+      Vue.set(state.excludedSets, id, quantity)
+    } else {
+      Vue.delete(state.excludedSets, id)
     }
   },
 
@@ -92,28 +104,64 @@ export const mutations = {
 export const actions = {
   newGame ({ commit }) {
     commit('clear')
-    this.$router.push('/game-setup')
   },
 
   load ({ commit }, setup) {
+    const { $tiles } = this._vm
+    const sets = mapKeys(setup.sets, (val, key) => key.split(':')[0])
+    const excludedSets = {}
+    const edition = setup.elements.garden ? 2 : 1
+    const expansions = $tiles.getExpansions(sets, edition)
+    Object.entries(expansions).forEach(([expId, quantity]) => {
+      const expansion = Expansion[expId]
+      for (const release of expansion.releases) {
+        release.sets.forEach(id => {
+          if ($tiles.isTileSetExcluded(id, expansions, edition)) {
+            excludedSets[id] = quantity
+          }
+        })
+      }
+    })
+
     commit('setup', {
       ...setup,
-      sets: mapKeys(setup.sets, (val, key) => key.split(':')[0])
+      sets,
+      excludedSets
     })
-    this.$router.push('/game-setup')
   },
 
-  setTileSetQuantity ({ state, commit }, { id, quantity }) {
-    const enabledStateChanged = (state.sets[id] > 0) !== (quantity > 0)
+  setReleaseQuantity ({ state, getters, commit }, { release, quantity }) {
+    const { $tiles } = this._vm
+    const enabledStateChanged = (!!release.sets.find(id => !!state.sets[id])) !== (quantity > 0)
     const before = enabledStateChanged ? getDefaultElements(state.sets) : null
-    commit('tileSetQuantity', { id, quantity })
-    if (id === 'gq11') {
-      const containsRiver = !!Object.keys(state.sets).find(id => id.startsWith('river/'))
-      commit('tileSetQuantity', { id: 'gq11/river', quantity: containsRiver ? quantity : 0 })
-    } else if (id.startsWith('river/') && state.sets.gq11) {
-      const containsRiver = !!Object.keys(state.sets).find(id => id.startsWith('river/'))
-      commit('tileSetQuantity', { id: 'gq11/river', quantity: containsRiver ? state.sets.gq11 : 0 })
-    }
+    release.sets.forEach(id => {
+      if (state.excludedSets[id]) {
+        commit('tileSetExcludedQuantity', { id, quantity })
+      } else {
+        commit('tileSetQuantity', { id, quantity })
+      }
+    })
+    const edition = getters.getSelectedEdition
+    const expansions = $tiles.getExpansions(state.sets, edition)
+    const verifyExcluded = { ...state.excludedSets }
+    Object.entries(state.sets).forEach(([id, quantity]) => {
+      if ($tiles.isTileSetExcluded(id, expansions, edition)) {
+        commit('tileSetQuantity', { id, quantity: 0 })
+        commit('tileSetExcludedQuantity', { id, quantity })
+        delete verifyExcluded[id]
+      } else if (state.excludedSets[id]) {
+        commit('tileSetQuantity', { id, quantity })
+        commit('tileSetExcludedQuantity', { id, quantity: 0 })
+      }
+    })
+
+    // and reeable no longer excluded sets
+    Object.entries(verifyExcluded).forEach(([id, quantity]) => {
+      if (!$tiles.isTileSetExcluded(id, expansions, edition)) {
+        commit('tileSetQuantity', { id, quantity })
+        commit('tileSetExcludedQuantity', { id, quantity: 0 })
+      }
+    })
     const after = enabledStateChanged ? getDefaultElements(state.sets) : null
 
     if (enabledStateChanged) {

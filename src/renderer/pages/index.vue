@@ -180,6 +180,7 @@ export default {
   methods: {
     newGame () {
       this.$store.dispatch('gameSetup/newGame')
+      this.$router.push('/game-setup')
     },
 
     joinGame () {
@@ -212,8 +213,9 @@ export default {
       }
     },
 
-    async loadSetup (setup) {
+    loadSetup (setup) {
       this.$store.dispatch('gameSetup/load', setup)
+      this.$router.push('/game-setup')
     },
 
     openLink (href) {
