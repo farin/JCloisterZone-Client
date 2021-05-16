@@ -13,14 +13,14 @@
       :key="'a' + element"
       :element="element"
       :value="value"
-      :z-index="toZindex(idx + tileSets.length)"
+      :z-index="toZindex(idx + releases.length)"
     />
     <OverviewElementTile
       v-for="([element, value], idx) in removals"
       :key="'r' + element"
       :element="element"
       :value="value"
-      :z-index="toZindex(idx + tileSets.length + additions.length)"
+      :z-index="toZindex(idx + releases.length + additions.length)"
     />
   </div>
 </template>

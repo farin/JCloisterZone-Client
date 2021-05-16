@@ -78,7 +78,7 @@ export const GOLDMINES = Expansion.GOLDMINES = new Expansion('GOLDMINES', 'The G
 export const MAGE_AND_WITCH = Expansion.MAGE_AND_WITCH = new Expansion('MAGE_AND_WITCH', 'Mage & Witch')
 
 export const RUSSIAN_PROMOS = Expansion.RUSSIAN_PROMOS = new Expansion('RUSSIAN_PROMOS', 'Russian Promos', [
-  new Release('Russian Promos', ['russian-promos/2013', 'russian-promos/2013'])
+  new Release('Russian Promos', ['russian-promos/2013', 'russian-promos/2016'])
 ])
 export const LABYRINTH = Expansion.LABYRINTH = new Expansion('LABYRINTH', 'The Labyrinth')
 export const DARMSTADT = Expansion.DARMSTADT = new Expansion('DARMSTADT', 'Darmstadt')

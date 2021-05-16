@@ -431,6 +431,7 @@ export const actions = {
             dispatch('settings/addRecentSetupSave', filePath, { root: true })
           })
           dispatch('gameSetup/load', sg.setup, { root: true })
+          this.$router.push('/game-setup')
           resolve(sg)
           return
         }

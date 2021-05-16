@@ -103,7 +103,6 @@ export const mutations = {
 export const actions = {
   newGame ({ commit }) {
     commit('clear')
-    this.$router.push('/game-setup')
   },
 
   load ({ commit }, setup) {
@@ -111,7 +110,6 @@ export const actions = {
       ...setup,
       sets: mapKeys(setup.sets, (val, key) => key.split(':')[0])
     })
-    this.$router.push('/game-setup')
   },
 
   setReleaseQuantity ({ state, getters, commit }, { release, quantity }) {
