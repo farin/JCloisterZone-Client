@@ -7,9 +7,14 @@ export default {
   computed: {
     releases () {
       const releases = []
-      Expansion.all().forEach(expansion => {
+      const edition = this.elements.garden ? 2 : 1
+      const expansions = this.$tiles.getExpansions(this.sets, edition)
+      Object.keys(expansions).forEach(expId => {
+        const expansion = Expansion[expId]
         for (const release of expansion.releases) {
-          const quantities = release.sets.map(id => this.sets[id] || this.sets[id + ':1'] || this.sets[id + ':2'] || 0)
+          const quantities = release.sets
+            .filter(id => !this.$tiles.isTileSetExcluded(id, expansions, edition))
+            .map(id => this.sets[id] || this.sets[id + ':' + edition] || 0)
           const min = Math.min(...quantities)
           const max = Math.max(...quantities)
           const quantity = min === max ? min : -1
