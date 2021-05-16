@@ -51,7 +51,7 @@ export default {
         delete sets.count
       }
 
-      const counts = this.$tiles.getTilesCounts(sets, this.rules, this.edition, this.start)
+      const counts = this.$tiles.getTilesCounts(sets, this.rules, this.edition, this.rules === null ? null : this.start)
       const tiles = Object.keys(counts).map(id => ({ id, ...this.$tiles.tiles[id] }))
       tiles.sort(this.$tiles.sortByEdge)
 

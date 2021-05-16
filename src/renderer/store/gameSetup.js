@@ -103,10 +103,13 @@ export const actions = {
     this.$router.push('/game-setup')
   },
 
-  setTileSetQuantity ({ state, commit }, { id, quantity }) {
-    const enabledStateChanged = (state.sets[id] > 0) !== (quantity > 0)
+  setReleaseQuantity ({ state, commit }, { release, quantity }) {
+    console.log(release, quantity)
+    const enabledStateChanged = (!!release.sets.find(id => !!state.sets[id])) !== (quantity > 0)
     const before = enabledStateChanged ? getDefaultElements(state.sets) : null
-    commit('tileSetQuantity', { id, quantity })
+    release.sets.forEach(id => {
+      commit('tileSetQuantity', { id, quantity })
+    })
     // if (id === 'gq11') {
     //   const containsRiver = !!Object.keys(state.sets).find(id => id.startsWith('river/'))
     //   commit('tileSetQuantity', { id: 'gq11/river', quantity: containsRiver ? quantity : 0 })

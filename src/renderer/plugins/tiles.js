@@ -72,7 +72,7 @@ class Tiles {
 
     objs.forEach(([set, setCount]) => {
       const expDeps = set.dependencies?.expansion
-      if (expDeps && !expDeps.every(d => expansions[d])) {
+      if (start && expDeps && !expDeps.every(d => expansions[d])) {
         return
       }
 
@@ -290,7 +290,6 @@ class Tiles {
     this.expansions = sortBy(expansions, 'name')
     this.loaded = true
 
-    console.log(sets)
     console.log('Expansions definitions loaded.')
     this.ctx.app.store.commit('tilesLoaded')
   }

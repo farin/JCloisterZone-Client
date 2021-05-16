@@ -40,13 +40,11 @@ export default {
       get () {
         const sets = this.$store.state.gameSetup.sets || {}
         // some set may be disable due requirements, use max
-        return Math.max(this.release.sets.map(id => sets[id] || 0))
+        return Math.max(...this.release.sets.map(id => sets[id] || 0))
       },
 
       set (value) {
-        this.release.sets.forEach(id => {
-          this.$store.dispatch('gameSetup/setTileSetQuantity', { id, quantity: value })
-        })
+        this.$store.dispatch('gameSetup/setReleaseQuantity', { release: this.release, quantity: value })
       }
     }
   }
