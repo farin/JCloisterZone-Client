@@ -21,14 +21,14 @@ export default {
   },
 
   props: {
-    sets: { type: Array, required: true },
+    release: { type: Object, required: true },
     mutable: { type: Boolean, default: true }
   },
 
   computed: {
     max () {
       let mx = DEFAULT_MAX
-      this.sets.forEach(s => {
+      this.release.sets.forEach(s => {
         if (!isNil(s.max)) {
           mx = Math.min(mx, s.max)
         }
@@ -39,11 +39,12 @@ export default {
     quantity: {
       get () {
         const sets = this.$store.state.gameSetup.sets || {}
-        return sets[this.sets[0]] || 0
+        // some set may be disable due requirements, use max
+        return Math.max(this.release.sets.map(id => sets[id] || 0))
       },
 
       set (value) {
-        this.sets.forEach(id => {
+        this.release.sets.forEach(id => {
           this.$store.dispatch('gameSetup/setTileSetQuantity', { id, quantity: value })
         })
       }

@@ -13,7 +13,7 @@
     </a>
 
     <template v-if="expansion.releases.length === 1">
-      <TileSetButtons :sets="expansion.releases[0].sets">
+      <TileSetButtons :release="expansion.releases[0]">
         <div class="exp-title">
           <ExpansionSymbol :expansion="expansion" />
           <h3>{{ expansion.title }}</h3>
@@ -30,7 +30,7 @@
         :key="idx"
         class="tile-set-row"
       >
-        <TileSetButtons :sets="release.sets">
+        <TileSetButtons :release="release">
           <h4 :title="release.note">{{ release.title }}</h4>
         </TileSetButtons>
       </div>
