@@ -56,26 +56,31 @@ class Tiles {
     this.expansions = []
   }
 
-  getTilesCounts (sets, rules, edition, start = null) {
-    const counts = {}
-    const remove = {}
-
-    const objs = []
+  getExpansions (sets, edition) {
     const expansions = {}
     Object.entries(sets).forEach(([id, setCount]) => {
       if (setCount) {
         const set = this.sets[id] || this.sets[id + ':' + edition]
-        objs.push([set, setCount])
         expansions[set.expansion] = true
       }
     })
+    return expansions
+  }
 
-    objs.forEach(([set, setCount]) => {
-      const expDeps = set.dependencies?.expansion
-      if (start && expDeps && !expDeps.every(d => expansions[d])) {
-        return
-      }
+  isTileSetExcluded (id, expansions, edition) {
+    const set = this.sets[id] || this.sets[id + ':' + edition]
+    const expDeps = set.dependencies?.expansion
+    return expDeps && !expDeps.every(d => expansions[d])
+  }
 
+  getTilesCounts (sets, rules, edition, start = null) {
+    const counts = {}
+    const remove = {}
+
+    Object.entries(sets).forEach(([id, setCount]) => {
+      if (!setCount) return
+
+      const set = this.sets[id] || this.sets[id + ':' + edition]
       Object.entries(set.tiles).forEach(([tileId, tileCount]) => {
         counts[tileId] = (counts[tileId] || 0) + setCount * tileCount
         const { max } = this.tiles[tileId]
@@ -90,7 +95,6 @@ class Tiles {
     Object.keys(remove).forEach(id => { delete counts[id] })
 
     if (start) {
-      // resolve dependencies
       if (counts['GQ/RFI']) {
         if (start.id === 'spring-alt') {
           delete counts['RI/s']

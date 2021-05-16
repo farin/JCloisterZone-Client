@@ -4,7 +4,7 @@
     :max="max || 3"
     :mutable="mutable"
   >
-    <slot/>
+    <slot />
   </QuantityButtons>
 </template>
 

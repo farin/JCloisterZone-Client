@@ -30,6 +30,7 @@ function getEmptySlots () {
 
 export const state = () => ({
   sets: { ...DEFAULT_SETS },
+  excludedSets: {},
   elements: getDefaultElements(DEFAULT_SETS),
   rules: getDefaultRules(),
   start: null,
@@ -40,6 +41,7 @@ export const state = () => ({
 export const mutations = {
   clear (state) {
     state.sets = { ...DEFAULT_SETS }
+    state.excludedSets = {}
     state.elements = getDefaultElements(DEFAULT_SETS)
     state.rules = getDefaultRules()
     state.start = null
@@ -49,6 +51,7 @@ export const mutations = {
 
   setup (state, setup) {
     state.sets = setup.sets
+    state.excludedSets = {}
     state.elements = setup.elements
     state.rules = setup.rules
     state.start = setup.start
@@ -65,6 +68,14 @@ export const mutations = {
       Vue.set(state.sets, id, quantity)
     } else {
       Vue.delete(state.sets, id)
+    }
+  },
+
+  tileSetExcludedQuantity (state, { id, quantity }) {
+    if (isConfigValueEnabled(quantity)) {
+      Vue.set(state.excludedSets, id, quantity)
+    } else {
+      Vue.delete(state.excludedSets, id)
     }
   },
 
@@ -103,20 +114,38 @@ export const actions = {
     this.$router.push('/game-setup')
   },
 
-  setReleaseQuantity ({ state, commit }, { release, quantity }) {
-    console.log(release, quantity)
+  setReleaseQuantity ({ state, getters, commit }, { release, quantity }) {
+    const { $tiles } = this._vm
     const enabledStateChanged = (!!release.sets.find(id => !!state.sets[id])) !== (quantity > 0)
     const before = enabledStateChanged ? getDefaultElements(state.sets) : null
     release.sets.forEach(id => {
-      commit('tileSetQuantity', { id, quantity })
+      if (state.excludedSets[id]) {
+        commit('tileSetExcludedQuantity', { id, quantity })
+      } else {
+        commit('tileSetQuantity', { id, quantity })
+      }
     })
-    // if (id === 'gq11') {
-    //   const containsRiver = !!Object.keys(state.sets).find(id => id.startsWith('river/'))
-    //   commit('tileSetQuantity', { id: 'gq11/river', quantity: containsRiver ? quantity : 0 })
-    // } else if (id.startsWith('river/') && state.sets.gq11) {
-    //   const containsRiver = !!Object.keys(state.sets).find(id => id.startsWith('river/'))
-    //   commit('tileSetQuantity', { id: 'gq11/river', quantity: containsRiver ? state.sets.gq11 : 0 })
-    // }
+    const edition = getters.getSelectedEdition
+    const expansions = $tiles.getExpansions(state.sets, edition)
+    const verifyExcluded = { ...state.excludedSets }
+    Object.entries(state.sets).forEach(([id, quantity]) => {
+      if ($tiles.isTileSetExcluded(id, expansions, edition)) {
+        commit('tileSetQuantity', { id, quantity: 0 })
+        commit('tileSetExcludedQuantity', { id, quantity })
+        delete verifyExcluded[id]
+      } else if (state.excludedSets[id]) {
+        commit('tileSetQuantity', { id, quantity })
+        commit('tileSetExcludedQuantity', { id, quantity: 0 })
+      }
+    })
+
+    // and reeable no longer excluded sets
+    Object.entries(verifyExcluded).forEach(([id, quantity]) => {
+      if (!$tiles.isTileSetExcluded(id, expansions, edition)) {
+        commit('tileSetQuantity', { id, quantity })
+        commit('tileSetExcludedQuantity', { id, quantity: 0 })
+      }
+    })
     const after = enabledStateChanged ? getDefaultElements(state.sets) : null
 
     if (enabledStateChanged) {
