@@ -59,29 +59,47 @@ class Tiles {
   getTilesCounts (sets, rules, edition, start = null) {
     const counts = {}
     const remove = {}
+
+    const objs = []
+    const expansions = {}
     Object.entries(sets).forEach(([id, setCount]) => {
       if (setCount) {
         const set = this.sets[id] || this.sets[id + ':' + edition]
-        Object.entries(set.tiles).forEach(([tileId, tileCount]) => {
-          counts[tileId] = (counts[tileId] || 0) + setCount * tileCount
-          const { max } = this.tiles[tileId]
-          if (max) {
-            counts[tileId] = Math.min(counts[tileId], max)
-          }
-        })
-        if (set.remove) {
-          set.remove.forEach(id => { remove[id] = true })
+        objs.push([set, setCount])
+        expansions[set.expansion] = true
+      }
+    })
+
+    objs.forEach(([set, setCount]) => {
+      const expDeps = set.dependencies?.expansion
+      if (expDeps && !expDeps.every(d => expansions[d])) {
+        return
+      }
+
+      Object.entries(set.tiles).forEach(([tileId, tileCount]) => {
+        counts[tileId] = (counts[tileId] || 0) + setCount * tileCount
+        const { max } = this.tiles[tileId]
+        if (max) {
+          counts[tileId] = Math.min(counts[tileId], max)
         }
+      })
+      if (set.remove) {
+        set.remove.forEach(id => { remove[id] = true })
       }
     })
     Object.keys(remove).forEach(id => { delete counts[id] })
-    if (counts['GQ/RFI']) {
-      if (start && start.id === 'spring-alt') {
-        delete counts['RI/s']
-      } else {
-        delete counts['GQ/RFI']
+
+    if (start) {
+      // resolve dependencies
+      if (counts['GQ/RFI']) {
+        if (start.id === 'spring-alt') {
+          delete counts['RI/s']
+        } else {
+          delete counts['GQ/RFI']
+        }
       }
     }
+
     if (sets.monasteries && rules && rules['keep-monasteries'] === 'replace') {
       delete counts['BA/L']
       delete counts['BA/LR']
@@ -150,10 +168,15 @@ class Tiles {
     this.expansions.forEach(exp => {
       delete Expansion[exp.name]
     })
+    Expansion.all().forEach(exp => {
+      delete exp.requiredBy
+    })
 
     const tiles = {}
     const sets = {}
     const expansions = []
+
+    const expansionRequiredBy = {}
 
     const parser = new DOMParser()
     for (const xml of xmls) {
@@ -204,6 +227,20 @@ class Tiles {
           set.remove = remove
         }
 
+        ts.querySelectorAll('requires').forEach(el => {
+          if (!set.dependencies) set.dependencies = {}
+          const deps = set.dependencies
+          const subj = el.attributes[0]
+          if (subj && subj.name === 'expansion') {
+            if (!deps.expansion) deps.expansion = []
+            if (!expansionRequiredBy[subj.value]) expansionRequiredBy[subj.value] = []
+            deps.expansion.push(subj.value)
+            expansionRequiredBy[subj.value].push(id)
+          } else {
+            console.error('Invalid requires', el)
+          }
+        })
+
         sets[id] = set
       })
 
@@ -224,6 +261,24 @@ class Tiles {
       })
     }
 
+    Object.entries(expansionRequiredBy).forEach(([expId, deps]) => {
+      if (Expansion[expId]) {
+        Expansion.requiredBy = { sets: deps }
+      } else {
+        console.warn('Unknown expansion reference ' + expId)
+      }
+    })
+
+    Expansion.all().forEach(exp => {
+      exp.releases.forEach(release => {
+        release.sets.forEach(id => {
+          if (sets[id]) sets[id].expansion = exp.name
+          if (sets[id + ':1']) sets[id + ':1'].expansion = exp.name
+          if (sets[id + ':2']) sets[id + ':2'].expansion = exp.name
+        })
+      })
+    })
+
     tiles['AM/A'] = {
       symmetry: 4,
       edge: '****'
@@ -235,6 +290,7 @@ class Tiles {
     this.expansions = sortBy(expansions, 'name')
     this.loaded = true
 
+    console.log(sets)
     console.log('Expansions definitions loaded.')
     this.ctx.app.store.commit('tilesLoaded')
   }

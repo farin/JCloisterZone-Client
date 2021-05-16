@@ -107,13 +107,13 @@ export const actions = {
     const enabledStateChanged = (state.sets[id] > 0) !== (quantity > 0)
     const before = enabledStateChanged ? getDefaultElements(state.sets) : null
     commit('tileSetQuantity', { id, quantity })
-    if (id === 'gq11') {
-      const containsRiver = !!Object.keys(state.sets).find(id => id.startsWith('river/'))
-      commit('tileSetQuantity', { id: 'gq11/river', quantity: containsRiver ? quantity : 0 })
-    } else if (id.startsWith('river/') && state.sets.gq11) {
-      const containsRiver = !!Object.keys(state.sets).find(id => id.startsWith('river/'))
-      commit('tileSetQuantity', { id: 'gq11/river', quantity: containsRiver ? state.sets.gq11 : 0 })
-    }
+    // if (id === 'gq11') {
+    //   const containsRiver = !!Object.keys(state.sets).find(id => id.startsWith('river/'))
+    //   commit('tileSetQuantity', { id: 'gq11/river', quantity: containsRiver ? quantity : 0 })
+    // } else if (id.startsWith('river/') && state.sets.gq11) {
+    //   const containsRiver = !!Object.keys(state.sets).find(id => id.startsWith('river/'))
+    //   commit('tileSetQuantity', { id: 'gq11/river', quantity: containsRiver ? state.sets.gq11 : 0 })
+    // }
     const after = enabledStateChanged ? getDefaultElements(state.sets) : null
 
     if (enabledStateChanged) {

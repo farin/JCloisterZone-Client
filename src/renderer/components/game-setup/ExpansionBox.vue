@@ -83,7 +83,9 @@ export default {
           }
         }
       } else {
-        this.$store.dispatch('gameSetup/setTileSetQuantity', { id: this.expansion.releases[0].sets[0], quantity: 1 })
+        for (const id of this.expansion.releases[0].sets) {
+          this.$store.dispatch('gameSetup/setTileSetQuantity', { id, quantity: 1 })
+        }
       }
     }
   }

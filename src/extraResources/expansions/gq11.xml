@@ -126,6 +126,7 @@
       <ref count="1" tile="GQ/CcCR" />
     </tile-set>
     <tile-set id="gq11/river">
+      <requires expansion="RIVER" /> 
       <ref count="1" tile="GQ/RFI" />
       <ref count="1" tile="GQ/CICI" />      
     </tile-set>
