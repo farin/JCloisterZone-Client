@@ -41,7 +41,7 @@ export default {
     }),
 
     enabled () {
-      return this.item.isEnabled(this.sets, this.elements)
+      return this.$tiles.isElementEnabled(this.item, this.sets, this.elements)
     },
 
     mandatory () {

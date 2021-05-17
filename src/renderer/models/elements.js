@@ -1,5 +1,3 @@
-import mapKeys from 'lodash/mapKeys'
-
 export class GameElement {
   /*
     tile sets:
@@ -13,65 +11,22 @@ export class GameElement {
     this.title = title
     this.configType = configType
     Object.assign(this, options)
-    // this.tileSetsDeps = tileSetsDeps
+    GameElement.__all[id] = this
   }
 
   static all () {
-    if (GameElement.__all === undefined) {
-      GameElement.__all = Object.values(GameElement).filter(prop => prop instanceof GameElement)
-    }
-    return GameElement.__all
+    return Object.values(GameElement.__all)
   }
 
-  isEnabled (enabledSets, enabledElements) {
-    if (this.id === 'garden') {
-      return !!enabledElements.abbot
-    }
-    return this.getDefaultConfig(enabledSets) !== 'off'
-  }
-
-  getDefaultConfig (enabledSets) {
-    let quantity = this.tileSetsDeps['*']
-
-    function qmax (a, b) {
-      if (a === 'off' || a === false) return b
-      if (b === 'off' || b === false) return a
-      if (a === true || b === true) return true
-      return Math.max(a, b)
-    }
-
-    Object.entries(this.tileSetsDeps).forEach(([pattern, compQuantity]) => {
-      if (pattern === '*') return
-      if (pattern.endsWith('/*')) {
-        const exp = pattern.split('/')[0]
-        Object.entries(enabledSets).forEach(([set, setQuantity]) => {
-          if (setQuantity && exp === set.split('/')[0]) {
-            quantity = qmax(quantity, compQuantity)
-          }
-        })
-      } else if (enabledSets[pattern]) {
-        quantity = qmax(quantity, compQuantity)
-      }
-    })
-    return quantity
+  static get (id) {
+    return GameElement.__all[id]
   }
 }
+
+GameElement.__all = {}
 
 export function isConfigValueEnabled (config) {
   return config !== 'off' && config !== false && config !== 0
-}
-
-export function getDefaultElements (sets) {
-  const q = {}
-
-  // sets = mapKeys(sets, (val, key) => key.split(':')[0]) // strip C1 / C2 suffix
-  // GameElement.all().forEach(c => {
-  //   const conf = c.getDefaultConfig(sets)
-  //   if (isConfigValueEnabled(conf)) {
-  //     q[c.id] = conf
-  //   }
-  // })
-  return q
 }
 
 // Meeples
@@ -124,7 +79,7 @@ export const PRINCESS = GameElement.PRINCESS = new GameElement('princess', 'Prin
   selector: 'city[princess]'
 })
 export const PORTAL = GameElement.PORTAL = new GameElement('portal', 'Magic portals', Boolean, {
-  seletor: 'portal'
+  selector: 'portal'
 })
 export const PIG_HERD = GameElement.PIG_HERD = new GameElement('pig-herd', 'Pig Herds', Boolean, {
   selector: 'farm[pig]'
@@ -144,4 +99,6 @@ export const SHRINE = GameElement.SHRINE = new GameElement('shrine', 'Cloister/S
 export const FESTIVAL = GameElement.FESTIVAL = new GameElement('festival', 'Festival', Boolean, {
   selector: 'festival'
 })
-export const ESCAPE = GameElement.ESCAPE = new GameElement('escape', 'Escaping a besieged city', Boolean)
+export const ESCAPE = GameElement.ESCAPE = new GameElement('escape', 'Escaping a besieged city', Boolean, {
+  selector: 'city[besieged]'
+})

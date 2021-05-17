@@ -23,6 +23,7 @@ export class Expansion {
     this.releases.forEach(r => { r.expansion = this })
     this.enforces = options.enforces || []
     this.implies = options.implies || []
+    this.impliesAllowed = options.impliesAllowed || []
   }
 
   static register (expansion) {
@@ -44,7 +45,6 @@ export class Expansion {
   }
 }
 
-// export const BASIC = Expansion.BASIC = new Expansion('BASIC', 'Base game')
 export const BASIC = Expansion.BASIC = new Expansion('BASIC', 'Base game')
 export const WINTER = Expansion.WINTER = new Expansion('WINTER', 'Winter')
 
@@ -52,7 +52,8 @@ export const INNS_AND_CATHEDRALS = Expansion.INNS_AND_CATHEDRALS = new Expansion
   implies: ['big-follower', 'cathedral', 'inn']
 })
 export const TRADERS_AND_BUILDERS = Expansion.TRADERS_AND_BUILDERS = new Expansion('TRADERS_AND_BUILDERS', 'Traders & Builders', {
-  implies: ['builder', 'pig', 'traders', 'pig-herd']
+  implies: ['builder', 'pig', 'traders'],
+  impliesAllowed: ['pig-herd'] // expansion makes pig-herd enabled but don't autimatically allows it
 })
 export const PRINCESS_AND_DRAGON = Expansion.PRINCESS_AND_DRAGON = new Expansion('PRINCESS_AND_DRAGON', 'The Princess & The Dragon', {
   implies: ['dragon', 'fairy', 'princess']
