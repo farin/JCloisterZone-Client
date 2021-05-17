@@ -240,3 +240,7 @@ export const ESCAPE = GameElement.ESCAPE = new GameElement('escape', 'Escaping a
   '*': 'off',
   'siege/*': true
 })
+export const ROBBERSSON = GameElement.ROBBERSSON = new GameElement('robbersson', 'Robber\'s son', {
+  '*': 'off',
+  'Robber-s-Son': true
+})

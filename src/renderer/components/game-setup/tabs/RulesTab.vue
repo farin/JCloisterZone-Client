@@ -120,6 +120,15 @@
           <template #description>Espace allowed via a&nbsp;neighboring cloister.</template>
           <template #disabled>Siege expansion is not in the game.</template>
         </GameMechanicsBox>
+
+        <GameMechanicsBox :item="GameElement.ROBBESSON">
+          <template #icon>
+            <img src="~/assets/features/C1/robbesson.png" height="42">
+          </template>
+          <template #description>Robber's son can remove robber from a road.</template>
+          <template #disabled>Robber's son expansion is not selected.</template>
+        </GameMechanicsBox>
+
       </div>
     </ConfigSection>
 
