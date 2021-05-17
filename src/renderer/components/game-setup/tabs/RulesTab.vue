@@ -113,6 +113,14 @@
           <template #disabled>Festival expansion is not in the game.</template>
         </GameMechanicsBox>
 
+        <GameMechanicsBox :item="GameElement.SIEGE">
+          <template #icon>
+            <img src="~/assets/features/C1/siege.png" height="55">
+          </template>
+          <template #description>Besieged cities are less valuable.</template>
+          <template #disabled>Siege expansion is not in the game.</template>
+        </GameMechanicsBox>
+
         <GameMechanicsBox :item="GameElement.ESCAPE">
           <template #icon>
             <img src="~/assets/features/C1/escape.png" height="55">

@@ -1,7 +1,7 @@
 import uniq from 'lodash/uniq'
 
 import { Expansion } from '@/models/expansions'
-import { isConfigValueEnabled, getDefaultElements } from '@/models/elements'
+import { isConfigValueEnabled } from '@/models/elements'
 
 export default {
   computed: {
@@ -27,7 +27,7 @@ export default {
     },
 
     nonDefaultElements () {
-      const defaults = getDefaultElements(this.sets)
+      const defaults = this.$tiles.getDefaultElements(this.sets)
       const keys = uniq([...Object.keys(defaults), ...Object.keys(this.elements)])
       const diff = {}
       keys.forEach(cid => {

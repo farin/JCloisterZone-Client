@@ -2,7 +2,7 @@ import Vue from 'vue'
 import uniq from 'lodash/uniq'
 import mapKeys from 'lodash/mapKeys'
 
-import { GameElement, isConfigValueEnabled, getDefaultElements } from '@/models/elements'
+import { GameElement, isConfigValueEnabled } from '@/models/elements'
 import { getDefaultRules } from '@/models/rules'
 import { Expansion } from '@/models/expansions'
 
@@ -30,10 +30,10 @@ function getEmptySlots () {
 }
 
 export const state = () => ({
-  sets: { ...DEFAULT_SETS },
+  sets: null,
   excludedSets: {},
-  elements: getDefaultElements(DEFAULT_SETS),
-  rules: getDefaultRules(),
+  elements: null,
+  rules: null,
   start: null,
   timer: null,
   gameAnnotations: {}
@@ -41,9 +41,10 @@ export const state = () => ({
 
 export const mutations = {
   clear (state) {
+    const { $tiles } = this._vm
     state.sets = { ...DEFAULT_SETS }
     state.excludedSets = {}
-    state.elements = getDefaultElements(DEFAULT_SETS)
+    state.elements = $tiles.getDefaultElements(DEFAULT_SETS)
     state.rules = getDefaultRules()
     state.start = null
     state.timer = null
@@ -133,7 +134,7 @@ export const actions = {
   setReleaseQuantity ({ state, getters, commit }, { release, quantity }) {
     const { $tiles } = this._vm
     const enabledStateChanged = (!!release.sets.find(id => !!state.sets[id])) !== (quantity > 0)
-    const before = enabledStateChanged ? getDefaultElements(state.sets) : null
+    const before = enabledStateChanged ? $tiles.getDefaultElements(state.sets) : null
     release.sets.forEach(id => {
       if (state.excludedSets[id]) {
         commit('tileSetExcludedQuantity', { id, quantity })
@@ -162,18 +163,20 @@ export const actions = {
         commit('tileSetExcludedQuantity', { id, quantity: 0 })
       }
     })
-    const after = enabledStateChanged ? getDefaultElements(state.sets) : null
+    const after = enabledStateChanged ? $tiles.getDefaultElements(state.sets) : null
 
     if (enabledStateChanged) {
       const diff = getModifiedDefaults(before, after)
+      console.log("DIFF", diff)
       Object.entries(diff).forEach(([id, config]) => {
-        // use commit, not dispatch - bounded meeples (eg mage/witch) are already reflected in rules
+        // use commit, not dispatch - bound meeples (eg mage/witch) are already reflected in rules
         commit('elementConfig', { id, config })
       })
 
       GameElement.all().forEach(ge => {
         if (ge.id in state.elements) {
-          if (!ge.isEnabled(state.sets, state.elements)) {
+          if (!$tiles.isElementEnabled(ge, state.sets, state.elements)) {
+            console.log("NOT ENABLED", ge.id, JSON.stringify(state.sets), JSON.stringify(state.elements))
             commit('elementConfig', { id: ge.id, config: false })
           }
         }

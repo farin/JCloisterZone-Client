@@ -5,6 +5,8 @@ import Vue from 'vue'
 import sortBy from 'lodash/sortBy'
 
 import { Expansion, Release } from '@/models/expansions'
+import { GameElement } from '@/models/elements'
+import { set } from 'lodash'
 
 const SIDES = ['N', 'E', 'S', 'W']
 const EDGE_CODE = {
@@ -135,16 +137,50 @@ class Tiles {
     return ae.r - be.r // less roads first
   }
 
+  getDefaultElements (sets) {
+    const q = {}
+
+    const implies = new Set([])
+    const impliesAllowed = new Set([])
+    const allows = new Set([])
+
+    Object.keys(sets).forEach(id => {
+      const set = this.sets[id] || this.sets[id + ':1'] || this.sets[id + ':2']
+      set.implies.forEach(elem => { implies.add(elem) })
+      set.impliesAllowed.forEach(elem => { impliesAllowed.add(elem) })
+      set.allows.forEach(elem => { allows.add(elem) })
+    })
+
+    GameElement.all().forEach(elem => {
+      if (elem.default) {
+        q[elem.id] = elem.default
+      } else if (implies.has(elem.id) || (impliesAllowed.has(elem.id) && allows.has(elem.id))) {
+        q[elem.id] = elem.configType === Number ? 1 : true
+      }
+    })
+
+    // console.log(Object.keys(sets).join(',') + ' -> ' + Object.keys(q).join(','))
+    return q
+  }
+
+  isElementEnabled (ge, enabledSets, enabledElements) {
+    if (ge.id === 'garden') {
+      return !!enabledElements.abbot
+    }
+    return ge.default !== undefined || Object.keys(enabledSets).find(id => {
+      const set = this.sets[id] || this.sets[id + ':1'] || this.sets[id + ':2']
+      return set.allows.includes(ge.id) || set.implies.includes(ge.id)
+    }) !== undefined
+  }
+
   // returns setup with enforced elements by expansion definitions
   getFullSetup (setup) {
-    const edition = setup.elements.garden ? 2 : 1
-    const expansions = this.getExpansions(setup.sets, edition)
     const elements = { ...setup.elements }
-    console.log(setup, expansions)
-    Object.keys(expansions).forEach(expId => {
-      const expansion = Expansion[expId]
-      expansion.enforces.forEach(id => { elements[id] = true })
+
+    setup.sets.forEach(id => {
+      this.sets[id].enforces.forEach(id => { elements[id] = true })
     })
+
     return { ...setup, elements }
   }
 
@@ -186,18 +222,19 @@ class Tiles {
     }
 
     // clean priosly loaded
-    this.expansions.forEach(exp => {
-      delete Expansion[exp.name]
-    })
+    Expansion.unregisterAll()
     Expansion.all().forEach(exp => {
       delete exp.requiredBy
     })
+
+    const gameElementsWithSelector = GameElement.all().filter(ge => ge.selector)
 
     const tiles = {}
     const sets = {}
     const expansions = []
 
     const expansionRequiredBy = {}
+    const tileAllows = {}
 
     const parser = new DOMParser()
     for (const xml of xmls) {
@@ -229,6 +266,13 @@ class Tiles {
         }
 
         tiles[id] = tile
+
+        const allows = tileAllows[id] = new Set([])
+        gameElementsWithSelector.forEach(ge => {
+          if (t.querySelector(ge.selector)) {
+            allows.add(ge.id)
+          }
+        })
       })
 
       doc.querySelectorAll('tile-set[id]').forEach(ts => {
@@ -239,7 +283,7 @@ class Tiles {
           const count = ref.getAttribute('count')
           setTiles[ref.getAttribute('tile')] = parseInt(count || 1)
         })
-        const set = { tiles: setTiles }
+        const set = { tiles: setTiles, allows: [] }
         if (max) {
           set.max = parseInt(max)
         }
@@ -261,7 +305,6 @@ class Tiles {
             console.error('Invalid requires', el)
           }
         })
-
         sets[id] = set
       })
 
@@ -277,12 +320,8 @@ class Tiles {
         const tileSets = Array.from(el.querySelectorAll('ref[tile-set]')).map(ref => ref.getAttribute('tile-set'))
         const enforces = Array.from(el.querySelectorAll('enforces[element]')).map(ref => ref.getAttribute('element'))
 
-        const exp = new Expansion(name, title, [new Release(name, tileSets)], {
-          enforces,
-          fan: true
-        })
-
-        Expansion[name] = exp
+        const exp = new Expansion(name, title, { enforces }, [new Release(name, tileSets)])
+        Expansion.register(exp)
         expansions.push(exp)
       })
     }
@@ -295,12 +334,26 @@ class Tiles {
       }
     })
 
+    Object.values(sets).forEach(set => {
+      const allows = new Set([])
+      Object.keys(set.tiles).forEach(id => {
+        tileAllows[id].forEach(geId => allows.add(geId))
+      })
+      set.allows = Array.from(allows)
+    })
+
     Expansion.all().forEach(exp => {
       exp.releases.forEach(release => {
-        release.sets.forEach(id => {
-          if (sets[id]) sets[id].expansion = exp.name
-          if (sets[id + ':1']) sets[id + ':1'].expansion = exp.name
-          if (sets[id + ':2']) sets[id + ':2'].expansion = exp.name
+        release.sets.forEach(baseId => {
+          const ids = [baseId, baseId + ':1', baseId + ':2']
+          ids.forEach(id => {
+            if (sets[id]) {
+              sets[id].expansion = exp.name
+              sets[id].implies = exp.implies
+              sets[id].impliesAllowed = exp.impliesAllowed
+              sets[id].enforces = exp.enforces
+            }
+          })
         })
       })
     })
@@ -309,6 +362,8 @@ class Tiles {
       symmetry: 4,
       edge: '****'
     }
+
+    console.log(sets)
 
     this.xmls = xmls
     this.tiles = tiles
