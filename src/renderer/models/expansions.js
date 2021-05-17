@@ -76,7 +76,7 @@ export const RIVER = Expansion.RIVER = new Expansion('RIVER', 'The River', { enf
   new Release('The River I', ['river/1']),
   new Release('The River II', ['river/2'])
 ])
-export const SIEGE = Expansion.SIEGE = new Expansion('SIEGE', 'Siege', { enforces: ['siege'], implies: ['escape'] }, [
+export const SIEGE = Expansion.SIEGE = new Expansion('SIEGE', 'Siege', { implies: ['siege', 'escape'] }, [
   new Release('The Cathars / Siege', ['siege/cathars'], { note: 'The Cathars (2004), reprinted as Siege (2008)' }),
   new Release('The Besiegers', ['siege/besiegers'], { note: '(2013)' })
 ])

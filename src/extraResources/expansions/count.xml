@@ -23,7 +23,11 @@
     <tile id="CO/6">
     </tile>
     <tile id="CO/7">
-      <!-- all quarters are bound to this tile -->
+      <!-- 
+        all quarters are bound to this tile 
+        <quarte is for now purely virtual element used only as target for game element selector      
+      -->
+      <quarter />      
     </tile>
     <tile id="CO/8">
       <farm>NR EL ER SL</farm>

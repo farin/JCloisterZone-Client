@@ -24,11 +24,13 @@ export class Rule {
     return Rule.__all
   }
 
+
   isAvailable ({ elements, sets }) {
     if (!this.deps.length) {
       return true
     }
-    for (const dep of this.deps) {
+
+    function isDepAvailable (dep) {
       if (dep instanceof GameElement) {
         if (elements[dep.id]) return true
       } else if (dep instanceof Expansion) {
@@ -39,8 +41,23 @@ export class Rule {
             }
           }
         }
+      } else if (typeof dep === 'string') {
+        if (sets[dep]) {
+          return true
+        }
       } else {
         console.error('Invalid type', dep)
+      }
+      return false
+    }
+
+    for (const dep of this.deps) {
+      if (Array.isArray(dep)) {
+        if (dep.every(item => isDepAvailable(item))) {
+          return true
+        }
+      } else if (isDepAvailable(dep)) {
+        return true
       }
     }
     return false
@@ -142,7 +159,7 @@ export const ESCAPE_VARIANT = Rule.ESCAPE_VARIANT = new Rule('espace-variant', G
 
 export const GQ11_PIG_HERD = Rule.GQ11_PIG_HERD = new Rule('gq11-pig-herd', GAMEPLAY,
   'Field tile from Game Quarterly 11 expansion {}.',
-  [GameElement.PIG_HERD],
+  [[GameElement.PIG_HERD, 'gq11']], // array items means AND
   [
     { value: 'pig', text: 'contains pig herd', flags: ['house'] },
     { value: 'nothing', text: 'is just empty field' }

@@ -42,26 +42,26 @@ export const MAYOR = GameElement.MAYOR = new GameElement('mayor', 'Mayor', Numbe
 export const SHEPHERD = GameElement.SHEPHERD = new GameElement('shepherd', 'Shepherd', Number, { default: 0 })
 
 // Neutral
-export const DRAGON = GameElement.DRAGON = new GameElement('dragon', 'Dragon', Number)
+export const DRAGON = GameElement.DRAGON = new GameElement('dragon', 'Dragon', Number, { selector: 'dragon' })
 export const FAIRY = GameElement.FAIRY = new GameElement('fairy', 'Fairy', Number, { default: 0 })
-export const COUNT = GameElement.COUNT = new GameElement('count', 'Count', Number)
-export const MAGE = GameElement.MAGE = new GameElement('mage', 'Mage', Number)
-export const WITCH = GameElement.WITCH = new GameElement('witch', 'Witch', Number)
+export const COUNT = GameElement.COUNT = new GameElement('count', 'Count', Number, { selector: 'quarter' })
+export const MAGE = GameElement.MAGE = new GameElement('mage', 'Mage', Number, { selector: 'mage' })
+export const WITCH = GameElement.WITCH = new GameElement('witch', 'Witch', Number, { selector: 'mage' }) // trigger on tile is simply called mage
 
 // Player Tokens
-export const TOWER = GameElement.TOWER = new GameElement('tower', 'Tower pieces', Number)
+export const TOWER = GameElement.TOWER = new GameElement('tower', 'Tower pieces', Number, { selector: 'tower' })
 export const ABBEY = GameElement.ABBEY = new GameElement('abbey', 'Abbey tile', Number, { default: 0 })
 export const BRIDGE = GameElement.BRIDGE = new GameElement('bridge', 'Bridges', Number, { default: 0 })
 export const CASTLE = GameElement.CASTLE = new GameElement('castle', 'Castles', Number, { default: 0 })
 export const TUNNEL = GameElement.TUNNEL = new GameElement('tunnel', 'Tunnel tokens', Number)
-export const FERRY = GameElement.FERRY = new GameElement('ferry', 'Ferries', Number)
+export const FERRY = GameElement.FERRY = new GameElement('ferry', 'Ferries', Number, { selector: 'ferry' })
 export const LITTLE_BUILDINGS = GameElement.LITTLE_BUILDINGS = new GameElement('little-buildings', 'Little Buildings', Number, { default: 0 })
 
 // Rewards
-export const TRADERS = GameElement.TRADERS = new GameElement('traders', 'Trade goods', Boolean)
+export const TRADERS = GameElement.TRADERS = new GameElement('traders', 'Trade goods', Boolean, { selector: 'city[resource]' })
 export const KING = GameElement.KING = new GameElement('king', 'King', Boolean, { default: false })
 export const ROBBER = GameElement.ROBBER = new GameElement('robber', 'Robber', Boolean, { default: false })
-export const GOLD = GameElement.GOLD = new GameElement('gold', 'Gold pieces', Boolean)
+export const GOLD = GameElement.GOLD = new GameElement('gold', 'Gold pieces', Boolean, { selector: 'goldmine' })
 
 // Game mechanics
 
@@ -98,6 +98,9 @@ export const SHRINE = GameElement.SHRINE = new GameElement('shrine', 'Cloister/S
 })
 export const FESTIVAL = GameElement.FESTIVAL = new GameElement('festival', 'Festival', Boolean, {
   selector: 'festival'
+})
+export const SIEGE = GameElement.SIEGE = new GameElement('siege', 'Besieged cities', Boolean, {
+  selector: 'city[besieged]'
 })
 export const ESCAPE = GameElement.ESCAPE = new GameElement('escape', 'Escaping a besieged city', Boolean, {
   selector: 'city[besieged]'
