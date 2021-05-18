@@ -177,7 +177,9 @@ class Tiles {
   getFullSetup (setup) {
     const elements = { ...setup.elements }
 
-    setup.sets.forEach(id => {
+    console.log(setup)
+
+    Object.keys(setup.sets).forEach(id => {
       this.sets[id].enforces.forEach(id => { elements[id] = true })
     })
 
