@@ -138,7 +138,7 @@
       <river>W S</river>
     </tile>
     <tile id="RI.2/CcII+" group="river">
-      <city pennant="yes">N W</city>
+      <city pennant="1">N W</city>
       <farm city="N">SR EL</farm>
       <farm>ER SL</farm>
       <river>S E</river>

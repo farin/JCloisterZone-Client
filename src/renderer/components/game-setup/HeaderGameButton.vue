@@ -24,12 +24,13 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   props: {
     title: { type: String, required: true },
-    info: { type: String, default: null }
+    info: { type: String, default: null },
+    sets: { type: Object, required: true }
   },
 
   computed: {
@@ -38,9 +39,10 @@ export default {
       engine: state => state.engine
     }),
 
-    ...mapGetters({
-      containsCoreSet: 'gameSetup/containsCoreSet'
-    })
+    containsCoreSet () {
+      return this.sets.basic || this.sets['basic:1'] || this.sets['basic:2'] ||
+        this.sets.winter || this.sets['winter:1'] || this.sets['winter:2']
+    }
   }
 }
 </script>

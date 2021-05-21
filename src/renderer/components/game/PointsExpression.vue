@@ -9,8 +9,10 @@
           v-for="(item, idx) in expr.items"
           :key="idx"
           :item="item"
+          :index="idx"
         />
       </div>
+      <div class="equal">=</div>
       <div
         :class="'points ' + colorCssClass(expr.player)"
       >
@@ -132,13 +134,21 @@ export default {
 
   justify-content: center
 
-  .points
-    width: 69px
-    height: 46px
+  .points, .equal
     text-align: center
-    border-radius: 23px
     font-size: 28px
     font-weight: 500
+    align-self: center
+
+  .equal
+    margin-right: 12px
+
+    +theme using ($theme)
+      color: map-get($theme, 'gray-text-color')
+
+  .points
+    width: 69px
+    border-radius: 23px
 
   .expr
     display: flex
@@ -149,6 +159,9 @@ export default {
 
     +theme using ($theme)
       color: map-get($theme, 'gray-text-color')
+
+    // .expr-item:nth-child(even)
+    //   background: #e0e0e0
 
     // ::v-deep .value-units
     //   position: relative

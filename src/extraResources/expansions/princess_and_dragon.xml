@@ -87,7 +87,7 @@
     </tile>
     <tile id="DG/CCc+.p">
       <city princess="yes" castle-base="false">N</city>
-      <city pennant="yes">E S</city>
+      <city pennant="1">E S</city>
       <farm city="N">WL WR</farm>
       <farm city="N S">INNER_FARM</farm>
     </tile>
@@ -97,7 +97,7 @@
     </tile>
     <tile id="DG/Ccc+.g">
       <portal />
-      <city pennant="yes">N E W</city>
+      <city pennant="1">N E W</city>
       <farm city="N">SL SR</farm>
     </tile>
     <tile id="DG/LCcc.d">
@@ -160,7 +160,7 @@
     </tile>
     <tile id="DG/CFc+.d">
       <dragon />
-      <city pennant="yes">W E</city>
+      <city pennant="1">W E</city>
       <farm city="W">NL NR</farm>
       <farm city="W">SL SR</farm>
     </tile>
