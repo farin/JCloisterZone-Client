@@ -44,6 +44,8 @@ import JoinGameDialog from '@/components/JoinGameDialog'
 import SettingsDialog from '@/components/SettingsDialog'
 import { getAppVersion } from '@/utils/version'
 
+const ZOOM_SENSITIVITY = 1.4
+
 export default {
   components: {
     AboutDialog,
@@ -145,10 +147,10 @@ export default {
       this.$store.dispatch('game/undo')
     })
     ipcRenderer.on('menu.zoom-in', () => {
-      this.$root.$emit('request-zoom', 1.4)
+      this.$root.$emit('request-zoom', ZOOM_SENSITIVITY)
     })
     ipcRenderer.on('menu.zoom-out', () => {
-      this.$root.$emit('request-zoom', -1.4)
+      this.$root.$emit('request-zoom', -ZOOM_SENSITIVITY)
     })
     ipcRenderer.on('menu.game-tiles', () => {
       this.$store.commit('showGameTiles', !this.$store.state.showGameTiles)
@@ -266,11 +268,11 @@ export default {
 
     onKeyDown (ev) {
       if (ev.key === '+') { // bind both + and numpad +
-        this.zoomIn()
+        this.$root.$emit('request-zoom', ZOOM_SENSITIVITY)
         return
       }
       if (ev.key === '-') {
-        this.zoomOut()
+        this.$root.$emit('request-zoom', -ZOOM_SENSITIVITY)
         return
       }
       if (ev.key === 'Escape' && this.showAbout) {
