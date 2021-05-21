@@ -1,6 +1,24 @@
 <template>
-  <component :is="component" :expr="expr">
-    <!-- eslint-disable vue/multiline-html-element-content-newline -->
+  <section>
+    <div class="expr-title">
+      {{ title }}
+    </div>
+    <div class="expr-row">
+      <div class="expr">
+        <ExpressionItem
+          v-for="(item, idx) in expr.items"
+          :key="idx"
+          :item="item"
+        />
+      </div>
+      <div
+        :class="'points ' + colorCssClass(expr.player)"
+      >
+        {{ expr.points }}
+      </div>
+    </div>
+  </section>
+  <!--component :is="component" :expr="expr">
     <template v-if="names.includes('mage')">
       +<div class="value-units nobg">{{ expr.args.tiles }}
         <NeutralFigure figure="mage" :width="28" :height="28" />
@@ -35,72 +53,49 @@
     <template v-if="expr.name === 'king+robber'">+&ensp;
       <TokenImage token="ROBBER" :height="55" />&ensp;
     </template>
-  </component>
+  </component-->
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
 import { Expansion } from '@/models/expansions'
-import ExpansionSymbol from '@/components/ExpansionSymbol'
-import ExprCastle from '@/components/game/expressions/ExprCastle'
-import ExprChurchOnly from '@/components/game/expressions/ExprChurchOnly'
-import ExprCity from '@/components/game/expressions/ExprCity'
-import ExprCityEmpty from '@/components/game/expressions/ExprCityEmpty'
-import ExprCityIncomplete from '@/components/game/expressions/ExprCityIncomplete'
-import ExprCityIncompleteCathedral from '@/components/game/expressions/ExprCityIncompleteCathedral'
-import ExprCityTiny from '@/components/game/expressions/ExprCityTiny'
-import ExprCloister from '@/components/game/expressions/ExprCloister'
-import ExprCloisterChallenged from '@/components/game/expressions/ExprCloisterChallenged'
-import ExprFairyCompletedOnly from '@/components/game/expressions/ExprFairyCompletedOnly'
-import ExprFairyTurn from '@/components/game/expressions/ExprFairyTurn'
-import ExprFarm from '@/components/game/expressions/ExprFarm'
-import ExprFlock from '@/components/game/expressions/ExprFlock'
-import ExprGarden from '@/components/game/expressions/ExprGarden'
-import ExprGold from '@/components/game/expressions/ExprGold'
-import ExprKing from '@/components/game/expressions/ExprKing'
-import ExprMonastery from '@/components/game/expressions/ExprMonastery'
-import ExprRoad from '@/components/game/expressions/ExprRoad'
-import ExprRoadIncompleteInn from '@/components/game/expressions/ExprRoadIncompleteInn'
-import ExprRobber from '@/components/game/expressions/ExprRobber'
-import ExprTradeGoods from '@/components/game/expressions/ExprTradeGoods'
-import ExprUnknown from '@/components/game/expressions/ExprUnknown'
-import ExprVodyanoy from '@/components/game/expressions/ExprVodyanoy'
-import ExprWindRose from '@/components/game/expressions/ExprWindRose'
-import ExprYagaHut from '@/components/game/expressions/ExprYagaHut'
-import NeutralFigure from '@/components/game/NeutralFigure'
-import TokenImage from '@/components/game/TokenImage'
+import ExpressionItem from '@/components/game/ExpressionItem'
+
+const NAME_MAPPING = {
+  'city': 'City',
+  'city.tiny': 'Tiny city',
+  'city.incomplete': 'Incomplete city',
+  'road': 'Road',
+  'road.incomplete': 'Incomplete road',
+  'cloister': 'Monastery',
+  'cloister.incomplete': 'Incomplete monastery',
+  'cloister.challenged': 'Challenged monastery',
+  'cloister.church': 'Church bonus',
+  'shrine': 'Shrine',
+  'shrine.incomplete': 'Incomplete shrine',
+  'shrine.challenged': 'Challenged shrine',
+  'garden': 'Garden',
+  'garden.incomplete': 'Incomplete garden',
+  'castle': 'Castle',
+  'castle.incomplete': 'Incomplete castle',
+  'fairy.turn': 'Fairy',
+  'flock': 'Flock',
+  'wind-rose': 'Wind rose',
+  'yaga-hut': 'Yaga hut',
+  'yaga-hut.incomplete': 'Incomplete yaga hut',
+  'farm': 'Field',
+  'trade-goods': 'Trade Goods',
+  'king': 'King',
+  'robber': 'Robber',
+  'monastery': 'Special monastery',
+  'gold': 'Gold ingots',
+  'vodyanoy': 'Vodyanoy'
+}
 
 export default {
   components: {
-    ExpansionSymbol,
-    ExprCastle,
-    ExprChurchOnly,
-    ExprCity,
-    ExprCityEmpty,
-    ExprCityIncomplete,
-    ExprCityIncompleteCathedral,
-    ExprCityTiny,
-    ExprCloister,
-    ExprCloisterChallenged,
-    ExprFairyCompletedOnly,
-    ExprFairyTurn,
-    ExprFarm,
-    ExprFlock,
-    ExprGarden,
-    ExprGold,
-    ExprMonastery,
-    ExprKing,
-    ExprRoad,
-    ExprRoadIncompleteInn,
-    ExprRobber,
-    ExprTradeGoods,
-    ExprUnknown,
-    ExprVodyanoy,
-    ExprWindRose,
-    ExprYagaHut,
-    NeutralFigure,
-    TokenImage
+    ExpressionItem
   },
 
   props: {
@@ -118,53 +113,79 @@ export default {
       colorCssClass: 'game/colorCssClass'
     }),
 
-    names () {
-      return this.expr.name.split('+')
-    },
-
-    component () {
-      const [type, subtype] = this.names[0].split('.')
-      if (type === 'city') {
-        if (!subtype) return 'ExprCity'
-        if (subtype === 'tiny') return 'ExprCityTiny'
-        if (subtype === 'incomplete') return 'ExprCityIncomplete'
-        if (subtype === 'incomplete-cathedral') return 'ExprCityIncompleteCathedral'
-        if (subtype === 'empty') return 'ExprCityEmpty'
-      }
-      if (type === 'road') {
-        if (!subtype || subtype === 'incomplete') return 'ExprRoad'
-        if (subtype === 'incomplete-inn') return 'ExprRoadIncompleteInn'
-      }
-      if (type === 'cloister' || type === 'shrine') {
-        if (this.expr.name === 'cloister.church') {
-          return 'ExprChurchOnly'
-        } else {
-          // points are not just cloister church bonus
-          return subtype === 'challenged' ? 'ExprCloisterChallenged' : 'ExprCloister'
-        }
-      }
-      if (type === 'garden') return 'ExprGarden'
-      if (type === 'castle') return 'ExprCastle'
-
-      if (type === 'fairy') {
-        if (subtype === 'turn') return 'ExprFairyTurn'
-        if (subtype === 'completed') return 'ExprFairyCompletedOnly'
-      }
-      if (type === 'flock') return 'ExprFlock'
-      if (type === 'wind-rose') return 'ExprWindRose'
-      if (type === 'yaga-hut') return 'ExprYagaHut'
-      if (type === 'farm') return 'ExprFarm' // not only final
-
-      // only final scoring
-      if (type === 'trade-goods') return 'ExprTradeGoods'
-      if (type === 'king') return 'ExprKing'
-      if (type === 'robber') return 'ExprRobber'
-      if (type === 'monastery') return 'ExprMonastery'
-      if (type === 'gold') return 'ExprGold'
-      if (type === 'vodyanoy') return 'ExprVodyanoy'
-
-      return 'ExprUnknown'
+    title () {
+      return NAME_MAPPING[this.expr.name] || ''
     }
+
+    // names () {
+    //   return this.expr.name.split('+')
+    // }
   }
 }
 </script>
+
+<style lang="sass" scoped>
+.expr-row
+  display: flex
+  align-items: stretch
+  height: 100%
+
+  justify-content: center
+
+  .points
+    width: 69px
+    height: 46px
+    text-align: center
+    border-radius: 23px
+    font-size: 28px
+    font-weight: 500
+
+  .expr
+    display: flex
+    align-items: stretch
+    font-size: 28px
+    font-weight: 500
+    padding-top: 1px
+
+    +theme using ($theme)
+      color: map-get($theme, 'gray-text-color')
+
+    // ::v-deep .value-units
+    //   position: relative
+    //   display: flex
+    //   flex-direction: column
+    //   align-items: center
+    //   text-align: center
+    //   padding: 0 10px
+    //   margin: 0 2px
+
+    //   +theme using ($theme)
+    //     background: map-get($theme, 'expr-units-bg')
+    //     color: map-get($theme, 'expr-units-text')
+
+    //   i
+    //     margin-top: 5px
+
+    //     +theme using ($theme)
+    //       color: map-get($theme, 'gray-text-color')
+
+    //   img
+    //     position: absolute
+    //     height: 32px
+    //     top: 45px
+
+    // .value-units.nobg
+    //   background: none
+
+.expr-title
+  position: absolute
+  left: 0
+  max-width: 210px
+  height: var(--action-bar-height)
+  line-height: 1
+  display: flex
+  align-items: center
+  padding-left: 20px
+  font-size: 20px
+  font-weight: 300
+</style>
