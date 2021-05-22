@@ -22,6 +22,10 @@
       <template v-else-if="item.name === 'vineyards'"><img src="~/assets/features/C1/vineyard.png" height="40"></template>
       <template v-else-if="item.name === 'castles' || item.name.startsWith('castle.')"><img src="~/assets/figures/castle.png" height="40"></template>
       <template v-else-if="item.name === 'church'"><ExpansionSymbol :expansion="Expansion.DARMSTADT" :style="{ width: 40, height: 40 }" /></template>
+      <template v-else-if="item.name === 'sheep.SHEEP_1X'"><TokenImage token="SHEEP_1X" :height="40" /></template>
+      <template v-else-if="item.name === 'sheep.SHEEP_2X'"><TokenImage token="SHEEP_2X" :height="40" /></template>
+      <template v-else-if="item.name === 'sheep.SHEEP_3X'"><TokenImage token="SHEEP_3X" :height="40" /></template>
+      <template v-else-if="item.name === 'sheep.SHEEP_4X'"><TokenImage token="SHEEP_4X" :height="40" /></template>
 
       <!-- TODO images, also imprev tile image (green field ?)-->
       <template v-else-if="item.name === 'darmstadtium'"><ExpansionSymbol :expansion="Expansion.DARMSTADT" :style="{ width: 40, height: 40 }" /></template>
@@ -40,13 +44,15 @@ import isNil from 'lodash/isNil'
 import { Expansion } from '@/models/expansions'
 import NeutralFigure from '@/components/game/NeutralFigure'
 import ExpansionSymbol from '@/components/ExpansionSymbol'
+import TokenImage from '@/components/game/TokenImage'
 
 const MEEPLES_SVG = require('~/assets/meeples.svg')
 
 export default {
   components: {
     NeutralFigure,
-    ExpansionSymbol
+    ExpansionSymbol,
+    TokenImage
   },
 
   props: {
