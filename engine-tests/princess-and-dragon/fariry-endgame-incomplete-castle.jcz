@@ -5,10 +5,12 @@
   "initialSeed": "3152298788236461510",
   "created": "2020-09-15T20:58:42.306Z",
   "clock": 0,
-  "description": "A fairy bonus is not warded because castle is not scored at the end",
-  "assertions": [
-    "Oskar has 2 points"
-  ],
+  "test": {
+    "description": "A fairy bonus is not warded because castle is not scored at the end",
+    "assertions": [
+      "Oscar has 2 points"
+    ]
+  },
   "setup": {
     "sets": {
       "basic:1": 1,

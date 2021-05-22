@@ -100,7 +100,7 @@ export default {
     },
 
     async runAll () {
-      this.tests.map(test => omit(test, ['result']))
+      this.tests = this.tests.map(test => omit(test, ['result']))
       for (let idx = 0; idx < this.tests.length; idx++) {
         const test = this.tests[idx]
         const result = await this.runTest(test.file)
@@ -115,10 +115,13 @@ export default {
             unsubscribe()
             await this.$store.dispatch('game/close')
             const failed = mutation.payload.assertions.find(a => a.result === false)
-            resolve({
-              ...mutation.payload,
-              ok: !failed
-            })
+            setTimeout(() => {
+              // unfortunatelly waiting for game close is not implemented, HACK it with timeout
+              resolve({
+                ...mutation.payload,
+                ok: !failed
+              })
+            }, 100)
           }
         })
         this.$store.dispatch('game/load', file)

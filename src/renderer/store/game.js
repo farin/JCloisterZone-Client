@@ -427,6 +427,9 @@ export const actions = {
         }
 
         if (sg.setup && !sg.test && (isNil(sg.players) || isNil(sg.initialSeed) || isNil(sg.replay) || isNil(sg.clock) || isNil(sg.gameId))) {
+          if (rootState.runningTests) {
+            console.error('Loaded game setup from test runner')
+          }
           dispatch('gameSetup/load', sg.setup, { root: true })
           Vue.nextTick(() => {
             dispatch('settings/addRecentSetupSave', filePath, { root: true })
