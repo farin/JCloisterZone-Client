@@ -169,11 +169,11 @@ export default {
       this.showAbout = true
     })
 
-    ipcRenderer.on('menu.change-client-id', () => {
-      this.changeClientId()
-    })
     ipcRenderer.on('menu.dump-server', () => {
       this.dumpServer()
+    })
+    ipcRenderer.on('menu.test-runner', () => {
+      this.$router.push('/test-runner')
     })
     ipcRenderer.on('menu.reload-artworks', () => {
       this.$theme.loadArtworks()
@@ -203,6 +203,10 @@ export default {
 
     ipcRenderer.on('settings.changed', (ev, value) => {
       this.$store.dispatch('settings/loaded', value)
+    })
+
+    ipcRenderer.on('settings.update', (ev, update) => {
+      this.$store.dispatch('settings/update', update)
     })
 
     try {
@@ -284,13 +288,6 @@ export default {
         ev.preventDefault()
         ev.stopPropagation()
       }
-    },
-
-    changeClientId () {
-      const [base, suffix = '0'] = this.$store.state.settings.clientId.split('--', 2)
-      const newId = `${base}--${~~suffix + 1}`
-      this.$store.commit('settings/clientId', newId)
-      console.log(`Client id changed to ${newId}`)
     },
 
     async dumpServer () {

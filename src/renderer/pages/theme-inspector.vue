@@ -1,5 +1,5 @@
 <template>
-  <div class="theme-inspector">
+  <div v-if="loaded" class="theme-inspector">
     <v-container>
       <v-row align="center" class="header">
         <v-col cols="6">
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { Expansion } from '@/models/expansions'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
 import CountMiniboard from '@/components/game-setup/details/CountMiniboard'
@@ -68,7 +69,9 @@ export default {
   data () {
     const sets = []
     for (const exp of Expansion.all()) {
-      sets.push(...exp.sets)
+      for (const release of exp.releases) {
+        sets.push(...release.sets)
+      }
     }
     return {
       selected: this.$store.state.loaded.tiles ? 'basic' : null,
@@ -88,6 +91,10 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      loaded: 'loaded'
+    }),
+
     tiles () {
       const counts = this.$tiles.getTilesCounts({ [this.selected]: 1 }, {}, this.edition)
       const tiles = Object.keys(counts).map(id => ({ id, ...this.$tiles.tiles[id] }))
