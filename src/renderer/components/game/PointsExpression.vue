@@ -91,9 +91,10 @@ const TITLE_MAPPING = {
 }
 
 const SUBTITLE_MAPPING = {
-  incomplete: '(incomplete)',
-  challenged: '(challenged)',
-  empty: '(empty)'
+  'incomplete': '(incomplete)',
+  'challenged': '(challenged)',
+  'empty': '(empty)',
+  'city.tiny': null
 }
 
 export default {
@@ -126,10 +127,10 @@ export default {
 
     subtitle () {
       const title = SUBTITLE_MAPPING[this.expr.name]
-      if (title) return title
+      if (title !== undefined) return title
       const key = this.expr.name.split('.')[1]
       if (!key) return null
-      return SUBTITLE_MAPPING[key] || key
+      return SUBTITLE_MAPPING[key] !== undefined ? SUBTITLE_MAPPING[key] : key
     }
   }
 }

@@ -2,24 +2,26 @@
   "appVersion": "5.7.0",
   "gameId": "1",
   "name": "",
-  "initialSeed": "-1083928485176885387",
-  "created": "2021-05-22T14:43:17.690Z",
-  "clock": 78255,
+  "initialSeed": "5993848826113191502",
+  "created": "2021-05-22T16:23:20.893Z",
+  "clock": 1,
   "test": {
-    "description": "Darmstadtium extra points scoring",
+    "description": "Besieged incomplete city scoring",
     "assertions": [
-      "Alice has 13 points",
-      "Alice scored city for 13 points"
+      "Alice has 0 points",
+      "Alice scored city for 0 points"
     ]
   },
   "setup": {
     "sets": {
       "basic:1": 1,
-      "darmstadt": 1
+      "siege/besiegers": 1
     },
     "elements": {
       "small-follower": 7,
-      "farmers": true
+      "farmers": true,
+      "siege": true,
+      "escape": true
     },
     "rules": {
       "princess-action": "may",
@@ -63,92 +65,29 @@
     {
       "type": "PLACE_TILE",
       "payload": {
-        "tileId": "DA/Cccc",
-        "rotation": "R0",
-        "position": [
-          0,
-          -1
-        ]
-      },
-      "player": 0,
-      "clock": 1667
-    },
-    {
-      "type": "PASS",
-      "payload": {},
-      "player": 0,
-      "clock": 2578
-    },
-    {
-      "type": "COMMIT",
-      "payload": {
-        "salt": "3623665861274701948"
-      },
-      "player": 0,
-      "clock": 2584
-    },
-    {
-      "type": "PLACE_TILE",
-      "payload": {
-        "tileId": "BA/C",
+        "tileId": "SI.BE/Ccc",
         "rotation": "R90",
         "position": [
-          -1,
+          0,
           -1
         ]
       },
       "player": 0,
-      "clock": 3407
+      "clock": 1971
     },
     {
       "type": "PASS",
       "payload": {},
       "player": 0,
-      "clock": 4668
+      "clock": 2681
     },
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-6848926835996297991"
+        "salt": "5280636651344411159"
       },
       "player": 0,
-      "clock": 4677
-    },
-    {
-      "type": "PLACE_TILE",
-      "payload": {
-        "tileId": "BA/C",
-        "rotation": "R180",
-        "position": [
-          0,
-          -2
-        ]
-      },
-      "player": 0,
-      "clock": 5159
-    },
-    {
-      "type": "DEPLOY_MEEPLE",
-      "payload": {
-        "pointer": {
-          "position": [
-            0,
-            -2
-          ],
-          "location": "S"
-        },
-        "meepleId": "0.small.1"
-      },
-      "player": 0,
-      "clock": 5599
-    },
-    {
-      "type": "COMMIT",
-      "payload": {
-        "salt": "-3444309339253904673"
-      },
-      "player": 0,
-      "clock": 6612
+      "clock": 2688
     },
     {
       "type": "PLACE_TILE",
@@ -161,29 +100,37 @@
         ]
       },
       "player": 0,
-      "clock": 7579
+      "clock": 3859
     },
     {
-      "type": "PASS",
-      "payload": {},
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            -1
+          ],
+          "location": "W"
+        },
+        "meepleId": "0.small.1"
+      },
       "player": 0,
-      "clock": 9244
+      "clock": 4309
     },
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-2440938198682053313"
+        "salt": "-5870584405043238441"
       },
       "player": 0,
-      "clock": 9250
+      "clock": 4777
     }
   ],
   "gameAnnotations": {
     "drawOrder": [
-      "DA/Cccc",
-      "BA/C",
-      "BA/C",
+      "SI.BE/Ccc",
       "BA/C"
-    ]
+    ],
+    "endTurn": 2
   }
 }
