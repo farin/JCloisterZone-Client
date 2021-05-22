@@ -1,0 +1,304 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "1",
+  "name": "",
+  "initialSeed": "-3921209015777074073",
+  "created": "2021-05-22T16:44:16.754Z",
+  "clock": 1,
+  "test": {
+    "description": "Vineyards scoring",
+    "assertions": [
+      "Alice has 21 points",
+      "Alice scored cloister for 21 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "hills-and-sheep:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "shepherd": 1,
+      "hill": true,
+      "vineyard": true
+    },
+    "rules": {
+      "princess-action": "may",
+      "fairy-placement": "next-follower",
+      "dragon-move": "before-scoring",
+      "barn-placement": "not-occupied",
+      "wagon-move": "C2",
+      "bazaar-no-auction": false,
+      "hill-tiebreaker": "at-least-one-follower",
+      "espace-variant": "any-tile",
+      "gq11-pig-herd": "pig",
+      "tunnelize-other-expansions": true,
+      "more-tunnel-tokens": "3/2",
+      "festival-return": "meeple",
+      "keep-monasteries": "replace",
+      "labyrinth-variant": "advanced",
+      "coc-final-scoring": "market-only",
+      "count-move": "by-player",
+      "little-buildings-scoring": "1/1/1",
+      "king-and-robber-scoring": "default",
+      "tiny-city-scoring": "4"
+    },
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "HS/RCC.v",
+        "rotation": "R90",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 1714
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 2385
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-3746451268154431788"
+      },
+      "player": 0,
+      "clock": 2393
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/L",
+        "rotation": "R0",
+        "position": [
+          0,
+          1
+        ]
+      },
+      "player": 0,
+      "clock": 2965
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            1
+          ],
+          "location": "CLOISTER"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 3552
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-7142388367790810761"
+      },
+      "player": 0,
+      "clock": 3729
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/LR",
+        "rotation": "R270",
+        "position": [
+          1,
+          1
+        ]
+      },
+      "player": 0,
+      "clock": 5747
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 5995
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "2842638533613710587"
+      },
+      "player": 0,
+      "clock": 6022
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "HS/C!.v",
+        "rotation": "R270",
+        "position": [
+          1,
+          2
+        ]
+      },
+      "player": 0,
+      "clock": 8544
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 8686
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "8710294831808425675"
+      },
+      "player": 0,
+      "clock": 8693
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "HS/Cc.v",
+        "rotation": "R180",
+        "position": [
+          0,
+          2
+        ]
+      },
+      "player": 0,
+      "clock": 9848
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 9993
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "8056018615816990259"
+      },
+      "player": 0,
+      "clock": 10012
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "HS/C!.v",
+        "rotation": "R0",
+        "position": [
+          -1,
+          2
+        ]
+      },
+      "player": 0,
+      "clock": 11590
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 11814
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-3788911779536374243"
+      },
+      "player": 0,
+      "clock": 11842
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CFc.1",
+        "rotation": "R90",
+        "position": [
+          -1,
+          1
+        ]
+      },
+      "player": 0,
+      "clock": 12891
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 13015
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "6604828261338355637"
+      },
+      "player": 0,
+      "clock": 13020
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RCr",
+        "rotation": "R180",
+        "position": [
+          -1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 13596
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 14876
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "597523010841002334"
+      },
+      "player": 0,
+      "clock": 14883
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "HS/RCC.v",
+      "BA/L",
+      "BA/LR",
+      "HS/C!.v",
+      "HS/Cc.v",
+      "HS/C!.v",
+      "BA/CFc.1",
+      "BA/RCr"
+    ]
+  }
+}
