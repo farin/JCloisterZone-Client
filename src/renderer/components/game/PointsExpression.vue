@@ -1,7 +1,8 @@
 <template>
   <section>
     <div class="expr-title">
-      {{ title }}
+      <div>{{ title }}</div>
+      <div v-if="subtitle" class="sub">{{ subtitle }}</div>
     </div>
     <div class="expr-row">
       <div class="expr">
@@ -64,29 +65,23 @@ import { mapGetters } from 'vuex'
 import { Expansion } from '@/models/expansions'
 import ExpressionItem from '@/components/game/ExpressionItem'
 
-const NAME_MAPPING = {
+const TITLE_MAPPING = {
   'city': 'City',
   'city.tiny': 'Tiny city',
-  'city.incomplete': 'Incomplete city',
   'road': 'Road',
-  'road.incomplete': 'Incomplete road',
   'cloister': 'Monastery',
-  'cloister.incomplete': 'Incomplete monastery',
   'cloister.challenged': 'Challenged monastery',
   'cloister.church': 'Church bonus',
   'shrine': 'Shrine',
-  'shrine.incomplete': 'Incomplete shrine',
   'shrine.challenged': 'Challenged shrine',
   'garden': 'Garden',
   'garden.incomplete': 'Incomplete garden',
   'castle': 'Castle',
-  'castle.incomplete': 'Incomplete castle',
   'fairy.turn': 'Fairy',
   'fairy.completed': 'Fairy',
   'flock': 'Flock',
   'wind-rose': 'Wind rose',
   'yaga-hut': 'Yaga hut',
-  'yaga-hut.incomplete': 'Incomplete yaga hut',
   'farm': 'Field',
   'trade-goods': 'Trade Goods',
   'king': 'King',
@@ -94,6 +89,11 @@ const NAME_MAPPING = {
   'monastery': 'Special monastery',
   'gold': 'Gold ingots',
   'vodyanoy': 'Vodyanoy'
+}
+
+const SUBTITLE_MAPPING = {
+  incomplete: '(incomplete)',
+  challenged: '(challenged)'
 }
 
 export default {
@@ -117,12 +117,20 @@ export default {
     }),
 
     title () {
-      return NAME_MAPPING[this.expr.name] || this.expr.name
-    }
+      let title = TITLE_MAPPING[this.expr.name]
+      if (title) return title
+      title = TITLE_MAPPING[this.expr.name.split('.')[0]]
+      if (title) return title
+      return this.expr.name
+    },
 
-    // names () {
-    //   return this.expr.name.split('+')
-    // }
+    subtitle () {
+      const title = SUBTITLE_MAPPING[this.expr.name]
+      if (title) return title
+      const key = this.expr.name.split('.')[1]
+      if (!key) return null
+      return SUBTITLE_MAPPING[key] || key
+    }
   }
 }
 </script>
@@ -161,36 +169,6 @@ export default {
     +theme using ($theme)
       color: map-get($theme, 'gray-text-color')
 
-    // .expr-item:nth-child(even)
-    //   background: #e0e0e0
-
-    // ::v-deep .value-units
-    //   position: relative
-    //   display: flex
-    //   flex-direction: column
-    //   align-items: center
-    //   text-align: center
-    //   padding: 0 10px
-    //   margin: 0 2px
-
-    //   +theme using ($theme)
-    //     background: map-get($theme, 'expr-units-bg')
-    //     color: map-get($theme, 'expr-units-text')
-
-    //   i
-    //     margin-top: 5px
-
-    //     +theme using ($theme)
-    //       color: map-get($theme, 'gray-text-color')
-
-    //   img
-    //     position: absolute
-    //     height: 32px
-    //     top: 45px
-
-    // .value-units.nobg
-    //   background: none
-
 .expr-title
   position: absolute
   left: 0
@@ -198,8 +176,13 @@ export default {
   height: var(--action-bar-height)
   line-height: 1
   display: flex
-  align-items: center
+  flex-direction: column
+  justify-content: center
   padding-left: 20px
   font-size: 20px
   font-weight: 300
+
+  .sub
+    font-size: 16px
+    margin-top: 4px
 </style>
