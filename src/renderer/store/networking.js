@@ -47,24 +47,30 @@ class ConnectionHandler {
       await dispatch('game/handleSlotMessage', payload, { root: true })
     } else if (type === 'START') {
       await dispatch('game/handleStartMessage', message, { root: true })
-      this.$router.push('/game')
+      if (!rootState.runningTests) {
+        this.$router.push('/game')
+      }
     } else if (type === 'GAME') {
       await dispatch('game/handleGameMessage', payload, { root: true })
       if (payload.started) {
         await dispatch('game/handleStartMessage', { clock: message.clock, id: null, payload: {} }, { root: true })
-        if (this.$router.currentRoute.path !== '/game') {
-          commit('board/reset', null, { root: true })
-          this.$router.push('/game')
+        if (!rootState.runningTests) {
+          if (this.$router.currentRoute.path !== '/game') {
+            commit('board/reset', null, { root: true })
+            this.$router.push('/game')
+          }
         }
       } else {
         commit('board/reset', null, { root: true })
-        this.$router.push('/open-game')
-        const { preferredColor } = rootState.settings
-        if (preferredColor !== null && !payload.replay) {
-          // player has auto assign enabled and game is a new game
-          const slot = payload.slots.find(s => s.number === preferredColor && !s.clientId)
-          if (slot) {
-            await dispatch('gameSetup/takeSlot', { number: slot.number }, { root: true })
+        if (!rootState.runningTests) {
+          this.$router.push('/open-game')
+          const { preferredColor } = rootState.settings
+          if (preferredColor !== null && !payload.replay) {
+            // player has auto assign enabled and game is a new game
+            const slot = payload.slots.find(s => s.number === preferredColor && !s.clientId)
+            if (slot) {
+              await dispatch('gameSetup/takeSlot', { number: slot.number }, { root: true })
+            }
           }
         }
       }

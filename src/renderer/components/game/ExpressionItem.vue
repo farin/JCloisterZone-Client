@@ -5,6 +5,7 @@
       <template v-if="item.name === 'tiles'"><v-icon title="Tiles">fas fa-square</v-icon></template>
       <template v-else-if="item.name === 'pennants'"><img title="Coat of arms" src="~/assets/icons/shield.png" height="40"></template>
       <template v-else-if="item.name === 'inn'"><img title="Inn" src="~/assets/features/C1/inn.png" height="40"></template>
+      <template v-else-if="item.name === 'fairy'"><NeutralFigure figure="fairy" :width="40" :height="40" /></template>
       <template v-else><v-icon title="Unknown bonus">fas fa-question</v-icon></template>
     </div>
     <div class="points">{{ points }}</div>
@@ -13,9 +14,14 @@
 
 <script>
 import { Expansion } from '@/models/expansions'
+import NeutralFigure from '@/components/game/NeutralFigure'
 import isNil from 'lodash/isNil'
 
 export default {
+  components: {
+    NeutralFigure
+  },
+
   props: {
     item: { type: Object, required: true },
     index: { type: Number, required: true }
@@ -46,9 +52,6 @@ export default {
 <style lang="sass" scoped>
 .expr-item
   width: 60px
-  // border-width: 0 0 0 1px
-  // border-color: #ddd
-  // border-style: solid
   text-align: center
   margin-right: 20px
 

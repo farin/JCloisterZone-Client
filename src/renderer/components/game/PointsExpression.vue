@@ -82,6 +82,7 @@ const NAME_MAPPING = {
   'castle': 'Castle',
   'castle.incomplete': 'Incomplete castle',
   'fairy.turn': 'Fairy',
+  'fairy.completed': 'Fairy',
   'flock': 'Flock',
   'wind-rose': 'Wind rose',
   'yaga-hut': 'Yaga hut',
@@ -116,7 +117,7 @@ export default {
     }),
 
     title () {
-      return NAME_MAPPING[this.expr.name] || ''
+      return NAME_MAPPING[this.expr.name] || this.expr.name
     }
 
     // names () {

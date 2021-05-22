@@ -477,7 +477,9 @@ export const actions = {
         dispatch('settings/addRecentSave', filePath, { root: true })
       })
       resolve(sg)
-      this.$router.push(sg.test ? '/game' : '/open-game')
+      if (!rootState.runningTests) {
+        this.$router.push(sg.test ? '/game' : '/open-game')
+      }
     })
   },
 

@@ -21,7 +21,8 @@ export const state = () => ({
   engine: null,
   download: null,
   updateInfo: null,
-  updateProgress: null
+  updateProgress: null,
+  runningTests: false
 })
 
 export const mutations = {
@@ -79,6 +80,10 @@ export const mutations = {
 
   updateProgress (state, value) {
     state.updateProgress = value
+  },
+
+  runningTests (state, value) {
+    state.runningTests = value
   }
 }
 
