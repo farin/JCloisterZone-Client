@@ -1,0 +1,235 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "1",
+  "name": "",
+  "initialSeed": "8066627671785220472",
+  "created": "2021-05-22T16:31:11.632Z",
+  "clock": 1,
+  "test": {
+    "description": "Advanced labyrinth variant",
+    "assertions": [
+      "Alice has 12 points",
+      "Alice scored road for 12 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "labyrinth": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true
+    },
+    "rules": {
+      "princess-action": "may",
+      "fairy-placement": "next-follower",
+      "dragon-move": "before-scoring",
+      "barn-placement": "not-occupied",
+      "wagon-move": "C2",
+      "bazaar-no-auction": false,
+      "hill-tiebreaker": "at-least-one-follower",
+      "espace-variant": "any-tile",
+      "gq11-pig-herd": "pig",
+      "tunnelize-other-expansions": true,
+      "more-tunnel-tokens": "3/2",
+      "festival-return": "meeple",
+      "keep-monasteries": "replace",
+      "labyrinth-variant": "advanced",
+      "coc-final-scoring": "market-only",
+      "count-move": "by-player",
+      "little-buildings-scoring": "1/1/1",
+      "king-and-robber-scoring": "default",
+      "tiny-city-scoring": "4"
+    },
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "LA/Rrrr",
+        "rotation": "R0",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 1484
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 4197
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-6373745489891222422"
+      },
+      "player": 0,
+      "clock": 4206
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRR",
+        "rotation": "R0",
+        "position": [
+          1,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 4989
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            -1
+          ],
+          "location": "S"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 6251
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-2312714415849920073"
+      },
+      "player": 0,
+      "clock": 6474
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRR",
+        "rotation": "R0",
+        "position": [
+          2,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 7162
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            2,
+            0
+          ],
+          "location": "W"
+        },
+        "meepleId": "0.small.2"
+      },
+      "player": 0,
+      "clock": 7645
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-8265009079811179255"
+      },
+      "player": 0,
+      "clock": 7849
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRR",
+        "rotation": "R90",
+        "position": [
+          1,
+          1
+        ]
+      },
+      "player": 0,
+      "clock": 8741
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 8817
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-4073867263097941364"
+      },
+      "player": 0,
+      "clock": 8822
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRR",
+        "rotation": "R0",
+        "position": [
+          -1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 10343
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            -1,
+            0
+          ],
+          "location": "E"
+        },
+        "meepleId": "0.small.3"
+      },
+      "player": 0,
+      "clock": 11561
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-7328317554261224864"
+      },
+      "player": 0,
+      "clock": 12175
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "LA/Rrrr",
+      "BA/RRR",
+      "BA/RRR",
+      "BA/RRR",
+      "BA/RRR"
+    ]
+  }
+}
