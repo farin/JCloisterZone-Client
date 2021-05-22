@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section @click="onClick">
     <div class="expr-title">
       <div>{{ title }}</div>
       <div v-if="subtitle" class="sub">{{ subtitle }}</div>
@@ -124,6 +124,12 @@ export default {
       const key = this.expr.name.split('.')[1]
       if (!key) return null
       return SUBTITLE_MAPPING[key] !== undefined ? SUBTITLE_MAPPING[key] : key
+    }
+  },
+
+  methods: {
+    onClick () {
+      this.$store.commit('board/pointsExpression', null)
     }
   }
 }

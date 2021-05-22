@@ -12,9 +12,15 @@
           <use :href="`${MEEPLES_SVG}#small-follower`" />
         </svg>
       </template>
+      <template v-else-if="item.name === 'pigs'">
+        <svg class="meeple" :width="40" :height="40">
+          <use :href="`${MEEPLES_SVG}#pig`" />
+        </svg>
+      </template>
+      <template v-else-if="item.name === 'pigHerds'"><img src="~/assets/features/C1/pig_herd.jpg" height="40"></template>
       <template v-else-if="item.name === 'cities'"><img src="~/assets/icons/city-icon.png" height="40"></template>
       <template v-else-if="item.name === 'vineyards'"><img src="~/assets/features/C1/vineyard.png" height="40"></template>
-      <template v-else-if="item.name === 'castles'"><img src="~/assets/figures/castle.png" height="40"></template>
+      <template v-else-if="item.name === 'castles' || item.name.startsWith('castle.')"><img src="~/assets/figures/castle.png" height="40"></template>
       <template v-else-if="item.name === 'church'"><ExpansionSymbol :expansion="Expansion.DARMSTADT" :style="{ width: 40, height: 40 }" /></template>
 
       <!-- TODO images, also imprev tile image (green field ?)-->

@@ -1,0 +1,212 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "1",
+  "name": "",
+  "initialSeed": "2680803887675226069",
+  "created": "2021-05-22T21:04:50.022Z",
+  "clock": 89571,
+  "test": {
+    "description": "Pig scoring",
+    "assertions": [
+      "Alice has 8 points",
+      "Bob has 6 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "pig": 1
+    },
+    "rules": {
+      "princess-action": "may",
+      "fairy-placement": "next-follower",
+      "dragon-move": "before-scoring",
+      "barn-placement": "not-occupied",
+      "wagon-move": "C2",
+      "bazaar-no-auction": false,
+      "hill-tiebreaker": "at-least-one-follower",
+      "espace-variant": "any-tile",
+      "gq11-pig-herd": "pig",
+      "tunnelize-other-expansions": true,
+      "more-tunnel-tokens": "3/2",
+      "festival-return": "meeple",
+      "keep-monasteries": "replace",
+      "labyrinth-variant": "advanced",
+      "coc-final-scoring": "market-only",
+      "count-move": "by-player",
+      "little-buildings-scoring": "1/1/1",
+      "king-and-robber-scoring": "default",
+      "tiny-city-scoring": "4"
+    },
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CFC.2",
+        "rotation": "R0",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 57449
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -1
+          ],
+          "location": "EL.ER.WL.WR"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 58094
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "8743429980202898510"
+      },
+      "player": 0,
+      "clock": 59141
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 1,
+      "clock": 60282
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -2
+          ],
+          "location": "NL.NR.EL.ER.WL.WR"
+        },
+        "meepleId": "1.small.1"
+      },
+      "player": 1,
+      "clock": 61768
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-1781621192013790675"
+      },
+      "player": 1,
+      "clock": 62082
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R270",
+        "position": [
+          -1,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 65195
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            -1,
+            -1
+          ],
+          "location": "NL.NR.EL.ER.SL.SR"
+        },
+        "meepleId": "0.pig.1"
+      },
+      "player": 0,
+      "clock": 65847
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "6753316618007389312"
+      },
+      "player": 0,
+      "clock": 66167
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Rr",
+        "rotation": "R90",
+        "position": [
+          -1,
+          -2
+        ]
+      },
+      "player": 1,
+      "clock": 66944
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 70275
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "3407908427831173412"
+      },
+      "player": 1,
+      "clock": 70281
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/CFC.2",
+      "BA/C",
+      "BA/C",
+      "BA/Rr"
+    ],
+    "endTurn": 4
+  }
+}

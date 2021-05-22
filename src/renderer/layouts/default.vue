@@ -283,10 +283,13 @@ export default {
         this.$root.$emit('request-zoom', -ZOOM_SENSITIVITY)
         return
       }
-      if (ev.key === 'Escape' && this.showAbout) {
-        this.showAbout = false
-        ev.preventDefault()
-        ev.stopPropagation()
+      if (ev.key === 'Escape') {
+        this.$store.commit('board/pointsExpression', null)
+        if (this.showAbout) {
+          this.showAbout = false
+          ev.preventDefault()
+          ev.stopPropagation()
+        }
       }
     },
 
