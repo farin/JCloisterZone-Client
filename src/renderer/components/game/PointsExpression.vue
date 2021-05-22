@@ -13,7 +13,7 @@
           :index="idx"
         />
       </div>
-      <div class="equal">=</div>
+      <div v-if="expr.items.length" class="equal">=</div>
       <div
         :class="'points ' + colorCssClass(expr.player)"
       >
@@ -92,7 +92,8 @@ const TITLE_MAPPING = {
 
 const SUBTITLE_MAPPING = {
   incomplete: '(incomplete)',
-  challenged: '(challenged)'
+  challenged: '(challenged)',
+  empty: '(empty)'
 }
 
 export default {
