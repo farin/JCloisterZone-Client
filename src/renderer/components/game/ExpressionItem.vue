@@ -8,7 +8,11 @@
       <template v-else-if="item.name === 'inn'"><img title="Inn" src="~/assets/features/C1/inn.png" height="40"></template>
       <template v-else-if="item.name === 'cathedral'"><img src="~/assets/features/C1/cathedral.png" height="40"></template>
       <template v-else-if="item.name === 'fairy'"><NeutralFigure figure="fairy" :width="40" :height="40" /></template>
-      <template v-else><v-icon title="Unknown bonus">fas fa-question</v-icon></template>
+
+      <!-- TODO images -->
+      <template v-else-if="item.name === 'darmstadtium'"><ExpansionSymbol :expansion="Expansion.DARMSTADT" :style="{ width: 40, height: 40 }" /></template>
+
+      <template v-else><v-icon :title="item.name">fas fa-question</v-icon></template>
     </div>
     <div class="points">{{ points }}</div>
   </div>
@@ -17,11 +21,13 @@
 <script>
 import { Expansion } from '@/models/expansions'
 import NeutralFigure from '@/components/game/NeutralFigure'
+import ExpansionSymbol from '@/components/ExpansionSymbol'
 import isNil from 'lodash/isNil'
 
 export default {
   components: {
-    NeutralFigure
+    NeutralFigure,
+    ExpansionSymbol
   },
 
   props: {
