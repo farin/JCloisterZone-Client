@@ -3,8 +3,10 @@
     <div class="icon">
       <span v-if="hasCount" class="count">{{ item.count }}&times;</span>
       <template v-if="item.name === 'tiles'"><v-icon title="Tiles">fas fa-square</v-icon></template>
+      <template v-else-if="item.name === 'garden'"><img src="~/assets/features/C1/garden.png"  height="40"></template>
       <template v-else-if="item.name === 'pennants'"><img title="Coat of arms" src="~/assets/icons/shield.png" height="40"></template>
       <template v-else-if="item.name === 'inn'"><img title="Inn" src="~/assets/features/C1/inn.png" height="40"></template>
+      <template v-else-if="item.name === 'cathedral'"><img src="~/assets/features/C1/cathedral.png" height="40"></template>
       <template v-else-if="item.name === 'fairy'"><NeutralFigure figure="fairy" :width="40" :height="40" /></template>
       <template v-else><v-icon title="Unknown bonus">fas fa-question</v-icon></template>
     </div>

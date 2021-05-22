@@ -75,7 +75,6 @@ const TITLE_MAPPING = {
   'shrine': 'Shrine',
   'shrine.challenged': 'Challenged shrine',
   'garden': 'Garden',
-  'garden.incomplete': 'Incomplete garden',
   'castle': 'Castle',
   'fairy.turn': 'Fairy',
   'fairy.completed': 'Fairy',
