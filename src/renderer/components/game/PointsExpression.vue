@@ -69,8 +69,7 @@ const TITLE_MAPPING = {
   'shrine': 'Shrine',
   'garden': 'Garden',
   'castle': 'Castle',
-  'fairy.turn': 'Fairy',
-  'fairy.completed': 'Fairy',
+  'fairy': 'Fairy',
   'flock': 'Flock',
   'wind-rose': 'Wind rose',
   'yaga-hut': 'Yaga hut',
@@ -87,7 +86,9 @@ const SUBTITLE_MAPPING = {
   'incomplete': '(incomplete)',
   'challenged': '(challenged)',
   'empty': '(empty)',
-  'city.tiny': null
+  'city.tiny': null,
+  'fairy.completed': '(feature scored)',
+  'fairy.turn': '(turn start)'
 }
 
 export default {
