@@ -1,0 +1,220 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "1",
+  "name": "",
+  "initialSeed": "-5666430124147025831",
+  "created": "2021-05-22T18:24:49.630Z",
+  "clock": 58196,
+  "test": {
+    "description": "Farm with besieged cities scoring",
+    "assertions": [
+      "Alice has 12 points",
+      "Alice scored farm for 12 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "siege/cathars": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "siege": true,
+      "escape": true
+    },
+    "rules": {
+      "princess-action": "may",
+      "fairy-placement": "next-follower",
+      "dragon-move": "before-scoring",
+      "barn-placement": "not-occupied",
+      "wagon-move": "C2",
+      "bazaar-no-auction": false,
+      "hill-tiebreaker": "at-least-one-follower",
+      "espace-variant": "any-tile",
+      "gq11-pig-herd": "pig",
+      "tunnelize-other-expansions": true,
+      "more-tunnel-tokens": "3/2",
+      "festival-return": "meeple",
+      "keep-monasteries": "replace",
+      "labyrinth-variant": "advanced",
+      "coc-final-scoring": "market-only",
+      "count-move": "by-player",
+      "little-buildings-scoring": "1/1/1",
+      "king-and-robber-scoring": "default",
+      "tiny-city-scoring": "4"
+    },
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CFC.2",
+        "rotation": "R0",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 2698
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 3843
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-3722776919468243858"
+      },
+      "player": 0,
+      "clock": 3850
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CC.2",
+        "rotation": "R0",
+        "position": [
+          -1,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 4801
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            -1,
+            -1
+          ],
+          "location": "EL.ER.SL.SR"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 5921
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-4981796116206008497"
+      },
+      "player": 0,
+      "clock": 6281
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R90",
+        "position": [
+          -2,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 7237
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 7360
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "6696900309443973597"
+      },
+      "player": 0,
+      "clock": 7365
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "SI.CA/Cc",
+        "rotation": "R180",
+        "position": [
+          -1,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 8793
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 8937
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "3226109104635758169"
+      },
+      "player": 0,
+      "clock": 8944
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Cc+",
+        "rotation": "R270",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 9651
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 12828
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "7301079391510023170"
+      },
+      "player": 0,
+      "clock": 12834
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/CFC.2",
+      "BA/CC.2",
+      "BA/C",
+      "SI.CA/Cc",
+      "BA/Cc+"
+    ],
+    "endTurn": 5
+  }
+}
