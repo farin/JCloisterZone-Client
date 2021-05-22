@@ -32,11 +32,6 @@
         <NeutralFigure figure="witch" :width="28" :height="28" />
       </div>&ensp;
     </template>
-    <template v-if="names.includes('cloister.church')">
-      +<div class="value-units nobg">3
-        <ExpansionSymbol :expansion="Expansion.DARMSTADT" :style="{ width: 28, height: 28 }" />
-      </div>&ensp;
-    </template>
     <template v-if="names.includes('little-buildings.default')">
       +&ensp;<div class="value-units">
         {{ expr.args.buildings }}
@@ -71,7 +66,7 @@ const TITLE_MAPPING = {
   'road': 'Road',
   'cloister': 'Monastery',
   'cloister.challenged': 'Challenged monastery',
-  'cloister.church': 'Church bonus',
+  'church': 'Church bonus',
   'shrine': 'Shrine',
   'shrine.challenged': 'Challenged shrine',
   'garden': 'Garden',

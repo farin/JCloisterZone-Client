@@ -13,6 +13,7 @@
         </svg>
       </template>
       <template v-else-if="item.name === 'vineyards'"><img src="~/assets/features/C1/vineyard.png" height="40"></template>
+      <template v-else-if="item.name === 'church'"><ExpansionSymbol :expansion="Expansion.DARMSTADT" :style="{ width: 40, height: 40 }" /></template>
 
       <!-- TODO images, also imprev tile image (green field ?)-->
       <template v-else-if="item.name === 'darmstadtium'"><ExpansionSymbol :expansion="Expansion.DARMSTADT" :style="{ width: 40, height: 40 }" /></template>
