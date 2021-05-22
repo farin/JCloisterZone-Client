@@ -1,5 +1,8 @@
 <template>
   <div v-if="loaded" class="theme-inspector">
+    <div class="close">
+      <NuxtLink to="/">Close</NuxtLink>
+    </div>
     <v-container>
       <v-row align="center" class="header">
         <v-col cols="6">
@@ -117,6 +120,11 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.close
+  position: absolute
+  top: 10px
+  right: 10px
+
 .theme-inspector
   padding-bottom: 40px
 
