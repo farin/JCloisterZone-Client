@@ -6,7 +6,7 @@
   "created": "2021-05-23T05:47:28.338Z",
   "clock": 48654,
   "test": {
-    "description": "King & Robber scoring",
+    "description": "Robber continuous scoring",
     "assertions": [
       "Alice has 2 points",
       "Bob has 1 points"
