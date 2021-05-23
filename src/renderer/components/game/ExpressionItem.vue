@@ -26,6 +26,7 @@
       <template v-else-if="item.name === 'little-buildings'"><img src="~/assets/figures/lb.png" width="40" height="40"></template>
       <template v-else-if="item.name === 'mage'"><NeutralFigure figure="mage" :width="40" :height="40" /></template>
       <template v-else-if="item.name === 'witch'"><NeutralFigure figure="witch" :width="40" :height="40" /></template>
+      <template v-else-if="item.name === 'gold'"><img src="~/assets/figures/gold.png" height="40"></template>
       <template v-else-if="item.name === 'king'"><TokenImage token="KING" :height="40" /></template>
       <template v-else-if="item.name === 'robber'"><TokenImage token="ROBBER" :height="40" /></template>
       <template v-else-if="item.name === 'king+robber'"><img src="~/assets/figures/king_robber.png" width="40" height="40"></template>
