@@ -1,14 +1,14 @@
 {
   "appVersion": "5.7.0",
-  "gameId": "c6e44ab30e69439ea91b472f728da05e",
+  "gameId": "409a228b8f894dd4b26c525184db4567",
   "name": "",
-  "initialSeed": "-7571408500998562764",
-  "created": "2021-05-23T13:06:17.880Z",
-  "clock": 62304,
+  "initialSeed": "162781364874410048",
+  "created": "2021-05-23T13:16:00.256Z",
+  "clock": 15672,
   "test": {
-    "description": "Yaga hut scoring",
+    "description": "Vodyanoy final scoring",
     "assertions": [
-      "Alice has 7 points"
+      "Alice has -2 points"
     ]
   },
   "setup": {
@@ -56,18 +56,15 @@
   "players": [
     {
       "name": "Alice",
-      "slot": 0
-    },
-    {
-      "name": "Bob",
-      "slot": 1
+      "slot": 0,
+      "clientId": "940fcdf0041e4a7e9f8b07c1b8aaab02"
     }
   ],
   "replay": [
     {
       "type": "PLACE_TILE",
       "payload": {
-        "tileId": "RU/L",
+        "tileId": "RU/V",
         "rotation": "R0",
         "position": [
           0,
@@ -75,30 +72,15 @@
         ]
       },
       "player": 0,
-      "clock": 2441
-    },
-    {
-      "type": "DEPLOY_MEEPLE",
-      "payload": {
-        "pointer": {
-          "position": [
-            0,
-            1
-          ],
-          "location": "CLOISTER"
-        },
-        "meepleId": "0.small.1"
-      },
-      "player": 0,
-      "clock": 3633
+      "clock": 1657
     },
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-881767903404272807"
+        "salt": "6239989337870798632"
       },
       "player": 0,
-      "clock": 4854
+      "clock": 2163
     },
     {
       "type": "PLACE_TILE",
@@ -110,27 +92,36 @@
           0
         ]
       },
-      "player": 1,
-      "clock": 5539
+      "player": 0,
+      "clock": 2640
     },
     {
-      "type": "PASS",
-      "payload": {},
-      "player": 1,
-      "clock": 6430
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            0
+          ],
+          "location": "WE"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 3124
     },
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "8801076131938519324"
+        "salt": "8964721549059235175"
       },
-      "player": 1,
-      "clock": 6437
+      "player": 0,
+      "clock": 3697
     }
   ],
   "gameAnnotations": {
     "drawOrder": [
-      "RU/L",
+      "RU/V",
       "BA/RFr"
     ],
     "endTurn": 2

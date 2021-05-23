@@ -6,7 +6,7 @@ const findPlayerIndex = (state, name) => {
 
 class PointsAssert {
   constructor (state) {
-    this.REGEXP = /(\w+) has (\d+) points?/
+    this.REGEXP = /(\w+) has (-?\d+) points?/
     this.state = state
   }
 
@@ -22,7 +22,7 @@ class PointsAssert {
 
 class FeatureScoredAssert {
   constructor (state) {
-    this.REGEXP = /(\w+) scored (\w+) for (\d+) points?/
+    this.REGEXP = /(\w+) scored (\w+) for (-?\d+) points?/
     this.state = state
   }
 
