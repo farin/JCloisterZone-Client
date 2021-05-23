@@ -32,22 +32,6 @@
         <NeutralFigure figure="witch" :width="28" :height="28" />
       </div>&ensp;
     </template>
-    <template v-if="names.includes('little-buildings.default')">
-      +&ensp;<div class="value-units">
-        {{ expr.args.buildings }}
-        <v-icon title="Tiles">fas fa-home</v-icon>
-      </div>&ensp;
-    </template>
-    <template v-if="names.includes('little-buildings.321')">
-      +&ensp;<div class="value-units">
-        {{ expr.args.sheds + 2 * expr.args.houses + 3 * expr.args.towers }}
-        <v-icon title="Tiles">fas fa-home</v-icon>
-      </div>&ensp;
-    </template>
-    <template v-if="names.includes('fairy.completed')"><template v-if="names.length > 1">+</template>
-      <div class="value-units nobg">3
-        <NeutralFigure figure="fairy" :width="28" :height="28" />
-      </div><template v-if="names.length == 1">=&ensp;</template></template>
     <template v-if="expr.name === 'king+robber'">+&ensp;
       <TokenImage token="ROBBER" :height="55" />&ensp;
     </template>

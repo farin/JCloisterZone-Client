@@ -1,24 +1,26 @@
 {
   "appVersion": "5.7.0",
-  "gameId": "1",
+  "gameId": "f5bc7200dfd2451aa4af80fb90108688",
   "name": "",
-  "initialSeed": "6273381970447225540",
-  "created": "2021-05-23T04:28:12.289Z",
-  "clock": 116909,
+  "initialSeed": "5717297620447379791",
+  "created": "2021-05-23T05:12:27.117Z",
+  "clock": 47010,
   "test": {
-    "description": "Little Buildings 3/2/1 scoring",
+    "description": "Mage scoring",
     "assertions": [
-      "Bob has 20 points"
+      "Alice has 10 points"
     ]
   },
   "setup": {
     "sets": {
-      "basic:1": 1
+      "basic:1": 1,
+      "mage-and-witch:1": 1
     },
     "elements": {
       "small-follower": 7,
       "farmers": true,
-      "little-buildings": 1
+      "mage": 1,
+      "witch": 1
     },
     "rules": {
       "princess-action": "may",
@@ -37,7 +39,7 @@
       "labyrinth-variant": "advanced",
       "coc-final-scoring": "market-only",
       "count-move": "by-player",
-      "little-buildings-scoring": "3/2/1",
+      "little-buildings-scoring": "1/1/1",
       "king-and-robber-scoring": "default",
       "tiny-city-scoring": "4"
     },
@@ -55,158 +57,153 @@
   "players": [
     {
       "name": "Alice",
-      "slot": 0,
-      "clientId": "940fcdf0041e4a7e9f8b07c1b8aaab02"
+      "slot": 0
     },
     {
       "name": "Bob",
-      "slot": 1,
-      "clientId": "940fcdf0041e4a7e9f8b07c1b8aaab02"
+      "slot": 1
     }
   ],
   "replay": [
     {
       "type": "PLACE_TILE",
       "payload": {
-        "tileId": "BA/CFc.1",
-        "rotation": "R90",
+        "tileId": "BA/RFr",
+        "rotation": "R0",
         "position": [
-          0,
-          -1
+          1,
+          0
         ]
       },
       "player": 0,
-      "clock": 2301
-    },
-    {
-      "type": "PLACE_TOKEN",
-      "payload": {
-        "token": "LB_SHED",
-        "pointer": [
-          0,
-          -1
-        ]
-      },
-      "player": 0,
-      "clock": 4302
-    },
-    {
-      "type": "COMMIT",
-      "payload": {
-        "salt": "7716736676070710258"
-      },
-      "player": 0,
-      "clock": 5886
-    },
-    {
-      "type": "PLACE_TILE",
-      "payload": {
-        "tileId": "BA/CFc+",
-        "rotation": "R90",
-        "position": [
-          0,
-          -2
-        ]
-      },
-      "player": 1,
-      "clock": 6950
+      "clock": 2358
     },
     {
       "type": "DEPLOY_MEEPLE",
       "payload": {
         "pointer": {
           "position": [
-            0,
-            -2
+            1,
+            0
           ],
-          "location": "NS"
+          "location": "WE"
         },
-        "meepleId": "1.small.1"
+        "meepleId": "0.small.1"
       },
-      "player": 1,
-      "clock": 8310
+      "player": 0,
+      "clock": 2884
     },
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "8707991523614742842"
+        "salt": "5354828326799509405"
       },
-      "player": 1,
-      "clock": 9254
+      "player": 0,
+      "clock": 3518
     },
     {
       "type": "PLACE_TILE",
       "payload": {
-        "tileId": "BA/CFc+",
-        "rotation": "R90",
+        "tileId": "MW/CRRR.3",
+        "rotation": "R0",
         "position": [
-          0,
-          -3
+          -1,
+          0
         ]
       },
-      "player": 0,
-      "clock": 10309
+      "player": 1,
+      "clock": 4572
     },
     {
-      "type": "PLACE_TOKEN",
+      "type": "MOVE_NEUTRAL_FIGURE",
       "payload": {
-        "token": "LB_TOWER",
-        "pointer": [
-          0,
-          -3
-        ]
+        "figureId": "mage.1",
+        "to": {
+          "position": [
+            0,
+            0
+          ],
+          "location": "WE"
+        }
       },
-      "player": 0,
-      "clock": 12670
+      "player": 1,
+      "clock": 10124
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 11240
     },
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "1442383394984269295"
+        "salt": "-6563544739357291860"
       },
-      "player": 0,
-      "clock": 14469
+      "player": 1,
+      "clock": 11247
     },
     {
       "type": "PLACE_TILE",
       "payload": {
-        "tileId": "BA/C",
-        "rotation": "R180",
+        "tileId": "BA/RCr",
+        "rotation": "R0",
         "position": [
-          0,
-          -4
+          2,
+          0
         ]
       },
-      "player": 1,
-      "clock": 20106
+      "player": 0,
+      "clock": 13770
     },
     {
-      "type": "PLACE_TOKEN",
-      "payload": {
-        "token": "LB_HOUSE",
-        "pointer": [
-          0,
-          -4
-        ]
-      },
-      "player": 1,
-      "clock": 21950
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 14166
     },
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "2255942730630181305"
+        "salt": "8066706521079668488"
+      },
+      "player": 0,
+      "clock": 14190
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRRR",
+        "rotation": "R0",
+        "position": [
+          3,
+          0
+        ]
       },
       "player": 1,
-      "clock": 24216
+      "clock": 15132
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 17073
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "4783447368612786341"
+      },
+      "player": 1,
+      "clock": 17083
     }
   ],
   "gameAnnotations": {
     "drawOrder": [
-      "BA/CFc.1",
-      "BA/CFc+",
-      "BA/CFc+",
-      "BA/C"
+      "BA/RFr",
+      "MW/CRRR.3",
+      "BA/RCr",
+      "BA/RRRR"
     ]
   }
 }
