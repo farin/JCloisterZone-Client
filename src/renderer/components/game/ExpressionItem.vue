@@ -19,12 +19,16 @@
       </template>
       <template v-else-if="item.name === 'pigHerds'"><img src="~/assets/features/C1/pig_herd.jpg" height="40"></template>
       <template v-else-if="item.name === 'cities'"><img src="~/assets/icons/city-icon.png" height="40"></template>
+      <template v-else-if="item.name === 'roads'"><img src="~/assets/icons/road-icon.png" height="40"></template>
       <template v-else-if="item.name === 'vineyards'"><img src="~/assets/features/C1/vineyard.png" height="40"></template>
       <template v-else-if="item.name === 'castles' || item.name.startsWith('castle.')"><img src="~/assets/figures/castle.png" height="40"></template>
       <template v-else-if="item.name === 'church'"><ExpansionSymbol :expansion="Expansion.DARMSTADT" :style="{ width: 40, height: 40 }" /></template>
       <template v-else-if="item.name === 'little-buildings'"><img src="~/assets/figures/lb.png" width="40" height="40"></template>
       <template v-else-if="item.name === 'mage'"><NeutralFigure figure="mage" :width="40" :height="40" /></template>
       <template v-else-if="item.name === 'witch'"><NeutralFigure figure="witch" :width="40" :height="40" /></template>
+      <template v-else-if="item.name === 'king'"><TokenImage token="KING" :height="40" /></template>
+      <template v-else-if="item.name === 'robber'"><TokenImage token="ROBBER" :height="40" /></template>
+      <template v-else-if="item.name === 'king+robber'"><img src="~/assets/figures/king_robber.png" width="40" height="40"></template>
       <template v-else-if="item.name.startsWith('sheep.')"><TokenImage :token="item.name.replace('sheep.', '')" :height="40" /></template>
       <template v-else-if="item.name.startsWith('trade-goods.')"><TokenImage :token="item.name.replace('trade-goods.', '')" :height="40" /></template>
       <template v-else-if="item.name.startsWith('little-buildings.')"><TokenImage :token="item.name.replace('little-buildings.', '')" :height="40" /></template>

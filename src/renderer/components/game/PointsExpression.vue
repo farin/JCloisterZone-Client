@@ -21,21 +21,6 @@
       </div>
     </div>
   </section>
-  <!--component :is="component" :expr="expr">
-    <template v-if="names.includes('mage')">
-      +<div class="value-units nobg">{{ expr.args.tiles }}
-        <NeutralFigure figure="mage" :width="28" :height="28" />
-      </div>&ensp;
-    </template>
-    <template v-if="names.includes('witch')">
-      /<div class="value-units nobg">2
-        <NeutralFigure figure="witch" :width="28" :height="28" />
-      </div>&ensp;
-    </template>
-    <template v-if="expr.name === 'king+robber'">+&ensp;
-      <TokenImage token="ROBBER" :height="55" />&ensp;
-    </template>
-  </component-->
 </template>
 
 <script>
@@ -61,6 +46,7 @@ const TITLE_MAPPING = {
   'trade-goods': 'Trade Goods',
   'king': 'King',
   'robber': 'Robber',
+  'king+robber': 'King & Robber',
   'monastery': 'Special monastery',
   'gold': 'Gold ingots',
   'vodyanoy': 'Vodyanoy'
