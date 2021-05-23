@@ -22,10 +22,10 @@
       <template v-else-if="item.name === 'vineyards'"><img src="~/assets/features/C1/vineyard.png" height="40"></template>
       <template v-else-if="item.name === 'castles' || item.name.startsWith('castle.')"><img src="~/assets/figures/castle.png" height="40"></template>
       <template v-else-if="item.name === 'church'"><ExpansionSymbol :expansion="Expansion.DARMSTADT" :style="{ width: 40, height: 40 }" /></template>
-      <template v-else-if="item.name === 'sheep.SHEEP_1X'"><TokenImage token="SHEEP_1X" :height="40" /></template>
-      <template v-else-if="item.name === 'sheep.SHEEP_2X'"><TokenImage token="SHEEP_2X" :height="40" /></template>
-      <template v-else-if="item.name === 'sheep.SHEEP_3X'"><TokenImage token="SHEEP_3X" :height="40" /></template>
-      <template v-else-if="item.name === 'sheep.SHEEP_4X'"><TokenImage token="SHEEP_4X" :height="40" /></template>
+      <template v-else-if="item.name === 'little-buildings'"><img src="~/assets/figures/lb.png" width="40" height="40"></template>
+      <template v-else-if="item.name.startsWith('sheep.')"><TokenImage :token="item.name.replace('sheep.', '')" :height="40" /></template>
+      <template v-else-if="item.name.startsWith('trade-goods.')"><TokenImage :token="item.name.replace('trade-goods.', '')" :height="40" /></template>
+      <template v-else-if="item.name.startsWith('little-buildings.')"><TokenImage :token="item.name.replace('little-buildings.', '')" :height="40" /></template>
 
       <!-- TODO images, also imprev tile image (green field ?)-->
       <template v-else-if="item.name === 'darmstadtium'"><ExpansionSymbol :expansion="Expansion.DARMSTADT" :style="{ width: 40, height: 40 }" /></template>
