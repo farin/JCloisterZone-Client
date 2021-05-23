@@ -1,0 +1,109 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "2720fbbd09b2421396b4fce97aeab8bf",
+  "name": "",
+  "initialSeed": "2368866304424765143",
+  "created": "2021-05-23T06:14:44.347Z",
+  "clock": 33177,
+  "test": {
+    "description": "Wind Rose scoring",
+    "assertions": [
+      "Alice has 3 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "wind-roses": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true
+    },
+    "rules": {
+      "princess-action": "may",
+      "fairy-placement": "next-follower",
+      "dragon-move": "before-scoring",
+      "barn-placement": "not-occupied",
+      "wagon-move": "C2",
+      "bazaar-no-auction": false,
+      "hill-tiebreaker": "at-least-one-follower",
+      "espace-variant": "any-tile",
+      "gq11-pig-herd": "pig",
+      "tunnelize-other-expansions": true,
+      "more-tunnel-tokens": "3/2",
+      "festival-return": "meeple",
+      "keep-monasteries": "replace",
+      "labyrinth-variant": "advanced",
+      "coc-final-scoring": "market-only",
+      "count-move": "by-player",
+      "little-buildings-scoring": "1/1/1",
+      "king-and-robber-scoring": "default",
+      "tiny-city-scoring": "4"
+    },
+    "timer": null,
+    "start": [
+      {
+        "tile": "WR/CFR",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RCr",
+        "rotation": "R0",
+        "position": [
+          -1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 3330
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 4263
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-2511985141546681721"
+      },
+      "player": 0,
+      "clock": 4269
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "WR/RrC",
+        "rotation": "R270",
+        "position": [
+          -1,
+          1
+        ]
+      },
+      "player": 0,
+      "clock": 7142
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/RCr",
+      "WR/RrC"
+    ]
+  }
+}

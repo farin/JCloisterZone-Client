@@ -125,7 +125,6 @@
 <script>
 import { shell, ipcRenderer } from 'electron'
 
-import mapKeys from 'lodash/mapKeys'
 import { mapState } from 'vuex'
 
 import GameSetupOverviewInline from '@/components/game-setup/overview/GameSetupOverviewInline'

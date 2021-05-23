@@ -4,6 +4,7 @@
       <template v-if="isOwner">
         <HeaderGameButton
           title="Start"
+          :sets="sets"
           :info="slotsAssigned ? null : (readOnly ? 'Assign all players to start' : 'No player in game')"
           @click="startGame"
         />

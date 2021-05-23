@@ -427,12 +427,15 @@ export const actions = {
         }
 
         if (sg.setup && !sg.test && (isNil(sg.players) || isNil(sg.initialSeed) || isNil(sg.replay) || isNil(sg.clock) || isNil(sg.gameId))) {
+          if (rootState.runningTests) {
+            console.error('Loaded game setup from test runner')
+          }
+          dispatch('gameSetup/load', sg.setup, { root: true })
           Vue.nextTick(() => {
             dispatch('settings/addRecentSetupSave', filePath, { root: true })
             this.$router.push('/game-setup')
+            resolve(sg)
           })
-          dispatch('gameSetup/load', sg.setup, { root: true })
-          resolve(sg)
           return
         }
 
@@ -477,7 +480,9 @@ export const actions = {
         dispatch('settings/addRecentSave', filePath, { root: true })
       })
       resolve(sg)
-      this.$router.push(sg.test ? '/game' : '/open-game')
+      if (!rootState.runningTests) {
+        this.$router.push(sg.test ? '/game' : '/open-game')
+      }
     })
   },
 
@@ -487,7 +492,6 @@ export const actions = {
     }
     if (state.id !== payload.gameId) {
       commit('clear')
-      commit('id', payload.gameId)
       commit('originAppVersion', payload.originAppVersion)
     }
     commit('pin', payload.pin || null)
@@ -497,6 +501,7 @@ export const actions = {
     commit('gameAnnotations', payload.gameAnnotations || {})
     commit('gameMessages', payload.replay)
     commit('owner', payload.owner)
+    commit('id', payload.gameId) // set as latest commit, /open-game rendering waits for it
   },
 
   handleSlotMessage ({ state, commit }, payload) {

@@ -1,0 +1,274 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "722d04a2f81d40708e5422f012e2ebcc",
+  "name": "",
+  "initialSeed": "5916250403145661641",
+  "created": "2021-05-23T06:02:02.122Z",
+  "clock": 68151,
+  "test": {
+    "description": "Goldmines scoring",
+    "assertions": [
+      "Alice has 9 points",
+      "Bob has 5 points",
+      "Alice scored gold for 3 points",
+      "Bob scored gold for 1 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "goldmines": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "gold": true
+    },
+    "rules": {
+      "princess-action": "may",
+      "fairy-placement": "next-follower",
+      "dragon-move": "before-scoring",
+      "barn-placement": "not-occupied",
+      "wagon-move": "C2",
+      "bazaar-no-auction": false,
+      "hill-tiebreaker": "at-least-one-follower",
+      "espace-variant": "any-tile",
+      "gq11-pig-herd": "pig",
+      "tunnelize-other-expansions": true,
+      "more-tunnel-tokens": "3/2",
+      "festival-return": "meeple",
+      "keep-monasteries": "replace",
+      "labyrinth-variant": "advanced",
+      "coc-final-scoring": "market-only",
+      "count-move": "by-player",
+      "little-buildings-scoring": "1/1/1",
+      "king-and-robber-scoring": "default",
+      "tiny-city-scoring": "4"
+    },
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "GO/CRcr",
+        "rotation": "R90",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 8863
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -1
+          ],
+          "location": "NS"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 12051
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "7194038552707565558"
+      },
+      "player": 0,
+      "clock": 12958
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "GO/LRr",
+        "rotation": "R90",
+        "position": [
+          1,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 15779
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "GOLD",
+        "pointer": [
+          0,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 19629
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 20290
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-5209879260515051725"
+      },
+      "player": 1,
+      "clock": 20298
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 25269
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 27455
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "6729315113888888009"
+      },
+      "player": 0,
+      "clock": 27464
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R0",
+        "position": [
+          1,
+          -2
+        ]
+      },
+      "player": 1,
+      "clock": 29975
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 31428
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-5883012850581337751"
+      },
+      "player": 1,
+      "clock": 31435
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRR",
+        "rotation": "R90",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 34487
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 35944
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "5502261701567932287"
+      },
+      "player": 0,
+      "clock": 35953
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRR",
+        "rotation": "R0",
+        "position": [
+          -1,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 37351
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            -1,
+            -1
+          ],
+          "location": "E"
+        },
+        "meepleId": "1.small.1"
+      },
+      "player": 1,
+      "clock": 42355
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "341394075323414950"
+      },
+      "player": 1,
+      "clock": 42992
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "GO/CRcr",
+      "GO/LRr",
+      "BA/C",
+      "BA/C",
+      "BA/RRR",
+      "BA/RRR"
+    ],
+    "endTurn": 6
+  }
+}

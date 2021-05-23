@@ -8,13 +8,13 @@
       <city pennant="2">N E S W</city>
     </tile>
     <tile id="AM/CCcc+">
-      <city pennant="yes">N S</city>
+      <city pennant="1">N S</city>
       <city>W E</city>
       <farm city="N W">INNER_FARM</farm>
       <farm city="N W">INNER_FARM_B</farm>
     </tile>
     <tile id="AM/CCc+">
-      <city pennant="yes" castle-base="false">N</city>
+      <city pennant="1" castle-base="false">N</city>
       <city>W E</city>
       <farm city="N W">INNER_FARM</farm>
       <farm city="N W">SL SR</farm>
@@ -73,7 +73,7 @@
       <farm>SR WL</farm>
     </tile>
     <tile id="AM/C!+">
-      <city pennant="yes" castle-base="false">W</city>
+      <city pennant="1" castle-base="false">W</city>
       <farm city="W">NL NR</farm>
       <farm city="W">EL ER</farm>
       <farm city="W">SL SR</farm>
@@ -94,7 +94,7 @@
       <farm>ER SL SR WL</farm>
     </tile>
     <tile id="AM/CRcr+">
-      <city pennant="yes">W E</city>
+      <city pennant="1">W E</city>
       <road tunnel="yes">N S</road>
       <farm city="W">SL SR</farm>
       <farm city="W">NL</farm>

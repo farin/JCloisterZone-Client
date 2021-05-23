@@ -259,6 +259,7 @@ export default {
     },
 
     async onPlayerActivated () {
+      this.$store.commit('board/pointsExpression', null)
       if (this.beep) {
         this.$refs.beep.play()
       }

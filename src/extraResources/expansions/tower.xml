@@ -136,7 +136,7 @@
     </tile>
     <tile id="TO/CccC+">
       <tower />
-      <city pennant="yes">N W E</city>
+      <city pennant="1">N W E</city>
       <city>S</city>
       <farm city="W S">INNER_FARM</farm>
     </tile>

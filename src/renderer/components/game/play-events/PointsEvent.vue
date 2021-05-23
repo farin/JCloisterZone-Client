@@ -6,6 +6,7 @@
       :class="'points ' + colorCssClass(p.player)"
       @mouseenter="onMouseEnter(p)"
       @mouseleave="onMouseLeave()"
+      @click="persistBreakdown = !persistBreakdown"
     >
       {{ p.points }}
     </div>
@@ -20,6 +21,12 @@ export default {
     ev: { type: Object, required: true }
   },
 
+  data () {
+    return {
+      persistBreakdown: false
+    }
+  },
+
   computed: {
     ...mapGetters({
       tileOn: 'game/tileOn',
@@ -30,6 +37,7 @@ export default {
 
   methods: {
     onMouseEnter (points) {
+      this.persistBreakdown = false
       const { ptr } = points
       if (ptr) {
         if (Array.isArray(ptr)) {
@@ -66,7 +74,9 @@ export default {
 
     onMouseLeave () {
       this.$store.dispatch('board/hideLayerDebounced', { layer: 'EmphasizeLayer' })
-      this.$store.commit('board/pointsExpression', null)
+      if (!this.persistBreakdown) {
+        this.$store.commit('board/pointsExpression', null)
+      }
     }
   }
 }
@@ -81,6 +91,7 @@ export default {
   height: 26px
   text-align: center
   font-size: 18px
+  cursor: pointer
 
   &:first-child
     border-radius: 13px 0 0 13px

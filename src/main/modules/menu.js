@@ -57,12 +57,20 @@ async function createMenu (win) {
   ]
 
   if (settings.devMode) {
+    const toggleRemoteEngine = async () => {
+      const currValue = (await getSettings()).enginePath
+      win.webContents.send('settings.update', { enginePath: currValue === 'localhost:9000' ? null : 'localhost:9000' })
+    }
+
     template.push({
       label: 'Dev',
       submenu: [
         { role: 'toggleDevTools', label: 'Toggle DevTools' },
-        { label: 'Change clientId', click () { win.webContents.send('menu.change-client-id') } },
+        { type: 'separator' },
+        { id: 'remote-engine', label: 'Remote engine', type: 'checkbox', checked: settings.enginePath === 'localhost:9000', click () { toggleRemoteEngine() } },
         { id: 'dump-server', label: 'Dump hosted game server state', click () { win.webContents.send('menu.dump-server') } },
+        { id: 'test-runner', label: 'Test Runner', click () { win.webContents.send('menu.test-runner') } },
+        { type: 'separator' },
         { label: 'Reload artworks', click () { win.webContents.send('menu.reload-artworks') } },
         { id: 'theme-inspector', label: 'Theme inspector', click () { win.webContents.send('menu.theme-inspector') } }
       ]

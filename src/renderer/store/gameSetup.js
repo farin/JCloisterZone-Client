@@ -167,7 +167,6 @@ export const actions = {
 
     if (enabledStateChanged) {
       const diff = getModifiedDefaults(before, after)
-      console.log("DIFF", diff)
       Object.entries(diff).forEach(([id, config]) => {
         // use commit, not dispatch - bound meeples (eg mage/witch) are already reflected in rules
         commit('elementConfig', { id, config })
@@ -176,7 +175,6 @@ export const actions = {
       GameElement.all().forEach(ge => {
         if (ge.id in state.elements) {
           if (!$tiles.isElementEnabled(ge, state.sets, state.elements)) {
-            console.log("NOT ENABLED", ge.id, JSON.stringify(state.sets), JSON.stringify(state.elements))
             commit('elementConfig', { id: ge.id, config: false })
           }
         }
@@ -254,8 +252,6 @@ export const actions = {
 }
 
 export const getters = {
-  containsCoreSet: state => state.sets.basic || state.sets.winter,
-
   getSelectedEdition: state => state.elements.garden ? 2 : 1,
 
   startingTilesOptions: (state, getters) => {

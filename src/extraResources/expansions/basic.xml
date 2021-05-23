@@ -21,11 +21,11 @@
     </tile>
 
     <tile id="BA/Cccc+">
-      <city pennant="yes">N W S E</city>
+      <city pennant="1">N W S E</city>
     </tile>
     <tile id="BA/CccR+">
       <road>S</road>
-      <city pennant="yes">N W E</city>
+      <city pennant="1">N W E</city>
       <farm city="N">SL</farm>
       <farm city="N">SR</farm>
       <wagon-move>
@@ -42,7 +42,7 @@
       </wagon-move>
     </tile>
     <tile id="BA/CFc+">
-      <city pennant="yes">W E</city>
+      <city pennant="1">W E</city>
       <farm city="W">NL NR</farm>
       <farm city="W">SL SR</farm>
     </tile>
@@ -61,12 +61,12 @@
       <farm city="N">SL SR EL ER</farm>
     </tile>
     <tile id="BA/Cc+">
-      <city pennant="yes">N W</city>
+      <city pennant="1">N W</city>
       <farm city="N">SL SR EL ER</farm>
     </tile>
     <tile id="BA/Cc+G">
       <garden />
-      <city pennant="yes">N W</city>
+      <city pennant="1">N W</city>
       <farm city="N">SL SR EL ER</farm>
     </tile>
     <tile id="BA/CcRr">
@@ -77,7 +77,7 @@
     </tile>
     <tile id="BA/CcRr+">
       <road>E S</road>
-      <city pennant="yes">N W</city>
+      <city pennant="1">N W</city>
       <farm city="N">EL SR</farm>
       <farm>ER SL</farm>
     </tile>
@@ -91,7 +91,7 @@
       <farm city="N">SL SR</farm>
     </tile>
     <tile id="BA/Ccc+">
-      <city pennant="yes">N E W</city>
+      <city pennant="1">N E W</city>
       <farm city="N">SL SR</farm>
     </tile>
     <tile id="BA/CRr">

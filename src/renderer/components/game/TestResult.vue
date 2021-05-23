@@ -1,7 +1,8 @@
 <template>
   <v-card class="test-result">
     <div class="btn-line">
-      <v-btn text @click="$store.commit('game/testScenarioResult', null)">close</v-btn>
+      <v-btn text @click="$router.push('/test-runner')">back</v-btn>
+      <v-btn text @click="$store.commit('game/testScenarioResult', null)">hide</v-btn>
     </div>
     <div class="description">
       <b>Test:</b><br>

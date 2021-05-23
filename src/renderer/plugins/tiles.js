@@ -177,8 +177,6 @@ class Tiles {
   getFullSetup (setup) {
     const elements = { ...setup.elements }
 
-    console.log(setup)
-
     Object.keys(setup.sets).forEach(id => {
       this.sets[id].enforces.forEach(id => { elements[id] = true })
     })
@@ -364,8 +362,6 @@ class Tiles {
       symmetry: 4,
       edge: '****'
     }
-
-    console.log(sets)
 
     this.xmls = xmls
     this.tiles = tiles

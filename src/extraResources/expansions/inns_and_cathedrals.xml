@@ -50,7 +50,7 @@
       </wagon-move>
     </tile>
     <tile id="IC/CCc+">
-      <city pennant="yes">N W</city>
+      <city pennant="1">N W</city>
       <city>S</city>
       <farm city="N S">EL ER</farm>
     </tile>
@@ -78,7 +78,7 @@
       </wagon-move>
     </tile>
     <tile id="IC/CRcR+">
-      <city pennant="yes">E W</city>
+      <city pennant="1">E W</city>
       <road>N</road>
       <road>S</road>
       <farm city="W">NL</farm>
@@ -106,7 +106,7 @@
       <farm city="N">WR EL ER SL</farm>
     </tile>
     <tile id="IC/CcRr+.i">
-      <city pennant="yes">N W</city>
+      <city pennant="1">N W</city>
       <road inn="yes">E S</road>
       <farm>SL ER</farm>
       <farm city="N">SR EL</farm>

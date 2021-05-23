@@ -35,7 +35,8 @@ export default {
   computed: {
     value: {
       get () {
-        return this.setup.rules[this.rule.id]
+        const val = this.setup.rules[this.rule.id]
+        return val === undefined ? this.rule.default : val
       },
 
       set (value) {

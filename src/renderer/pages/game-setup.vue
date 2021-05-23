@@ -8,7 +8,7 @@
         <v-tab>Timer</v-tab>
       </v-tabs>
 
-      <HeaderGameButton title="Create" @click="createGame" />
+      <HeaderGameButton title="Create" :sets="sets" @click="createGame" />
     </template>
 
     <template #main>
@@ -72,8 +72,7 @@ export default {
     }),
 
     ...mapGetters({
-      loaded: 'loaded',
-      containsCoreSet: 'gameSetup/containsCoreSet'
+      loaded: 'loaded'
     })
   },
 

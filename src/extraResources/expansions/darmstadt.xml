@@ -2,7 +2,7 @@
 <defs>
   <tiles>
     <tile id="DA/Cccc">
-      <city extra-points="3">N W S E</city>
+      <city darmstadtium="yes">N W S E</city>
     </tile>
     <tile id="DA/LRRRR">
       <cloister church="true"/>

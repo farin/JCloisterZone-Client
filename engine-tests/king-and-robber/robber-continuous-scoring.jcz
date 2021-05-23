@@ -1,0 +1,214 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "b888be62613043fa8a48013b7a0827f3",
+  "name": "",
+  "initialSeed": "-2487304138362524503",
+  "created": "2021-05-23T05:47:28.338Z",
+  "clock": 48654,
+  "test": {
+    "description": "Robber continuous scoring",
+    "assertions": [
+      "Alice has 2 points",
+      "Bob has 1 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "king-and-robber:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "king": true,
+      "robber": true
+    },
+    "rules": {
+      "princess-action": "may",
+      "fairy-placement": "next-follower",
+      "dragon-move": "before-scoring",
+      "barn-placement": "not-occupied",
+      "wagon-move": "C2",
+      "bazaar-no-auction": false,
+      "hill-tiebreaker": "at-least-one-follower",
+      "espace-variant": "any-tile",
+      "gq11-pig-herd": "pig",
+      "tunnelize-other-expansions": true,
+      "more-tunnel-tokens": "3/2",
+      "festival-return": "meeple",
+      "keep-monasteries": "replace",
+      "labyrinth-variant": "advanced",
+      "coc-final-scoring": "market-only",
+      "count-move": "by-player",
+      "little-buildings-scoring": "1/1/1",
+      "king-and-robber-scoring": "continuously",
+      "tiny-city-scoring": "4"
+    },
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRRR",
+        "rotation": "R0",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 2347
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 2912
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "7208907006649456421"
+      },
+      "player": 0,
+      "clock": 2928
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRR",
+        "rotation": "R270",
+        "position": [
+          1,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 4527
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 5218
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "9018009127894110440"
+      },
+      "player": 1,
+      "clock": 5226
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRR",
+        "rotation": "R0",
+        "position": [
+          -1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 7651
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 9035
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "9182326961872690901"
+      },
+      "player": 0,
+      "clock": 9042
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRR",
+        "rotation": "R180",
+        "position": [
+          -1,
+          1
+        ]
+      },
+      "player": 1,
+      "clock": 20753
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 21140
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "8407966803544562119"
+      },
+      "player": 1,
+      "clock": 21165
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRR",
+        "rotation": "R0",
+        "position": [
+          0,
+          1
+        ]
+      },
+      "player": 0,
+      "clock": 25459
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 25597
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "7476183501196011276"
+      },
+      "player": 0,
+      "clock": 25603
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/RRRR",
+      "BA/RRR",
+      "BA/RRR",
+      "BA/RRR",
+      "BA/RRR"
+    ]
+  }
+}
