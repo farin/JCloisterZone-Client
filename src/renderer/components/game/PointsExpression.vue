@@ -59,6 +59,7 @@ const SUBTITLE_MAPPING = {
   'city.tiny': null,
   'fairy.completed': '(feature scored)',
   'fairy.turn': '(turn start)',
+  'barn-placed': '(barn placed)',
   'barn-connected': '(barn connected)'
 }
 
