@@ -30,9 +30,14 @@
       <template v-else-if="item.name === 'king'"><TokenImage token="KING" :height="40" /></template>
       <template v-else-if="item.name === 'robber'"><TokenImage token="ROBBER" :height="40" /></template>
       <template v-else-if="item.name === 'king+robber'"><img src="~/assets/figures/king_robber.png" width="40" height="40"></template>
+      <template v-else-if="item.name === 'wind-rose'"><ExpansionSymbol :expansion="Expansion.WIND_ROSES" :style="{ width: 40, height: 40 }" /></template>
       <template v-else-if="item.name.startsWith('sheep.')"><TokenImage :token="item.name.replace('sheep.', '')" :height="40" /></template>
       <template v-else-if="item.name.startsWith('trade-goods.')"><TokenImage :token="item.name.replace('trade-goods.', '')" :height="40" /></template>
       <template v-else-if="item.name.startsWith('little-buildings.')"><TokenImage :token="item.name.replace('little-buildings.', '')" :height="40" /></template>
+      <template v-else-if="item.name === 'tiles.N'"><v-icon>fas fa-arrow-up</v-icon></template>
+      <template v-else-if="item.name === 'tiles.S'"><v-icon>fas fa-arrow-down</v-icon></template>
+      <template v-else-if="item.name === 'tiles.W'"><v-icon>fas fa-arrow-left</v-icon></template>
+      <template v-else-if="item.name === 'tiles.E'"><v-icon>fas fa-arrow-right</v-icon></template>
 
       <!-- TODO images, also imprev tile image (green field ?)-->
       <template v-else-if="item.name === 'darmstadtium'"><ExpansionSymbol :expansion="Expansion.DARMSTADT" :style="{ width: 40, height: 40 }" /></template>
