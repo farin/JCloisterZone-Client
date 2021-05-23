@@ -1,0 +1,140 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "c6e44ab30e69439ea91b472f728da05e",
+  "name": "",
+  "initialSeed": "-7571408500998562764",
+  "created": "2021-05-23T13:06:17.880Z",
+  "clock": 62304,
+  "test": {
+    "description": "Yaga hut scoring",
+    "assertions": [
+      "Alice has 7 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "russian-promos/2013": 1,
+      "russian-promos/2016": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true
+    },
+    "rules": {
+      "princess-action": "may",
+      "fairy-placement": "next-follower",
+      "dragon-move": "before-scoring",
+      "barn-placement": "not-occupied",
+      "wagon-move": "C2",
+      "bazaar-no-auction": false,
+      "hill-tiebreaker": "at-least-one-follower",
+      "espace-variant": "any-tile",
+      "gq11-pig-herd": "pig",
+      "tunnelize-other-expansions": true,
+      "more-tunnel-tokens": "3/2",
+      "festival-return": "meeple",
+      "keep-monasteries": "replace",
+      "labyrinth-variant": "advanced",
+      "coc-final-scoring": "market-only",
+      "count-move": "by-player",
+      "little-buildings-scoring": "1/1/1",
+      "king-and-robber-scoring": "default",
+      "tiny-city-scoring": "4"
+    },
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0,
+      "clientId": "940fcdf0041e4a7e9f8b07c1b8aaab02"
+    },
+    {
+      "name": "Bob",
+      "slot": 1,
+      "clientId": "940fcdf0041e4a7e9f8b07c1b8aaab02"
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "RU/L",
+        "rotation": "R0",
+        "position": [
+          0,
+          1
+        ]
+      },
+      "player": 0,
+      "clock": 2441
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            1
+          ],
+          "location": "CLOISTER"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 3633
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-881767903404272807"
+      },
+      "player": 0,
+      "clock": 4854
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R0",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 5539
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 6430
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "8801076131938519324"
+      },
+      "player": 1,
+      "clock": 6437
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "RU/L",
+      "BA/RFr"
+    ],
+    "endTurn": 2
+  }
+}

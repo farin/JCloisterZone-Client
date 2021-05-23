@@ -31,6 +31,7 @@
       <template v-else-if="item.name === 'robber'"><TokenImage token="ROBBER" :height="40" /></template>
       <template v-else-if="item.name === 'king+robber'"><img src="~/assets/figures/king_robber.png" width="40" height="40"></template>
       <template v-else-if="item.name === 'wind-rose'"><ExpansionSymbol :expansion="Expansion.WIND_ROSES" :style="{ width: 40, height: 40 }" /></template>
+      <template v-else-if="item.name === 'yaga'"><ExpansionSymbol :expansion="Expansion.RUSSIAN_PROMOS" :style="{ width: 40, height: 40 }" /></template>
       <template v-else-if="item.name.startsWith('sheep.')"><TokenImage :token="item.name.replace('sheep.', '')" :height="40" /></template>
       <template v-else-if="item.name.startsWith('trade-goods.')"><TokenImage :token="item.name.replace('trade-goods.', '')" :height="40" /></template>
       <template v-else-if="item.name.startsWith('little-buildings.')"><TokenImage :token="item.name.replace('little-buildings.', '')" :height="40" /></template>
