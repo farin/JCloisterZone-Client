@@ -508,6 +508,7 @@ class Theme {
 
     let clip = feature.clip || root.clip
     let point = feature.point || root.point
+    let tunnel = feature.tunnel || root.tunnel
 
     if (!clip && root?.['clip-rotate']) {
       if (!root['point-rotate']) {
@@ -523,6 +524,7 @@ class Theme {
     return {
       clip,
       point,
+      tunnel,
       transform: `${tile.artwork.scaleTransform} ${transform}`,
       inverseScaleTransform: tile.artwork.inverseScaleTransform,
       rotation: r
