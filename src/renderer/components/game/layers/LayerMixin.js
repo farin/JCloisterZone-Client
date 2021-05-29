@@ -35,6 +35,7 @@ export default {
       return {
         tile,
         point: feature.point,
+        tunnel: feature.tunnel ?? null,
         rotation: feature.rotation,
         transform: feature.transform,
         inverseScaleTransform: feature.inverseScaleTransform
@@ -60,11 +61,13 @@ export default {
 
     transformTunnelEnd (ptr) {
       const { position, location } = ptr
+      const { tunnel } = this.getTilePoint(ptr)
       let rotation = 0
       if (location === 'E') rotation = 90
       if (location === 'S') rotation = 180
       if (location === 'W') rotation = 270
       const tile = this.tileOn(position)
+      let x = 500
       let y = 300
       if (!tile.id.startsWith('TU/')) {
         if (tile.id === 'AM/CRcr+' && Location.parse(location).rotateCCW(tile.rotation).name === 'N') {
@@ -73,7 +76,12 @@ export default {
           y = 60
         }
       }
-      return `${this.transformPosition(tile.position)} ${this.transformRotation(rotation)} translate(500 ${y}) rotate(${-rotation} 0 0)`
+      if (Array.isArray(tunnel)) {
+      	rotation = tile.rotation
+      	x = tunnel[0]
+      	y = tunnel[1]
+      }
+      return `${this.transformPosition(tile.position)} ${this.transformRotation(rotation)} translate(${x} ${y}) rotate(${-rotation} 0 0)`
     }
   }
 }
