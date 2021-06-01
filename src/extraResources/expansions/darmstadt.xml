@@ -10,10 +10,10 @@
       <road>W</road>
       <road>S</road>
       <road>E</road>
-      <farm>WR NL</farm>
-      <farm>NR EL</farm>
-      <farm>ER SL</farm>
-      <farm>SR WL</farm>
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
       <wagon-move>
         <neighbouring>CLOISTER N</neighbouring>
         <neighbouring>CLOISTER W</neighbouring>
@@ -24,8 +24,8 @@
     <tile id="DA/LRR">
       <cloister church="true" />
       <road>E S</road>
-      <farm>NL NR EL SR WL WR</farm>
-      <farm>ER SL</farm>
+      <field>NL NR EL SR WL WR</field>
+      <field>ER SL</field>
       <wagon-move>
         <neighbouring>CLOISTER E</neighbouring>
       </wagon-move>

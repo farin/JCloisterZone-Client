@@ -25,7 +25,7 @@ const deployedOnField = (state, response) => {
     const msg = state.gameMessages[state.gameMessages.length - i - 1]
     if (msg.type === 'DEPLOY_MEEPLE') {
       const loc = Location.parse(msg.payload.pointer.location)
-      if (loc?.isFarmLocation()) {
+      if (loc?.isFieldLocation()) {
         return true
       }
     }
@@ -419,11 +419,14 @@ export const actions = {
           ipcRenderer.invoke('dialog.showErrorBox', { title: 'File is not valid', content: err + '' })
           reject(err)
         }
-        if (compareVersions(SAVED_GAME_COMPATIBILITY, sg.appVersion) === 1) {
+        if (compareVersions.compare(sg.appVersion, SAVED_GAME_COMPATIBILITY, '<')) {
           const msg = `Saves created prior ${SAVED_GAME_COMPATIBILITY} are not supported.`
           ipcRenderer.invoke('dialog.showErrorBox', { title: 'Load Error', content: msg })
           reject(msg)
           return
+        }
+        if (compareVersions.compare(sg.appVersion, '5.7.0', '<')) {
+          sg = JSON.parse(data.toString().replaceAll('INNER_FARM', 'INNER_FIELD'))
         }
 
         if (sg.setup && !sg.test && (isNil(sg.players) || isNil(sg.initialSeed) || isNil(sg.replay) || isNil(sg.clock) || isNil(sg.gameId))) {

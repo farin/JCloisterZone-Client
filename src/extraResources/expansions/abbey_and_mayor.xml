@@ -5,28 +5,28 @@
   -->
   <tiles>
     <tile id="AM/C++">
-      <city pennant="2">N E S W</city>
+      <city pennants="2">N E S W</city>
     </tile>
     <tile id="AM/CCcc+">
-      <city pennant="1">N S</city>
+      <city pennants="1">N S</city>
       <city>W E</city>
-      <farm city="N W">INNER_FARM</farm>
-      <farm city="N W">INNER_FARM_B</farm>
+      <field city="N W">INNER_FIELD</field>
+      <field city="N W">INNER_FIELD_B</field>
     </tile>
     <tile id="AM/CCc+">
-      <city pennant="1" castle-base="false">N</city>
+      <city pennants="1" castle-base="false">N</city>
       <city>W E</city>
-      <farm city="N W">INNER_FARM</farm>
-      <farm city="N W">SL SR</farm>
+      <field city="N W">INNER_FIELD</field>
+      <field city="N W">SL SR</field>
     </tile>
     <tile id="AM/CCRR">
       <city>N</city>
       <city>W</city>
       <road>E</road>
       <road>S</road>
-      <farm city="N">EL</farm>
-      <farm city="W">SR</farm>
-      <farm city="N W">ER SL</farm>
+      <field city="N">EL</field>
+      <field city="W">SR</field>
+      <field city="N W">ER SL</field>
       <wagon-move>
         <neighbouring>N E</neighbouring>
         <neighbouring>S W</neighbouring>
@@ -38,10 +38,10 @@
       <road>W</road>
       <road>S</road>
       <road>E</road>
-      <farm>WR NL</farm>
-      <farm>NR EL</farm>
-      <farm>ER SL</farm>
-      <farm>SR WL</farm>
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
       <wagon-move>
         <neighbouring>CLOISTER N</neighbouring>
         <neighbouring>CLOISTER W</neighbouring>
@@ -52,8 +52,8 @@
     <tile id="AM/RC">
       <city>N</city>
       <road>W</road>
-      <farm city="N">WR</farm>
-      <farm city="N">EL ER SL SR WL</farm>
+      <field city="N">WR</field>
+      <field city="N">EL ER SL SR WL</field>
       <wagon-move>
         <neighbouring>N W</neighbouring>
       </wagon-move>
@@ -61,44 +61,44 @@
     <tile id="AM/CRr">
       <city>N</city>
       <road>S E</road>
-      <farm city="N">WL WR SR</farm>
-      <farm city="N">EL</farm>
-      <farm>ER SL</farm>
+      <field city="N">WL WR SR</field>
+      <field city="N">EL</field>
+      <field>ER SL</field>
     </tile>
     <tile id="AM/RrC">
       <city>N</city>
       <road>W S</road>
-      <farm city="N">EL ER SL</farm>
-      <farm city="N">WR</farm>
-      <farm>SR WL</farm>
+      <field city="N">EL ER SL</field>
+      <field city="N">WR</field>
+      <field>SR WL</field>
     </tile>
     <tile id="AM/C!+">
-      <city pennant="1" castle-base="false">W</city>
-      <farm city="W">NL NR</farm>
-      <farm city="W">EL ER</farm>
-      <farm city="W">SL SR</farm>
+      <city pennants="1" castle-base="false">W</city>
+      <field city="W">NL NR</field>
+      <field city="W">EL ER</field>
+      <field city="W">SL SR</field>
     </tile>
     <tile id="AM/R">
       <road>S</road>
-      <farm>NL NR EL ER SL SR WL WR</farm>
+      <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="AM/RG">
       <garden/>
       <road>S</road>
-      <farm>NL NR EL ER SL SR WL WR</farm>
+      <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="AM/Rrr">
       <road>N W E</road>
-      <farm>WR NL</farm>
-      <farm>NR EL</farm>
-      <farm>ER SL SR WL</farm>
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL SR WL</field>
     </tile>
     <tile id="AM/CRcr+">
-      <city pennant="1">W E</city>
+      <city pennants="1">W E</city>
       <road tunnel="yes">N S</road>
-      <farm city="W">SL SR</farm>
-      <farm city="W">NL</farm>
-      <farm city="W">NR</farm>
+      <field city="W">SL SR</field>
+      <field city="W">NL</field>
+      <field city="W">NR</field>
     </tile>
   </tiles>
   <sets>

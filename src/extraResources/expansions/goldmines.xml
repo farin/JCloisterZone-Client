@@ -5,64 +5,64 @@
       <goldmine />
       <cloister />
       <road>E S</road>
-      <farm>NL NR EL SR WL WR</farm>
-      <farm>ER SL</farm>
+      <field>NL NR EL SR WL WR</field>
+      <field>ER SL</field>
     </tile>
     <tile id="GO/LCc">
       <goldmine />
       <cloister />
       <city>N W</city>
-      <farm city="N">SL SR EL ER</farm>
+      <field city="N">SL SR EL ER</field>
     </tile>
     <tile id="GO/LCcRr">
       <goldmine />
       <cloister />
       <road>E S</road>
       <city>N W</city>
-      <farm city="N">EL SR</farm>
-      <farm>ER SL</farm>
+      <field city="N">EL SR</field>
+      <field>ER SL</field>
     </tile>
     <tile id="GO/LRrRr">
       <goldmine />
       <cloister />
       <road>N E</road>
       <road>S W</road>
-      <farm>NR EL</farm>
-      <farm>SR WL</farm>
-      <farm>WR NL ER SL</farm>
+      <field>NR EL</field>
+      <field>SR WL</field>
+      <field>WR NL ER SL</field>
     </tile>
     <tile id="GO/RrRr">
       <goldmine />
       <road>N W</road>
       <road>S E</road>
-      <farm>NL WR</farm>
-      <farm>SL ER</farm>
-      <farm>NR EL SR WL</farm>
+      <field>NL WR</field>
+      <field>SL ER</field>
+      <field>NR EL SR WL</field>
     </tile>
     <tile id="GO/CcRr">
       <goldmine />
       <road>E S</road>
       <city>N W</city>
-      <farm city="N">EL SR</farm>
-      <farm>ER SL</farm>
+      <field city="N">EL SR</field>
+      <field>ER SL</field>
     </tile>
     <tile id="GO/CRcr">
       <goldmine />
       <road>N S</road>
       <city>W E</city>
-      <farm city="W">NL</farm>
-      <farm city="W">NR</farm>
-      <farm city="W">SL</farm>
-      <farm city="W">SR</farm>
+      <field city="W">NL</field>
+      <field city="W">NR</field>
+      <field city="W">SL</field>
+      <field city="W">SR</field>
     </tile>
     <tile id="GO/RRrr.X">
       <goldmine />
       <road>N S</road>
       <road>W E</road>
-      <farm>WR NL</farm>
-      <farm>NR EL</farm>
-      <farm>ER SL</farm>
-      <farm>SR WL</farm>
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
     </tile>
   </tiles>
   <sets>

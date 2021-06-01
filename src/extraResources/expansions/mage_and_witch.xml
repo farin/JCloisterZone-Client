@@ -7,9 +7,9 @@
       <road>S</road>
       <road>W</road>
       <city>N</city>
-      <farm city="N">WR EL</farm>
-      <farm>WL SR</farm>
-      <farm>ER SL</farm>
+      <field city="N">WR EL</field>
+      <field>WL SR</field>
+      <field>ER SL</field>
       <wagon-move>
         <neighbouring>W S E</neighbouring>
       </wagon-move>
@@ -18,8 +18,8 @@
       <mage></mage>
       <road>E S</road>
       <city>N W</city>
-      <farm city="N">EL SR</farm>
-      <farm>ER SL</farm>
+      <field city="N">EL SR</field>
+      <field>ER SL</field>
     </tile>
     <tile id="MW/CCCR.3">
       <mage></mage>
@@ -27,8 +27,8 @@
       <city>N</city>
       <city>E</city>
       <road>S</road>
-      <farm city="W N E">SR</farm>
-      <farm city="E">SL</farm>
+      <field city="W N E">SR</field>
+      <field city="E">SL</field>
       <wagon-move>
         <neighbouring>S E</neighbouring>
       </wagon-move>
@@ -38,10 +38,10 @@
       <city>E W</city>
       <road>N</road>
       <road>S</road>
-      <farm city="W">NL</farm>
-      <farm city="W">NR</farm>
-      <farm city="W">SL</farm>
-      <farm city="W">SR</farm>
+      <field city="W">NL</field>
+      <field city="W">NR</field>
+      <field city="W">SL</field>
+      <field city="W">SR</field>
       <wagon-move>
         <neighbouring>N W</neighbouring>
         <neighbouring>S W</neighbouring>
@@ -51,14 +51,14 @@
       <mage></mage>
       <city>N</city>
       <city>S</city>
-      <farm city="N S">WL WR EL ER</farm>
+      <field city="N S">WL WR EL ER</field>
     </tile>
     <tile id="MW/CccR.1">
       <mage></mage>
       <road>S</road>
       <city>N W E</city>
-      <farm city="N">SL</farm>
-      <farm city="N">SR</farm>
+      <field city="N">SL</field>
+      <field city="N">SR</field>
       <wagon-move>
         <neighbouring>N S</neighbouring>
       </wagon-move>
@@ -68,9 +68,9 @@
       <road>E</road>
       <road>S W</road>
       <city>N</city>
-      <farm city="N">EL</farm>
-      <farm city="N">ER SL WR</farm>
-      <farm>SR WL</farm>
+      <field city="N">EL</field>
+      <field city="N">ER SL WR</field>
+      <field>SR WL</field>
       <wagon-move>
         <neighbouring>N E</neighbouring>
       </wagon-move>
@@ -80,8 +80,8 @@
       <city>N</city>
       <city>W</city>
       <road>S E</road>
-      <farm city="N W">EL SR</farm>
-      <farm>ER SL</farm>
+      <field city="N W">EL SR</field>
+      <field>ER SL</field>
     </tile>
     <tile id="MW/CCRrG">
       <mage></mage>
@@ -89,8 +89,8 @@
       <city>N</city>
       <city>W</city>
       <road>S E</road>
-      <farm city="N W">EL SR</farm>
-      <farm>ER SL</farm>
+      <field city="N W">EL SR</field>
+      <field>ER SL</field>
     </tile>
   </tiles>
   <sets>

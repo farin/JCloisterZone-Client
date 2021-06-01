@@ -3,10 +3,10 @@
   <tiles>
     <tile id="LA/Rrrr">
       <road labyrinth="true">N W E S</road>
-      <farm>WR NL</farm>
-      <farm>NR EL</farm>
-      <farm>ER SL</farm>
-      <farm>SR WL</farm>
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
     </tile>
   </tiles>
   <sets>

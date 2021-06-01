@@ -3,24 +3,24 @@
   <tiles>
     <tile id="MO/M1">
       <cloister monastery="yes" />
-      <farm>NL NR EL ER SL SR WL WR</farm>
+      <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="MO/M2">
       <cloister monastery="yes" />
-      <farm>NL NR EL ER SL SR WL WR</farm>
+      <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="MO/M3">
       <cloister monastery="yes" />
-      <farm>NL NR EL ER SL SR WL WR</farm>
+      <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="MO/M4">
       <cloister monastery="yes" />
-      <farm>NL NR EL ER SL SR WL WR</farm>
+      <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="MO/MR1">
       <cloister monastery="yes" />
       <road>S</road>
-      <farm>NL NR EL ER SL SR WL WR</farm>
+      <field>NL NR EL ER SL SR WL WR</field>
       <wagon-move>
         <neighbouring>CLOISTER S</neighbouring>
       </wagon-move>
@@ -28,7 +28,7 @@
     <tile id="MO/MR2">
       <cloister monastery="yes" />
       <road>S</road>
-      <farm>NL NR EL ER SL SR WL WR</farm>
+      <field>NL NR EL ER SL SR WL WR</field>
       <wagon-move>
         <neighbouring>CLOISTER S</neighbouring>
       </wagon-move>

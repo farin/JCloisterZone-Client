@@ -213,7 +213,7 @@ export default {
         let x = 0
         let y = 0
         const sample = meeples[0]
-        const deployedOnFarm = Location.parse(sample.location).isFarmLocation()
+        const deployedOnFarm = Location.parse(sample.location).isFieldLocation()
 
         const castle = castlePlaces[this.pointerAsKey(sample)]
         const group = {

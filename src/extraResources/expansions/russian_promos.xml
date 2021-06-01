@@ -3,15 +3,15 @@
   <tiles>
     <tile id="RU/L">
       <yaga-hut />
-      <farm>NL NR EL ER SL SR WL WR</farm>
+      <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="RU/RRrr">
       <road>N</road>
       <road>E S W</road>
-      <farm>WR NL</farm>
-      <farm>NR EL</farm>
-      <farm>ER SL</farm>
-      <farm>SR WL</farm>
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
       <wagon-move>
         <neighbouring>N S</neighbouring>
       </wagon-move>
@@ -19,12 +19,12 @@
     <tile id="RU/SR">
       <razboynik></razboynik>
       <road>W E</road>
-      <farm>WR NL NR EL</farm>
-      <farm>ER SL SR WL</farm>
+      <field>WR NL NR EL</field>
+      <field>ER SL SR WL</field>
     </tile>
     <tile id="RU/V">
       <vodyanoy></vodyanoy>
-      <farm pig="yes">NL NR SL SR WL WR EL ER</farm>
+      <field pig-herd="yes">NL NR SL SR WL WR EL ER</field>
     </tile>
   </tiles>
   <sets>

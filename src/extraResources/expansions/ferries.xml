@@ -7,18 +7,18 @@
       <road>W</road>
       <road>S</road>
       <road>E</road>
-      <farm city="N">WR EL</farm>
-      <farm>ER SL</farm>
-      <farm>SR WL</farm>
+      <field city="N">WR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
     </tile>
     <tile id="FR/RRR">
       <ferry />
       <road>W</road>
       <road>S</road>
       <road>E</road>
-      <farm>WR NL NR EL</farm>
-      <farm>ER SL</farm>
-      <farm>SR WL</farm>
+      <field>WR NL NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
     </tile>
     <tile id="FR/RRRR">
       <ferry />
@@ -26,10 +26,10 @@
       <road>W</road>
       <road>S</road>
       <road>E</road>
-      <farm>WR NL</farm>
-      <farm>NR EL</farm>
-      <farm>ER SL</farm>
-      <farm>SR WL</farm>
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
     </tile>
   </tiles>
   <sets>

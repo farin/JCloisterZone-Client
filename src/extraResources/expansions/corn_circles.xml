@@ -4,80 +4,80 @@
     <tile id="CC.1/Cc.1">
       <corn-circle type="City" />
       <city>N W</city>
-      <farm city="N">SL SR EL ER</farm>
+      <field city="N">SL SR EL ER</field>
     </tile>
     <tile id="CC.1/CC.2">
       <corn-circle type="City" />
       <city>N</city>
       <city>E</city>
-      <farm city="N E">SL SR WL WR</farm>
+      <field city="N E">SL SR WL WR</field>
     </tile>
     <tile id="CC.1/CR">
-      <corn-circle type="Farm" />
+      <corn-circle type="Field" />
       <city>N</city>
       <road>E</road>
-      <farm city="N">WL WR SL SR EL ER</farm>
+      <field city="N">WL WR SL SR EL ER</field>
     </tile>
     <tile id="CC.1/Rr">
       <corn-circle type="Road" />
       <road>W S</road>
-      <farm>WR NL NR EL ER SL</farm>
-      <farm>SR WL</farm>
+      <field>WR NL NR EL ER SL</field>
+      <field>SR WL</field>
     </tile>
     <tile id="CC.1/RrC">
-      <corn-circle type="Farm" />
+      <corn-circle type="Field" />
       <road>S W</road>
       <city>N</city>
-      <farm city="N">WR EL ER SL</farm>
-      <farm>WL SR</farm>
+      <field city="N">WR EL ER SL</field>
+      <field>WL SR</field>
     </tile>
     <tile id="CC.1/RRR">
       <corn-circle type="Road" />
       <road>N</road>
       <road>W</road>
       <road>S</road>
-      <farm>NR EL ER SL</farm>
-      <farm>SR WL</farm>
-      <farm>WR NL</farm>
+      <field>NR EL ER SL</field>
+      <field>SR WL</field>
+      <field>WR NL</field>
     </tile>
 
     <tile id="CC.2/RRr">
       <corn-circle type="Road" />
       <road>W S</road>
       <road>E</road>
-      <farm>WR NL NR EL</farm>
-      <farm>ER SL</farm>
-      <farm>SR WL</farm>
+      <field>WR NL NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
     </tile>
     <tile id="CC.2/RRRr">
       <corn-circle type="Road" />
       <road>W S</road>
       <road>N</road>
       <road>E</road>
-      <farm>WR NL ER SL</farm>
-      <farm>NR EL</farm>
-      <farm>SR WL</farm>
+      <field>WR NL ER SL</field>
+      <field>NR EL</field>
+      <field>SR WL</field>
     </tile>
     <tile id="CC.2/CFR">
-      <corn-circle type="Farm" />
+      <corn-circle type="Field" />
       <city>N</city>
       <road>S</road>
-      <farm city="N">WR WL SL SR EL ER</farm>
+      <field city="N">WR WL SL SR EL ER</field>
     </tile>
     <tile id="CC.2/RCR">
-      <corn-circle type="Farm" />
+      <corn-circle type="Field" />
       <city>N</city>
       <road>W</road>
       <road>E</road>
-      <farm city="N">WR EL</farm>
-      <farm>ER SL SR WL</farm>
+      <field city="N">WR EL</field>
+      <field>ER SL SR WL</field>
     </tile>
     <tile id="CC.2/CFC">
       <corn-circle type="City" />
       <city>N</city>
       <city>S</city>
-      <farm city="N S">WL WR</farm>
-      <farm city="N S">EL ER</farm>
+      <field city="N S">WL WR</field>
+      <field city="N S">EL ER</field>
     </tile>
     <tile id="CC.2/CcCc">
       <corn-circle type="City" />

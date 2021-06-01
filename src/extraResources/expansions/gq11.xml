@@ -4,15 +4,15 @@
     <tile id="GQ/RFI" max="1" group="river-spring">
       <river>E</river>
       <road>W</road>
-      <farm>WR NL NR EL</farm>
-      <farm>ER SL SR WL</farm>
+      <field>WR NL NR EL</field>
+      <field>ER SL SR WL</field>
     </tile>
     <tile id="GQ/CICI" group="river">
       <river>W E</river>
       <city>N</city>
       <city>S</city>
-      <farm city="N">WR EL</farm>
-      <farm city="S">WL ER</farm>
+      <field city="N">WR EL</field>
+      <field city="S">WL ER</field>
     </tile>
     <tile id="GQ/LRRRR">
       <cloister />
@@ -20,10 +20,10 @@
       <road>W</road>
       <road>S</road>
       <road>E</road>
-      <farm>WR NL</farm>
-      <farm>NR EL</farm>
-      <farm>ER SL</farm>
-      <farm>SR WL</farm>
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
       <wagon-move>
         <neighbouring>CLOISTER N</neighbouring>
         <neighbouring>CLOISTER W</neighbouring>
@@ -32,14 +32,14 @@
       </wagon-move>
     </tile>
     <tile id="GQ/F">
-      <farm pig="yes">NL NR SL SR WL WR EL ER</farm>
+      <field pig-herd="yes">NL NR SL SR WL WR EL ER</field>
     </tile>
     <tile id="GQ/CRc">
       <city>W E</city>
       <road>S</road>
-      <farm city="W">NL NR</farm>
-      <farm city="W">SR</farm>
-      <farm city="W">SL</farm>
+      <field city="W">NL NR</field>
+      <field city="W">SR</field>
+      <field city="W">SL</field>
       <wagon-move>
         <neighbouring>W S</neighbouring>
       </wagon-move>
@@ -48,10 +48,10 @@
       <city>W E</city>
       <road>S</road>
       <road>N</road>
-      <farm city="W">NR</farm>
-      <farm city="W">NL</farm>
-      <farm city="W">SR</farm>
-      <farm city="W">SL</farm>
+      <field city="W">NR</field>
+      <field city="W">NL</field>
+      <field city="W">SR</field>
+      <field city="W">SL</field>
       <wagon-move>
         <neighbouring>W S</neighbouring>
         <neighbouring>W N</neighbouring>
@@ -61,30 +61,30 @@
       <road>W E</road>
       <city>N</city>
       <city>S</city>
-      <farm city="N">WR EL</farm>
-      <farm city="S">ER WL</farm>
+      <field city="N">WR EL</field>
+      <field city="S">ER WL</field>
     </tile>
     <tile id="GQ/CRRr">
       <road>E</road>
       <road>S W</road>
       <city>N</city>
-      <farm city="N">EL</farm>
-      <farm city="N">ER SL WR</farm>
-      <farm>SR WL</farm>
+      <field city="N">EL</field>
+      <field city="N">ER SL WR</field>
+      <field>SR WL</field>
       <wagon-move>
         <neighbouring>N E</neighbouring>
       </wagon-move>
     </tile>
     <tile id="GQ/Cc!">
       <city>N W</city>
-      <farm city="N">SL SR</farm>
-      <farm city="N">EL ER</farm>
+      <field city="N">SL SR</field>
+      <field city="N">EL ER</field>
     </tile>
     <tile id="GQ/RCc">
       <city>N W</city>
       <road>S</road>
-      <farm city="N">SR</farm>
-      <farm city="N">SL EL ER</farm>
+      <field city="N">SR</field>
+      <field city="N">SL EL ER</field>
       <wagon-move>
         <neighbouring>N S</neighbouring>
       </wagon-move>
@@ -93,9 +93,9 @@
       <city>N W</city>
       <road>S</road>
       <road>E</road>
-      <farm city="N">SR</farm>
-      <farm city="N">EL</farm>
-      <farm city="N">SL ER</farm>
+      <field city="N">SR</field>
+      <field city="N">EL</field>
+      <field city="N">SL ER</field>
       <wagon-move>
         <neighbouring>N S</neighbouring>
         <neighbouring>N E</neighbouring>
@@ -105,8 +105,8 @@
       <city>N W</city>
       <city>E</city>
       <road>S</road>
-      <farm city="N">SR</farm>
-      <farm city="N E">SL</farm>
+      <field city="N">SR</field>
+      <field city="N E">SL</field>
       <wagon-move>
         <neighbouring>W S</neighbouring>
       </wagon-move>
@@ -126,9 +126,9 @@
       <ref count="1" tile="GQ/CcCR" />
     </tile-set>
     <tile-set id="gq11/river">
-      <requires expansion="RIVER" /> 
+      <requires expansion="RIVER" />
       <ref count="1" tile="GQ/RFI" />
-      <ref count="1" tile="GQ/CICI" />      
+      <ref count="1" tile="GQ/CICI" />
     </tile-set>
   </sets>
 </defs>

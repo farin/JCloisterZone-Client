@@ -42,7 +42,7 @@ const TITLE_MAPPING = {
   'flock': 'Flock',
   'wind-rose': 'Wind rose',
   'yaga-hut': 'Yaga hut',
-  'farm': 'Field',
+  'field': 'Field',
   'trade-goods': 'Trade Goods',
   'king': 'King',
   'robber': 'Robber',

@@ -4,15 +4,15 @@
     <tile id="SD/CC">
       <city>N</city>
       <city>W</city>
-      <farm city="N W">EL ER SL SR</farm>
+      <field city="N W">EL ER SL SR</field>
     </tile>
     <tile id="SD/RRR">
       <road>E</road>
       <road>S</road>
       <road>W</road>
-      <farm>WR NL NR EL</farm>
-      <farm>ER SL</farm>
-      <farm>SR WL</farm>
+      <field>WR NL NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
       <wagon-move>
         <neighbouring>E S W</neighbouring>
       </wagon-move>
@@ -22,9 +22,9 @@
       <road>E</road>
       <road>S</road>
       <road>W</road>
-      <farm>WR NL NR EL</farm>
-      <farm>ER SL</farm>
-      <farm>SR WL</farm>
+      <field>WR NL NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
       <wagon-move>
         <neighbouring>E S W</neighbouring>
       </wagon-move>
@@ -33,11 +33,11 @@
   <sets>
     <tile-set id="spiel-doch:1">
       <ref count="1" tile="SD/CC" />
-      <ref count="1" tile="SD/RRR" />      
+      <ref count="1" tile="SD/RRR" />
     </tile-set>
     <tile-set id="spiel-doch:2">
       <ref count="1" tile="SD/CC" />
-      <ref count="1" tile="SD/RRRG" />      
-    </tile-set>    
+      <ref count="1" tile="SD/RRRG" />
+    </tile-set>
   </sets>
 </defs>

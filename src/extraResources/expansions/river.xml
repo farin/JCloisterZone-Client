@@ -2,27 +2,27 @@
 <defs>
   <tiles>
     <tile id="RI/s" max="1" group="river-spring">
-      <farm>NL NR EL ER SL SR WL WR</farm>
+      <field>NL NR EL ER SL SR WL WR</field>
       <river>E</river>
     </tile>
     <tile id="RI.1/I.e" max="1" group="river-lake">
-      <farm>NL NR EL ER SL SR WL WR</farm>
+      <field>NL NR EL ER SL SR WL WR</field>
       <river>W</river>
     </tile>
     <tile id="RI.1/CICI" group="river">
       <city>N</city>
       <city>S</city>
-      <farm city="N">EL WR</farm>
-      <farm city="S">ER WL</farm>
+      <field city="N">EL WR</field>
+      <field city="S">ER WL</field>
       <river>W E</river>
     </tile>
     <tile id="RI.1/CIRI" group="river">
       <city>N</city>
       <road>S</road>
-      <farm city="N">EL</farm>
-      <farm city="N">WR</farm>
-      <farm>ER SL</farm>
-      <farm>WL SR</farm>
+      <field city="N">EL</field>
+      <field city="N">WR</field>
+      <field>ER SL</field>
+      <field>WL SR</field>
       <river>W E</river>
       <wagon-move>
         <neighbouring>N S</neighbouring>
@@ -31,9 +31,9 @@
     <tile id="RI.1/LIRI" group="river">
       <cloister />
       <road>S</road>
-      <farm>WR NL NR EL</farm>
-      <farm>ER SL</farm>
-      <farm>WL SR</farm>
+      <field>WR NL NR EL</field>
+      <field>ER SL</field>
+      <field>WL SR</field>
       <river>W E</river>
       <wagon-move>
         <neighbouring>CLOISTER S</neighbouring>
@@ -41,118 +41,118 @@
     </tile>
     <tile id="RI.1/RIrI" group="river">
       <road>W E</road>
-      <farm>WR NL</farm>
-      <farm>NR EL</farm>
-      <farm>ER SL</farm>
-      <farm>WL SR</farm>
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL</field>
+      <field>WL SR</field>
       <river>N S</river>
     </tile>
     <tile id="RI.1/IFI" group="river">
-      <farm>WR NL NR EL</farm>
-      <farm>WL SL SR ER</farm>
+      <field>WR NL NR EL</field>
+      <field>WL SL SR ER</field>
       <river>W E</river>
     </tile>
     <tile id="RI.1/CcII" group="river">
       <city>N W</city>
-      <farm city="N">SR EL</farm>
-      <farm>ER SL</farm>
+      <field city="N">SR EL</field>
+      <field>ER SL</field>
       <river>S E</river>
     </tile>
     <tile id="RI.1/RrII" group="river">
       <road>N E</road>
-      <farm>WR NL ER SL</farm>
-      <farm>NR EL</farm>
-      <farm>WL SR</farm>
+      <field>WR NL ER SL</field>
+      <field>NR EL</field>
+      <field>WL SR</field>
       <river>W S</river>
     </tile>
     <tile id="RI.1/II" group="river">
-      <farm>WR NL NR EL ER SL</farm>
-      <farm>WL SR</farm>
+      <field>WR NL NR EL ER SL</field>
+      <field>WL SR</field>
       <river>W S</river>
     </tile>
     <tile id="RI.1/IIG" group="river">
       <garden />
-      <farm>WR NL NR EL ER SL</farm>
-      <farm>WL SR</farm>
+      <field>WR NL NR EL ER SL</field>
+      <field>WL SR</field>
       <river>W S</river>
     </tile>
 
     <tile id="RI.2/IFC" group="river">
       <city>E</city>
-      <farm city="E">NL NR WR</farm>
-      <farm city="E">SL SR WL</farm>
+      <field city="E">NL NR WR</field>
+      <field city="E">SL SR WL</field>
       <river>W</river>
     </tile>
     <tile id="RI.2/I.v" max="1" group="river-lake">
       <volcano />
-      <farm>NL NR EL ER SL SR WL WR</farm>
+      <field>NL NR EL ER SL SR WL WR</field>
       <river>W</river>
     </tile>
     <tile id="RI.2/III" group="river-fork">
-      <farm>WR NL</farm>
-      <farm>NR EL</farm>
-      <farm>ER SL SR WL</farm>
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL SR WL</field>
       <river>W N E</river>
     </tile>
     <tile id="RI.2/CIcI" group="river">
       <city>W E</city>
-      <farm city="W">NR SL</farm>
-      <farm city="W">NL SR</farm>
+      <field city="W">NR SL</field>
+      <field city="W">NL SR</field>
       <river>N S</river>
     </tile>
     <tile id="RI.2/LIFI" group="river">
       <cloister />
-      <farm>WR NL NR EL</farm>
-      <farm>WL SL SR ER</farm>
+      <field>WR NL NR EL</field>
+      <field>WL SL SR ER</field>
       <river>W E</river>
     </tile>
     <tile id="RI.2/RIrI" group="river">
       <road inn="yes">W E</road>
-      <farm>WR NL</farm>
-      <farm>NR EL</farm>
-      <farm>ER SL</farm>
-      <farm>WL SR</farm>
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL</field>
+      <field>WL SR</field>
       <river>N S</river>
     </tile>
     <tile id="RI.2/CIRI" group="river">
       <city>N</city>
       <road>S</road>
-      <farm city="N">EL</farm>
-      <farm city="N">WR</farm>
-      <farm>ER SL</farm>
-      <farm>WL SR</farm>
+      <field city="N">EL</field>
+      <field city="N">WR</field>
+      <field>ER SL</field>
+      <field>WL SR</field>
       <river>W E</river>
       <wagon-move>
         <neighbouring>N S</neighbouring>
       </wagon-move>
     </tile>
     <tile id="RI.2/II" group="river">
-      <farm>WR NL NR EL ER SL</farm>
-      <farm>WL SR</farm>
+      <field>WR NL NR EL ER SL</field>
+      <field>WL SR</field>
       <river>W S</river>
     </tile>
     <tile id="RI.2/IIG" group="river">
       <garden />
-      <farm>WR NL NR EL ER SL</farm>
-      <farm>WL SR</farm>
+      <field>WR NL NR EL ER SL</field>
+      <field>WL SR</field>
       <river>W S</river>
     </tile>
     <tile id="RI.2/CcII+" group="river">
-      <city pennant="1">N W</city>
-      <farm city="N">SR EL</farm>
-      <farm>ER SL</farm>
+      <city pennants="1">N W</city>
+      <field city="N">SR EL</field>
+      <field>ER SL</field>
       <river>S E</river>
     </tile>
     <tile id="RI.2/II+" group="river">
-      <farm pig="yes">WL SL SR EL ER NR</farm>
-      <farm>WR NL</farm>
+      <field pig-herd="yes">WL SL SR EL ER NR</field>
+      <field>WR NL</field>
       <river>W N</river>
     </tile>
     <tile id="RI.2/RrII" group="river">
       <road>N E</road>
-      <farm>WR NL ER SL</farm>
-      <farm>NR EL</farm>
-      <farm>WL SR</farm>
+      <field>WR NL ER SL</field>
+      <field>NR EL</field>
+      <field>WL SR</field>
       <river>W S</river>
     </tile>
   </tiles>

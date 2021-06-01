@@ -3,17 +3,17 @@
 	<tiles>
 		<tile id="CU/S">
 			<cloister shrine="yes"/>
-			<farm>NL NR SL SR WL WR EL ER</farm>
+			<field>NL NR SL SR WL WR EL ER</field>
 		</tile>
 		<tile id="CU/SC">
 			<cloister shrine="yes"/>
 			<city>N</city>
-			<farm city="N">SL SR WL WR EL ER</farm>
+			<field city="N">SL SR WL WR EL ER</field>
 		</tile>
 		<tile id="CU/SR">
 			<cloister shrine="yes"/>
 			<road>S</road>
-			<farm>NL NR SL SR WL WR EL ER</farm>
+			<field>NL NR SL SR WL WR EL ER</field>
 			<wagon-move>
 				<neighbouring>CLOISTER S</neighbouring>
 			</wagon-move>
@@ -22,7 +22,7 @@
 			<cloister shrine="yes"/>
 			<city>N</city>
 			<road>S</road>
-			<farm city="N">SL SR WL WR EL ER</farm>
+			<field city="N">SL SR WL WR EL ER</field>
 			<wagon-move>
 				<neighbouring>CLOISTER S</neighbouring>
 			</wagon-move>
@@ -31,8 +31,8 @@
 			<cloister shrine="yes"/>
 			<road>N</road>
 			<road>S</road>
-			<farm>NL WL WR SR</farm>
-			<farm>NR EL ER SL</farm>
+			<field>NL WL WR SR</field>
+			<field>NR EL ER SL</field>
 			<wagon-move>
 				<neighbouring>CLOISTER N</neighbouring>
 				<neighbouring>CLOISTER S</neighbouring>
@@ -43,8 +43,8 @@
 			<city>N</city>
 			<road>W</road>
 			<road>E</road>
-			<farm city="N">WR EL</farm>
-			<farm>WL SL SR ER</farm>
+			<field city="N">WR EL</field>
+			<field>WL SL SR ER</field>
 			<wagon-move>
 				<neighbouring>CLOISTER W</neighbouring>
 				<neighbouring>CLOISTER E</neighbouring>

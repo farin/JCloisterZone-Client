@@ -4,50 +4,50 @@
     <tile id="HS/C!.v">
       <vineyard />
       <city castle-base="false">N</city>
-      <farm city="N">WR WL SR</farm>
-      <farm city="N">EL ER SL</farm>
+      <field city="N">WR WL SR</field>
+      <field city="N">EL ER SL</field>
     </tile>
     <tile id="HS/CC!.v">
       <vineyard />
       <city>N W</city>
       <city multi-edge="N">E</city>
-      <farm city="N E">SL SR</farm>
+      <field city="N E">SL SR</field>
     </tile>
     <tile id="HS/Cc.h.1">
       <hill />
       <city>N W</city>
-      <farm city="N">SL SR EL ER</farm>
+      <field city="N">SL SR EL ER</field>
     </tile>
     <tile id="HS/CC.h.2">
       <hill />
       <city>N</city>
       <city>W</city>
-      <farm city="N W">EL ER SL SR</farm>
+      <field city="N W">EL ER SL SR</field>
     </tile>
     <tile id="HS/Cc.v">
       <vineyard />
       <city>N W</city>
-      <farm city="N">SL SR EL ER</farm>
+      <field city="N">SL SR EL ER</field>
     </tile>
     <tile id="HS/CFC.h">
       <hill />
       <city>N</city>
       <city>S</city>
-      <farm city="N S">WL WR EL ER</farm>
+      <field city="N S">WL WR EL ER</field>
     </tile>
     <tile id="HS/CFC.v">
       <vineyard />
       <city castle-base="false">W</city>
       <city castle-base="false">E</city>
-      <farm city="W E">NL NR</farm>
-      <farm city="W E">SL SR</farm>
+      <field city="W E">NL NR</field>
+      <field city="W E">SL SR</field>
     </tile>
     <tile id="HS/CFR.h">
       <hill />
       <city>N</city>
       <road>S</road>
-      <farm city="N">WL WR SR</farm>
-      <farm city="N">EL ER SL</farm>
+      <field city="N">WL WR SR</field>
+      <field city="N">EL ER SL</field>
       <wagon-move>
         <neighbouring>N S</neighbouring>
       </wagon-move>
@@ -56,22 +56,22 @@
       <hill />
       <city>N</city>
       <road>E S</road>
-      <farm city="N">EL WL WR SR</farm>
-      <farm>ER SL</farm>
+      <field city="N">EL WL WR SR</field>
+      <field>ER SL</field>
     </tile>
     <tile id="HS/LCRr">
       <cloister />
       <city>N</city>
       <road>E S</road>
-      <farm city="N">EL WL WR SR</farm>
-      <farm>ER SL</farm>
+      <field city="N">EL WL WR SR</field>
+      <field>ER SL</field>
     </tile>
     <tile id="HS/LRrR">
       <cloister />
       <road>S</road>
       <road>N E</road>
-      <farm>ER SL SR WL WR NL</farm>
-      <farm>NR EL</farm>
+      <field>ER SL SR WL WR NL</field>
+      <field>NR EL</field>
       <wagon-move>
         <neighbouring>CLOISTER S</neighbouring>
       </wagon-move>
@@ -81,8 +81,8 @@
       <city>N</city>
       <city>W</city>
       <road>S</road>
-      <farm city="N W">SR</farm>
-      <farm city="N">EL ER SL</farm>
+      <field city="N W">SR</field>
+      <field city="N">EL ER SL</field>
       <wagon-move>
         <neighbouring>N S</neighbouring>
       </wagon-move>
@@ -91,8 +91,8 @@
       <hill />
       <road>N</road>
       <road>S</road>
-      <farm>NR EL ER SL</farm>
-      <farm>SR WL WR NL</farm>
+      <field>NR EL ER SL</field>
+      <field>SR WL WR NL</field>
       <wagon-move>
         <neighbouring>N S</neighbouring>
       </wagon-move>
@@ -101,8 +101,8 @@
       <hill />
       <road>W</road>
       <road>S</road>
-      <farm>WR NL NR EL ER SL</farm>
-      <farm>SR WL</farm>
+      <field>WR NL NR EL ER SL</field>
+      <field>SR WL</field>
       <wagon-move>
         <neighbouring>W S</neighbouring>
       </wagon-move>
@@ -112,8 +112,8 @@
       <garden />
       <road>W</road>
       <road>S</road>
-      <farm>WR NL NR EL ER SL</farm>
-      <farm>SR WL</farm>
+      <field>WR NL NR EL ER SL</field>
+      <field>SR WL</field>
       <wagon-move>
         <neighbouring>W S</neighbouring>
       </wagon-move>
@@ -122,15 +122,15 @@
       <hill />
       <road>S W</road>
       <city>N</city>
-      <farm city="N">WR EL ER SL</farm>
-      <farm>WL SR</farm>
+      <field city="N">WR EL ER SL</field>
+      <field>WL SR</field>
     </tile>
     <tile id="HS/RRr.v">
       <vineyard />
       <road>W E</road>
       <road>S</road>
-      <farm>WR NL NR EL</farm>
-      <farm>ER SL SR WL</farm>
+      <field>WR NL NR EL</field>
+      <field>ER SL SR WL</field>
     </tile>
   </tiles>
   <sets>

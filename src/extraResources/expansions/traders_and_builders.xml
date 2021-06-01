@@ -3,42 +3,42 @@
 	<tiles>
 		<tile id="TB/Cc.g">
 			<city resource="grain">N W</city>
-			<farm city="N">SL SR EL ER</farm>
+			<field city="N">SL SR EL ER</field>
 		</tile>
 		<tile id="TB/Cc.w">
 			<city resource="wine">N W</city>
-			<farm city="N">SL SR EL ER</farm>
+			<field city="N">SL SR EL ER</field>
 		</tile>
 		<tile id="TB/CCc.c">
 			<city resource="cloth">W E</city>
 			<city>S</city>
-			<farm city="W">NL NR</farm>
-			<farm city="W S">INNER_FARM</farm>
+			<field city="W">NL NR</field>
+			<field city="W S">INNER_FIELD</field>
 		</tile>
 		<tile id="TB/CCc.w">
 			<city resource="wine">W E</city>
 			<city>S</city>
-			<farm city="W">NL NR</farm>
-			<farm city="W S">INNER_FARM</farm>
+			<field city="W">NL NR</field>
+			<field city="W S">INNER_FIELD</field>
 		</tile>
 		<tile id="TB/Ccc.g">
 			<city resource="grain">N W E</city>
-			<farm city="N">SL SR</farm>
+			<field city="N">SL SR</field>
 		</tile>
 		<tile id="TB/CcCC.c">
 			<city resource="cloth">N W</city>
 			<city>S</city>
 			<city>E</city>
-			<farm city="N E S">INNER_FARM</farm>
+			<field city="N E S">INNER_FIELD</field>
 		</tile>
 		<tile id="TB/CcRR!.c">
 			<road>S</road>
 			<road>E</road>
 			<city resource="cloth">N W</city>
-			<farm city="N">SR</farm>
-			<farm city="N">SL</farm>
-			<farm city="N">ER</farm>
-			<farm city="N">EL</farm>
+			<field city="N">SR</field>
+			<field city="N">SL</field>
+			<field city="N">ER</field>
+			<field city="N">EL</field>
 			<wagon-move>
 				<neighbouring>N E</neighbouring>
 				<neighbouring>N S</neighbouring>
@@ -48,9 +48,9 @@
 			<city resource="wine">N W</city>
 			<road>S</road>
 			<road>E</road>
-			<farm city="N">SR</farm>
-			<farm city="N">SL ER</farm>
-			<farm city="N">EL</farm>
+			<field city="N">SR</field>
+			<field city="N">SL ER</field>
+			<field city="N">EL</field>
 			<wagon-move>
 				<neighbouring>N E</neighbouring>
 				<neighbouring>N S</neighbouring>
@@ -61,9 +61,9 @@
 			<city resource="wine">N W</city>
 			<road>S</road>
 			<road>E</road>
-			<farm city="N">SR</farm>
-			<farm city="N">SL ER</farm>
-			<farm city="N">EL</farm>
+			<field city="N">SR</field>
+			<field city="N">SL ER</field>
+			<field city="N">EL</field>
 			<wagon-move>
 				<neighbouring>N E</neighbouring>
 				<neighbouring>N S</neighbouring>
@@ -73,8 +73,8 @@
 			<city resource="cloth">N W</city>
 			<city>S</city>
 			<road>E</road>
-			<farm city="N">EL</farm>
-			<farm city="N S">ER</farm>
+			<field city="N">EL</field>
+			<field city="N S">ER</field>
 			<wagon-move>
 				<neighbouring>N E</neighbouring>
 			</wagon-move>
@@ -83,8 +83,8 @@
 			<city resource="grain">N W</city>
 			<city>S</city>
 			<road>E</road>
-			<farm city="N">EL</farm>
-			<farm city="N S">ER</farm>
+			<field city="N">EL</field>
+			<field city="N S">ER</field>
 			<wagon-move>
 				<neighbouring>N E</neighbouring>
 			</wagon-move>
@@ -92,8 +92,8 @@
 		<tile id="TB/CcR.c">
 			<city resource="cloth">N W</city>
 			<road>E</road>
-			<farm city="N">EL</farm>
-			<farm city="N">ER SL SR</farm>
+			<field city="N">EL</field>
+			<field city="N">ER SL SR</field>
 			<wagon-move>
 				<neighbouring>N E</neighbouring>
 			</wagon-move>
@@ -102,8 +102,8 @@
       <garden />
 			<city resource="cloth">N W</city>
 			<road>E</road>
-			<farm city="N">EL</farm>
-			<farm city="N">ER SL SR</farm>
+			<field city="N">EL</field>
+			<field city="N">ER SL SR</field>
 			<wagon-move>
 				<neighbouring>N E</neighbouring>
 			</wagon-move>
@@ -111,9 +111,9 @@
 		<tile id="TB/CcR!.w">
 			<road>E</road>
 			<city resource="wine">N W</city>
-			<farm city="N">EL</farm>
-			<farm city="N">ER</farm>
-			<farm city="N">SL SR</farm>
+			<field city="N">EL</field>
+			<field city="N">ER</field>
+			<field city="N">SL SR</field>
 			<wagon-move>
 				<neighbouring>N E</neighbouring>
 			</wagon-move>
@@ -121,8 +121,8 @@
 		<tile id="TB/CccR.w">
 			<city resource="wine">N W E</city>
 			<road>S</road>
-			<farm city="N">SR</farm>
-			<farm city="N">SL</farm>
+			<field city="N">SR</field>
+			<field city="N">SL</field>
 			<wagon-move>
 				<neighbouring>N S</neighbouring>
 			</wagon-move>
@@ -130,18 +130,18 @@
 		<tile id="TB/CcCc.w">
 			<city resource="wine">N W</city>
 			<city>E S</city>
-			<farm city="N S">INNER_FARM</farm>
+			<field city="N S">INNER_FIELD</field>
 		</tile>
 		<tile id="TB/CFc.w">
 			<city resource="wine">W E</city>
-			<farm city="W">NL NR</farm>
-			<farm city="W">SL SR</farm>
+			<field city="W">NL NR</field>
+			<field city="W">SL SR</field>
 		</tile>
 		<tile id="TB/CR">
 			<city>N</city>
 			<road>E</road>
-			<farm city="N">EL</farm>
-			<farm city="N">WL WR SL SR ER</farm>
+			<field city="N">EL</field>
+			<field city="N">WL WR SL SR ER</field>
 			<wagon-move>
 				<neighbouring>N E</neighbouring>
 			</wagon-move>
@@ -149,9 +149,9 @@
 		<tile id="TB/CRc.g">
 			<city resource="grain">W E</city>
 			<road>S</road>
-			<farm city="W">NL NR</farm>
-			<farm city="W">SR</farm>
-			<farm city="W">SL</farm>
+			<field city="W">NL NR</field>
+			<field city="W">SR</field>
+			<field city="W">SL</field>
 			<wagon-move>
 				<neighbouring>W S</neighbouring>
 			</wagon-move>
@@ -159,9 +159,9 @@
 		<tile id="TB/CRc.w">
 			<city resource="wine">W E</city>
 			<road>S</road>
-			<farm city="W">NL NR</farm>
-			<farm city="W">SR</farm>
-			<farm city="W">SL</farm>
+			<field city="W">NL NR</field>
+			<field city="W">SR</field>
+			<field city="W">SL</field>
 			<wagon-move>
 				<neighbouring>W S</neighbouring>
 			</wagon-move>
@@ -170,10 +170,10 @@
 			<city resource="wine">E W</city>
 			<road>N</road>
 			<road>S</road>
-			<farm city="W">NL</farm>
-			<farm city="W">NR</farm>
-			<farm city="W">SL</farm>
-			<farm city="W">SR</farm>
+			<field city="W">NL</field>
+			<field city="W">NR</field>
+			<field city="W">SL</field>
+			<field city="W">SR</field>
 			<wagon-move>
 				<neighbouring>W N</neighbouring>
 				<neighbouring>W S</neighbouring>
@@ -184,9 +184,9 @@
 			<road>E</road>
 			<road>S</road>
 			<road>W</road>
-			<farm>WR NL NR EL</farm>
-			<farm>ER SL</farm>
-			<farm>WL SR</farm>
+			<field>WR NL NR EL</field>
+			<field>ER SL</field>
+			<field>WL SR</field>
 			<wagon-move>
 				<neighbouring>CLOISTER W</neighbouring>
 				<neighbouring>CLOISTER S</neighbouring>
@@ -196,8 +196,8 @@
 		<tile id="TB/RCc.g">
 			<city resource="grain">N W</city>
 			<road>S</road>
-			<farm city="N">SR</farm>
-			<farm city="N">SL EL ER</farm>
+			<field city="N">SR</field>
+			<field city="N">SL EL ER</field>
 			<wagon-move>
 				<neighbouring>N S</neighbouring>
 			</wagon-move>
@@ -205,9 +205,9 @@
 		<tile id="TB/RCc!.g">
 			<road>S</road>
 			<city resource="grain">N W</city>
-			<farm city="N">SR</farm>
-			<farm city="N">SL</farm>
-			<farm city="N">EL ER</farm>
+			<field city="N">SR</field>
+			<field city="N">SL</field>
+			<field city="N">EL ER</field>
 			<wagon-move>
 				<neighbouring>N S</neighbouring>
 			</wagon-move>
@@ -216,9 +216,9 @@
 			<city>N</city>
 			<road>W</road>
 			<road>S</road>
-			<farm city="N">WR</farm>
-			<farm>WL SR</farm>
-			<farm city="N">EL ER SL</farm>
+			<field city="N">WR</field>
+			<field>WL SR</field>
+			<field city="N">EL ER SL</field>
 			<wagon-move>
 				<neighbouring>N S</neighbouring>
 			</wagon-move>
@@ -226,10 +226,10 @@
 		<tile id="TB/RRrr">
 			<road>N S</road>
 			<road>W E</road>
-			<farm>WR NL</farm>
-			<farm>NR EL</farm>
-			<farm>ER SL</farm>
-			<farm>SR WL</farm>
+			<field>WR NL</field>
+			<field>NR EL</field>
+			<field>ER SL</field>
+			<field>SR WL</field>
 		</tile>
 	</tiles>
   <sets>

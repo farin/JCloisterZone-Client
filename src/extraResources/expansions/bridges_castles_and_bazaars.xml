@@ -10,8 +10,8 @@
       <city>N</city>
       <city>E</city>
       <road>S</road>
-      <farm city="W N E">SR</farm>
-      <farm city="E">SL</farm>
+      <field city="W N E">SR</field>
+      <field city="E">SL</field>
       <wagon-move>
         <neighbouring>S E</neighbouring>
       </wagon-move>
@@ -19,15 +19,15 @@
     <tile id="BB/CFc.b">
       <bazaar />
       <city>W E</city>
-      <farm city="W">NL NR</farm>
-      <farm city="W">SL SR</farm>
+      <field city="W">NL NR</field>
+      <field city="W">SL SR</field>
     </tile>
     <tile id="BB/CFR!">
       <city castle-base="false">W</city>
       <road>E</road>
-      <farm city="W">NL NR</farm>
-      <farm city="W">EL</farm>
-      <farm city="W">ER SL SR</farm>
+      <field city="W">NL NR</field>
+      <field city="W">EL</field>
+      <field city="W">ER SL SR</field>
       <wagon-move>
         <neighbouring>W E</neighbouring>
       </wagon-move>
@@ -36,9 +36,9 @@
       <garden/>
       <city>W</city>
       <road>E</road>
-      <farm city="W">NL NR</farm>
-      <farm city="W">EL</farm>
-      <farm city="W">ER SL SR</farm>
+      <field city="W">NL NR</field>
+      <field city="W">EL</field>
+      <field city="W">ER SL SR</field>
       <wagon-move>
         <neighbouring>W E</neighbouring>
       </wagon-move>
@@ -47,17 +47,17 @@
       <bazaar />
       <city>N</city>
       <road>S</road>
-      <farm city="N">EL ER SL SR WL WR</farm>
+      <field city="N">EL ER SL SR WL WR</field>
     </tile>
     <tile id="BB/F.b">
       <bazaar />
-      <farm>NL NR EL ER SL SR WL WR</farm>
+      <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="BB/LCFc">
       <cloister />
       <city>W E</city>
-      <farm city="W">NL NR</farm>
-      <farm city="W">SL SR</farm>
+      <field city="W">NL NR</field>
+      <field city="W">SL SR</field>
       <wagon-move>
         <neighbouring>CLOISTER W</neighbouring>
       </wagon-move>
@@ -65,27 +65,27 @@
     <tile id="BB/LRFr">
       <cloister />
       <road>W E</road>
-      <farm>WR NL NR EL</farm>
-      <farm>ER SL SR WL</farm>
+      <field>WR NL NR EL</field>
+      <field>ER SL SR WL</field>
     </tile>
     <tile id="BB/R.bi">
       <bazaar />
       <road inn="yes">S</road>
-      <farm>NL NR EL ER SL SR WL WR</farm>
+      <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="BB/RFR.b">
       <bazaar />
       <road>N</road>
       <road>S</road>
-      <farm>SR WL WR NL</farm>
-      <farm>NR EL ER SL</farm>
+      <field>SR WL WR NL</field>
+      <field>NR EL ER SL</field>
     </tile>
     <tile id="BB/RFR.bi">
       <bazaar />
       <road>N</road>
       <road inn="yes">S</road>
-      <farm>SR WL WR NL</farm>
-      <farm>NR EL ER SL</farm>
+      <field>SR WL WR NL</field>
+      <field>NR EL ER SL</field>
     </tile>
   </tiles>
   <sets>
