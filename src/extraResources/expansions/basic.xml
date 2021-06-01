@@ -2,15 +2,15 @@
 <defs>
   <tiles>
     <tile id="BA/L">
-      <cloister />
+      <monastery />
       <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="BA/LR">
-      <cloister />
+      <monastery />
       <road>S</road>
       <field>NL NR EL ER SL SR WL WR</field>
       <wagon-move>
-        <neighbouring>CLOISTER S</neighbouring>
+        <neighbouring>MONASTERY S</neighbouring>
       </wagon-move>
     </tile>
     <tile id="BA/RCr">

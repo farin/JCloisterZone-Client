@@ -88,7 +88,7 @@
             1,
             0
           ],
-          "location": "CLOISTER"
+          "location": "MONASTERY"
         },
         "meepleId": "0.abbot.1"
       },
@@ -124,7 +124,7 @@
             0,
             1
           ],
-          "location": "CLOISTER"
+          "location": "MONASTERY"
         },
         "meepleId": "1.abbot.1"
       },

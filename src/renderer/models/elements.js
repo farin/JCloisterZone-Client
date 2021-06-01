@@ -82,7 +82,7 @@ export const PORTAL = GameElement.PORTAL = new GameElement('portal', 'Magic port
   selector: 'portal'
 })
 export const PIG_HERD = GameElement.PIG_HERD = new GameElement('pig-herd', 'Pig Herds', Boolean, {
-  selector: 'farm[pig]'
+  selector: 'field[pig-herd]'
 })
 export const BAZAAR = GameElement.BAZAAR = new GameElement('bazaar', 'Bazaars', Boolean, {
   selector: 'bazaar'
@@ -93,8 +93,8 @@ export const HILL = GameElement.HILL = new GameElement('hill', 'Hills', Boolean,
 export const VINEYARD = GameElement.VINEYARD = new GameElement('vineyard', 'Vineyards', Boolean, {
   selector: 'vineyard'
 })
-export const SHRINE = GameElement.SHRINE = new GameElement('shrine', 'Cloister/Shrine challenges', Boolean, {
-  selector: 'cloister[shrine]'
+export const SHRINE = GameElement.SHRINE = new GameElement('shrine', 'Monastery/Shrine challenges', Boolean, {
+  selector: 'monastery[shrine]'
 })
 export const FESTIVAL = GameElement.FESTIVAL = new GameElement('festival', 'Festival', Boolean, {
   selector: 'festival'

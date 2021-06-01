@@ -33,7 +33,7 @@ const TITLE_MAPPING = {
   'city': 'City',
   'city.tiny': 'Tiny city',
   'road': 'Road',
-  'cloister': 'Monastery',
+  'monastery': 'Monastery',
   'church': 'Church bonus',
   'shrine': 'Shrine',
   'garden': 'Garden',
@@ -47,7 +47,7 @@ const TITLE_MAPPING = {
   'king': 'King',
   'robber': 'Robber',
   'king+robber': 'King & Robber',
-  'monastery': 'Special monastery',
+  'special-monastery': 'Special monastery',
   'gold': 'Gold ingots',
   'vodyanoy': 'Vodyanoy'
 }

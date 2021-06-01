@@ -54,16 +54,16 @@
       <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="BB/LCFc">
-      <cloister />
+      <monastery />
       <city>W E</city>
       <field city="W">NL NR</field>
       <field city="W">SL SR</field>
       <wagon-move>
-        <neighbouring>CLOISTER W</neighbouring>
+        <neighbouring>MONASTERY W</neighbouring>
       </wagon-move>
     </tile>
     <tile id="BB/LRFr">
-      <cloister />
+      <monastery />
       <road>W E</road>
       <field>WR NL NR EL</field>
       <field>ER SL SR WL</field>

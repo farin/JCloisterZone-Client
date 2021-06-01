@@ -9,7 +9,7 @@
     "description": "Vineyards scoring",
     "assertions": [
       "Alice has 21 points",
-      "Alice scored cloister for 21 points"
+      "Alice scored monastery for 21 points"
     ]
   },
   "setup": {
@@ -111,7 +111,7 @@
             0,
             1
           ],
-          "location": "CLOISTER"
+          "location": "MONASTERY"
         },
         "meepleId": "0.small.1"
       },

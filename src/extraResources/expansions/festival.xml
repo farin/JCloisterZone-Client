@@ -56,14 +56,14 @@
   </tile>
   <tile id="FE/LRR">
     <festival />
-    <cloister />
+    <monastery />
     <road>S</road>
     <road>W</road>
     <field>WR NL NR EL ER SL</field>
     <field>WL SR</field>
     <wagon-move>
-      <neighbouring>CLOISTER W</neighbouring>
-      <neighbouring>CLOISTER S</neighbouring>
+      <neighbouring>MONASTERY W</neighbouring>
+      <neighbouring>MONASTERY S</neighbouring>
     </wagon-move>
   </tile>
   <tile id="FE/RC">

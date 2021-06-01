@@ -3,20 +3,20 @@
   <tiles>
     <tile id="GO/LRr">
       <goldmine />
-      <cloister />
+      <monastery />
       <road>E S</road>
       <field>NL NR EL SR WL WR</field>
       <field>ER SL</field>
     </tile>
     <tile id="GO/LCc">
       <goldmine />
-      <cloister />
+      <monastery />
       <city>N W</city>
       <field city="N">SL SR EL ER</field>
     </tile>
     <tile id="GO/LCcRr">
       <goldmine />
-      <cloister />
+      <monastery />
       <road>E S</road>
       <city>N W</city>
       <field city="N">EL SR</field>
@@ -24,7 +24,7 @@
     </tile>
     <tile id="GO/LRrRr">
       <goldmine />
-      <cloister />
+      <monastery />
       <road>N E</road>
       <road>S W</road>
       <field>NR EL</field>

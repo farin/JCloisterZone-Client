@@ -101,7 +101,7 @@
           <template #icon>
             <img src="~/assets/features/C1/shrine.jpg" height="55">
           </template>
-          <template #description>Shrine placed next to cloister compete who finish feature first. (second gets no points)</template>
+          <template #description>Shrine placed next to a monastery compete who finish feature first. (second gets no points)</template>
           <template #disabled>The Cult expansion is not in the game.</template>
         </GameMechanicsBox>
 
@@ -125,7 +125,7 @@
           <template #icon>
             <img src="~/assets/features/C1/escape.png" height="55">
           </template>
-          <template #description>Espace allowed via a&nbsp;neighboring cloister.</template>
+          <template #description>Espace allowed via a&nbsp;neighboring monastery.</template>
           <template #disabled>Siege expansion is not in the game.</template>
         </GameMechanicsBox>
       </div>

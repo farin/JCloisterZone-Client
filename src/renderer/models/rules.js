@@ -117,7 +117,7 @@ export const WAGON_MOVE = Rule.WAGON_MOVE = new Rule('wagon-move', GAMEPLAY,
   'After scored, wagon can me moved to adjacent unoccupied, incomplete feature. Adjacent means: {}',
   [GameElement.WAGON],
   [
-    { value: 'C1', text: 'connected (road crossing or road heading to a city/cloister) (1st ed.)' },
+    { value: 'C1', text: 'connected (road crossing or road heading to a city/monastery) (1st ed.)' },
     { value: 'C2', text: 'feature on the same or an adjacent tile (2nd ed.)' }
   ],
   { default: 'C2', style: 'xlong' }
@@ -145,7 +145,7 @@ export const HILL_TIEBREAKER = Rule.HILL_TIEBREAKER = new Rule('hill-tiebreaker'
 )
 
 export const ESCAPE_VARIANT = Rule.ESCAPE_VARIANT = new Rule('espace-variant', GAMEPLAY,
-  'Cloister must be placed adjacent to {} of a\u00A0;besieged city to espace.',
+  'Monastery must be placed adjacent to {} of a\u00A0;besieged city to espace.',
   [GameElement.ESCAPE],
   [
     { value: 'any-tile', text: 'any tile', flags: ['RGG'] },

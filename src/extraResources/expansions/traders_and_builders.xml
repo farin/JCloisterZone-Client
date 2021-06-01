@@ -180,7 +180,7 @@
 			</wagon-move>
 		</tile>
 		<tile id="TB/LRRR">
-			<cloister/>
+			<monastery/>
 			<road>E</road>
 			<road>S</road>
 			<road>W</road>
@@ -188,9 +188,9 @@
 			<field>ER SL</field>
 			<field>WL SR</field>
 			<wagon-move>
-				<neighbouring>CLOISTER W</neighbouring>
-				<neighbouring>CLOISTER S</neighbouring>
-				<neighbouring>CLOISTER E</neighbouring>
+				<neighbouring>MONASTERY W</neighbouring>
+				<neighbouring>MONASTERY S</neighbouring>
+				<neighbouring>MONASTERY E</neighbouring>
 			</wagon-move>
 		</tile>
 		<tile id="TB/RCc.g">

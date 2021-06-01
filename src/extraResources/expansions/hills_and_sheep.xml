@@ -60,20 +60,20 @@
       <field>ER SL</field>
     </tile>
     <tile id="HS/LCRr">
-      <cloister />
+      <monastery />
       <city>N</city>
       <road>E S</road>
       <field city="N">EL WL WR SR</field>
       <field>ER SL</field>
     </tile>
     <tile id="HS/LRrR">
-      <cloister />
+      <monastery />
       <road>S</road>
       <road>N E</road>
       <field>ER SL SR WL WR NL</field>
       <field>NR EL</field>
       <wagon-move>
-        <neighbouring>CLOISTER S</neighbouring>
+        <neighbouring>MONASTERY S</neighbouring>
       </wagon-move>
     </tile>
     <tile id="HS/RCC.v">

@@ -2,7 +2,7 @@
 <defs>
   <tiles>
     <tile id="KR/LC">
-      <cloister />
+      <monastery />
       <city>N</city>
       <field city="N">EL ER SL SR WL WR</field>
     </tile>

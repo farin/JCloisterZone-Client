@@ -9,7 +9,7 @@
     "description": "Vineyards doesn't affect incomplete monastery",
     "assertions": [
       "Alice has 3 points",
-      "Alice scored cloister for 3 points"
+      "Alice scored monastery for 3 points"
     ]
   },
   "setup": {
@@ -111,7 +111,7 @@
             1,
             1
           ],
-          "location": "CLOISTER"
+          "location": "MONASTERY"
         },
         "meepleId": "0.small.1"
       },

@@ -15,7 +15,7 @@
       <field city="S">WL ER</field>
     </tile>
     <tile id="GQ/LRRRR">
-      <cloister />
+      <monastery />
       <road>N</road>
       <road>W</road>
       <road>S</road>
@@ -25,10 +25,10 @@
       <field>ER SL</field>
       <field>SR WL</field>
       <wagon-move>
-        <neighbouring>CLOISTER N</neighbouring>
-        <neighbouring>CLOISTER W</neighbouring>
-        <neighbouring>CLOISTER E</neighbouring>
-        <neighbouring>CLOISTER S</neighbouring>
+        <neighbouring>MONASTERY N</neighbouring>
+        <neighbouring>MONASTERY W</neighbouring>
+        <neighbouring>MONASTERY E</neighbouring>
+        <neighbouring>MONASTERY S</neighbouring>
       </wagon-move>
     </tile>
     <tile id="GQ/F">

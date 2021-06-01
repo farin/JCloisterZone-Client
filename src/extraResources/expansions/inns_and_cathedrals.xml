@@ -7,14 +7,14 @@
       <city cathedral="yes">N W S E</city>
     </tile>
     <tile id="IC/LRFR">
-      <cloister />
+      <monastery />
       <road>W</road>
       <road>E</road>
       <field>ER SL SR WL</field>
       <field>EL NL NR WR</field>
       <wagon-move>
-        <neighbouring>CLOISTER W</neighbouring>
-        <neighbouring>CLOISTER E</neighbouring>
+        <neighbouring>MONASTERY W</neighbouring>
+        <neighbouring>MONASTERY E</neighbouring>
       </wagon-move>
     </tile>
     <tile id="IC/CCCC">

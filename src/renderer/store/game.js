@@ -260,8 +260,8 @@ export const getters = {
   },
 
   featureOn: state => ({ position, location }) => {
-    if (location === 'MONASTERY') {
-      location = 'CLOISTER'
+    if (location === 'MONASTERY_AS_ABBOT') {
+      location = 'MONASTERY'
     }
     return state.features.find(({ places }) => {
       return !!places.find(p => p[0] === position[0] && p[1] === position[1] && p[2] === location)
@@ -426,7 +426,7 @@ export const actions = {
           return
         }
         if (compareVersions.compare(sg.appVersion, '5.7.0', '<')) {
-          sg = JSON.parse(data.toString().replaceAll('INNER_FARM', 'INNER_FIELD'))
+          sg = JSON.parse(data.toString().replaceAll('INNER_FARM', 'INNER_FIELD').replaceAll('MONASTERY', 'MONASTERY_AS_ABBOT').replaceAll('CLOISTER', 'MONASTERY'))
         }
 
         if (sg.setup && !sg.test && (isNil(sg.players) || isNil(sg.initialSeed) || isNil(sg.replay) || isNil(sg.clock) || isNil(sg.gameId))) {

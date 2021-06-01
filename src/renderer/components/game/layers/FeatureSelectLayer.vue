@@ -69,7 +69,7 @@ export default {
       const cloisterOptionsWithFeature = []
       const monasteries = []
       this.options.forEach(option => {
-        if (option.location === 'MONASTERY') {
+        if (option.location === 'MONASTERY_AS_ABBOT') {
           monasteries.push(option)
           return
         }
@@ -85,7 +85,7 @@ export default {
         }
 
         optionsWithFeature.push(opt)
-        if (option.location === 'CLOISTER') {
+        if (option.location === 'MONASTERY') {
           cloisterOptionsWithFeature.push(opt)
         }
       })
@@ -93,14 +93,14 @@ export default {
       monasteries.forEach(m => {
         const opt = cloisterOptionsWithFeature.find(({ option }) => option.position[0] === m.position[0] && option.position[1] === m.position[1])
         if (opt) {
-          opt.abbotChoice = 'cloister-or-monastery'
+          opt.abbotChoice = 'monk-or-as-abbot'
         } else {
           // abbot only placement
           const tile = this.tileOn(m.position)
           optionsWithFeature.push({
             option: m,
-            feature: this.$theme.getFeature(tile, 'CLOISTER', this.bridges),
-            abbotChoice: 'monastery-only'
+            feature: this.$theme.getFeature(tile, 'MONASTERY', this.bridges),
+            abbotChoice: 'as-abbot-only'
           })
         }
       })

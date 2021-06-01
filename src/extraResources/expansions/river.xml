@@ -29,14 +29,14 @@
       </wagon-move>
     </tile>
     <tile id="RI.1/LIRI" group="river">
-      <cloister />
+      <monastery />
       <road>S</road>
       <field>WR NL NR EL</field>
       <field>ER SL</field>
       <field>WL SR</field>
       <river>W E</river>
       <wagon-move>
-        <neighbouring>CLOISTER S</neighbouring>
+        <neighbouring>MONASTERY S</neighbouring>
       </wagon-move>
     </tile>
     <tile id="RI.1/RIrI" group="river">
@@ -101,7 +101,7 @@
       <river>N S</river>
     </tile>
     <tile id="RI.2/LIFI" group="river">
-      <cloister />
+      <monastery />
       <field>WR NL NR EL</field>
       <field>WL SL SR ER</field>
       <river>W E</river>

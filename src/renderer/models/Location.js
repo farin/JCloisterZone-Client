@@ -178,8 +178,8 @@ export const _E = Location._E = new Location('_E', 243 << 8) // Supplement to th
 
 export const INNER_CITY = Location.INNER_CITY = new Location('INNER_CITY') // Inner city
 export const INNER_ROAD = Location.INNER_ROAD = new Location('INNER_ROAD') // Inner city
-export const CLOISTER = Location.CLOISTER = new Location('CLOISTER') // Cloister on tile
-export const MONASTERY = Location.MONASTERY = new Location('MONASTERY')
+export const MONASTERY = Location.MONASTERY = new Location('MONASTERY') // Monastery on tile
+export const MONASTERY_AS_ABBOT = Location.MONASTERY_AS_ABBOT = new Location('MONASTERY_AS_ABBOT')
 export const TOWER = Location.TOWER = new Location('TOWER') // Tower on tile
 // Flier location - follower can be placed here just for moment, befor dice roll
 export const FLYING_MACHINE = Location.FLYING_MACHINE = new Location('FLYING_MACHINE')

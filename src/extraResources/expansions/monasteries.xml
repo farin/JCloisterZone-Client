@@ -2,35 +2,35 @@
 <defs>
   <tiles>
     <tile id="MO/M1">
-      <cloister monastery="yes" />
+      <monastery special="yes" />
       <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="MO/M2">
-      <cloister monastery="yes" />
+      <monastery special="yes" />
       <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="MO/M3">
-      <cloister monastery="yes" />
+      <monastery special="yes" />
       <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="MO/M4">
-      <cloister monastery="yes" />
+      <monastery special="yes" />
       <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="MO/MR1">
-      <cloister monastery="yes" />
+      <monastery special="yes" />
       <road>S</road>
       <field>NL NR EL ER SL SR WL WR</field>
       <wagon-move>
-        <neighbouring>CLOISTER S</neighbouring>
+        <neighbouring>MONASTERY S</neighbouring>
       </wagon-move>
     </tile>
     <tile id="MO/MR2">
-      <cloister monastery="yes" />
+      <monastery special="yes" />
       <road>S</road>
       <field>NL NR EL ER SL SR WL WR</field>
       <wagon-move>
-        <neighbouring>CLOISTER S</neighbouring>
+        <neighbouring>MONASTERY S</neighbouring>
       </wagon-move>
     </tile>
   </tiles>

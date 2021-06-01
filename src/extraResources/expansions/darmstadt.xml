@@ -5,7 +5,7 @@
       <city darmstadtium="yes">N W S E</city>
     </tile>
     <tile id="DA/LRRRR">
-      <cloister church="true"/>
+      <monastery church="true"/>
       <road>N</road>
       <road>W</road>
       <road>S</road>
@@ -15,19 +15,19 @@
       <field>ER SL</field>
       <field>SR WL</field>
       <wagon-move>
-        <neighbouring>CLOISTER N</neighbouring>
-        <neighbouring>CLOISTER W</neighbouring>
-        <neighbouring>CLOISTER E</neighbouring>
-        <neighbouring>CLOISTER S</neighbouring>
+        <neighbouring>MONASTERY N</neighbouring>
+        <neighbouring>MONASTERY W</neighbouring>
+        <neighbouring>MONASTERY E</neighbouring>
+        <neighbouring>MONASTERY S</neighbouring>
       </wagon-move>
     </tile>
     <tile id="DA/LRR">
-      <cloister church="true" />
+      <monastery church="true" />
       <road>E S</road>
       <field>NL NR EL SR WL WR</field>
       <field>ER SL</field>
       <wagon-move>
-        <neighbouring>CLOISTER E</neighbouring>
+        <neighbouring>MONASTERY E</neighbouring>
       </wagon-move>
     </tile>
   </tiles>

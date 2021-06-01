@@ -17,7 +17,7 @@
     </tile>
     <tile id="TO/L">
       <tower />
-      <cloister />
+      <monastery />
       <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="TO/RR">

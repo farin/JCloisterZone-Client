@@ -30,7 +30,7 @@ const FEATURE_ORDER = {
   S: 40,
   SE: 41,
   TOWER: 50,
-  CLOISTER: 51
+  MONASTERY: 51
 }
 
 const MISC_SVG = require('~/assets/misc.svg')
@@ -477,8 +477,8 @@ class Theme {
       }
     }
 
-    if (loc === 'MONASTERY') {
-      loc = 'CLOISTER'
+    if (loc === 'MONASTERY_AS_ABBOT') {
+      loc = 'MONASTERY'
     } else if (rotation !== 0) {
       loc = Location.parse(loc).rotateCCW(rotation).name
     }

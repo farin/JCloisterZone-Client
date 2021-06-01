@@ -13,7 +13,7 @@ import LayeredItemMixin from '@/components/game/actions/items/LayeredItemMixin.j
 
 const FEATURE_QUARTERS = {
   City: 'QUARTER_CASTLE',
-  Cloister: 'QUARTER_CATHEDRAL',
+  Monastery: 'QUARTER_CATHEDRAL',
   Farm: 'QUARTER_MARKET',
   Road: 'QUARTER_BLACKSMITH'
 }
