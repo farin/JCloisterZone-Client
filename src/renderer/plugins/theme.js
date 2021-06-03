@@ -483,7 +483,6 @@ class Theme {
       loc = Location.parse(loc).rotateCCW(rotation).name
     }
 
-    // console.log(bridges)
     const tile = this.getTile(id)
     let feature = tile.features[loc]
 

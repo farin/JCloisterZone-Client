@@ -2,7 +2,6 @@ import fs from 'fs'
 import { extname } from 'path'
 import { ipcRenderer } from 'electron'
 import compareVersions from 'compare-versions'
-import { randomId } from '@/utils/random'
 
 import difference from 'lodash/difference'
 import pick from 'lodash/pick'
@@ -14,8 +13,9 @@ import Vue from 'vue'
 
 import { SAVED_GAME_COMPATIBILITY } from '@/constants/versions'
 import Location from '@/models/Location'
+import { randomId } from '@/utils/random'
 import { getAppVersion } from '@/utils/version'
-import { isSameFeature } from '@/utils/gameUtils'
+import { isSameFeature, migrateLegacyReplay } from '@/utils/gameUtils'
 import { verifyScenario } from '@/utils/testing'
 
 const SAVED_GAME_FILTERS = [{ name: 'Saved Game', extensions: ['jcz'] }]
@@ -425,9 +425,6 @@ export const actions = {
           reject(msg)
           return
         }
-        if (compareVersions.compare(sg.appVersion, '5.7.0', '<')) {
-          sg = JSON.parse(data.toString().replaceAll('INNER_FARM', 'INNER_FIELD').replaceAll('MONASTERY', 'MONASTERY_AS_ABBOT').replaceAll('CLOISTER', 'MONASTERY'))
-        }
 
         if (sg.setup && !sg.test && (isNil(sg.players) || isNil(sg.initialSeed) || isNil(sg.replay) || isNil(sg.clock) || isNil(sg.gameId))) {
           if (rootState.runningTests) {
@@ -471,7 +468,7 @@ export const actions = {
         initialSeed: sg.initialSeed,
         gameAnnotations: sg.gameAnnotations || {},
         slots,
-        replay: sg.replay,
+        replay: migrateLegacyReplay(sg.appVersion, sg.replay),
         clock: sg.clock
       }, { root: true })
 
