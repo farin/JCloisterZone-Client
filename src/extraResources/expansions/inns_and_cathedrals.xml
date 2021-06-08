@@ -7,15 +7,11 @@
       <city cathedral="yes">N W S E</city>
     </tile>
     <tile id="IC/LRFR">
-      <monastery />
-      <road>W</road>
-      <road>E</road>
+      <monastery wagon-move="a b"/>
+      <road wagon-move="a">W</road>
+      <road wagon-move="b">E</road>
       <field>ER SL SR WL</field>
       <field>EL NL NR WR</field>
-      <wagon-move>
-        <neighbouring>MONASTERY W</neighbouring>
-        <neighbouring>MONASTERY E</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="IC/CCCC">
       <city>N</city>
@@ -39,17 +35,14 @@
       <field city="N W E">SL SR</field>
     </tile>
     <tile id="IC/CRCR">
-      <city>N</city>
-      <city>S</city>
-      <road>W</road>
-      <road>E</road>
+      <city wagon-move="a">N</city>
+      <city wagon-move="a">S</city>
+      <road wagon-move="a">W</road>
+      <road wagon-move="a">E</road>
       <field city="S">ER</field>
       <field city="S">WL</field>
       <field city="N">EL</field>
       <field city="N">WR</field>
-      <wagon-move>
-        <neighbouring>W E</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="IC/CCc+">
       <city pennants="1">N W</city>
@@ -62,44 +55,31 @@
       <field city="N">WL WR SL SR</field>
     </tile>
     <tile id="IC/CFR">
-      <city>N</city>
-      <road>S</road>
+      <city wagon-move="a">N</city>
+      <road wagon-move="a">S</road>
       <field city="N">WL WR SR</field>
       <field city="N">EL ER SL</field>
-      <wagon-move>
-        <neighbouring>N S</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="IC/CcR">
-      <city>N W</city>
-      <road>E</road>
+      <city wagon-move="a">N W</city>
+      <road wagon-move="a">E</road>
       <field city="W">EL</field>
       <field city="W">ER SL SR</field>
-      <wagon-move>
-        <neighbouring>N E</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="IC/CRcR+">
-      <city pennants="1">E W</city>
-      <road>N</road>
-      <road>S</road>
+      <city pennants="1" wagon-move="a b">E W</city>
+      <road wagon-move="a">N</road>
+      <road wagon-move="b">S</road>
       <field city="W">NL</field>
       <field city="W">NR</field>
       <field city="W">SL</field>
       <field city="W">SR</field>
-      <wagon-move>
-        <neighbouring>N W</neighbouring>
-        <neighbouring>S W</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="IC/RCc.i">
-      <city>N W</city>
-      <road inn="yes">S</road>
+      <city wagon-move="a">N W</city>
+      <road inn="yes" wagon-move="a">S</road>
       <field city="W">SR</field>
       <field city="W">SL EL ER</field>
-      <wagon-move>
-        <neighbouring>N S</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="IC/RrC.i">
       <city>N</city>
@@ -114,15 +94,12 @@
       <field city="N">SR EL</field>
     </tile>
     <tile id="IC/RRR.i">
-      <road inn="yes">E</road>
-      <road>W</road>
-      <road>S</road>
+      <road inn="yes" wagon-move="a">E</road>
+      <road wagon-move="a">W</road>
+      <road wagon-move="a">S</road>
       <field>WR NL NR EL</field>
       <field>WL SR</field>
       <field>ER SL</field>
-      <wagon-move>
-        <neighbouring>E W S</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="IC/RFr.i">
       <road inn="yes">W E</road>

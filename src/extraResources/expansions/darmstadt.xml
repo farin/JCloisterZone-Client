@@ -5,30 +5,21 @@
       <city darmstadtium="yes">N W S E</city>
     </tile>
     <tile id="DA/LRRRR">
-      <monastery church="true"/>
-      <road>N</road>
-      <road>W</road>
-      <road>S</road>
-      <road>E</road>
+      <monastery church="true" wagon-move="a b c d"/>
+      <road wagon-move="a">N</road>
+      <road wagon-move="b">W</road>
+      <road wagon-move="c">S</road>
+      <road wagon-move="d">E</road>
       <field>WR NL</field>
       <field>NR EL</field>
       <field>ER SL</field>
       <field>SR WL</field>
-      <wagon-move>
-        <neighbouring>MONASTERY N</neighbouring>
-        <neighbouring>MONASTERY W</neighbouring>
-        <neighbouring>MONASTERY E</neighbouring>
-        <neighbouring>MONASTERY S</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="DA/LRR">
-      <monastery church="true" />
-      <road>E S</road>
+      <monastery church="true" wagon-move="a"/>
+      <road wagon-move="a">E S</road>
       <field>NL NR EL SR WL WR</field>
       <field>ER SL</field>
-      <wagon-move>
-        <neighbouring>MONASTERY E</neighbouring>
-      </wagon-move>
     </tile>
   </tiles>
   <sets>

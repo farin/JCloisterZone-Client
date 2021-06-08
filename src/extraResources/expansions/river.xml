@@ -17,27 +17,21 @@
       <river>W E</river>
     </tile>
     <tile id="RI.1/CIRI" group="river">
-      <city>N</city>
-      <road>S</road>
+      <city wagon-move="a">N</city>
+      <road wagon-move="a">S</road>
       <field city="N">EL</field>
       <field city="N">WR</field>
       <field>ER SL</field>
       <field>WL SR</field>
       <river>W E</river>
-      <wagon-move>
-        <neighbouring>N S</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="RI.1/LIRI" group="river">
-      <monastery />
-      <road>S</road>
+      <monastery wagon-move="a"/>
+      <road wagon-move="a">S</road>
       <field>WR NL NR EL</field>
       <field>ER SL</field>
       <field>WL SR</field>
       <river>W E</river>
-      <wagon-move>
-        <neighbouring>MONASTERY S</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="RI.1/RIrI" group="river">
       <road>W E</road>
@@ -115,16 +109,13 @@
       <river>N S</river>
     </tile>
     <tile id="RI.2/CIRI" group="river">
-      <city>N</city>
-      <road>S</road>
+      <city wagon-move="a">N</city>
+      <road wagon-move="a">S</road>
       <field city="N">EL</field>
       <field city="N">WR</field>
       <field>ER SL</field>
       <field>WL SR</field>
       <river>W E</river>
-      <wagon-move>
-        <neighbouring>N S</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="RI.2/II" group="river">
       <field>WR NL NR EL ER SL</field>

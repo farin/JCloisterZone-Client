@@ -16,13 +16,10 @@
       <field city="N">EL ER</field>
     </tile>
     <tile id="WR/CFR" wind-rose="NWSE">
-      <city>E</city>
-      <road>W</road>
+      <city wagon-move="a">E</city>
+      <road wagon-move="a">W</road>
       <field city="E">WR NL NR</field>
       <field city="E">WL SL SR</field>
-      <wagon-move>
-        <neighbouring>W E</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="WR/Rr" wind-rose="NWSE">
       <road>S W</road>

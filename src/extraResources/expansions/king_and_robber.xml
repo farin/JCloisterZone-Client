@@ -7,47 +7,34 @@
       <field city="N">EL ER SL SR WL WR</field>
     </tile>
     <tile id="KR/RC">
-      <road>W</road>
-      <city>N</city>
+      <road wagon-move="a">W</road>
+      <city wagon-move="a">N</city>
       <field city="N">WR</field>
       <field city="N">EL ER SL SR WL</field>
-      <wagon-move>
-        <neighbouring>N W</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="KR/RCG">
       <garden/>
-      <road>W</road>
-      <city>N</city>
+      <road wagon-move="a">W</road>
+      <city wagon-move="a">N</city>
       <field city="N">WR</field>
       <field city="N">EL ER SL SR WL</field>
-      <wagon-move>
-        <neighbouring>N W</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="KR/CRrR">
-      <road>W</road>
+      <road wagon-move="a">W</road>
       <road>S E</road>
-      <city>N</city>
+      <city wagon-move="a">N</city>
       <field city="N">WR</field>
       <field city="N">EL SR WL</field>
       <field>SL ER</field>
-      <wagon-move>
-        <neighbouring>N W</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="KR/CcRR!">
-      <road>S</road>
-      <road>E</road>
-      <city>N W</city>
+      <road wagon-move="b">S</road>
+      <road wagon-move="a">E</road>
+      <city wagon-move="a b">N W</city>
       <field city="N">SR</field>
       <field city="N">SL</field>
       <field city="N">ER</field>
       <field city="N">EL</field>
-      <wagon-move>
-        <neighbouring>N E</neighbouring>
-        <neighbouring>N S</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="KR/CCcc">
       <city>W E</city>

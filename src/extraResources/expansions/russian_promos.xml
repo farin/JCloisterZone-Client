@@ -6,15 +6,12 @@
       <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="RU/RRrr">
-      <road>N</road>
-      <road>E S W</road>
+      <road wagon-move="a">N</road>
+      <road wagon-move="a">E S W</road>
       <field>WR NL</field>
       <field>NR EL</field>
       <field>ER SL</field>
       <field>SR WL</field>
-      <wagon-move>
-        <neighbouring>N S</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="RU/SR">
       <razboynik></razboynik>

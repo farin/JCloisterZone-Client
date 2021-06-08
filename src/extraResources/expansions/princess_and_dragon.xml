@@ -36,54 +36,40 @@
     </tile>
     <tile id="DG/LRRR.d">
       <dragon />
-      <monastery />
-      <road>E</road>
-      <road>S</road>
-      <road>W</road>
+      <monastery wagon-move="a b c"/>
+      <road wagon-move="a">E</road>
+      <road wagon-move="b">S</road>
+      <road wagon-move="c">W</road>
       <field>WR NL NR EL</field>
       <field>ER SL</field>
       <field>WL SR</field>
-      <wagon-move>
-        <neighbouring>MONASTERY W</neighbouring>
-        <neighbouring>MONASTERY S</neighbouring>
-        <neighbouring>MONASTERY E</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="DG/RRR.d">
       <dragon />
-      <road>E</road>
-      <road>S</road>
-      <road>W</road>
+      <road wagon-move="a">E</road>
+      <road wagon-move="a">S</road>
+      <road wagon-move="a">W</road>
       <field>WR NL NR EL</field>
       <field>ER SL</field>
       <field>SR WL</field>
-      <wagon-move>
-        <neighbouring>E S W</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="DG/RRR.g">
       <portal />
-      <road>E</road>
-      <road>S</road>
-      <road>W</road>
+      <road wagon-move="a">E</road>
+      <road wagon-move="a">S</road>
+      <road wagon-move="a">W</road>
       <field>WR NL NR EL</field>
       <field>ER SL</field>
       <field>SR WL</field>
-      <wagon-move>
-        <neighbouring>E S W</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="DG/CRRR.p">
-      <road>E</road>
-      <road>S</road>
-      <road>W</road>
+      <road wagon-move="a">E</road>
+      <road wagon-move="a">S</road>
+      <road wagon-move="a">W</road>
       <city princess="yes">N</city>
       <field city="N">WR EL</field>
       <field>WL SR</field>
       <field>ER SL</field>
-      <wagon-move>
-        <neighbouring>E S W</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="DG/CCc+.p">
       <city princess="yes" castle-base="false">N</city>
@@ -102,12 +88,9 @@
     </tile>
     <tile id="DG/LCcc.d">
       <dragon />
-      <monastery />
-      <city>N E W</city>
+      <monastery wagon-move="a"/>
+      <city wagon-move="a">N E W</city>
       <field city="N">SL SR</field>
-      <wagon-move>
-        <neighbouring>MONASTERY N</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="DG/Rr.d">
       <dragon />

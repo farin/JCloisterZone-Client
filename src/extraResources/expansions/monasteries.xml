@@ -18,20 +18,14 @@
       <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="MO/MR1">
-      <monastery special="yes" />
-      <road>S</road>
+      <monastery special="yes" wagon-move="a"/>
+      <road wagon-move="a">S</road>
       <field>NL NR EL ER SL SR WL WR</field>
-      <wagon-move>
-        <neighbouring>MONASTERY S</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="MO/MR2">
-      <monastery special="yes" />
-      <road>S</road>
+      <monastery special="yes" wagon-move="a"/>
+      <road wagon-move="a">S</road>
       <field>NL NR EL ER SL SR WL WR</field>
-      <wagon-move>
-        <neighbouring>MONASTERY S</neighbouring>
-      </wagon-move>
     </tile>
   </tiles>
   <sets>

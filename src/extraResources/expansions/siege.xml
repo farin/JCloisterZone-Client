@@ -6,22 +6,16 @@
       <field city="N">SL SR</field>
     </tile>
     <tile id="SI.BE/CcR">
-      <city besieged="yes">N W</city>
-      <road>E</road>
+      <city besieged="yes" wagon-move="a">N W</city>
+      <road wagon-move="a">E</road>
       <field city="W">EL</field>
       <field city="W">ER SL SR</field>
-      <wagon-move>
-        <neighbouring>N E</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="SI.BE/CFR">
-      <city besieged="yes">N</city>
-      <road>S</road>
+      <city besieged="yes" wagon-move="a">N</city>
+      <road wagon-move="a">S</road>
       <field city="N">WL WR SR</field>
       <field city="N">EL ER SL</field>
-      <wagon-move>
-        <neighbouring>N S</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="SI.BE/CRr">
       <road>E S</road>
@@ -30,13 +24,10 @@
       <field>ER SL</field>
     </tile>
     <tile id="SI.BE/RCc">
-      <city besieged="yes">N W</city>
-      <road>S</road>
+      <city besieged="yes" wagon-move="a">N W</city>
+      <road wagon-move="a">S</road>
       <field city="W">SR</field>
       <field city="W">SL EL ER</field>
-      <wagon-move>
-        <neighbouring>N S</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="SI.BE/RrC">
       <road>S W</road>

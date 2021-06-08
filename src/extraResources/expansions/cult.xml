@@ -11,44 +11,30 @@
 			<field city="N">SL SR WL WR EL ER</field>
 		</tile>
 		<tile id="CU/SR">
-			<monastery shrine="yes"/>
-			<road>S</road>
+			<monastery shrine="yes" wagon-move="a"/>
+			<road wagon-move="a">S</road>
 			<field>NL NR SL SR WL WR EL ER</field>
-			<wagon-move>
-				<neighbouring>MONASTERY S</neighbouring>
-			</wagon-move>
 		</tile>
 		<tile id="CU/SCFR">
-			<monastery shrine="yes"/>
+			<monastery shrine="yes" wagon-move="a"/>
 			<city>N</city>
-			<road>S</road>
+			<road wagon-move="a">S</road>
 			<field city="N">SL SR WL WR EL ER</field>
-			<wagon-move>
-				<neighbouring>MONASTERY S</neighbouring>
-			</wagon-move>
 		</tile>
 		<tile id="CU/SRFR">
-			<monastery shrine="yes"/>
-			<road>N</road>
-			<road>S</road>
+			<monastery shrine="yes" wagon-move="a b"/>
+			<road wagon-move="a">N</road>
+			<road wagon-move="b">S</road>
 			<field>NL WL WR SR</field>
 			<field>NR EL ER SL</field>
-			<wagon-move>
-				<neighbouring>MONASTERY N</neighbouring>
-				<neighbouring>MONASTERY S</neighbouring>
-			</wagon-move>
 		</tile>
 		<tile id="CU/SRCR">
-			<monastery shrine="yes"/>
+			<monastery shrine="yes" wagon-move="a b"/>
 			<city>N</city>
-			<road>W</road>
-			<road>E</road>
+			<road wagon-move="a">W</road>
+			<road wagon-move="b">E</road>
 			<field city="N">WR EL</field>
 			<field>WL SL SR ER</field>
-			<wagon-move>
-				<neighbouring>MONASTERY W</neighbouring>
-				<neighbouring>MONASTERY E</neighbouring>
-			</wagon-move>
 		</tile>
 	</tiles>
 	<sets>
