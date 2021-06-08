@@ -22,7 +22,7 @@
       <city>W</city>
       <city>E</city>
       <city>S</city>
-      <field city="N W E S">INNER_FIELD</field>
+      <field city="N W E S">I</field>
     </tile>
     <tile id="IC/CCCCG">
       <garden />
@@ -30,7 +30,7 @@
       <city>W</city>
       <city>E</city>
       <city>S</city>
-      <field city="N W E S">INNER_FIELD</field>
+      <field city="N W E S">I</field>
     </tile>
     <tile id="IC/CCC">
       <city>N</city>

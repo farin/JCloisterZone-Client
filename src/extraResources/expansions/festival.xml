@@ -5,13 +5,13 @@
     <city>W E</city>
     <city>S</city>
     <field city="W">NL NR</field>
-    <field city="W S">INNER_FIELD</field>
+    <field city="W S">I</field>
   </tile>
   <tile id="FE/CcCc">
     <festival />
     <city>N W</city>
     <city>S E</city>
-    <field city="N S">INNER_FIELD</field>
+    <field city="N S">I</field>
   </tile>
   <tile id="FE/CFR">
     <festival />

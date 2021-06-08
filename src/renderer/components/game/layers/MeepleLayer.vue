@@ -131,7 +131,6 @@ import keyBy from 'lodash/keyBy'
 import kebabCase from 'lodash/kebabCase'
 
 import { isSameFeature } from '@/utils/gameUtils'
-import Location from '@/models/Location'
 import FlockDetail from '@/components/game/layers/FlockDetail'
 import LayerMixin from '@/components/game/layers/LayerMixin'
 
@@ -184,7 +183,7 @@ export default {
 
     meeples () {
       const getGroupKey = ptr => {
-        return `${ptr.position[0]},${ptr.position[1]},${ptr.location}`
+        return `${ptr.position[0]},${ptr.position[1]},${ptr.feature}/${ptr.location}`
       }
 
       const castlePlaces = {}
@@ -213,13 +212,14 @@ export default {
         let x = 0
         let y = 0
         const sample = meeples[0]
-        const deployedOnFarm = Location.parse(sample.location).isFieldLocation()
+        const deployedOnFarm = sample.feature === 'Field'
 
         const castle = castlePlaces[this.pointerAsKey(sample)]
         const group = {
           key,
           customTransform: castle ? this.getCastleTransformation(castle, sample.position) : null,
           position: sample.position,
+          feature: sample.feature,
           location: sample.location,
           meeples: meeples.map(m => {
             const mapped = {

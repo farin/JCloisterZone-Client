@@ -135,7 +135,7 @@ export default class Location {
   // assertion methods
 
   isFieldLocation () {
-    return ((this.mask & 0x30000) | (this.mask & 0xFF)) > 0 || this === INNER_FIELD || this === INNER_FIELD_B
+    return ((this.mask & 0x30000) | (this.mask & 0xFF)) > 0 || this.mask === null
   }
 
   toString () {
@@ -176,22 +176,16 @@ export const _W = Location._W = new Location('_W', 63 << 8) // Supplement to the
 export const _S = Location._S = new Location('_S', 207 << 8) // Supplement to the south
 export const _E = Location._E = new Location('_E', 243 << 8) // Supplement to the east
 
-export const INNER_CITY = Location.INNER_CITY = new Location('INNER_CITY') // Inner city
-export const INNER_ROAD = Location.INNER_ROAD = new Location('INNER_ROAD') // Inner city
-export const MONASTERY = Location.MONASTERY = new Location('MONASTERY') // Monastery on tile
-export const MONASTERY_AS_ABBOT = Location.MONASTERY_AS_ABBOT = new Location('MONASTERY_AS_ABBOT')
-export const GARDEN = Location.GARDEN = new Location('GARDEN') // Monastery on tile
-export const TOWER = Location.TOWER = new Location('TOWER') // Tower on tile
-// Flier location - follower can be placed here just for moment, befor dice roll
-export const FLYING_MACHINE = Location.FLYING_MACHINE = new Location('FLYING_MACHINE')
+export const I = Location.I = new Location('I')
+export const II = Location.II = new Location('II')
+export const III = Location.III = new Location('III')
+export const IV = Location.IV = new Location('IV')
+
 export const QUARTER_CASTLE = Location.QUARTER_CASTLE = new Location('QUARTER_CASTLE')
 export const QUARTER_MARKET = Location.QUARTER_MARKET = new Location('QUARTER_MARKET')
 export const QUARTER_BLACKSMITH = Location.QUARTER_BLACKSMITH = new Location('QUARTER_BLACKSMITH')
 export const QUARTER_CATHEDRAL = Location.QUARTER_CATHEDRAL = new Location('QUARTER_CATHEDRAL')
 
-// farm locations
-export const INNER_FIELD = Location.INNER_FIELD = new Location('INNER_FIELD') // Inner farm
-export const INNER_FIELD_B = Location.INNER_FIELD_B = new Location('INNER_FIELD_B') // for tiles with two inner farms
 export const NL = Location.NL = new Location('NL', 1)
 export const NR = Location.NR = new Location('NR', 2)
 export const EL = Location.EL = new Location('EL', 4)

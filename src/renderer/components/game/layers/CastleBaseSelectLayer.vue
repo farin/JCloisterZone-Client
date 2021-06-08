@@ -56,8 +56,8 @@ export default {
         return {
           option,
           pos2: opp.position,
-          feature1: this.$theme.getFeature(tile1, option.location, this.bridges),
-          feature2: this.$theme.getFeature(tile2, opp.location, this.bridges)
+          feature1: this.$theme.getFeature(tile1, option.feature, option.location, this.bridges),
+          feature2: this.$theme.getFeature(tile2, opp.feature, opp.location, this.bridges)
         }
       })
     }
@@ -78,18 +78,18 @@ export default {
       }
     },
 
-    getOppositePtr ({ position, location }) {
+    getOppositePtr ({ position, feature, location }) {
       if (location === 'N') {
-        return { position: [position[0], position[1] - 1], location: 'S' }
+        return { position: [position[0], position[1] - 1], feature, location: 'S' }
       }
       if (location === 'S') {
-        return { position: [position[0], position[1] + 1], location: 'N' }
+        return { position: [position[0], position[1] + 1], feature, location: 'N' }
       }
       if (location === 'W') {
-        return { position: [position[0] - 1, position[1]], location: 'E' }
+        return { position: [position[0] - 1, position[1]], feature, location: 'E' }
       }
       if (location === 'E') {
-        return { position: [position[0] + 1, position[1]], location: 'W' }
+        return { position: [position[0] + 1, position[1]], feature, location: 'W' }
       }
       throw new Error('Invalid location')
     }

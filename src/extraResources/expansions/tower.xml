@@ -138,7 +138,7 @@
       <tower />
       <city pennants="1">N W E</city>
       <city>S</city>
-      <field city="W S">INNER_FIELD</field>
+      <field city="W S">I</field>
     </tile>
   </tiles>
   <sets>

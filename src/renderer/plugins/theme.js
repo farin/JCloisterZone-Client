@@ -466,7 +466,7 @@ class Theme {
     return tile
   }
 
-  getFeature ({ id, position, rotation }, loc, bridges = []) {
+  getFeature ({ id, position, rotation }, featureType, loc, bridges = []) {
     const bridge = bridges.find(b => b.position[0] === position[0] && b.position[1] === position[1])
     if (bridge && loc === bridge.location) {
       return {
@@ -484,10 +484,10 @@ class Theme {
     }
 
     const tile = this.getTile(id)
-    let feature = tile.features[loc]
+    let feature = tile.features[`${featureType}/${loc}`]
 
     if (!feature) {
-      throw new Error(`Can't find feature for ${id} ${loc}`)
+      throw new Error(`Can't find feature for ${id} ${featureType}/${loc}`)
     }
 
     // TODO migrate classic to rotate instead rotation and drop rotation here

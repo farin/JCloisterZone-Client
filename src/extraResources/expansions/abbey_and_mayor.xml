@@ -10,13 +10,13 @@
     <tile id="AM/CCcc+">
       <city pennants="1">N S</city>
       <city>W E</city>
-      <field city="N W">INNER_FIELD</field>
-      <field city="N W">INNER_FIELD_B</field>
+      <field city="N W">I</field>
+      <field city="N W">II</field>
     </tile>
     <tile id="AM/CCc+">
       <city pennants="1" castle-base="false">N</city>
       <city>W E</city>
-      <field city="N W">INNER_FIELD</field>
+      <field city="N W">I</field>
       <field city="N W">SL SR</field>
     </tile>
     <tile id="AM/CCRR">

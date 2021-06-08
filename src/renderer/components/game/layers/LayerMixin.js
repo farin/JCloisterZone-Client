@@ -18,7 +18,7 @@ export default {
       if (ptr?.length === 3) {
         return ptr.join(',')
       }
-      return `${ptr.position[0]},${ptr.position[1]},${ptr.location}`
+      return `${ptr.position[0]},${ptr.position[1]},${ptr.feature}/${ptr.location}`
     },
 
     getX (pos) {
@@ -29,15 +29,15 @@ export default {
       return pos[1] * 1000
     },
 
-    getTilePoint ({ position, location }) {
+    getTilePoint ({ position, feature, location }) {
       const tile = this.tileOn(position)
-      const feature = this.$theme.getFeature(tile, location, this.bridges)
+      const featureObj = this.$theme.getFeature(tile, feature, location, this.bridges)
       return {
         tile,
-        point: feature.point,
-        rotation: feature.rotation,
-        transform: feature.transform,
-        inverseScaleTransform: feature.inverseScaleTransform
+        point: featureObj.point,
+        rotation: featureObj.rotation,
+        transform: featureObj.transform,
+        inverseScaleTransform: featureObj.inverseScaleTransform
       }
     },
 

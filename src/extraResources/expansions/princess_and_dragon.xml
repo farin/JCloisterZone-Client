@@ -89,7 +89,7 @@
       <city princess="yes" castle-base="false">N</city>
       <city pennants="1">E S</city>
       <field city="N">WL WR</field>
-      <field city="N S">INNER_FIELD</field>
+      <field city="N S">I</field>
     </tile>
     <tile id="DG/Ccc.p">
       <city princess="yes">N E W</city>

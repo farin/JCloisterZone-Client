@@ -52,8 +52,8 @@
     <tile id="KR/CCcc">
       <city>W E</city>
       <city>N S</city>
-      <field city="N W">INNER_FIELD</field>
-      <field city="N W">INNER_FIELD_B</field>
+      <field city="N W">I</field>
+      <field city="N W">II</field>
     </tile>
   </tiles>
   <sets>

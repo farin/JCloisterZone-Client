@@ -76,7 +76,7 @@ export default {
         const tile = this.tileOn(option.position)
         const opt = {
           option,
-          feature: this.$theme.getFeature(tile, option.location, this.bridges),
+          feature: this.$theme.getFeature(tile, option.feature, option.location, this.bridges),
           abbotChoice: null
         }
 
@@ -99,7 +99,7 @@ export default {
           const tile = this.tileOn(m.position)
           optionsWithFeature.push({
             option: m,
-            feature: this.$theme.getFeature(tile, 'MONASTERY', this.bridges),
+            feature: this.$theme.getFeature(tile, 'Monastery', 'I', this.bridges),
             abbotChoice: 'as-abbot-only'
           })
         }

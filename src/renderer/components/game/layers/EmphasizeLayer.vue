@@ -80,8 +80,8 @@ export default {
     featurePlaces () {
       try {
         if (this.emphasis.type === 'feature') {
-          return this.emphasis.places.map(({ tile, location }) => {
-            return { tile, ...this.$theme.getFeature(tile, location, this.bridges) }
+          return this.emphasis.places.map(({ tile, location, feature }) => {
+            return { tile, ...this.$theme.getFeature(tile, feature, location, this.bridges) }
           }).filter(f => {
             // be defensive
             if (!f.clip) {
