@@ -105,3 +105,7 @@ export const SIEGE = GameElement.SIEGE = new GameElement('siege', 'Besieged citi
 export const ESCAPE = GameElement.ESCAPE = new GameElement('escape', 'Escaping a besieged city', Boolean, {
   selector: 'city[besieged]'
 })
+export const ROBBERSSON = GameElement.ROBBERSSON = new GameElement('robbersson', 'Robber\'s son', {
+  '*': 'off',
+  'Robber-s-Son': true
+})
