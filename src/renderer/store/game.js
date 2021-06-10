@@ -35,7 +35,7 @@ const deployedOnField = (state, response) => {
 const deployedOnTower = (state, response) => {
   for (let i = 0; i < response.undo.depth; i++) {
     const msg = state.gameMessages[state.gameMessages.length - i - 1]
-    if (msg.type === 'DEPLOY_MEEPLE' && msg.payload.pointer?.location === 'TOWER') {
+    if (msg.type === 'DEPLOY_MEEPLE' && msg.payload.pointer?.feature === 'Tower') {
       return true
     }
   }

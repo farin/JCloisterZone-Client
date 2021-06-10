@@ -5,7 +5,7 @@
       :key="positionAsKey(position)"
     >
       <circle
-        :transform="transformPoint({ position, location: 'TOWER' })"
+        :transform="transformPoint({ position, feature: 'Tower', location: 'I' })"
         :cx="0" cy="0" r="420"
         fill="none"
         stroke="black"

@@ -29,8 +29,10 @@ const FEATURE_ORDER = {
   SW: 35,
   S: 40,
   SE: 41,
-  TOWER: 50,
-  MONASTERY: 51
+  I: 51,
+  II: 52,
+  III: 53,
+  IV: 54
 }
 
 const MISC_SVG = require('~/assets/misc.svg')

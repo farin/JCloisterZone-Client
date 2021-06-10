@@ -41,7 +41,8 @@ export default {
             token: 'TOWER_PIECE',
             pointer: {
               position,
-              location: 'TOWER'
+              feature: 'Tower',
+              location: 'I'
             }
           }
         })
