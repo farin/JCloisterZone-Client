@@ -81,6 +81,7 @@
             0,
             -1
           ],
+          "feature": "City",
           "location": "NS"
         },
         "meepleId": "0.mayor.1"
@@ -119,6 +120,7 @@
               0,
               -1
             ],
+            "feature": "City",
             "location": "NS"
           },
           "meepleId": "0.mayor.1"

@@ -90,6 +90,7 @@
             -1,
             0
           ],
+          "feature": "Road",
           "location": "E"
         },
         "meepleId": "0.small.1"
@@ -126,6 +127,7 @@
             -2,
             0
           ],
+          "feature": "Road",
           "location": "WE"
         },
         "meepleId": "1.small.1"

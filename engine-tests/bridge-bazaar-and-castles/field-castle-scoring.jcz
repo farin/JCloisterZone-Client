@@ -9,7 +9,7 @@
     "description": "Castles on field scoring",
     "assertions": [
       "Alice has 11 points",
-      "Alice scored farm for 11 points",
+      "Alice scored field for 11 points",
       "Alice scored castle for 0 points"
     ]
   },
@@ -83,6 +83,7 @@
             0,
             -1
           ],
+          "feature": "Field",
           "location": "NL.NR.EL.ER"
         },
         "meepleId": "0.small.1"
@@ -119,6 +120,7 @@
             -1,
             -1
           ],
+          "feature": "City",
           "location": "E"
         },
         "meepleId": "0.small.2"
@@ -135,6 +137,7 @@
             -1,
             -1
           ],
+          "feature": "City",
           "location": "E"
         }
       },
@@ -170,6 +173,7 @@
             0,
             -2
           ],
+          "feature": "City",
           "location": "N"
         },
         "meepleId": "0.small.3"
@@ -213,6 +217,7 @@
             0,
             -3
           ],
+          "feature": "City",
           "location": "S"
         }
       },

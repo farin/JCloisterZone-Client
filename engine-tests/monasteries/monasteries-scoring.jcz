@@ -81,6 +81,7 @@
             0,
             1
           ],
+          "feature": "Monastery",
           "location": "MONASTERY_AS_ABBOT"
         },
         "meepleId": "0.small.1"

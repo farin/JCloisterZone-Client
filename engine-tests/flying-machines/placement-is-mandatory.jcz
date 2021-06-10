@@ -121,7 +121,8 @@
             3,
             0
           ],
-          "location": "FLYING_MACHINE"
+          "feature": "FlyingMachine",
+          "location": "I"
         },
         "meepleId": "0.small.1",
         "salt": "3684222688003678193"

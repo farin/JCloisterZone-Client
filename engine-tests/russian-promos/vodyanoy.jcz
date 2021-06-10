@@ -103,6 +103,7 @@
             1,
             0
           ],
+          "feature": "Road",
           "location": "WE"
         },
         "meepleId": "0.small.1"

@@ -59,7 +59,7 @@
     },
     {
       "name": "Bob",
-      "slot": 1,
+      "slot": 1
     }
   ],
   "replay": [
@@ -117,6 +117,7 @@
             0,
             -2
           ],
+          "feature": "City",
           "location": "NS"
         },
         "meepleId": "1.small.1"

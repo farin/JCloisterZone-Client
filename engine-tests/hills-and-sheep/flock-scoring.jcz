@@ -88,6 +88,7 @@
             1,
             0
           ],
+          "feature": "Field",
           "location": "ER.SL.SR.WL"
         },
         "meepleId": "0.shepherd.1"
@@ -124,6 +125,7 @@
             2,
             0
           ],
+          "feature": "Field",
           "location": "NL.NR.EL.WR"
         },
         "meepleId": "1.shepherd.1"

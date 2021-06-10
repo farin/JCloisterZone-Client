@@ -468,7 +468,7 @@ export const actions = {
         initialSeed: sg.initialSeed,
         gameAnnotations: sg.gameAnnotations || {},
         slots,
-        replay: migrateLegacyReplay(sg.appVersion, sg.replay),
+        replay: sg.replay,
         clock: sg.clock
       }, { root: true })
 
@@ -571,9 +571,9 @@ export const actions = {
       ipcRenderer.invoke('dialog.showErrorBox', { title: 'Engine error', content: data + '' })
     })
 
-    if (state.originAppVersion && state.originAppVersion !== getAppVersion()) {
-      await engine.write(`%compat ${state.originAppVersion}`)
-    }
+    // if (state.originAppVersion && state.originAppVersion !== getAppVersion()) {
+    //   await engine.write(`%compat ${state.originAppVersion}`)
+    // }
 
     for (const xml of this._vm.$tiles.xmls) {
       await engine.write(`%load ${xml}`)

@@ -90,6 +90,7 @@
             0,
             -1
           ],
+          "feature": "City",
           "location": "NWSE"
         },
         "meepleId": "0.small.1"
@@ -180,6 +181,7 @@
             2,
             -1
           ],
+          "feature": "City",
           "location": "NWSE"
         },
         "meepleId": "1.small.1"

@@ -10,8 +10,8 @@
     "assertions": [
       "Carol has 0 points",
       "Oscar has 9 points",
-      "Oscar scored farm for 3 points",
-      "Oscar scored farm for 6 points"
+      "Oscar scored field for 3 points",
+      "Oscar scored field for 6 points"
     ]
   },
   "setup": {
@@ -81,6 +81,7 @@
             0,
             -1
           ],
+          "feature": "Field",
           "location": "NL.NR.EL.ER.WL.WR"
         },
         "meepleId": "0.small.1"
@@ -132,6 +133,7 @@
             1,
             -2
           ],
+          "feature": "Field",
           "location": "NL.NR.EL.ER.SL.SR"
         },
         "meepleId": "0.small.2"

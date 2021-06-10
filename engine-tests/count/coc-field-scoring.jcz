@@ -9,7 +9,7 @@
     "description": "City of Carcassonne is score as additonal city on a field",
     "assertions": [
       "Alice has 6 points",
-      "Alice scored farm for 6 points"
+      "Alice scored field for 6 points"
     ]
   },
   "setup": {
@@ -148,6 +148,7 @@
             2,
             0
           ],
+          "feature": "Field",
           "location": "NL.NR.EL.ER.SL.SR.WL.WR"
         },
         "meepleId": "0.small.1"

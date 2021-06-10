@@ -76,6 +76,7 @@
             0,
             -1
           ],
+          "feature": "City",
           "location": "NS"
         },
         "meepleId": "0.small.1"
@@ -106,6 +107,7 @@
             0,
             -2
           ],
+          "feature": "City",
           "location": "N"
         },
         "meepleId": "0.small.2"

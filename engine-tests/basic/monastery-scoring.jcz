@@ -84,7 +84,8 @@
             0,
             1
           ],
-          "location": "MONASTERY"
+          "feature": "Monastery",
+          "location": "I"
         },
         "meepleId": "0.small.1"
       },
@@ -228,7 +229,8 @@
             0,
             3
           ],
-          "location": "MONASTERY"
+          "feature": "Monastery",
+          "location": "I"
         },
         "meepleId": "1.small.1"
       },

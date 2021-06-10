@@ -8,8 +8,7 @@
   "test": {
     "description": "Pig scoring",
     "assertions": [
-      "Alice has 10 points",
-      "Bob has 10 points"
+      "Alice has 10 points"
     ]
   },
   "setup": {
@@ -86,6 +85,7 @@
             0,
             -1
           ],
+          "feature": "Field",
           "location": "NL.NR.EL.ER.WL.WR"
         },
         "meepleId": "0.small.1"
@@ -122,6 +122,7 @@
             0,
             -2
           ],
+          "feature": "Field",
           "location": "NL.NR.EL.ER.SL.SR.WL.WR"
         },
         "meepleId": "0.pig.1"

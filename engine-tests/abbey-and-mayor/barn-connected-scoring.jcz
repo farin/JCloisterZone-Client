@@ -92,6 +92,7 @@
             0,
             -1
           ],
+          "feature": "Field",
           "location": "NL.NR.EL.ER.WL.WR"
         },
         "meepleId": "0.small.1"
@@ -155,6 +156,7 @@
             1,
             -2
           ],
+          "feature": "Field",
           "location": "NL.NR.EL.ER.SL.SR.WL.WR"
         },
         "meepleId": "0.pig.1"
@@ -191,6 +193,7 @@
             1,
             -1
           ],
+          "feature": "Field",
           "location": "NL.NR.EL.ER.SL.SR.WL.WR"
         },
         "meepleId": "1.barn.1"
@@ -227,6 +230,7 @@
             0,
             -3
           ],
+          "feature": "Field",
           "location": "NL.NR.EL.ER.WL.WR"
         },
         "meepleId": "0.small.1"
@@ -290,6 +294,7 @@
             0,
             -4
           ],
+          "feature": "Field",
           "location": "NL.NR.EL.ER.SL.SR.WL.WR"
         },
         "meepleId": "0.pig.1"

@@ -9,7 +9,7 @@
     "description": "Farm with besieged cities scoring",
     "assertions": [
       "Alice has 12 points",
-      "Alice scored farm for 12 points"
+      "Alice scored field for 12 points"
     ]
   },
   "setup": {
@@ -110,6 +110,7 @@
             -1,
             -1
           ],
+          "feature": "Field",
           "location": "EL.ER.SL.SR"
         },
         "meepleId": "0.small.1"

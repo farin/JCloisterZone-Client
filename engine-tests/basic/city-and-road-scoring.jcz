@@ -103,6 +103,7 @@
             -1,
             1
           ],
+          "feature": "City",
           "location": "SE"
         },
         "meepleId": "1.small.1"
@@ -175,6 +176,7 @@
             -1,
             0
           ],
+          "feature": "Road",
           "location": "E"
         },
         "meepleId": "0.small.1"
@@ -226,6 +228,7 @@
             1,
             1
           ],
+          "feature": "Road",
           "location": "NE"
         },
         "meepleId": "0.small.1"
@@ -298,6 +301,7 @@
             0,
             -1
           ],
+          "feature": "City",
           "location": "NS"
         },
         "meepleId": "1.small.1"

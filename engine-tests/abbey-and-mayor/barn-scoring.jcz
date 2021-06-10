@@ -85,6 +85,7 @@
             0,
             -1
           ],
+          "feature": "Field",
           "location": "NL.NR.EL.ER.WL.WR"
         },
         "meepleId": "0.small.1"
@@ -202,6 +203,7 @@
             1,
             -1
           ],
+          "feature": "Field",
           "location": "NL.NR.SL.SR.WL.WR"
         },
         "meepleId": "0.barn.1"

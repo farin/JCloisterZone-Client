@@ -85,7 +85,8 @@
             0,
             1
           ],
-          "location": "MONASTERY"
+          "feature": "YagaHut",
+          "location": "I"
         },
         "meepleId": "0.small.1"
       },

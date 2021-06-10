@@ -8,7 +8,7 @@
   "test": {
     "description": "Little Buildings 3/2/1 scoring",
     "assertions": [
-      "Bob has 42 points"
+      "Bob has 37 points"
     ]
   },
   "setup": {
@@ -117,6 +117,7 @@
             0,
             -1
           ],
+          "feature": "City",
           "location": "NS"
         },
         "meepleId": "1.small.1"

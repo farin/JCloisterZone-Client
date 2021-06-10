@@ -108,6 +108,7 @@
             0,
             -2
           ],
+          "feature": "City",
           "location": "S"
         },
         "meepleId": "0.small.1"
