@@ -25,9 +25,7 @@
       "traders": true,
       "pig-herd": true
     },
-    "rules": {
-      "tiny-city-scoring": "4"
-    },
+    "rules": {},
     "timer": null,
     "start": [
       {

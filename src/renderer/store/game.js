@@ -15,8 +15,9 @@ import { SAVED_GAME_COMPATIBILITY } from '@/constants/versions'
 import Location from '@/models/Location'
 import { randomId } from '@/utils/random'
 import { getAppVersion } from '@/utils/version'
-import { isSameFeature, migrateLegacyReplay } from '@/utils/gameUtils'
+import { isSameFeature } from '@/utils/gameUtils'
 import { verifyScenario } from '@/utils/testing'
+import { Rule, getDefaultRules } from '@/models/rules'
 
 const SAVED_GAME_FILTERS = [{ name: 'Saved Game', extensions: ['jcz'] }]
 
@@ -346,12 +347,18 @@ export const actions = {
         if (extname(filePath) === '') {
           filePath += '.jcz'
         }
+        const rules = {}
+        Rule.all().forEach(r => {
+          const value = state.setup.rules[r.id]
+          if (r.default !== value) rules[r.id] = value
+        })
+        const setup = { ...state.setup, rules }
         let content
         if (onlySetup) {
           content = {
             appVersion: getAppVersion(),
             created: (new Date()).toISOString(),
-            setup: state.setup
+            setup
           }
         } else {
           const clock = state.lastMessageClock + Date.now() - state.lastMessageClockLocal
@@ -362,7 +369,7 @@ export const actions = {
             initialSeed: state.initialSeed,
             created: (new Date()).toISOString(),
             clock,
-            setup: state.setup,
+            setup,
             players: state.players.map(p => ({
               name: p.name,
               slot: p.slot,
@@ -424,6 +431,10 @@ export const actions = {
           ipcRenderer.invoke('dialog.showErrorBox', { title: 'Load Error', content: msg })
           reject(msg)
           return
+        }
+
+        if (sg.setup) {
+          sg.setup.rules = { ...getDefaultRules(), ...sg.setup.rules }
         }
 
         if (sg.setup && !sg.test && (isNil(sg.players) || isNil(sg.initialSeed) || isNil(sg.replay) || isNil(sg.clock) || isNil(sg.gameId))) {

@@ -126,6 +126,7 @@ export const actions = {
 
     commit('setup', {
       ...setup,
+      rules: { ...getDefaultRules(), ...setup.rules },
       sets,
       excludedSets
     })
