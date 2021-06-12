@@ -69,7 +69,7 @@ export default {
       const cloisterOptionsWithFeature = []
       const monasteries = []
       this.options.forEach(option => {
-        if (option.location === 'MONASTERY_AS_ABBOT') {
+        if (option.location === 'AS_ABBOT') {
           monasteries.push(option)
           return
         }

@@ -20,7 +20,7 @@ export function getMeeplePlayer (meepleId) {
 //       if (pointer?.location === 'INNER_FARM') {
 //         pointer.location = 'INNER_FIELD'
 //       } else if (pointer?.location === 'MONASTERY') {
-//         pointer.location = 'MONASTERY_AS_ABBOT'
+//         pointer.location = 'AS_ABBOT'
 //       } else if (pointer?.location === 'CLOISTER') {
 //         if (GARDEN_TILES.includes(lastTile)) {
 //           pointer.location = 'GARDEN'

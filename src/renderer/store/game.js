@@ -260,7 +260,7 @@ export const getters = {
   },
 
   featureOn: state => ({ position, location }) => {
-    if (location === 'MONASTERY_AS_ABBOT') {
+    if (location === 'AS_ABBOT') {
       location = 'MONASTERY'
     }
     return state.features.find(({ places }) => {

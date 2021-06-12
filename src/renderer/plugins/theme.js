@@ -479,7 +479,7 @@ class Theme {
       }
     }
 
-    if (loc === 'MONASTERY_AS_ABBOT') {
+    if (loc === 'AS_ABBOT') {
       loc = 'MONASTERY'
     } else if (rotation !== 0) {
       loc = Location.parse(loc).rotateCCW(rotation).name
