@@ -110,6 +110,8 @@ export const MAGE_AND_WITCH = Expansion.MAGE_AND_WITCH = new Expansion('MAGE_AND
   implies: ['mage', 'witch']
 })
 
+export const WATCHTOWERS = Expansion.WATCHTOWERS = new Expansion('WATCHTOWERS', 'The Watchtowers', { enforces: ['watchtower'] })
+
 export const RUSSIAN_PROMOS = Expansion.RUSSIAN_PROMOS = new Expansion('RUSSIAN_PROMOS', 'Russian Promos', { enforces: ['yaga', 'russian-trap'] }, [
   new Release('Russian Promos', ['russian-promos/2013', 'russian-promos/2016'])
 ])
