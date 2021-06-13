@@ -49,7 +49,8 @@ const TITLE_MAPPING = {
   'king+robber': 'King & Robber',
   'special-monastery': 'Special monastery',
   'gold': 'Gold ingots',
-  'vodyanoy': 'Vodyanoy'
+  'vodyanoy': 'Vodyanoy',
+  'watchtower': 'Watchtower'
 }
 
 const SUBTITLE_MAPPING = {
