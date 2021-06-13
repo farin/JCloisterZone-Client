@@ -1,0 +1,223 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "1",
+  "name": "",
+  "initialSeed": "-1899442140633330115",
+  "created": "2021-06-13T16:32:45.314Z",
+  "clock": 75627,
+  "test": {
+    "description": "Multiple meeples at watchtower",
+    "assertions": [
+      "Alice has 15 points",
+      "Alice scored watchtower for 6 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "watchtowers": 1,
+      "corn-circles/1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "WT/CFRF_2M",
+        "rotation": "R180",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 2733
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -1
+          ],
+          "location": "N",
+          "feature": "Road"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 3631
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "2387497552186457288"
+      },
+      "player": 0,
+      "clock": 5021
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R0",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 7249
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            0
+          ],
+          "location": "WE",
+          "feature": "Road"
+        },
+        "meepleId": "1.small.1"
+      },
+      "player": 1,
+      "clock": 8205
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-2538823562287817427"
+      },
+      "player": 1,
+      "clock": 9135
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "CC.1/Rr",
+        "rotation": "R0",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 14073
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 17501
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-3704997971465833404"
+      },
+      "player": 0,
+      "clock": 17507
+    },
+    {
+      "type": "CIRCLE_REMOVE_OR_DEPLOY",
+      "payload": {
+        "value": "DEPLOY"
+      },
+      "player": 0,
+      "clock": 20300
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 24277
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -1
+          ],
+          "location": "N",
+          "feature": "Road"
+        },
+        "meepleId": "0.small.2"
+      },
+      "player": 0,
+      "clock": 27307
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "-7915519389357932934"
+      },
+      "player": 0,
+      "clock": 32081
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRR",
+        "rotation": "R0",
+        "position": [
+          -1,
+          -2
+        ]
+      },
+      "player": 1,
+      "clock": 34711
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 36059
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "salt": "5027324248132904548"
+      },
+      "player": 1,
+      "clock": 36066
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "WT/CFRF_2M",
+      "BA/RFr",
+      "CC.1/Rr",
+      "BA/RRR"
+    ]
+  }
+}
