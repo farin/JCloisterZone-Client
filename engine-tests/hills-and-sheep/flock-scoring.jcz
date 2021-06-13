@@ -2,7 +2,7 @@
   "appVersion": "5.7.0",
   "gameId": "1",
   "name": "",
-  "initialSeed": "-7736385087233680618",
+  "initialRandom": 0.0,
   "created": "2021-05-22T21:51:22.590Z",
   "clock": 150010,
   "test": {
@@ -79,7 +79,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-1810621049110624199"
+        "random": 0.3
       },
       "player": 0,
       "clock": 2965
@@ -116,7 +116,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-470207909792450504"
+        "random": 0.0
       },
       "player": 1,
       "clock": 8388
@@ -144,7 +144,7 @@
       "type": "FLOCK_EXPAND_OR_SCORE",
       "payload": {
         "value": "EXPAND",
-        "salt": "2177242191606857500"
+        "random": 0.0
       },
       "player": 0,
       "clock": 14898
@@ -152,7 +152,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "8915827464456684561"
+        "random": 0.0
       },
       "player": 0,
       "clock": 14905
@@ -180,7 +180,7 @@
       "type": "FLOCK_EXPAND_OR_SCORE",
       "payload": {
         "value": "EXPAND",
-        "salt": "4558276280147729188"
+        "random": 0.8
       },
       "player": 1,
       "clock": 20894
@@ -188,7 +188,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-3341510164290578120"
+        "random": 0.0
       },
       "player": 1,
       "clock": 20900
@@ -216,7 +216,7 @@
       "type": "FLOCK_EXPAND_OR_SCORE",
       "payload": {
         "value": "EXPAND",
-        "salt": "-4496589438223337178"
+        "random": 0.8
       },
       "player": 0,
       "clock": 31960
@@ -224,7 +224,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "259603104072385124"
+        "random": 0.0
       },
       "player": 0,
       "clock": 31968
@@ -252,7 +252,7 @@
       "type": "FLOCK_EXPAND_OR_SCORE",
       "payload": {
         "value": "EXPAND",
-        "salt": "3087661688378887727"
+        "random": 0.6
       },
       "player": 1,
       "clock": 41172
@@ -260,7 +260,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "3559932287365209645"
+        "random": 0.0
       },
       "player": 1,
       "clock": 41184
@@ -288,7 +288,7 @@
       "type": "FLOCK_EXPAND_OR_SCORE",
       "payload": {
         "value": "EXPAND",
-        "salt": "1669670221499801159"
+        "random": 0.6
       },
       "player": 0,
       "clock": 77027
@@ -296,7 +296,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "4593139695594301166"
+        "random": 0.0
       },
       "player": 0,
       "clock": 77037
@@ -324,7 +324,7 @@
       "type": "FLOCK_EXPAND_OR_SCORE",
       "payload": {
         "value": "EXPAND",
-        "salt": "-7310327679495371318"
+        "random": 0.3
       },
       "player": 1,
       "clock": 83574
@@ -332,7 +332,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "1212516283715231240"
+        "random": 0.0
       },
       "player": 1,
       "clock": 83581
@@ -360,7 +360,7 @@
       "type": "FLOCK_EXPAND_OR_SCORE",
       "payload": {
         "value": "SCORE",
-        "salt": "-2328259055665415465"
+        "random": 0.0
       },
       "player": 0,
       "clock": 103853
@@ -368,7 +368,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "8417543889727083645"
+        "random": 0.0
       },
       "player": 0,
       "clock": 103865
@@ -396,7 +396,7 @@
       "type": "FLOCK_EXPAND_OR_SCORE",
       "payload": {
         "value": "SCORE",
-        "salt": "-4744505922357828704"
+        "random": 0.0
       },
       "player": 1,
       "clock": 110620
@@ -404,7 +404,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "1423408615882172332"
+        "random": 0.0
       },
       "player": 1,
       "clock": 110628

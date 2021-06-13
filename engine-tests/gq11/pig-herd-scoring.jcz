@@ -2,7 +2,7 @@
   "appVersion": "5.7.0",
   "gameId": "1c037a7daaea41eba5fa72f3084e7164",
   "name": "",
-  "initialSeed": "-8021515595381516347",
+  "initialRandom": 0.0,
   "created": "2021-05-22T21:33:35.092Z",
   "clock": 67255,
   "test": {
@@ -76,7 +76,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-5200958720440410353"
+        "random": 0.0
       },
       "player": 0,
       "clock": 4625
@@ -113,7 +113,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "6498451464217606941"
+        "random": 0.0
       },
       "player": 0,
       "clock": 8079
@@ -140,7 +140,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-4278120851018796585"
+        "random": 0.0
       },
       "player": 0,
       "clock": 11206
@@ -167,7 +167,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-8879159949119211824"
+        "random": 0.0
       },
       "player": 0,
       "clock": 12924

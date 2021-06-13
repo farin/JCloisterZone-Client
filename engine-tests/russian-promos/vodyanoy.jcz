@@ -2,7 +2,7 @@
   "appVersion": "5.7.0",
   "gameId": "409a228b8f894dd4b26c525184db4567",
   "name": "",
-  "initialSeed": "162781364874410048",
+  "initialRandom": 0.0,
   "created": "2021-05-23T13:16:00.256Z",
   "clock": 15672,
   "test": {
@@ -57,7 +57,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "6239989337870798632"
+        "random": 0.0
       },
       "player": 0,
       "clock": 2163
@@ -94,7 +94,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "8964721549059235175"
+        "random": 0.0
       },
       "player": 0,
       "clock": 3697

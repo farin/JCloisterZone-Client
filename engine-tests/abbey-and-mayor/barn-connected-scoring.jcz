@@ -2,7 +2,7 @@
   "appVersion": "5.7.0",
   "gameId": "045aa811f97241af9351c922154cd8d3",
   "name": "",
-  "initialSeed": "7334689411773023748",
+  "initialRandom": 0.0,
   "created": "2021-05-23T06:43:29.901Z",
   "clock": 66918,
    "test": {
@@ -83,7 +83,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "7389013856690717954"
+        "random": 0.0
       },
       "player": 0,
       "clock": 4045
@@ -110,7 +110,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-7690617523933062026"
+        "random": 0.0
       },
       "player": 1,
       "clock": 6315
@@ -147,7 +147,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "299428636222415979"
+        "random": 0.0
       },
       "player": 0,
       "clock": 9545
@@ -184,7 +184,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "5748946417538690258"
+        "random": 0.0
       },
       "player": 1,
       "clock": 20429
@@ -221,7 +221,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "3505739276232864947"
+        "random": 0.0
       },
       "player": 0,
       "clock": 29599
@@ -248,7 +248,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "5808814688019649669"
+        "random": 0.0
       },
       "player": 1,
       "clock": 33989
@@ -285,7 +285,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-2432312468484618077"
+        "random": 0.0
       },
       "player": 0,
       "clock": 37875
@@ -312,7 +312,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-4165486396355619522"
+        "random": 0.0
       },
       "player": 1,
       "clock": 39726

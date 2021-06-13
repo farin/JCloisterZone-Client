@@ -2,7 +2,7 @@
   "appVersion": "5.7.0",
   "gameId": "bf0f4648d0d44fe4aa8eacacb58886c6",
   "name": "",
-  "initialSeed": "-3231440368563705970",
+  "initialRandom": 0.0,
   "created": "2021-05-23T04:53:08.504Z",
   "clock": 71217,
   "test": {
@@ -73,7 +73,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "639109686813731755"
+        "random": 0.0
       },
       "player": 0,
       "clock": 5130
@@ -110,7 +110,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-390334194100680968"
+        "random": 0.0
       },
       "player": 1,
       "clock": 8853
@@ -143,7 +143,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "5274578378790461440"
+        "random": 0.0
       },
       "player": 0,
       "clock": 11483
@@ -170,7 +170,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "8788251011256012325"
+        "random": 0.0
       },
       "player": 1,
       "clock": 12426
@@ -203,7 +203,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-2437933653095118688"
+        "random": 0.0
       },
       "player": 0,
       "clock": 16062
@@ -236,7 +236,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "303229072268809808"
+        "random": 0.0
       },
       "player": 1,
       "clock": 19079
@@ -269,7 +269,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-1007641237325084385"
+        "random": 0.0
       },
       "player": 0,
       "clock": 23971
@@ -302,7 +302,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "9146766513649114457"
+        "random": 0.0
       },
       "player": 1,
       "clock": 28477
@@ -329,7 +329,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-6355842224462235507"
+        "random": 0.0
       },
       "player": 0,
       "clock": 32060
@@ -362,10 +362,24 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "1054084463228572699"
+        "random": 0.0
       },
       "player": 1,
       "clock": 39704
     }
-  ]
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/Rr",
+      "BA/CFc.1",
+      "BA/Ccc",
+      "BA/CFc+",
+      "BA/CccR+",
+      "BA/CRr",
+      "BA/Cc+",
+      "BA/CFC.2",
+      "BA/RRR",
+      "BA/RCr"
+    ]
+  }
 }

@@ -85,7 +85,7 @@ export const state = () => ({
     allowed: false,
     depth: 0
   },
-  initialSeed: null,
+  initialRandom: null,
   gameMessages: null,
   gameAnnotations: {},
   testScenario: null,
@@ -118,7 +118,7 @@ export const mutations = {
     state.action = null
     state.history = null
     state.undo = false
-    state.initialSeed = null
+    state.initialRandom = null
     state.gameMessages = null
     state.gameAnnotations = {}
     state.testScenario = null
@@ -203,8 +203,8 @@ export const mutations = {
     }
   },
 
-  initialSeed (state, value) {
-    state.initialSeed = value
+  initialRandom (state, value) {
+    state.initialRandom = value
   },
 
   appendMessage (state, msg) {
@@ -366,7 +366,7 @@ export const actions = {
             appVersion: state.originAppVersion || getAppVersion(),
             gameId: state.id,
             name: '',
-            initialSeed: state.initialSeed,
+            initialRandom: state.initialRandom,
             created: (new Date()).toISOString(),
             clock,
             setup,
@@ -437,7 +437,7 @@ export const actions = {
           sg.setup.rules = { ...getDefaultRules(), ...sg.setup.rules }
         }
 
-        if (sg.setup && !sg.test && (isNil(sg.players) || isNil(sg.initialSeed) || isNil(sg.replay) || isNil(sg.clock) || isNil(sg.gameId))) {
+        if (sg.setup && !sg.test && (isNil(sg.players) || isNil(sg.initialRandom) || isNil(sg.replay) || isNil(sg.clock) || isNil(sg.gameId))) {
           if (rootState.runningTests) {
             console.error('Loaded game setup from test runner')
           }
@@ -476,7 +476,7 @@ export const actions = {
           options: {},
           ...sg.setup
         },
-        initialSeed: sg.initialSeed,
+        initialRandom: sg.initialRandom,
         gameAnnotations: sg.gameAnnotations || {},
         slots,
         replay: sg.replay,
@@ -508,7 +508,7 @@ export const actions = {
     commit('pin', payload.pin || null)
     commit('setup', payload.setup)
     commit('slots', payload.slots)
-    commit('initialSeed', payload.initialSeed)
+    commit('initialRandom', payload.initialRandom)
     commit('gameAnnotations', payload.gameAnnotations || {})
     commit('gameMessages', payload.replay)
     commit('owner', payload.owner)
@@ -619,7 +619,7 @@ export const actions = {
         ...$tiles.getFullSetup(state.setup),
         gameId: state.id,
         players: players.length,
-        initialSeed: state.initialSeed,
+        initialRandom: state.initialRandom,
         gameAnnotations: annotations
       }
     }

@@ -3,9 +3,10 @@ import WebSocket from 'ws'
 
 import camelCase from 'lodash/camelCase'
 import shuffle from 'lodash/shuffle'
+import isNil from 'lodash/isNil'
 
 import { NETWORK_PROTOCOL_COMPATIBILITY } from '@/constants/versions'
-import { randomLong, randomId } from '@/utils/random'
+import { randomId } from '@/utils/random'
 import { ENGINE_MESSAGES } from '@/constants/messages'
 import { CONSOLE_SERVER_COLOR } from '@/constants/logging'
 import { HEARTBEAT_INTERVAL } from '@/constants/ws'
@@ -20,7 +21,7 @@ export default class GameServer {
       gameId: game.gameId,
       originAppVersion: game.originAppVersion || appVersion,
       setup: game.setup,
-      initialSeed: game.initialSeed || randomLong().toString(),
+      initialRandom: isNil(game.initialRandom) ? Math.random() : game.initialRandom,
       gameAnnotations: game.gameAnnotations || {},
       slots: game.slots,
       owner: null // owner session
@@ -50,7 +51,7 @@ export default class GameServer {
       replay: this.replay,
       game: {
         gameId: this.game.gameId,
-        initialSeed: this.game.initialSeed,
+        initialRandom: this.game.initialRandom,
         setup: this.game.setup,
         gameAnnotation: this.game.gameAnnotation,
         slots: this.game.slots
@@ -471,11 +472,11 @@ export default class GameServer {
   }
 
   handleEngineMessage (ws, { id, type, payload, player, sourceHash }) {
-    const salted = ['COMMIT', 'FLOCK_EXPAND_OR_SCORE'].includes(type) || (type === 'DEPLOY_MEEPLE' && payload.pointer.location === 'FLYING_MACHINE')
-    if (salted) {
+    const randomChanging = ['COMMIT', 'FLOCK_EXPAND_OR_SCORE'].includes(type) || (type === 'DEPLOY_MEEPLE' && payload.pointer.location === 'FLYING_MACHINE')
+    if (randomChanging) {
       payload = {
         ...payload,
-        salt: randomLong().toString()
+        random: Math.random()
       }
     }
     const msg = { id, type, payload, player, sourceHash, clock: Date.now() - this.startedAt }

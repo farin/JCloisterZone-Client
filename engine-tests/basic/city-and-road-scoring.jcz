@@ -2,7 +2,7 @@
   "appVersion": "5.7.0",
   "gameId": "1",
   "name": "",
-  "initialSeed": "1484220149523624019",
+  "initialRandom": 0.0,
   "created": "2020-09-13T13:41:18.929Z",
   "clock": 0,
   "test": {
@@ -63,7 +63,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-7461540075648581197"
+        "random": 0.0
       }
     },
     {
@@ -94,7 +94,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-7418166333179924682"
+        "random": 0.0
       }
     },
     {
@@ -115,7 +115,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-3646552285189381909"
+        "random": 0.0
       }
     },
     {
@@ -136,7 +136,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "6273133084174864810"
+        "random": 0.0
       }
     },
     {
@@ -167,7 +167,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "3815569556520016475"
+        "random": 0.0
       }
     },
     {
@@ -188,7 +188,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "6750924040888683600"
+        "random": 0.0
       }
     },
     {
@@ -219,7 +219,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-6756924664549951553"
+        "random": 0.0
       }
     },
     {
@@ -240,7 +240,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-3118500530466719564"
+        "random": 0.0
       }
     },
     {
@@ -261,7 +261,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-6960415788771952301"
+        "random": 0.0
       }
     },
     {
@@ -292,7 +292,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-234151795430202618"
+        "random": 0.0
       }
     },
     {
@@ -313,7 +313,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-613209618721430593"
+        "random": 0.0
       }
     }
   ],

@@ -2,7 +2,7 @@
   "appVersion": "5.7.0",
   "gameId": "1",
   "name": "",
-  "initialSeed": "-349946023236146966",
+  "initialRandom": 0.0,
   "created": "2020-09-16T13:28:08.317Z",
   "clock": 0,
   "test": {
@@ -60,7 +60,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "8240378708657239056"
+        "random": 0.0
       }
     },
     {
@@ -81,7 +81,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "6208940351803546200"
+        "random": 0.0
       }
     },
     {
@@ -107,7 +107,7 @@
           "location": "I"
         },
         "meepleId": "0.small.1",
-        "salt": "3684222688003678193"
+        "random": 0.0
       }
     }
   ],

@@ -2,7 +2,7 @@
   "appVersion": "5.7.0",
   "gameId": "10f9cd7f9d844ded8de5c596f2efdeda",
   "name": "",
-  "initialSeed": "-3143899554322034319",
+  "initialRandom": 0.0,
   "created": "2021-05-22T18:00:08.652Z",
   "clock": 78836,
   "test": {
@@ -77,7 +77,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-7737514387483300149"
+        "random": 0.0
       },
       "player": 0,
       "clock": 3212
@@ -114,7 +114,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "4969899268964465277"
+        "random": 0.0
       },
       "player": 1,
       "clock": 14194
@@ -151,7 +151,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-1383186356929829925"
+        "random": 0.0
       },
       "player": 0,
       "clock": 34681
@@ -178,7 +178,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "1189761341680528902"
+        "random": 0.0
       },
       "player": 1,
       "clock": 38980
@@ -205,7 +205,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-4127050732521416648"
+        "random": 0.0
       },
       "player": 0,
       "clock": 41775
@@ -232,7 +232,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "3651073191802903908"
+        "random": 0.0
       },
       "player": 1,
       "clock": 48853
@@ -259,7 +259,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-7053619010132247865"
+        "random": 0.0
       },
       "player": 0,
       "clock": 50387
@@ -286,7 +286,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "6762292192214626992"
+        "random": 0.0
       },
       "player": 1,
       "clock": 52790
@@ -313,7 +313,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-7186755452057286869"
+        "random": 0.0
       },
       "player": 0,
       "clock": 55889
@@ -340,7 +340,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "4570870010774969001"
+        "random": 0.0
       },
       "player": 1,
       "clock": 57935
@@ -367,7 +367,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-8168870717827200244"
+        "random": 0.0
       },
       "player": 0,
       "clock": 63063
@@ -382,7 +382,10 @@
       "BA/RFr",
       "BA/Cc+",
       "BA/CFc+",
-      "BA/CFc+"
+      "BA/CFc+",
+      "BA/RRRR",
+      "BA/RFr",
+      "BA/C"
     ]
   }
 }
