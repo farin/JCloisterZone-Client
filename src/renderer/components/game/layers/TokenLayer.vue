@@ -72,6 +72,13 @@
     >
       <image href="~/assets/figures/lb_tower.png" transform="scale(1.2)" />
     </g>
+    <g
+      v-for=" opt in tokens.BARDS_NOTE"
+      :key="'bards-note-' + positionAsKey(opt.position)"
+      :transform="transformPoint(opt) + 'translate(-100 -100)'"
+    >
+      <image href="~/assets/figures/bards_note.png" transform="scale(2) rotate(15 0 0)" />
+    </g>
   </g>
 </template>
 
