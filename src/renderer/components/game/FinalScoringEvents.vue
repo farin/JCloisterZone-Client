@@ -39,7 +39,7 @@ export default {
       const rows = {
         features: { title: 'Incomplete features', events: [] },
         farms: { title: 'Fields', events: [] },
-        monasteries: { title: 'Special monasteries', events: [] },
+        monasteries: { title: 'Monasteries', events: [] },
         tradeGoods: { title: 'Trade Goods', events: [] },
         gold: { title: 'Gold ingots', events: [] },
         kingAndRobber: { title: 'King & Robber', events: [] },
