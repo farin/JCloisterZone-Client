@@ -63,7 +63,7 @@
       <field city="W">SR</field>
     </tile>
     <tile id="WT/FfRC_1R">
-      <watchtower bonus="1/road "/>
+      <watchtower bonus="1/road"/>
       <city>W</city>
       <road>S</road>
       <field city="W">SR</field>
