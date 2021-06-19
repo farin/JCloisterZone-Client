@@ -260,6 +260,9 @@ export const getters = {
     const river = sets['river/1'] || sets['river/2'] || sets['river/3']
     const count = !!sets.count
     const windRoses = !!sets['wind-roses']
+    const windRosesExtra = !!sets['wind-rose-english---extra']
+    
+    const windRosesStart = (windRosesExtra ? 'wind-rose-english---extra/fcfr' : 'WR/CFR')
 
     const countTiles = [
       { tile: 'CO/1', x: -2, y: -1, rotation: 0 },
@@ -281,14 +284,14 @@ export const getters = {
         id: 'standard',
         title: 'Standard',
         value: [{ tile: 'BA/RCr', x: 0, y: 0, rotation: 0 }],
-        enabled: !river && !count && !windRoses,
-        default: !river && !count && !windRoses && !sets['spiel-doch']
+        enabled: !river && !count && !windRoses && !windRosesExtra,
+        default: !river && !count && !windRoses && !windRosesExtra && !sets['spiel-doch']
       }, {
         id: 'wind-roses',
         title: 'The Wind Roses',
-        value: [{ tile: 'WR/CFR', x: 0, y: 0, rotation: 0 }],
-        enabled: !river && !count && windRoses,
-        default: !river && !count && windRoses
+        value: [{ tile: windRosesStart, x: 0, y: 0, rotation: 0 }],
+        enabled: !river && !count && (windRoses || windRosesExtra),
+        default: !river && !count && (windRoses || windRosesExtra)
       }, {
         id: 'spiel-doch',
         title: 'Spiel Doch Promo',
@@ -296,57 +299,57 @@ export const getters = {
           { tile: 'SD/CC', x: 0, y: 0, rotation: 0 },
           { tile: getters.getSelectedEdition === 1 ? 'SD/RRR' : 'SD/RRRG', x: 1, y: 0, rotation: 270 }
         ],
-        enabled: !!sets['spiel-doch'] && !count && !river && !windRoses,
-        default: !!sets['spiel-doch'] && !count && !river && !windRoses
+        enabled: !!sets['spiel-doch'] && !count && !river && !windRoses && !windRosesExtra,
+        default: !!sets['spiel-doch'] && !count && !river && !windRoses && !windRosesExtra
       }, {
         id: 'spring',
         title: 'The River',
         value: [{ tile: 'RI/s', x: 0, y: 0, rotation: 0 }],
-        enabled: river && !count && !windRoses,
-        default: river && !count && !windRoses && !sets.gq11
+        enabled: river && !count && !windRoses && !windRosesExtra,
+        default: river && !count && !windRoses && !windRosesExtra && !sets.gq11
       }, {
         id: 'spring-alt',
         title: 'GQ11 spring',
         value: [{ tile: 'GQ/RFI', x: 0, y: 0, rotation: 0 }],
-        enabled: river && !count && !windRoses && sets.gq11,
-        default: river && !count && !windRoses && sets.gq11
+        enabled: river && !count && !windRoses && !windRosesExtra && sets.gq11,
+        default: river && !count && !windRoses && !windRosesExtra && sets.gq11
       }, {
         id: 'spring-with-wind-roses',
         title: 'The Wind Roses + The River',
         value: [
-          { tile: 'WR/CFR', x: 0, y: 0, rotation: 0 },
+          { tile: windRosesStart, x: 0, y: 0, rotation: 0 },
           { tile: 'RI/s', x: 0, y: 1, rotation: 90 }
         ],
-        enabled: river && !count && windRoses,
-        default: river && !count && windRoses
+        enabled: river && !count && (windRoses || windRosesExtra),
+        default: river && !count && (windRoses || windRosesExtra)
       }, {
         id: 'count',
         title: 'The Count',
         value: countTiles,
-        enabled: count && !river && !windRoses,
-        default: count && !river && !windRoses
+        enabled: count && !river && !windRoses && !windRosesExtra,
+        default: count && !river && !windRoses && !windRosesExtra
       }, {
         id: 'count-with-river',
         title: 'The Count + The River',
         value: [...countTiles, { tile: 'RI/s', x: 2, y: -1, rotation: 0 }],
-        enabled: count && river && !windRoses,
-        default: count && river && !windRoses
+        enabled: count && river && !windRoses && !windRosesExtra,
+        default: count && river && !windRoses && !windRosesExtra
       }, {
         id: 'count-with-wind-roses',
         title: 'The Count + The Wind Roses',
-        value: [...countTiles, { tile: 'WR/CFR', x: -1, y: -2, rotation: 0 }],
-        enabled: count && !river && windRoses,
-        default: count && !river && windRoses
+        value: [...countTiles, { tile: windRosesStart, x: -1, y: -2, rotation: 0 }],
+        enabled: count && !river && (windRoses || windRosesExtra),
+        default: count && !river && (windRoses || windRosesExtra)
       }, {
         id: 'count-with-wind-roses-and-river',
         title: 'The Count + The Wind Roses + The River',
         value: [
           ...countTiles,
-          { tile: 'WR/CFR', x: -1, y: -2, rotation: 0 },
+          { tile: windRosesStart, x: -1, y: -2, rotation: 0 },
           { tile: 'RI/s', x: 2, y: -1, rotation: 0 }
         ],
-        enabled: count && river && windRoses,
-        default: count && river && windRoses
+        enabled: count && river && (windRoses || windRosesExtra),
+        default: count && river && (windRoses || windRosesExtra)
       }
     ]
     return options
