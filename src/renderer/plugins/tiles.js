@@ -164,9 +164,6 @@ class Tiles {
   }
 
   isElementEnabled (ge, enabledSets, enabledElements) {
-    if (ge.id === 'garden') {
-      return !!enabledElements.abbot
-    }
     return ge.default !== undefined || Object.keys(enabledSets).find(id => {
       const set = this.sets[id] || this.sets[id + ':1'] || this.sets[id + ':2']
       return set.allows.includes(ge.id) || set.implies.includes(ge.id)
