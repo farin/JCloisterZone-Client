@@ -479,6 +479,11 @@ class Theme {
       }
     }
 
+    // TODO define Casle shape in artwork
+    if (featureType === 'Castle') {
+      featureType = 'City'
+    }
+
     if (loc === 'AS_ABBOT') {
       loc = 'MONASTERY'
     } else if (rotation !== 0) {
