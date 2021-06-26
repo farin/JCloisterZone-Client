@@ -384,6 +384,6 @@ svg, g, use
   height: 80vh
   display: grid
 
-#theme-resources
+#theme-resources, #symbols
   display: none
 </style>

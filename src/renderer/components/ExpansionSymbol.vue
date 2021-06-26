@@ -1,6 +1,7 @@
 <template>
   <svg class="exp-symbol" viewBox="0 0 100 100">
     <use v-if="!expansion.fan" :href="`${EXP_SYMBOL_SVG}#${expansion.name}`" />
+    <use v-else-if="expansion.svgIcon" :href="`#expansion-${expansion.name}`" />
     <g v-else>
       <rect x="4" y="4" width="92" height="92" rx="10" />
       <text

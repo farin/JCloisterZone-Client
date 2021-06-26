@@ -6,7 +6,6 @@ import sortBy from 'lodash/sortBy'
 
 import { Expansion, Release } from '@/models/expansions'
 import { GameElement } from '@/models/elements'
-import { set } from 'lodash'
 
 const SIDES = ['N', 'E', 'S', 'W']
 const EDGE_CODE = {
@@ -56,6 +55,7 @@ class Tiles {
     this.sets = {}
     this.loaded = false
     this.expansions = []
+    this.symbols = []
   }
 
   getExpansions (sets, edition) {
@@ -320,7 +320,14 @@ class Tiles {
         const tileSets = Array.from(el.querySelectorAll('ref[tile-set]')).map(ref => ref.getAttribute('tile-set'))
         const enforces = Array.from(el.querySelectorAll('enforces[element]')).map(ref => ref.getAttribute('element'))
 
+        const svgIcon = el.querySelector('icon svg')
+
         const exp = new Expansion(name, title, { enforces }, [new Release(name, tileSets)])
+        if (svgIcon) {
+          this.symbols.push(`<symbol id="expansion-${name}" viewBox="${svgIcon.getAttribute('viewBox')}">${svgIcon.innerHTML}</symbol>`)
+          exp.svgIcon = true
+        }
+
         Expansion.register(exp)
         expansions.push(exp)
       })
@@ -368,6 +375,16 @@ class Tiles {
     this.sets = sets
     this.expansions = sortBy(expansions, 'name')
     this.loaded = true
+
+    if (this.symbols.length) {
+      let symbolsContainer = document.getElementById('symbols')
+      if (!symbolsContainer) {
+        symbolsContainer = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+        symbolsContainer.setAttribute('id', 'symbols')
+        document.body.appendChild(symbolsContainer)
+      }
+      symbolsContainer.innerHTML = this.symbols.join('\n')
+    }
 
     console.log('Expansions definitions loaded.')
     this.ctx.app.store.commit('tilesLoaded')
