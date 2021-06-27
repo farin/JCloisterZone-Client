@@ -75,7 +75,7 @@
       <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="AM/Rrr">
-      <road>N W E</road>
+      <road wells="1">N W E</road>
       <field>WR NL</field>
       <field>NR EL</field>
       <field>ER SL SR WL</field>
