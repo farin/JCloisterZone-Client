@@ -29,9 +29,9 @@ export default {
     letters () {
       const { title } = this.expansion
       if (!title) return '?'
-      const words = title.split(/\s+/, 2)
+      const words = title.toUpperCase().split(/\s+/).filter(w => w !== 'THE')
       if (words.length > 1) {
-        return (words[0].charAt(0) + words[1].charAt(0)).toUpperCase()
+        return (words[0].charAt(0) + words[1].charAt(0))
       } else {
         return title.substring(0, 2).toUpperCase()
       }
