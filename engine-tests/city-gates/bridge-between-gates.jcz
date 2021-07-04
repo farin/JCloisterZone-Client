@@ -8,7 +8,7 @@
   "test": {
     "description": "Bridge placed berween city gates",
     "assertions": [
-      "Bob has 1 points"
+      "Alice has 1 points"
     ]
   },
   "setup": {
