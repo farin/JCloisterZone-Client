@@ -1,6 +1,6 @@
 <template>
   <div class="addon-box">
-    <h5>{{ addon.id }}</h5>
+    <h5>{{ addon.title || addon.id }}</h5>
 
     <div class="expansions">
       <div

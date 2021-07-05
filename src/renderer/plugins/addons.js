@@ -194,6 +194,7 @@ class Addons {
         json.id = id
         const addon = {
           id,
+          title: json.title,
           folder: fullPath,
           json,
           remote: this.AUTO_DOWNLOADED[id] || null
