@@ -81,7 +81,8 @@
               <a v-if="!recentGameSetups.length" class="clear" href="#" @click="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a>
             </div>
 
-            <div v-if="recentGameSetups.length && $store.state.loaded.plugins" class="recent-list setup-list d-flex flex-column align-end">
+            <!-- loaded tiles would be enough if rules densn't refer images -> which happends now when extra Abbery is enabled -->
+            <div v-if="recentGameSetups.length && $store.state.loaded.artworks" class="recent-list setup-list d-flex flex-column align-end">
               <div
                 v-for="(setup, idx) in recentGameSetups"
                 :key="idx"

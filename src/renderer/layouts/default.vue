@@ -175,8 +175,8 @@ export default {
     ipcRenderer.on('menu.test-runner', () => {
       this.$router.push('/test-runner')
     })
-    ipcRenderer.on('menu.reload-artworks', () => {
-      this.$theme.loadArtworks()
+    ipcRenderer.on('menu.reload-addons', () => {
+      this.loadAddons()
     })
     ipcRenderer.on('menu.theme-inspector', () => {
       this.$router.push('/theme-inspector')
@@ -218,13 +218,12 @@ export default {
       // do nothing, state flags asre set
     }
 
-    await this.$tiles.loadExpansions()
-    this.$store.dispatch('loadPlugins')
+    await this.loadAddons()
 
     window.addEventListener('keydown', this.onKeyDown)
 
     await this.$store.dispatch('settings/registerChangeCallback', ['theme', onThemeChange])
-    await this.$store.dispatch('settings/registerChangeCallback', ['userArtworks', () => { this.$theme.loadPlugins() }])
+    await this.$store.dispatch('settings/registerChangeCallback', ['userAddons', () => { this.loadAddons() }])
     await this.$store.dispatch('settings/registerChangeCallback', ['enabledArtworks', () => { this.$theme.loadArtworks() }])
     await this.$store.dispatch('settings/registerChangeCallback', ['userExpansions', () => { this.$tiles.loadExpansions() }])
     await this.$store.dispatch('settings/registerChangeCallback', ['dev', () => { this.updateMenu() }])
@@ -236,6 +235,16 @@ export default {
   },
 
   methods: {
+    async loadAddons () {
+      // await this.$tiles.loadExpansions()
+      // this.$store.dispatch('loadAddons')
+      await this.$addons.loadAddons()
+      await this.$tiles.loadExpansions()
+
+      // this can be loaded in background
+      this.$theme.loadArtworks()
+    },
+
     updateMenu () {
       const routeName = this.$route.name
       const gameOpen = routeName === 'game-setup' || routeName === 'open-game' || routeName === 'game'

@@ -71,7 +71,7 @@ async function createMenu (win) {
         { id: 'dump-server', label: 'Dump hosted game server state', click () { win.webContents.send('menu.dump-server') } },
         { id: 'test-runner', label: 'Test Runner', click () { win.webContents.send('menu.test-runner') } },
         { type: 'separator' },
-        { label: 'Reload artworks', click () { win.webContents.send('menu.reload-artworks') } },
+        { label: 'Reload Add-ons', click () { win.webContents.send('menu.reload-addons') } },
         { id: 'theme-inspector', label: 'Theme inspector', click () { win.webContents.send('menu.theme-inspector') } }
       ]
     })

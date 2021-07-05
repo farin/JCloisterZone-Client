@@ -17,6 +17,9 @@
               <v-list-item-title>Apperance</v-list-item-title>
             </v-list-item>
             <v-list-item>
+              <v-list-item-title>Add-ons</v-list-item-title>
+            </v-list-item>
+            <v-list-item>
               <v-list-item-title>Java</v-list-item-title>
             </v-list-item>
           </v-list-item-group>
@@ -161,6 +164,10 @@
           </template>
 
           <template v-if="section === 3">
+            <h3 class="mt-2 mb-4">Add-ons</h3>
+          </template>
+
+          <template v-if="section === 4">
             <h3 class="mt-2 mb-4">Java</h3>
 
             <em>Although JCloisterZone client is pure native application, Java is required to run game engine. In other words to play a game.</em>

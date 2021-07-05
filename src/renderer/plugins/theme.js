@@ -71,105 +71,14 @@ class Theme {
     this.tiles = {}
     this.tileLayers = {}
     this.ctx = ctx
-
-    this.REMOTE_ARTWORKS = {
-      classic: {
-        url: 'https://jcloisterzone.com/artworks/classic/classic-3-5.5.0.zip',
-        version: '3 (5.5.0)',
-        sha256: '9e3c89fe21a0380479f068efd3e3135dfb4c5f83ddf44f4c86ad3c3fc1535899'
-      }
-    }
   }
 
-  async loadPlugins () {
-    console.log('Looking for installed artworks.')
+  async loadArtworks () {
+    this._artworks = {}
+    this._tiles = {}
+
     const { settings } = this.ctx.store.state
-
-    const userDataPath = window.process.argv.find(arg => arg.startsWith('--user-data=')).replace('--user-data=', '')
-
-    const lookupFolders = [
-      path.join(userDataPath, 'artworks'),
-      process.resourcesPath + '/artworks/'
-    ]
-
-    const readArtwork = async (id, fullPath) => {
-      const stats = await fs.promises.stat(fullPath)
-      if (stats.isDirectory()) {
-        const jsonPath = path.join(fullPath, 'artwork.json')
-        let json
-        try {
-          json = JSON.parse(await fs.promises.readFile(jsonPath))
-        } catch (e) {
-          // not plugin folder, do nothing
-          return null
-        }
-        try {
-          json.id = id
-          if (json.icon) {
-            json.icon = path.join(fullPath, json.icon)
-            if (isDev) {
-              json.icon = 'file://' + json.icon
-            }
-          }
-          const artwork = {
-            id,
-            folder: fullPath,
-            json,
-            remote: this.REMOTE_ARTWORKS[id] || null
-          }
-          if (artwork.remote) {
-            if (artwork.json.version !== artwork.remote.version) {
-              // temporary migration to new version scheme
-              const currentVersion = id === 'classic' && artwork.json.version === '5.0.4' ? 0 : ~~artwork.json.version.split(' ')[0]
-              const requiredVersion = ~~artwork.remote.version.split(' ')[0]
-              if (currentVersion < requiredVersion) {
-                console.log(`Artwork ${id} is outdated (current ${currentVersion}, reqired ${requiredVersion})`)
-                artwork.outdated = true
-              }
-            }
-          }
-
-          return artwork
-        } catch (e) {
-          // unexpected error
-          console.error(e)
-        }
-      }
-      return null
-    }
-
-    const installedArtworks = []
-    const installedArtworksIds = new Set()
-
-    for (const fullPath of settings.userArtworks) {
-      const artwork = await readArtwork(path.basename(fullPath), fullPath)
-      if (artwork && !installedArtworksIds.has(artwork.id)) {
-        installedArtworks.push(artwork)
-        installedArtworksIds.add(artwork.id)
-      }
-    }
-
-    for (const lookupFolder of lookupFolders) {
-      let listing
-      try {
-        listing = await fs.promises.readdir(lookupFolder)
-      } catch (e) {
-        console.log(`${lookupFolder} does not exist`)
-        continue
-      }
-      for (const id of listing) {
-        // when same artwork is on path twice, register first found
-        // this allowes overide from user path
-        if (!installedArtworksIds.has(id)) {
-          const fullPath = path.join(lookupFolder, id)
-          const artwork = await readArtwork(id, fullPath)
-          if (artwork) {
-            installedArtworks.push(artwork)
-            installedArtworksIds.add(id)
-          }
-        }
-      }
-    }
+    console.log(`Loading enabled artworks. (${settings.enabledArtworks})`)
 
     let resourcesContainer = document.getElementById('theme-resources')
     if (resourcesContainer) {
@@ -180,20 +89,8 @@ class Theme {
       document.body.appendChild(resourcesContainer)
     }
 
-    // console.log('Installed artworks: ', installedArtworks)
-    this.installedArtworks = installedArtworks
-    await this.loadArtworks()
-  }
-
-  async loadArtworks () {
-    this._artworks = {}
-    this._tiles = {}
-
-    const { settings } = this.ctx.store.state
-    console.log(`Loading enabled artworks. (${settings.enabledArtworks})`)
-
     for (const id of settings.enabledArtworks) {
-      const artwork = this.installedArtworks.find(a => a.id === id)
+      const artwork = this.ctx.$addons.artworks.find(a => a.id === id)
       if (artwork) {
         await this.loadArtwork(artwork)
       }
@@ -204,6 +101,7 @@ class Theme {
     this.tileLayers = {}
     delete this._artwork
     delete this._tiles
+    this.ctx.app.store.commit('artworksLoaded')
   }
 
   async loadArtwork ({ id, folder, json, jsonFile }) {

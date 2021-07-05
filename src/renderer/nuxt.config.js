@@ -17,6 +17,7 @@ module.exports = {
     '~/plugins/engine',
     '~/plugins/server',
     '~/plugins/connection',
+    '~/plugins/addons',
     '~/plugins/tiles',
     '~/plugins/theme',
     { ssr: true, src: '@/plugins/icons.js' },

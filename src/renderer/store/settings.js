@@ -13,9 +13,8 @@ const RECENT_SETUPS_COUNT = 4
 /* eslint quote-props: 0 */
 export const state = () => ({
   file: null,
-  userArtworks: [],
-  userExpansions: [],
-  enabledArtworks: ['classic'],
+  userAddons: [],
+  enabledArtworks: ['classic/classic'],
   lastGameSetup: null,
   recentSaves: [],
   recentSetupSaves: [],
@@ -107,9 +106,15 @@ export const actions = {
         missingKey = true
         settings.nickname = await username()
       }
+      // migrate legacy play online settings
       if (settings.playOnlineUrl === null) {
         missingKey = true
         settings.playOnlineUrl = 'play.jcloisterzone.com/ws'
+      }
+      // migrate 5.6
+      if (settings.enabledArtworks.length > 0 && settings.enabledArtworks[0] === 'classic') {
+        missingKey = true
+        settings.enabledArtworks = ['classic/classic']
       }
       commit('settings', settings)
       console.log(`%c settings %c loaded ${file}`, CONSOLE_SETTINGS_COLOR, '')

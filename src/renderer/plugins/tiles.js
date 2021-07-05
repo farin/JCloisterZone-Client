@@ -1,5 +1,4 @@
 import fs from 'fs'
-import path from 'path'
 
 import Vue from 'vue'
 import sortBy from 'lodash/sortBy'
@@ -185,41 +184,18 @@ class Tiles {
   }
 
   async loadExpansions () {
-    const { settings } = this.ctx.store.state
-    const userDataPath = window.process.argv.find(arg => arg.startsWith('--user-data=')).replace('--user-data=', '')
-
-    const lookupFolders = [
-      path.join(userDataPath, 'expansions'),
-      process.resourcesPath + '/expansions/'
-    ]
-
+    // const { settings } = this.ctx.store.state
     const xmls = []
 
-    for (const lookupFolder of lookupFolders) {
-      let listing
-      try {
-        listing = await fs.promises.readdir(lookupFolder)
-      } catch (e) {
-        console.log(`${lookupFolder} does not exist`)
-        continue
-      }
-      listing.filter(f => {
-        const ext = f.substr(f.lastIndexOf('.') + 1)
-        return ext === 'xml'
-      }).forEach(f => xmls.push(lookupFolder + f))
-    }
+    // load built-in expansions
+    const lookupFolder = process.resourcesPath + '/expansions/'
+    const listing = await fs.promises.readdir(lookupFolder)
+    listing.filter(f => {
+      const ext = f.substr(f.lastIndexOf('.') + 1)
+      return ext === 'xml'
+    }).forEach(f => xmls.push(lookupFolder + f))
 
-    for (const fullPath of settings.userExpansions) {
-      try {
-        const stats = await fs.promises.stat(fullPath)
-        if (stats.isFile()) {
-          console.log(`Loading user expansion ${fullPath}`)
-          xmls.push(fullPath)
-        }
-      } catch (err) {
-        console.log(`${fullPath} is not accesible`)
-      }
-    }
+    xmls.push(...this.ctx.$addons.expansions)
 
     // clean priosly loaded
     Expansion.unregisterAll()
