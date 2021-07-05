@@ -18,6 +18,7 @@
     </v-radio-group>
 
     <h4>Artworks</h4>
+    <em>Additional artworks may by provided by add-ons.</em>
 
     <div
       v-for="{ json: artwork } in $addons.artworks"
@@ -59,7 +60,7 @@ export default {
 .artwork-box
   display: flex
   padding: 16px
-  margin-top: 20px
+  margin-top: 10px
 
   +theme using ($theme)
     background: map-get($theme, 'board-bg')
@@ -72,8 +73,8 @@ export default {
     margin-bottom: 2px
 
   .artwork-icon
-    width: 100px
-    height: 100px
+    width: 90px
+    height: 90px
     margin-right: 16px
 
     +theme using ($theme)
