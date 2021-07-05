@@ -35,8 +35,17 @@
         <small>{{ engine.errorMessage }}</small>
       </v-alert>
       <div v-if="download">
-        {{ download.description }}
-        <v-progress-linear indeterminate />
+        <div class="download-header">
+          <span class="description">{{ download.description }}</span>
+          <span v-if="download.size" class="size">
+            {{ (download.progress / 1048576).toFixed(2) }} / {{ (download.size / 1048576).toFixed(2) }} MiB
+          </span>
+        </div>
+        <v-progress-linear
+          v-if="download.size"
+          :value="download.size ? download.progress / download.size * 100 : null"
+        />
+        <v-progress-linear v-else indeterminate />
       </div>
       <div v-if="updateInfo" class="update-box">
         <h3>New JCloisterZone version is available.</h3>
@@ -384,6 +393,12 @@ h3
 
   ::v-deep ul
     list-style: none
+
+.download-header
+  display: flex
+
+  .description
+    flex-grow: 1
 
 @media (max-height: 1199px)
   .landing-view

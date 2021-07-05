@@ -14,7 +14,8 @@ class Addons {
       classic: {
         url: 'https://jcloisterzone.com/artworks/classic/classic-4-5.7.0.zip',
         version: '4 (5.7.0)',
-        sha256: '0adf770db8b12d33b76c63fd1bc9c130b83474cffc2b770c2f27dd2a160e1ef8'
+        sha256: '0adf770db8b12d33b76c63fd1bc9c130b83474cffc2b770c2f27dd2a160e1ef8',
+        size: 88733423
       }
     }
 
@@ -113,7 +114,13 @@ class Addons {
 
     console.log('Downloading classic artwork.')
     const link = this.AUTO_DOWNLOADED.classic.url
-    this.ctx.app.store.commit('download', { name: 'classic.zip', description: 'Downloading classic artwork', link })
+    this.ctx.app.store.commit('download', {
+      name: 'classic.zip',
+      description: 'Downloading classic artwork',
+      progress: null,
+      size: null,
+      link
+    })
 
     const userDataPath = window.process.argv.find(arg => arg.startsWith('--user-data=')).replace('--user-data=', '')
     const addonsFolder = path.join(userDataPath, 'addons')
@@ -128,8 +135,16 @@ class Addons {
     }
     const file = fs.createWriteStream(zipName)
     await new Promise((resolve, reject) => {
-      https.get(link, function (response) {
+      let downloadedBytes = 0
+      https.get(link, response => {
+        const total = parseInt(response.headers['content-length'])
+        this.ctx.app.store.commit('downloadSize', total)
+        response.on('data', chunk => {
+          downloadedBytes += chunk.length
+          this.ctx.app.store.commit('downloadProgress', downloadedBytes)
+        })
         response.pipe(file)
+
         file.on('finish', function () {
           file.close(resolve)
         })
@@ -141,7 +156,13 @@ class Addons {
     const checksum = sha256File(zipName)
     if (checksum !== this.AUTO_DOWNLOADED.classic.sha256) {
       console.log('classic.zip checksum mismatch ' + checksum)
-      this.ctx.app.store.commit('download', { name: 'classic.zip', description: 'Error: Downloaded file has invalid checksum', link })
+      this.ctx.app.store.commit('download', {
+        name: 'classic.zip',
+        description: 'Error: Downloaded file has invalid checksum',
+        progress: 0,
+        size: this.AUTO_DOWNLOADED.classic.size,
+        link
+      })
       await fs.promises.unlink(zipName)
     } else {
       console.log('classic.zip downloaded. sha256: ' + checksum)

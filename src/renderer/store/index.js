@@ -75,6 +75,18 @@ export const mutations = {
     state.download = value
   },
 
+  downloadProgress (state, value) {
+    if (state.download) {
+      state.download.progress = value
+    }
+  },
+
+  downloadSize (state, value) {
+    if (state.download) {
+      state.download.size = value
+    }
+  },
+
   updateInfo (state, value) {
     state.updateInfo = value
   },
