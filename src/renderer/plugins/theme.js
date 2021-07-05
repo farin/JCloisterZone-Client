@@ -89,8 +89,15 @@ class Theme {
       document.body.appendChild(resourcesContainer)
     }
 
+    const artworks = {}
+    for (const addon of this.ctx.$addons.addons) {
+      for (const artwork of addon.artworks) {
+        artworks[artwork.id] = artwork
+      }
+    }
+
     for (const id of settings.enabledArtworks) {
-      const artwork = this.ctx.$addons.artworks.find(a => a.id === id)
+      const artwork = artworks[id]
       if (artwork) {
         await this.loadArtwork(artwork)
       }

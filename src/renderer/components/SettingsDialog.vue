@@ -4,7 +4,7 @@
     <v-card-text class="flex-grow-1">
       <div class="d-flex">
         <v-list class="flex-shrink-0">
-          <v-list-item-group v-model="section">
+          <v-list-item-group v-model="section" mandatory>
             <v-list-item>
               <v-list-item-title>Player</v-list-item-title>
             </v-list-item>
@@ -24,11 +24,11 @@
         </v-list>
 
         <div class="px-8 flex-grow-1 settings-dialog-content">
-          <PlayerSettings  v-if="section === 0" />
+          <PlayerSettings v-if="section === 0" />
           <GameInterfaceSettings v-else-if="section === 1" />
           <ApperanceSettings v-else-if="section === 2" />
           <AddonsSettings v-else-if="section === 3" />
-          <JavaSettings v-else-if="section === 4" />
+          <JavaSettings v-else-if="section === 4" ref="javaSettings" />
         </div>
       </div>
     </v-card-text>
@@ -58,6 +58,12 @@ export default {
   data () {
     return {
       section: 0
+    }
+  },
+
+  methods: {
+    clean () {
+      this.$refs.javaSettings?.clean()
     }
   }
 }

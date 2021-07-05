@@ -21,7 +21,7 @@
     <em>Additional artworks may by provided by add-ons.</em>
 
     <div
-      v-for="{ json: artwork } in $addons.artworks"
+      v-for="{ json: artwork } in artworks"
       :key="artwork.id"
       class="artwork-box"
       :class="{ disabled: !isArtworkEnabled(artwork.id) }"
@@ -45,6 +45,16 @@ export default {
     theme: {
       get () { return this.$store.state.settings.theme },
       set (val) { this.$store.dispatch('settings/update', { theme: val }) }
+    },
+
+    artworks () {
+      const artworks = []
+      for (const addon of this.$addons.addons) {
+        for (const artwork of addon.artworks) {
+          artworks.push(artwork)
+        }
+      }
+      return artworks
     }
   },
 

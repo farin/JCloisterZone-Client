@@ -22,7 +22,6 @@ class Addons {
 
     this.ctx = ctx
     this.addons = []
-    this.artworks = []
   }
 
   async loadAddons () {
@@ -85,19 +84,16 @@ class Addons {
 
     console.log('Installed addons: ', installedAddons)
 
-    const installedArtworks = []
-
     for (const addon of installedAddons) {
+      addon.artworks = []
       for (const relPath of (addon.json.artworks || [])) {
         const fullPath = path.join(addon.folder, relPath)
         const artwork = await this._readArtwork(addon.id + '/' + path.basename(fullPath), fullPath)
-        installedArtworks.push(artwork)
+        addon.artworks.push(artwork)
       }
     }
 
     this.addons = sortBy(installedAddons, 'id')
-    this.artworks = installedArtworks
-
     this.ctx.app.store.commit('addonsLoaded')
   }
 
