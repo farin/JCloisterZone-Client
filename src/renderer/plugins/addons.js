@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import https from 'https'
 
+import sortBy from 'lodash/sortBy'
 import unzipper from 'unzipper'
 import sha256File from 'sha256-file'
 import Vue from 'vue'
@@ -22,7 +23,6 @@ class Addons {
     this.ctx = ctx
     this.addons = []
     this.artworks = []
-    this.expansions = []
   }
 
   async loadAddons () {
@@ -86,7 +86,6 @@ class Addons {
     console.log('Installed addons: ', installedAddons)
 
     const installedArtworks = []
-    const installedExpansions = []
 
     for (const addon of installedAddons) {
       for (const relPath of (addon.json.artworks || [])) {
@@ -94,16 +93,10 @@ class Addons {
         const artwork = await this._readArtwork(addon.id + '/' + path.basename(fullPath), fullPath)
         installedArtworks.push(artwork)
       }
-
-      for (const relPath of (addon.json.expansions || [])) {
-        const fullPath = path.join(addon.folder, relPath)
-        installedExpansions.push(fullPath)
-      }
     }
 
-    this.addons = installedAddons
+    this.addons = sortBy(installedAddons, 'id')
     this.artworks = installedArtworks
-    this.expansions = installedExpansions
 
     this.ctx.app.store.commit('addonsLoaded')
   }

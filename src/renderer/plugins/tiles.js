@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 
 import Vue from 'vue'
 import sortBy from 'lodash/sortBy'
@@ -184,25 +185,6 @@ class Tiles {
   }
 
   async loadExpansions () {
-    // const { settings } = this.ctx.store.state
-    const xmls = []
-
-    // load built-in expansions
-    const lookupFolder = process.resourcesPath + '/expansions/'
-    const listing = await fs.promises.readdir(lookupFolder)
-    listing.filter(f => {
-      const ext = f.substr(f.lastIndexOf('.') + 1)
-      return ext === 'xml'
-    }).forEach(f => xmls.push(lookupFolder + f))
-
-    xmls.push(...this.ctx.$addons.expansions)
-
-    // clean priosly loaded
-    Expansion.unregisterAll()
-    Expansion.all().forEach(exp => {
-      delete exp.requiredBy
-    })
-
     const gameElementsWithSelector = GameElement.all().filter(ge => ge.selector)
 
     const tiles = {}
@@ -213,7 +195,8 @@ class Tiles {
     const tileAllows = {}
 
     const parser = new DOMParser()
-    for (const xml of xmls) {
+
+    const parseXml = async (xml, addon) => {
       const content = await fs.promises.readFile(xml)
       const doc = parser.parseFromString(content, 'application/xml')
 
@@ -306,7 +289,32 @@ class Tiles {
 
         Expansion.register(exp)
         expansions.push(exp)
+        addon?.expansions.push(exp)
       })
+    }
+
+    // clean priosly loaded
+    Expansion.unregisterAll()
+    Expansion.all().forEach(exp => {
+      delete exp.requiredBy
+    })
+
+    // load built-in expansions
+    const lookupFolder = process.resourcesPath + '/expansions/'
+    const listing = await fs.promises.readdir(lookupFolder)
+
+    for (const f of listing) {
+      if (f.substr(f.lastIndexOf('.') + 1) === 'xml') {
+        await parseXml(lookupFolder + f, null)
+      }
+    }
+
+    for (const addon of this.ctx.$addons.addons) {
+      addon.expansions = []
+      for (const relPath of (addon.json.expansions || [])) {
+        const fullPath = path.join(addon.folder, relPath)
+        await parseXml(fullPath, addon)
+      }
     }
 
     Object.entries(expansionRequiredBy).forEach(([expId, deps]) => {
@@ -346,7 +354,6 @@ class Tiles {
       edge: '****'
     }
 
-    this.xmls = xmls
     this.tiles = tiles
     this.sets = sets
     this.expansions = sortBy(expansions, 'name')

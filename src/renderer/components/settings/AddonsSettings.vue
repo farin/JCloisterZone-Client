@@ -1,21 +1,21 @@
 <template>
   <div>
     <h3 class="mt-2 mb-4">Add-ons</h3>
+
+    <AddonBox
+      v-for="addon in $addons.addons"
+      :key="addon.id"
+      :addon="addon"
+    />
   </div>
 </template>
 
 <script>
-export default {
-  computed: {
-    nickname: {
-      get () { return this.$store.state.settings.nickname },
-      set (val) { this.$store.dispatch('settings/update', { nickname: val }) }
-    },
+import AddonBox from '@/components/settings/AddonBox'
 
-    preferredColor: {
-      get () { return this.$store.state.settings.preferredColor },
-      set (val) { this.$store.dispatch('settings/update', { preferredColor: val }) }
-    }
+export default {
+  components: {
+    AddonBox
   }
 }
 </script>
