@@ -45,6 +45,12 @@ export class Expansion {
   }
 }
 
+Expansion._UNKNOWN = {
+  name: '_UNKNOWN',
+  title: 'Missing expansion'
+}
+Expansion._UNKNOWN.releases = [{ title: 'Missing expansion', sets: [], expansion: Expansion._UNKNOWN }]
+
 export const BASIC = Expansion.BASIC = new Expansion('BASIC', 'Base game')
 export const WINTER = Expansion.WINTER = new Expansion('WINTER', 'Winter')
 

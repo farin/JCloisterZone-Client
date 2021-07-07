@@ -15,6 +15,8 @@ const EDGE_CODE = {
   river: 'i'
 }
 
+const UNKWNOWN_SET = { expansion: '_UNKNOWN', implies: [], impliesAllowed: [], allows: [] }
+
 function getFeatureSignature (feature) {
   const attrs = feature.attributes
   const alist = [feature.tagName]
@@ -62,7 +64,8 @@ class Tiles {
     const expansions = {}
     Object.entries(sets).forEach(([id, setCount]) => {
       if (setCount) {
-        const set = this.sets[id] || this.sets[id + ':' + edition]
+        const set = this.sets[id] || this.sets[id + ':' + edition] || UNKWNOWN_SET
+
         if (expansions[set.expansion]) {
           expansions[set.expansion] = Math.max(expansions[set.expansion], setCount)
         } else {
@@ -86,7 +89,7 @@ class Tiles {
     Object.entries(sets).forEach(([id, setCount]) => {
       if (!setCount) return
 
-      const set = this.sets[id] || this.sets[id + ':' + edition]
+      const set = this.sets[id] || this.sets[id + ':' + edition] || UNKWNOWN_SET
       Object.entries(set.tiles).forEach(([tileId, tileCount]) => {
         counts[tileId] = (counts[tileId] || 0) + setCount * tileCount
         const { max } = this.tiles[tileId]
@@ -145,7 +148,7 @@ class Tiles {
     const allows = new Set([])
 
     Object.keys(sets).forEach(id => {
-      const set = this.sets[id] || this.sets[id + ':1'] || this.sets[id + ':2']
+      const set = this.sets[id] || this.sets[id + ':1'] || this.sets[id + ':2'] || UNKWNOWN_SET
       set.implies.forEach(elem => { implies.add(elem) })
       set.impliesAllowed.forEach(elem => { impliesAllowed.add(elem) })
       set.allows.forEach(elem => { allows.add(elem) })

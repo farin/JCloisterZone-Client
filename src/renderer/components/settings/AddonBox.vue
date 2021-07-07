@@ -2,6 +2,14 @@
   <div class="addon-box">
     <h5>{{ addon.title || addon.id }}</h5>
 
+    <div
+      v-if="addon.removable"
+      class="remove"
+      @click="$addons.uninstall(addon)"
+    >
+      <v-icon>fas fa-trash</v-icon>
+    </div>
+
     <div class="items">
       <div
         v-for="exp in addon.expansions"
@@ -41,12 +49,19 @@ export default {
 
 <style lang="sass" scoped>
 .addon-box
+  position: relative
   //display: flex
   padding: 16px
   margin-top: 10px
 
   +theme using ($theme)
     background: map-get($theme, 'board-bg')
+
+  .remove
+    position: absolute
+    top: 16px
+    right: 16px
+    cursor: pointer
 
 h5
   margin-bottom: 10px

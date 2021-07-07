@@ -7,6 +7,8 @@ import unzipper from 'unzipper'
 import sha256File from 'sha256-file'
 import Vue from 'vue'
 
+import { ipcRenderer } from 'electron'
+
 const isDev = process.env.NODE_ENV === 'development'
 
 class Addons {
@@ -52,6 +54,7 @@ class Addons {
 
     for (const fullPath of settings.userAddons) {
       const addon = await this._readAddon(path.basename(fullPath), fullPath)
+      addon.removable = false
       if (addon && !installedAddonsIds.has(addon.id)) {
         installedAddons.push(addon)
         installedAddonsIds.add(addon.id)
@@ -72,6 +75,7 @@ class Addons {
         if (!installedAddonsIds.has(id)) {
           const fullPath = path.join(lookupFolder, id)
           const addon = await this._readAddon(id, fullPath)
+          addon.removable = id !== 'classic'
           if (addon) {
             installedAddons.push(addon)
             installedAddonsIds.add(id)
@@ -93,8 +97,36 @@ class Addons {
       }
     }
 
-    this.addons = sortBy(installedAddons, 'id')
+    this.addons = sortBy(installedAddons, ['removable', 'id'])
     this.ctx.app.store.commit('addonsLoaded')
+  }
+
+  async mkAddonsFolder () {
+    const userDataPath = window.process.argv.find(arg => arg.startsWith('--user-data=')).replace('--user-data=', '')
+    const addonsFolder = path.join(userDataPath, 'addons')
+    await fs.promises.mkdir(addonsFolder, { recursive: true })
+    return addonsFolder
+  }
+
+  async install (file) {
+    console.log(file)
+
+    const addonsFolder = await this.mkAddonsFolder()
+
+    // TODO UNPACK FIRST TO TEMP DIR AND VALIDATE
+    await fs.createReadStream(file.path)
+      .pipe(unzipper.Extract({ path: addonsFolder }))
+      .promise()
+
+    console.log('INSTALLED')
+    // TODO reload
+  }
+
+  async uninstall (addon) {
+    console.log(`Uninstalling add-on ${addon.id}`)
+    await fs.promises.rmdir(addon.folder, { recursive: true })
+
+    // TODO reload
   }
 
   async updateOutdated (installedAddons) {
@@ -111,9 +143,7 @@ class Addons {
       link
     })
 
-    const userDataPath = window.process.argv.find(arg => arg.startsWith('--user-data=')).replace('--user-data=', '')
-    const addonsFolder = path.join(userDataPath, 'addons')
-    await fs.promises.mkdir(addonsFolder, { recursive: true })
+    const addonsFolder = await this.mkAddonsFolder()
     const zipName = path.join(addonsFolder, 'classic.zip')
     try {
       if ((await fs.promises.stat(zipName)).isFile()) {
