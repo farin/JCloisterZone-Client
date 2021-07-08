@@ -15,9 +15,9 @@ class Addons {
   constructor (ctx) {
     this.AUTO_DOWNLOADED = {
       classic: {
-        url: 'https://jcloisterzone.com/artworks/classic/classic-4-5.7.0.zip',
+        url: 'https://jcloisterzone.com/artworks/classic/classic-4-5.7.0.jca',
         version: '4 (5.7.0)',
-        sha256: '0adf770db8b12d33b76c63fd1bc9c130b83474cffc2b770c2f27dd2a160e1ef8',
+        sha256: '12a21b415b82fabc9b02d54d7cbccdb33393aa99a3de1e172f0281ad6dbbf7b4',
         size: 88733423
       }
     }
@@ -165,7 +165,7 @@ class Addons {
     console.log('Downloading classic artwork.')
     const link = this.AUTO_DOWNLOADED.classic.url
     this.ctx.app.store.commit('download', {
-      name: 'classic.zip',
+      name: 'classic.jca',
       description: 'Downloading classic artwork',
       progress: null,
       size: null,
@@ -173,7 +173,7 @@ class Addons {
     })
 
     const addonsFolder = await this.mkAddonsFolder()
-    const zipName = path.join(addonsFolder, 'classic.zip')
+    const zipName = path.join(addonsFolder, 'classic.jca')
     try {
       if ((await fs.promises.stat(zipName)).isFile()) {
         await fs.promises.unlink(zipName)
@@ -203,9 +203,9 @@ class Addons {
     })
     const checksum = sha256File(zipName)
     if (checksum !== this.AUTO_DOWNLOADED.classic.sha256) {
-      console.log('classic.zip checksum mismatch ' + checksum)
+      console.log('classic.jca checksum mismatch ' + checksum)
       this.ctx.app.store.commit('download', {
-        name: 'classic.zip',
+        name: 'classic.jca',
         description: 'Error: Downloaded file has invalid checksum',
         progress: 0,
         size: this.AUTO_DOWNLOADED.classic.size,
@@ -213,7 +213,7 @@ class Addons {
       })
       await fs.promises.unlink(zipName)
     } else {
-      console.log('classic.zip downloaded. sha256: ' + checksum)
+      console.log('classic.jca downloaded. sha256: ' + checksum)
       if (classicArtwork?.outdated) {
         console.log('Removing outdated artwork ' + classicArtwork.folder)
         await fs.promises.rmdir(classicArtwork.folder, { recursive: true })
