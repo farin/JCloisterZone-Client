@@ -15,7 +15,7 @@ class Addons {
   constructor (ctx) {
     this.AUTO_DOWNLOADED = {
       classic: {
-        url: 'https://jcloisterzone.com/artworks/classic/classic-4-5.7.0.jca',
+        url: 'https://jcloisterzone.com/packages/classic/classic-4-5.7.0.jca',
         version: '4 (5.7.0)',
         sha256: '12a21b415b82fabc9b02d54d7cbccdb33393aa99a3de1e172f0281ad6dbbf7b4',
         size: 88733423

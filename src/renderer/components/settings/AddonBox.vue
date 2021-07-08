@@ -68,6 +68,8 @@ export default {
         color: map-get($theme, 'removed-color')
 
 h5
+  font-size: 14px
+  font-weight: 500
   margin-bottom: 10px
 
 .items

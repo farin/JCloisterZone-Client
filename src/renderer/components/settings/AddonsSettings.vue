@@ -9,8 +9,13 @@
       @drop="onDrop"
       @click="selectFile"
     >
-      Drag add-on here (.jca file) or click here to select it.
+      <strong>Install add-on</strong>
+      <div>Drag add-on here (.jca file) or click here to select it.</div>
     </v-sheet>
+
+    <p class="info-box">
+      Look at <a href="https://jcloisterzone.com/addons/" @click.prevent="openLink">https://jcloisterzone.com/addons/</a> for available add-ons.
+    </p>
 
     <h4>Installed add-ons</h4>
 
@@ -24,7 +29,7 @@
 </template>
 
 <script>
-import { ipcRenderer } from 'electron'
+import { shell, ipcRenderer } from 'electron'
 import AddonBox from '@/components/settings/AddonBox'
 
 const JCA_FILTERS = [{ name: 'JCloisterZone add-on ', extensions: ['jca'] }]
@@ -84,6 +89,10 @@ export default {
     async uninstall (addon) {
       await this.$addons.uninstall(addon)
       this.$forceUpdate()
+    },
+
+    openLink (ev) {
+      shell.openExternal(ev.target.href)
     }
   }
 }
@@ -92,14 +101,23 @@ export default {
 <style lang="sass" scoped>
 .dragzone
   width: 100%
-  height: 80px
+  height: 90px
   border: 2px dashed
   display: flex
+  flex-direction: column
   align-items: center
   justify-content: center
   font-weight: 300
   font-size: 18px
   cursor: pointer
+  text-align: center
+
+  strong
+    display: block
+    margin-bottom: 4px
+
+  div
+    font-size: 16px
 
   +theme using ($theme)
     color: map-get($theme, 'cards-selected-text')
@@ -108,4 +126,8 @@ export default {
   &.dragover
     +theme using ($theme)
       background: map-get($theme, 'cards-selected-bg')
+
+.info-box
+  margin-top: 10px
+  line-height: 1.2
 </style>
