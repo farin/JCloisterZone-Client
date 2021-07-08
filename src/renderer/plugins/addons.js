@@ -289,10 +289,7 @@ class Addons {
       try {
         json.id = id
         if (json.icon) {
-          json.icon = path.join(fullPath, json.icon)
-          if (isDev) {
-            json.icon = 'file://' + json.icon
-          }
+          json.icon = 'file://' + path.join(fullPath, json.icon)
         }
         const artwork = {
           id,
