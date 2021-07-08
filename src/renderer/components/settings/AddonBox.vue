@@ -5,7 +5,7 @@
     <div
       v-if="addon.removable"
       class="remove"
-      @click="$addons.uninstall(addon)"
+      @click="$emit('uninstall', addon)"
     >
       <v-icon>fas fa-trash</v-icon>
     </div>
@@ -62,6 +62,10 @@ export default {
     top: 16px
     right: 16px
     cursor: pointer
+
+    &:hover i
+      +theme using ($theme)
+        color: map-get($theme, 'removed-color')
 
 h5
   margin-bottom: 10px

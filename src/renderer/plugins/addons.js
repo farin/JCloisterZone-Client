@@ -1,13 +1,13 @@
+import os from 'os'
 import fs from 'fs'
 import path from 'path'
 import https from 'https'
 
 import sortBy from 'lodash/sortBy'
+import uniq from 'lodash/uniq'
 import unzipper from 'unzipper'
 import sha256File from 'sha256-file'
 import Vue from 'vue'
-
-import { ipcRenderer } from 'electron'
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -24,6 +24,7 @@ class Addons {
 
     this.ctx = ctx
     this.addons = []
+    this.oninstall = null
   }
 
   async loadAddons () {
@@ -108,25 +109,53 @@ class Addons {
     return addonsFolder
   }
 
-  async install (file) {
-    console.log(file)
-
+  async install (filePath) {
     const addonsFolder = await this.mkAddonsFolder()
 
+    const tmpFolder = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'addon-'))
+    console.log(tmpFolder)
+
     // TODO UNPACK FIRST TO TEMP DIR AND VALIDATE
-    await fs.createReadStream(file.path)
-      .pipe(unzipper.Extract({ path: addonsFolder }))
+    await fs.createReadStream(filePath)
+      .pipe(unzipper.Extract({ path: tmpFolder }))
       .promise()
 
-    console.log('INSTALLED')
-    // TODO reload
+    const listing = await fs.promises.readdir(tmpFolder)
+    if (listing.length !== 1) {
+      throw new Error('Invalid addon: package must contain only single folder in root')
+    }
+    const id = listing[0]
+    if (this.addons.find(addon => addon.id === id)) {
+      throw new Error(`Addon ${id} is already installed`)
+    }
+
+    const tmpAddonPath = path.join(tmpFolder, id)
+    const addon = await this._readAddon(id, tmpAddonPath)
+
+    await fs.promises.rename(tmpAddonPath, path.join(addonsFolder, id))
+
+    await fs.promises.rmdir(tmpFolder, { recursive: true })
+
+    const enabledArtworks = uniq([...this.ctx.store.state.settings.enabledArtworks, ...addon.json.artworks.map(artwork => `${id}/${artwork}`)])
+    await this.ctx.store.dispatch('settings/update', { enabledArtworks })
+
+    if (this.oninstall) {
+      await this.oninstall()
+    }
   }
 
   async uninstall (addon) {
-    console.log(`Uninstalling add-on ${addon.id}`)
     await fs.promises.rmdir(addon.folder, { recursive: true })
 
-    // TODO reload
+    if (addon.artworks.length) {
+      const ids = addon.artworks.map(a => a.id)
+      const enabledArtworks = this.ctx.store.state.settings.enabledArtworks.filter(id => !ids.includes(id))
+      await this.ctx.store.dispatch('settings/update', { enabledArtworks })
+    }
+
+    if (this.oninstall) {
+      await this.oninstall()
+    }
   }
 
   async updateOutdated (installedAddons) {

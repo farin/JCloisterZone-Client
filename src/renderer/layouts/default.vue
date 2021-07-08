@@ -228,6 +228,10 @@ export default {
     await this.$store.dispatch('settings/registerChangeCallback', ['userExpansions', () => { this.$tiles.loadExpansions() }])
     await this.$store.dispatch('settings/registerChangeCallback', ['dev', () => { this.updateMenu() }])
     await this.$store.dispatch('settings/registerChangeCallback', ['experimental.playOnline', () => { this.updateMenu() }])
+
+    this.$addons.oninstall = async () => {
+      await this.loadAddons(true)
+    }
   },
 
   beforeDestroy () {
@@ -235,14 +239,16 @@ export default {
   },
 
   methods: {
-    async loadAddons () {
-      // await this.$tiles.loadExpansions()
-      // this.$store.dispatch('loadAddons')
+    async loadAddons (waitForArtworks = false) {
       await this.$addons.loadAddons()
       await this.$tiles.loadExpansions()
 
-      // this can be loaded in background
-      this.$theme.loadArtworks()
+      if (waitForArtworks) {
+        await this.$theme.loadArtworks()
+      } else {
+        // usually this can be loaded in background
+        this.$theme.loadArtworks()
+      }
     },
 
     updateMenu () {

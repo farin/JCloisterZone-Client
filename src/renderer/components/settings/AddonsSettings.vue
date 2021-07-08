@@ -2,22 +2,15 @@
   <div>
     <h3 class="mt-2 mb-4">Add-ons</h3>
 
-    <label
-      for="addon-input"
-      :class="{ dragover: dragover }"
+    <v-sheet
+      :class="{ dragzone: true, dragover: dragover }"
       @dragover.prevent="onDragover"
       @dragleave="onDragleave"
       @drop="onDrop"
+      @click="selectFile"
     >
-      Drag add-on here or click to select a file.
-    </label>
-    <input
-      id="addon-input"
-      ref="addonInput"
-      type="file"
-      accept=".jca"
-      @change="selectFile"
-    >
+      Drag add-on here (.jca file) or click here to select it.
+    </v-sheet>
 
     <h4>Installed add-ons</h4>
 
@@ -25,12 +18,16 @@
       v-for="addon in $addons.addons"
       :key="addon.id"
       :addon="addon"
+      @uninstall="uninstall(addon)"
     />
   </div>
 </template>
 
 <script>
+import { ipcRenderer } from 'electron'
 import AddonBox from '@/components/settings/AddonBox'
+
+const JCA_FILTERS = [{ name: 'JCloisterZone add-on ', extensions: ['jca'] }]
 
 export default {
   components: {
@@ -61,26 +58,39 @@ export default {
           const ext = name.split('.').pop()
           return ext === 'jca'
         })
+        .map(f => f.path)
       await this.install(files)
       this.dragover = false
     },
 
-    async selectFile ($ev) {
-      await this.install(Array.from($ev.target.files))
-      this.$refs.addonInput.value = ''
+    async selectFile () {
+      const { filePaths } = await ipcRenderer.invoke('dialog.showOpenDialog', {
+        title: 'Install add-on',
+        filters: JCA_FILTERS,
+        properties: ['openFile']
+      })
+      this.install(filePaths)
     },
 
     async install (files) {
-      for (const f of files) {
-        await this.$addons.install(f)
+      if (files.length) {
+        for (const f of files) {
+          await this.$addons.install(f)
+        }
       }
+      this.$forceUpdate()
+    },
+
+    async uninstall (addon) {
+      await this.$addons.uninstall(addon)
+      this.$forceUpdate()
     }
   }
 }
 </script>
 
 <style lang="sass" scoped>
-label
+.dragzone
   width: 100%
   height: 80px
   border: 2px dashed
@@ -98,7 +108,4 @@ label
   &.dragover
     +theme using ($theme)
       background: map-get($theme, 'cards-selected-bg')
-
-#addon-input
-  display: none
 </style>
