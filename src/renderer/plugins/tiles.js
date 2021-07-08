@@ -193,6 +193,7 @@ class Tiles {
     const tiles = {}
     const sets = {}
     const expansions = []
+    const xmls = []
 
     const expansionRequiredBy = {}
     const tileAllows = {}
@@ -202,6 +203,8 @@ class Tiles {
     const parseXml = async (xml, addon) => {
       const content = await fs.promises.readFile(xml)
       const doc = parser.parseFromString(content, 'application/xml')
+
+      xmls.push(xml)
 
       doc.querySelectorAll('tile[id]').forEach(t => {
         const id = t.getAttribute('id')
@@ -357,6 +360,7 @@ class Tiles {
       edge: '****'
     }
 
+    this.xmls = xmls
     this.tiles = tiles
     this.sets = sets
     this.expansions = sortBy(expansions, 'name')
