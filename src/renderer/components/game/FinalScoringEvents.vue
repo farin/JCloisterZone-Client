@@ -55,11 +55,11 @@ export default {
           rows.tradeGoods.events.push(ev)
         } else if (type === 'gold') {
           rows.gold.events.push(ev)
-        } else if (type === 'farm') {
+        } else if (type === 'field') {
           rows.farms.events.push(ev)
         } else if (type === 'king' || type === 'robber') {
           rows.kingAndRobber.events.push(ev)
-        } else if (type === 'monastery') {
+        } else if (type === 'special-monastery') {
           rows.monasteries.events.push(ev)
         } else if (type === 'vodyanoy') {
           rows.penalties.events.push(ev)
