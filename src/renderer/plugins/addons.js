@@ -257,6 +257,7 @@ class Addons {
         if (addon.remote) {
           if (addon.json.version !== addon.remote.version) {
             // temporary migration to new version scheme
+            // TODO split is no longer needed, drop it after all users ugrade to 5.7.1
             const currentVersion = ~~addon.json.version.split(' ')[0]
             const requiredVersion = ~~addon.remote.version.split(' ')[0]
             if (currentVersion < requiredVersion) {

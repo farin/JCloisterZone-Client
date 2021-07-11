@@ -1,6 +1,6 @@
 <template>
   <div class="addon-box">
-    <h5>{{ addon.title || addon.id }}</h5>
+    <h5>{{ addon.title || addon.id }} <small class="version">v{{ addon.json.version }}</small></h5>
 
     <div
       v-if="addon.removable"
@@ -71,6 +71,10 @@ h5
   font-size: 14px
   font-weight: 500
   margin-bottom: 10px
+
+  .version
+    margin-left: 8px
+    opacity: 0.4
 
 .items
   display: flex
