@@ -91,6 +91,7 @@ class Theme {
 
     const artworks = {}
     for (const addon of this.ctx.$addons.addons) {
+      if (addon.error) continue
       for (const artwork of addon.artworks) {
         artworks[artwork.id] = artwork
       }

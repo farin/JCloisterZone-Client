@@ -131,11 +131,14 @@ class Addons {
     }
     const id = listing[0]
     if (this.addons.find(addon => addon.id === id)) {
-      throw new Error(`Addon ${id} is already installed`)
+      throw new Error(`Addon ${id} is already installed. If you want to reinstall it please remove it first.`)
     }
 
     const tmpAddonPath = path.join(tmpFolder, id)
     const addon = await this._readAddon(id, tmpAddonPath)
+    if (addon.error) {
+      throw new Error(addon.error)
+    }
 
     await fs.promises.rename(tmpAddonPath, path.join(addonsFolder, id))
 
@@ -152,7 +155,7 @@ class Addons {
   async uninstall (addon) {
     await fs.promises.rmdir(addon.folder, { recursive: true })
 
-    if (addon.artworks.length) {
+    if (addon.artworks?.length) { // may be undefined for invalid artwork
       const ids = addon.artworks.map(a => a.id)
       const enabledArtworks = this.ctx.store.state.settings.enabledArtworks.filter(id => !ids.includes(id))
       await this.ctx.store.dispatch('settings/update', { enabledArtworks })

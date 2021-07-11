@@ -13,6 +13,15 @@
       <div>Drag add-on here (.jca file) or click here to select it.</div>
     </v-sheet>
 
+    <v-alert
+      v-model="showAlert"
+      class="install-error"
+      type="warning"
+      dismissible
+    >
+      <div v-for="(error, idx) in errors" :key="idx">{{ error }}</div>
+    </v-alert>
+
     <p class="info-box">
       Look at <a href="https://jcloisterzone.com/addons/" @click.prevent="openLink">https://jcloisterzone.com/addons/</a> for available add-ons.
     </p>
@@ -41,6 +50,8 @@ export default {
 
   data () {
     return {
+      showAlert: false,
+      errors: [],
       dragover: false
     }
   },
@@ -78,9 +89,16 @@ export default {
     },
 
     async install (files) {
+      this.showAlert = false
+      this.errors = []
       if (files.length) {
         for (const f of files) {
-          await this.$addons.install(f)
+          try {
+            await this.$addons.install(f)
+          } catch (e) {
+            this.showAlert = true
+            this.errors.push(e + '')
+          }
         }
       }
       this.$forceUpdate()
@@ -130,4 +148,7 @@ export default {
 .info-box
   margin-top: 10px
   line-height: 1.2
+
+.install-error
+  margin-top: 10px
 </style>
