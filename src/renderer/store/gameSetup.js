@@ -229,8 +229,16 @@ export const actions = {
         ...loadedSetup
       }
     } else {
+      const edition = getters.getSelectedEdition
       const sets = mapKeys(state.sets, (value, key) => {
-        return $tiles.sets[key] ? key : key + ':' + getters.getSelectedEdition
+        return $tiles.sets[key] ? key : key + ':' + edition
+      })
+      const addons = {}
+      Object.keys($tiles.getExpansions(sets, edition)).forEach(id => {
+        const { addon } = Expansion[id]
+        if (addon) {
+          addons[addon.id] = addon.json.version
+        }
       })
 
       setup = {
@@ -240,6 +248,10 @@ export const actions = {
         timer: state.timer,
         start: getters.selectedStartingTiles.value,
         options: {}
+      }
+
+      if (Object.keys(addons).length) {
+        setup.addons = addons
       }
     }
 

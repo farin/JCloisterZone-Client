@@ -294,6 +294,9 @@ class Tiles extends EventsBase {
           this.symbols.push(`<symbol id="expansion-${name}" viewBox="${svgIcon.getAttribute('viewBox')}">${svgIcon.innerHTML}</symbol>`)
           exp.svgIcon = true
         }
+        if (addon) {
+          exp.addon = addon
+        }
 
         Expansion.register(exp)
         expansions.push(exp)

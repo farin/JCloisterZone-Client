@@ -5,13 +5,14 @@ import https from 'https'
 
 import sortBy from 'lodash/sortBy'
 import uniq from 'lodash/uniq'
+import isNumber from 'lodash/isNumber'
 import unzipper from 'unzipper'
 import sha256File from 'sha256-file'
 import compareVersions from 'compare-versions'
 import Vue from 'vue'
 
 import { getAppVersion } from '@/utils/version'
-import { EventsBase } from '../utils/events'
+import { EventsBase } from '@/utils/events'
 
 class Addons extends EventsBase {
   constructor (ctx) {
@@ -20,7 +21,7 @@ class Addons extends EventsBase {
     this.AUTO_DOWNLOADED = {
       classic: {
         url: 'https://jcloisterzone.com/packages/classic/classic-4-5.7.0.jca',
-        version: '4 (5.7.0)',
+        version: 4,
         sha256: '12a21b415b82fabc9b02d54d7cbccdb33393aa99a3de1e172f0281ad6dbbf7b4',
         size: 88733423
       }
@@ -260,18 +261,18 @@ class Addons extends EventsBase {
           json,
           remote: this.AUTO_DOWNLOADED[id] || null
         }
-        if (parseInt(addon.json.version) + '' !== addon.json.version) {
-          addon.error = `Invalid add-on. Expecting number as version, found "${addon.json.version}"`
+        if (!isNumber(addon.json.version)) {
+          addon.error = 'Invalid add-on. Expecting number as version found string.'
+        } else if (parseInt(addon.json.version) !== addon.json.version) {
+          addon.error = `Invalid add-on. Expecting integer number as version, found ${addon.json.version}`
         } else if (!addon.json.minimum_jcz_version) {
           addon.error = 'Invalid add-on. Missing minimum_jcz_version.'
         } else if (compareVersions.compare(getAppVersion(), addon.json.minimum_jcz_version, '<')) {
           addon.error = `Add-on requires JCZ ${addon.json.minimum_jcz_version} or higher`
         } else if (addon.remote) {
           if (addon.json.version !== addon.remote.version) {
-            // temporary migration to new version scheme
-            // TODO split is no longer needed, drop it after all users ugrade to 5.7.1
-            const currentVersion = ~~addon.json.version.split(' ')[0]
-            const requiredVersion = ~~addon.remote.version.split(' ')[0]
+            const currentVersion = addon.json.version
+            const requiredVersion = addon.remote.version
             if (currentVersion < requiredVersion) {
               console.log(`Artwork ${id} is outdated (current ${currentVersion}, reqired ${requiredVersion})`)
               addon.outdated = true

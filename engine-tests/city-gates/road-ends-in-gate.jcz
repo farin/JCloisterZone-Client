@@ -13,6 +13,9 @@
     ]
   },
   "setup": {
+    "addons": {
+      "city-gates": 1
+    },
     "sets": {
       "basic:1": 1,
       "city-gates": 1
