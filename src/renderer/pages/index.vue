@@ -139,6 +139,7 @@ import { shell, ipcRenderer } from 'electron'
 import { mapState } from 'vuex'
 
 import GameSetupOverviewInline from '@/components/game-setup/overview/GameSetupOverviewInline'
+import AddonsReloadObserverMixin from '@/components/AddonsReloadObserverMixin'
 
 const isMac = process.platform === 'darwin'
 const isWin = process.platform === 'win32'
@@ -148,6 +149,8 @@ export default {
     GameSetupOverviewInline
   },
 
+  mixins: [AddonsReloadObserverMixin],
+
   data () {
     return {
       isMac,
@@ -156,7 +159,8 @@ export default {
       recentSaves: [...this.$store.state.settings.recentSaves],
       recentSetupSaves: [...this.$store.state.settings.recentSetupSaves],
       recentGameSetups: [...this.$store.state.settings.recentGameSetups],
-      updating: false
+      updating: false,
+      verifiedRecentGameSetups: []
     }
   },
 
@@ -176,14 +180,6 @@ export default {
         return `https://github.com/farin/JCloisterZone-Client/releases/download/v${this.updateInfo.version}/${this.updateInfo.files[0].url}`
       }
       return null
-    },
-
-    verifiedRecentGameSetups () {
-      return this.recentGameSetups.map(setup => {
-        const edition = setup.elements.garden ? 2 : 1
-        const valid = !this.$tiles.getExpansions(setup.sets, edition)._UNKNOWN
-        return { setup, valid }
-      })
     }
   },
 
@@ -192,6 +188,10 @@ export default {
       this.recentSaves = [...this.$store.state.settings.recentSaves]
       this.recentSetupSaves = [...this.$store.state.settings.recentSetupSaves]
       this.recentGameSetups = [...this.$store.state.settings.recentGameSetups]
+    },
+
+    recentGameSetups () {
+      this.verifyRecentSetups()
     }
   },
 
@@ -255,6 +255,18 @@ export default {
     updateApp () {
       this.updating = true
       ipcRenderer.send('do-update')
+    },
+
+    verifyRecentSetups () {
+      this.verifiedRecentGameSetups = this.recentGameSetups.map(setup => {
+        const edition = setup.elements.garden ? 2 : 1
+        const valid = !this.$tiles.getExpansions(setup.sets, edition)._UNKNOWN
+        return { setup, valid }
+      })
+    },
+
+    afterAddonsReloaded () {
+      this.verifyRecentSetups()
     }
   }
 }

@@ -40,7 +40,7 @@
 <script>
 import { shell, ipcRenderer } from 'electron'
 import AddonBox from '@/components/settings/AddonBox'
-import debounce from 'lodash/debounce'
+import AddonsReloadObserverMixin from '@/components/AddonsReloadObserverMixin'
 
 const JCA_FILTERS = [{ name: 'JCloisterZone add-on ', extensions: ['jca'] }]
 
@@ -49,25 +49,14 @@ export default {
     AddonBox
   },
 
+  mixins: [AddonsReloadObserverMixin],
+
   data () {
     return {
       showAlert: false,
       errors: [],
       dragover: false
     }
-  },
-
-  mounted () {
-    this.onLoad = debounce(() => {
-      this.$forceUpdate()
-    }, 30)
-    this.$theme.on('load', this.onLoad)
-    this.$tiles.on('load', this.onLoad)
-  },
-
-  beforeDestroy () {
-    this.$theme.off('load', this.onLoad)
-    this.$tiles.off('load', this.onLoad)
   },
 
   methods: {
@@ -123,6 +112,10 @@ export default {
 
     openLink (ev) {
       shell.openExternal(ev.target.href)
+    },
+
+    afterAddonsReloaded () {
+      this.$forceUpdate()
     }
   }
 }
