@@ -6,6 +6,7 @@ import sortBy from 'lodash/sortBy'
 
 import { Expansion, Release } from '@/models/expansions'
 import { GameElement } from '@/models/elements'
+import { EventsBase } from '@/utils/events'
 
 const SIDES = ['N', 'E', 'S', 'W']
 const EDGE_CODE = {
@@ -50,8 +51,9 @@ function getEdges (features) {
   return sides.join('')
 }
 
-class Tiles {
+class Tiles extends EventsBase {
   constructor (ctx) {
+    super()
     this.ctx = ctx
     this.tiles = {}
     this.sets = {}
@@ -379,6 +381,7 @@ class Tiles {
 
     console.log('Expansions definitions loaded.')
     this.ctx.app.store.commit('tilesLoaded')
+    this.emit('load')
   }
 }
 

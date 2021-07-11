@@ -1,5 +1,3 @@
-import { EventEmitter } from 'events'
-
 import WebSocket from 'ws'
 import Vue from 'vue'
 import { randomId, randomInt } from '@/utils/random'
@@ -8,15 +6,16 @@ import { getAppVersion } from '@/utils/version'
 import { CONSOLE_CLIENT_COLOR } from '@/constants/logging'
 import { NETWORK_PROTOCOL_COMPATIBILITY } from '@/constants/versions'
 import { HEARTBEAT_INTERVAL } from '@/constants/ws'
+import { EventsBase } from '@/utils/events'
 
 const isDev = process.env.NODE_ENV === 'development'
 
-class ConnectionPlugin {
+class ConnectionPlugin extends EventsBase {
   constructor (app) {
+    super()
     this.app = app
     this.ws = null
     this.recentlyUsedSourceHash = null
-    this.emitter = new EventEmitter()
     this.heartbeat = HEARTBEAT_INTERVAL
 
     if (process.env.JCZ_NETWORK_DELAY) {
@@ -97,7 +96,7 @@ class ConnectionPlugin {
               fulfilled = true
               reject(msg)
             }
-            this.emitter.emit('error', msg.payload)
+            this.emit('error', msg.payload)
             return
           }
           if (msg.type === 'WELCOME') {
@@ -112,7 +111,7 @@ class ConnectionPlugin {
             resolve()
           }
           onMessage(msg)
-          this.emitter.emit('message', msg)
+          this.emit('message', msg)
         }
         if (this.debugDelay) {
           setTimeout(() => {
@@ -127,7 +126,7 @@ class ConnectionPlugin {
         clearTimeout(pingTimeout)
         console.log(`%c client %c websocket closed  code: ${ev.code} reason: ${ev.reason}`, CONSOLE_CLIENT_COLOR, '')
         this.ws = null
-        this.emitter.emit('close', ev)
+        this.emit('close', ev)
         if (!fulfilled) {
           reject(ev)
         }
@@ -179,18 +178,6 @@ class ConnectionPlugin {
 
   isConnectedOrConnecting () {
     return this.ws !== null
-  }
-
-  on (eventName, listener) {
-    return this.emitter.on(eventName, listener)
-  }
-
-  once (eventName, listener) {
-    return this.emitter.once(eventName, listener)
-  }
-
-  off (eventName, listener) {
-    return this.emitter.off(eventName, listener)
   }
 }
 

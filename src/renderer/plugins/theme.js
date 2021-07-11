@@ -1,14 +1,13 @@
 import fs from 'fs'
 import path from 'path'
-import Vue from 'vue'
 
+import Vue from 'vue'
 import isString from 'lodash/isString'
 import isObject from 'lodash/isObject'
 import sortBy from 'lodash/sortBy'
 
 import Location from '@/models/Location'
-
-const isDev = process.env.NODE_ENV === 'development'
+import { EventsBase } from '@/utils/events'
 
 const FEATURE_PATTERN = /([^[]+)(?:\[([^\]]+)\])/
 
@@ -65,8 +64,9 @@ const makeAbsPathProp = (prefix, obj, prop, artworkId) => {
   }
 }
 
-class Theme {
+class Theme extends EventsBase {
   constructor (ctx) {
+    super()
     this.artworks = {}
     this.tiles = {}
     this.tileLayers = {}
@@ -110,6 +110,7 @@ class Theme {
     delete this._artwork
     delete this._tiles
     this.ctx.app.store.commit('artworksLoaded')
+    this.emit('load')
   }
 
   async loadArtwork ({ id, folder, json, jsonFile }) {

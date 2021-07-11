@@ -44,7 +44,7 @@ export const state = () => ({
 const changeCallbacks = {}
 
 export const mutations = {
-  settings (state, settings) {
+  settings (state, { settings, source }) {
     const changed = []
     Object.keys(settings).forEach(key => {
       if (JSON.stringify(state[key]) !== JSON.stringify(settings[key])) {
@@ -55,7 +55,7 @@ export const mutations = {
 
     changed.forEach(key => {
       const cb = changeCallbacks[key]
-      if (cb) cb(settings[key])
+      if (cb) cb(settings[key], source)
     })
   },
 
@@ -116,15 +116,18 @@ export const actions = {
         missingKey = true
         settings.enabledArtworks = ['classic/classic']
       }
-      commit('settings', settings)
+      commit('settings', { settings, source: 'load' })
       console.log(`%c settings %c loaded ${file}`, CONSOLE_SETTINGS_COLOR, '')
     } else {
       missingKey = true
       commit('settings', {
-        file,
-        clientId: randomId(),
-        secret: randomId(),
-        nickname: await username()
+        settings: {
+          file,
+          clientId: randomId(),
+          secret: randomId(),
+          nickname: await username()
+        },
+        source: 'load'
       })
       console.log(`%c settings %c file ${file} doesn't exist. Creating default one.`, CONSOLE_SETTINGS_COLOR, '')
     }
@@ -230,7 +233,7 @@ export const actions = {
   },
 
   async update ({ commit, dispatch }, settings) {
-    commit('settings', settings)
+    commit('settings', { settings, source: 'update' })
     dispatch('save')
   }
 }

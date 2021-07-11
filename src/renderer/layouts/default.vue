@@ -224,14 +224,18 @@ export default {
 
     await this.$store.dispatch('settings/registerChangeCallback', ['theme', onThemeChange])
     await this.$store.dispatch('settings/registerChangeCallback', ['userAddons', () => { this.loadAddons() }])
-    await this.$store.dispatch('settings/registerChangeCallback', ['enabledArtworks', () => { this.$theme.loadArtworks() }])
-    await this.$store.dispatch('settings/registerChangeCallback', ['userExpansions', () => { this.$tiles.loadExpansions() }])
+    await this.$store.dispatch('settings/registerChangeCallback', ['enabledArtworks', (_, source) => {
+      if (source === 'load') {
+        // load only when triggered by manual user change, otherwise it's cause by addon install/uninstall and reloaed from her
+        this.$theme.loadArtworks()
+      }
+    }])
     await this.$store.dispatch('settings/registerChangeCallback', ['dev', () => { this.updateMenu() }])
     await this.$store.dispatch('settings/registerChangeCallback', ['experimental.playOnline', () => { this.updateMenu() }])
 
-    this.$addons.oninstall = async () => {
-      await this.loadAddons(true)
-    }
+    this.$addons.on('change', () => {
+      this.loadAddons()
+    })
   },
 
   beforeDestroy () {
@@ -239,16 +243,12 @@ export default {
   },
 
   methods: {
-    async loadAddons (waitForArtworks = false) {
+    async loadAddons () {
       await this.$addons.loadAddons()
       await this.$tiles.loadExpansions()
 
-      if (waitForArtworks) {
-        await this.$theme.loadArtworks()
-      } else {
-        // usually this can be loaded in background
-        this.$theme.loadArtworks()
-      }
+      // during start up, don't wait for artworks, theme can be loaded in background
+      this.$theme.loadArtworks()
     },
 
     updateMenu () {

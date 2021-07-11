@@ -11,9 +11,12 @@ import compareVersions from 'compare-versions'
 import Vue from 'vue'
 
 import { getAppVersion } from '@/utils/version'
+import { EventsBase } from '../utils/events'
 
-class Addons {
+class Addons extends EventsBase {
   constructor (ctx) {
+    super()
+
     this.AUTO_DOWNLOADED = {
       classic: {
         url: 'https://jcloisterzone.com/packages/classic/classic-4-5.7.0.jca',
@@ -25,7 +28,6 @@ class Addons {
 
     this.ctx = ctx
     this.addons = []
-    this.oninstall = null
   }
 
   async loadAddons () {
@@ -147,9 +149,7 @@ class Addons {
     const enabledArtworks = uniq([...this.ctx.store.state.settings.enabledArtworks, ...addon.json.artworks.map(artwork => `${id}/${artwork}`)])
     await this.ctx.store.dispatch('settings/update', { enabledArtworks })
 
-    if (this.oninstall) {
-      await this.oninstall()
-    }
+    this.emitter.emit('change')
   }
 
   async uninstall (addon) {
@@ -161,9 +161,7 @@ class Addons {
       await this.ctx.store.dispatch('settings/update', { enabledArtworks })
     }
 
-    if (this.oninstall) {
-      await this.oninstall()
-    }
+    this.emitter.emit('change')
   }
 
   async updateOutdated (installedAddons) {
