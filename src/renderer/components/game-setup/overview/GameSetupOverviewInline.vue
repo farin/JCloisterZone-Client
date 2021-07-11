@@ -117,15 +117,4 @@ export default {
 
   .element-box:nth-child(9n+6)
     grid-column-start: 2
-
-// .game-setup-overview-inline.small
-//   grid-template-columns: repeat(9, 36px)
-//   grid-auto-rows: 80px
-//   padding-bottom: 30px
-
-//   .element-box:nth-child(9n+2),
-//   .element-box:nth-child(9n+4),
-//   .element-box:nth-child(9n+6),
-//   .element-box:nth-child(9n+8)
-//     transform: translateY(40px)
 </style>

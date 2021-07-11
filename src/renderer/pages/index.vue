@@ -93,10 +93,11 @@
             <!-- loaded tiles would be enough if rules densn't refer images -> which happends now when extra Abbery is enabled -->
             <div v-if="recentGameSetups.length && $store.state.loaded.artworks" class="recent-list setup-list d-flex flex-column align-end">
               <div
-                v-for="(setup, idx) in recentGameSetups"
+                v-for="({ setup, valid }, idx) in verifiedRecentGameSetups"
                 :key="idx"
                 class="recent-setup"
-                @click="loadSetup(setup)"
+                :class="{ invalid: !valid }"
+                @click="valid && loadSetup(setup)"
               >
                 <GameSetupOverviewInline :sets="setup.sets" :elements="setup.elements" />
               </div>
@@ -175,6 +176,14 @@ export default {
         return `https://github.com/farin/JCloisterZone-Client/releases/download/v${this.updateInfo.version}/${this.updateInfo.files[0].url}`
       }
       return null
+    },
+
+    verifiedRecentGameSetups () {
+      return this.recentGameSetups.map(setup => {
+        const edition = setup.elements.garden ? 2 : 1
+        const valid = !this.$tiles.getExpansions(setup.sets, edition)._UNKNOWN
+        return { setup, valid }
+      })
     }
   },
 
@@ -354,6 +363,10 @@ h3
 
     +theme using ($theme)
       border: 1px solid #{map-get($theme, 'line-color')}
+
+    &.invalid
+      cursor: default
+      opacity: 0.4
 
   .recent-list a
     display: block
