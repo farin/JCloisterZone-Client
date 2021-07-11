@@ -317,6 +317,7 @@ class Tiles {
 
     for (const addon of this.ctx.$addons.addons) {
       addon.expansions = []
+      if (addon.error) continue
       for (const relPath of (addon.json.expansions || [])) {
         const fullPath = path.join(addon.folder, relPath)
         await parseXml(fullPath, addon)

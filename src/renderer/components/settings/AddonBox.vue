@@ -10,6 +10,13 @@
       <v-icon>fas fa-trash</v-icon>
     </div>
 
+    <v-alert
+      v-if="addon.error"
+      type="warning"
+    >
+      {{ addon.error }}
+    </v-alert>
+
     <div class="items">
       <div
         v-for="exp in addon.expansions"

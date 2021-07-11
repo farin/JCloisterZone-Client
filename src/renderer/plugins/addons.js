@@ -7,9 +7,10 @@ import sortBy from 'lodash/sortBy'
 import uniq from 'lodash/uniq'
 import unzipper from 'unzipper'
 import sha256File from 'sha256-file'
+import compareVersions from 'compare-versions'
 import Vue from 'vue'
 
-const isDev = process.env.NODE_ENV === 'development'
+import { getAppVersion } from '@/utils/version'
 
 class Addons {
   constructor (ctx) {
@@ -28,7 +29,7 @@ class Addons {
   }
 
   async loadAddons () {
-    console.log('Looking for installed addons')
+    console.log('Looking for installed` addons')
     const { settings } = this.ctx.store.state
     const userDataPath = window.process.argv.find(arg => arg.startsWith('--user-data=')).replace('--user-data=', '')
 
@@ -87,9 +88,13 @@ class Addons {
 
     await this.updateOutdated(installedAddons)
 
-    console.log('Installed addons: ', installedAddons)
+    console.log('Installed addons: ', installedAddons.filter(addon => !addon.error))
 
     for (const addon of installedAddons) {
+      if (addon.error) {
+        console.error(`Can't load ${addon.id} add-on: ${addon.error}`)
+        continue
+      }
       addon.artworks = []
       for (const relPath of (addon.json.artworks || [])) {
         const fullPath = path.join(addon.folder, relPath)
@@ -254,7 +259,13 @@ class Addons {
           json,
           remote: this.AUTO_DOWNLOADED[id] || null
         }
-        if (addon.remote) {
+        if (parseInt(addon.json.version) + '' !== addon.json.version) {
+          addon.error = `Invalid add-on. Expecting number as version, found "${addon.json.version}"`
+        } else if (!addon.json.minimum_jcz_version) {
+          addon.error = 'Invalid add-on. Missing minimum_jcz_version.'
+        } else if (compareVersions.compare(getAppVersion(), addon.json.minimum_jcz_version, '<')) {
+          addon.error = `Add-on requires JCZ ${addon.json.minimum_jcz_version} or higher`
+        } else if (addon.remote) {
           if (addon.json.version !== addon.remote.version) {
             // temporary migration to new version scheme
             // TODO split is no longer needed, drop it after all users ugrade to 5.7.1
