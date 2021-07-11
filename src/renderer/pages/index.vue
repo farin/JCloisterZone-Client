@@ -93,8 +93,8 @@
             <!-- loaded tiles would be enough if rules densn't refer images -> which happends now when extra Abbery is enabled -->
             <div v-if="recentGameSetups.length && $store.state.loaded.artworks" class="recent-list setup-list d-flex flex-column align-end">
               <div
-                v-for="({ setup, valid }, idx) in verifiedRecentGameSetups"
-                :key="idx"
+                v-for="({ setup, valid, hash }) in verifiedRecentGameSetups"
+                :key="hash"
                 class="recent-setup"
                 :class="{ invalid: !valid }"
                 @click="valid && loadSetup(setup)"
@@ -140,6 +140,7 @@ import { mapState } from 'vuex'
 
 import GameSetupOverviewInline from '@/components/game-setup/overview/GameSetupOverviewInline'
 import AddonsReloadObserverMixin from '@/components/AddonsReloadObserverMixin'
+import { cyrb53 } from '@/utils/hash'
 
 const isMac = process.platform === 'darwin'
 const isWin = process.platform === 'win32'
@@ -261,7 +262,8 @@ export default {
       this.verifiedRecentGameSetups = this.recentGameSetups.map(setup => {
         const edition = setup.elements.garden ? 2 : 1
         const valid = !this.$tiles.getExpansions(setup.sets, edition)._UNKNOWN
-        return { setup, valid }
+        // put valid to status to hash, to force render on change
+        return { setup, valid, hash: `${cyrb53(JSON.stringify(setup))}-${~~valid}` }
       })
     },
 
