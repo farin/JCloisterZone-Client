@@ -434,6 +434,19 @@ export const actions = {
         }
 
         if (sg.setup) {
+          if (sg.setup.addons) {
+            const { $addons } = this._vm
+            const installed = $addons.addons.map(a => a.id)
+            const required = Object.keys(sg.setup.addons)
+            const missing = difference(required, installed)
+            if (missing.length) {
+              const msg = `Saved game (or setup) requires addon(s) which are not installed:\n\n${missing.join(', ')}`
+              ipcRenderer.invoke('dialog.showErrorBox', { title: 'Load Error', content: msg })
+              reject(msg)
+              return
+            }
+          }
+
           sg.setup.rules = { ...getDefaultRules(), ...sg.setup.rules }
         }
 
