@@ -27,6 +27,15 @@
       </template>
       <template v-else>
         <h2>Remaining tiles</h2>
+        <div
+          v-if="underHills"
+          class="hills-info"
+        >
+          <img src="~/assets/features/C1/hill.png" height="55">
+          <p v-if="underHills > 1">Don't forget that <b>{{ underHills }}</b> unknown tiles from list are hidden under hills.</p>
+          <p v-else>Don't forget that <b>1</b> unknown tile from list is hidden under a hill.</p>
+        </div>
+
         <TileDistributionLive :sets="sets" :rules="rules" />
       </template>
     </v-card-text>
@@ -62,7 +71,8 @@ export default {
       sets: state => state.game.setup?.sets,
       rules: state => state.game.setup?.rules,
       removedTiles: state => state.game.discardedTiles,
-      options: state => state.game.setup.options
+      options: state => state.game.setup.options,
+      underHills: state => state.game.tilePack.underHills
     })
   }
 }
@@ -91,4 +101,21 @@ p
   text-align: center
   margin-top: 10px
   font-style: italic
+
+.hills-info
+  display: flex
+  align-items: center
+  margin-bottom: 20px
+  padding: 10px 20px
+  border-radius: 6px
+
+  +theme using ($theme)
+    background-color: map-get($theme, 'board-bg')
+
+  img
+    margin-right: 40px
+
+  p
+    font-size: 18px
+    margin: 0
 </style>

@@ -23,11 +23,13 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import countBy from 'lodash/countBy'
 
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
 import CountMiniboard from '@/components/game-setup/details/CountMiniboard'
+
+import { getSelectedEdition, getSelectedStartingTiles } from '@/utils/gameSetupUtils'
 
 export default {
   components: {
@@ -45,12 +47,12 @@ export default {
     ...mapState({
       placedTiles: state => state.game.placedTiles,
       discardedTiles: state => state.game.discardedTiles,
-      action: state => state.game.action
-    }),
-
-    ...mapGetters({
-      edition: 'gameSetup/getSelectedEdition',
-      start: 'gameSetup/selectedStartingTiles'
+      action: state => state.game.action,
+      edition: state => getSelectedEdition(state.game.setup.elements),
+      start: state => {
+        const { elements, sets, start } = state.game.setup
+        return getSelectedStartingTiles(elements, sets, start)
+      }
     }),
 
     tiles () {
