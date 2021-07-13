@@ -196,6 +196,10 @@ export default {
     }
   },
 
+  mounted () {
+    this.verifyRecentSetups()
+  },
+
   methods: {
     newGame () {
       this.$store.dispatch('gameSetup/newGame')
