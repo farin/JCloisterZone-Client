@@ -153,6 +153,9 @@ export default class Location {
       const loc = name ? Location[name] : null
       if (loc) result = loc.union(result)
     })
+    if (result === null) {
+      console.warn('Unmatched location ' + names)
+    }
     return result
   }
 }
@@ -180,6 +183,8 @@ export const I = Location.I = new Location('I')
 export const II = Location.II = new Location('II')
 export const III = Location.III = new Location('III')
 export const IV = Location.IV = new Location('IV')
+
+export const AS_ABBOT = Location.AS_ABBOT = new Location('AS_ABBOT')
 
 export const QUARTER_CASTLE = Location.QUARTER_CASTLE = new Location('QUARTER_CASTLE')
 export const QUARTER_MARKET = Location.QUARTER_MARKET = new Location('QUARTER_MARKET')

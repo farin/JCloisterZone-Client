@@ -14,7 +14,7 @@
         large
         color="secondary"
         :disabled="choice === 'as-abbot-only'"
-        @click="select('MONASTERY')"
+        @click="select('I')"
       >
         As a Monk
         <Meeple :type="meeple" />

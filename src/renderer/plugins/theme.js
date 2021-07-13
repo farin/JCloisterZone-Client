@@ -392,7 +392,7 @@ class Theme extends EventsBase {
     }
 
     if (loc === 'AS_ABBOT') {
-      loc = 'MONASTERY'
+      loc = 'I'
     } else if (rotation !== 0) {
       loc = Location.parse(loc).rotateCCW(rotation).name
     }
@@ -544,9 +544,9 @@ class Theme extends EventsBase {
       }
     }
 
-    Object.entries(tile.features).forEach(([loc, f]) => {
+    Object.entries(tile.features).forEach(([featureLoc, f]) => {
       if (!f) {
-        throw new Error(`Misssing definition for feature ${tile.id} ${loc}`)
+        throw new Error(`Misssing definition for feature ${tile.id} ${featureLoc}`)
       }
 
       const perspective = f.perspective || artwork?.perspective
@@ -556,6 +556,7 @@ class Theme extends EventsBase {
       }
 
       f = getRecordForRotation(f, r)
+      const loc = featureLoc.split('/')[1]
       const locObj = Location.parse(loc)
       const actualLoc = locObj ? locObj.rotateCW(rotation).name : loc
 

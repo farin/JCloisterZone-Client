@@ -22,11 +22,7 @@ export function getMeeplePlayer (meepleId) {
 //       } else if (pointer?.location === 'MONASTERY') {
 //         pointer.location = 'AS_ABBOT'
 //       } else if (pointer?.location === 'CLOISTER') {
-//         if (GARDEN_TILES.includes(lastTile)) {
-//           pointer.location = 'GARDEN'
-//         } else {
-//           pointer.location = 'MONASTERY'
-//         }
+//         pointer.location = 'I'
 //       }
 //     })
 //     console.log(replay)

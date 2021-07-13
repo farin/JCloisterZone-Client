@@ -85,7 +85,7 @@ export default {
         }
 
         optionsWithFeature.push(opt)
-        if (option.location === 'MONASTERY') {
+        if (option.location === 'I') {
           cloisterOptionsWithFeature.push(opt)
         }
       })

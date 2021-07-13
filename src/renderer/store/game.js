@@ -262,7 +262,7 @@ export const getters = {
 
   featureOn: state => ({ position, location }) => {
     if (location === 'AS_ABBOT') {
-      location = 'MONASTERY'
+      location = 'I'
     }
     return state.features.find(({ places }) => {
       return !!places.find(p => p[0] === position[0] && p[1] === position[1] && p[2] === location)
