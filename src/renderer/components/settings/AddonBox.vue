@@ -3,7 +3,7 @@
     <h5>{{ addon.title || addon.id }} <small class="version">v{{ addon.json.version }}</small></h5>
 
     <div
-      v-if="addon.removable"
+      v-if="addon.removable && !disabled"
       class="remove"
       @click="$emit('uninstall', addon)"
     >
@@ -46,7 +46,8 @@ export default {
   },
 
   props: {
-    addon: { type: Object, required: true }
+    addon: { type: Object, required: true },
+    disabled: { type: Boolean, default: false }
   },
 
   computed: {

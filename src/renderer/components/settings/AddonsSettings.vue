@@ -2,7 +2,16 @@
   <div>
     <h3 class="mt-2 mb-4">Add-ons</h3>
 
+    <v-alert
+      v-if="gameOpen"
+      type="warning"
+    >
+      Installing or removing addon is not allowed when game is running or game setup is open.<br><br>
+      Please finish or leave the game first to make changes here.
+    </v-alert>
+
     <v-sheet
+      v-else
       :class="{ dragzone: true, dragover: dragover }"
       @dragover.prevent="onDragover"
       @dragleave="onDragleave"
@@ -32,6 +41,7 @@
       v-for="addon in $addons.addons"
       :key="addon.id"
       :addon="addon"
+      :disabled="gameOpen"
       @uninstall="uninstall(addon)"
     />
   </div>
@@ -56,6 +66,13 @@ export default {
       showAlert: false,
       errors: [],
       dragover: false
+    }
+  },
+
+  computed: {
+    gameOpen () {
+      const routeName = this.$route.name
+      return routeName === 'game-setup' || routeName === 'open-game' || routeName === 'game'
     }
   },
 
