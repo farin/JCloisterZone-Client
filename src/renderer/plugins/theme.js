@@ -123,7 +123,7 @@ class Theme extends EventsBase {
       version: json.version,
       perspective: json.perspective || 'rotate',
       background: null,
-      tileSize: parseInt(json['tile-size']) || 1000,
+      tileSize: parseInt(json.tileSize) || 1000,
       classes: json.classes || {},
       defaultZindex: json.defaultZindex === undefined ? 1 : json.defaultZindex,
       aliases: json.aliases || {}
@@ -206,7 +206,7 @@ class Theme extends EventsBase {
 
     const features = {}
 
-    for (const fname of json['features-include'] || []) {
+    for (const fname of json.featuresInclude || []) {
       const content = JSON.parse(await fs.promises.readFile(path.join(folder, fname)))
       Object.entries(content).forEach(([featureId, data]) => {
         const m = FEATURE_PATTERN.exec(featureId)
@@ -346,7 +346,7 @@ class Theme extends EventsBase {
       this._tiles[tileId] = tile
     }
 
-    for (const fname of json['tiles-include'] || []) {
+    for (const fname of json.tilesInclude || []) {
       const content = JSON.parse(await fs.promises.readFile(path.join(folder, fname)))
       Object.entries(content).forEach(([tileId, data]) => processTile(tileId, data))
     }

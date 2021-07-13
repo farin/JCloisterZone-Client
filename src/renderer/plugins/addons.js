@@ -20,10 +20,9 @@ class Addons extends EventsBase {
 
     this.AUTO_DOWNLOADED = {
       classic: {
-        url: 'https://jcloisterzone.com/packages/classic/classic-4-5.7.0.jca',
-        version: 4,
-        sha256: '12a21b415b82fabc9b02d54d7cbccdb33393aa99a3de1e172f0281ad6dbbf7b4',
-        size: 88733423
+        url: 'https://jcloisterzone.com/packages/classic/classic-5-5.7.1.jca',
+        version: 5,
+        sha256: '0a57a52b395da2bafcd2893bd1870bf307f8353ef59dd6c4e6185a0f907e5b6f'
       }
     }
 
@@ -265,10 +264,10 @@ class Addons extends EventsBase {
           addon.error = 'Invalid add-on. Expecting number as version found string.'
         } else if (parseInt(addon.json.version) !== addon.json.version) {
           addon.error = `Invalid add-on. Expecting integer number as version, found ${addon.json.version}`
-        } else if (!addon.json.minimum_jcz_version) {
-          addon.error = 'Invalid add-on. Missing minimum_jcz_version.'
-        } else if (compareVersions.compare(getAppVersion(), addon.json.minimum_jcz_version, '<')) {
-          addon.error = `Add-on requires JCZ ${addon.json.minimum_jcz_version} or higher`
+        } else if (!addon.json.minimumJczVersion) {
+          addon.error = 'Invalid add-on. Missing minimumJczVersion.'
+        } else if (compareVersions.compare(getAppVersion(), addon.json.minimumJczVersion, '<')) {
+          addon.error = `Add-on requires JCZ ${addon.json.minimumJczVersion} or higher`
         } else if (addon.remote) {
           if (addon.json.version !== addon.remote.version) {
             const currentVersion = addon.json.version
