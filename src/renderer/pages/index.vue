@@ -34,7 +34,7 @@
         Unable to spawn game engine. Details:<br>
         <small>{{ engine.errorMessage }}</small>
       </v-alert>
-      <div v-if="download">
+      <div v-if="download" class="download">
         <div class="download-header">
           <span class="description">{{ download.description }}</span>
           <span v-if="download.size" class="size">
@@ -424,6 +424,9 @@ h3
 
   ::v-deep ul
     list-style: none
+
+.download
+  padding: 0 20px
 
 .download-header
   display: flex

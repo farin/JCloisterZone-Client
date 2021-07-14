@@ -58,10 +58,12 @@ class Addons extends EventsBase {
 
     for (const fullPath of settings.userAddons) {
       const addon = await this._readAddon(path.basename(fullPath), fullPath)
-      addon.removable = false
-      if (addon && !installedAddonsIds.has(addon.id)) {
-        installedAddons.push(addon)
-        installedAddonsIds.add(addon.id)
+      if (addon) {
+        addon.removable = false
+        if (!installedAddonsIds.has(addon.id)) {
+          installedAddons.push(addon)
+          installedAddonsIds.add(addon.id)
+        }
       }
     }
 
@@ -79,8 +81,8 @@ class Addons extends EventsBase {
         if (!installedAddonsIds.has(id)) {
           const fullPath = path.join(lookupFolder, id)
           const addon = await this._readAddon(id, fullPath)
-          addon.removable = id !== 'classic'
           if (addon) {
+            addon.removable = id !== 'classic'
             installedAddons.push(addon)
             installedAddonsIds.add(id)
           }
@@ -166,7 +168,13 @@ class Addons extends EventsBase {
 
   async updateOutdated (installedAddons) {
     const classicArtwork = installedAddons.find(({ id }) => id === 'classic')
-    if (classicArtwork && !classicArtwork.outdated) return
+    if (classicArtwork) {
+      if (!classicArtwork.outdated && !classicArtwork.error) {
+        //
+        return
+      }
+      installedAddons.splice(installedAddons.indexOf(classicArtwork), 1)
+    }
 
     console.log('Downloading classic artwork.')
     const link = this.AUTO_DOWNLOADED.classic.url
@@ -233,11 +241,8 @@ class Addons extends EventsBase {
 
     const fullPath = path.join(addonsFolder, 'classic')
     const artwork = await this._readAddon('classic', fullPath)
-    if (classicArtwork) {
-      Object.assign(classicArtwork, artwork)
-    } else {
-      installedAddons.unshift(artwork)
-    }
+
+    installedAddons.unshift(artwork)
   }
 
   findMissingAddons (required) {
