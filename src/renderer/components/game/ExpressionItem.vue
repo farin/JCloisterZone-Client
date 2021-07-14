@@ -46,7 +46,17 @@
       <template v-else-if="item.name === 'besieged'"><img src="~/assets/features/C1/siege.png" height="40"></template>
       <template v-else-if="item.name === 'shrine-challenge'"><ExpansionSymbol :expansion="Expansion.CULT" :style="{ width: 40, height: 40 }" /></template>
       <template v-else-if="item.name === 'coc'"><ExpansionSymbol :expansion="Expansion.COUNT" :style="{ width: 40, height: 40 }" /></template>
-      <template v-else><v-icon :title="item.name">fas fa-question</v-icon></template>
+      <template v-else-if="artworkValue && artworkValue.tag === 'svg'">
+        <svg
+          class="artwork-element"
+          width="40" height="40"
+          :viewBox="artworkValue.viewBox"
+          v-html="artworkValue.content"
+        />
+      </template>
+      <template v-else>
+        <v-icon :title="item.name">fas fa-question</v-icon>
+      </template>
     </div>
     <div class="points">{{ points }}</div>
   </div>
@@ -92,6 +102,10 @@ export default {
         return '+' + points
       }
       return points + ''
+    },
+
+    artworkValue () {
+      return this.$theme.getElementImage(`expr/${this.item.name}`)
     }
   }
 }
@@ -117,7 +131,7 @@ export default {
     .v-icon
       font-size: 40px
 
-    svg.meeple
+    svg.meeple, svg.artwork-element
       +theme using ($theme)
         fill: map-get($theme, 'gray-text-color')
 
@@ -134,17 +148,4 @@ export default {
       margin-right: 6px
     .icon
       margin-left: 6px
-
-    //+theme using ($theme)
-      //color: map-get($theme, 'text-color')
-  // .expr
-  //   display: flex
-  //   align-items: stretch
-  //   font-size: 28px
-  //   font-weight: 500
-  //   padding-top: 1px
-
-  //   +theme using ($theme)
-  //     color: map-get($theme, 'gray-text-color')
-
 </style>

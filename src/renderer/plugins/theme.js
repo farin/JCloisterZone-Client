@@ -5,6 +5,7 @@ import Vue from 'vue'
 import isString from 'lodash/isString'
 import isObject from 'lodash/isObject'
 import sortBy from 'lodash/sortBy'
+import mapValues from 'lodash/mapValues'
 
 import Location from '@/models/Location'
 import { EventsBase } from '@/utils/events'
@@ -126,13 +127,13 @@ class Theme extends EventsBase {
       tileSize: parseInt(json.tileSize) || 1000,
       classes: json.classes || {},
       defaultZindex: json.defaultZindex === undefined ? 1 : json.defaultZindex,
-      aliases: json.aliases || {}
+      aliases: json.aliases || {},
+      symbols: {},
+      features: {},
+      tiles: {},
+      elements: {}
     }
     const pathPrefix = `file:///${folder}/`
-
-    artwork.symbols = {}
-    artwork.features = {}
-    artwork.tiles = {}
 
     if (artwork.tileSize === 1000) {
       artwork.scaleTransform = ''
@@ -346,6 +347,24 @@ class Theme extends EventsBase {
       this._tiles[tileId] = tile
     }
 
+    for (const fname of json.elementsInclude || []) {
+      const content = JSON.parse(await fs.promises.readFile(path.join(folder, fname)))
+      Object.assign(artwork.elements, content)
+    }
+    const parser = new DOMParser()
+    artwork.elements = mapValues(artwork.elements, value => {
+      if (value.startsWith('<svg')) {
+        const doc = parser.parseFromString(value, 'image/svg+xml')
+        return {
+          tag: 'svg',
+          viewBox: doc.documentElement.getAttribute('viewBox'),
+          content: doc.documentElement.innerHTML
+        }
+      }
+      console.warn('Unsupported element value: ' + value)
+      return null
+    })
+
     for (const fname of json.tilesInclude || []) {
       const content = JSON.parse(await fs.promises.readFile(path.join(folder, fname)))
       Object.entries(content).forEach(([tileId, data]) => processTile(tileId, data))
@@ -439,6 +458,15 @@ class Theme extends EventsBase {
       transform: `${tile.artwork.scaleTransform} ${transform}`,
       inverseScaleTransform: tile.artwork.inverseScaleTransform,
       rotation: r
+    }
+  }
+
+  getElementImage (id) {
+    for (const artwork of Object.values(this.artworks)) {
+      const value = artwork.elements[id]
+      if (value) {
+        return value
+      }
     }
   }
 
