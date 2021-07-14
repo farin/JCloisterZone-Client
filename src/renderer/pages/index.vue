@@ -34,6 +34,10 @@
         Unable to spawn game engine. Details:<br>
         <small>{{ engine.errorMessage }}</small>
       </v-alert>
+      <v-alert v-if="artworksLoaded && !hasClassicAddon" type="warning">
+        Unable to locate or download addon with default artwork. Internet conection is needed at fist run to donwload it.<br>
+        Plese check your connectivity and restart app to try it again.
+      </v-alert>
       <div v-if="download" class="download">
         <div class="download-header">
           <span class="description">{{ download.description }}</span>
@@ -172,6 +176,8 @@ export default {
       engine: state => state.engine,
       download: state => state.download,
       settingsLoaded: state => state.loaded.settings,
+      artworksLoaded: state => state.loaded.artworks,
+      hasClassicAddon: state => state.hasClassicAddon,
       updateInfo: state => state.updateInfo,
       updateProgress: state => state.updateProgress
     }),

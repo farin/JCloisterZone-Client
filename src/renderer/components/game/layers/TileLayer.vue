@@ -225,7 +225,7 @@ export default {
       }
       this.layerBuckets = buckets
       this.artworks = Object.values(artworks)
-      this.artworksWithBackground = this.artworks.filter(({ artwork }) => artwork.background)
+      this.artworksWithBackground = this.artworks.filter(({ artwork }) => artwork?.background)
     }
   }
 }

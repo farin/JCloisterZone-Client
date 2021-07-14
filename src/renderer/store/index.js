@@ -8,6 +8,7 @@ export const state = () => ({
     tiles: false,
     artworks: false
   },
+  hasClassicAddon: false,
   gameDialog: null,
   showJoinDialog: false,
   showSettings: false,
@@ -37,6 +38,10 @@ export const mutations = {
 
   settingsLoaded (state) {
     state.loaded.settings = true
+  },
+
+  hasClassicAddon (state, value) {
+    state.hasClassicAddon = value
   },
 
   gameDialog (state, gameDialog) {

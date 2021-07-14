@@ -417,10 +417,10 @@ class Theme extends EventsBase {
     }
 
     const tile = this.getTile(id)
-    let feature = tile.features[`${featureType}/${loc}`]
+    let feature = tile?.features[`${featureType}/${loc}`]
 
     if (!feature) {
-      throw new Error(`Can't find feature for ${id} ${featureType}/${loc}`)
+      throw new Error(`Artwork doesn't provide feature for ${id} ${featureType}/${loc}`)
     }
 
     // TODO migrate classic to rotate instead rotation and drop rotation here

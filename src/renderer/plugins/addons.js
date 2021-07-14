@@ -107,6 +107,8 @@ class Addons extends EventsBase {
       }
     }
 
+    this.ctx.app.store.commit('hasClassicAddon', !!installedAddons.find(a => a.id === 'classic' && !a.error))
+
     this.addons = sortBy(installedAddons, ['removable', 'id'])
     this.ctx.app.store.commit('addonsLoaded')
   }
@@ -196,25 +198,32 @@ class Addons extends EventsBase {
       // ignore
     }
     const file = fs.createWriteStream(zipName)
-    await new Promise((resolve, reject) => {
-      let downloadedBytes = 0
-      https.get(link, response => {
-        const total = parseInt(response.headers['content-length'])
-        this.ctx.app.store.commit('downloadSize', total)
-        response.on('data', chunk => {
-          downloadedBytes += chunk.length
-          this.ctx.app.store.commit('downloadProgress', downloadedBytes)
-        })
-        response.pipe(file)
+    try {
+      await new Promise((resolve, reject) => {
+        let downloadedBytes = 0
+        https.get(link, response => {
+          const total = parseInt(response.headers['content-length'])
+          this.ctx.app.store.commit('downloadSize', total)
+          response.on('data', chunk => {
+            downloadedBytes += chunk.length
+            this.ctx.app.store.commit('downloadProgress', downloadedBytes)
+          })
+          response.pipe(file)
 
-        file.on('finish', function () {
-          file.close(resolve)
+          file.on('finish', function () {
+            file.close(resolve)
+          })
+        }).on('error', function (err) { // Handle errors
+          fs.unlink(zipName, unlinkErr => {
+            console.warn(unlinkErr)
+          }) // Delete the file async. (But we don't check the result)
+          reject(err.message)
         })
-      }).on('error', function (err) { // Handle errors
-        fs.unlink(zipName) // Delete the file async. (But we don't check the result)
-        reject(err.message)
       })
-    })
+    } catch (e) {
+      this.ctx.app.store.commit('download', null)
+      return
+    }
     const checksum = sha256File(zipName)
     if (checksum !== this.AUTO_DOWNLOADED.classic.sha256) {
       console.log('classic.jca checksum mismatch ' + checksum)
