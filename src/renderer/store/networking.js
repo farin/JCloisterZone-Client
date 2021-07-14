@@ -8,10 +8,11 @@ const STATUS_CONNECTED = 'connected'
 let reconnectTimeout = null
 
 class ConnectionHandler {
-  constructor (ctx, host, $router, resolve) {
+  constructor (ctx, host, $router, $addons, resolve) {
     this.ctx = ctx
     this.host = host
     this.$router = $router
+    this.$addons = $addons
     this.resolve = resolve
     this.messageBuffer = []
     this.onMessageLock = false
@@ -51,6 +52,16 @@ class ConnectionHandler {
         this.$router.push('/game')
       }
     } else if (type === 'GAME') {
+      if (payload.setup.addons) {
+        const missing = this.$addons.findMissingAddons(payload.setup.addons)
+        if (missing.length) {
+          await dispatch('close')
+          const msg = `Remote game requires addon(s) which are not installed:\n\n${missing.join(', ')}`
+          ipcRenderer.invoke('dialog.showErrorBox', { title: 'Missing addons', content: msg })
+          return
+        }
+      }
+
       await dispatch('game/handleGameMessage', payload, { root: true })
       if (payload.started) {
         await dispatch('game/handleStartMessage', { clock: message.clock, id: null, payload: {} }, { root: true })
@@ -178,7 +189,7 @@ export const actions = {
       commit('connectionType', connectionType)
       commit('connectionStatus', STATUS_CONNECTING)
     }
-    const { $connection } = this._vm
+    const { $connection, $addons } = this._vm
     if (!host.match(/:\d+/)) {
       host = `${host}:${rootState.settings.port}`
     }
@@ -186,7 +197,7 @@ export const actions = {
       host = 'ws://' + host
     }
     return new Promise((resolve, reject) => {
-      const handler = new ConnectionHandler(ctx, host, this.$router, resolve)
+      const handler = new ConnectionHandler(ctx, host, this.$router, $addons, resolve)
       $connection.connect(host, {
         onMessage: handler.onMessage.bind(handler),
         onClose: handler.onClose.bind(handler)

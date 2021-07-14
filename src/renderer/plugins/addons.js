@@ -240,6 +240,22 @@ class Addons extends EventsBase {
     }
   }
 
+  findMissingAddons (required) {
+    const installed = this.addons.reduce((acc, addon) => {
+      acc[addon.id] = addon.json.version
+      return acc
+    }, {})
+    const missing = []
+    Object.entries(required).forEach(([addon, version]) => {
+      if (installed[addon] === undefined) {
+        missing.push(addon)
+      } else if (installed[addon] < version) {
+        missing.push(`${addon} (requires v${version})`)
+      }
+    })
+    return missing
+  }
+
   async _readAddon (id, fullPath) {
     const stats = await fs.promises.stat(fullPath)
     if (stats.isDirectory()) {
