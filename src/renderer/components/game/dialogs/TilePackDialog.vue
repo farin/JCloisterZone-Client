@@ -2,6 +2,14 @@
   <v-card>
     <v-card-title class="headline">
       Tiles
+      <div  v-if="!options.puristTiles" class="switch-wrapper">
+        <v-switch
+          v-model="showAvailableOnly"
+          dense
+          hide-details
+          label="show available only"
+        />
+      </div>
     </v-card-title>
     <v-card-text>
       <template v-if="removedTiles.length">
@@ -27,6 +35,7 @@
       </template>
       <template v-else>
         <h2>Remaining tiles</h2>
+
         <div
           v-if="underHills"
           class="hills-info"
@@ -36,7 +45,7 @@
           <p v-else>Don't forget that <b>1</b> unknown tile from list is hidden under a hill.</p>
         </div>
 
-        <TileDistributionLive :sets="sets" :rules="rules" />
+        <TileDistributionLive :sets="sets" :rules="rules" :available-only="showAvailableOnly" />
       </template>
     </v-card-text>
     <v-card-actions>
@@ -64,6 +73,12 @@ export default {
   },
 
   props: {
+  },
+
+  data () {
+    return {
+      showAvailableOnly: false
+    }
   },
 
   computed: {
@@ -117,5 +132,19 @@ p
 
   p
     font-size: 18px
+    margin: 0
+
+.headline
+  position: relative
+
+.switch-wrapper
+  position: absolute
+  top: 14px
+  right: 50px
+  font-size: 14px
+  font-weight: normal
+  letter-spacing: normal
+
+  .v-input
     margin: 0
 </style>
