@@ -88,6 +88,8 @@ class Tiles extends EventsBase {
     const counts = {}
     const remove = {}
 
+    let specialMonasteries = false
+
     Object.entries(sets).forEach(([id, setCount]) => {
       if (!setCount) return
 
@@ -102,6 +104,9 @@ class Tiles extends EventsBase {
       if (set.remove) {
         set.remove.forEach(id => { remove[id] = true })
       }
+      if (set.allows) {
+        specialMonasteries ||= set.allows.includes('keep-monasteries')
+      }
     })
     Object.keys(remove).forEach(id => { delete counts[id] })
 
@@ -115,7 +120,7 @@ class Tiles extends EventsBase {
       }
     }
 
-    if (sets.monasteries && rules && rules['keep-monasteries'] === 'replace') {
+    if (specialMonasteries && rules && rules['keep-monasteries'] === 'replace') {
       delete counts['BA/L']
       delete counts['BA/LR']
     }
@@ -240,6 +245,10 @@ class Tiles extends EventsBase {
             allows.add(ge.id)
           }
         })
+
+        if (t.querySelectorAll('monastery[special=true]').length) {
+          allows.add('keep-monasteries')
+        }
       })
 
       doc.querySelectorAll('tile-set[id]').forEach(ts => {

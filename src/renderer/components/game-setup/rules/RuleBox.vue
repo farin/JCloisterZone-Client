@@ -43,7 +43,9 @@ export default {
     },
 
     available () {
-      return this.rules.some(r => r.isAvailable(this.setup))
+      return this.rules.some(r => {
+        return r.isAvailable(this.$tiles, this.setup)
+      })
     }
   }
 }

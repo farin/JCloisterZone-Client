@@ -24,7 +24,15 @@ export class Rule {
     return Rule.__all
   }
 
-  isAvailable ({ elements, sets }) {
+  isAvailable ($tiles, { elements, sets }) {
+    if (this.id === 'keep-monasteries') {
+      const edition = elements.garden ? 2 : 1
+      return Object.keys(sets).some(id => {
+        const set = $tiles.sets[id] || $tiles.sets[id + ':' + edition]
+        return set.allows && set.allows.includes('keep-monasteries')
+      })
+    }
+
     if (!this.deps.length) {
       return true
     }
@@ -206,7 +214,7 @@ export const FESTIVAL_RETURN = Rule.FESTIVAL_RETURN = new Rule('festival-return'
 
 export const KEEP_MONASTERIES = Rule.KEEP_MONASTERIES = new Rule('keep-monasteries', GAMEPLAY,
   'Special monasteries {}.',
-  [Expansion.MONASTERIES],
+  [], // HACK tested manually in RuleBox, TODO
   [
     { value: 'replace', text: 'replace orignal monasteries' },
     { value: 'add', text: 'are just added' }
