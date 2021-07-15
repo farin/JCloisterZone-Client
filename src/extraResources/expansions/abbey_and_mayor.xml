@@ -82,7 +82,7 @@
     </tile>
     <tile id="AM/CRcr+">
       <city pennants="1">W E</city>
-      <road tunnel="yes">N S</road>
+      <road tunnel="true">N S</road>
       <field city="W">SL SR</field>
       <field city="W">NL</field>
       <field city="W">NR</field>

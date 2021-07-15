@@ -3,31 +3,31 @@
 	<tiles>
 		<tile id="TU/CRRR">
 			<city>N</city>
-			<road tunnel="yes">W</road>
-			<road tunnel="yes">E</road>
-			<road tunnel="yes">S</road>
+			<road tunnel="true">W</road>
+			<road tunnel="true">E</road>
+			<road tunnel="true">S</road>
 			<field city="N">WR EL</field>
 			<field>ER SL</field>
 			<field>SR WL</field>
 		</tile>
 		<tile id="TU/RCR">
 			<city>N</city>
-			<road tunnel="yes">W</road>
-			<road tunnel="yes">E</road>
+			<road tunnel="true">W</road>
+			<road tunnel="true">E</road>
 			<field city="N">WR EL</field>
 			<field>ER SL SR WL</field>
 		</tile>
 		<tile id="TU/RR">
-			<road tunnel="yes">E</road>
-			<road tunnel="yes">S</road>
+			<road tunnel="true">E</road>
+			<road tunnel="true">S</road>
 			<field>SR WL WR NL NR EL</field>
 			<field>ER SL</field>
 		</tile>
 		<tile id="TU/RRRR">
 			<road>N</road>
-			<road tunnel="yes">W</road>
-			<road tunnel="yes">E</road>
-			<road tunnel="yes">S</road>
+			<road tunnel="true">W</road>
+			<road tunnel="true">E</road>
+			<road tunnel="true">S</road>
 			<field>WR NL NR EL</field>
 			<field>ER SL</field>
 			<field>SR WL</field>

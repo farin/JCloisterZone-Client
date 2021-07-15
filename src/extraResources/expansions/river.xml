@@ -101,7 +101,7 @@
       <river>W E</river>
     </tile>
     <tile id="RI.2/RIrI" group="river">
-      <road inn="yes">W E</road>
+      <road inn="true">W E</road>
       <field>WR NL</field>
       <field>NR EL</field>
       <field>ER SL</field>
@@ -135,7 +135,7 @@
       <river>S E</river>
     </tile>
     <tile id="RI.2/II+" group="river">
-      <field pig-herd="yes">WL SL SR EL ER NR</field>
+      <field pig-herd="true">WL SL SR EL ER NR</field>
       <field>WR NL</field>
       <river>W N</river>
     </tile>

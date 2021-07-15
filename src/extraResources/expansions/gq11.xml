@@ -26,7 +26,7 @@
       <field>SR WL</field>
     </tile>
     <tile id="GQ/F">
-      <field pig-herd="yes">NL NR SL SR WL WR EL ER</field>
+      <field pig-herd="true">NL NR SL SR WL WR EL ER</field>
     </tile>
     <tile id="GQ/CRc">
       <city wagon-move="a">W E</city>

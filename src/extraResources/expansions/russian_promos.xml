@@ -21,7 +21,7 @@
     </tile>
     <tile id="RU/V">
       <vodyanoy></vodyanoy>
-      <field pig-herd="yes">NL NR SL SR WL WR EL ER</field>
+      <field pig-herd="true">NL NR SL SR WL WR EL ER</field>
     </tile>
   </tiles>
   <sets>
