@@ -1,8 +1,8 @@
 <template>
   <div class="points-source">
     <div
-      v-for="p in ev.points"
-      :key="p.player"
+      v-for="(p, idx) in ev.points"
+      :key="idx"
       :class="'points ' + colorCssClass(p.player)"
       @mouseenter="onMouseEnter(p)"
       @mouseleave="onMouseLeave()"

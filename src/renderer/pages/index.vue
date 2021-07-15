@@ -4,7 +4,7 @@
     <div class="disclaimer">
       <div class="disclaimer-content">
         <p>The new JCloisterZone client still missing several features available in legacy Java app.</p>
-        <p>Public server hosted games, AI, Localization, Artwork plugins and game hints (farm hints, projected points…)</p>
+        <p>Public server hosted games, AI, Localization, and game hints (farm hints, projected points…)</p>
       </div>
     </div>
     <div>

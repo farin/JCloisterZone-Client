@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <defs>
-  <feature-modifier selector="road[inn]" type="boolean" enabled-with="inn" />
-
   <tiles>
     <tile id="IC/Cccc.c">
       <city cathedral="yes">N W S E</city>
