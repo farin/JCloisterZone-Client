@@ -60,6 +60,9 @@ export default {
     color: map-get($theme, 'cards-text')
     background: map-get($theme, 'cards-bg')
 
+    svg
+      fill: map-get($theme, 'cards-text')
+
   .rule-lines
     .rule-line
       margin-top: 10px
