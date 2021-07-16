@@ -245,6 +245,10 @@ class Tiles extends EventsBase {
             allows.add(ge.id)
           }
         })
+
+        if (t.querySelectorAll('road[labyrinth=true]').length) {
+          allows.add('labyrinth-variant')
+        }
       })
 
       doc.querySelectorAll('tile-set[id]').forEach(ts => {

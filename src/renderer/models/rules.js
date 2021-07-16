@@ -33,6 +33,14 @@ export class Rule {
       })
     }
 
+    if (this.id === 'labyrinth-variant') {
+      const edition = elements.garden ? 2 : 1
+      return Object.keys(sets).some(id => {
+        const set = $tiles.sets[id] || $tiles.sets[id + ':' + edition]
+        return set.allows && set.allows.includes('labyrinth-variant')
+      })
+    }
+
     if (!this.deps.length) {
       return true
     }
@@ -214,7 +222,7 @@ export const FESTIVAL_RETURN = Rule.FESTIVAL_RETURN = new Rule('festival-return'
 
 export const KEEP_MONASTERIES = Rule.KEEP_MONASTERIES = new Rule('keep-monasteries', GAMEPLAY,
   'Special monasteries {}.',
-  [], // HACK tested manually in RuleBox, TODO
+  [], // managed manually by enforced "monastery" element
   [
     { value: 'replace', text: 'replace orignal monasteries' },
     { value: 'add', text: 'are just added' }
@@ -227,7 +235,7 @@ export const KEEP_MONASTERIES = Rule.KEEP_MONASTERIES = new Rule('keep-monasteri
 
 export const LABYRINTH_VARIANT = Rule.LABYRINTH_VARIANT = new Rule('labyrinth-variant', GAMEPLAY,
   'Play {} labyrinth variant',
-  [Expansion.LABYRINTH],
+  [], // managed manually by labyringh presence - TODO use selectors
   [
     { value: 'basic', text: 'basic' },
     { value: 'advanced', text: 'advanced' }
