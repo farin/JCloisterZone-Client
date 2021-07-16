@@ -104,8 +104,8 @@ class Tiles extends EventsBase {
       if (set.remove) {
         set.remove.forEach(id => { remove[id] = true })
       }
-      if (set.allows) {
-        specialMonasteries ||= set.allows.includes('keep-monasteries')
+      if (set.enforces) {
+        specialMonasteries ||= set.enforces.includes('monastery')
       }
     })
     Object.keys(remove).forEach(id => { delete counts[id] })
@@ -245,10 +245,6 @@ class Tiles extends EventsBase {
             allows.add(ge.id)
           }
         })
-
-        if (t.querySelectorAll('monastery[special=true]').length) {
-          allows.add('keep-monasteries')
-        }
       })
 
       doc.querySelectorAll('tile-set[id]').forEach(ts => {

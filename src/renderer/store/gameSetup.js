@@ -3,7 +3,7 @@ import uniq from 'lodash/uniq'
 import mapKeys from 'lodash/mapKeys'
 
 import { GameElement, isConfigValueEnabled } from '@/models/elements'
-import { getDefaultRules } from '@/models/rules'
+import { Rule, getDefaultRules } from '@/models/rules'
 import { Expansion } from '@/models/expansions'
 import { getSelectedEdition } from '@/utils/gameSetupUtils'
 import { getSelectedStartingTiles, getStartingTilesOptions } from '../utils/gameSetupUtils'
@@ -256,6 +256,15 @@ export const actions = {
         setup.addons = addons
       }
     }
+
+    const rules = {}
+    Rule.all().forEach(r => {
+      if (r.isAvailable($tiles, setup)) {
+        const val = state.rules[r.id]
+        rules[r.id] = val === undefined ? r.default : val
+      }
+    })
+    setup.rules = rules
 
     dispatch('settings/addRecentGameSetup', setup, { root: true })
     dispatch('networking/startServer', {

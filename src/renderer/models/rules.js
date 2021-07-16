@@ -29,7 +29,7 @@ export class Rule {
       const edition = elements.garden ? 2 : 1
       return Object.keys(sets).some(id => {
         const set = $tiles.sets[id] || $tiles.sets[id + ':' + edition]
-        return set.allows && set.allows.includes('keep-monasteries')
+        return set.enforces && set.enforces.includes('monastery')
       })
     }
 
