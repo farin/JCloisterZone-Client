@@ -112,10 +112,10 @@ export default {
           return aBridge - bBridge
         }
 
-        const aFarm = Location.parse(a.option.location).isFieldLocation()
-        const bFarm = Location.parse(b.option.location).isFieldLocation()
-        if (aFarm !== bFarm) {
-          return bFarm - aFarm
+        const aField = a.option.feature === 'Field'
+        const bField = b.option.feature === 'Field'
+        if (aField !== bField) {
+          return bField - aField
         }
         return 0
       })

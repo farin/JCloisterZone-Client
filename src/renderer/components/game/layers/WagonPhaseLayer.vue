@@ -34,16 +34,7 @@ export default {
       wagonRule: state => state.game.setup.rules['wagon-move']
     }),
 
-    // featurePositons () {
-    //   const { position, location } = this.origin
-    //   const feature = this.$store.state.game.features.find(({ type, places }) => {
-    //     return type !== 'Farm' && !!places.find(p => p[0] === position[0] && p[1] === position[1] && p[2] === location)
-    //   })
-    //   return feature?.places || []
-    // },
-
     wagonPolygon () {
-      console.log(this.$store.state.gameSetup.rules)
       if (this.wagonRule === 'C1') {
         // const { position, location } = this.origin
         // const feature = this.$store.state.game.features.find(({ type, places }) => {
