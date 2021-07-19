@@ -18,8 +18,8 @@
         </svg>
       </template>
       <template v-else-if="item.name === 'pigHerds'"><img src="~/assets/features/C1/pig_herd.jpg" height="40"></template>
-      <template v-else-if="item.name === 'cities'"><img src="~/assets/icons/city-icon.png" height="40"></template>
-      <template v-else-if="item.name === 'roads'"><img src="~/assets/icons/road-icon.png" height="40"></template>
+      <template v-else-if="item.name === 'cities'"><img class="bw" src="~/assets/icons/city-icon.png" height="40"></template>
+      <template v-else-if="item.name === 'roads'"><img class="bw" src="~/assets/icons/road-icon.png" height="40"></template>
       <template v-else-if="item.name === 'monasteries'"><img src="~/assets/features/C1/cloister.png" height="40"></template>
       <template v-else-if="item.name === 'vineyards'"><img src="~/assets/features/C1/vineyard.png" height="40"></template>
       <template v-else-if="item.name === 'castles' || item.name.startsWith('castle.')"><img src="~/assets/figures/castle.png" height="40"></template>
@@ -148,4 +148,7 @@ export default {
       margin-right: 6px
     .icon
       margin-left: 6px
+
+#app.theme--dark .icon img.bw
+  filter: invert(1)
 </style>
