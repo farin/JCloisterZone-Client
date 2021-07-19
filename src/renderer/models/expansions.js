@@ -109,7 +109,7 @@ export const MONASTERIES = Expansion.MONASTERIES = new Expansion('MONASTERIES', 
 
 export const FLIER = Expansion.FLIER = new Expansion('FLIER', 'The Flying Machines', { enforces: ['flier'] })
 export const FERRIES = Expansion.FERRIES = new Expansion('FERRIES', 'The Ferries', {
-  implies: ['ferries']
+  implies: ['ferry']
 })
 export const GOLDMINES = Expansion.GOLDMINES = new Expansion('GOLDMINES', 'The Goldmines', { implies: ['gold'] })
 export const MAGE_AND_WITCH = Expansion.MAGE_AND_WITCH = new Expansion('MAGE_AND_WITCH', 'Mage & Witch', {
