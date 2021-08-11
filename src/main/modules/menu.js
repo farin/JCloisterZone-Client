@@ -67,8 +67,8 @@ async function createMenu (win) {
       submenu: [
         { role: 'toggleDevTools', label: 'Toggle DevTools' },
         { type: 'separator' },
-        { id: 'remote-engine', label: 'Remote engine', type: 'checkbox', checked: settings.enginePath === 'localhost:9000', click () { toggleRemoteEngine() } },
-        { id: 'dump-server', label: 'Dump hosted game server state', click () { win.webContents.send('menu.dump-server') } },
+        { id: 'remote-engine', label: 'Use Remote Engine', type: 'checkbox', checked: settings.enginePath === 'localhost:9000', click () { toggleRemoteEngine() } },
+        { id: 'dump-server', label: 'Dump Hosted Game Server State', click () { win.webContents.send('menu.dump-server') } },
         { id: 'test-runner', label: 'Test Runner', click () { win.webContents.send('menu.test-runner') } },
         { type: 'separator' },
         { label: 'Reload Add-ons', click () { win.webContents.send('menu.reload-addons') } },

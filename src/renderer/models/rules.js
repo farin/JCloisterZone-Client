@@ -225,7 +225,7 @@ export const KEEP_MONASTERIES = Rule.KEEP_MONASTERIES = new Rule('keep-monasteri
   [], // managed manually by enforced "monastery" element
   [
     { value: 'replace', text: 'replace orignal monasteries' },
-    { value: 'add', text: 'are just added' }
+    { value: 'keep', text: 'are just added' }
   ],
   {
     link: 'http://wikicarpedia.com/index.php/Monasteries#cite_note-1',
