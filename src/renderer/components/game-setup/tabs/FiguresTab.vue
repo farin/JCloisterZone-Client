@@ -2,52 +2,52 @@
   <div>
     <ConfigSection title="Followers">
       <div class="components">
-        <GameElementBox :item="GameElement.SMALL_FOLLOWER" :mutable="false" :max="7">
+        <GameElementBox :item="GameElement.SMALL_FOLLOWER" :max="99" :reset="7">
           <svg class="meeple" :width="55" :height="55">
             <use :href="`${MEEPLES_SVG}#small-follower`" />
           </svg>
         </GameElementBox>
-        <GameElementBox :item="GameElement.ABBOT">
+        <GameElementBox :item="GameElement.ABBOT" :max="9">
           <svg class="meeple" :width="55" :height="55">
             <use :href="`${MEEPLES_SVG}#abbot`" />
           </svg>
         </GameElementBox>
-        <GameElementBox :item="GameElement.PHANTOM">
+        <GameElementBox :item="GameElement.PHANTOM" :max="9">
           <svg class="meeple" :width="55" :height="55">
             <use :href="`${MEEPLES_SVG}#phantom`" />
           </svg>
         </GameElementBox>
-        <GameElementBox :item="GameElement.BIG_FOLLOWER">
+        <GameElementBox :item="GameElement.BIG_FOLLOWER" :max="9">
           <svg class="meeple" :width="55" :height="55">
             <use :href="`${MEEPLES_SVG}#big-follower`" />
           </svg>
         </GameElementBox>
-        <GameElementBox :item="GameElement.BUILDER">
+        <GameElementBox :item="GameElement.BUILDER" :max="9">
           <svg class="meeple" :width="55" :height="55">
             <use :href="`${MEEPLES_SVG}#builder`" />
           </svg>
         </GameElementBox>
-        <GameElementBox :item="GameElement.PIG">
+        <GameElementBox :item="GameElement.PIG" :max="9">
           <svg class="meeple" :width="55" :height="55">
             <use :href="`${MEEPLES_SVG}#pig`" />
           </svg>
         </GameElementBox>
-        <GameElementBox :item="GameElement.MAYOR">
+        <GameElementBox :item="GameElement.MAYOR" :max="9">
           <svg class="meeple" :width="55" :height="55">
             <use :href="`${MEEPLES_SVG}#mayor`" />
           </svg>
         </GameElementBox>
-        <GameElementBox :item="GameElement.WAGON">
+        <GameElementBox :item="GameElement.WAGON" :max="9">
           <svg class="meeple" :width="55" :height="55">
             <use :href="`${MEEPLES_SVG}#wagon`" />
           </svg>
         </GameElementBox>
-        <GameElementBox :item="GameElement.BARN">
+        <GameElementBox :item="GameElement.BARN" :max="9">
           <svg class="meeple" :width="55" :height="55">
             <use :href="`${MEEPLES_SVG}#barn`" />
           </svg>
         </GameElementBox>
-        <GameElementBox :item="GameElement.SHEPHERD">
+        <GameElementBox :item="GameElement.SHEPHERD" :max="9">
           <svg class="meeple" :width="55" :height="55">
             <use :href="`${MEEPLES_SVG}#shepherd`" />
           </svg>
