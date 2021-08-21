@@ -1,0 +1,228 @@
+{
+  "appVersion": "5.7.3",
+  "gameId": "1",
+  "name": "",
+  "initialRandom": 0.04226267628020319,
+  "created": "2021-08-21T09:06:46.489Z",
+  "clock": 82768,
+  "test": {
+    "description": "Do not stack pigs",
+    "assertions": [
+      "Alice has 4 points"
+    ]
+  },
+  "setup": {
+    "options": {},
+    "sets": {
+      "basic:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "pig": 2
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ]
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R0",
+        "position": [
+          -1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 1404
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            -1,
+            0
+          ],
+          "location": "NL.NR.EL.WR",
+          "feature": "Field"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 2593
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.5382193864682963
+      },
+      "player": 0,
+      "clock": 3598
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R0",
+        "position": [
+          -2,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 4524
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            -2,
+            0
+          ],
+          "location": "NL.NR.EL.WR",
+          "feature": "Field"
+        },
+        "meepleId": "0.pig.1"
+      },
+      "player": 0,
+      "clock": 5744
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.6038158058853003
+      },
+      "player": 0,
+      "clock": 6236
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 7163
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -1
+          ],
+          "location": "NL.NR.EL.ER.WL.WR",
+          "feature": "Field"
+        },
+        "meepleId": "0.small.2"
+      },
+      "player": 0,
+      "clock": 7800
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.797962054195799
+      },
+      "player": 0,
+      "clock": 7948
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R0",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 8916
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -2
+          ],
+          "location": "EL.ER.SL.SR.WL.WR",
+          "feature": "Field"
+        },
+        "meepleId": "0.pig.2"
+      },
+      "player": 0,
+      "clock": 10363
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.628839965064097
+      },
+      "player": 0,
+      "clock": 11580
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Rr",
+        "rotation": "R90",
+        "position": [
+          -1,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 12372
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 12884
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.8378051646464921
+      },
+      "player": 0,
+      "clock": 51186
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/RFr",
+      "BA/RFr",
+      "BA/C",
+      "BA/C",
+      "BA/Rr"
+    ],
+    "endTurn": 5
+  }
+}
