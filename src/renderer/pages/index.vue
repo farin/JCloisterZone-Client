@@ -97,16 +97,32 @@
             <!-- loaded tiles would be enough if rules densn't refer images -> which happends now when extra Abbery is enabled -->
             <div v-if="recentGameSetups.length && $store.state.loaded.artworks" class="recent-list setup-list d-flex flex-column align-end">
               <div
-                v-for="({ setup, valid, hash }) in verifiedRecentGameSetups"
+                v-for="({ setup, valid, idx, hash }) in verifiedRecentGameSetups"
                 :key="hash"
                 class="recent-setup"
                 :class="{ invalid: !valid }"
                 @click="valid && loadSetup(setup)"
+                @contextmenu="showRecentSetup($event, idx)"
               >
                 <GameSetupOverviewInline :sets="setup.sets" :elements="setup.elements" />
               </div>
               <a class="clear" href="#" @click="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a>
             </div>
+
+            <v-menu
+              v-model="showRecentSetupMenu"
+              :position-x="menuX"
+              :position-y="menuY"
+              absolute
+              offset-y
+              style="z-index: 100"
+            >
+              <v-list>
+                <v-list-item link>
+                  <v-list-item-title @click.prevent="dropRecentGameSetup">Drop setup</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
           </template>
         </div>
 
@@ -140,6 +156,7 @@
 <script>
 import { shell, ipcRenderer } from 'electron'
 
+import Vue from 'vue'
 import { mapState } from 'vuex'
 
 import GameSetupOverviewInline from '@/components/game-setup/overview/GameSetupOverviewInline'
@@ -165,7 +182,11 @@ export default {
       recentSetupSaves: [...this.$store.state.settings.recentSetupSaves],
       recentGameSetups: [...this.$store.state.settings.recentGameSetups],
       updating: false,
-      verifiedRecentGameSetups: []
+      verifiedRecentGameSetups: [],
+      showRecentSetupMenu: false,
+      menuX: null,
+      menuY: null,
+      menuItemIdx: null
     }
   },
 
@@ -269,16 +290,33 @@ export default {
     },
 
     verifyRecentSetups () {
-      this.verifiedRecentGameSetups = this.recentGameSetups.map(setup => {
+      this.verifiedRecentGameSetups = this.recentGameSetups.map((setup, idx) => {
         const edition = setup.elements.garden ? 2 : 1
         const valid = !this.$tiles.getExpansions(setup.sets, edition)._UNKNOWN
         // put valid to status to hash, to force render on change
-        return { setup, valid, hash: `${cyrb53(JSON.stringify(setup))}-${~~valid}` }
+        return { setup, valid, idx, hash: `${cyrb53(JSON.stringify(setup))}-${~~valid}` }
       })
     },
 
     afterAddonsReloaded () {
       this.verifyRecentSetups()
+    },
+
+    showRecentSetup (e, idx) {
+      e.preventDefault()
+      this.showRecentSetupMenu = false
+      this.menuX = e.clientX
+      this.menuY = e.clientY
+      this.menuItemIdx = idx
+      Vue.nextTick(() => {
+        this.showRecentSetupMenu = true
+      })
+    },
+
+    async dropRecentGameSetup () {
+      this.showRecentSetupMenu = false
+      await this.$store.dispatch('settings/removeRecentGameSetup', this.menuItemIdx)
+      this.recentGameSetups = [...this.$store.state.settings.recentGameSetups]
     }
   }
 }

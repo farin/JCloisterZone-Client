@@ -232,6 +232,11 @@ export const actions = {
     dispatch('save')
   },
 
+  async removeRecentGameSetup ({ state, commit, dispatch }, idx) {
+    commit('recentGameSetups', state.recentGameSetups.filter((_, i) => i !== idx))
+    dispatch('save')
+  },
+
   async update ({ commit, dispatch }, settings) {
     commit('settings', { settings, source: 'update' })
     dispatch('save')
