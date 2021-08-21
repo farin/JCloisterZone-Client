@@ -26,7 +26,7 @@ export class GameElement {
 GameElement.__all = {}
 
 export function isConfigValueEnabled (config) {
-  return config !== 'off' && config !== false && config !== 0
+  return config !== false && config !== 0
 }
 
 // Meeples

@@ -92,7 +92,7 @@ class Addons extends EventsBase {
 
     await this.updateOutdated(installedAddons)
 
-    console.log('Installed addons: ', installedAddons.filter(addon => !addon.error))
+    // console.log('Installed addons: ', installedAddons.filter(addon => !addon.error))
 
     for (const addon of installedAddons) {
       if (addon.error) {
