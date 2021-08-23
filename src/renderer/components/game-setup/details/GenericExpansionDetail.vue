@@ -1,5 +1,14 @@
 <template>
   <div>
+    <p v-if="expansion.links && expansion.links.length">
+      <RulesLink
+        v-for="(link, idx) in expansion.links"
+        :key="idx"
+        :title="link.title"
+        :href="link.url"
+      />
+    </p>
+
     <div
       v-for="(release, idx) in expansion.releases"
       :key="idx"
@@ -12,10 +21,12 @@
 </template>
 
 <script>
+import RulesLink from '@/components/RulesLink'
 import TileDistribution from '@/components/TileDistribution'
 
 export default {
   components: {
+    RulesLink,
     TileDistribution
   },
 

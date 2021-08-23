@@ -307,6 +307,13 @@ class Tiles extends EventsBase {
           exp.addon = addon
         }
 
+        exp.links = []
+        Array.from(el.querySelectorAll('link[url]')).forEach(link => {
+          const title = link.getAttribute('title')
+          const url = link.getAttribute('url')
+          exp.links.push({ title, url })
+        })
+
         Expansion.register(exp)
         expansions.push(exp)
         addon?.expansions.push(exp)
