@@ -9,6 +9,15 @@
       />
     </p>
 
+    <div v-if="descriptionParagraphs.length">
+      <p
+        v-for="(text, idx) in descriptionParagraphs"
+        :key="idx"
+      >
+        {{ text }}
+      </p>
+    </div>
+
     <div
       v-for="(release, idx) in expansion.releases"
       :key="idx"
@@ -32,6 +41,12 @@ export default {
 
   props: {
     expansion: { type: Object, required: true }
+  },
+
+  computed: {
+    descriptionParagraphs () {
+      return (this.expansion.description || '').split(/\n{2,}/g)
+    }
   },
 
   methods: {

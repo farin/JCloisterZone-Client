@@ -308,11 +308,13 @@ class Tiles extends EventsBase {
         }
 
         exp.links = []
-        Array.from(el.querySelectorAll('link[url]')).forEach(link => {
+        Array.from(el.querySelectorAll(':scope > link[url]')).forEach(link => {
           const title = link.getAttribute('title')
           const url = link.getAttribute('url')
           exp.links.push({ title, url })
         })
+
+        exp.description = el.querySelector(':scope > description')?.textContent || ''
 
         Expansion.register(exp)
         expansions.push(exp)
