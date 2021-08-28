@@ -16,7 +16,7 @@
 
     <template #main>
       <div v-if="pin" class="pin">
-        <span>Share the key with other players to let them connect to your game.</span>
+        <span>Share the key with other players to let them connect to the game.</span>
         <strong>{{ pin }}</strong>
       </div>
 

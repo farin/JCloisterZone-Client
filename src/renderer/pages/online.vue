@@ -6,6 +6,10 @@
       <v-btn large color="primary" @click="createGame()">
         Create Game
       </v-btn>
+
+      <v-btn large color="primary" @click="openJoinGameDialog()">
+        Join Game
+      </v-btn>
     </header>
     <main>
       <h2>Started Games</h2>
@@ -55,6 +59,28 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog
+      v-model="showJoinDialog"
+      max-width="400px"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="headline">Join Game</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <p>Paste a game key provided by host</p>
+            <v-text-field v-model="joinGameId" label="Game ID" @keydown.enter="joinGame" />
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn text @click="showJoinDialog = false">Cancel</v-btn>
+          <v-btn text @click="joinGame">Confirm</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -71,7 +97,9 @@ export default {
   data () {
     return {
       showDeleteDialog: false,
-      showDeleteGameId: null
+      showDeleteGameId: null,
+      showJoinDialog: false,
+      joinGameId: ''
     }
   },
 
@@ -108,6 +136,15 @@ export default {
     createGame () {
       this.$store.dispatch('gameSetup/newGame')
       this.$router.push('/game-setup')
+    },
+
+    openJoinGameDialog () {
+      this.joinGameId = ''
+      this.showJoinDialog = true
+    },
+
+    joinGame () {
+      this.$connection.send({ type: 'JOIN_GAME', payload: { gameKey: this.joinGameId } })
     },
 
     resume (game) {
