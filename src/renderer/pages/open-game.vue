@@ -17,7 +17,7 @@
     <template #main>
       <div v-if="gameKey" class="game-key">
         <span>Share the key with other players to let them connect to the game.</span>
-        <strong>{{ gameKey }}</strong>
+        <strong @click="selectOnClick">{{ gameKey }}</strong>
       </div>
 
       <div class="slots">
@@ -162,6 +162,14 @@ export default {
   methods: {
     startGame () {
       this.$store.dispatch('game/start')
+    },
+
+    selectOnClick (ev) {
+      const selection = window.getSelection()
+      const range = document.createRange()
+      range.selectNodeContents(ev.target)
+      selection.removeAllRanges()
+      selection.addRange(range)
     }
   }
 }
