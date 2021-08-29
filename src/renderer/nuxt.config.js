@@ -21,7 +21,8 @@ module.exports = {
     '~/plugins/tiles',
     '~/plugins/theme',
     { ssr: true, src: '@/plugins/icons.js' },
-    '~/plugins/router-patch'
+    '~/plugins/router-patch',
+    '~/plugins/date-format'
   ],
   buildModules: [
     '@nuxtjs/style-resources'

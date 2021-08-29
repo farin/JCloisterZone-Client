@@ -21,7 +21,8 @@
           class="game"
         >
           <div class="game-header">
-            <span class="game-key">{{ game.key }}</span>
+            <span class="game-key">{{ game.key.substring(0,3) }}-{{ game.key.substring(3) }}</span>
+            <span class="game-started">{{ game.started | formatDate }}</span>
           </div>
           <GameSetupOverviewInline :sets="game.setup.sets" :elements="game.setup.elements" />
 
@@ -225,14 +226,12 @@ h2
 
   .game-header
     display: flex
+    justify-content: space-between
     margin: -8px 8px 8px
+    font-weight: 300
+    font-size: 16px
+    text-transform: uppercase
 
-    .game-key
-      font-weight: 300
-      font-size: 16px
-      text-transform: uppercase
-      text-align: center
-
-      +theme using ($theme)
-        color: map-get($theme, 'gray-text-color')
+    +theme using ($theme)
+      color: map-get($theme, 'gray-text-color')
 </style>
