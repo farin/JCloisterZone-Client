@@ -83,6 +83,13 @@
           <v-container>
             <p>Paste a game key provided by host</p>
             <v-text-field v-model="joinGameId" label="Game ID" @keydown.enter="joinGame" />
+            <v-alert
+              v-if="joinError"
+              type="error"
+              dense
+            >
+              {{ joinError }}
+            </v-alert>
           </v-container>
         </v-card-text>
         <v-card-actions>
@@ -110,7 +117,8 @@ export default {
       showDeleteDialog: false,
       showDeleteGameId: null,
       showJoinDialog: false,
-      joinGameId: ''
+      joinGameId: '',
+      joinError: null
     }
   },
 
@@ -163,6 +171,10 @@ export default {
     },
 
     joinGame () {
+      this.joinError = null
+      this.$connection.onNextSendError(err => {
+        this.joinError = err.message
+      })
       this.$connection.send({ type: 'JOIN_GAME', payload: { gameKey: this.joinGameId } })
     },
 

@@ -144,40 +144,59 @@ class ConnectionPlugin extends EventsBase {
   }
 
   send (message) {
-    // ignored messages when client is disconnected
-    if (this.ws) {
-      if (message.sourceHash) {
-        if (message.sourceHash === this.recentlyUsedSourceHash) {
-          // duplicate message
-          return false
+    return new Promise((resolve, reject) => {
+      // ignored messages when client is disconnected
+      if (this.ws) {
+        if (message.sourceHash) {
+          if (message.sourceHash === this.recentlyUsedSourceHash) {
+            // duplicate message
+            return resolve()
+          }
+
+          // set protection for next 1s => do not send message with same origin during this time
+          this.recentlyUsedSourceHash = message.sourceHash
+          setTimeout(() => {
+            if (this.recentlyUsedSourceHash === message.sourceHash) {
+              this.recentlyUsedSourceHash = null
+            }
+          }, 1000)
+        }
+        if (!message.id) {
+          message = { id: randomId(), ...message }
         }
 
-        // set protection for next 1s => do not send message with same origin during this time
-        this.recentlyUsedSourceHash = message.sourceHash
-        setTimeout(() => {
-          if (this.recentlyUsedSourceHash === message.sourceHash) {
-            this.recentlyUsedSourceHash = null
-          }
-        }, 1000)
-      }
-      if (!message.id) {
-        message = { id: randomId(), ...message }
-      }
-      if (this.debugDelay) {
-        setTimeout(() => {
-          this.ws.send(JSON.stringify(message))
-        }, randomInt(...this.debugDelay))
-      } else {
-        this.ws.send(JSON.stringify(message))
-      }
+        const cb = err => err ? reject(err) : resolve()
 
-      return true
-    }
-    return false
+        if (this.debugDelay) {
+          setTimeout(() => {
+            this.ws.send(JSON.stringify(message), cb)
+          }, randomInt(...this.debugDelay))
+        } else {
+          this.ws.send(JSON.stringify(message), cb)
+        }
+      } else {
+        reject(new Error('not connectted'))
+      }
+    })
   }
 
   isConnectedOrConnecting () {
     return this.ws !== null
+  }
+
+  onNextSendError (handler) {
+    const callbacks = {}
+    callbacks.onError = err => {
+      this.off('error', callbacks.onError)
+      this.off('message', callbacks.onMessage)
+      handler(err)
+    }
+    callbacks.onMessage = ()  => {
+      this.off('error', callbacks.onError)
+      this.off('message', callbacks.onMessage)
+    }
+    this.on('error', callbacks.onError)
+    this.on('message', callbacks.onMessage)
   }
 }
 
