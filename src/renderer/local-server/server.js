@@ -312,10 +312,8 @@ export default class GameServer {
     const started = this.status === 'started'
     const game = {
       ...this.game,
+      state: started ? 'R' : 'O',
       replay: this.status === 'new' ? null : this.replay
-    }
-    if (started) {
-      game.started = true
     }
 
     const msg = {
@@ -324,6 +322,7 @@ export default class GameServer {
     }
 
     if (started) {
+      msg.payload.started = (new Date(this.startedAt)).toISOString()
       msg.clock = Date.now() - this.startedAt
     }
 

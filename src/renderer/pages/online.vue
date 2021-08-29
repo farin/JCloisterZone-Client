@@ -20,6 +20,9 @@
           :key="game.gameId"
           class="game"
         >
+          <div class="game-header">
+            <span class="game-key">{{ game.key }}</span>
+          </div>
           <GameSetupOverviewInline :sets="game.setup.sets" :elements="game.setup.elements" />
 
           <div class="buttons">
@@ -219,4 +222,17 @@ h2
   +theme using ($theme)
     color: map-get($theme, 'cards-text')
     background-color: map-get($theme, 'cards-bg')
+
+  .game-header
+    display: flex
+    margin: -8px 8px 8px
+
+    .game-key
+      font-weight: 300
+      font-size: 16px
+      text-transform: uppercase
+      text-align: center
+
+      +theme using ($theme)
+        color: map-get($theme, 'gray-text-color')
 </style>

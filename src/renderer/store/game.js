@@ -512,7 +512,7 @@ export const actions = {
   },
 
   async handleGameMessage ({ state, commit }, payload) {
-    if (payload.started) {
+    if (payload.state === 'R') {
       commit('lockUi', true)
     }
     if (state.id !== payload.gameId) {
