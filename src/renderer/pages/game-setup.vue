@@ -27,7 +27,7 @@
           :rules="rules"
           @tile-click="onTileClick"
         />
-        <GameAnnotationsPanel v-if="settings.devMode" ref="annotationsPanel" />
+        <GameAnnotationsPanel v-if="settings.devMode && $store.state.networking.connectionType !== 'online'" ref="annotationsPanel" />
       </div>
     </template>
   </GameSetupGrid>
@@ -82,7 +82,7 @@ export default {
     },
 
     onTileClick (tileId) {
-      if (this.settings.devMode) {
+      if (this.settings.devMode && this.$store.state.networking.connectionType !== 'online') {
         this.$refs.annotationsPanel.appendTile(tileId)
       }
     },

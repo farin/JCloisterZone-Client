@@ -10,13 +10,17 @@
       <v-btn large color="primary" @click="openJoinGameDialog()">
         Join Game
       </v-btn>
+
+      <v-btn large color="secondary" @click="disconnect()">
+        Disconnect
+      </v-btn>
     </header>
     <main>
       <h2>Started Games</h2>
 
       <div class="game-list">
         <div
-          v-for="game in gameList"
+          v-for="{ game, valid } in vefiriedGameList"
           :key="game.gameId"
           class="game"
         >
@@ -24,10 +28,13 @@
             <span class="game-key">{{ game.key.substring(0,3) }}-{{ game.key.substring(3) }}</span>
             <span class="game-started">{{ game.started | formatDate }}</span>
           </div>
-          <GameSetupOverviewInline :sets="game.setup.sets" :elements="game.setup.elements" />
+
+          <div :class="{ invalid: !valid }">
+            <GameSetupOverviewInline :sets="game.setup.sets" :elements="game.setup.elements" />
+          </div>
 
           <div class="buttons">
-            <v-btn color="primary" @click="resume(game)"><v-icon left>fa-play</v-icon> Resume</v-btn>
+            <v-btn color="primary" :disabled="!valid" @click="resume(game)"><v-icon left>fa-play</v-icon> Resume</v-btn>
             <v-btn color="secondary" @click="del(game)"><v-icon>fa-trash-alt</v-icon></v-btn>
           </div>
         </div>
@@ -113,7 +120,15 @@ export default {
     }),
 
     ...mapGetters({
-    })
+    }),
+
+    vefiriedGameList () {
+      return this.gameList.map(game => {
+        const edition = game.setup.elements.garden ? 2 : 1
+        const valid = !this.$tiles.getExpansions(game.setup.sets, edition)._UNKNOWN
+        return { game, valid }
+      })
+    }
   },
 
   beforeCreate () {
@@ -149,6 +164,11 @@ export default {
 
     joinGame () {
       this.$connection.send({ type: 'JOIN_GAME', payload: { gameKey: this.joinGameId } })
+    },
+
+    disconnect () {
+      this.$store.dispatch('networking/close')
+      this.$router.push('/')
     },
 
     resume (game) {
@@ -213,6 +233,9 @@ h2
   padding: 20px 10px
   margin: 10px
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)
+
+  .invalid
+    opacity: 0.4
 
   .buttons
     margin: 0 20px
