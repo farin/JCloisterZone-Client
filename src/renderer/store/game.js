@@ -61,7 +61,7 @@ const computeClock = (playersCount, messages) => {
 export const state = () => ({
   id: null,
   compatAppVersion: null, // original app version in which was game created
-  pin: null,
+  key: null,
   hash: null,
   lastMessageId: null,
   owner: null,
@@ -97,7 +97,7 @@ export const mutations = {
   clear (state) {
     state.id = null
     state.originAppVersion = null
-    state.pin = null
+    state.key = null
     state.hash = null
     state.lastMessageId = null
     state.owner = null
@@ -134,8 +134,8 @@ export const mutations = {
     state.originAppVersion = value
   },
 
-  pin (state, value) {
-    state.pin = value ? value.substring(0, 3) + '-' + value.substring(3) : null
+  key (state, value) {
+    state.key = value ? value.substring(0, 3) + '-' + value.substring(3) : null
   },
 
   hash (state, value) {
@@ -519,7 +519,7 @@ export const actions = {
       commit('clear')
       commit('originAppVersion', payload.originAppVersion)
     }
-    commit('pin', payload.pin || null)
+    commit('key', payload.key || null)
     commit('setup', payload.setup)
     commit('slots', payload.slots)
     commit('initialRandom', payload.initialRandom)

@@ -15,9 +15,9 @@
     </template>
 
     <template #main>
-      <div v-if="pin" class="pin">
+      <div v-if="gameKey" class="game-key">
         <span>Share the key with other players to let them connect to the game.</span>
-        <strong>{{ pin }}</strong>
+        <strong>{{ gameKey }}</strong>
       </div>
 
       <div class="slots">
@@ -81,7 +81,7 @@ export default {
 
   computed: {
     ...mapState({
-      pin: state => state.game.pin,
+      gameKey: state => state.game.key,
       setup: state => state.game.setup,
       sets: state => state.game.setup?.sets,
       rules: state => state.game.setup?.rules,
@@ -173,7 +173,7 @@ header .v-alert
   top: 8px
   width: 300px
 
-.pin
+.game-key
   margin: 20px 30px -20px
   text-align: right
 

@@ -260,7 +260,7 @@ export default class GameServer {
 
     if (this.status === 'started') {
       if (!this.game.slots.find(slot => slot.clientId === clientId && !slot.sessionId)) {
-        await this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game already started' })
+        await this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game is already started' })
         ws.close()
         return
       }
@@ -340,7 +340,7 @@ export default class GameServer {
 
   async handleTakeSlot (ws, { payload: { number, name } }) {
     if (this.status === 'started') {
-      this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game already started' })
+      this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game is already started' })
       return
     }
 
@@ -368,7 +368,7 @@ export default class GameServer {
 
   async handleUpdateSlot (ws, { payload: { number, name } }) {
     if (this.status === 'started') {
-      this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game already started' })
+      this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game is already started' })
       return
     }
 
@@ -395,7 +395,7 @@ export default class GameServer {
 
   handleLeaveSlot (ws, { payload: { number } }) {
     if (this.status === 'started') {
-      this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game already started' })
+      this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game is already started' })
       return
     }
 
@@ -425,7 +425,7 @@ export default class GameServer {
 
   handleStart (ws, message) {
     if (this.status === 'started') {
-      this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game already started' })
+      this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game is already started' })
       return
     }
 
@@ -458,7 +458,7 @@ export default class GameServer {
 
   handleGameOption (ws, message) {
     if (this.status === 'started') {
-      this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game already started' })
+      this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game is already started' })
       return
     }
 

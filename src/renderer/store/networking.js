@@ -1,4 +1,5 @@
 import { ENGINE_MESSAGES } from '@/constants/messages'
+import { connectExceptionToMessage } from '@/utils/networking'
 import { ipcRenderer } from 'electron'
 
 const STATUS_CONNECTING = 'connecting'
@@ -160,7 +161,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async startServer ({ state, commit, dispatch, rootState }, game) {
+  async startServer ({ state, dispatch }, game) {
     if (state.connectionType === 'online') {
       const { $connection } = this._vm
       $connection.send({
@@ -202,6 +203,8 @@ export const actions = {
         onMessage: handler.onMessage.bind(handler),
         onClose: handler.onClose.bind(handler)
       }).catch(err => {
+        commit('connectionType', null)
+        commit('connectionStatus', null)
         reject(err)
       })
     })
@@ -210,11 +213,17 @@ export const actions = {
   async connectPlayOnline ({ dispatch, rootState }) {
     const host = rootState.settings.playOnlineUrl
     if (host) {
-      dispatch('connect', { host, connectionType: 'online' })
+      try {
+        await dispatch('connect', { host, connectionType: 'online' })
+      } catch (e) {
+        const msg = connectExceptionToMessage(e)
+        ipcRenderer.invoke('dialog.showErrorBox', { title: 'Unable to connect', content: msg })
+        console.error(e)
+      }
     }
   },
 
-  close () {
+  close ({ commit }) {
     const { $server, $connection } = this._vm
     if (reconnectTimeout) {
       clearTimeout(reconnectTimeout)
@@ -222,5 +231,7 @@ export const actions = {
     }
     $connection.disconnect()
     $server.stop()
+    commit('connectionType', null)
+    commit('connectionStatus', null)
   }
 }

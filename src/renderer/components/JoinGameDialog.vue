@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import { connectExceptionToMessage } from '@/utils/networking'
+
 export default {
 
   data () {
@@ -60,13 +62,7 @@ export default {
         this.$emit('close')
       } catch (e) {
         this.connecting = false
-        if (e.error?.errno === 'EAI_AGAIN') {
-          this.error = "Can't resolve host"
-        } else if (e.error?.errno === 'ECONNREFUSED') {
-          this.error = 'Connection refused'
-        } else {
-          this.error = e.message || 'Connection failed'
-        }
+        this.error = connectExceptionToMessage(e)
         console.error(e)
       }
     }
