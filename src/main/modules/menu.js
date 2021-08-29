@@ -24,10 +24,6 @@ async function createMenu (win) {
     isMac ? { role: 'close' } : { role: 'quit' }
   ]
 
-  if (!settings['experimental.playOnline']) {
-    sessionSubmenu.splice(0, 3)
-  }
-
   const template = [
     {
       label: 'Session',

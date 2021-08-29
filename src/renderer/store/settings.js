@@ -37,7 +37,6 @@ export const state = () => ({
   enginePath: null, // explicit engine path
   javaPath: null, // exolicit java path
   playOnlineUrl: 'play.jcloisterzone.com/ws',
-  'experimental.playOnline': false,
   devMode: process.env.NODE_ENV === 'development'
 })
 
@@ -107,9 +106,9 @@ export const actions = {
         settings.nickname = await username()
       }
       // migrate legacy play online settings
-      if (settings.playOnlineUrl === null) {
+      if (settings.playOnlineUrl === null || settings.playOnlineUrl === 'play.jcloisterzone.com/ws') {
         missingKey = true
-        settings.playOnlineUrl = 'play.jcloisterzone.com/ws'
+        settings.playOnlineUrl = 'play-online.jcloisterzone.com/ws'
       }
       // migrate 5.6
       if (settings.enabledArtworks.length > 0 && settings.enabledArtworks[0] === 'classic') {

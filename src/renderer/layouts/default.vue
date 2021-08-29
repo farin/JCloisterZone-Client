@@ -231,7 +231,6 @@ export default {
       }
     }])
     await this.$store.dispatch('settings/registerChangeCallback', ['dev', () => { this.updateMenu() }])
-    await this.$store.dispatch('settings/registerChangeCallback', ['experimental.playOnline', () => { this.updateMenu() }])
 
     this.$addons.on('change', () => {
       this.loadAddons()
