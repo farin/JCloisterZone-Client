@@ -2,6 +2,7 @@
   <GameSetupGrid v-if="loaded" :sets="sets" :rules="rules">
     <template #header>
       <v-tabs v-model="tab" @change="onTabChange">
+        <v-tab><v-icon small>fa-bookmark</v-icon></v-tab>
         <v-tab>Tiles</v-tab>
         <v-tab>Components</v-tab>
         <v-tab>Rules</v-tab>
@@ -12,14 +13,15 @@
     </template>
 
     <template #main>
-      <TileSetsTab v-show="tab === 0" />
-      <FiguresTab v-show="tab === 1" />
-      <RulesTab v-show="tab === 2" />
-      <TimerTab v-show="tab === 3" />
+      <BookmarksTab v-show="tab === 0" @load="tab = 1" />
+      <TileSetsTab v-show="tab === 1" />
+      <FiguresTab v-show="tab === 2" />
+      <RulesTab v-show="tab === 3" />
+      <TimerTab v-show="tab === 4" />
     </template>
 
     <template #detail>
-      <div class="detail-pack">
+      <div v-if="tab > 0" class="detail-pack">
         <h2>Selected tiles</h2>
         <TileDistribution
           :tile-size="$vuetify.breakpoint.height > 768 ? 100 : 80"
@@ -36,6 +38,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 
+import BookmarksTab from '@/components/game-setup/tabs/BookmarksTab'
 import FiguresTab from '@/components/game-setup/tabs/FiguresTab'
 import GameAnnotationsPanel from '@/components/dev/GameAnnotationsPanel'
 import GameSetupGrid from '@/components/game-setup/GameSetupGrid'
@@ -47,6 +50,7 @@ import RulesTab from '@/components/game-setup/tabs/RulesTab'
 
 export default {
   components: {
+    BookmarksTab,
     FiguresTab,
     GameSetupGrid,
     GameAnnotationsPanel,
@@ -59,7 +63,7 @@ export default {
 
   data () {
     return {
-      tab: 0
+      tab: 1
     }
   },
 

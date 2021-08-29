@@ -90,8 +90,8 @@
             <h3>Recent Setups</h3>
 
             <div v-if="recentSetupSaves.length" class="recent-list saved-games-list">
-              <a v-for="file in recentSetupSaves" :key="file" href="#" @click="loadSavedSetup(file)">{{ file }}</a>
-              <a v-if="!recentGameSetups.length" class="clear" href="#" @click="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a>
+              <a v-for="file in recentSetupSaves" :key="file" href="#" @click.prevent="loadSavedSetup(file)">{{ file }}</a>
+              <a v-if="!recentGameSetups.length" class="clear" href="#" @click.prevent="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a>
             </div>
 
             <!-- loaded tiles would be enough if rules densn't refer images -> which happends now when extra Abbery is enabled -->

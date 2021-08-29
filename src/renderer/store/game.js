@@ -506,7 +506,11 @@ export const actions = {
       })
       resolve(sg)
       if (!rootState.runningTests) {
-        this.$router.push(sg.test ? '/game' : '/open-game')
+        if (sg.test) {
+          this.$router.push('/game')
+        } else if (window.location.pathname !== '/open-game') { // don't redirect if loaded from bookmark tab
+          this.$router.push('/open-game')
+        }
       }
     })
   },
