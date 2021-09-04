@@ -2,7 +2,7 @@
   <GameSetupGrid v-if="loaded" :sets="sets" :rules="rules">
     <template #header>
       <v-tabs v-model="tab" @change="onTabChange">
-        <v-tab><v-icon small>fa-bookmark</v-icon></v-tab>
+        <v-tab><v-icon small>far fa-heart</v-icon></v-tab>
         <v-tab>Tiles</v-tab>
         <v-tab>Components</v-tab>
         <v-tab>Rules</v-tab>

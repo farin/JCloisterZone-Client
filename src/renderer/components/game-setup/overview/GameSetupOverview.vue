@@ -58,8 +58,17 @@
       <ScoringVariants :setup="setup" show="changed" read-only />
     </div>
 
+    <v-divider />
+
     <div class="setup-buttons">
-      <v-btn small color="secondary" @click="saveGameSetup">Save Game Setup</v-btn>
+      <v-btn small color="secondary" @click="addToMySetups">
+        <v-icon left>far fa-heart</v-icon>
+        Add To My Setups
+      </v-btn>
+      <v-btn small color="secondary" @click="saveGameSetup">
+        <v-icon left>fa-file</v-icon>
+        Save To File
+      </v-btn>
     </div>
   </div>
 </template>
@@ -96,15 +105,19 @@ export default {
     timer () { return this.setup?.timer },
 
     gameplayAltred () {
-      return Rule.all().filter(r => r.kind === GAMEPLAY).some(r => r.default !== this.rules[r.id])
+      return Rule.all().filter(r => r.kind === GAMEPLAY).some(r => this.rules[r.id] !== undefined && r.default !== this.rules[r.id])
     },
 
     scoringAltred () {
-      return Rule.all().filter(r => r.kind === SCORING).some(r => r.default !== this.rules[r.id])
+      return Rule.all().filter(r => r.kind === SCORING).some(r => this.rules[r.id] !== undefined && r.default !== this.rules[r.id])
     }
   },
 
   methods: {
+    addToMySetups () {
+      this.$store.dispatch('settings/addMySetup', this.setup)
+    },
+
     saveGameSetup () {
       this.$store.dispatch('game/save', { onlySetup: true })
     }
@@ -150,8 +163,18 @@ section
     +theme using ($theme)
       color: map-get($theme, 'gray-text-color')
 
+.v-divider
+  margin-top: 20px
+
 .setup-buttons
   padding-top: 20px
   display: flex
   justify-content: flex-start
+
+  .v-btn
+    margin-left: 15px
+
+    &:first-child
+      margin-left: 0
+
 </style>

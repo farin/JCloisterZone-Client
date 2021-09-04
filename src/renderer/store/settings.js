@@ -1,10 +1,10 @@
 import fs from 'fs'
 import Vue from 'vue'
 import isEqual from 'lodash/isEqual'
-import { randomId } from '@/utils/random'
 import { ipcRenderer } from 'electron'
 
 import username from 'username'
+import { randomId } from '@/utils/random'
 import { CONSOLE_SETTINGS_COLOR } from '@/constants/logging'
 
 const RECENT_GAMES_COUNT = 14
@@ -16,10 +16,13 @@ export const state = () => ({
   userAddons: [],
   enabledArtworks: ['classic/classic'],
   lastGameSetup: null,
+  mySetups: [],
+  // deprecated
   recentSaves: [],
   recentSetupSaves: [],
   recentGameSetups: [],
   recentJoinedGames: [],
+  // ---
   showValidRulesOnly: false,
   clientId: null,
   secret: null,
@@ -76,7 +79,15 @@ export const mutations = {
 
   recentGameSetups (state, value) {
     state.recentGameSetups = value
+  },
+
+  mySetups (state, value) {
+    state.mySetups = value
   }
+}
+
+export const getters = {
+  isFavorite: state => setup => !!state.favoriteSetups.find(s => isEqual(s, setup))
 }
 
 export const actions = {
@@ -214,6 +225,14 @@ export const actions = {
     if (containsInvalid) {
       commit('recentSetupSaves', state.recentSetupSaves.filter(f => !invalid[f]))
     }
+  },
+
+  async addMySetup ({ state, commit, dispatch }, setup) {
+    const bareSetup = { ...setup }
+    delete bareSetup.options
+    const mySetups = [...state.mySetups, bareSetup]
+    commit('mySetups', mySetups)
+    dispatch('save')
   },
 
   async addRecentGameSetup ({ state, commit, dispatch }, setup) {
