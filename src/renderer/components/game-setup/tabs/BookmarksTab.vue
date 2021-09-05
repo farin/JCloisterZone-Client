@@ -1,16 +1,19 @@
 <template>
   <div>
     <ConfigSection title="My Setups">
-      <div class="recent-list setup-list d-flex flex-column align-end">
+      <div class="d-flex">
         <div
           v-for="({ setup, valid, idx, hash }) in verifiedMySetups"
           :key="hash"
-          class="recent-setup"
+          class="game-setup-item"
           :class="{ invalid: !valid }"
           @click="valid && loadSetup(setup)"
           @contextmenu="showRecentSetup($event, idx)"
         >
           <GameSetupOverviewInline :sets="setup.sets" :elements="setup.elements" />
+          <div class="buttons">
+            <v-btn small color="secondary" @click="loadSetup">Load</v-btn>
+          </div>
         </div>
         <!--a class="clear" href="#" @click="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a-->
       </div>
@@ -73,22 +76,33 @@ export default {
         // put valid to status to hash, to force render on change
         return { setup, valid, idx, hash: `${cyrb53(JSON.stringify(setup))}-${~~valid}` }
       })
+    },
+
+    loadSetup () {
+
     }
   }
 }
 </script>
 
 <style lang="sass" scoped>
-.recent-setup
+.game-setup-item
   cursor: pointer
-  padding-top: 5px
+  padding-top: 15px
   margin-bottom: 20px
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 3px 10px 0 rgba(0, 0, 0, 0.03)
 
   +theme using ($theme)
+    color: map-get($theme, 'cards-text')
+    background-color: map-get($theme, 'cards-bg')
     border: 1px solid #{map-get($theme, 'line-color')}
 
   &.invalid
     cursor: default
     opacity: 0.4
+
+  .buttons
+    text-align: right
+    padding: 0 10px 10px
+
 </style>

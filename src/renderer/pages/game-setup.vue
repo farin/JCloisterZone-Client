@@ -1,5 +1,5 @@
 <template>
-  <GameSetupGrid v-if="loaded" :sets="sets" :rules="rules">
+  <GameSetupGrid v-if="loaded" :sets="sets" :rules="rules" :show-detail="tab > 0" :show-pack-size="tab > 0">
     <template #header>
       <v-tabs v-model="tab" @change="onTabChange">
         <v-tab><v-icon small>far fa-heart</v-icon></v-tab>

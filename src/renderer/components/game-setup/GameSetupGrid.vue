@@ -1,18 +1,18 @@
 <template>
-  <div class="game-setup-grid view">
+  <div class="game-setup-grid view" :class="{ 'no-detail': !showDetail }">
     <header class="primary-header">
       <slot name="header" />
     </header>
 
     <header class="tiles-header">
-      <TilePackSize :size="packSize" />
+      <TilePackSize v-if="showPackSize" :size="packSize" />
     </header>
 
     <main>
       <slot name="main" />
     </main>
 
-    <aside>
+    <aside v-if="showDetail">
       <slot name="detail" />
     </aside>
   </div>
@@ -28,7 +28,9 @@ export default {
 
   props: {
     sets: { type: Object, required: true },
-    rules: { type: Object, required: true }
+    rules: { type: Object, required: true },
+    showDetail: { type: Boolean, default: true },
+    showPackSize: { type: Boolean, default: true }
   },
 
   computed: {
@@ -52,6 +54,9 @@ export default {
   grid-template-columns: minmax(0, 1560px) minmax(372px, 1fr)
   grid-template-rows: var(--game-setup-header-height) auto
   grid-template-areas: "header tiles-header" "main detail"
+
+  &.no-detail
+    grid-template-areas: "header tiles-header" "main ."
 
   +theme using ($theme)
     background: map-get($theme, 'board-bg')
@@ -109,6 +114,10 @@ aside
     grid-template-columns: 1fr
     grid-template-rows: var(--game-setup-header-height) auto var(--game-setup-header-height) auto
     grid-template-areas: "header" "main" "tiles-header" "detail"
+
+    &.no-detail
+      grid-template-rows: var(--game-setup-header-height) auto
+      grid-template-areas: "header" "main"
 
     .tiles-header
       position: static
