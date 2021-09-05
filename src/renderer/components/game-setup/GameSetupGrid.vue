@@ -1,5 +1,5 @@
 <template>
-  <div class="game-setup-grid view" :class="{ 'no-detail': !showDetail }">
+  <div class="game-setup-grid view">
     <header class="primary-header">
       <slot name="header" />
     </header>
@@ -114,10 +114,6 @@ aside
     grid-template-columns: 1fr
     grid-template-rows: var(--game-setup-header-height) auto var(--game-setup-header-height) auto
     grid-template-areas: "header" "main" "tiles-header" "detail"
-
-    &.no-detail
-      grid-template-rows: var(--game-setup-header-height) auto
-      grid-template-areas: "header" "main"
 
     .tiles-header
       position: static

@@ -1,5 +1,5 @@
 <template>
-  <div class="tile-distribution">
+  <div class="tile-distribution" :class="{ small }">
     <div
       v-for="{id, count, rotation } in tiles"
       :key="id"
@@ -35,7 +35,8 @@ export default {
   props: {
     sets: { type: Object, required: true },
     rules: { type: Object, default: null },
-    tileSize: { type: Number, default: 100 }
+    tileSize: { type: Number, default: 100 },
+    small: { type: Boolean, default: false }
   },
 
   computed: {
@@ -87,4 +88,9 @@ export default {
     margin-bottom: 10px
     font-weight: 300
     font-size: 26px
+
+  &.small .count
+    font-size: 18px
+    margin-bottom: 3px
+    padding: 0
 </style>

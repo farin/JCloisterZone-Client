@@ -1,30 +1,41 @@
 <template>
   <div>
     <ConfigSection title="My Setups">
-      <div class="d-flex">
+      <div class="d-flex flex-wrap">
         <div
           v-for="({ setup, valid, idx, hash }) in verifiedMySetups"
           :key="hash"
           class="game-setup-item"
-          :class="{ invalid: !valid }"
-          @click="valid && loadSetup(setup)"
+          :class="{ invalid: !valid, selected: selected === idx }"
+          @click="select(idx)"
           @contextmenu="showRecentSetup($event, idx)"
         >
           <GameSetupOverviewInline :sets="setup.sets" :elements="setup.elements" />
           <div class="buttons">
-            <v-btn small color="secondary" @click="loadSetup">Load</v-btn>
+            <v-btn v-if="$store.getters['settings/isMySetup'](setup)" small color="secondary" @click.stop="removeSetup(setup)">
+              <v-icon left>fa-heart</v-icon>
+              Remove
+            </v-btn>
+            <v-btn v-else small color="secondary" @click.stop="addSetup(setup)">
+              <v-icon left>far fa-heart</v-icon>
+              Add
+            </v-btn>
+            <v-btn small color="secondary" :disabled="!valid" @click.stop="valid && loadSetup(setup)">
+              <v-icon left>fa-share</v-icon>
+              Load
+            </v-btn>
           </div>
         </div>
         <!--a class="clear" href="#" @click="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a-->
       </div>
     </ConfigSection>
 
-    <ConfigSection title="Saved setups">
+    <ConfigSection title="Saved Files">
       <a v-for="file in recentSetupSaves" :key="file" href="#" @click.prevent="loadSavedSetup(file)">{{ file }}</a>
       <!--a v-if="!recentGameSetups.length" class="clear" href="#" @click="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a-->
     </ConfigSection>
 
-    <ConfigSection title="Last game">
+    <ConfigSection title="Recent Games">
     </ConfigSection>
   </div>
 </template>
@@ -44,7 +55,8 @@ export default {
 
   data () {
     return {
-      verifiedMySetups: []
+      verifiedMySetups: [],
+      selected: null
     }
   },
 
@@ -78,8 +90,22 @@ export default {
       })
     },
 
-    loadSetup () {
+    select (idx) {
+      this.selected = idx
+      this.$emit('select', this.verifiedMySetups[idx])
+    },
 
+    loadSetup (setup) {
+      this.$store.dispatch('gameSetup/load', setup)
+      this.$emit('load', setup)
+    },
+
+    removeSetup (setup) {
+      this.$store.dispatch('settings/removeMySetup', setup)
+    },
+
+    addSetup (setup) {
+      this.$store.dispatch('settings/addMySetup', setup)
     }
   }
 }
@@ -89,7 +115,7 @@ export default {
 .game-setup-item
   cursor: pointer
   padding-top: 15px
-  margin-bottom: 20px
+  margin: 10px
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 3px 10px 0 rgba(0, 0, 0, 0.03)
 
   +theme using ($theme)
@@ -97,12 +123,19 @@ export default {
     background-color: map-get($theme, 'cards-bg')
     border: 1px solid #{map-get($theme, 'line-color')}
 
+  &.selected
+    +theme using ($theme)
+      background-color: map-get($theme, 'cards-selected-bg')
+
   &.invalid
     cursor: default
     opacity: 0.4
 
   .buttons
     text-align: right
-    padding: 0 10px 10px
+    padding: 4px 10px 10px
+
+    .v-btn
+      min-width: 100px
 
 </style>

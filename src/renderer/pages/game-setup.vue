@@ -1,5 +1,5 @@
 <template>
-  <GameSetupGrid v-if="loaded" :sets="sets" :rules="rules" :show-detail="tab > 0" :show-pack-size="tab > 0">
+  <GameSetupGrid v-if="loaded" :sets="sets" :rules="rules" :show-pack-size="tab > 0">
     <template #header>
       <v-tabs v-model="tab" @change="onTabChange">
         <v-tab><v-icon small>far fa-heart</v-icon></v-tab>
@@ -9,11 +9,11 @@
         <v-tab>Timer</v-tab>
       </v-tabs>
 
-      <HeaderGameButton title="Create" :sets="sets" @click="createGame" />
+      <HeaderGameButton v-if="tab > 0" title="Create" :sets="sets" @click="createGame" />
     </template>
 
     <template #main>
-      <BookmarksTab v-show="tab === 0" @load="tab = 1" />
+      <BookmarksTab v-show="tab === 0" @load="tab = 1" @select="selectedSetupDetail = $event" />
       <TileSetsTab v-show="tab === 1" />
       <FiguresTab v-show="tab === 2" />
       <RulesTab v-show="tab === 3" />
@@ -21,6 +21,16 @@
     </template>
 
     <template #detail>
+      <div v-if="tab === 0 && selectedSetupDetail" class="detail-pack">
+        <!--GameSetupOverview :setup="selectedSetupDetail.setup" /-->
+        <h2>Setup tiles</h2>
+        <TileDistribution
+          :tile-size="$vuetify.breakpoint.height > 768 ? 60 : 48"
+          :sets="selectedSetupDetail.setup.sets"
+          :rules="selectedSetupDetail.setup.rules"
+          small
+        />
+      </div>
       <div v-if="tab > 0" class="detail-pack">
         <h2>Selected tiles</h2>
         <TileDistribution
@@ -63,7 +73,8 @@ export default {
 
   data () {
     return {
-      tab: 1
+      tab: 1,
+      selectedSetupDetail: null
     }
   },
 
@@ -78,6 +89,16 @@ export default {
     ...mapGetters({
       loaded: 'loaded'
     })
+  },
+
+  beforeCreate () {
+    // useful for dev mode, if setup not exist, redirect to home
+    if (this.$store.state.gameSetup.sets == null) {
+      this.$store.dispatch('game/close')
+      this.$router.push('/')
+      // it would be nice to create one, but also wait for artwork load is needed
+      // this.$store.dispatch('gameSetup/newGame')
+    }
   },
 
   methods: {

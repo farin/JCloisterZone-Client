@@ -87,7 +87,11 @@ export const mutations = {
 }
 
 export const getters = {
-  isFavorite: state => setup => !!state.favoriteSetups.find(s => isEqual(s, setup))
+  isMySetup: state => setup => {
+    const bareSetup = { ...setup }
+    delete bareSetup.options
+    return !!state.mySetups.find(s => isEqual(s, bareSetup))
+  }
 }
 
 export const actions = {
@@ -230,7 +234,16 @@ export const actions = {
   async addMySetup ({ state, commit, dispatch }, setup) {
     const bareSetup = { ...setup }
     delete bareSetup.options
+    if (state.mySetups.find(s => isEqual(s, bareSetup))) return
     const mySetups = [...state.mySetups, bareSetup]
+    commit('mySetups', mySetups)
+    dispatch('save')
+  },
+
+  async removeMySetup ({ state, commit, dispatch }, setup) {
+    const bareSetup = { ...setup }
+    delete bareSetup.options
+    const mySetups = state.mySetups.filter(s => !isEqual(s, bareSetup))
     commit('mySetups', mySetups)
     dispatch('save')
   },

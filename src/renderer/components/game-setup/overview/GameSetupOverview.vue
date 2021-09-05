@@ -61,9 +61,13 @@
     <v-divider />
 
     <div class="setup-buttons">
-      <v-btn small color="secondary" @click="addToMySetups">
+      <v-btn v-if="!$store.getters['settings/isMySetup'](setup)" small color="secondary" @click="addToMySetups">
         <v-icon left>far fa-heart</v-icon>
-        Add To My Setups
+        Add
+      </v-btn>
+      <v-btn v-else small color="secondary" @click="removeFromMySetups">
+        <v-icon left>fa-heart</v-icon>
+        Remove
       </v-btn>
       <v-btn small color="secondary" @click="saveGameSetup">
         <v-icon left>fa-file</v-icon>
@@ -116,6 +120,10 @@ export default {
   methods: {
     addToMySetups () {
       this.$store.dispatch('settings/addMySetup', this.setup)
+    },
+
+    removeFromMySetups () {
+      this.$store.dispatch('settings/removeMySetup', this.setup)
     },
 
     saveGameSetup () {
