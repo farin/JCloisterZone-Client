@@ -8,7 +8,6 @@ import { randomId } from '@/utils/random'
 import { CONSOLE_SETTINGS_COLOR } from '@/constants/logging'
 
 const RECENT_GAMES_COUNT = 14
-const RECENT_SETUPS_COUNT = 4
 
 /* eslint quote-props: 0 */
 export const state = () => ({
@@ -20,7 +19,6 @@ export const state = () => ({
   // deprecated
   recentSaves: [],
   recentSetupSaves: [],
-  recentGameSetups: [],
   recentJoinedGames: [],
   // ---
   showValidRulesOnly: false,
@@ -77,10 +75,6 @@ export const mutations = {
     state.recentSetupSaves = value
   },
 
-  recentGameSetups (state, value) {
-    state.recentGameSetups = value
-  },
-
   mySetups (state, value) {
     state.mySetups = value
   }
@@ -124,6 +118,10 @@ export const actions = {
       if (settings.playOnlineUrl === null || settings.playOnlineUrl === 'play.jcloisterzone.com/ws') {
         missingKey = true
         settings.playOnlineUrl = 'play-online.jcloisterzone.com/ws'
+      }
+      if (settings.recentSetupSaves?.length && typeof settings.recentSetupSaves[0] === 'string') {
+        missingKey = true
+        settings.recentSetupSaves = []
       }
       // migrate 5.6
       if (settings.enabledArtworks.length > 0 && settings.enabledArtworks[0] === 'classic') {
@@ -245,26 +243,6 @@ export const actions = {
     delete bareSetup.options
     const mySetups = state.mySetups.filter(s => !isEqual(s, bareSetup))
     commit('mySetups', mySetups)
-    dispatch('save')
-  },
-
-  async addRecentGameSetup ({ state, commit, dispatch }, setup) {
-    const bareSetup = { ...setup }
-    delete bareSetup.options
-    const recentGameSetups = state.recentGameSetups.filter(s => !isEqual(s, bareSetup)) // if file is contained, it will be only reordered to begining
-    recentGameSetups.unshift(bareSetup)
-    recentGameSetups.splice(RECENT_SETUPS_COUNT, recentGameSetups.length)
-    commit('recentGameSetups', recentGameSetups)
-    dispatch('save')
-  },
-
-  async clearRecentGameSetups ({ commit, dispatch }) {
-    commit('recentGameSetups', [])
-    dispatch('save')
-  },
-
-  async removeRecentGameSetup ({ state, commit, dispatch }, idx) {
-    commit('recentGameSetups', state.recentGameSetups.filter((_, i) => i !== idx))
     dispatch('save')
   },
 

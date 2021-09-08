@@ -1,6 +1,9 @@
 <template>
   <div>
     <ConfigSection title="My Setups">
+      <div v-if="!verifiedMySetups.length" class="empty-message">
+        <i>Your list is empty. To add setup here create a game first and use <span class="btn-ref"><v-icon left>far fa-heart</v-icon>Add</span> button.</i>
+      </div>
       <div class="d-flex flex-wrap">
         <div
           v-for="({ setup, valid, idx, hash }) in verifiedMySetups"
@@ -31,16 +34,15 @@
             </v-btn>
           </div>
         </div>
-        <!--a class="clear" href="#" @click="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a-->
       </div>
     </ConfigSection>
 
-    <ConfigSection title="Saved Files">
+    <ConfigSection title="Recently Saved To File">
+      <div v-if="!recentSetupSaves.length" class="empty-message">
+        <i>No setup was recently saved.</i>
+      </div>
       <a v-for="file in recentSetupSaves" :key="file" href="#" @click.prevent="loadSavedSetup(file)">{{ file }}</a>
       <!--a v-if="!recentGameSetups.length" class="clear" href="#" @click="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a-->
-    </ConfigSection>
-
-    <ConfigSection title="Recent Games">
     </ConfigSection>
 
     <v-dialog
@@ -144,6 +146,20 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.empty-message
+  margin: 30px 0
+  text-align: center
+
+  .btn-ref
+    border: 1px solid
+    border-radius: 2px
+    padding: 0 4px
+
+  .v-icon
+    font-size: 16px
+    position: relative
+    top: -2px
+
 .game-setup-item
   display: flex
   flex-direction: column
