@@ -392,7 +392,7 @@ export const actions = {
             reject(err)
           } else {
             Vue.nextTick(() => {
-              dispatch(onlySetup ? 'settings/addRecentSetupSave' : 'settings/addRecentSave', filePath, { root: true })
+              dispatch(onlySetup ? 'settings/addRecentSetupSave' : 'settings/addRecentSave', { file: filePath, setup }, { root: true })
             })
             resolve(filePath)
           }
@@ -457,7 +457,10 @@ export const actions = {
           }
           dispatch('gameSetup/load', sg.setup, { root: true })
           Vue.nextTick(() => {
-            dispatch('settings/addRecentSetupSave', filePath, { root: true })
+            dispatch('settings/addRecentSetupSave', {
+              file: filePath,
+              setup: sg.setup
+            }, { root: true })
             this.$router.push('/game-setup')
             resolve(sg)
           })
@@ -502,7 +505,7 @@ export const actions = {
         dispatch('game/start', null, { root: true })
       }
       Vue.nextTick(() => {
-        dispatch('settings/addRecentSave', filePath, { root: true })
+        dispatch('settings/addRecentSave', { file: filePath, setup: sg.setup }, { root: true })
       })
       resolve(sg)
       if (!rootState.runningTests) {

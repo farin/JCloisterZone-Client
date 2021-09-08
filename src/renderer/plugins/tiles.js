@@ -128,8 +128,16 @@ class Tiles extends EventsBase {
   }
 
   getPackSize (sets, rules) {
+    let countExp = 0
+    // count "The Count of Carcassonne" as single tile
+    if (sets.count) {
+      sets = { ...sets }
+      delete sets.count
+      countExp = 1
+    }
+
     const counts = this.getTilesCounts(sets, rules, '1') // both editions should provide same size
-    return Object.entries(counts).reduce((total, [tileId, tileCount]) => total + tileCount, 0)
+    return countExp + Object.entries(counts).reduce((total, [tileId, tileCount]) => total + tileCount, 0)
   }
 
   // helper

@@ -12,7 +12,7 @@
       <slot name="main" />
     </main>
 
-    <aside v-if="showDetail">
+    <aside>
       <slot name="detail" />
     </aside>
   </div>
@@ -29,20 +29,12 @@ export default {
   props: {
     sets: { type: Object, required: true },
     rules: { type: Object, required: true },
-    showDetail: { type: Boolean, default: true },
     showPackSize: { type: Boolean, default: true }
   },
 
   computed: {
     packSize () {
-      let size = 0
-      let { sets } = this
-      if (sets.count) {
-        sets = { ...sets }
-        delete sets.count
-        size = 1
-      }
-      return size + this.$tiles.getPackSize(sets, this.rules)
+      return this.$tiles.getPackSize(this.sets, this.rules)
     }
   }
 }
@@ -55,8 +47,8 @@ export default {
   grid-template-rows: var(--game-setup-header-height) auto
   grid-template-areas: "header tiles-header" "main detail"
 
-  &.no-detail
-    grid-template-areas: "header tiles-header" "main ."
+  // &.no-detail
+  //   grid-template-areas: "header tiles-header" "main ."
 
   +theme using ($theme)
     background: map-get($theme, 'board-bg')

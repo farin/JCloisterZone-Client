@@ -85,8 +85,8 @@
             <h3>Recent Setups</h3>
 
             <div v-if="recentSetupSaves.length" class="recent-list saved-games-list">
-              <a v-for="file in recentSetupSaves" :key="file" href="#" @click.prevent="loadSavedSetup(file)">{{ file }}</a>
-              <a v-if="!recentGameSetups.length" class="clear" href="#" @click.prevent="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a>
+              <a v-for="save in recentSetupSaves" :key="save.file" href="#" @click.prevent="loadSavedSetup(save.file)">{{ save.file }}</a>
+              <a class="clear" href="#" @click.prevent="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a>
             </div>
           </template>
         </div>
@@ -108,7 +108,7 @@
             <h3>Recent Games</h3>
 
             <div class="recent-list saved-games-list">
-              <a v-for="file in recentSaves" :key="file" href="#" @click="loadSavedGame(file)">{{ file }}</a>
+              <a v-for="save in recentSaves" :key="save.file" href="#" @click="loadSavedGame(save.file)">{{ save.file }}</a>
               <a class="clear" href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> clear list</a>
             </div>
           </template>
@@ -239,7 +239,7 @@ export default {
     },
 
     afterAddonsReloaded () {
-      this.verifyRecentSetups()
+      // DEL ?
     },
 
     showRecentSetup (e, idx) {
