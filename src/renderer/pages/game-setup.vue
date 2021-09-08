@@ -21,16 +21,6 @@
     </template>
 
     <template #detail>
-      <div v-if="tab === 0 && selectedSetupDetail" class="detail-pack">
-        <!--GameSetupOverview :setup="selectedSetupDetail.setup" /-->
-        <h2>Setup tiles</h2>
-        <TileDistribution
-          :tile-size="$vuetify.breakpoint.height > 768 ? 60 : 48"
-          :sets="selectedSetupDetail.setup.sets"
-          :rules="selectedSetupDetail.setup.rules"
-          small
-        />
-      </div>
       <div v-if="tab > 0" class="detail-pack">
         <h2>Selected tiles</h2>
         <TileDistribution

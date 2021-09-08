@@ -6,12 +6,17 @@
           v-for="({ setup, valid, idx, hash }) in verifiedMySetups"
           :key="hash"
           class="game-setup-item"
-          :class="{ invalid: !valid, selected: selected === idx }"
-          @click="select(idx)"
+          :class="{ invalid: !valid }"
           @contextmenu="showRecentSetup($event, idx)"
         >
           <GameSetupOverviewInline :sets="setup.sets" :elements="setup.elements" />
           <div class="buttons">
+            <div class="tiles-link">
+              <a href="#" @click.prevent="showTiles(idx)">
+                <span>11</span> <v-icon>fas fa-layer-group</v-icon>
+              </a>
+            </div>
+
             <v-btn v-if="$store.getters['settings/isMySetup'](setup)" small color="secondary" @click.stop="removeSetup(setup)">
               <v-icon left>fa-heart</v-icon>
               Remove
@@ -37,6 +42,30 @@
 
     <ConfigSection title="Recent Games">
     </ConfigSection>
+
+    <v-dialog
+      v-model="detailOpen"
+      max-width="800"
+    >
+      <v-card v-if="selectedSetup">
+        <v-card-title class="headline">Tiles</v-card-title>
+        <v-card-text>
+          <TileDistribution
+            :tile-size="$vuetify.breakpoint.height > 768 ? 60 : 48"
+            :sets="selectedSetup.sets"
+            :rules="selectedSetup.rules"
+            small
+          />
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            text
+            @click="detailOpen = false"
+          >Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -46,17 +75,20 @@ import { mapState } from 'vuex'
 import { cyrb53 } from '@/utils/hash'
 import ConfigSection from '@/components/game-setup/ConfigSection'
 import GameSetupOverviewInline from '@/components/game-setup/overview/GameSetupOverviewInline'
+import TileDistribution from '@/components/TileDistribution'
 
 export default {
   components: {
     ConfigSection,
-    GameSetupOverviewInline
+    GameSetupOverviewInline,
+    TileDistribution
   },
 
   data () {
     return {
       verifiedMySetups: [],
-      selected: null
+      selectedSetup: null,
+      detailOpen: false
     }
   },
 
@@ -90,9 +122,9 @@ export default {
       })
     },
 
-    select (idx) {
-      this.selected = idx
-      this.$emit('select', this.verifiedMySetups[idx])
+    showTiles (idx) {
+      this.selectedSetup = this.verifiedMySetups[idx].setup
+      this.detailOpen = true
     },
 
     loadSetup (setup) {
@@ -113,7 +145,8 @@ export default {
 
 <style lang="sass" scoped>
 .game-setup-item
-  cursor: pointer
+  display: flex
+  flex-direction: column
   padding-top: 15px
   margin: 10px
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 3px 10px 0 rgba(0, 0, 0, 0.03)
@@ -123,19 +156,40 @@ export default {
     background-color: map-get($theme, 'cards-bg')
     border: 1px solid #{map-get($theme, 'line-color')}
 
-  &.selected
-    +theme using ($theme)
-      background-color: map-get($theme, 'cards-selected-bg')
+  .game-setup-overview-inline
+    flex-grow: 1
 
   &.invalid
     cursor: default
     opacity: 0.4
 
   .buttons
-    text-align: right
+    display: flex
     padding: 4px 10px 10px
+
+    .tiles-link
+      flex-grow: 1
+
+      a
+        text-decoration: none
+
+        +theme using ($theme)
+          color: map-get($theme, 'gray-text-color')
+
+        span
+          font-size: 22px
+          font-weight: bold
+          line-height: 1
+          position: relative
+          top: 4px
+
+      a:hover
+        &, .v-icon
+          +theme using ($theme)
+            color: map-get($theme, 'text-color')
 
     .v-btn
       min-width: 100px
+      margin-left: 8px
 
 </style>
