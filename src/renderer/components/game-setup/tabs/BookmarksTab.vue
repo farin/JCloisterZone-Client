@@ -1,40 +1,45 @@
 <template>
   <div>
-    <ConfigSection title="My Setups">
-      <div v-if="!verifiedMySetups.length" class="empty-message">
-        <i>Your list is empty. To add setup here create a game first and use <span class="btn-ref"><v-icon left>far fa-heart</v-icon>Add</span> button.</i>
+    <div class="content">
+      <div>
+        <ConfigSection title="My Setups">
+          <div v-if="!verifiedMySetups.length" class="empty-message">
+            <i>Your list is empty. To add setup here create a game first and use <span class="btn-ref"><v-icon left>far fa-heart</v-icon>Add</span> button.</i>
+          </div>
+          <div class="d-flex flex-wrap">
+            <GameSetupBox
+              v-for="({ size, setup, valid, hash }) in verifiedMySetups"
+              :key="hash"
+              :setup="setup"
+              :size="size"
+              :valid="valid"
+              @tiles="showTiles(setup)"
+              @load="$emit('load')"
+            />
+          </div>
+        </ConfigSection>
       </div>
-      <div class="d-flex flex-wrap">
-        <GameSetupBox
-          v-for="({ size, setup, valid, idx, hash }) in verifiedMySetups"
-          :key="hash"
-          :setup="setup"
-          :size="size"
-          :valid="valid"
-          @tiles="showTiles(idx)"
-          @load="$emit('load')"
-        />
-      </div>
-    </ConfigSection>
-
-    <ConfigSection title="Recently Saved To File">
-      <div v-if="!recentSetupSaves.length" class="empty-message">
-        <i>Nothing saved.</i>
-      </div>
-      <div class="d-flex flex-wrap">
-        <GameSetupBox
-          v-for="({ file, setup, size }) in recentSetupSaves"
-          :key="file"
-          :setup="setup"
-          :size="size"
-          :valid="true"
-          @load="loadSavedSetup(file)"
-        />
-      </div>
-      <a v-for="save in recentSetupSaves" :key="save.file" href="#" @click.prevent="loadSavedSetup(save.file)">{{ save.file }}</a>
-      <!--a v-if="!recentGameSetups.length" class="clear" href="#" @click="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a-->
-    </ConfigSection>
-
+      <aside>
+        <ConfigSection title="Saved To File">
+          <div v-if="!recentSetupSaves.length" class="empty-message">
+            <i>Nothing saved.</i>
+          </div>
+          <div class="d-flex flex-wrap">
+            <GameSetupBox
+              v-for="({ file, setup, size }) in recentSetupSaves"
+              :key="file"
+              :title="file"
+              :setup="setup"
+              :size="size"
+              :valid="true"
+              @tiles="showTiles(setup)"
+              @load="loadSavedSetup(file)"
+            />
+          </div>
+          <!--a v-if="!recentGameSetups.length" class="clear" href="#" @click="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a-->
+        </ConfigSection>
+      </aside>
+    </div>
     <v-dialog
       v-model="detailOpen"
       max-width="800"
@@ -114,8 +119,8 @@ export default {
       })
     },
 
-    showTiles (idx) {
-      this.selectedSetup = this.verifiedMySetups[idx].setup
+    showTiles (setup) {
+      this.selectedSetup = setup
       this.detailOpen = true
     }
   }
@@ -123,6 +128,14 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.content
+  display: grid
+  grid-template-columns: minmax(0, 1560px) minmax(400px, 1fr)
+
+  aside
+    +theme using ($theme)
+      background: map-get($theme, 'board-bg')
+
 .empty-message
   margin: 30px 0
   text-align: center

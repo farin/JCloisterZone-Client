@@ -5,6 +5,7 @@
     @contextmenu="showRecentSetup($event, idx)"
   >
     <header>
+      <span>{{ title }}</span>
       <a class="tiles-link" href="#" @click.prevent="$emit('tiles')">
         <span>{{ size }}</span> <v-icon>fas fa-layer-group</v-icon>
       </a>
@@ -41,6 +42,7 @@ export default {
   },
 
   props: {
+    title: { type: String, default: '' },
     setup: { type: Object, required: true },
     size: { type: Number, required: true },
     valid: { type: Boolean, default: true }
@@ -91,6 +93,9 @@ export default {
     display: flex
     justify-content: flex-end
     padding: 5px
+
+    > span
+      flex-grow: 1
 
     a.tiles-link
       text-decoration: none

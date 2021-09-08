@@ -1,5 +1,5 @@
 <template>
-  <div class="game-setup-grid view">
+  <div class="game-setup-grid view" :class="{ 'no-detail': !showDetail }">
     <header class="primary-header">
       <slot name="header" />
     </header>
@@ -12,7 +12,7 @@
       <slot name="main" />
     </main>
 
-    <aside>
+    <aside v-if="showDetail">
       <slot name="detail" />
     </aside>
   </div>
@@ -29,7 +29,8 @@ export default {
   props: {
     sets: { type: Object, required: true },
     rules: { type: Object, required: true },
-    showPackSize: { type: Boolean, default: true }
+    showPackSize: { type: Boolean, default: true },
+    showDetail: { type: Boolean, default: true }
   },
 
   computed: {
@@ -47,8 +48,8 @@ export default {
   grid-template-rows: var(--game-setup-header-height) auto
   grid-template-areas: "header tiles-header" "main detail"
 
-  // &.no-detail
-  //   grid-template-areas: "header tiles-header" "main ."
+  &.no-detail
+    grid-template-areas: "header tiles-header" "main main"
 
   +theme using ($theme)
     background: map-get($theme, 'board-bg')
