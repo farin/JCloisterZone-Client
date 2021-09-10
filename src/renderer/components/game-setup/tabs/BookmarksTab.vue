@@ -25,7 +25,13 @@
             <i>Nothing saved.</i>
           </div>
           <div class="d-flex flex-wrap">
-            <GameSetupBox
+            <div
+              v-for="file in recentSetupSaves"
+              :key="file"
+            >
+              {{ file }}
+            </div>
+            <!-- <GameSetupBox
               v-for="({ file, setup, size }) in recentSetupSaves"
               :key="file"
               :title="file"
@@ -34,7 +40,7 @@
               :valid="true"
               @tiles="showTiles(setup)"
               @load="loadSavedSetup(file)"
-            />
+            /> -->
           </div>
           <!--a v-if="!recentGameSetups.length" class="clear" href="#" @click="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a-->
         </ConfigSection>

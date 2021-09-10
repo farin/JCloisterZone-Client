@@ -115,15 +115,6 @@ export const actions = {
         missingKey = true
         settings.playOnlineUrl = 'play-online.jcloisterzone.com/ws'
       }
-      // migrate old recent saves format 5.8
-      if (settings.recentSetupSaves?.length && typeof settings.recentSetupSaves[0] === 'string') {
-        missingKey = true
-        settings.recentSetupSaves = []
-      }
-      if (settings.recentSaves?.length && typeof settings.recentSaves[0] === 'string') {
-        missingKey = true
-        settings.recentSaves = []
-      }
       // migrate 5.6
       if (settings.enabledArtworks.length > 0 && settings.enabledArtworks[0] === 'classic') {
         missingKey = true
@@ -168,30 +159,20 @@ export const actions = {
   },
 
   async addRecentSave ({ state, commit, dispatch }, { file, setup }) {
-    const { $tiles } = this._vm
     const bareSetup = { ...setup }
     delete bareSetup.options
-    const recentSaves = state.recentSaves.filter(f => f.file !== file) // if file is contained, it will be only reordered to begining
-    recentSaves.unshift({
-      size: $tiles.getPackSize(setup.sets, setup.rules),
-      setup: bareSetup,
-      file
-    })
+    const recentSaves = state.recentSaves.filter(f => f !== file) // if file is contained, it will be only reordered to begining
+    recentSaves.unshift(file)
     recentSaves.splice(RECENT_SAVED_GAME_COUNT, recentSaves.length)
     commit('recentSaves', recentSaves)
     dispatch('save')
   },
 
   async addRecentSetupSave ({ state, commit, dispatch }, { file, setup }) {
-    const { $tiles } = this._vm
     const bareSetup = { ...setup }
     delete bareSetup.options
-    const recentSaves = state.recentSetupSaves.filter(f => f.file !== file) // if file is contained, it will be only reordered to begining
-    recentSaves.unshift({
-      size: $tiles.getPackSize(setup.sets, setup.rules),
-      setup: bareSetup,
-      file
-    })
+    const recentSaves = state.recentSetupSaves.filter(f => f !== file) // if file is contained, it will be only reordered to begining
+    recentSaves.unshift(file)
     recentSaves.splice(RECENT_SETUP_FILE_COUNT, recentSaves.length)
     commit('recentSetupSaves', recentSaves)
     dispatch('save')
@@ -217,14 +198,14 @@ export const actions = {
     let containsInvalid = false
     for (const f of state.recentSaves) {
       try {
-        await fs.promises.access(f.file, fs.constants.R_OK)
+        await fs.promises.access(f, fs.constants.R_OK)
       } catch (e) {
         invalid[f] = true
         containsInvalid = true
       }
     }
     if (containsInvalid) {
-      commit('recentSaves', state.recentSaves.filter(f => !invalid[f.file]))
+      commit('recentSaves', state.recentSaves.filter(f => !invalid[f]))
     }
   },
 
@@ -233,14 +214,14 @@ export const actions = {
     let containsInvalid = false
     for (const f of state.recentSetupSaves) {
       try {
-        await fs.promises.access(f.file, fs.constants.R_OK)
+        await fs.promises.access(f, fs.constants.R_OK)
       } catch (e) {
         invalid[f] = true
         containsInvalid = true
       }
     }
     if (containsInvalid) {
-      commit('recentSetupSaves', state.recentSetupSaves.filter(f => !invalid[f.file]))
+      commit('recentSetupSaves', state.recentSetupSaves.filter(f => !invalid[f]))
     }
   },
 
