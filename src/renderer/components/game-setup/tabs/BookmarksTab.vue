@@ -20,16 +20,30 @@
         </ConfigSection>
       </div>
       <aside>
-        <ConfigSection title="Saved To File">
+        <div class="buttons">
+          <v-btn small color="secondary" @click="loadFromFile">
+            <v-icon left>fa-file</v-icon>
+            Load Setup From File
+          </v-btn>
+        </div>
+
+        <ConfigSection title="Recently Saved To File">
           <div v-if="!recentSetupSaves.length" class="empty-message">
             <i>Nothing saved.</i>
           </div>
-          <div class="d-flex flex-wrap">
+          <div class="file-list">
             <div
               v-for="file in recentSetupSaves"
               :key="file"
+              class="file-item"
             >
-              {{ file }}
+              <span class="file-name">{{ file }}</span>
+              <v-btn small color="secondary" rounded @click.stop="loadSavedSetup(file)">
+                <v-icon>fa-share</v-icon>
+              </v-btn>
+              <v-btn small color="primary" rounded @click.stop="loadSavedSetup(file, true)">
+                <v-icon>fa-play</v-icon>
+              </v-btn>
             </div>
             <!-- <GameSetupBox
               v-for="({ file, setup, size }) in recentSetupSaves"
@@ -107,10 +121,23 @@ export default {
   },
 
   methods: {
-    async loadSavedSetup (file) {
+    async loadFromFile () {
       try {
-        await this.$store.dispatch('game/load', file)
+        await this.$store.dispatch('game/load', { setupOnly: true })
         this.$emit('load')
+      } catch {
+        // error message shown from action handler
+      }
+    },
+
+    async loadSavedSetup (file, create = false) {
+      try {
+        await this.$store.dispatch('game/load', { file, setupOnly: true })
+        if (create) {
+          await this.$store.dispatch('gameSetup/createGame')
+        } else {
+          this.$emit('load')
+        }
       } catch {
         await this.$store.dispatch('settings/validateRecentSetupSaves')
       }
@@ -141,6 +168,25 @@ export default {
   aside
     +theme using ($theme)
       background: map-get($theme, 'board-bg')
+
+    .buttons
+      margin: 60px 0
+      text-align: center
+
+    .file-list
+      margin-top: 20px
+
+    .file-item
+      display: flex
+
+      .file-name
+        flex-grow: 1
+        text-align: right
+        margin-right: 14px
+        padding-top: 2px
+
+      .v-btn
+        margin-left: 6px
 
 .empty-message
   margin: 30px 0

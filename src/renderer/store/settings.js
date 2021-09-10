@@ -8,7 +8,7 @@ import { randomId } from '@/utils/random'
 import { CONSOLE_SETTINGS_COLOR } from '@/constants/logging'
 
 const RECENT_SAVED_GAME_COUNT = 14
-const RECENT_SETUP_FILE_COUNT = 6
+const RECENT_SETUP_FILE_COUNT = 9
 
 /* eslint quote-props: 0 */
 export const state = () => ({

@@ -403,7 +403,7 @@ export const actions = {
     })
   },
 
-  async load ({ commit, dispatch, rootState }, filePath) {
+  async load ({ commit, dispatch, rootState }, { file: filePath, setupOnly = false } = {}) {
     return new Promise(async (resolve, reject) => {
       if (!filePath) {
         const { filePaths } = await ipcRenderer.invoke('dialog.showOpenDialog', {
@@ -451,19 +451,23 @@ export const actions = {
           sg.setup.rules = { ...getDefaultRules(), ...sg.setup.rules }
         }
 
-        if (sg.setup && !sg.test && (isNil(sg.players) || isNil(sg.initialRandom) || isNil(sg.replay) || isNil(sg.clock) || isNil(sg.gameId))) {
+        const containsSetupOnly = isNil(sg.players) || isNil(sg.initialRandom) || isNil(sg.replay) || isNil(sg.clock) || isNil(sg.gameId)
+
+        if (sg.setup && !sg.test && (containsSetupOnly || setupOnly)) {
           if (rootState.runningTests) {
             console.error('Loaded game setup from test runner')
           }
           dispatch('gameSetup/load', sg.setup, { root: true })
-          Vue.nextTick(() => {
-            dispatch('settings/addRecentSetupSave', {
-              file: filePath,
-              setup: sg.setup
-            }, { root: true })
-            this.$router.push('/game-setup')
-            resolve(sg)
-          })
+          if (containsSetupOnly) { // don't all file with game to recent setup saves
+            Vue.nextTick(() => {
+              dispatch('settings/addRecentSetupSave', {
+                file: filePath,
+                setup: sg.setup
+              }, { root: true })
+              this.$router.push('/game-setup')
+              resolve(sg)
+            })
+          }
           return
         }
 

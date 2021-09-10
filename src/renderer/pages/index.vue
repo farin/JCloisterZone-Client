@@ -198,7 +198,7 @@ export default {
 
     async loadSavedGame (file) {
       try {
-        await this.$store.dispatch('game/load', file)
+        await this.$store.dispatch('game/load', { file })
       } catch {
         await this.$store.dispatch('settings/validateRecentSaves')
         this.recentSaves = [...this.$store.state.settings.recentSaves]
@@ -207,7 +207,7 @@ export default {
 
     async loadSavedSetup (file) {
       try {
-        await this.$store.dispatch('game/load', file)
+        await this.$store.dispatch('game/load', { file })
       } catch {
         await this.$store.dispatch('settings/validateRecentSetupSaves')
         this.recentSetupSaves = [...this.$store.state.settings.recentSetupSaves]
