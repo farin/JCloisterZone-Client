@@ -20,7 +20,7 @@
         </ConfigSection>
       </div>
       <aside>
-        <div class="buttons">
+        <div class="load-button">
           <v-btn small color="secondary" @click="loadFromFile">
             <v-icon left>fa-file</v-icon>
             Load Setup From File
@@ -37,26 +37,24 @@
               :key="file"
               class="file-item"
             >
-              <span class="file-name">{{ file }}</span>
-              <v-btn small color="secondary" rounded @click.stop="loadSavedSetup(file)">
-                <v-icon>fa-share</v-icon>
-              </v-btn>
-              <v-btn small color="primary" rounded @click.stop="loadSavedSetup(file, true)">
-                <v-icon>fa-play</v-icon>
-              </v-btn>
+              <div class="file-name">
+                <span class="dirname">{{ dirname(file) }}</span>
+                <span class="basename">{{ basename(file) }}</span>
+              </div>
+              <div class="buttons">
+                <v-btn x-small color="secondary" rounded @click.stop="loadSavedSetup(file)">
+                  <v-icon>fa-share</v-icon>
+                </v-btn>
+                <v-btn x-small color="primary" rounded @click.stop="loadSavedSetup(file, true)">
+                  <v-icon>fa-play</v-icon>
+                </v-btn>
+              </div>
             </div>
-            <!-- <GameSetupBox
-              v-for="({ file, setup, size }) in recentSetupSaves"
-              :key="file"
-              :title="file"
-              :setup="setup"
-              :size="size"
-              :valid="true"
-              @tiles="showTiles(setup)"
-              @load="loadSavedSetup(file)"
-            /> -->
+
+            <div class="clear">
+              <a href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> clear list</a>
+            </div>
           </div>
-          <!--a v-if="!recentGameSetups.length" class="clear" href="#" @click="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a-->
         </ConfigSection>
       </aside>
     </div>
@@ -87,6 +85,7 @@
 </template>
 
 <script>
+import path from 'path'
 import { mapState } from 'vuex'
 
 import { cyrb53 } from '@/utils/hash'
@@ -155,6 +154,19 @@ export default {
     showTiles (setup) {
       this.selectedSetup = setup
       this.detailOpen = true
+    },
+
+    clearRecentSaves () {
+      this.$store.dispatch('settings/clearRecentSaves')
+      this.recentSaves = []
+    },
+
+    dirname (f) {
+      return path.dirname(f) + path.sep
+    },
+
+    basename (f) {
+      return path.basename(f)
     }
   }
 }
@@ -163,30 +175,68 @@ export default {
 <style lang="sass" scoped>
 .content
   display: grid
-  grid-template-columns: minmax(0, 1560px) minmax(400px, 1fr)
+  grid-template-columns: 1fr 400px
 
   aside
     +theme using ($theme)
       background: map-get($theme, 'board-bg')
 
-    .buttons
+    .load-button
       margin: 60px 0
       text-align: center
 
     .file-list
       margin-top: 20px
 
+      .clear
+        margin-top: 16px
+        font-size: 14px
+        text-align: center
+
+        i
+          color: inherit !important
+          font-size: inherit !important
+
     .file-item
-      display: flex
+      padding: 0 10px 10px
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 3px 10px 0 rgba(0, 0, 0, 0.03)
+      margin-bottom: 5px
+
+      +theme using ($theme)
+        color: map-get($theme, 'cards-text')
+        background-color: map-get($theme, 'cards-bg')
+        border: 1px solid #{map-get($theme, 'line-color')}
 
       .file-name
         flex-grow: 1
-        text-align: right
-        margin-right: 14px
         padding-top: 2px
+        font-weight: 300
+        overflow: hidden
+        display: flex
+        justify-content: flex-end
+        align-items: bottom
 
-      .v-btn
-        margin-left: 6px
+        .dirname
+          text-overflow: ellipsis
+          overflow: hidden
+          position: relative
+          font-size: 15px
+          top: 5.5px
+
+        .basename
+          font-size: 20px
+          margin-left: 2px
+
+      .buttons
+        display: flex
+        justify-content: flex-end
+        margin-top: 4px
+
+        .v-btn
+          margin-left: 6px
+
+          i
+            font-size: 14px
 
 .empty-message
   margin: 30px 0

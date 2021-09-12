@@ -80,15 +80,6 @@
           <v-btn large color="secondary" @click="newGame()">
             New game
           </v-btn>
-
-          <template v-if="recentSetupSaves.length">
-            <h3>Recent Setups</h3>
-
-            <div v-if="recentSetupSaves.length" class="recent-list saved-games-list">
-              <a v-for="save in recentSetupSaves" :key="save" href="#" @click.prevent="loadSavedSetup(save)">{{ save }}</a>
-              <a class="clear" href="#" @click.prevent="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a>
-            </div>
-          </template>
         </div>
 
         <div>
@@ -141,7 +132,6 @@ export default {
       isWin,
       // do not bind it to store
       recentSaves: [...this.$store.state.settings.recentSaves],
-      recentSetupSaves: [...this.$store.state.settings.recentSetupSaves],
       updating: false,
       showRecentSetupMenu: false,
       menuX: null,
@@ -174,7 +164,6 @@ export default {
   watch: {
     settingsLoaded () {
       this.recentSaves = [...this.$store.state.settings.recentSaves]
-      this.recentSetupSaves = [...this.$store.state.settings.recentSetupSaves]
     }
   },
 
@@ -205,15 +194,6 @@ export default {
       }
     },
 
-    async loadSavedSetup (file) {
-      try {
-        await this.$store.dispatch('game/load', { file })
-      } catch {
-        await this.$store.dispatch('settings/validateRecentSetupSaves')
-        this.recentSetupSaves = [...this.$store.state.settings.recentSetupSaves]
-      }
-    },
-
     loadSetup (setup) {
       this.$store.dispatch('gameSetup/load', setup)
       this.$router.push('/game-setup')
@@ -226,11 +206,6 @@ export default {
     clearRecentSaves () {
       this.$store.dispatch('settings/clearRecentSaves')
       this.recentSaves = []
-    },
-
-    clearSetups () {
-      this.$store.dispatch('settings/clearRecentSetupSaves')
-      this.recentSetupSaves = []
     },
 
     updateApp () {

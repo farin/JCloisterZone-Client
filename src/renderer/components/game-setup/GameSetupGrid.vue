@@ -98,6 +98,9 @@ main
   margin-right: $panel-gap
   margin-top: -2px
 
+  &.no-detail
+    margin-right: 0
+
 aside
   overflow-y: overlay
   margin-top: -2px
