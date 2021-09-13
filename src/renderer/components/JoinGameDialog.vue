@@ -3,7 +3,7 @@
     <v-card-title class="headline">Join Remote Game</v-card-title>
     <v-card-text>
       Connect to remote host with created game.<br>
-      <i>The must on remote host must be in color selection phase.</i>
+      <i>The game on remote host must be in color selection phase.</i>
       <div class="field-wrapper">
         <v-progress-linear
           v-if="connecting"

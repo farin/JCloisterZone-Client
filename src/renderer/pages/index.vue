@@ -73,37 +73,37 @@
     </section>
 
     <section class="player-hosted">
-      <h2>Client hosted games</h2>
+      <h2>Player hosted games</h2>
 
-      <div class="player-hosted-content">
-        <div>
-          <v-btn large color="secondary" @click="newGame()">
-            New game
-          </v-btn>
-        </div>
+      <div>
+        <h3>Create a new game</h3>
+        <v-btn large color="secondary" @click="newGame()">
+          New game
+        </v-btn>
+      </div>
 
-        <div>
-          <div class="d-flex">
-            <v-btn large color="secondary" @click="loadGame()">
-              Load game
-            </v-btn>
+      <div>
+        <h3>Conenct to game hosted by a remote player</h3>
+        <v-btn large color="secondary" @click="joinGame()">
+          Join game
+        </v-btn>
+      </div>
 
-            <div class="join-wrapper">
-              <v-btn large color="secondary" @click="joinGame()">
-                Join game
-              </v-btn>
-            </div>
+      <div>
+        <h3>Continue a saved game</h3>
+
+        <v-btn large color="secondary" @click="loadGame()">
+          Load game
+        </v-btn>
+
+        <template v-if="recentSaves.length">
+          <h3>Recently saved files</h3>
+
+          <div class="recent-list">
+            <a v-for="save in recentSaves" :key="save" href="#" @click="loadSavedGame(save)">{{ save }}</a>
+            <a class="clear" href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> clear list</a>
           </div>
-
-          <template v-if="recentSaves.length">
-            <h3>Recent Games</h3>
-
-            <div class="recent-list saved-games-list">
-              <a v-for="save in recentSaves" :key="save" href="#" @click="loadSavedGame(save)">{{ save }}</a>
-              <a class="clear" href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> clear list</a>
-            </div>
-          </template>
-        </div>
+        </template>
       </div>
     </section>
   </div>
@@ -239,11 +239,9 @@ export default {
 
 h2, h3
   font-weight: 300
-  font-size: 16px
-  margin-bottom: 10px
 
 h2
-  font-size: 18px
+  font-size: 26px
   margin: 0 0 20px
 
   +theme using ($theme)
@@ -251,8 +249,7 @@ h2
 
 h3
   font-size: 16px
-  text-transform: uppercase
-  margin-top: 30px
+  margin: 40px 0 12px
 
 .online-hosted
   height: 33vh
@@ -270,69 +267,34 @@ h3
       margin-left: 20px
 
 .player-hosted
-  flex: 1 0
-  padding-top: 30px
-  padding-bottom: 10px
+  padding: 30px 0
   text-align: center
 
-.player-hosted-content
-  display: flex
-  justify-content: center
-  align-items: stretch
-  text-align: left
+  h2
+    margin-bottom: 0
 
-  > div
-    padding: 5px 30px
-    flex: 1
+  .player-hosted-content
+    display: flex
+    justify-content: center
+    align-items: stretch
 
-  > div:first-child
-    text-align: right
+    > div
+      flex: 1
 
-    +theme using ($theme)
-      border-right: 1px solid #{map-get($theme, 'line-color')}
+.recent-list a
+  display: block
 
-  .join-wrapper
-    margin-left: 40px
-    padding-left: 40px
+  +theme using ($theme)
+    &:hover
+      color: map-get($theme, 'text-color')
 
-    +theme using ($theme)
-      border-left: 1px solid #{map-get($theme, 'line-color')}
+  &.clear
+    font-size: 14px
+    margin-top: 10px
 
-  .recent-setup
-    cursor: pointer
-    padding-top: 5px
-    margin-bottom: 20px
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 3px 10px 0 rgba(0, 0, 0, 0.03)
-
-    +theme using ($theme)
-      border: 1px solid #{map-get($theme, 'line-color')}
-
-    &.invalid
-      cursor: default
-      opacity: 0.4
-
-  .recent-list a
-    display: block
-
-    +theme using ($theme)
-      &:hover
-        color: map-get($theme, 'text-color')
-
-    &.clear
-      font-size: 14px
-
-      i
-        color: inherit !important
-        font-size: inherit !important
-
-  .saved-games-list
-    margin-bottom: 20px
-
-    a.clear
-      margin-top: 10px
-
-  .setup-list a.clear
-    margin-top: -10px
+    i
+      color: inherit !important
+      font-size: inherit !important
 
 .update-box
   padding: 20px
