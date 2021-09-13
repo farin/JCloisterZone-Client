@@ -90,7 +90,7 @@ export default {
   methods: {
     open ({ file }) {
       this.$store.commit('runningTests', false)
-      this.$store.dispatch('game/load', file)
+      this.$store.dispatch('game/load', { file })
     },
 
     async run (test, idx) {
@@ -124,7 +124,7 @@ export default {
             }, 100)
           }
         })
-        this.$store.dispatch('game/load', file)
+        this.$store.dispatch('game/load', { file })
       })
     }
   }

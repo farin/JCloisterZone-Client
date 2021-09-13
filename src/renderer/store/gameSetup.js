@@ -5,8 +5,7 @@ import mapKeys from 'lodash/mapKeys'
 import { GameElement, isConfigValueEnabled } from '@/models/elements'
 import { Rule, getDefaultRules } from '@/models/rules'
 import { Expansion } from '@/models/expansions'
-import { getSelectedEdition } from '@/utils/gameSetupUtils'
-import { getSelectedStartingTiles, getStartingTilesOptions } from '../utils/gameSetupUtils'
+import { getSelectedEdition, getSelectedStartingTiles, getStartingTilesOptions } from '@/utils/gameSetupUtils'
 
 const DEFAULT_SETS = {
   basic: 1
@@ -266,7 +265,6 @@ export const actions = {
     })
     setup.rules = rules
 
-    dispatch('settings/addRecentGameSetup', setup, { root: true })
     dispatch('networking/startServer', {
       setup,
       slots: getEmptySlots(),

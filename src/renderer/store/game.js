@@ -392,7 +392,7 @@ export const actions = {
             reject(err)
           } else {
             Vue.nextTick(() => {
-              dispatch(onlySetup ? 'settings/addRecentSetupSave' : 'settings/addRecentSave', filePath, { root: true })
+              dispatch(onlySetup ? 'settings/addRecentSetupSave' : 'settings/addRecentSave', { file: filePath, setup }, { root: true })
             })
             resolve(filePath)
           }
@@ -403,7 +403,7 @@ export const actions = {
     })
   },
 
-  async load ({ commit, dispatch, rootState }, filePath) {
+  async load ({ commit, dispatch, rootState }, { file: filePath, setupOnly = false } = {}) {
     return new Promise(async (resolve, reject) => {
       if (!filePath) {
         const { filePaths } = await ipcRenderer.invoke('dialog.showOpenDialog', {
@@ -451,16 +451,23 @@ export const actions = {
           sg.setup.rules = { ...getDefaultRules(), ...sg.setup.rules }
         }
 
-        if (sg.setup && !sg.test && (isNil(sg.players) || isNil(sg.initialRandom) || isNil(sg.replay) || isNil(sg.clock) || isNil(sg.gameId))) {
+        const containsSetupOnly = isNil(sg.players) || isNil(sg.initialRandom) || isNil(sg.replay) || isNil(sg.clock) || isNil(sg.gameId)
+
+        if (sg.setup && !sg.test && (containsSetupOnly || setupOnly)) {
           if (rootState.runningTests) {
             console.error('Loaded game setup from test runner')
           }
           dispatch('gameSetup/load', sg.setup, { root: true })
-          Vue.nextTick(() => {
-            dispatch('settings/addRecentSetupSave', filePath, { root: true })
-            this.$router.push('/game-setup')
-            resolve(sg)
-          })
+          if (containsSetupOnly) { // don't all file with game to recent setup saves
+            Vue.nextTick(() => {
+              dispatch('settings/addRecentSetupSave', {
+                file: filePath,
+                setup: sg.setup
+              }, { root: true })
+              this.$router.push('/game-setup')
+              resolve(sg)
+            })
+          }
           return
         }
 
@@ -502,11 +509,15 @@ export const actions = {
         dispatch('game/start', null, { root: true })
       }
       Vue.nextTick(() => {
-        dispatch('settings/addRecentSave', filePath, { root: true })
+        dispatch('settings/addRecentSave', { file: filePath, setup: sg.setup }, { root: true })
       })
       resolve(sg)
       if (!rootState.runningTests) {
-        this.$router.push(sg.test ? '/game' : '/open-game')
+        if (sg.test) {
+          this.$router.push('/game')
+        } else if (window.location.pathname !== '/open-game') { // don't redirect if loaded from bookmark tab
+          this.$router.push('/open-game')
+        }
       }
     })
   },

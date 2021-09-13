@@ -1,14 +1,14 @@
 import fs from 'fs'
 import Vue from 'vue'
 import isEqual from 'lodash/isEqual'
-import { randomId } from '@/utils/random'
 import { ipcRenderer } from 'electron'
 
 import username from 'username'
+import { randomId } from '@/utils/random'
 import { CONSOLE_SETTINGS_COLOR } from '@/constants/logging'
 
-const RECENT_GAMES_COUNT = 14
-const RECENT_SETUPS_COUNT = 4
+const RECENT_SAVED_GAME_COUNT = 14
+const RECENT_SETUP_FILE_COUNT = 9
 
 /* eslint quote-props: 0 */
 export const state = () => ({
@@ -16,10 +16,12 @@ export const state = () => ({
   userAddons: [],
   enabledArtworks: ['classic/classic'],
   lastGameSetup: null,
+  mySetups: [],
+  // deprecated
   recentSaves: [],
   recentSetupSaves: [],
-  recentGameSetups: [],
   recentJoinedGames: [],
+  // ---
   showValidRulesOnly: false,
   clientId: null,
   secret: null,
@@ -74,8 +76,16 @@ export const mutations = {
     state.recentSetupSaves = value
   },
 
-  recentGameSetups (state, value) {
-    state.recentGameSetups = value
+  mySetups (state, value) {
+    state.mySetups = value
+  }
+}
+
+export const getters = {
+  isMySetup: state => setup => {
+    const bareSetup = { ...setup }
+    delete bareSetup.options
+    return !!state.mySetups.find(s => isEqual(s.setup, bareSetup))
   }
 }
 
@@ -95,11 +105,6 @@ export const actions = {
       if (!settings.secret) {
         missingKey = true
         settings.secret = randomId()
-      }
-      // migrate old format
-      if (settings.secret.includes('-')) {
-        missingKey = true
-        settings.secret = settings.secret.replaceAll('-', '')
       }
       if (!settings.nickname) {
         missingKey = true
@@ -153,18 +158,22 @@ export const actions = {
     }
   },
 
-  async addRecentSave ({ state, commit, dispatch }, file) {
+  async addRecentSave ({ state, commit, dispatch }, { file, setup }) {
+    const bareSetup = { ...setup }
+    delete bareSetup.options
     const recentSaves = state.recentSaves.filter(f => f !== file) // if file is contained, it will be only reordered to begining
     recentSaves.unshift(file)
-    recentSaves.splice(RECENT_GAMES_COUNT, recentSaves.length)
+    recentSaves.splice(RECENT_SAVED_GAME_COUNT, recentSaves.length)
     commit('recentSaves', recentSaves)
     dispatch('save')
   },
 
-  async addRecentSetupSave ({ state, commit, dispatch }, file) {
+  async addRecentSetupSave ({ state, commit, dispatch }, { file, setup }) {
+    const bareSetup = { ...setup }
+    delete bareSetup.options
     const recentSaves = state.recentSetupSaves.filter(f => f !== file) // if file is contained, it will be only reordered to begining
     recentSaves.unshift(file)
-    recentSaves.splice(RECENT_GAMES_COUNT, recentSaves.length)
+    recentSaves.splice(RECENT_SETUP_FILE_COUNT, recentSaves.length)
     commit('recentSetupSaves', recentSaves)
     dispatch('save')
   },
@@ -216,23 +225,24 @@ export const actions = {
     }
   },
 
-  async addRecentGameSetup ({ state, commit, dispatch }, setup) {
+  async addMySetup ({ state, commit, dispatch }, setup) {
+    const { $tiles } = this._vm
     const bareSetup = { ...setup }
     delete bareSetup.options
-    const recentGameSetups = state.recentGameSetups.filter(s => !isEqual(s, bareSetup)) // if file is contained, it will be only reordered to begining
-    recentGameSetups.unshift(bareSetup)
-    recentGameSetups.splice(RECENT_SETUPS_COUNT, recentGameSetups.length)
-    commit('recentGameSetups', recentGameSetups)
+    if (state.mySetups.find(s => isEqual(s, bareSetup))) return
+    const mySetups = [...state.mySetups, {
+      size: $tiles.getPackSize(setup.sets, setup.rules),
+      setup: bareSetup
+    }]
+    commit('mySetups', mySetups)
     dispatch('save')
   },
 
-  async clearRecentGameSetups ({ commit, dispatch }) {
-    commit('recentGameSetups', [])
-    dispatch('save')
-  },
-
-  async removeRecentGameSetup ({ state, commit, dispatch }, idx) {
-    commit('recentGameSetups', state.recentGameSetups.filter((_, i) => i !== idx))
+  async removeMySetup ({ state, commit, dispatch }, setup) {
+    const bareSetup = { ...setup }
+    delete bareSetup.options
+    const mySetups = state.mySetups.filter(s => !isEqual(s.setup, bareSetup))
+    commit('mySetups', mySetups)
     dispatch('save')
   },
 

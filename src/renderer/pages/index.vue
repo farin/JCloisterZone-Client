@@ -1,12 +1,5 @@
 <template>
   <div class="landing-view view">
-    <div class="ribbon">Beta</div>
-    <div class="disclaimer">
-      <div class="disclaimer-content">
-        <p>The new JCloisterZone client still missing several features available in legacy Java app.</p>
-        <p>Like AI, Localization, and game hints (farm hints, projected points…)</p>
-      </div>
-    </div>
     <div>
       <v-alert v-if="java && java.error === 'not-found' && !javaSelectedByUser" type="warning">
         Unable to locate Java on your system.<br>
@@ -70,84 +63,47 @@
     </div>
 
     <section class="online-hosted">
-      <h2>Public server hosted games</h2>
-      <v-btn large color="secondary" @click="playOnline()">
-        Play online
-        <v-icon right>fa-cloud</v-icon>
-      </v-btn>
+      <div>
+        <h2>Public server hosted games</h2>
+        <v-btn large color="secondary" @click="playOnline()">
+          Play online
+          <v-icon right>fa-cloud</v-icon>
+        </v-btn>
+      </div>
     </section>
 
     <section class="player-hosted">
-      <h2>Client hosted games</h2>
+      <h2>Player hosted games</h2>
 
-      <div class="player-hosted-content">
-        <div>
-          <v-btn large color="secondary" @click="newGame()">
-            New game
-          </v-btn>
+      <div>
+        <h3>Create a new game</h3>
+        <v-btn large color="secondary" @click="newGame()">
+          New game
+        </v-btn>
+      </div>
 
-          <template v-if="recentSetupSaves.length || recentGameSetups.length">
-            <h3>Recent Setups</h3>
+      <div>
+        <h3>Conenct to game hosted by a remote player</h3>
+        <v-btn large color="secondary" @click="joinGame()">
+          Join game
+        </v-btn>
+      </div>
 
-            <div v-if="recentSetupSaves.length" class="recent-list saved-games-list">
-              <a v-for="file in recentSetupSaves" :key="file" href="#" @click="loadSavedSetup(file)">{{ file }}</a>
-              <a v-if="!recentGameSetups.length" class="clear" href="#" @click="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a>
-            </div>
+      <div>
+        <h3>Continue a saved game</h3>
 
-            <!-- loaded tiles would be enough if rules densn't refer images -> which happends now when extra Abbery is enabled -->
-            <div v-if="recentGameSetups.length && $store.state.loaded.artworks" class="recent-list setup-list d-flex flex-column align-end">
-              <div
-                v-for="({ setup, valid, idx, hash }) in verifiedRecentGameSetups"
-                :key="hash"
-                class="recent-setup"
-                :class="{ invalid: !valid }"
-                @click="valid && loadSetup(setup)"
-                @contextmenu="showRecentSetup($event, idx)"
-              >
-                <GameSetupOverviewInline :sets="setup.sets" :elements="setup.elements" />
-              </div>
-              <a class="clear" href="#" @click="clearSetups"><v-icon>fas fa-times</v-icon> clear list</a>
-            </div>
+        <v-btn large color="secondary" @click="loadGame()">
+          Load game
+        </v-btn>
 
-            <v-menu
-              v-model="showRecentSetupMenu"
-              :position-x="menuX"
-              :position-y="menuY"
-              absolute
-              offset-y
-              style="z-index: 100"
-            >
-              <v-list>
-                <v-list-item link>
-                  <v-list-item-title @click.prevent="dropRecentGameSetup">Drop setup</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </template>
-        </div>
+        <template v-if="recentSaves.length">
+          <h3>Recently saved files</h3>
 
-        <div>
-          <div class="d-flex">
-            <v-btn large color="secondary" @click="loadGame()">
-              Load game
-            </v-btn>
-
-            <div class="join-wrapper">
-              <v-btn large color="secondary" @click="joinGame()">
-                Join game
-              </v-btn>
-            </div>
+          <div class="recent-list">
+            <a v-for="save in recentSaves" :key="save" href="#" @click="loadSavedGame(save)">{{ save }}</a>
+            <a class="clear" href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> clear list</a>
           </div>
-
-          <template v-if="recentSaves.length">
-            <h3>Recent Games</h3>
-
-            <div class="recent-list saved-games-list">
-              <a v-for="file in recentSaves" :key="file" href="#" @click="loadSavedGame(file)">{{ file }}</a>
-              <a class="clear" href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> clear list</a>
-            </div>
-          </template>
-        </div>
+        </template>
       </div>
     </section>
   </div>
@@ -159,16 +115,13 @@ import { shell, ipcRenderer } from 'electron'
 import Vue from 'vue'
 import { mapState } from 'vuex'
 
-import GameSetupOverviewInline from '@/components/game-setup/overview/GameSetupOverviewInline'
 import AddonsReloadObserverMixin from '@/components/AddonsReloadObserverMixin'
-import { cyrb53 } from '@/utils/hash'
 
 const isMac = process.platform === 'darwin'
 const isWin = process.platform === 'win32'
 
 export default {
   components: {
-    GameSetupOverviewInline
   },
 
   mixins: [AddonsReloadObserverMixin],
@@ -179,10 +132,7 @@ export default {
       isWin,
       // do not bind it to store
       recentSaves: [...this.$store.state.settings.recentSaves],
-      recentSetupSaves: [...this.$store.state.settings.recentSetupSaves],
-      recentGameSetups: [...this.$store.state.settings.recentGameSetups],
       updating: false,
-      verifiedRecentGameSetups: [],
       showRecentSetupMenu: false,
       menuX: null,
       menuY: null,
@@ -214,17 +164,7 @@ export default {
   watch: {
     settingsLoaded () {
       this.recentSaves = [...this.$store.state.settings.recentSaves]
-      this.recentSetupSaves = [...this.$store.state.settings.recentSetupSaves]
-      this.recentGameSetups = [...this.$store.state.settings.recentGameSetups]
-    },
-
-    recentGameSetups () {
-      this.verifyRecentSetups()
     }
-  },
-
-  mounted () {
-    this.verifyRecentSetups()
   },
 
   methods: {
@@ -247,19 +187,10 @@ export default {
 
     async loadSavedGame (file) {
       try {
-        await this.$store.dispatch('game/load', file)
+        await this.$store.dispatch('game/load', { file })
       } catch {
         await this.$store.dispatch('settings/validateRecentSaves')
         this.recentSaves = [...this.$store.state.settings.recentSaves]
-      }
-    },
-
-    async loadSavedSetup (file) {
-      try {
-        await this.$store.dispatch('game/load', file)
-      } catch {
-        await this.$store.dispatch('settings/validateRecentSetupSaves')
-        this.recentSetupSaves = [...this.$store.state.settings.recentSetupSaves]
       }
     },
 
@@ -277,29 +208,13 @@ export default {
       this.recentSaves = []
     },
 
-    clearSetups () {
-      this.$store.dispatch('settings/clearRecentGameSetups')
-      this.$store.dispatch('settings/clearRecentSetupSaves')
-      this.recentGameSetups = []
-      this.recentSetupSaves = []
-    },
-
     updateApp () {
       this.updating = true
       ipcRenderer.send('do-update')
     },
 
-    verifyRecentSetups () {
-      this.verifiedRecentGameSetups = this.recentGameSetups.map((setup, idx) => {
-        const edition = setup.elements.garden ? 2 : 1
-        const valid = !this.$tiles.getExpansions(setup.sets, edition)._UNKNOWN
-        // put valid to status to hash, to force render on change
-        return { setup, valid, idx, hash: `${cyrb53(JSON.stringify(setup))}-${~~valid}` }
-      })
-    },
-
     afterAddonsReloaded () {
-      this.verifyRecentSetups()
+      // DEL ?
     },
 
     showRecentSetup (e, idx) {
@@ -311,12 +226,6 @@ export default {
       Vue.nextTick(() => {
         this.showRecentSetupMenu = true
       })
-    },
-
-    async dropRecentGameSetup () {
-      this.showRecentSetupMenu = false
-      await this.$store.dispatch('settings/removeRecentGameSetup', this.menuItemIdx)
-      this.recentGameSetups = [...this.$store.state.settings.recentGameSetups]
     }
   }
 }
@@ -328,46 +237,11 @@ export default {
   display: flex
   flex-direction: column
 
-  .ribbon
-    position: absolute
-    width: 320px
-    left: -140px
-    top: 20px
-    background-color: #AD1457
-    color: white
-    text-transform: uppercase
-    text-align: center
-    padding: 4px 0 4px 10px
-    transform: rotate(-45deg)
-    font-size: 14px
-
-  .disclaimer
-    padding: 10px 0
-    font-size: 12px
-    margin-bottom: 20px
-
-    #app.theme--light &
-      background-color: #D7CCC8
-      box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.1)
-
-    #app.theme--dark &
-      background-color: #282c34
-      box-shadow: 0px 3px 7px 0px rgba(255,255,255,0.1)
-
-  .disclaimer-content
-    max-width: 600px
-    margin: 0 auto
-
-    p
-      font-size: 14px
-
 h2, h3
   font-weight: 300
-  font-size: 16px
-  margin-bottom: 10px
 
 h2
-  font-size: 18px
+  font-size: 26px
   margin: 0 0 20px
 
   +theme using ($theme)
@@ -375,83 +249,52 @@ h2
 
 h3
   font-size: 16px
-  text-transform: uppercase
-  margin-top: 30px
+  margin: 40px 0 12px
 
 .online-hosted
-  padding: 20px 20px 25px
-  text-align: center
+  height: 33vh
+  display: flex
+  justify-content: center
+  align-items: center
 
   +theme using ($theme)
     background: map-get($theme, 'board-bg')
 
-  .v-btn i
-    margin-left: 20px
+  > div
+    text-align: center
+
+    .v-btn i
+      margin-left: 20px
 
 .player-hosted
-  flex: 1 0
-  padding-top: 30px
-  padding-bottom: 10px
+  padding: 30px 0
   text-align: center
 
-.player-hosted-content
-  display: flex
-  justify-content: center
-  align-items: stretch
-  text-align: left
+  h2
+    margin-bottom: 0
 
-  > div
-    padding: 5px 30px
-    flex: 1
+  .player-hosted-content
+    display: flex
+    justify-content: center
+    align-items: stretch
 
-  > div:first-child
-    text-align: right
+    > div
+      flex: 1
 
-    +theme using ($theme)
-      border-right: 1px solid #{map-get($theme, 'line-color')}
+.recent-list a
+  display: block
 
-  .join-wrapper
-    margin-left: 40px
-    padding-left: 40px
+  +theme using ($theme)
+    &:hover
+      color: map-get($theme, 'text-color')
 
-    +theme using ($theme)
-      border-left: 1px solid #{map-get($theme, 'line-color')}
+  &.clear
+    font-size: 14px
+    margin-top: 10px
 
-  .recent-setup
-    cursor: pointer
-    padding-top: 5px
-    margin-bottom: 20px
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10), 0 3px 10px 0 rgba(0, 0, 0, 0.03)
-
-    +theme using ($theme)
-      border: 1px solid #{map-get($theme, 'line-color')}
-
-    &.invalid
-      cursor: default
-      opacity: 0.4
-
-  .recent-list a
-    display: block
-
-    +theme using ($theme)
-      &:hover
-        color: map-get($theme, 'text-color')
-
-    &.clear
-      font-size: 14px
-
-      i
-        color: inherit !important
-        font-size: inherit !important
-
-  .saved-games-list
-    margin-bottom: 20px
-
-    a.clear
-      margin-top: 10px
-
-  .setup-list a.clear
-    margin-top: -10px
+    i
+      color: inherit !important
+      font-size: inherit !important
 
 .update-box
   padding: 20px
