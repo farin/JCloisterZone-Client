@@ -29,7 +29,7 @@ function download (url, w) {
 
 fs.access('Engine.jar', fs.F_OK, err => {
   if (err) {
-    download('https://github.com/farin/JCloisterZone/releases/download/v5.7.4/Engine.jar', fs.createWriteStream('Engine.jar'))
+    download('https://github.com/farin/JCloisterZone/releases/download/v5.7.99/Engine.jar', fs.createWriteStream('Engine.jar'))
   }
 })
 

@@ -28,7 +28,7 @@
     </tile>
     <tile id="BB/CFR!G">
       <garden/>
-      <city wagon-move="a">W</city>
+      <city castle-base="false" wagon-move="a">W</city>
       <road wagon-move="a">E</road>
       <field city="W">NL NR</field>
       <field city="W">EL</field>
