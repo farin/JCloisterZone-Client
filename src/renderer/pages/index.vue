@@ -75,35 +75,31 @@
     <section class="player-hosted">
       <h2>Player hosted games</h2>
 
-      <div>
-        <h3>Create a new game</h3>
+      <div class="subsection">
         <v-btn large color="secondary" @click="newGame()">
           New game
         </v-btn>
-      </div>
 
-      <div>
-        <h3>Conenct to game hosted by a remote player</h3>
         <v-btn large color="secondary" @click="joinGame()">
           Join game
         </v-btn>
-      </div>
-
-      <div>
-        <h3>Continue a saved game</h3>
 
         <v-btn large color="secondary" @click="loadGame()">
           Load game
         </v-btn>
+      </div>
 
-        <template v-if="recentSaves.length">
-          <h3>Recently saved files</h3>
+      <div class="subsection">
+        or create a new game directly from <a class="my-list" @click="newGame(0)">my <v-icon>far fa-heart</v-icon> list</a>
+      </div>
 
-          <div class="recent-list">
-            <a v-for="save in recentSaves" :key="save" href="#" @click="loadSavedGame(save)">{{ save }}</a>
-            <a class="clear" href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> clear list</a>
-          </div>
-        </template>
+      <div v-if="recentSaves.length" class="subsection">
+        or continue with recently saved game
+
+        <div class="recent-list">
+          <a v-for="save in recentSaves" :key="save" href="#" @click="loadSavedGame(save)">{{ save }}</a>
+          <a class="clear" href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> clear list</a>
+        </div>
       </div>
     </section>
   </div>
@@ -168,9 +164,9 @@ export default {
   },
 
   methods: {
-    newGame () {
+    newGame (tab) {
       this.$store.dispatch('gameSetup/newGame')
-      this.$router.push('/game-setup')
+      this.$router.push('/game-setup' + (tab !== undefined ? `?tab=${tab}` : ''))
     },
 
     joinGame () {
@@ -237,7 +233,7 @@ export default {
   display: flex
   flex-direction: column
 
-h2, h3
+h2
   font-weight: 300
 
 h2
@@ -247,9 +243,25 @@ h2
   +theme using ($theme)
     color: map-get($theme, 'gray-text-color')
 
-h3
+.subsection
+  font-weight: 300
   font-size: 16px
-  margin: 40px 0 12px
+  margin-top: 30px
+
+  .v-btn
+    margin: 0 20px
+
+.my-list
+  display: inline-block
+  margin-top: 10px
+  font-size: 16px
+
+  &:hover
+    text-decoration: underline
+
+  i
+    color: inherit !important
+    font-size: inherit !important
 
 .online-hosted
   height: 33vh
@@ -271,7 +283,7 @@ h3
   text-align: center
 
   h2
-    margin-bottom: 0
+    margin-bottom: 40px
 
   .player-hosted-content
     display: flex
@@ -281,20 +293,23 @@ h3
     > div
       flex: 1
 
-.recent-list a
-  display: block
+.recent-list
+  margin-top: 4px
 
-  +theme using ($theme)
-    &:hover
-      color: map-get($theme, 'text-color')
+  a
+    display: block
 
-  &.clear
-    font-size: 14px
-    margin-top: 10px
+    +theme using ($theme)
+      &:hover
+        color: map-get($theme, 'text-color')
 
-    i
-      color: inherit !important
-      font-size: inherit !important
+    &.clear
+      font-size: 14px
+      margin-top: 10px
+
+      i
+        color: inherit !important
+        font-size: inherit !important
 
 .update-box
   padding: 20px

@@ -62,8 +62,9 @@ export default {
   },
 
   data () {
+    const tabParam = this.$route.query.tab
     return {
-      tab: 1,
+      tab: tabParam === undefined ? 1 : ~~tabParam,
       selectedSetupDetail: null
     }
   },
