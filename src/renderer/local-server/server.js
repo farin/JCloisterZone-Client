@@ -329,6 +329,10 @@ export default class GameServer {
     return msg
   }
 
+  handleGameFinished (ws) {
+    // do nothing
+  }
+
   async handleSyncGame (ws) {
     if (this.status !== 'started') {
       this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game not started' })

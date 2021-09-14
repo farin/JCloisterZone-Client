@@ -686,8 +686,8 @@ export const actions = {
     }
   },
 
-  async apply ({ state }, { type, payload }) {
-    if (state.lockUi) {
+  async apply ({ state }, { type, payload, force = false }) {
+    if (state.lockUi && !force) {
       return
     }
     const { $connection } = this._vm
@@ -698,7 +698,7 @@ export const actions = {
       payload: { ...payload, gameId: state.id },
       parentId: state.lastMessageId,
       sourceHash: state.hash,
-      player: state.action.player
+      player: state.action?.player
     }
     $connection.send(message)
   },
@@ -739,11 +739,26 @@ export const actions = {
     }
     commit('hash', hash)
     if (autoCommit) {
-      dispatch('apply', { type: 'COMMIT', payload: { gameId: state.id } })
+      setTimeout(() => {
+        // ad small delay to minimize probability of delivering messages in wrong order
+        dispatch('apply', { type: 'COMMIT', payload: { gameId: state.id }, force: true })
+      }, 50)
     } else {
+      const gameFinished = state.phase !== response.phase && response.phase === 'GameOverPhase'
       commit('update', response)
       if (state.testScenario) {
         commit('testScenarioResult', verifyScenario(state, state.testScenario))
+      }
+
+      if (gameFinished) {
+        dispatch('apply', {
+          type: 'GAME_FINISHED',
+          payload: {
+            gameId: state.id,
+            points: state.players.map(p => p.points)
+          },
+          force: true
+        })
       }
     }
   },
