@@ -244,7 +244,7 @@ export default {
     },
 
     onKeyDown (ev) {
-      if (ev.key === ' ' && this.action.canPass && !this.$store.state.gameDialog) {
+      if (ev.key === ' ' && this.action?.canPass && !this.$store.state.gameDialog) {
         this.pass()
       }
     },
