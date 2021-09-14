@@ -4,7 +4,7 @@
       <div>
         <ConfigSection title="My Setups">
           <div v-if="!verifiedMySetups.length" class="empty-message">
-            <i>Your list is empty. To add setup here create a game first and use <span class="btn-ref"><v-icon left>far fa-heart</v-icon>Add</span> button.</i>
+            <i>Your list is empty. To add setup here create a game first and then use <span class="btn-ref"><v-icon left>far fa-heart</v-icon>Add</span> button in overview sidebar.</i>
           </div>
           <div class="d-flex flex-wrap">
             <GameSetupBox
@@ -51,7 +51,7 @@
               </div>
             </div>
 
-            <div class="clear">
+            <div v-if="recentSetupSaves.length" class="clear">
               <a href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> clear list</a>
             </div>
           </div>
