@@ -16,7 +16,11 @@
       </v-btn>
     </header>
     <main>
-      <h2>Started Games</h2>
+      <h2>My Games</h2>
+
+      <div v-if="!vefiriedGameList.length" class="empty-message">
+        <i>You have no unfinished game.</i>
+      </div>
 
       <div class="game-list">
         <div
@@ -269,4 +273,8 @@ h2
 
     +theme using ($theme)
       color: map-get($theme, 'gray-text-color')
+
+.empty-message
+  margin: 30px 0
+  text-align: center
 </style>
