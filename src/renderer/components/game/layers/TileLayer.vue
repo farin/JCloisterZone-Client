@@ -226,6 +226,10 @@ export default {
       this.layerBuckets = buckets
       this.artworks = Object.values(artworks)
       this.artworksWithBackground = this.artworks.filter(({ artwork }) => artwork?.background)
+    },
+
+    makeScreenshot (ctx, tileSize) {
+      console.log(this.layerBuckets)
     }
   }
 }

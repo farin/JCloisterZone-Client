@@ -739,7 +739,10 @@ export const actions = {
     }
     commit('hash', hash)
     if (autoCommit) {
-      dispatch('apply', { type: 'COMMIT', payload: { gameId: state.id } })
+      setTimeout(() => {
+        // ad small delay to minimize probability of delivering messages in wrong order
+        dispatch('apply', { type: 'COMMIT', payload: { gameId: state.id } })
+      }, 50)
     } else {
       commit('update', response)
       if (state.testScenario) {

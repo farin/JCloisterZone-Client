@@ -11,7 +11,7 @@
     @click.right="onRightClick"
   >
     <g :transform="transform">
-      <TileLayer />
+      <TileLayer ref="tileLayer" />
       <TilePlacementLayer
         v-if="layers.TilePlacementLayer"
         v-bind="layers.TilePlacementLayer"
@@ -72,6 +72,8 @@
 </template>
 
 <script>
+import fs from 'fs'
+
 import Vue from 'vue'
 import { mapGetters, mapState } from 'vuex'
 
@@ -229,6 +231,11 @@ export default {
       // if (ev.key === 'z') {
       //   this.overlay = true
       // }
+
+      // DEV ONLY
+      if (ev.key === '`') {
+        this.makeScreenshot()
+      }
     },
 
     onKeyUp (ev) {
@@ -320,6 +327,25 @@ export default {
       if (this.offsetY > maxY) {
         this.offsetY = maxY
       }
+    },
+
+    makeScreenshot () {
+      const canvas = document.createElement('canvas')
+      const tileSize = 100
+      canvas.width = this.bounds.width * tileSize
+      canvas.height = this.bounds.height * tileSize
+
+      const ctx = canvas.getContext('2d')
+      ctx.fillStyle = 'green'
+      ctx.fillRect(0, 0, tileSize, tileSize)
+
+      this.$refs.tileLayer.makeScreenshot(ctx, tileSize)
+
+      canvas.toBlob(async blob => {
+        const data = new Int8Array(await blob.arrayBuffer())
+        await fs.promises.writeFile('/tmp/jcz.jpg', data)
+        console.log('saved to /tmp/jcz.jpg')
+      }, 'image/jpeg', 0.95)
     }
   }
 }
