@@ -1,7 +1,7 @@
 <template>
   <div class="online-page">
     <header>
-      <span class="text">Connected to play.jcloisterzone.com</span>
+      <span class="text">Connected to {{ playOnlineHostname }}</span>
 
       <v-btn large color="primary" @click="createGame()">
         Create Game
@@ -126,9 +126,16 @@ export default {
     }
   },
 
+  head () {
+    return {
+      title: 'JCloisterZone @ ' + this.playOnlineHostname
+    }
+  },
+
   computed: {
     ...mapState({
-      gameList: state => state.online.gameList
+      gameList: state => state.online.gameList,
+      playOnlineHostname: state => state.settings.playOnlineUrl.split('/')[0]
     }),
 
     ...mapGetters({
