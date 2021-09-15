@@ -66,6 +66,7 @@ export const state = () => ({
   lastMessageId: null,
   owner: null,
   setup: null,
+  packSize: null,
   slots: null,
   players: null,
   clock: null,
@@ -102,6 +103,7 @@ export const mutations = {
     state.lastMessageId = null
     state.owner = null
     state.setup = null
+    state.packSize = null
     state.slots = null
     state.players = null
     state.clock = null
@@ -151,7 +153,11 @@ export const mutations = {
   },
 
   setup (state, value) {
+    const { $tiles } = this._vm
     state.setup = value
+    if (value) {
+      state.packSize = $tiles.getPackSize(value.sets, value.rules)
+    }
   },
 
   options (state, options) {
@@ -700,6 +706,11 @@ export const actions = {
       sourceHash: state.hash,
       player: state.action?.player
     }
+    if (type === 'COMMIT') {
+      const usedTiles = state.packSize - state.tilePack.size
+      message.progress = `${usedTiles}/${state.packSize}`
+    }
+
     $connection.send(message)
   },
 
