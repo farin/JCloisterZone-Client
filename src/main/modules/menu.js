@@ -58,12 +58,18 @@ async function createMenu (win) {
       win.webContents.send('settings.update', { enginePath: currValue === 'localhost:9000' ? null : 'localhost:9000' })
     }
 
+    const toggleLocalPlayOnline = async () => {
+      const currValue = (await getSettings()).playOnlineUrl
+      win.webContents.send('settings.update', { playOnlineUrl: currValue === 'localhost:8000/ws' ? 'play.jcloisterzone.com/ws' : 'localhost:8000/ws' })
+    }
+
     template.push({
       label: 'Dev',
       submenu: [
         { role: 'toggleDevTools', label: 'Toggle DevTools' },
         { type: 'separator' },
         { id: 'remote-engine', label: 'Use Remote Engine', type: 'checkbox', checked: settings.enginePath === 'localhost:9000', click () { toggleRemoteEngine() } },
+        { id: 'local-play-online', label: 'Use Local Play Online', type: 'checkbox', checked: settings.playOnlineUrl === 'localhost:8000/ws', click () { toggleLocalPlayOnline() } },
         { id: 'dump-server', label: 'Dump Hosted Game Server State', click () { win.webContents.send('menu.dump-server') } },
         { id: 'test-runner', label: 'Test Runner', click () { win.webContents.send('menu.test-runner') } },
         { type: 'separator' },
