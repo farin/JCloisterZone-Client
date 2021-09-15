@@ -175,7 +175,7 @@ class ConnectionPlugin extends EventsBase {
           this.ws.send(JSON.stringify(message), cb)
         }
       } else {
-        reject(new Error('not connectted'))
+        reject(new Error('not connected'))
       }
     })
   }

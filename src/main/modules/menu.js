@@ -60,7 +60,7 @@ async function createMenu (win) {
 
     const toggleLocalPlayOnline = async () => {
       const currValue = (await getSettings()).playOnlineUrl
-      win.webContents.send('settings.update', { playOnlineUrl: currValue === 'localhost:8000/ws' ? 'play.jcloisterzone.com/ws' : 'localhost:8000/ws' })
+      win.webContents.send('settings.update', { playOnlineUrl: currValue === 'localhost:8000/ws' ? 'play-online.jcloisterzone.com/ws' : 'localhost:8000/ws' })
     }
 
     template.push({
