@@ -191,7 +191,7 @@ class ConnectionPlugin extends EventsBase {
       this.off('message', callbacks.onMessage)
       handler(err)
     }
-    callbacks.onMessage = ()  => {
+    callbacks.onMessage = () => {
       this.off('error', callbacks.onError)
       this.off('message', callbacks.onMessage)
     }

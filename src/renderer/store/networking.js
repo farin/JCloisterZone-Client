@@ -191,7 +191,7 @@ export const actions = {
       commit('connectionStatus', STATUS_CONNECTING)
     }
     const { $connection, $addons } = this._vm
-    if (!host.match(/:\d+/)) {
+    if (!host.match(/:\d+/) && connectionType === 'direct') {
       host = `${host}:${rootState.settings.port}`
     }
     if (!host.match(/^\w+:\/\//)) {
