@@ -1,7 +1,7 @@
 <template>
   <div class="game-setup-overview">
     <div class="label">
-      <h2>Selected Tiles</h2>
+      <h3>Selected Tiles</h3>
     </div>
     <section>
       <OverviewExpansionTile
@@ -13,7 +13,7 @@
       />
     </section>
     <div v-if="additions.length" class="label">
-      <h2>Additional elements</h2>
+      <h3>Additional elements</h3>
     </div>
     <section>
       <OverviewElementTile
@@ -24,7 +24,7 @@
       />
     </section>
     <div v-if="removals.length" class="label">
-      <h2>Removed Elements</h2>
+      <h3>Removed Elements</h3>
     </div>
     <section>
       <OverviewElementTile
@@ -35,7 +35,7 @@
       />
     </section>
     <div v-if="timer" class="label">
-      <h2>Timer</h2>
+      <h3>Timer</h3>
     </div>
     <section v-if="timer" class="timer">
       <TimerValue :value="timer.initial" />
@@ -46,14 +46,14 @@
 
     <div v-if="gameplayAltred" class="rules">
       <div class="label">
-        <h2>Altered Gameplay</h2>
+        <h3>Altered Gameplay</h3>
       </div>
       <GameplayVariants :setup="setup" show="changed" read-only />
     </div>
 
     <div v-if="scoringAltred" class="rules">
       <div class="label">
-        <h2>Altered Scoring</h2>
+        <h3>Altered Scoring</h3>
       </div>
       <ScoringVariants :setup="setup" show="changed" read-only />
     </div>
@@ -63,11 +63,11 @@
     <div class="setup-buttons">
       <v-btn v-if="!$store.getters['settings/isMySetup'](setup)" small color="secondary" @click="addToMySetups">
         <v-icon left>far fa-heart</v-icon>
-        Add
+        Add To Favorites
       </v-btn>
       <v-btn v-else small color="secondary" @click="removeFromMySetups">
         <v-icon left>fa-heart</v-icon>
-        Remove
+        Remove From Favorites
       </v-btn>
       <v-btn small color="secondary" @click="saveGameSetup">
         <v-icon left>fa-file</v-icon>
@@ -137,6 +137,7 @@ export default {
 section
   display: flex
   flex-wrap: wrap
+  padding: 0 20px
 
   .element-box
     width: 80px
@@ -161,9 +162,9 @@ section
 
 .label
   text-align: center
-  margin: 20px 0 10px 0
+  padding: 20px 0 10px 0
 
-  h2
+  h2, h3
     font-weight: 300
     font-size: 16px
     text-transform: uppercase
@@ -175,14 +176,12 @@ section
   margin-top: 20px
 
 .setup-buttons
-  padding-top: 20px
+  padding: 20px
   display: flex
-  justify-content: flex-start
+  flex-direction: column
+  align-items: flex-start
 
   .v-btn
-    margin-left: 15px
-
-    &:first-child
-      margin-left: 0
+    margin-bottom: 10px
 
 </style>

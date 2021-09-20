@@ -90,7 +90,7 @@
       </div>
 
       <div class="subsection">
-        or create a new game directly from <a class="my-list" @click="newGame(0)">my <v-icon>far fa-heart</v-icon> list</a>
+        or create a new game directly from <a class="my-list" @click="newGame(0)"><v-icon>far fa-heart</v-icon> my favorites</a>
       </div>
 
       <div v-if="recentSaves.length" class="subsection">

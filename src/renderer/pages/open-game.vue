@@ -208,8 +208,10 @@ header .v-alert
   margin-top: 40px
 
 .game-setup-overview
-  margin-top: 40px
   margin-bottom: 20px
+
+  +theme using ($theme)
+    background: map-get($theme, 'cards-bg')
 
   ::v-deep .rules
     padding-right: 20px
@@ -228,7 +230,7 @@ h2
     color: map-get($theme, 'gray-text-color')
 
 .options
-  padding: 30px 20px 0
+  padding: 30px 20px 40px
 
 @media (max-width: 1079px)
   .slots

@@ -2,9 +2,9 @@
   <div>
     <div class="content">
       <div>
-        <ConfigSection title="My Setups">
+        <ConfigSection title="My Favorites">
           <div v-if="!verifiedMySetups.length" class="empty-message">
-            <i>Your list is empty. To add setup here create a game first and then use <span class="btn-ref"><v-icon left>far fa-heart</v-icon>Add</span> button in overview sidebar.</i>
+            <i>You have not game setup in favorites list. To add setup here create a game first and then use <span class="btn-ref"><v-icon left>far fa-heart</v-icon>Add To Favorites</span> button in overview sidebar.</i>
           </div>
           <div class="d-flex flex-wrap">
             <GameSetupBox
