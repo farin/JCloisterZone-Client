@@ -59,10 +59,17 @@ export default {
     }
   },
 
+  head () {
+    return {
+      title: this.onlineConnected ? 'JCloisterZone @ ' + this.playOnlineHostname : 'JCloisterZone'
+    }
+  },
+
   computed: {
     ...mapState({
       java: state => state.java,
-      onlineConnected: state => state.networking.connectionType === 'online'
+      onlineConnected: state => state.networking.connectionType === 'online',
+      playOnlineHostname: state => state.settings.playOnlineUrl.split('/')[0]
     }),
 
     ...mapGetters({

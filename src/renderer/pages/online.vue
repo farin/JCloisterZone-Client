@@ -126,12 +126,6 @@ export default {
     }
   },
 
-  head () {
-    return {
-      title: 'JCloisterZone @ ' + this.playOnlineHostname
-    }
-  },
-
   computed: {
     ...mapState({
       gameList: state => state.online.gameList,
