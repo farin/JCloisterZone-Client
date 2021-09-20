@@ -1,8 +1,7 @@
 <template>
   <div class="online-page">
+    <OnlineStatus />
     <header>
-      <span class="text">Connected to {{ playOnlineHostname }}</span>
-
       <v-btn large color="primary" @click="createGame()">
         Create Game
       </v-btn>
@@ -110,10 +109,12 @@
 import { mapGetters, mapState } from 'vuex'
 
 import GameSetupOverviewInline from '@/components/game-setup/overview/GameSetupOverviewInline'
+import OnlineStatus from '@/components/OnlineStatus'
 
 export default {
   components: {
-    GameSetupOverviewInline
+    GameSetupOverviewInline,
+    OnlineStatus
   },
 
   data () {
@@ -214,7 +215,7 @@ export default {
     background: map-get($theme, 'board-bg')
 
 header
-  height: var(--action-bar-height)
+  padding: 8px 0 16px
   display: flex
   align-items: center
   justify-content: center
@@ -223,12 +224,8 @@ header
     background-color: map-get($theme, 'cards-bg')
     color: map-get($theme, 'gray-text-color')
 
-    .text
-      font-size: 20px
-      font-weight: 300
-
   .v-btn
-    margin-left: 30px
+    margin: 0 15px
 
 h2
   font-weight: 300
