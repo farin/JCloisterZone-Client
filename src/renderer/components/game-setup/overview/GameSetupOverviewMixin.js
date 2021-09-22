@@ -9,6 +9,7 @@ export default {
       const releases = []
       const edition = this.elements.garden ? 2 : 1
       const expansions = this.$tiles.getExpansions(this.sets, edition)
+      console.log(expansions);
       Object.keys(expansions).forEach(expId => {
         const expansion = Expansion[expId]
         for (const release of expansion.releases) {
@@ -19,7 +20,7 @@ export default {
           const max = Math.max(...quantities)
           const quantity = min === max ? min : -1
           if (quantity !== 0) {
-            releases.push({ expansion, id: expansion.name, title: release.title, quantity })
+            releases.push({ expansion, id: `${expansion.name}:${release.sets.join(',')}`, title: release.title, quantity })
           }
         }
       })
