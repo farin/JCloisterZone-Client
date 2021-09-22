@@ -161,7 +161,7 @@ export const HILL_TIEBREAKER = Rule.HILL_TIEBREAKER = new Rule('hill-tiebreaker'
 )
 
 export const ESCAPE_VARIANT = Rule.ESCAPE_VARIANT = new Rule('espace-variant', GAMEPLAY,
-  'Monastery must be placed adjacent to {} of a\u00A0;besieged city to espace.',
+  'Monastery must be placed adjacent to {} of a\u00A0besieged city to espace.',
   [GameElement.ESCAPE],
   [
     { value: 'any-tile', text: 'any tile', flags: ['RGG'] },
