@@ -702,8 +702,7 @@ export const actions = {
       id,
       type,
       payload: { ...payload, gameId: state.id },
-      parentId: state.lastMessageId,
-      sourceHash: state.hash,
+      seq: 1 + state.gameMessages.length,
       player: state.action?.player
     }
     if (type === 'COMMIT') {
@@ -717,13 +716,11 @@ export const actions = {
   async handleEngineMessage ({ state, commit, dispatch, rootState }, message) {
     const engine = this._vm.$engine.get()
     const { response, hash } = await engine.writeMessage(message)
-    if (rootState.networking.sessionId !== state.players[message.player].sessionId) {
-      if (message.sourceHash && message.sourceHash !== state.hash) {
-        console.warn(`Message source ${message.sourceHash} doesn't match ${state.hash}`)
-        // const { $connection } = this._vm
-        // $connection.send({ type: 'SYNC_GAME' })
-        // return
-      }
+    if (message.seq !== 1 + state.gameMessages.length) {
+      console.warn(`Seq doesn't match ${message.seq} != ${1 + state.gameMessages.length}`)
+      const { $connection } = this._vm
+      $connection.send({ type: 'SYNC_GAME' })
+      return
     }
     commit('appendMessage', message)
     commit('lastMessageId', message.id)

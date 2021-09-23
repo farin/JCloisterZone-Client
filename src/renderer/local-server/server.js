@@ -142,12 +142,11 @@ export default class GameServer {
           this.send(ws, { type: 'ERR', code: 'illegal-game-state', message: 'Game is not started' })
           return
         }
-        if (this.expectedParentId && message.parentId && this.expectedParentId !== message.parentId) {
-          console.warn(`Wrong parent id ${data}"`)
+        if (this.replay.length + 1 !== message.seq) {
+          console.warn(`Wrong seq ${message.seq} != ${this.replay.length + 1} "`)
           this.send(ws, this.createGameMessage())
           return
         }
-        this.expectedParentId = message.id
         this.handleEngineMessage(ws, message)
       } else {
         if (helloExpected) {
@@ -474,7 +473,7 @@ export default class GameServer {
     this.broadcast(message)
   }
 
-  handleEngineMessage (ws, { id, type, payload, player, sourceHash }) {
+  handleEngineMessage (ws, { id, type, payload, player, seq }) {
     const randomChanging = ['COMMIT', 'FLOCK_EXPAND_OR_SCORE'].includes(type) || (type === 'DEPLOY_MEEPLE' && payload.pointer.feature === 'FlyingMachine')
     if (randomChanging) {
       payload = {
@@ -482,7 +481,7 @@ export default class GameServer {
         random: Math.random()
       }
     }
-    const msg = { id, type, payload, player, sourceHash, clock: Date.now() - this.startedAt }
+    const msg = { id, type, payload, player, seq, clock: Date.now() - this.startedAt }
     if (type === 'UNDO') {
       this.replay.pop()
     } else {
