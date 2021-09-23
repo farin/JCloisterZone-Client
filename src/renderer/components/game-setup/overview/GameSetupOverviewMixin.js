@@ -9,7 +9,6 @@ export default {
       const releases = []
       const edition = this.elements.garden ? 2 : 1
       const expansions = this.$tiles.getExpansions(this.sets, edition)
-      console.log(expansions);
       Object.keys(expansions).forEach(expId => {
         const expansion = Expansion[expId]
         for (const release of expansion.releases) {

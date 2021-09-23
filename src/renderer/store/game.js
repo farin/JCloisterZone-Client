@@ -750,10 +750,7 @@ export const actions = {
     }
     commit('hash', hash)
     if (autoCommit) {
-      setTimeout(() => {
-        // ad small delay to minimize probability of delivering messages in wrong order
-        dispatch('apply', { type: 'COMMIT', payload: { gameId: state.id }, force: true })
-      }, 50)
+      dispatch('apply', { type: 'COMMIT', payload: { gameId: state.id }, force: true })
     } else {
       const gameFinished = state.phase !== response.phase && response.phase === 'GameOverPhase'
       commit('update', response)

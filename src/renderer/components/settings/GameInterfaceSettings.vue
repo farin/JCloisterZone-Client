@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3 class="mt-2 mb-4">Game Interface</h3>
-    <h4>Confirmation</h4>
+    <h4>Turn Confirmation</h4>
     <em>
       Confirmation allows player undo performed actions before activity is passed to a next player.
       It happens before scoring or eg. in during opponent turn when you move wagon, etc.
@@ -10,7 +10,7 @@
       <v-checkbox
         v-model="confirmAlways"
         dense hide-details
-        label="always"
+        label="always enabled"
       />
       <v-checkbox
         v-model="confirmField"
