@@ -29,7 +29,7 @@ export default ({ app }, inject) => {
         } else {
           msg = err.message || '' + err
         }
-        ipcRenderer.invoke('dialog.showErrorBox', { title: `Can't start server on port ${settings.port}`, content: msg })
+        app.store.commit('errorMessage', { title: `Can't start server on port ${settings.port}`, content: msg })
       })
 
       await gameServer.start(settings.port)

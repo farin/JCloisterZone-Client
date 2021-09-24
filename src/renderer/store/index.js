@@ -20,6 +20,7 @@ export const state = () => ({
   download: null,
   updateInfo: null,
   updateProgress: null,
+  errorMessage: null,
   runningTests: false
 })
 
@@ -98,6 +99,10 @@ export const mutations = {
 
   updateProgress (state, value) {
     state.updateProgress = value
+  },
+
+  errorMessage (state, value) {
+    state.errorMessage = value
   },
 
   runningTests (state, value) {

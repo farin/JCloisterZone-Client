@@ -1,6 +1,5 @@
 import { ENGINE_MESSAGES } from '@/constants/messages'
 import { connectExceptionToMessage } from '@/utils/networking'
-import { ipcRenderer } from 'electron'
 
 const STATUS_CONNECTING = 'connecting'
 const STATUS_RECONNECTING = 'reconnecting'
@@ -58,7 +57,7 @@ class ConnectionHandler {
         if (missing.length) {
           await dispatch('close')
           const msg = `Remote game requires addon(s) which are not installed:\n\n${missing.join(', ')}`
-          ipcRenderer.invoke('dialog.showErrorBox', { title: 'Missing addons', content: msg })
+          commit('errorMessage', { title: 'Missing addons', content: msg }, { root: true })
           return
         }
       }
@@ -161,7 +160,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async startServer ({ state, dispatch }, game) {
+  async startServer ({ state, commit, dispatch }, game) {
     if (state.connectionType === 'online') {
       const { $connection } = this._vm
       $connection.send({
@@ -179,7 +178,7 @@ export const actions = {
         await dispatch('connect', { host: 'localhost', connectionType: 'direct' })
       } catch (err) {
         console.error(err)
-        ipcRenderer.invoke('dialog.showErrorBox', { title: 'Engine error', content: err.message || err + '' })
+        commit('errorMessage', { title: 'Engine error', content: err.message || err + '' }, { root: true })
       }
     }
   },
@@ -210,14 +209,14 @@ export const actions = {
     })
   },
 
-  async connectPlayOnline ({ dispatch, rootState }) {
+  async connectPlayOnline ({ dispatch, commit, rootState }) {
     const host = rootState.settings.playOnlineUrl
     if (host) {
       try {
         await dispatch('connect', { host, connectionType: 'online' })
       } catch (e) {
         const msg = connectExceptionToMessage(e)
-        ipcRenderer.invoke('dialog.showErrorBox', { title: 'Unable to connect', content: msg })
+        commit('errorMessage', { title: 'Unable to connect', content: msg }, { root: true })
         console.error(e)
       }
     }

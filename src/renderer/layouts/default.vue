@@ -29,6 +29,17 @@
         @close="showSettings = false"
       />
     </v-dialog>
+    <v-dialog
+      v-model="showErrorDialog"
+      content-class="error-dialog"
+      max-width="800"
+    >
+      <ErrorDialog
+        v-if="errorMessage"
+        :msg="errorMessage"
+        @close="showErrorDialog = false"
+      />
+    </v-dialog>
   </v-app>
 </template>
 
@@ -40,6 +51,7 @@ import { webFrame, shell, ipcRenderer } from 'electron'
 import { mapState, mapGetters } from 'vuex'
 
 import AboutDialog from '@/components/AboutDialog'
+import ErrorDialog from '@/components/ErrorDialog'
 import JoinGameDialog from '@/components/JoinGameDialog'
 import SettingsDialog from '@/components/SettingsDialog'
 import { getAppVersion } from '@/utils/version'
@@ -49,6 +61,7 @@ const ZOOM_SENSITIVITY = 1.4
 export default {
   components: {
     AboutDialog,
+    ErrorDialog,
     JoinGameDialog,
     SettingsDialog
   },
@@ -69,7 +82,8 @@ export default {
     ...mapState({
       java: state => state.java,
       onlineConnected: state => state.networking.connectionType === 'online',
-      playOnlineHostname: state => state.settings.playOnlineUrl.split('/')[0]
+      playOnlineHostname: state => state.settings.playOnlineUrl.split('/')[0],
+      errorMessage: state => state.errorMessage
     }),
 
     ...mapGetters({
@@ -93,6 +107,16 @@ export default {
 
       set (value) {
         this.$store.commit('showSettings', value)
+      }
+    },
+
+    showErrorDialog: {
+      get () {
+        return !!this.errorMessage
+      },
+
+      set (value) {
+        this.$store.commit('errorMessage', null)
       }
     }
   },

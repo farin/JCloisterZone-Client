@@ -429,12 +429,12 @@ export const actions = {
         try {
           sg = JSON.parse(data)
         } catch (err) {
-          ipcRenderer.invoke('dialog.showErrorBox', { title: 'File is not valid', content: err + '' })
+          commit('errorMessage', { title: 'File is not valid', content: err + '' }, { root: true })
           reject(err)
         }
         if (compareVersions.compare(sg.appVersion, SAVED_GAME_COMPATIBILITY, '<')) {
           const msg = `Saves created prior ${SAVED_GAME_COMPATIBILITY} are not supported.`
-          ipcRenderer.invoke('dialog.showErrorBox', { title: 'Load Error', content: msg })
+          commit('errorMessage', { title: 'Load Error', content: msg }, { root: true })
           reject(msg)
           return
         }
@@ -447,7 +447,7 @@ export const actions = {
 
               if (missing.length) {
                 const msg = `Saved game (or setup) requires addon(s) which are not installed:\n\n${missing.join(', ')}`
-                ipcRenderer.invoke('dialog.showErrorBox', { title: 'Load Error', content: msg })
+                commit('errorMessage', { title: 'Load Error', content: msg }, { root: true })
                 reject(msg)
                 return
               }
@@ -610,7 +610,7 @@ export const actions = {
     const loggingEnabled = rootState.settings.devMode
     const engine = this._vm.$engine.spawn({ loggingEnabled })
     engine.on('error', data => {
-      ipcRenderer.invoke('dialog.showErrorBox', { title: 'Engine error', content: data + '' })
+      commit('errorMessage', { title: 'Engine error', content: data + '' }, { root: true })
     })
 
     // if (state.originAppVersion && state.originAppVersion !== getAppVersion()) {
