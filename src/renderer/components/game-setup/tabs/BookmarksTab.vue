@@ -42,10 +42,10 @@
                 <span class="basename">{{ basename(file) }}</span>
               </div>
               <div class="buttons">
-                <v-btn x-small color="secondary" rounded @click.stop="loadSavedSetup(file)">
+                <v-btn x-small color="secondary" @click.stop="loadSavedSetup(file)">
                   <v-icon>fa-share</v-icon>
                 </v-btn>
-                <v-btn x-small color="primary" rounded @click.stop="loadSavedSetup(file, true)">
+                <v-btn x-small color="primary" @click.stop="loadSavedSetup(file, true)">
                   <v-icon>fa-play</v-icon>
                 </v-btn>
               </div>
