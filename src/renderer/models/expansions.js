@@ -62,7 +62,7 @@ export const TRADERS_AND_BUILDERS = Expansion.TRADERS_AND_BUILDERS = new Expansi
   impliesAllowed: ['pig-herd'] // expansion makes pig-herd enabled but don't automatically allows it
 })
 export const PRINCESS_AND_DRAGON = Expansion.PRINCESS_AND_DRAGON = new Expansion('PRINCESS_AND_DRAGON', 'The Princess & The Dragon', {
-  implies: ['dragon', 'fairy', 'princess']
+  implies: ['dragon', 'fairy', 'princess', 'portal']
 })
 export const TOWER = Expansion.TOWER = new Expansion('TOWER', 'The Tower', {
   implies: ['tower']

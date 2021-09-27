@@ -69,6 +69,9 @@
           Play online
           <v-icon right>fa-cloud</v-icon>
         </v-btn>
+        <div class="subsection">
+          Only private games are now supported.<br>(it means no random players discovery)
+        </div>
       </div>
     </section>
 
@@ -277,6 +280,9 @@ h2
 
     .v-btn i
       margin-left: 20px
+
+  p
+    margin-top: 30px
 
 .player-hosted
   padding: 30px 0
