@@ -215,8 +215,9 @@ export const actions = {
       try {
         await dispatch('connect', { host, connectionType: 'online' })
       } catch (e) {
-        const msg = connectExceptionToMessage(e)
-        commit('errorMessage', { title: 'Unable to connect', content: msg }, { root: true })
+        const title = e.type === 'ERR' ? 'Connection has been rejected.' : 'Unable to connect'
+        const content = connectExceptionToMessage(e)
+        commit('errorMessage', { title, content }, { root: true })
         console.error(e)
       }
     }
