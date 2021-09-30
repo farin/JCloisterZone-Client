@@ -8,15 +8,6 @@
         Host terminated the game. Connection was closed.
       </v-alert>
     </div>
-    <div v-else-if="notifyConnectionReconnecting" class="flex-grow-1">
-      <v-alert type="error">
-        Connection interrupted. Reconnecting&hellip;
-        <v-progress-linear
-          indeterminate
-          color="white"
-        />
-      </v-alert>
-    </div>
     <PointsExpression
       v-else-if="pointsExpression"
       :expr="pointsExpression"
@@ -25,7 +16,7 @@
     <component
       :is="actionComponent"
       v-if="action"
-      v-show="!pointsExpression && !notifyConnectionClosed && !notifyConnectionReconnecting"
+      v-show="!pointsExpression && !notifyConnectionClosed"
       :action="action"
       :phase="phase"
       :local="local"
@@ -157,10 +148,6 @@ export default {
 
     notifyConnectionClosed () {
       return this.connectionState === null && this.phase !== 'GameOverPhase'
-    },
-
-    notifyConnectionReconnecting () {
-      return this.connectionState === 'reconnecting'
     },
 
     actionComponent () {

@@ -13,7 +13,7 @@ class ConnectionHandler {
     this.host = host
     this.$router = $router
     this.$addons = $addons
-    this.$connection =  $connection
+    this.$connection = $connection
     this.resolve = resolve
     this.messageBuffer = []
     this.onMessageLock = false
@@ -172,6 +172,7 @@ export const actions = {
       $connection.send({
         type: 'CREATE_GAME',
         payload: {
+          name: '',
           setup: game.setup,
           slots: game.slots.length
         }
@@ -240,5 +241,6 @@ export const actions = {
     $server.stop()
     commit('connectionType', null)
     commit('connectionStatus', null)
+    this.$router.push('/')
   }
 }

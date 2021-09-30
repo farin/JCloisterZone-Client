@@ -148,12 +148,6 @@ export default {
     }
   },
 
-  mounted () {
-    this.$connection.on('close', this._onClose = () => {
-      this.$router.push('/')
-    })
-  },
-
   beforeDestroy () {
     this._onClose && this.$connection.off('close', this._onClose)
   },

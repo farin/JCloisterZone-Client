@@ -153,10 +153,6 @@ export default {
   },
 
   mounted () {
-    this.$connection.on('close', this._onClose = () => {
-      this.$router.push('/')
-    })
-
     this.$connection.send({ type: 'LIST_GAMES', payload: {} })
   },
 

@@ -1,5 +1,15 @@
 <template>
   <v-app>
+    <div v-if="notifyConnectionReconnecting" class="top-bar">
+      <v-alert type="error">
+        Connection interrupted. Reconnecting&hellip;
+        <v-progress-linear
+          indeterminate
+          color="white"
+        />
+      </v-alert>
+    </div>
+
     <nuxt />
     <v-dialog
       v-model="showAbout"
@@ -81,6 +91,7 @@ export default {
   computed: {
     ...mapState({
       java: state => state.java,
+      connectionState: state => state.networking.connectionStatus,
       onlineConnected: state => state.networking.connectionType === 'online',
       playOnlineHostname: state => state.settings.playOnlineUrl.split('/')[0],
       errorMessage: state => state.errorMessage
@@ -118,6 +129,10 @@ export default {
       set (value) {
         this.$store.commit('errorMessage', null)
       }
+    },
+
+    notifyConnectionReconnecting () {
+      return this.connectionState === 'reconnecting'
     }
   },
 
@@ -431,4 +446,11 @@ svg, g, use
 
 #theme-resources, #symbols
   display: none
+
+.top-bar
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  z-index: 999
 </style>
