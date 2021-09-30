@@ -154,7 +154,6 @@ export default {
 
   mounted () {
     this.$connection.on('close', this._onClose = () => {
-      // TODO print message
       this.$router.push('/')
     })
 

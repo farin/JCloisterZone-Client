@@ -8,11 +8,12 @@ const STATUS_CONNECTED = 'connected'
 let reconnectTimeout = null
 
 class ConnectionHandler {
-  constructor (ctx, host, $router, $addons, resolve) {
+  constructor (ctx, host, $router, $addons, $connection, resolve) {
     this.ctx = ctx
     this.host = host
     this.$router = $router
     this.$addons = $addons
+    this.$connection =  $connection
     this.resolve = resolve
     this.messageBuffer = []
     this.onMessageLock = false
@@ -35,11 +36,16 @@ class ConnectionHandler {
     if (ENGINE_MESSAGES.has(type)) {
       await dispatch('game/handleEngineMessage', message, { root: true })
     } else if (type === 'WELCOME') {
+      const reconnected = !!state.reconnectAttempt
       commit('sessionId', payload.sessionId)
       commit('connectionStatus', STATUS_CONNECTED)
       commit('reconnectAttempt', null)
       if (state.connectionType === 'online') {
-        this.$router.push('/online')
+        if (reconnected && rootState.game.id) {
+          await this.$connection.send({ type: 'JOIN_GAME', payload: { gameId: rootState.game.id } })
+        } else {
+          this.$router.push('/online')
+        }
       }
       this.resolve()
     } else if (type === 'GAME_LIST') {
@@ -98,7 +104,7 @@ class ConnectionHandler {
   async onClose (errCode) {
     const { state, commit, dispatch } = this.ctx
     const reconnecting = state.connectionStatus === STATUS_RECONNECTING
-    if (errCode === 1006 || reconnecting) {
+    if ([1001, 1006].includes(errCode) || reconnecting) {
       const attempt = reconnecting ? state.reconnectAttempt + 1 : 1
       let delay
       if (attempt === 1) {
@@ -110,16 +116,13 @@ class ConnectionHandler {
       } else {
         delay = 6000
       }
-      if (state.connectionType === 'online') {
-        await dispatch('online/onClose', null, { root: true })
-      }
       commit('connectionStatus', STATUS_RECONNECTING)
       commit('reconnectAttempt', attempt)
       console.log(`Connection interrupted. Next attempt (${attempt}) in ${delay}ms`)
       reconnectTimeout = setTimeout(async () => {
         reconnectTimeout = null
         try {
-          await dispatch('connect', { host: this.host })
+          await dispatch('connect', { host: this.host, connectionType: state.connectionType })
         } catch (err) {
           if (!err.error?.errno) {
             // unexpected error
@@ -129,6 +132,9 @@ class ConnectionHandler {
         }
       }, delay)
     } else {
+      if (state.connectionType === 'online') {
+        await dispatch('online/onClose', null, { root: true })
+      }
       commit('connectionStatus', null)
     }
   }
@@ -166,7 +172,6 @@ export const actions = {
       $connection.send({
         type: 'CREATE_GAME',
         payload: {
-          name: 'Test game',
           setup: game.setup,
           slots: game.slots.length
         }
@@ -197,13 +202,15 @@ export const actions = {
       host = 'ws://' + host
     }
     return new Promise((resolve, reject) => {
-      const handler = new ConnectionHandler(ctx, host, this.$router, $addons, resolve)
+      const handler = new ConnectionHandler(ctx, host, this.$router, $addons, $connection, resolve)
       $connection.connect(host, {
         onMessage: handler.onMessage.bind(handler),
         onClose: handler.onClose.bind(handler)
       }).catch(err => {
-        commit('connectionType', null)
-        commit('connectionStatus', null)
+        if (state.connectionStatus !== STATUS_RECONNECTING) {
+          commit('connectionType', null)
+          commit('connectionStatus', null)
+        }
         reject(err)
       })
     })
