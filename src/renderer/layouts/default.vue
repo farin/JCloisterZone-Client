@@ -91,6 +91,7 @@ export default {
   computed: {
     ...mapState({
       java: state => state.java,
+      engine: state => state.engine,
       connectionState: state => state.networking.connectionStatus,
       onlineConnected: state => state.networking.connectionType === 'online',
       playOnlineHostname: state => state.settings.playOnlineUrl.split('/')[0],
@@ -153,6 +154,10 @@ export default {
       if (val) {
         this.$refs.settings?.clean()
       }
+    },
+
+    engine () {
+      this.updateMenu()
     }
   },
 
@@ -302,13 +307,13 @@ export default {
       const gameRunning = routeName === 'game'
 
       ipcRenderer.invoke('update-menu', {
-        'playonline-connect': !this.onlineConnected && !gameOpen,
+        'playonline-connect': !this.onlineConnected && !gameOpen && this.engine?.ok,
         'playonline-disconnect': this.onlineConnected,
         'new-game': !this.onlineConnected && !gameOpen,
-        'join-game': !this.onlineConnected && !gameOpen,
+        'join-game': !this.onlineConnected && !gameOpen && this.engine?.ok,
         'leave-game': gameOpen,
         'save-game': gameRunning,
-        'load-game': !gameOpen,
+        'load-game': !gameOpen && this.engine?.ok,
         'undo': gameRunning && this.undoAllowed,
         'zoom-in': gameRunning,
         'zoom-out': gameRunning,

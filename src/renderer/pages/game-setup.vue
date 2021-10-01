@@ -9,6 +9,7 @@
         <v-tab>Timer</v-tab>
       </v-tabs>
 
+      <HeaderMessage v-if="tab > 0" :sets="sets" />
       <HeaderGameButton v-if="tab > 0" title="Create" :sets="sets" @click="createGame" />
     </template>
 
@@ -42,6 +43,7 @@ import BookmarksTab from '@/components/game-setup/tabs/BookmarksTab'
 import FiguresTab from '@/components/game-setup/tabs/FiguresTab'
 import GameAnnotationsPanel from '@/components/dev/GameAnnotationsPanel'
 import GameSetupGrid from '@/components/game-setup/GameSetupGrid'
+import HeaderMessage from '@/components/game-setup/HeaderMessage'
 import HeaderGameButton from '@/components/game-setup/HeaderGameButton'
 import TileDistribution from '@/components/TileDistribution'
 import TileSetsTab from '@/components/game-setup/tabs/TileSetsTab'
@@ -54,6 +56,7 @@ export default {
     FiguresTab,
     GameSetupGrid,
     GameAnnotationsPanel,
+    HeaderMessage,
     HeaderGameButton,
     TileDistribution,
     TileSetsTab,

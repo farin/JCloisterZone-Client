@@ -65,7 +65,7 @@
     <section class="online-hosted">
       <div>
         <h2>Public server hosted games</h2>
-        <v-btn large color="secondary" @click="playOnline()">
+        <v-btn large color="secondary" :disabled="!engine || !engine.ok" @click="playOnline()">
           Play online
           <v-icon right>fa-cloud</v-icon>
         </v-btn>
@@ -83,11 +83,11 @@
           New game
         </v-btn>
 
-        <v-btn large color="secondary" @click="joinGame()">
+        <v-btn large color="secondary" :disabled="!engine || !engine.ok" @click="joinGame()">
           Join game
         </v-btn>
 
-        <v-btn large color="secondary" @click="loadGame()">
+        <v-btn large color="secondary" :disabled="!engine || !engine.ok" @click="loadGame()">
           Load game
         </v-btn>
       </div>
@@ -245,6 +245,9 @@ h2
 
   +theme using ($theme)
     color: map-get($theme, 'gray-text-color')
+
+.v-alert
+  margin-bottom: 0
 
 .subsection
   font-weight: 300

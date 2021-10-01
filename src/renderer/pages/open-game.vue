@@ -1,6 +1,11 @@
 <template>
   <GameSetupGrid v-if="loaded && gameId" :sets="sets" :rules="rules">
     <template #header>
+      <HeaderMessage
+        :sets="sets"
+        :info="slotsAssigned ? null : (readOnly ? 'Assign all players to start' : 'No player in game')"
+      />
+
       <div v-if="gameKey" class="game-key">
         <v-tooltip bottom :open-delay="200">
           <template #activator="{ on, attrs }">
@@ -17,14 +22,14 @@
         <strong @click="selectOnClick">{{ gameKey }}</strong>
       </div>
 
-      <template v-if="isOwner">
-        <HeaderGameButton
-          title="Start"
-          :sets="sets"
-          :info="slotsAssigned ? null : (readOnly ? 'Assign all players to start' : 'No player in game')"
-          @click="startGame"
-        />
-      </template>
+      <HeaderGameButton
+        v-if="isOwner"
+        title="Start"
+        :sets="sets"
+        :disabled="!slotsAssigned"
+        @click="startGame"
+      />
+
       <template v-else>
         <span class="text">Waiting for host to start the game.</span>
       </template>
@@ -78,6 +83,7 @@ import { mapGetters, mapState } from 'vuex'
 import GameSetupOverview from '@/components/game-setup/overview/GameSetupOverview'
 import GameSetupGrid from '@/components/game-setup/GameSetupGrid'
 import HeaderGameButton from '@/components/game-setup/HeaderGameButton'
+import HeaderMessage from '@/components/game-setup/HeaderMessage'
 import PlayerSlot from '@/components/game-setup/PlayerSlot'
 
 export default {
@@ -85,6 +91,7 @@ export default {
     GameSetupOverview,
     GameSetupGrid,
     HeaderGameButton,
+    HeaderMessage,
     PlayerSlot
   },
 
@@ -186,7 +193,7 @@ export default {
 
 <style lang="sass" scoped>
 .game-key
-  margin: 0 20px
+  margin-right: 20px
   position: relative
   display: flex
   align-items: center
