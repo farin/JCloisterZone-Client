@@ -241,6 +241,7 @@ export const actions = {
     $server.stop()
     commit('connectionType', null)
     commit('connectionStatus', null)
+    commit('reconnectAttempt', null)
     this.$router.push('/')
   }
 }

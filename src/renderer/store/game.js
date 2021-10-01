@@ -62,7 +62,7 @@ export const state = () => ({
   id: null,
   compatAppVersion: null, // original app version in which was game created
   key: null,
-  hash: null,
+  name: null,
   lastMessageId: null,
   owner: null,
   setup: null,
@@ -99,7 +99,7 @@ export const mutations = {
     state.id = null
     state.originAppVersion = null
     state.key = null
-    state.hash = null
+    state.name = null
     state.lastMessageId = null
     state.owner = null
     state.setup = null
@@ -140,8 +140,8 @@ export const mutations = {
     state.key = value ? value.substring(0, 3) + '-' + value.substring(3) : null
   },
 
-  hash (state, value) {
-    state.hash = value
+  name (state, value) {
+    state.name = value
   },
 
   lastMessageId (state, value) {
@@ -536,6 +536,7 @@ export const actions = {
       commit('clear')
       commit('originAppVersion', payload.originAppVersion)
     }
+    commit('name', payload.name || '')
     commit('key', payload.key || null)
     commit('setup', payload.setup)
     commit('slots', payload.slots)
@@ -745,7 +746,6 @@ export const actions = {
         autoCommit = true
       }
     }
-    commit('hash', hash)
     if (autoCommit) {
       dispatch('apply', { type: 'COMMIT', payload: { gameId: state.id }, force: true })
     } else {

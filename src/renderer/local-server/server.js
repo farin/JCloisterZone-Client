@@ -19,16 +19,16 @@ export default class GameServer {
     this.appVersion = appVersion
     this.game = {
       gameId: game.gameId,
+      name: '',
       originAppVersion: game.originAppVersion || appVersion,
       setup: game.setup,
       initialRandom: isNil(game.initialRandom) ? Math.random() : game.initialRandom,
       gameAnnotations: game.gameAnnotations || {},
       slots: game.slots,
-      owner: null // owner session
+      owner: clientId
     }
     this.order = 1
     this.status = game.replay ? 'loaded' : 'new'
-    this.ownerClientId = clientId
     this.wss = null
     this.clients = null
     this.heartbeatInterval = null
@@ -42,7 +42,6 @@ export default class GameServer {
 
   dump () {
     return {
-      ownerClientId: this.ownerClientId,
       gameStatus: this.status,
       initialClock: this.initialClock,
       connectedClients: this.clients?.map(ws => ws.clientId),
@@ -50,6 +49,7 @@ export default class GameServer {
       expectedParentId: this.expectedParentId,
       replay: this.replay,
       game: {
+        name: this.game.name,
         gameId: this.game.gameId,
         initialRandom: this.game.initialRandom,
         setup: this.game.setup,
@@ -282,10 +282,6 @@ export default class GameServer {
       }
     })
 
-    if (this.game.owner === null && ws.clientId === this.ownerClientId) {
-      this.game.owner = ws.sessionId
-    }
-
     // create message before slot update
     const gameMessage = this.createGameMessage()
 
@@ -431,7 +427,7 @@ export default class GameServer {
       return
     }
 
-    if (this.game.owner !== ws.sessionId) {
+    if (this.game.owner !== ws.clientId) {
       this.send(ws, { type: 'ERR', code: 'game-owner', message: 'Not a game owner' })
       return
     }
@@ -464,7 +460,7 @@ export default class GameServer {
       return
     }
 
-    if (this.game.owner !== ws.sessionId) {
+    if (this.game.owner !== ws.clientId) {
       this.send(ws, { type: 'ERR', code: 'game-owner', message: 'Not a game owner' })
       return
     }

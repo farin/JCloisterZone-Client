@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import { ipcRenderer } from 'electron'
 
 import { getAppVersion } from '@/utils/version'
 import { randomId } from '@/utils/random'

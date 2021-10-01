@@ -111,7 +111,7 @@ export default {
       gameId: state => state.game.id,
       options: state => state.game.setup?.options,
       slots: state => state.game.slots,
-      isOwner: state => state.game.owner === state.networking.sessionId
+      isOwner: state => state.game.owner === state.settings.clientId
     }),
 
     ...mapGetters({
