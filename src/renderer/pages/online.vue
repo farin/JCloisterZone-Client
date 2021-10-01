@@ -31,13 +31,24 @@
 
       <div class="game-list">
         <div
-          v-for="{ game, valid } in vefiriedGameList"
+          v-for="{ game, slots, valid } in vefiriedGameList"
           :key="game.gameId"
           class="game"
         >
           <div class="game-header">
             <span class="game-key">{{ game.key.substring(0,3) }}-{{ game.key.substring(3) }}</span>
             <span class="game-started">{{ game.started | formatDate }}</span>
+          </div>
+
+          <div class="game-slots">
+            <div
+              v-for="s in slots"
+              :key="s.number"
+              :class="'game-slot color color-' + s.number"
+              :title="s.name"
+            >
+              <Meeple type="SmallFollower" />
+            </div>
           </div>
 
           <div :class="{ invalid: !valid }">
@@ -114,15 +125,18 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
+import sortBy from 'lodash/sortBy'
 
 import GameSetupOverviewInline from '@/components/game-setup/overview/GameSetupOverviewInline'
 import OnlineStatus from '@/components/OnlineStatus'
+import Meeple from '@/components/game/Meeple'
 
 export default {
   components: {
     GameSetupOverviewInline,
-    OnlineStatus
+    OnlineStatus,
+    Meeple
   },
 
   data () {
@@ -141,14 +155,12 @@ export default {
       playOnlineHostname: state => state.settings.playOnlineUrl.split('/')[0]
     }),
 
-    ...mapGetters({
-    }),
-
     vefiriedGameList () {
       return this.gameList.map(game => {
         const edition = game.setup.elements.garden ? 2 : 1
         const valid = !this.$tiles.getExpansions(game.setup.sets, edition)._UNKNOWN
-        return { game, valid }
+        const slots = sortBy(game.slots.filter(s => s.clientId), 'order')
+        return { game, valid, slots }
       })
     }
   },
@@ -255,7 +267,7 @@ h2
     opacity: 0.4
 
   .buttons
-    margin: 0 20px
+    margin: 0 10px
 
     .v-btn
       margin-right: 10px
@@ -267,13 +279,23 @@ h2
   .game-header
     display: flex
     justify-content: space-between
-    margin: -8px 8px 8px
+    margin: -8px 8px 6px
     font-weight: 300
     font-size: 16px
     text-transform: uppercase
 
     +theme using ($theme)
       color: map-get($theme, 'gray-text-color')
+
+  .game-slots
+    display: flex
+    margin: 0 8px 12px
+    gap: 4px
+
+  .game-slot
+    svg.meeple
+      width: 36px
+      height: 36px
 
 .empty-message
   margin: 30px 0

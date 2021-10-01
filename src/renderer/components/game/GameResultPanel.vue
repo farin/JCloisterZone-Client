@@ -28,7 +28,6 @@
 
 <script>
 import groupBy from 'lodash/groupBy'
-import mapKeys from 'lodash/mapKeys'
 
 import { mapGetters, mapState } from 'vuex'
 import Meeple from '@/components/game/Meeple'
