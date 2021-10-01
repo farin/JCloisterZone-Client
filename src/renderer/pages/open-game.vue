@@ -1,6 +1,22 @@
 <template>
   <GameSetupGrid v-if="loaded && gameId" :sets="sets" :rules="rules">
     <template #header>
+      <div v-if="gameKey" class="game-key">
+        <v-tooltip bottom :open-delay="200">
+          <template #activator="{ on, attrs }">
+            <span
+              class="key-title"
+              v-bind="attrs"
+              v-on="on"
+            >
+              <v-icon>far fa-question-circle</v-icon>
+            </span>
+          </template>
+          <span>Share the key with other players to let them connect to the game.</span>
+        </v-tooltip>
+        <strong @click="selectOnClick">{{ gameKey }}</strong>
+      </div>
+
       <template v-if="isOwner">
         <HeaderGameButton
           title="Start"
@@ -15,10 +31,10 @@
     </template>
 
     <template #main>
-      <div v-if="gameKey" class="game-key">
+      <!--div v-if="gameKey" class="game-key">
         <span>Share the key with other players to let them connect to the game.</span>
         <strong @click="selectOnClick">{{ gameKey }}</strong>
-      </div>
+      </--div-->
 
       <div class="slots">
         <PlayerSlot
@@ -169,28 +185,32 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.game-key
+  margin: 0 20px
+  position: relative
+  display: flex
+  align-items: center
+
+  .key-title
+    opacity: 0.6
+
+  strong
+    font-size: 26px
+    font-weight: 400
+    letter-spacing: 0.5px
+    margin-left: 10px
+    padding: 4px 10px
+    border-radius: 6px
+    cursor: pointer
+
+    +theme using ($theme)
+      color: map-get($theme, 'text-color')
+      background: map-get($theme, 'cards-selected-bg')
+
 header .v-alert
   position: relative
   top: 8px
   width: 300px
-
-.game-key
-  margin: 20px 30px -20px
-  text-align: right
-
-  span
-    font-style: italic
-
-  strong
-    font-size: 30px
-    font-weight: 400
-    letter-spacing: 0.5px
-    margin-left: 20px
-    padding: 4px 10px
-    border-radius: 6px
-
-    +theme using ($theme)
-      background: map-get($theme, 'cards-selected-bg')
 
 .slots
   padding: 0 30px

@@ -56,7 +56,7 @@ export default {
   font-size: 24px
   white-space: nowrap
   color: white
-  margin: 0 20px
+  margin-right: 20px
   padding: 0 10px
   border-radius: 4px
 
