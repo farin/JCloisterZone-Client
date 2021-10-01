@@ -5,6 +5,7 @@ import compareVersions from 'compare-versions'
 
 import difference from 'lodash/difference'
 import pick from 'lodash/pick'
+import sortBy from 'lodash/sortBy'
 import omit from 'lodash/omit'
 import range from 'lodash/range'
 import zip from 'lodash/zip'
@@ -529,6 +530,15 @@ export const actions = {
   },
 
   async handleGameMessage ({ state, commit }, payload) {
+    const occupiedSlots = sortBy(payload.slots.filter(s => s.order), 'order').map(s => s.number)
+    const slots = payload.slots.map(s => {
+      if (!s.order) return s
+      return {
+        ...s,
+        order: occupiedSlots.indexOf(s.number) + 1
+      }
+    })
+
     if (payload.state === 'R') {
       commit('lockUi', true)
     }
@@ -539,7 +549,7 @@ export const actions = {
     commit('name', payload.name || '')
     commit('key', payload.key || null)
     commit('setup', payload.setup)
-    commit('slots', payload.slots)
+    commit('slots', slots)
     commit('initialRandom', payload.initialRandom)
     commit('gameAnnotations', payload.gameAnnotations || {})
     commit('gameMessages', payload.replay)
