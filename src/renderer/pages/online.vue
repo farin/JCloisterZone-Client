@@ -15,10 +15,18 @@
       </v-btn>
     </header>
     <main>
-      <h2>My Games</h2>
+      <h2>Games in progress</h2>
 
       <div v-if="!vefiriedGameList.length" class="empty-message">
-        <i>You have no unfinished game.</i>
+        <p>
+          <i>You have currently no games in progress.</i>
+        </p>
+        <p>
+          <i>
+            Leaving online game just keep the unfinished game in the background.<br>
+            You can rejoin it from this list whenever you want.
+          </i>
+        </p>
       </div>
 
       <div class="game-list">
