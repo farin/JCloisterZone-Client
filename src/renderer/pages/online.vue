@@ -19,7 +19,7 @@
 
       <div v-if="!vefiriedGameList.length" class="empty-message">
         <p>
-          <i>You have currently no games in progress.</i>
+          <i>You have no game in progress.</i>
         </p>
         <p>
           <i>
