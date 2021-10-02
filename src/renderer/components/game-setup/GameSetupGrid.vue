@@ -77,6 +77,7 @@ header
   grid-area: header
   align-items: center
   justify-content: flex-end
+  overflow-y: hidden
   padding: 0 30px
 
   .tabs
@@ -115,6 +116,9 @@ aside
       position: static
       justify-content: center
       z-index: 0
+
+  main
+    margin-right: 0
 
 @media (max-height: 768px)
   .game-setup-grid

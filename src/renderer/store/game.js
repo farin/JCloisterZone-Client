@@ -588,6 +588,11 @@ export const actions = {
     $connection.send({ type: 'START', payload: { gameId: state.id } })
   },
 
+  async rename ({ state }, name) {
+    const { $connection } = this._vm
+    $connection.send({ type: 'RENAME_GAME', payload: { gameId: state.id, name: name.trim() } })
+  },
+
   async handleStartMessage ({ state, commit, dispatch, rootState }, message) {
     const { $tiles } = this._vm
     let slots

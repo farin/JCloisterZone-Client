@@ -57,6 +57,10 @@ class ConnectionHandler {
       if (!rootState.runningTests) {
         this.$router.push('/game')
       }
+    } else if (type === 'RENAME_GAME') {
+      if (payload.gameId === rootState.game.id) {
+        commit('game/name', payload.name, { root: true })
+      }
     } else if (type === 'GAME') {
       if (payload.setup.addons) {
         const missing = this.$addons.findMissingAddons(payload.setup.addons)
@@ -109,7 +113,7 @@ class ConnectionHandler {
       let delay
       if (attempt === 1) {
         delay = 250
-      } else if (attempt <= 3) {
+      } else if (attempt < 3) {
         delay = 1000
       } else if (attempt <= 5) {
         delay = 2000
@@ -134,6 +138,7 @@ class ConnectionHandler {
     } else {
       if (state.connectionType === 'online') {
         await dispatch('online/onClose', null, { root: true })
+        this.$router.push('/')
       }
       commit('connectionStatus', null)
     }

@@ -34,7 +34,7 @@
         </v-card-title>
         <v-card-text>
           <v-container>
-            <v-text-field v-model="editName" label="Name" @keydown.enter="rename" />
+            <v-text-field ref="nameInput" v-model="editName" label="Name" @keydown.enter="rename" />
           </v-container>
         </v-card-text>
         <v-card-actions>
@@ -97,6 +97,9 @@ export default {
       if (!this.readOnly) {
         this.editName = this.name
         this.edit = true
+        setTimeout(() => {
+          this.$refs.nameInput.focus()
+        }, 1)
       }
     },
 

@@ -35,12 +35,19 @@
           :key="game.gameId"
           class="game"
         >
+          <div v-if="game.name" class="game-name">
+            {{ game.name }}
+          </div>
+
           <div class="game-header">
             <span class="game-key">{{ game.key.substring(0,3) }}-{{ game.key.substring(3) }}</span>
             <span class="game-started">{{ game.started | formatDate }}</span>
           </div>
 
-          <div class="game-slots">
+          <div
+            class="game-slots"
+            :class="{ full: slots.length > 8 }"
+          >
             <div
               v-for="s in slots"
               :key="s.number"
@@ -270,7 +277,7 @@ h2
     opacity: 0.4
 
   .buttons
-    margin: 0 10px
+    margin: 0 6px
 
     .v-btn
       margin-right: 10px
@@ -278,6 +285,15 @@ h2
   +theme using ($theme)
     color: map-get($theme, 'cards-text')
     background-color: map-get($theme, 'cards-bg')
+
+  .game-name
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+    margin: -8px 8px 6px
+
+    +theme using ($theme)
+      color: map-get($theme, 'text-color')
 
   .game-header
     display: flex
@@ -292,9 +308,12 @@ h2
 
   .game-slots
     display: flex
-    margin: 0 4px 12px
+    margin: 0 8px 12px
     gap: 4px
     min-height: 43px
+
+    &.full
+      margin: 0 4px 12px
 
   .game-slot
     svg.meeple
