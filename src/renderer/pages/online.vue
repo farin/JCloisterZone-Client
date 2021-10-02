@@ -292,7 +292,7 @@ h2
 
   .game-slots
     display: flex
-    margin: 0 8px 12px
+    margin: 0 4px 12px
     gap: 4px
     min-height: 43px
 

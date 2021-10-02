@@ -3,6 +3,7 @@
     :class="{
       'active-turn': index === turnPlayer,
       'active-action': index === actionPlayer,
+      'offline': !slot.sessionId,
       [colorCssClass(index)]: true
     }"
   >
@@ -10,10 +11,15 @@
       <div class="points">
         <div>{{ player.points }}</div>
       </div>
-      <div class="name">{{ player.name }}</div>
-    </div>
-    <div v-if="!slot.sessionId" class="disconnected">
-      <!--v-icon>fas fa-exclamation</v-icon-->Disconnected
+      <div class="name">
+        <div>
+          <span class="name-label">{{ player.name }}</span>
+          <template v-if="!slot.sessionId">
+            <br>
+            <span class="offline-label">Offline</span>
+          </template>
+        </div>
+      </div>
     </div>
     <PlayerClock v-if="timer" :player="index" />
     <div ref="resources" class="resources">
@@ -167,20 +173,18 @@ section
   word-wrap: none
   white-space: nowrap
   padding-left: 16px
+  line-height: 1.2
 
   +theme using ($theme)
     color: map-get($theme, 'player-panel-name-color')
 
-.disconnected
+.offline-label
   text-transform: uppercase
-  text-align: center
-  padding: 12px 0
-  font-weight: 500
-  color: rgba(0, 0, 0, 0.87)
-  background: #FFECB3
+  font-weight: 400
+  letter-spacing: 0.9px
 
 .active-turn
-  .name
+  .name-label
     text-decoration: underline dotted
 
 .active-action
@@ -188,7 +192,7 @@ section
     +theme using ($theme)
       background: map-get($theme, 'player-panel-active-name-bg')
 
-  .name
+  .name-label
     text-decoration: underline solid
 
     +theme using ($theme)
@@ -267,6 +271,9 @@ aside.shrink-0
     font-size: 18px
     margin-left: 65px
 
+    .offline-label
+      font-size: 14px
+
   .points
     border-radius: 30px
     width: 90px
@@ -296,6 +303,9 @@ aside.shrink-1
   .name
     font-size: 16px
     margin-left: 55px
+
+    .offline-label
+      font-size: 13px
 
   .points
     border-radius: 25px
@@ -327,6 +337,9 @@ aside.shrink-2, aside.shrink-3
   .name
     font-size: 14px
     margin-left: 45px
+
+    .offline-label
+      font-size: 11px
 
   .points
     border-radius: 20px
@@ -379,5 +392,4 @@ aside.shrink-3
 
     .item:first-child
       padding-left: 25px
-
 </style>
