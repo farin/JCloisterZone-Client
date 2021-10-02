@@ -69,7 +69,7 @@ class ConnectionHandler {
       }
 
       await dispatch('game/handleGameMessage', payload, { root: true })
-      if (payload.state === 'R') { // running
+      if (payload.state === 'R' || payload.state === 'F') { // running or finished
         await dispatch('game/handleStartMessage', { clock: message.clock, id: null, payload: {} }, { root: true })
         if (!rootState.runningTests) {
           if (this.$router.currentRoute.path !== '/game') {

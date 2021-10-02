@@ -17,7 +17,11 @@
       </div>
     </div>
 
-    <div class="play-again">
+    <div class="buttons">
+      <v-btn large color="secondary" @click="close">
+        <v-icon left>fa-times</v-icon>
+        Close
+      </v-btn>
       <v-btn large color="secondary" @click="playAgain">
         <v-icon left>fas fa-play</v-icon>
         Play Again
@@ -39,6 +43,7 @@ export default {
 
   computed: {
     ...mapState({
+      onlineConnected: state => state.networking.connectionType === 'online',
       ranks: state => {
         const playersWithIndex = state.game.players.map((p, index) => ({ ...p, index }))
         const groups = groupBy(playersWithIndex, 'points')
@@ -64,6 +69,15 @@ export default {
   },
 
   methods: {
+    async close () {
+      if (this.onlineConnected) {
+        this.$router.push('/online')
+      } else {
+        this.$store.dispatch('game/close')
+        this.$router.push('/')
+      }
+    },
+
     async playAgain () {
       const { setup, gameAnnotations } = this.$store.state.game
       await this.$store.dispatch('game/close')
@@ -86,11 +100,14 @@ section
   justify-content: center
   align-items: center
 
-.play-again
+.buttons
   display: flex
   justify-content: center
   align-items: center
   padding-right: 20px
+
+  .v-btn
+    margin-left: 10px
 
 svg.meeple
   width: 55px
