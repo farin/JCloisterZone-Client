@@ -11,6 +11,7 @@
         />
         <v-text-field
           v-else
+          ref="input"
           v-model="host"
           label="Host"
           @keydown.enter="connect"
@@ -26,6 +27,12 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer />
+      <v-btn
+        text
+        @click="$emit('close')"
+      >
+        Cancel
+      </v-btn>
       <v-btn
         text
         :disabled="host.trim() === ''"
@@ -49,6 +56,12 @@ export default {
       error: null,
       host: recent[0] || ''
     }
+  },
+
+  mounted () {
+    setTimeout(() => {
+      this.$refs.input.focus()
+    }, 1)
   },
 
   methods: {

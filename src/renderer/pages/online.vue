@@ -104,7 +104,7 @@
         <v-card-text>
           <v-container>
             <p>Paste a game key provided by host</p>
-            <v-text-field v-model="joinGameId" label="Game ID" @keydown.enter="joinGame" />
+            <v-text-field ref="joinInput" v-model="joinGameId" label="Game ID" @keydown.enter="joinGame"  />
             <v-alert
               v-if="joinError"
               type="error"
@@ -189,6 +189,9 @@ export default {
     openJoinGameDialog () {
       this.joinGameId = ''
       this.showJoinDialog = true
+      setTimeout(() => {
+        this.$refs.joinInput.focus()
+      }, 1)
     },
 
     joinGame () {
@@ -291,6 +294,7 @@ h2
     display: flex
     margin: 0 8px 12px
     gap: 4px
+    min-height: 43px
 
   .game-slot
     svg.meeple

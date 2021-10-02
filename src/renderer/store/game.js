@@ -655,6 +655,12 @@ export const actions = {
       }
     }
 
+    // // uncomment for online server game finish debugging
+    // annotations.tilePack = {
+    //   className: 'com.jcloisterzone.debug.ForcedDrawTilePack',
+    //   params: { drawLimit: 3 }
+    // }
+
     const setupMessage = {
       type: 'GAME_SETUP',
       payload: {
