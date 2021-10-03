@@ -30,6 +30,10 @@ class Addons extends EventsBase {
     this.addons = []
   }
 
+  getDefaultArtworkUrl() {
+    return this.AUTO_DOWNLOADED?.classic?.url
+  }
+
   async loadAddons () {
     console.log('Looking for installed` addons')
     const { settings } = this.ctx.store.state
@@ -201,7 +205,9 @@ class Addons extends EventsBase {
     try {
       await new Promise((resolve, reject) => {
         let downloadedBytes = 0
-        https.get(link, response => {
+        // there was troubleswith Rosti.cz cert after server is down although cert is valid, disable as workaround
+        const agent = new https.Agent({ rejectUnauthorized: false })
+        https.get(link, { agent }, response => {
           const total = parseInt(response.headers['content-length'])
           this.ctx.app.store.commit('downloadSize', total)
           response.on('data', chunk => {
@@ -214,6 +220,7 @@ class Addons extends EventsBase {
             file.close(resolve)
           })
         }).on('error', function (err) { // Handle errors
+          console.error(err)
           fs.unlink(zipName, unlinkErr => {
             console.warn(unlinkErr)
           }) // Delete the file async. (But we don't check the result)

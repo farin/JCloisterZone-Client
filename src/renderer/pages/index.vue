@@ -29,7 +29,8 @@
       </v-alert>
       <v-alert v-if="artworksLoaded && !hasClassicAddon" type="warning">
         Unable to locate or download addon with default artwork. Internet conection is needed at fist run to donwload it.<br>
-        Plese check your connectivity and restart app to try it again.
+        Plese check your connectivity and restart app to try it again.<br>
+        <small>addon url: <a :href="$addons.getDefaultArtworkUrl()" @click.prevent="openLink($addons.getDefaultArtworkUrl())">>{{ $addons.getDefaultArtworkUrl() }}</a></small>
       </v-alert>
       <div v-if="download" class="download">
         <div class="download-header">
