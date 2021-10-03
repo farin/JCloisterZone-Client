@@ -66,6 +66,8 @@ import JoinGameDialog from '@/components/JoinGameDialog'
 import SettingsDialog from '@/components/SettingsDialog'
 import { getAppVersion } from '@/utils/version'
 
+import { STATUS_CONNECTED } from '@/store/networking'
+
 const ZOOM_SENSITIVITY = 1.4
 
 export default {
@@ -330,7 +332,9 @@ export default {
         const { $connection } = this
         const gameId = this.$store.state.game.id
         if (gameId) {
-          $connection.send({ type: 'LEAVE_GAME', payload: { gameId } })
+          if (this.$store.state.networking.connectionStatus === STATUS_CONNECTED) {
+            $connection.send({ type: 'LEAVE_GAME', payload: { gameId } })
+          }
         }
         this.$router.push('/online')
       } else {

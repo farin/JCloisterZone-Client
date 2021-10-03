@@ -180,9 +180,9 @@ class ConnectionPlugin extends EventsBase {
     })
   }
 
-  isConnectedOrConnecting () {
-    return this.ws !== null
-  }
+  // isConnectedOrConnecting () {
+  //   return this.ws !== null
+  // }
 
   onNextSendError (handler) {
     const callbacks = {}

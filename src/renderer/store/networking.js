@@ -1,9 +1,9 @@
 import { ENGINE_MESSAGES } from '@/constants/messages'
 import { connectExceptionToMessage } from '@/utils/networking'
 
-const STATUS_CONNECTING = 'connecting'
-const STATUS_RECONNECTING = 'reconnecting'
-const STATUS_CONNECTED = 'connected'
+export const STATUS_CONNECTING = 'connecting'
+export const STATUS_RECONNECTING = 'reconnecting'
+export const STATUS_CONNECTED = 'connected'
 
 let reconnectTimeout = null
 

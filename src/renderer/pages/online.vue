@@ -2,11 +2,11 @@
   <div class="online-page">
     <OnlineStatus />
     <header>
-      <v-btn large color="primary" @click="createGame()">
+      <v-btn :disabled="!connected" large color="primary" @click="createGame()">
         Create Game
       </v-btn>
 
-      <v-btn large color="primary" @click="openJoinGameDialog()">
+      <v-btn :disabled="!connected" large color="primary" @click="openJoinGameDialog()">
         Join Game
       </v-btn>
 
@@ -63,8 +63,8 @@
           </div>
 
           <div class="buttons">
-            <v-btn color="primary" :disabled="!valid" @click="resume(game)"><v-icon left>fa-play</v-icon> Resume</v-btn>
-            <v-btn color="secondary" @click="del(game)"><v-icon>fa-trash-alt</v-icon></v-btn>
+            <v-btn color="primary" :disabled="!valid || !connected" @click="resume(game)"><v-icon left>fa-play</v-icon> Resume</v-btn>
+            <v-btn color="secondary" :disabled="!connected" @click="del(game)"><v-icon>fa-trash-alt</v-icon></v-btn>
           </div>
         </div>
       </div>
@@ -139,6 +139,8 @@ import GameSetupOverviewInline from '@/components/game-setup/overview/GameSetupO
 import OnlineStatus from '@/components/OnlineStatus'
 import Meeple from '@/components/game/Meeple'
 
+import { STATUS_CONNECTED } from '@/store/networking'
+
 export default {
   components: {
     GameSetupOverviewInline,
@@ -159,7 +161,8 @@ export default {
   computed: {
     ...mapState({
       gameList: state => state.online.gameList,
-      playOnlineHostname: state => state.settings.playOnlineUrl.split('/')[0]
+      playOnlineHostname: state => state.settings.playOnlineUrl.split('/')[0],
+      connected: state => state.networking.connectionStatus === STATUS_CONNECTED
     }),
 
     vefiriedGameList () {
@@ -174,13 +177,16 @@ export default {
 
   beforeCreate () {
     // useful for dev mode, reload on this page redirects back to home
-    if (!this.$connection.isConnectedOrConnecting()) {
+    if (!this.$store.state.networking.connectionType) {
       this.$router.push('/')
     }
   },
 
   mounted () {
-    this.$connection.send({ type: 'LIST_GAMES', payload: {} })
+    if (this.$store.state.networking.connectionStatus === STATUS_CONNECTED) {
+      // not reconnecting
+      this.$connection.send({ type: 'LIST_GAMES', payload: {} })
+    }
   },
 
   beforeDestroy () {

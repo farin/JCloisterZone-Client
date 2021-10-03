@@ -183,7 +183,7 @@ export default {
 
   beforeCreate () {
     // useful for dev mode, reload on this page redirects back to home
-    if (!this.$connection.isConnectedOrConnecting()) {
+    if (!this.$store.state.networking.connectionType) {
       this.$store.dispatch('game/close')
       this.$router.push('/')
     }
