@@ -161,9 +161,9 @@ import { Rule } from '@/models/rules'
 import ConfigSection from '@/components/game-setup/ConfigSection'
 import GameMechanicsBox from '@/components/game-setup/GameMechanicsBox'
 import GameplayVariants from '@/components/game-setup/rules/GameplayVariants'
+import ScoringVariants from '@/components/game-setup/rules/ScoringVariants'
 import StartingTiles from '@/components/game-setup/StartingTiles'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
-import ScoringVariants from '../rules/ScoringVariants'
 
 const MEEPLES_SVG = require('~/assets/meeples.svg')
 

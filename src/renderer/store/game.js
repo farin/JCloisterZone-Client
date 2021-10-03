@@ -93,7 +93,8 @@ export const state = () => ({
   gameAnnotations: {},
   testScenario: null,
   testScenarioResult: null,
-  lockUi: false
+  lockUi: false,
+  showGameStats: false
 })
 
 export const mutations = {
@@ -128,6 +129,7 @@ export const mutations = {
     state.testScenario = null
     state.testScenarioResult = null
     state.lockUi = false
+    state.showGameStats = false
   },
 
   id (state, value) {
@@ -241,6 +243,10 @@ export const mutations = {
 
   lockUi (state, value) {
     state.lockUi = value
+  },
+
+  showGameStats (state, value) {
+    state.showGameStats = value
   }
 }
 
@@ -796,6 +802,7 @@ export const actions = {
       }
 
       if (gameFinished) {
+        commit('showGameStats', true)
         dispatch('apply', {
           type: 'GAME_FINISHED',
           payload: {

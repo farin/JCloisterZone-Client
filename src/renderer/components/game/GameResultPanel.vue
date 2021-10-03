@@ -18,13 +18,17 @@
     </div>
 
     <div class="buttons">
-      <v-btn large color="secondary" @click="close">
-        <v-icon left>fa-times</v-icon>
-        Close
+      <v-btn large color="secondary" @click="toggleStats">
+        <v-icon left>fa-chart-bar</v-icon>
+        {{ showGameStats ? 'Hide Stats' : 'Show Stats' }}
       </v-btn>
       <v-btn large color="secondary" @click="playAgain">
         <v-icon left>fas fa-play</v-icon>
         Play Again
+      </v-btn>
+      <v-btn large color="secondary" @click="close">
+        <v-icon left>fa-times</v-icon>
+        Close
       </v-btn>
     </div>
   </section>
@@ -41,6 +45,7 @@ export default {
 
   computed: {
     ...mapState({
+      showGameStats: state => state.game.showGameStats,
       onlineConnected: state => state.networking.connectionType === 'online'
     }),
 
@@ -66,6 +71,10 @@ export default {
       this.$store.dispatch('gameSetup/load', setup)
       this.$store.commit('gameSetup/gameAnnotations', gameAnnotations)
       await this.$store.dispatch('gameSetup/createGame')
+    },
+
+    toggleStats () {
+      this.$store.commit('game/showGameStats', !this.showGameStats)
     }
   }
 }

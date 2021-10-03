@@ -32,7 +32,7 @@
       />
       <PlayEvents />
       <FinalScoringEvents v-if="phase === 'GameOverPhase'" />
-      <FinalStats v-if="phase === 'GameOverPhase'" />
+      <FinalStats v-if="showGameStats" />
       <div
         v-if="gameDialog"
         class="game-modal"
@@ -100,7 +100,8 @@ export default {
 
   data () {
     return {
-      shrink: 0
+      shrink: 0,
+      showFinalStats: true
     }
   },
 
@@ -123,7 +124,8 @@ export default {
       },
       gameHash: state => state.game.hash,
       playerListRotate: state => state.settings.playerListRotate,
-      activePlayerIndicatorBgColor: state => state.settings.activePlayerIndicatorBgColor
+      activePlayerIndicatorBgColor: state => state.settings.activePlayerIndicatorBgColor,
+      showGameStats: state => state.game.showGameStats
     }),
 
     ...mapGetters({
@@ -315,6 +317,7 @@ aside
   user-select: none
   display: flex
   flex-direction: column
+  z-index: 2
 
   &.shrink-3
     top: calc(var(--action-bar-height) + 2px)
