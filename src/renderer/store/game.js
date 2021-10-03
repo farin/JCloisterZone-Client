@@ -761,14 +761,14 @@ export const actions = {
   },
 
   async handleEngineMessage ({ state, commit, dispatch, rootState }, message) {
-    const engine = this._vm.$engine.get()
-    const { response, hash } = await engine.writeMessage(message)
     if (message.seq !== 1 + state.gameMessages.length) {
       console.warn(`Seq doesn't match ${message.seq} != ${1 + state.gameMessages.length}`)
       const { $connection } = this._vm
       $connection.send({ type: 'SYNC_GAME' })
       return
     }
+    const engine = this._vm.$engine.get()
+    const { response, hash } = await engine.writeMessage(message)
     commit('appendMessage', message)
     commit('lastMessageId', message.id)
     commit('updateClock', { player: state.action?.player, clock: message.clock || 0 })

@@ -30,7 +30,7 @@ class Addons extends EventsBase {
     this.addons = []
   }
 
-  getDefaultArtworkUrl() {
+  getDefaultArtworkUrl () {
     return this.AUTO_DOWNLOADED?.classic?.url
   }
 
