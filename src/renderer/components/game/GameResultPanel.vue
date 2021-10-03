@@ -31,8 +31,6 @@
 </template>
 
 <script>
-import groupBy from 'lodash/groupBy'
-
 import { mapGetters, mapState } from 'vuex'
 import Meeple from '@/components/game/Meeple'
 
@@ -43,28 +41,12 @@ export default {
 
   computed: {
     ...mapState({
-      onlineConnected: state => state.networking.connectionType === 'online',
-      ranks: state => {
-        const playersWithIndex = state.game.players.map((p, index) => ({ ...p, index }))
-        const groups = groupBy(playersWithIndex, 'points')
-        const points = Object.keys(groups).map(p => parseInt(p))
-        points.sort((a, b) => b - a)
-        let rank = 0
-        const ranks = []
-        points.forEach(p => {
-          ranks.push({
-            points: p,
-            players: groups[p],
-            rank: rank + 1
-          })
-          rank += groups[p].length
-        })
-        return ranks
-      }
+      onlineConnected: state => state.networking.connectionType === 'online'
     }),
 
     ...mapGetters({
-      colorCssClass: 'game/colorCssClass'
+      colorCssClass: 'game/colorCssClass',
+      ranks: 'game/ranks'
     })
   },
 

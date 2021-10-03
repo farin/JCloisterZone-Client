@@ -10,6 +10,7 @@ import omit from 'lodash/omit'
 import range from 'lodash/range'
 import zip from 'lodash/zip'
 import isNil from 'lodash/isNil'
+import groupBy from 'lodash/groupBy'
 import Vue from 'vue'
 
 import { SAVED_GAME_COMPATIBILITY } from '@/constants/versions'
@@ -339,6 +340,24 @@ export const getters = {
 
   isUndoAllowed: (state, getters) => {
     return state.undo?.allowed && getters.isActionLocal
+  },
+
+  ranks (state) {
+    const playersWithIndex = state.players.map((p, index) => ({ ...p, index }))
+    const groups = groupBy(playersWithIndex, 'points')
+    const points = Object.keys(groups).map(p => parseInt(p))
+    points.sort((a, b) => b - a)
+    let rank = 0
+    const ranks = []
+    points.forEach(p => {
+      ranks.push({
+        points: p,
+        players: groups[p],
+        rank: rank + 1
+      })
+      rank += groups[p].length
+    })
+    return ranks
   }
 }
 

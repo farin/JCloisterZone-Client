@@ -32,6 +32,7 @@
       />
       <PlayEvents />
       <FinalScoringEvents v-if="phase === 'GameOverPhase'" />
+      <FinalStats v-if="phase === 'GameOverPhase'" />
       <div
         v-if="gameDialog"
         class="game-modal"
@@ -73,6 +74,7 @@ import { ipcRenderer } from 'electron'
 import ActionPanel from '@/components/game/ActionPanel.vue'
 import Board from '@/components/game/Board.vue'
 import FinalScoringEvents from '@/components/game/FinalScoringEvents.vue'
+import FinalStats from '@/components/game/FinalStats.vue'
 import ChooseMonkOrAbbotDialog from '@/components/game/dialogs/ChooseMonkOrAbbotDialog.vue'
 import PlayerPanel from '@/components/game/PlayerPanel.vue'
 import PlayEvents from '@/components/game/PlayEvents.vue'
@@ -87,6 +89,7 @@ export default {
     Board,
     ChooseMonkOrAbbotDialog,
     FinalScoringEvents,
+    FinalStats,
     GameSetupDialog,
     PlayerPanel,
     PlayEvents,
