@@ -16,7 +16,7 @@
         </div>
         <div>
           <div class="version">version {{ version }}</div>
-          Roman Krejcik<br>
+          Roman Krejčík<br>
           farin@farin.cz
         </div>
       </section>

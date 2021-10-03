@@ -91,7 +91,7 @@ export const GAMEPLAY = 'gameplay'
 export const SCORING = 'scoring'
 
 export const PRINCESS_ACTION = Rule.PRINCESS_ACTION = new Rule('princess-action', GAMEPLAY,
-  'The Princess {} remove knight from a city.',
+  'The Princess {} remove knight from a\u00A0city.',
   [GameElement.PRINCESS],
   [
     { value: 'may', text: 'may', flags: ['HiG'] },
@@ -104,7 +104,7 @@ export const FAIRY_PLACEMENT = Rule.FAIRY_PLACEMENT = new Rule('fairy-placement'
   'The Fairy is deployed {}.',
   [GameElement.FAIRY],
   [
-    { value: 'next-follower', text: 'next to a follower', flags: ['HiG'] },
+    { value: 'next-follower', text: 'next to a\u00A0follower', flags: ['HiG'] },
     { value: 'on-tile', text: 'on a tile', flags: ['RGG', 'ZMG'] }
   ]
 )
@@ -120,7 +120,7 @@ export const DRAGON_MOVEMENT = Rule.DRAGON_MOVEMENT = new Rule('dragon-move', GA
 )
 
 export const BARN_PLACEMENT = Rule.BARN_PLACEMENT = new Rule('barn-placement', GAMEPLAY,
-  'Barn {} be placed on a field already occupied by another barn.',
+  'Barn {} be placed on a\u00A0field already occupied by another barn.',
   [GameElement.BARN],
   [
     { value: 'not-occupied', text: "can't " },
@@ -161,7 +161,7 @@ export const HILL_TIEBREAKER = Rule.HILL_TIEBREAKER = new Rule('hill-tiebreaker'
 )
 
 export const ESCAPE_VARIANT = Rule.ESCAPE_VARIANT = new Rule('espace-variant', GAMEPLAY,
-  'Monastery must be placed adjacent to {} of a besieged city to espace.',
+  'Monastery must be placed adjacent to {} of a\u00A0besieged city to espace.',
   [GameElement.ESCAPE],
   [
     { value: 'any-tile', text: 'any tile', flags: ['RGG'] },

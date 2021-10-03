@@ -8,7 +8,7 @@ module.exports = {
   head: {
     title: 'JCloisterZone',
     meta: [
-      { hid: 'charset', name: 'charset', content: 'utf-8' }
+      { charset: 'utf-8' }
     ]
   },
   loading: false,

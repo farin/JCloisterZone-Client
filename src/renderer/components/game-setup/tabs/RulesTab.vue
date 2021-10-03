@@ -37,7 +37,7 @@
           <template #icon>
             <img src="~/assets/features/C1/cathedral.png" height="55">
           </template>
-          <template #description>Completed cities with cathedral x3 instead of x2, no points during final scoring.</template>
+          <template #description>Completed cities with cathedral &times;3 instead of &times;2, no points during final scoring.</template>
           <template #disabled>Inns &amp; Cathedrals expansion is not selected.</template>
         </GameMechanicsBox>
 
@@ -45,7 +45,7 @@
           <template #icon>
             <img src="~/assets/features/C1/inn.png" width="80">
           </template>
-          <template #description>Completed roads with inn x2, no points during final scoring.</template>
+          <template #description>Completed roads with inn &times;2, no points during final scoring.</template>
           <template #disabled>No tile with Inn is in the game.</template>
         </GameMechanicsBox>
 
@@ -53,7 +53,7 @@
           <template #icon>
             <img src="~/assets/features/C1/princess.png" height="42">
           </template>
-          <template #description>Princess can remove knight from a city.</template>
+          <template #description>Princess can remove knight from a&nbsp;city.</template>
           <template #disabled>Princess &amp; Dragon expansion is not selected.</template>
         </GameMechanicsBox>
 
