@@ -585,7 +585,7 @@ class Theme extends EventsBase {
 
       f = getRecordForRotation(f, r)
       const loc = featureLoc.split('/')[1]
-      const locObj = Location.parse(loc)
+      const locObj = loc && Location.parse(loc)
       const actualLoc = locObj ? locObj.rotateCW(rotation).name : loc
 
       const processImage = (image, t) => {
