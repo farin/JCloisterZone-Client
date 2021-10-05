@@ -63,7 +63,7 @@
       </div>
 
       <div class="header fields" title="Fields"><StandaloneTileImage tile-id="GQ/F" :size="40" /></div>
-      <div v-for="(val, idx) in stats.points.monastery" :key="'fields-'+idx" class="fields value">
+      <div v-for="(val, idx) in stats.points.field" :key="'fields-'+idx" class="fields value">
         {{ val }}
       </div>
 
