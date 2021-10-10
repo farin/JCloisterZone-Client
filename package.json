@@ -17,7 +17,7 @@
     "preinstall": "node .electron-nuxt/check-engines.js",
     "postinstall": "electron-builder install-app-deps && yarn run download-game-engine",
     "package": "yarn run build && electron-builder -c builder.config.js",
-    "extract": "vue-i18n-extract report --vueFiles './src/renderer/**/*.?(js|vue)' --languageFiles './src/renderer/locales/*.json'"
+    "extract": "vue-i18n-extract report --vueFiles './src/{main/modules,renderer}/**/*.?(js|vue)' --languageFiles './src/renderer/locales/*.json'"
   },
   "build": {
     "provider": "github"

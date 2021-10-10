@@ -1,6 +1,23 @@
 {
-  "online": {
-    "title": "Public server hosted games",
-    "play_online_button": "Play Online"
+  "index": {
+    "online": {
+      "title": "Public server hosted games",
+      "play_online_button": "Play Online"
+    },
+    "release-notes": "Release Notes"
+  },
+  "menu": {
+    "playonline-connect": "Play Online",
+    "playonline-disconnect": "Disconnect",
+    "new-game": "New Game",
+    "join-game": "Join Game",
+    "leave-game": "Leave Game",
+    "save-game": "Save Game",
+    "load-game": "Load Game / Setup",
+    "settings": "Settings",
+    "session": "Session",
+    "game": "Game",
+    "help": "Helo",
+    "undo": "Undo"
   }
 }

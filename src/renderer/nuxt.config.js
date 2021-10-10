@@ -22,7 +22,8 @@ module.exports = {
     '~/plugins/theme',
     { ssr: true, src: '@/plugins/icons.js' },
     '~/plugins/router-patch',
-    '~/plugins/date-format'
+    '~/plugins/date-format',
+    '~/plugins/i18n.js'
   ],
   buildModules: [
     '@nuxtjs/style-resources'
@@ -42,11 +43,11 @@ module.exports = {
     locales: [
       {
         code: 'en',
-        file: 'en.js'
+        file: 'en.json'
       },
       {
         code: 'cs',
-        file: 'cs.js'
+        file: 'cs.json'
       }
     ],
     // lazy: true,

@@ -1,6 +1,23 @@
 {
-  "online": {
-    "title": "Hry na veřejném serveru",
-    "play_online_button": "Hrát online"
+  "index": {
+    "online": {
+      "title": "Hrát na veřejném serveru",
+      "play_online_button": "Hrát online"
+    },
+    "release-notes": "Release Notes"
+  },
+  "menu": {
+    "playonline-connect": "Hrát online",
+    "playonline-disconnect": "Odpojit",
+    "new-game": "Nová hra",
+    "join-game": "Připojit se ke hře",
+    "leave-game": "Opustit hru",
+    "save-game": "Uloži hru",
+    "load-game": "Nahrát hru / konfiguraci",
+    "settings": "Nastavení",
+    "session": "Sezení",
+    "game": "Hra",
+    "help": "Nápověda",
+    "undo": "Zpět"
   }
 }

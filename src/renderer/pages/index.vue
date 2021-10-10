@@ -61,16 +61,16 @@
           <v-progress-linear v-else :value="updateProgress" />
         </div>
 
-        <h4>Release Notes</h4>
+        <h4>{{ $t('index.release-notes') }}</h4>
         <div v-html="updateInfo.releaseNotes" />
       </div>
     </div>
 
     <section class="online-hosted">
       <div>
-        <h2>{{ $t('online.title') }}</h2>
+        <h2>{{ $t('index.online.title') }}</h2>
         <v-btn large color="secondary" :disabled="!engine || !engine.ok" @click="playOnline()">
-          {{ $t('online.play_online_button') }}
+          {{ $t('index.online.play_online_button') }}
           <v-icon right>fa-cloud</v-icon>
         </v-btn>
         <div class="subsection">

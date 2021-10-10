@@ -1,38 +1,41 @@
 import { Menu, ipcMain } from 'electron'
 import { getSettings } from '../settings'
 
+let _win
 let menu
+const enabledState = {}
 
-async function createMenu (win) {
+async function createMenu (win, messages) {
+  const $t = key => messages[key.replace('menu.', '')]
   const settings = await getSettings()
 
   const isMac = process.platform === 'darwin'
   const sessionSubmenu = [
-    { id: 'playonline-connect', label: 'Play Online', accelerator: 'CommandOrControl+P', click () { win.webContents.send('menu.playonline-connect') } },
-    { id: 'playonline-disconnect', label: 'Disconnect', click () { win.webContents.send('menu.playonline-disconnect') } },
+    { id: 'playonline-connect', label: $t('menu.playonline-connect') || 'Play Online', accelerator: 'CommandOrControl+P', click () { win.webContents.send('menu.playonline-connect') } },
+    { id: 'playonline-disconnect', label: $t('menu.playonline-disconnect') || 'Disconnect', click () { win.webContents.send('menu.playonline-disconnect') } },
     { type: 'separator' },
-    { id: 'new-game', label: 'New Game', accelerator: 'CommandOrControl+N', click () { win.webContents.send('menu.new-game') } },
-    { id: 'join-game', label: 'Join Game', accelerator: 'CommandOrControl+J', click () { win.webContents.send('menu.join-game') } },
+    { id: 'new-game', label: $t('menu.new-game') || 'New Game', accelerator: 'CommandOrControl+N', click () { win.webContents.send('menu.new-game') } },
+    { id: 'join-game', label: $t('menu.join-game') || 'Join Game', accelerator: 'CommandOrControl+J', click () { win.webContents.send('menu.join-game') } },
     { type: 'separator' },
-    { id: 'leave-game', label: 'Leave Game', click () { win.webContents.send('menu.leave-game') } },
+    { id: 'leave-game', label: $t('menu.leave-game') || 'Leave Game', click () { win.webContents.send('menu.leave-game') } },
     { type: 'separator' },
-    { id: 'save-game', label: 'Save Game', accelerator: 'CommandOrControl+S', click () { win.webContents.send('menu.save-game') } },
-    { id: 'load-game', label: 'Load Game / Setup', accelerator: 'CommandOrControl+L', click () { win.webContents.send('menu.load-game') } },
+    { id: 'save-game', label: $t('menu.save-game') || 'Save Game', accelerator: 'CommandOrControl+S', click () { win.webContents.send('menu.save-game') } },
+    { id: 'load-game', label: $t('menu.load-game') || 'Load Game / Setup', accelerator: 'CommandOrControl+L', click () { win.webContents.send('menu.load-game') } },
     { type: 'separator' },
-    { id: 'settigns', label: 'Settings', accelerator: 'CommandOrControl+,', click () { win.webContents.send('menu.show-settings') } },
+    { id: 'settings', label: $t('menu.settings') || 'Settings', accelerator: 'CommandOrControl+,', click () { win.webContents.send('menu.show-settings') } },
     { type: 'separator' },
-    isMac ? { role: 'close' } : { role: 'quit' }
+    { role: isMac ? 'close' : 'quit' }
   ]
 
   const template = [
     {
-      label: 'Session',
+      label: $t('menu.session') || 'Session',
       submenu: sessionSubmenu
     },
     {
-      label: 'Game',
+      label: $t('menu.game') || 'Game',
       submenu: [
-        { id: 'undo', label: 'Undo', accelerator: 'CommandOrControl+Z', click () { win.webContents.send('menu.undo') } },
+        { id: 'undo', label: $t('menu.undo') || 'Undo', accelerator: 'CommandOrControl+Z', click () { win.webContents.send('menu.undo') } },
         { type: 'separator' },
         { id: 'zoom-in', label: 'Zoom In', accelerator: 'numadd', registerAccelerator: false, click () { win.webContents.send('menu.zoom-in') } },
         { id: 'zoom-out', label: 'Zoom Out', accelerator: 'numsub', registerAccelerator: false, click () { win.webContents.send('menu.zoom-out') } },
@@ -43,7 +46,7 @@ async function createMenu (win) {
         { id: 'game-setup', label: 'Show game setup', click () { win.webContents.send('menu.game-setup') } }
       ]
     }, {
-      label: 'Help',
+      label: $t('menu.help') || 'Help',
       submenu: [
         { label: 'Rules (WikiCarpedia)', click () { win.webContents.send('menu.rules') } },
         { type: 'separator' },
@@ -92,12 +95,28 @@ export default function () {
         item.enabled = enabled
       }
     })
+    Object.assign(enabledState, update)
+  })
+
+  ipcMain.handle('translate-menu', (ev, messages) => {
+    if (_win) {
+      createMenu(_win, messages)
+      Object.entries(enabledState).forEach(([id, enabled]) => {
+        const item = menu.getMenuItemById(id)
+        if (item) {
+          item.enabled = enabled
+        }
+      })
+    }
   })
 
   return {
     winCreated (win) {
-      createMenu(win)
+      _win = win
+      createMenu(win, {})
     },
-    winClosed (win) {}
+    winClosed (win) {
+      _win = null
+    }
   }
 }
