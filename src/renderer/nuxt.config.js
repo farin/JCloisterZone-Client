@@ -28,11 +28,30 @@ module.exports = {
     '@nuxtjs/style-resources'
   ],
   modules: [
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    '@nuxtjs/i18n'
   ],
 
   styleResources: {
     sass: './assets/styles/shared.sass'
+  },
+
+  i18n: {
+    strategy: 'no_prefix',
+    detectBrowserLanguage: false,
+    locales: [
+      {
+        code: 'en',
+        file: 'en.js'
+      },
+      {
+        code: 'cs',
+        file: 'cs.js'
+      }
+    ],
+    // lazy: true,
+    langDir: 'locales/',
+    defaultLocale: 'en'
   },
 
   vuetify: {

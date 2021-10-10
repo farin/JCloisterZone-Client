@@ -1,5 +1,8 @@
 <template>
   <div class="landing-view view">
+    <div @click="$i18n.setLocale('cs')">CS</div>
+    <div @click="$i18n.setLocale('en')">EN</div>
+
     <div>
       <v-alert v-if="java && java.error === 'not-found' && !javaSelectedByUser" type="warning">
         Unable to locate Java on your system.<br>
@@ -65,9 +68,9 @@
 
     <section class="online-hosted">
       <div>
-        <h2>Public server hosted games</h2>
+        <h2>{{ $t('online.title') }}</h2>
         <v-btn large color="secondary" :disabled="!engine || !engine.ok" @click="playOnline()">
-          Play online
+          {{ $t('online.play_online_button') }}
           <v-icon right>fa-cloud</v-icon>
         </v-btn>
         <div class="subsection">
