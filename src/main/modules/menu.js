@@ -37,20 +37,20 @@ async function createMenu (win, messages) {
       submenu: [
         { id: 'undo', label: $t('menu.undo') || 'Undo', accelerator: 'CommandOrControl+Z', click () { win.webContents.send('menu.undo') } },
         { type: 'separator' },
-        { id: 'zoom-in', label: 'Zoom In', accelerator: 'numadd', registerAccelerator: false, click () { win.webContents.send('menu.zoom-in') } },
-        { id: 'zoom-out', label: 'Zoom Out', accelerator: 'numsub', registerAccelerator: false, click () { win.webContents.send('menu.zoom-out') } },
+        { id: 'zoom-in', label: $t('menu.zoom-in') || 'Zoom In', accelerator: 'numadd', registerAccelerator: false, click () { win.webContents.send('menu.zoom-in') } },
+        { id: 'zoom-out', label: $t('menu.zoom-out') || 'Zoom Out', accelerator: 'numsub', registerAccelerator: false, click () { win.webContents.send('menu.zoom-out') } },
         { type: 'separator' },
-        { id: 'game-tiles', label: 'Tiles', accelerator: 't', click () { win.webContents.send('menu.game-tiles') } },
-        { id: 'toggle-history', label: 'Toggle History', accelerator: 'h', click () { win.webContents.send('menu.game-history') } },
+        { id: 'game-tiles', label: $t('menu.tiles') || 'Tiles', accelerator: 't', click () { win.webContents.send('menu.game-tiles') } },
+        { id: 'toggle-history', label: $t('menu.toggle-history') || 'Toggle History', accelerator: 'h', click () { win.webContents.send('menu.game-history') } },
         { type: 'separator' },
-        { id: 'game-setup', label: 'Show game setup', click () { win.webContents.send('menu.game-setup') } }
+        { id: 'game-setup', label: $t('menu.show-game-setup') || 'Show game setup', click () { win.webContents.send('menu.game-setup') } }
       ]
     }, {
       label: $t('menu.help') || 'Help',
       submenu: [
-        { label: 'Rules (WikiCarpedia)', click () { win.webContents.send('menu.rules') } },
+        { label: ($t('menu.rules') || 'Rules') + ' (WikiCarpedia)', click () { win.webContents.send('menu.rules') } },
         { type: 'separator' },
-        { label: 'About', click () { win.webContents.send('menu.about') } }
+        { label: $t('menu.about') || 'About', click () { win.webContents.send('menu.about') } }
       ]
     }
   ]

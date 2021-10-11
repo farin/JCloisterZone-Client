@@ -18,6 +18,13 @@
     "session": "Session",
     "game": "Game",
     "help": "Helo",
-    "undo": "Undo"
+    "undo": "Undo",
+    "zoom-in": "Zoom In",
+    "zoom-out": "Zoom Out",
+    "tiles": "Tiles",
+    "toggle-history": "Toggle History",
+    "show-game-setup": "Show Game Setup",
+    "rules": "Rules",
+    "about": "About"
   }
 }

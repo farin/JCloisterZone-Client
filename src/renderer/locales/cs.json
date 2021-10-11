@@ -13,11 +13,18 @@
     "join-game": "Připojit se ke hře",
     "leave-game": "Opustit hru",
     "save-game": "Uloži hru",
-    "load-game": "Nahrát hru / konfiguraci",
+    "load-game": "Nahrát hru / konfiguraci hry",
     "settings": "Nastavení",
     "session": "Sezení",
     "game": "Hra",
     "help": "Nápověda",
-    "undo": "Zpět"
+    "undo": "Zpět",
+    "zoom-in": "Přiblížit",
+    "zoom-out": "Oddálit",
+    "tiles": "Kartičky",
+    "toggle-history": "Zobrazit/Skrýt historii",
+    "show-game-setup": "Zobrazit konfiguraci hry",
+    "rules": "Pravidla",
+    "about": "O programu"
   }
 }
