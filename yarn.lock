@@ -1461,6 +1461,11 @@
     mustache "^2.3.0"
     stack-trace "0.0.10"
 
+"@openfonts/roboto_latin-ext@^1.44.1":
+  version "1.44.1"
+  resolved "https://registry.yarnpkg.com/@openfonts/roboto_latin-ext/-/roboto_latin-ext-1.44.1.tgz#6bf0dbda18bb0ead0566350fbd950e30025861af"
+  integrity sha512-txli/nsySR9PDg2U056dYuSRHJovkByrDZiIBxCbxyuxnSeNzq9Ba9CBvOrjpMci8kwc4OqKTDDfBsR0PHoeFQ==
+
 "@polka/url@^1.0.0-next.20":
   version "1.0.0-next.20"
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.20.tgz#111b5db0f501aa89b05076fa31f0ea0e0c292cd3"
@@ -10589,11 +10594,6 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
-
-typeface-roboto@^1.1.13:
-  version "1.1.13"
-  resolved "https://registry.yarnpkg.com/typeface-roboto/-/typeface-roboto-1.1.13.tgz#9c4517cb91e311706c74823e857b4bac9a764ae5"
-  integrity sha512-YXvbd3a1QTREoD+FJoEkl0VQNJoEjewR2H11IjVv4bp6ahuIcw0yyw/3udC4vJkHw3T3cUh85FTg8eWef3pSaw==
 
 ua-parser-js@^0.7.28:
   version "0.7.28"

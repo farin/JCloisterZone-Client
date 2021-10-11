@@ -395,7 +395,7 @@ export default {
 </script>
 
 <style lang="sass">
-@import 'typeface-roboto/index.css'
+@import '@openfonts/roboto_latin-ext/index.css'
 @import '~vuetify/src/styles/styles.sass'
 
 @import '~/assets/styles/player-colors.scss'

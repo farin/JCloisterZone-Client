@@ -61,6 +61,7 @@
   "dependencies": {
     "@nuxtjs/i18n": "^7.0.3",
     "@nuxtjs/style-resources": "^1.2.1",
+    "@openfonts/roboto_latin-ext": "^1.44.1",
     "compare-versions": "^3.6.0",
     "electron-log": "^4.4.1",
     "electron-updater": "^4.3.9",
@@ -70,7 +71,6 @@
     "random-bigint": "^0.0.1",
     "sha256-file": "^1.0.0",
     "tiny-emitter": "^2.1.0",
-    "typeface-roboto": "^1.1.13",
     "unzipper": "^0.10.11",
     "username": "^5.1.0",
     "uuid": "^8.3.2",
