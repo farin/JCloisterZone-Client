@@ -4,25 +4,40 @@
       v-for="({option: opt, feature}) in optionsWithFeature"
       :key="positionAsKey([0, 0]) + opt.featureType + opt.location"
     >
-      <path
-        v-if="feature.clip && feature.clip[0] !== '<'"
-        :d="feature.clip"
-        :transform="transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
-        :class="{ area: true, [opt.cssClass]: true, mouseover: opt === mouseOver, mouseout: opt !== mouseOver }"
-        @mouseenter="onMouseOver(opt)"
-        @mouseleave="onMouseLeave(opt)"
-        @click="ev => onSelect(opt, feature)"
-      />
-      <!-- eslint-disable vue/no-v-html-->
       <g
-        v-else-if="feature.clip"
-        :transform="transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
-        :class="{ area: true, [opt.cssClass]: true, mouseover: opt === mouseOver, mouseout: opt !== mouseOver }"
-        @mouseenter="onMouseOver(opt)"
-        @mouseleave="onMouseLeave(opt)"
-        @click="ev => onSelect(opt, feature)"
-        v-html="feature.clip"
-      />
+        v-if="mode === 'meeples'"
+        :transform="transformFeaturePoint(feature)"
+        class="color-1"
+      >
+        <use
+          :class="{meeple: true, 'rot-90': opt.featureType === 'Field'}"
+          x="-160" y="-160"
+          width="320" height="320"
+          :href="`${MEEPLES_SVG}#small-follower`"
+          @click="ev => onSelect(opt, feature)"
+        />
+      </g>
+      <g v-else>
+        <path
+          v-if="feature.clip && feature.clip[0] !== '<'"
+          :d="feature.clip"
+          :transform="transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
+          :class="{ area: true, [opt.cssClass]: true, mouseover: opt === mouseOver, mouseout: opt !== mouseOver }"
+          @mouseenter="onMouseOver(opt)"
+          @mouseleave="onMouseLeave(opt)"
+          @click="ev => onSelect(opt, feature)"
+        />
+        <!-- eslint-disable vue/no-v-html-->
+        <g
+          v-else-if="feature.clip"
+          :transform="transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
+          :class="{ area: true, [opt.cssClass]: true, mouseover: opt === mouseOver, mouseout: opt !== mouseOver }"
+          @mouseenter="onMouseOver(opt)"
+          @mouseleave="onMouseLeave(opt)"
+          @click="ev => onSelect(opt, feature)"
+          v-html="feature.clip"
+        />
+      </g>
     </g>
   </g>
 </template>
@@ -30,6 +45,8 @@
 <script>
 import LayerMixin from '@/components/game/layers/LayerMixin'
 import Location from '@/models/Location'
+
+const MEEPLES_SVG = require('~/assets/meeples.svg')
 
 export default {
   components: {
@@ -46,6 +63,7 @@ export default {
 
   data () {
     return {
+      MEEPLES_SVG,
       mouseOver: null
     }
   },
@@ -106,6 +124,11 @@ export default {
     onSelect (option, feature) {
       const location = Location.parse(option.location).rotateCCW(feature.rotation).name
       console.log(option.featureType + '/' + location + ' @ ' + feature.rotation)
+    },
+
+    transformFeaturePoint (feature) {
+      const { point, rotation, transform, inverseScaleTransform } = feature
+      return `${this.transformRotation(rotation)} ${transform || ''} translate(${point[0]} ${point[1]}) rotate(${-rotation} 0 0) ${inverseScaleTransform || ''}`
     }
   }
 }
@@ -183,4 +206,8 @@ $c-tower: yellow
 
   .area.tower
     fill: $c-tower
+
+.area-select-layer.mode-meeples
+  .meeple
+    opacity: 0.6
 </style>

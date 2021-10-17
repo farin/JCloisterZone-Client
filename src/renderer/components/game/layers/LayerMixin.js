@@ -49,7 +49,7 @@ export default {
       return `rotate(${rot} 500 500)`
     },
 
-    transformPoint (ptr) { // ptr is { position, location }
+    transformPoint (ptr) { // ptr is { position, feature, location }
       const { tile, point, rotation, transform, inverseScaleTransform } = this.getTilePoint(ptr)
       if (!point) {
         console.warn('Point not defined', ptr)

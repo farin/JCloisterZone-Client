@@ -40,6 +40,7 @@
             <v-btn>Tiles</v-btn>
             <v-btn>Strokes</v-btn>
             <v-btn>Shapes</v-btn>
+            <v-btn>Meeples</v-btn>
           </v-btn-toggle>
         </div>
       </div>
@@ -70,7 +71,7 @@
               :tile-id="tile.id"
               :tile-size="tileSize"
               :rotation="(n - 1) * 90"
-              :mode="modeIdx === 1 ? 'strokes' : 'shapes'"
+              :mode="[null, 'strokes', 'shapes', 'meeples'][modeIdx]"
             />
           </template>
         </StandaloneTileImage>
