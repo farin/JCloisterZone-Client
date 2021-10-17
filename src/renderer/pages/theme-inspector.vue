@@ -4,34 +4,43 @@
       <NuxtLink to="/">Close</NuxtLink>
     </div>
     <v-container>
-      <v-row align="center" class="header">
-        <v-col cols="6">
-          <v-select
-            v-model="selected"
-            :items="sets"
-            item-text="title"
-            item-value="id"
-            label="Tiles"
-            single-line
-          />
-        </v-col>
-        <v-col cols="3">
-          <v-select
-            v-model="edition"
-            :items="editions"
-            label="Edition"
-            single-line
-          />
-        </v-col>
-        <v-col cols="3">
-          <v-select
-            v-model="size"
-            :items="sizes"
-            label="Size"
-            single-line
-          />
-        </v-col>
-      </v-row>
+      <div class="expansions">
+        <div
+          v-for="(r, idx) in releases"
+          :key="idx"
+          class="set"
+          :class="{ selected: selected == r }"
+          :title="r.title"
+          @click="selected = r"
+        >
+          <ExpansionSymbol :expansion="r.expansion" />
+        </div>
+      </div>
+      <div class="options">
+        <div>
+          Edition:
+          <v-btn-toggle v-model="editionIdx">
+            <v-btn>
+              1st
+            </v-btn>
+
+            <v-btn>
+              2nd
+            </v-btn>
+          </v-btn-toggle>
+        </div>
+
+        <div>
+          Size:
+          <v-btn-toggle v-model="sizeIdx">
+            <v-btn v-for="s in sizes" :key="s">
+              {{ s}}
+            </v-btn>
+          </v-btn-toggle>
+        </div>
+      </div>
+      <hr>
+      <h2>{{ selected ? selected.title : '' }}</h2>
     </v-container>
     <template v-if="selected === 'count'">
       <div class="tile-row">
@@ -60,36 +69,30 @@
 <script>
 import { mapGetters } from 'vuex'
 import { Expansion } from '@/models/expansions'
+import ExpansionSymbol from '@/components/ExpansionSymbol'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
 import CountMiniboard from '@/components/game-setup/details/CountMiniboard'
 
 export default {
   components: {
+    ExpansionSymbol,
     StandaloneTileImage,
     CountMiniboard
   },
 
   data () {
-    const sets = []
-    for (const exp of Expansion.all()) {
-      for (const release of exp.releases) {
-        sets.push(...release.sets)
+    const releases = []
+    for (const expansion of Expansion.all()) {
+      for (const release of expansion.releases) {
+        releases.push(release)
       }
     }
     return {
-      selected: this.$store.state.loaded.tiles ? 'basic' : null,
-      edition: 1,
-      editions: [{ text: '1st edition', value: 1 }, { text: '2nd edition', value: 2 }],
-      size: 240,
-      sizes: [
-        { text: '40', value: 40 },
-        { text: '100', value: 100 },
-        { text: '140', value: 140 },
-        { text: '180', value: 180 },
-        { text: '240', value: 240 },
-        { text: '300', value: 300 }
-      ],
-      sets
+      selected: this.$store.state.loaded.tiles ? Expansion.BASIC.releases[0] : null,
+      editionIdx: 0,
+      sizeIdx: 4,
+      sizes: [40, 100, 140, 180, 240, 300],
+      releases
     }
   },
 
@@ -98,8 +101,16 @@ export default {
       loaded: 'loaded'
     }),
 
+    size () {
+      return this.sizes[this.sizeIdx]
+    },
+
     tiles () {
-      const counts = this.$tiles.getTilesCounts({ [this.selected]: 1 }, {}, this.edition)
+      const sets = {}
+      this.selected.sets.forEach(set => {
+        sets[set] = 1
+      })
+      const counts = this.$tiles.getTilesCounts(sets, {}, this.editionIdx + 1)
       const tiles = Object.keys(counts).map(id => ({ id, ...this.$tiles.tiles[id] }))
       tiles.sort(this.$tiles.sortByEdge)
 
@@ -125,11 +136,34 @@ export default {
   top: 10px
   right: 10px
 
+.expansions
+  display: flex
+  flex-wrap: wrap
+
+  svg
+    cursor: pointer
+    width: 48px
+    height: 48px
+    margin: 2px
+
+  .selected svg
+    fill: var(--v-primary-base)
+
+.options
+  margin-top: 10px
+  display: flex
+  justify-content: space-around
+
+hr
+  margin: 10px 0
+
+h2
+  text-align: center
+  +theme using ($theme)
+    color: map-get($theme, 'text-color')
+
 .theme-inspector
   padding-bottom: 40px
-
-.header
-  margin-bottom: 40px
 
 .tile-id
   width: 160px
