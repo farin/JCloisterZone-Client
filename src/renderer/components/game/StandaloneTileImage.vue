@@ -21,6 +21,8 @@
         :tile-id="tileId"
         :rotation="rotation"
       />
+
+      <slot :tile-size="tileSize" />
     </g>
   </svg>
 </template>

@@ -20,13 +20,8 @@
         <div>
           Edition:
           <v-btn-toggle v-model="editionIdx">
-            <v-btn>
-              1st
-            </v-btn>
-
-            <v-btn>
-              2nd
-            </v-btn>
+            <v-btn>1st</v-btn>
+            <v-btn>2nd</v-btn>
           </v-btn-toggle>
         </div>
 
@@ -34,8 +29,17 @@
           Size:
           <v-btn-toggle v-model="sizeIdx">
             <v-btn v-for="s in sizes" :key="s">
-              {{ s}}
+              {{ s }}
             </v-btn>
+          </v-btn-toggle>
+        </div>
+
+        <div>
+          Mode:
+          <v-btn-toggle v-model="modeIdx">
+            <v-btn>Tiles</v-btn>
+            <v-btn>Strokes</v-btn>
+            <v-btn>Shapes</v-btn>
           </v-btn-toggle>
         </div>
       </div>
@@ -60,7 +64,16 @@
           :size="size"
           :padding="[0, 73]"
           :rotation="(n - 1) * 90"
-        />
+        >
+          <template v-if="modeIdx > 0" #default="{ tileSize }">
+            <ThemeInspectorFeatures
+              :tile-id="tile.id"
+              :tile-size="tileSize"
+              :rotation="(n - 1) * 90"
+              :mode="modeIdx === 1 ? 'strokes' : 'shapes'"
+            />
+          </template>
+        </StandaloneTileImage>
       </div>
     </template>
   </div>
@@ -72,12 +85,14 @@ import { Expansion } from '@/models/expansions'
 import ExpansionSymbol from '@/components/ExpansionSymbol'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
 import CountMiniboard from '@/components/game-setup/details/CountMiniboard'
+import ThemeInspectorFeatures from '@/components/dev/ThemeInspectorFeatures'
 
 export default {
   components: {
     ExpansionSymbol,
     StandaloneTileImage,
-    CountMiniboard
+    CountMiniboard,
+    ThemeInspectorFeatures
   },
 
   data () {
@@ -91,6 +106,7 @@ export default {
       selected: this.$store.state.loaded.tiles ? Expansion.BASIC.releases[0] : null,
       editionIdx: 0,
       sizeIdx: 4,
+      modeIdx: 1,
       sizes: [40, 100, 140, 180, 240, 300],
       releases
     }

@@ -5,7 +5,7 @@
   >
     <g
       v-for="({option: opt, feature, abbotChoice}) in optionsWithFeature"
-      :key="positionAsKey(opt.position) + opt.location"
+      :key="positionAsKey(opt.position) + opt.feature + opt.location"
       :transform="transformPosition(opt.position)"
     >
       <circle
@@ -40,8 +40,6 @@
 </template>
 
 <script>
-import Location from '@/models/Location'
-
 import LayerMixin from '@/components/game/layers/LayerMixin'
 
 export default {
