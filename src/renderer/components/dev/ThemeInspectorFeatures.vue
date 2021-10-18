@@ -73,6 +73,10 @@ export default {
       const optionsWithFeature = []
       const tile = this.$theme.getTile(this.tileId)
 
+      if (!tile) {
+        return []
+      }
+
       Object.keys(tile.features).forEach(fp => {
         const [featureType, _location] = fp.split('/')
         const location = Location.parse(_location).rotateCW(this.rotation).name
@@ -173,7 +177,7 @@ $c-tower: yellow
     &.mouseover
       fill: $c-field
 
-  .area.monastery, .area.yagahut
+  .area.monastery, .area.yagahut, .area.garden
     stroke: $c-monastery
 
     &.mouseover
@@ -201,7 +205,7 @@ $c-tower: yellow
   .area.field
     fill: $c-field
 
-  .area.monastery, .area.yagahut
+  .area.monastery, .area.yagahut, .area.garden
     fill: $c-monastery
 
   .area.tower
