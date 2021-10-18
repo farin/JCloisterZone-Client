@@ -79,16 +79,30 @@ export default {
       }
 
       Object.keys(tile.features).forEach(fp => {
+        if (fp === 'X') {
+          // supplementary "fake" feature
+          return
+        }
         const [featureType, _location] = fp.split('/')
-        const location = Location.parse(_location).rotateCW(this.rotation).name
+        const locObj = Location.parse(_location)
+        if (!locObj) {
+          console.warn(`Invalid location ${fp} on ${this.tileId}`)
+          return
+        }
+        const location = locObj.rotateCW(this.rotation).name
+        const feature = this.$theme.getFeature({
+          id: this.tileId,
+          position: [0, 0],
+          rotation: this.rotation
+        }, featureType, location)
+        if (!feature) {
+          console.warn(`No feature for ${fp} on ${this.tileId}`)
+          return
+        }
 
         const opt = {
           option: { location, featureType, cssClass: featureType.toLowerCase() },
-          feature: this.$theme.getFeature({
-            id: this.tileId,
-            position: [0, 0],
-            rotation: this.rotation
-          }, featureType, location)
+          feature
         }
 
         if (!opt.feature.clip) {

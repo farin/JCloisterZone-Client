@@ -166,7 +166,7 @@ class Theme extends EventsBase {
         artwork.symbols[symbolId] = { size: [w, h] }
       })
       doc.querySelectorAll('image').forEach(el => el.setAttribute('href', pathPrefix + el.getAttribute('href')))
-      document.getElementById('theme-resources').innerHTML = doc.documentElement.outerHTML
+      document.getElementById('theme-resources').innerHTML += doc.documentElement.outerHTML
     }
 
     const processFeature = (featureId, data) => {
