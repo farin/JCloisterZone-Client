@@ -6,7 +6,7 @@
     >
       <g
         v-if="mode === 'meeples'"
-        :transform="transformFeaturePoint(feature)"
+        :transform="artwork.inverseScaleTransform + ' ' + transformFeaturePoint(feature)"
         class="color-1"
       >
         <use
@@ -21,7 +21,7 @@
         <path
           v-if="feature.clip && feature.clip[0] !== '<'"
           :d="feature.clip"
-          :transform="transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
+          :transform="artwork.inverseScaleTransform + ' ' + transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
           :class="{ area: true, [opt.cssClass]: true, mouseover: opt === mouseOver, mouseout: opt !== mouseOver }"
           @mouseenter="onMouseOver(opt)"
           @mouseleave="onMouseLeave(opt)"
@@ -30,7 +30,7 @@
         <!-- eslint-disable vue/no-v-html-->
         <g
           v-else-if="feature.clip"
-          :transform="transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
+          :transform="artwork.inverseScaleTransform + ' ' + transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
           :class="{ area: true, [opt.cssClass]: true, mouseover: opt === mouseOver, mouseout: opt !== mouseOver }"
           @mouseenter="onMouseOver(opt)"
           @mouseleave="onMouseLeave(opt)"
@@ -58,7 +58,8 @@ export default {
     mode: { type: String, required: true },
     tileId: { type: String, required: true },
     tileSize: { type: Number, required: true },
-    rotation: { type: Number, required: true }
+    rotation: { type: Number, required: true },
+    artwork: { type: Object, required: true }
   },
 
   data () {

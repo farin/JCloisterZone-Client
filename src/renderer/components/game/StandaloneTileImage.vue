@@ -22,7 +22,7 @@
         :rotation="rotation"
       />
 
-      <slot :tile-size="tileSize" />
+      <slot :tile-size="tileSize" :artwork="artwork" />
     </g>
   </svg>
 </template>

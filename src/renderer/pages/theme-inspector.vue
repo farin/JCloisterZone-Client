@@ -66,12 +66,13 @@
           :padding="[0, 73]"
           :rotation="(n - 1) * 90"
         >
-          <template v-if="modeIdx > 0" #default="{ tileSize }">
+          <template v-if="modeIdx > 0" #default="{ tileSize, artwork }">
             <ThemeInspectorFeatures
               :tile-id="tile.id"
               :tile-size="tileSize"
               :rotation="(n - 1) * 90"
               :mode="[null, 'strokes', 'shapes', 'meeples'][modeIdx]"
+              :artwork="artwork"
             />
           </template>
         </StandaloneTileImage>
