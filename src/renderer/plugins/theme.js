@@ -205,11 +205,16 @@ class Theme extends EventsBase {
       })
     }
 
+    const vars = {}
     const features = {}
 
     for (const fname of json.featuresInclude || []) {
       const content = JSON.parse(await fs.promises.readFile(path.join(folder, fname)))
       Object.entries(content).forEach(([featureId, data]) => {
+        if (featureId[0] === '$') {
+          vars[featureId.substring(1)] = data
+          return
+        }
         const m = FEATURE_PATTERN.exec(featureId)
         if (m) {
           featureId = m[1]
@@ -223,6 +228,10 @@ class Theme extends EventsBase {
     const inlineClipRefs = feature => {
       if (feature.clip) {
         feature.clip = feature.clip.replace(/\$\{([^}]+)\}/g, (match, p1) => {
+          if (vars[p1]) {
+            return vars[p1]
+          }
+
           const [id, rotKey] = p1.split('@')
           let feature = features[id]
           if (rotKey !== undefined) {
