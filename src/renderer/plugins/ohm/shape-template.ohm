@@ -16,7 +16,7 @@ ShapeTemplateGrammar {
   literal = "(" (~")" any)* ")"
   var = path_ref "|" transform -- transform
       | path_ref
-  path_ref = (letter | "_") (letter | digit | "." | "_" | "/" | "[" | "]")* ("@" "0".."3")?
+  path_ref = (letter | "_") (letter | digit | "." | "_" | "/" )* ("@" "0".."3")?
   transform = t_reverse | t_translate
 
   t_reverse = "reverse"

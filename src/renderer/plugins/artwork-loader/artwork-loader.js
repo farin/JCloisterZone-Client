@@ -9,6 +9,7 @@ import { Path } from 'paper/dist/paper-core'
 import { grammar, semantics } from '@/plugins/ohm/shape-template'
 
 const FEATURE_PATTERN = /([^[]+)(?:\[([^\]]+)\])/
+const EMPTY_PATH = 'M0 0 Z'
 
 const makeAbsPath = (prefix, path, artworkId = null) => {
   if (!path || path[0] === '/') {
@@ -169,6 +170,8 @@ export default class ArtworkLoader {
         })
       }
     }
+
+    console.log(this.features)
 
     for (const feature of Object.values(this.features)) {
       inlineClipRefs(feature)
@@ -332,9 +335,8 @@ export default class ArtworkLoader {
       }
     }
 
-    if (data.clip) {
-      this.processFeatureClip(featureId, data)
-    }
+    if (data.clip && !this.validateFeatureClip(featureId, data.clip)) data.clip = EMPTY_PATH
+    if (data['clip-rotate'] && !this.validateFeatureClip(featureId, data['clip-rotate'])) data['clip-rotate'] = EMPTY_PATH
 
     forEachRotation(data, (item, rot) => {
       if (item.image) {
@@ -353,25 +355,25 @@ export default class ArtworkLoader {
         }
       }
 
-      if (item.clip) {
-        this.processFeatureClip(featureId + rot, item)
-      }
+      if (item.clip && !this.validateFeatureClip(featureId + rot, item.clip)) item.clip = EMPTY_PATH
     })
   }
 
-  processFeatureClip (featureId, data) {
-    const r = grammar.match(data.clip)
+  validateFeatureClip (featureId, clip) {
+    const r = grammar.match(clip)
     if (r.failed()) {
       console.error(`Invalid clip for ${featureId}\n${r.message}`)
-      data.clip = 'M 0 0 Z'
+      return false
     }
 
     this.clipMatch[featureId] = r
 
-    const refs = semantics(r).getRefs()
-    if (refs.length) {
+    const { expr, refs } = semantics(r).getRefs()
+    if (expr) {
       this.refs[featureId] = refs
       console.log(featureId, refs)
     }
+
+    return true
   }
 }

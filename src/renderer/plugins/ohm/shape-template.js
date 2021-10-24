@@ -5,7 +5,7 @@ export const grammar = ohm.grammar(PathTemplateGrammar)
 
 export const semantics = grammar.createSemantics().addOperation('getRefs', {
   ShapeElement (a, b, c, d) {
-    return []
+    return { expr: false, refs: [] }
   },
 
   PathTemplate (f1, expr, f2) {
@@ -13,13 +13,17 @@ export const semantics = grammar.createSemantics().addOperation('getRefs', {
   },
 
   _iter (...args) {
-    const refs = []
-    args.forEach(a => refs.push(...a.getRefs()))
-    return refs
+    const r = { expr: false, refs: [] }
+    args.forEach(a => {
+      const { expr, refs } = a.getRefs()
+      r.expr ||= expr
+      r.refs.push(...refs)
+    })
+    return r
   },
 
   Expr (ppen, body, close) {
-    return body.getRefs()
+    return { expr: true, refs: body.getRefs() }
   },
 
   literal (a, b, c) {
