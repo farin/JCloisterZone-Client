@@ -1,5 +1,5 @@
-PathTemplateGrammar {
-  Path = ShapeElement | PathTemplate
+ShapeTemplateGrammar {
+  ShapeTemplate = ShapeElement | PathTemplate
   PathTemplate = PathFragment (Expr PathFragment)*
   PathFragment = (PathCommand|digit|"."|","|"-")*
   PathCommand = "M"|"m"|"L"|"l"|"H"|"h"|"V"|"v"|"Z"|"z"|"C"|"c"|"S"|"s"|"Q"|"q"|"T"|"t"|"A"|"a"
