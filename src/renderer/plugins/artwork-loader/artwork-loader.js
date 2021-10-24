@@ -182,6 +182,11 @@ export default class ArtworkLoader {
       entries.forEach(([featureId, refs]) => {
         if (refs.findIndex(r => this.refs[r]) !== -1) return
 
+        const r = this.clipMatch[featureId]
+        // TODO create seamtics per artwork, with reference to this / features
+        // save semantics intead of MatchResult
+        console.log(featureId, '>>>', semantics(r).eval())
+
         // TODO inject
         injected = true
         delete this.refs[featureId]
