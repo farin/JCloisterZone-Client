@@ -206,6 +206,8 @@ class Theme extends EventsBase {
           }
         }
       })
+
+      console.log(data.clip)
     }
 
     const vars = {}
@@ -236,28 +238,28 @@ class Theme extends EventsBase {
 
     const inlineClipRefs = feature => {
       if (feature.clip) {
-        if (id === 'solarized/solarized-dark') {
-          const r = grammar.match(feature.clip)
-          if (r.failed()) {
-            console.log(feature)
-            console.error(`Invalid clip for ${feature.id}\n${r.message}`)
-          } else {
-            console.log("REFS", semantics(r).getRefs())
+        // if (id === 'solarized/solarized-dark') {
+        //   const r = grammar.match(feature.clip)
+        //   if (r.failed()) {
+        //     console.log(feature)
+        //     console.error(`Invalid clip for ${feature.id}\n${r.message}`)
+        //   } else {
+        //     console.log("REFS", semantics(r).getRefs())
+        //   }
+        // }
+
+        feature.clip = feature.clip.replace(/\$\{([^}]+)\}/g, (match, p1) => {
+          if (vars[p1]) {
+            return vars[p1]
           }
-        }
 
-        // feature.clip = feature.clip.replace(/\$\{([^}]+)\}/g, (match, p1) => {
-        //   if (vars[p1]) {
-        //     return vars[p1]
-        //   }
-
-        //   const [id, rotKey] = p1.split('@')
-        //   let feature = features[id]
-        //   if (rotKey !== undefined) {
-        //     feature = feature['@' + rotKey]
-        //   }
-        //   return feature.clip
-        // })
+          const [id, rotKey] = p1.split('@')
+          let feature = features[id]
+          if (rotKey !== undefined) {
+            feature = feature['@' + rotKey]
+          }
+          return feature.clip
+        })
       }
     }
 

@@ -8,16 +8,29 @@ export const semantics = grammar.createSemantics().addOperation('getRefs', {
     return []
   },
 
-  // Expr (_a, body, _b) {
-  //   return [body]
-  // }
-  PathTemplate (a, b, c) {
-    console.log(`PT >>>${a.sourceString}<<< >>>${b.sourceString}<<< >>>${c.sourceString}<<<`)
-    console.log(this, a, b, c)
+  PathTemplate (f1, expr, f2) {
+    return expr.getRefs()
+  },
+
+  _iter (...args) {
+    const refs = []
+    args.forEach(a => refs.push(...a.getRefs()))
+    return refs
+  },
+
+  Expr (ppen, body, close) {
+    return body.getRefs()
+  },
+
+  literal (a, b, c) {
     return []
+  },
+
+  path_ref (a, b) {
+    return [this.sourceString]
+  },
+
+  var_transform (name, pipeOp, transform) {
+    return name.getRefs()
   }
-  // Expr (_1, body, _2) {
-  //   console.log('EXPR', body)
-  //   return e.eval()
-  // }
 })
