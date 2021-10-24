@@ -6,9 +6,12 @@ import isString from 'lodash/isString'
 import isObject from 'lodash/isObject'
 import sortBy from 'lodash/sortBy'
 import mapValues from 'lodash/mapValues'
+import ohm from 'ohm-js'
+import PathTemplateGrammar from './ohm/path-template.ohm'
 
 import Location from '@/models/Location'
 import { EventsBase } from '@/utils/events'
+import { Path } from 'paper/dist/paper-core'
 
 const FEATURE_PATTERN = /([^[]+)(?:\[([^\]]+)\])/
 
@@ -36,6 +39,9 @@ const FEATURE_ORDER = {
 }
 
 const MISC_SVG = require('~/assets/misc.svg')
+
+const pathGrammar = ohm.grammar(PathTemplateGrammar)
+
 
 const makeAbsPath = (prefix, path, artworkId = null) => {
   if (!path || path[0] === '/') {
@@ -208,13 +214,19 @@ class Theme extends EventsBase {
     const vars = {}
     const features = {}
 
+    for (const fname of json.pathsInclude || []) {
+      const content = JSON.parse(await fs.promises.readFile(path.join(folder, fname)))
+      Object.entries(content).forEach(([id, value]) => {
+        if (vars[id]) {
+          console.error(`Path ${id} is already defined`)
+        }
+        vars[id] = value
+      })
+    }
+
     for (const fname of json.featuresInclude || []) {
       const content = JSON.parse(await fs.promises.readFile(path.join(folder, fname)))
       Object.entries(content).forEach(([featureId, data]) => {
-        if (featureId[0] === '$') {
-          vars[featureId.substring(1)] = data
-          return
-        }
         const m = FEATURE_PATTERN.exec(featureId)
         if (m) {
           featureId = m[1]
@@ -227,6 +239,12 @@ class Theme extends EventsBase {
 
     const inlineClipRefs = feature => {
       if (feature.clip) {
+        const r = pathGrammar.match(feature.clip)
+        if (r.failed()) {
+          console.log(feature)
+          console.error(`Invalid clip for ${feature.id}\n${r.message}`)
+        }
+
         feature.clip = feature.clip.replace(/\$\{([^}]+)\}/g, (match, p1) => {
           if (vars[p1]) {
             return vars[p1]

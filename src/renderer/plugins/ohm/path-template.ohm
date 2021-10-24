@@ -1,0 +1,27 @@
+PathTemplateGrammar {
+  Path = ShapeElement | PathTemplate
+  PathTemplate = PathFragment (Expr PathFragment)*
+  PathFragment = (PathCommand|digit|"."|","|"-")*
+  PathCommand = "M"|"m"|"L"|"l"|"H"|"h"|"V"|"v"|"Z"|"z"|"C"|"c"|"S"|"s"|"Q"|"q"|"T"|"t"|"A"|"a"
+  Expr = "${" ExprBody "}"
+  ExprBody = path "+" path -- union
+  		     | path "-" path -- subtract
+           | path
+
+  ShapeElement = "<" ShapeTag ShapeAttributes "/>"
+  ShapeTag = "circle" | "ellipse"
+  ShapeAttributes = (~"/>" any)*  // nice to have validate also attributes validity
+
+  path = literal | var
+  literal = "(" (~")" any)* ")"
+  var = path_ref "|" transform -- transformed
+      | path_ref
+  path_ref = (letter | "_") (letter | digit | "." | "_" | "/" | "[" | "]" | "@")*
+  transform = t_reverse | t_translate
+
+  t_reverse = "reverse"
+  t_translate = "translate(" number "," space* number ")"
+
+  number = digit* "." digit+  -- fract
+         | digit+             -- whole
+}
