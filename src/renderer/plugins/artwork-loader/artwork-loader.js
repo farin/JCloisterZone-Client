@@ -45,6 +45,7 @@ export default class ArtworkLoader {
     this.tiles = {}
 
     this.refs = {}
+    // this.backrefs = {}
     this.clipMatch = {}
 
     for (const artwork of enabledArtworks) {
@@ -138,45 +139,67 @@ export default class ArtworkLoader {
       })
     }
 
-    const inlineClipRefs = feature => {
-      if (feature.clip) {
-        // if (id === 'solarized/solarized-dark') {
-        //   const r = grammar.match(feature.clip)
-        //   if (r.failed()) {
-        //     console.log(feature)
-        //     console.error(`Invalid clip for ${feature.id}\n${r.message}`)
-        //   } else {
-        //     console.log("REFS", semantics(r).getRefs())
-        //   }
-        // }
+    // const inlineClipRefs = feature => {
+    //   if (feature.clip) {
+    //     // if (id === 'solarized/solarized-dark') {
+    //     //   const r = grammar.match(feature.clip)
+    //     //   if (r.failed()) {
+    //     //     console.log(feature)
+    //     //     console.error(`Invalid clip for ${feature.id}\n${r.message}`)
+    //     //   } else {
+    //     //     console.log("REFS", semantics(r).getRefs())
+    //     //   }
+    //     // }
 
-        feature.clip = feature.clip.replace(/\$\{([^}]+)\}/g, (match, p1) => {
-          if (this.vars[p1]) {
-            return this.vars[p1]
-          }
+    //     feature.clip = feature.clip.replace(/\$\{([^}]+)\}/g, (match, p1) => {
+    //       if (this.vars[p1]) {
+    //         return this.vars[p1]
+    //       }
 
-          const [id, rotKey] = p1.split('@')
-          let feature = this.features[id]
-          if (rotKey !== undefined) {
-            feature = feature['@' + rotKey]
-          }
+    //       const [id, rotKey] = p1.split('@')
+    //       let feature = this.features[id]
+    //       if (rotKey !== undefined) {
+    //         feature = feature['@' + rotKey]
+    //       }
 
-          if (!feature) {
-            console.error(`Unknown ref ${p1}`)
-            return ''
-          }
+    //       if (!feature) {
+    //         console.error(`Unknown ref ${p1}`)
+    //         return ''
+    //       }
 
-          return feature.clip
-        })
+    //       return feature.clip
+    //     })
+    //   }
+    // }
+
+    console.log({ ...this.refs })
+
+    while (true) {
+      const entries = Object.entries(this.refs)
+      if (entries.length === 0) break
+
+      let injected = false
+      entries.forEach(([featureId, refs]) => {
+        if (refs.findIndex(r => this.refs[r]) !== -1) return
+
+        // TODO inject
+        injected = true
+        delete this.refs[featureId]
+      })
+      if (!injected) {
+        console.error('Circular clip reference detected.')
+        break
       }
     }
 
-    console.log(this.features)
+    // console.log(this.features)
+    // console.log(this.refs)
+    // console.log(this.backrefs)
 
-    for (const feature of Object.values(this.features)) {
-      inlineClipRefs(feature)
-      forEachRotation(feature, inlineClipRefs)
-    }
+    // for (const feature of Object.values(this.features)) {
+    //   inlineClipRefs(feature)
+    //   forEachRotation(feature, inlineClipRefs)
+    // }
 
     for (const fname of json.elementsInclude || []) {
       const content = JSON.parse(await fs.promises.readFile(path.join(folder, fname)))
@@ -371,7 +394,14 @@ export default class ArtworkLoader {
     const { expr, refs } = semantics(r).getRefs()
     if (expr) {
       this.refs[featureId] = refs
-      console.log(featureId, refs)
+
+      // refs.forEach(ref => {
+      //   let backref = this.backrefs[ref]
+      //   if (!backref) {
+      //     backref = this.backrefs[ref] = []
+      //   }
+      //   backref.push(featureId)
+      // })
     }
 
     return true
