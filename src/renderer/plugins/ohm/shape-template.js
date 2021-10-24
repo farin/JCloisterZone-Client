@@ -26,7 +26,7 @@ export const semantics = grammar.createSemantics().addOperation('getRefs', {
     return []
   },
 
-  path_ref (a, b) {
+  path_ref (a, b, c, d) {
     return [this.sourceString]
   },
 
