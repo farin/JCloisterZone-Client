@@ -40,18 +40,27 @@ const makeAbsPathProp = (prefix, obj, prop, artworkId) => {
 
 export default class ArtworkLoader {
   async loadArworks (enabledArtworks) {
-    this._artworks = {}
-    this._tiles = {}
+    this.artworks = {}
+    this.tiles = {}
+
+    this.refs = {}
+    this.clipMatch = {}
 
     for (const artwork of enabledArtworks) {
       await this.loadArtwork(artwork)
     }
 
-    return { artworks: this._artworks, tiles: this._tiles }
+    return {
+      artworks: this.artworks,
+      tiles: this.tiles
+    }
   }
 
   async loadArtwork ({ id, folder, json, jsonFile }) {
-    const artwork = this._artworks[id] = {
+    this.vars = {}
+    this.features = {}
+
+    const artwork = this.artworks[id] = {
       id,
       title: json.title || id,
       icon: json.icon,
@@ -67,9 +76,9 @@ export default class ArtworkLoader {
       symbols: {},
       features: {},
       tiles: {},
-      elements: {}
+      elements: {},
+      pathPrefix: `file:///${folder}/`
     }
-    const pathPrefix = `file:///${folder}/`
 
     if (artwork.tileSize === 1000) {
       artwork.scaleTransform = ''
@@ -83,7 +92,7 @@ export default class ArtworkLoader {
 
     if (json.background) {
       artwork.background = { ...json.background }
-      artwork.background.image = makeAbsPath(pathPrefix, artwork.background.image)
+      artwork.background.image = makeAbsPath(artwork.pathPrefix, artwork.background.image)
       // TODO preload background
     }
 
@@ -101,78 +110,17 @@ export default class ArtworkLoader {
         const [w, h] = el.getAttribute('viewBox').split(' ').slice(2).map(val => parseInt(val))
         artwork.symbols[symbolId] = { size: [w, h] }
       })
-      doc.querySelectorAll('image').forEach(el => el.setAttribute('href', pathPrefix + el.getAttribute('href')))
+      doc.querySelectorAll('image').forEach(el => el.setAttribute('href', artwork.pathPrefix + el.getAttribute('href')))
       document.getElementById('theme-resources').innerHTML += doc.documentElement.outerHTML
     }
-
-    const processFeatureClip = (featureId, data) => {
-      const r = grammar.match(data.clip)
-      if (r.failed()) {
-        console.error(`Invalid clip for ${featureId}\n${r.message}`)
-        return
-      }
-
-      const refs = semantics(r).getRefs()
-      if (refs.length) {
-        console.log(featureId, refs)
-      }
-      //   } else {
-      //     console.log("REFS", semantics(r).getRefs())
-      //   }
-      // }
-    }
-
-    const processFeature = (featureId, data) => {
-      data.id = featureId
-      if (data.image) {
-        if (data.images) {
-          console.warn(`Feature ${featureId} shouldn't declare 'image' either 'images' property`)
-          data.images.push(data.image)
-        } else {
-          data.images = [data.image]
-        }
-        delete data.image
-      }
-      if (data.images) {
-        for (let i = 0; i < data.images.length; i++) {
-          if (isString(data.images[i])) data.images[i] = makeAbsPath(pathPrefix, data.images[i], id)
-          if (data.images[i] && data.images[i].href) data.images[i].href = makeAbsPath(pathPrefix, data.images[i].href, id)
-        }
-      }
-
-      if (data.clip) {
-        processFeatureClip(featureId, data)
-      }
-
-      forEachRotation(data, item => {
-        if (item.image) {
-          if (item.images) {
-            console.warn(`Feature ${featureId} shouldn't declare 'image' either 'images' property`)
-            item.images.push(item.image)
-          } else {
-            item.images = [item.image]
-          }
-          delete item.image
-        }
-        if (item.images) {
-          for (let i = 0; i < item.images.length; i++) {
-            if (isString(item.images[i])) item.images[i] = makeAbsPath(pathPrefix, item.images[i], id)
-            if (item.images[i] && item.images[i].href) item.images[i].href = makeAbsPath(pathPrefix, item.images[i].href, id)
-          }
-        }
-      })
-    }
-
-    const vars = {}
-    const features = {}
 
     for (const fname of json.pathsInclude || []) {
       const content = JSON.parse(await fs.promises.readFile(path.join(folder, fname)))
       Object.entries(content).forEach(([id, value]) => {
-        if (vars[id]) {
+        if (this.vars[id]) {
           console.error(`Path ${id} is already defined`)
         }
-        vars[id] = value
+        this.vars[id] = value
       })
     }
 
@@ -184,8 +132,8 @@ export default class ArtworkLoader {
           featureId = m[1]
           data.params = m[2].split(',')
         }
-        processFeature(featureId, data)
-        features[featureId] = data
+        this.processFeature(artwork, featureId, data)
+        this.features[featureId] = data
       })
     }
 
@@ -202,12 +150,12 @@ export default class ArtworkLoader {
         // }
 
         feature.clip = feature.clip.replace(/\$\{([^}]+)\}/g, (match, p1) => {
-          if (vars[p1]) {
-            return vars[p1]
+          if (this.vars[p1]) {
+            return this.vars[p1]
           }
 
           const [id, rotKey] = p1.split('@')
-          let feature = features[id]
+          let feature = this.features[id]
           if (rotKey !== undefined) {
             feature = feature['@' + rotKey]
           }
@@ -222,118 +170,9 @@ export default class ArtworkLoader {
       }
     }
 
-    for (const feature of Object.values(features)) {
+    for (const feature of Object.values(this.features)) {
       inlineClipRefs(feature)
       forEachRotation(feature, inlineClipRefs)
-    }
-
-    const processTile = (tileId, data) => {
-      if (this._tiles[tileId]) {
-        // tile already registred by prev artwork
-        // currently there is time load fixed order
-        return
-      }
-
-      const tile = {
-        id: tileId,
-        rotation: data.rotation || 0,
-        artwork,
-        features: {}
-      }
-
-      if (data.image) {
-        if (data.image.href) {
-          makeAbsPathProp(pathPrefix, data.image, 'href', id)
-          tile.image = data.image
-        } else {
-          makeAbsPathProp(pathPrefix, data, 'image', id)
-          tile.image = data.image
-        }
-      }
-
-      const isMatchingParams = (img, params) => {
-        if (!img.if) {
-          return true
-        }
-        let conditions
-        const or = img.if.includes('||')
-        const and = img.if.includes('&&')
-        if (or && and) {
-          throw new Error('both || and && is not allowed in one expression')
-        }
-        if (and) {
-          conditions = img.if.split(/\s*&&\s*/)
-        } else if (or) {
-          conditions = img.if.split(/\s*\|\|\s*/)
-        } else {
-          conditions = [img.if]
-        }
-        const values = conditions.map(cond => cond[0] === '!' ? !params.includes(cond.substring(1)) : params.includes(cond))
-        if (or) {
-          return values.includes(true)
-        }
-        return !values.includes(false)
-      }
-
-      const getFeature = id => {
-        const m = FEATURE_PATTERN.exec(id)
-        const baseId = m ? m[1] : id
-        const baseFeature = features[baseId]
-
-        if (!baseFeature) {
-          throw new Error(`Feature ${id} is not defined for ${tileId}`)
-        }
-        if (!baseFeature.params) {
-          return baseFeature
-        }
-
-        let params
-        if (m) {
-          params = m[2].split(',')
-          params.sort()
-        } else {
-          params = []
-        }
-
-        params.sort()
-        const key = `${baseId}[${params.join(',')}]`
-        let feature = features[key]
-        if (feature) {
-          return feature
-        }
-
-        feature = { ...baseFeature }
-        if (feature.images) {
-          feature.images = feature.images.filter(img => isMatchingParams(img, params))
-        }
-        for (let i = 0; i < 4; i++) {
-          const key = '@' + i
-          if (feature[key]) {
-            if (feature[key].images) {
-              feature[key] = {
-                ...feature[key],
-                images: feature[key].images.filter(img => isMatchingParams(img, params))
-              }
-            }
-          }
-        }
-        features[key] = feature
-        return feature
-      }
-
-      Object.entries(data.features).forEach(([loc, f]) => {
-        if (isString(f)) {
-          f = getFeature(f)
-        } else if (isObject(f)) {
-          if (f.id) {
-            const sharedFeature = getFeature(f.id)
-            Object.assign(f, sharedFeature)
-          }
-        }
-        tile.features[loc] = f
-      })
-
-      this._tiles[tileId] = tile
     }
 
     for (const fname of json.elementsInclude || []) {
@@ -356,13 +195,183 @@ export default class ArtworkLoader {
 
     for (const fname of json.tilesInclude || []) {
       const content = JSON.parse(await fs.promises.readFile(path.join(folder, fname)))
-      Object.entries(content).forEach(([tileId, data]) => processTile(tileId, data))
+      Object.entries(content).forEach(([tileId, data]) => this.processTile(artwork, tileId, data))
     }
 
     Object.entries(artwork.aliases).forEach(([id, alias]) => {
-      this._tiles[id] = this._tiles[alias]
+      this.tiles[id] = this.tiles[alias]
     })
 
     console.log(`Loaded artwork '${id}' from ${folder}`)
+  }
+
+  processTile (artwork, tileId, data) {
+    if (this.tiles[tileId]) {
+      // tile already registred by prev artwork
+      // currently there is time load fixed order
+      return
+    }
+
+    const tile = {
+      id: tileId,
+      rotation: data.rotation || 0,
+      artwork,
+      features: {}
+    }
+
+    if (data.image) {
+      if (data.image.href) {
+        makeAbsPathProp(artwork.pathPrefix, data.image, 'href', artwork.id)
+        tile.image = data.image
+      } else {
+        makeAbsPathProp(artwork.pathPrefix, data, 'image', artwork.id)
+        tile.image = data.image
+      }
+    }
+
+    Object.entries(data.features).forEach(([loc, f]) => {
+      if (isString(f)) {
+        f = this.getFeature(tileId, f)
+      } else if (isObject(f)) {
+        if (f.id) {
+          const sharedFeature = this.getFeature(tileId, f.id)
+          Object.assign(f, sharedFeature)
+        }
+      }
+      tile.features[loc] = f
+    })
+
+    this.tiles[tileId] = tile
+  }
+
+  getFeature (tileId, id) {
+    const m = FEATURE_PATTERN.exec(id)
+    const baseId = m ? m[1] : id
+    const baseFeature = this.features[baseId]
+
+    if (!baseFeature) {
+      throw new Error(`Feature ${id} is not defined for ${tileId}`)
+    }
+    if (!baseFeature.params) {
+      return baseFeature
+    }
+
+    let params
+    if (m) {
+      params = m[2].split(',')
+      params.sort()
+    } else {
+      params = []
+    }
+
+    params.sort()
+    const key = `${baseId}[${params.join(',')}]`
+    let feature = this.features[key]
+    if (feature) {
+      return feature
+    }
+
+    feature = { ...baseFeature }
+    if (feature.images) {
+      feature.images = feature.images.filter(img => this.isMatchingParams(img, params))
+    }
+    for (let i = 0; i < 4; i++) {
+      const key = '@' + i
+      if (feature[key]) {
+        if (feature[key].images) {
+          feature[key] = {
+            ...feature[key],
+            images: feature[key].images.filter(img => this.isMatchingParams(img, params))
+          }
+        }
+      }
+    }
+    this.features[key] = feature
+    return feature
+  }
+
+  isMatchingParams (img, params) {
+    if (!img.if) {
+      return true
+    }
+    let conditions
+    const or = img.if.includes('||')
+    const and = img.if.includes('&&')
+    if (or && and) {
+      throw new Error('both || and && is not allowed in one expression')
+    }
+    if (and) {
+      conditions = img.if.split(/\s*&&\s*/)
+    } else if (or) {
+      conditions = img.if.split(/\s*\|\|\s*/)
+    } else {
+      conditions = [img.if]
+    }
+    const values = conditions.map(cond => cond[0] === '!' ? !params.includes(cond.substring(1)) : params.includes(cond))
+    if (or) {
+      return values.includes(true)
+    }
+    return !values.includes(false)
+  }
+
+  processFeature (artwork, featureId, data) {
+    data.id = featureId
+    if (data.image) {
+      if (data.images) {
+        console.warn(`Feature ${featureId} shouldn't declare 'image' either 'images' property`)
+        data.images.push(data.image)
+      } else {
+        data.images = [data.image]
+      }
+      delete data.image
+    }
+    if (data.images) {
+      for (let i = 0; i < data.images.length; i++) {
+        if (isString(data.images[i])) data.images[i] = makeAbsPath(artwork.pathPrefix, data.images[i], artwork.id)
+        if (data.images[i] && data.images[i].href) data.images[i].href = makeAbsPath(artwork.pathPrefix, data.images[i].href, artwork.id)
+      }
+    }
+
+    if (data.clip) {
+      this.processFeatureClip(featureId, data)
+    }
+
+    forEachRotation(data, (item, rot) => {
+      if (item.image) {
+        if (item.images) {
+          console.warn(`Feature ${featureId} shouldn't declare 'image' either 'images' property`)
+          item.images.push(item.image)
+        } else {
+          item.images = [item.image]
+        }
+        delete item.image
+      }
+      if (item.images) {
+        for (let i = 0; i < item.images.length; i++) {
+          if (isString(item.images[i])) item.images[i] = makeAbsPath(artwork.pathPrefix, item.images[i], artwork.id)
+          if (item.images[i] && item.images[i].href) item.images[i].href = makeAbsPath(artwork.pathPrefix, item.images[i].href, artwork.id)
+        }
+      }
+
+      if (item.clip) {
+        this.processFeatureClip(featureId + rot, item)
+      }
+    })
+  }
+
+  processFeatureClip (featureId, data) {
+    const r = grammar.match(data.clip)
+    if (r.failed()) {
+      console.error(`Invalid clip for ${featureId}\n${r.message}`)
+      data.clip = 'M 0 0 Z'
+    }
+
+    this.clipMatch[featureId] = r
+
+    const refs = semantics(r).getRefs()
+    if (refs.length) {
+      this.refs[featureId] = refs
+      console.log(featureId, refs)
+    }
   }
 }

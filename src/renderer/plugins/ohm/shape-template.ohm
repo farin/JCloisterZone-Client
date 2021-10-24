@@ -9,7 +9,7 @@ ShapeTemplateGrammar {
            | path
 
   ShapeElement = "<" ShapeTag ShapeAttributes "/>"
-  ShapeTag = "circle" | "ellipse"
+  ShapeTag = "circle" | "ellipse" | "polygon" | "rect"
   ShapeAttributes = (~"/>" any)*  // nice to have validate also attributes validity
 
   path = literal | var
