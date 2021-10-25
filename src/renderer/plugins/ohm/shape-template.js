@@ -1,7 +1,18 @@
 import ohm from 'ohm-js'
+import { Path } from 'paper/dist/paper-core'
+
 import PathTemplateGrammar from './shape-template.ohm'
 
 export const grammar = ohm.grammar(PathTemplateGrammar)
+
+function asPath (p) {
+  return (p instanceof Path) ? p : new Path(p)
+}
+
+function exportPath (p) {
+  const el = p.exportSVG()
+  return el.getAttribute('d')
+}
 
 export function createSemantics (loader) {
   return grammar.createSemantics()
@@ -26,6 +37,18 @@ export function createSemantics (loader) {
 
       Expr (ppen, body, close) {
         return { expr: true, refs: body.getRefs() }
+      },
+
+      ExprBody_union (a, op, b) {
+        return [...a.getRefs(), ...b.getRefs()]
+      },
+
+      ExprBody_difference (a, op, b) {
+        return [...a.getRefs(), ...b.getRefs()]
+      },
+
+      ExprBody_intersection (a, op, b) {
+        return [...a.getRefs(), ...b.getRefs()]
       },
 
       literal (a, b, c) {
@@ -59,11 +82,26 @@ export function createSemantics (loader) {
       },
 
       Expr (open, body, close) {
-        // if (loader.vars[body.sourceString]) {
-        //   console.log('>>>' + loader.vars[body.sourceString])
-        // }
-        // return ` ###${body.sourceString}### `
-        return body.eval()
+        const res = body.eval()
+        return typeof res === 'string' ? res : exportPath(res)
+      },
+
+      ExprBody_union (a, op, b) {
+        const p1 = asPath(a.eval())
+        const p2 = asPath(b.eval())
+        return p1.unite(p2)
+      },
+
+      ExprBody_difference (a, op, b) {
+        const p1 = asPath(a.eval())
+        const p2 = asPath(b.eval())
+        return p1.subtract(p2)
+      },
+
+      ExprBody_intersection (a, op, b) {
+        const p1 = asPath(a.eval())
+        const p2 = asPath(b.eval())
+        return p1.intersect(p2)
       },
 
       path_ref (a, b, c, d) {

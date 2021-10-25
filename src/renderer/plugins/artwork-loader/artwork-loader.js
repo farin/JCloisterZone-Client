@@ -5,7 +5,7 @@ import isString from 'lodash/isString'
 import isObject from 'lodash/isObject'
 import mapValues from 'lodash/mapValues'
 
-import { Path } from 'paper/dist/paper-core'
+import { PaperScope } from 'paper/dist/paper-core'
 import { grammar, createSemantics } from '@/plugins/ohm/shape-template'
 
 const FEATURE_PATTERN = /([^[]+)(?:\[([^\]]+)\])/
@@ -41,6 +41,18 @@ const makeAbsPathProp = (prefix, obj, prop, artworkId) => {
 
 export default class ArtworkLoader {
   async loadArworks (enabledArtworks) {
+    const canvas = document.createElement('canvas')
+    canvas.setAttribute('id', 'paper-canvas')
+    canvas.setAttribute('width', '1000')
+    canvas.setAttribute('height', '1000')
+    document.body.appendChild(canvas)
+
+    let scope = PaperScope.get(1)
+    if (!scope) {
+      scope = new PaperScope()
+    }
+    scope.setup(canvas)
+
     this.artworks = {}
     this.tiles = {}
 
@@ -51,6 +63,8 @@ export default class ArtworkLoader {
     for (const artwork of enabledArtworks) {
       await this.loadArtwork(artwork)
     }
+
+    canvas.remove()
 
     return {
       artworks: this.artworks,

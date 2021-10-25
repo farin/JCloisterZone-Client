@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import isString from 'lodash/isString'
-import isObject from 'lodash/isObject'
 import sortBy from 'lodash/sortBy'
 
 import Location from '@/models/Location'

@@ -4,9 +4,11 @@ ShapeTemplateGrammar {
   PathFragment = (PathCommand|digit|"."|","|"-")*
   PathCommand = "M"|"m"|"L"|"l"|"H"|"h"|"V"|"v"|"Z"|"z"|"C"|"c"|"S"|"s"|"Q"|"q"|"T"|"t"|"A"|"a"
   Expr = "${" ExprBody "}"
-  ExprBody = path "+" path -- union
-  		     | path "-" path -- subtract
+  ExprBody = ExprBody "+" path -- union
+  		     | ExprBody "-" path -- difference
+           | ExprBody "&" path -- intersection
            | path
+
 
   ShapeElement = "<" ShapeTag ShapeAttributes "/>"
   ShapeTag = "circle" | "ellipse" | "polygon" | "rect"
