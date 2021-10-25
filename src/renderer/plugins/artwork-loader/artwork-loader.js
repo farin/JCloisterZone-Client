@@ -6,7 +6,7 @@ import isObject from 'lodash/isObject'
 import mapValues from 'lodash/mapValues'
 
 import { Path } from 'paper/dist/paper-core'
-import { grammar, semantics } from '@/plugins/ohm/shape-template'
+import { grammar, createSemantics } from '@/plugins/ohm/shape-template'
 
 const FEATURE_PATTERN = /([^[]+)(?:\[([^\]]+)\])/
 const EMPTY_PATH = 'M0 0 Z'
@@ -61,6 +61,7 @@ export default class ArtworkLoader {
   async loadArtwork ({ id, folder, json, jsonFile }) {
     this.vars = {}
     this.features = {}
+    this.semantics = createSemantics(this)
 
     const artwork = this.artworks[id] = {
       id,
@@ -79,7 +80,7 @@ export default class ArtworkLoader {
       features: {},
       tiles: {},
       elements: {},
-      pathPrefix: `file:///${folder}/`
+      pathPrefix: `file://${folder}/`
     }
 
     if (artwork.tileSize === 1000) {
@@ -139,40 +140,7 @@ export default class ArtworkLoader {
       })
     }
 
-    // const inlineClipRefs = feature => {
-    //   if (feature.clip) {
-    //     // if (id === 'solarized/solarized-dark') {
-    //     //   const r = grammar.match(feature.clip)
-    //     //   if (r.failed()) {
-    //     //     console.log(feature)
-    //     //     console.error(`Invalid clip for ${feature.id}\n${r.message}`)
-    //     //   } else {
-    //     //     console.log("REFS", semantics(r).getRefs())
-    //     //   }
-    //     // }
-
-    //     feature.clip = feature.clip.replace(/\$\{([^}]+)\}/g, (match, p1) => {
-    //       if (this.vars[p1]) {
-    //         return this.vars[p1]
-    //       }
-
-    //       const [id, rotKey] = p1.split('@')
-    //       let feature = this.features[id]
-    //       if (rotKey !== undefined) {
-    //         feature = feature['@' + rotKey]
-    //       }
-
-    //       if (!feature) {
-    //         console.error(`Unknown ref ${p1}`)
-    //         return ''
-    //       }
-
-    //       return feature.clip
-    //     })
-    //   }
-    // }
-
-    console.log({ ...this.refs })
+    // console.log({ ...this.refs })
 
     while (true) {
       const entries = Object.entries(this.refs)
@@ -183,11 +151,15 @@ export default class ArtworkLoader {
         if (refs.findIndex(r => this.refs[r]) !== -1) return
 
         const r = this.clipMatch[featureId]
-        // TODO create seamtics per artwork, with reference to this / features
-        // save semantics intead of MatchResult
-        console.log(featureId, '>>>', semantics(r).eval())
 
-        // TODO inject
+        // TODO save semantics intead of MatchResult ?
+        const clip = this.semantics(r).eval()
+        const [id, rotKey] = featureId.split('@')
+        const feature = this.features[id]
+        if (rotKey) feature['@' + rotKey].clip = clip
+        else if (feature.clip) feature.clip = clip
+        else if (feature['clip-rotate']) feature['clip-rotate'] = clip
+
         injected = true
         delete this.refs[featureId]
       })
@@ -196,15 +168,6 @@ export default class ArtworkLoader {
         break
       }
     }
-
-    // console.log(this.features)
-    // console.log(this.refs)
-    // console.log(this.backrefs)
-
-    // for (const feature of Object.values(this.features)) {
-    //   inlineClipRefs(feature)
-    //   forEachRotation(feature, inlineClipRefs)
-    // }
 
     for (const fname of json.elementsInclude || []) {
       const content = JSON.parse(await fs.promises.readFile(path.join(folder, fname)))
@@ -396,7 +359,7 @@ export default class ArtworkLoader {
 
     this.clipMatch[featureId] = r
 
-    const { expr, refs } = semantics(r).getRefs()
+    const { expr, refs } = this.semantics(r).getRefs()
     if (expr) {
       this.refs[featureId] = refs
 

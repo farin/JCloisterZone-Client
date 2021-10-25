@@ -66,10 +66,10 @@ class Theme extends EventsBase {
     }
 
     const enabledArtworks = settings.enabledArtworks.map(id => artworks[id]).filter(a => a)
-    const loaded = new ArtworkLoader().loadArworks(enabledArtworks)
+    const loaded = await (new ArtworkLoader()).loadArworks(enabledArtworks)
 
     this.artworks = loaded.artworks
-    this.tiles = loaded._tiles
+    this.tiles = loaded.tiles
     this.tileLayers = {}
     this.ctx.app.store.commit('artworksLoaded')
     this.emit('load')
