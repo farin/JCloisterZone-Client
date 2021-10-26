@@ -1,5 +1,5 @@
 import ohm from 'ohm-js'
-import { Path } from 'paper/dist/paper-core'
+import { Path, Point } from 'paper/dist/paper-core'
 
 import PathTemplateGrammar from './shape-template.ohm'
 
@@ -14,7 +14,9 @@ function exportPath (p) {
   return el.getAttribute('d')
 }
 
-export function createSemantics (loader) {
+export function createSemantics (loader, artwork) {
+  const center = new Point(artwork.tileSize / 2, artwork.tileSize / 2)
+
   return grammar.createSemantics()
     .addOperation('getRefs', {
       ShapeElement (a, b, c, d) {
@@ -51,11 +53,15 @@ export function createSemantics (loader) {
         return [...a.getRefs(), ...b.getRefs()]
       },
 
+      ExprBody_join (a, op, b) {
+        return [...a.getRefs(), ...b.getRefs()]
+      },
+
       literal (a, b, c) {
         return []
       },
 
-      path_ref (a, b, c, d) {
+      path_ref (a, b, c) {
         return [this.sourceString]
       },
 
@@ -104,7 +110,27 @@ export function createSemantics (loader) {
         return p1.intersect(p2)
       },
 
-      path_ref (a, b, c, d) {
+      ExprBody_join (a, op, b) {
+        const p1 = asPath(a.eval())
+        const p2 = asPath(b.eval())
+        return p1.join(p2)
+      },
+
+      var_transform (name, pipeOp, transform) {
+        const p = asPath(name.eval())
+        const t = transform.eval()
+        return t(p)
+      },
+
+      t_rotate (a, rot, c) {
+        return p => p.rotate(~~rot.sourceString, center)
+      },
+
+      literal (a, b, c) {
+        return this.sourceString
+      },
+
+      path_ref (a, b, c) {
         const ref = this.sourceString
         if (loader.vars[ref]) {
           return loader.vars[ref]

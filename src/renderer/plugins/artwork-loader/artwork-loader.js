@@ -43,8 +43,6 @@ export default class ArtworkLoader {
   async loadArworks (enabledArtworks) {
     const canvas = document.createElement('canvas')
     canvas.setAttribute('id', 'paper-canvas')
-    canvas.setAttribute('width', '1000')
-    canvas.setAttribute('height', '1000')
     document.body.appendChild(canvas)
 
     let scope = PaperScope.get(1)
@@ -73,10 +71,6 @@ export default class ArtworkLoader {
   }
 
   async loadArtwork ({ id, folder, json, jsonFile }) {
-    this.vars = {}
-    this.features = {}
-    this.semantics = createSemantics(this)
-
     const artwork = this.artworks[id] = {
       id,
       title: json.title || id,
@@ -112,6 +106,10 @@ export default class ArtworkLoader {
       artwork.background.image = makeAbsPath(artwork.pathPrefix, artwork.background.image)
       // TODO preload background
     }
+
+    this.vars = {}
+    this.features = {}
+    this.semantics = createSemantics(this, artwork)
 
     for (const res of json.resources || []) {
       if (path.extname(res) !== '.svg') {
