@@ -126,6 +126,14 @@ export function createSemantics (loader, artwork) {
         return p => p.rotate(~~rot.sourceString, center)
       },
 
+      t_mirror (a, axis, c) {
+        if (axis.sourceString === 'y') {
+          return p => p.scale(-1, 1, center)
+        } else {
+          return p => p.scale(1, -1, center)
+        }
+      },
+
       literal (a, b, c) {
         return this.sourceString
       },

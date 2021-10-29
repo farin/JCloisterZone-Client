@@ -20,11 +20,12 @@ ShapeTemplateGrammar {
   var = path_ref "|" transform -- transform
       | path_ref
   path_ref = (letter | digit | "." | "_" | "/" | "#" )* ("@" "0".."3")?
-  transform = t_reverse | t_translate | t_rotate
+  transform = t_reverse | t_translate | t_rotate | t_mirror
 
   t_reverse = "reverse"
   t_translate = "translate(" number "," space* number ")"
   t_rotate = "rotate(" ("0" | "90" | "180" | "270") ")"
+  t_mirror = "mirror(" ("x" | "y") ")"
 
   number = digit* "." digit+  -- fract
          | digit+             -- whole
