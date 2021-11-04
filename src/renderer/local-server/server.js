@@ -68,10 +68,35 @@ export default class GameServer {
   }
 
   async start (port) {
+    let perMessageDeflate = false
+    if (process.env.WS_PERMESSAGE_DEFLATE === '1') {
+      console.info('local server permessage-deflate enabled')
+      perMessageDeflate = {
+        zlibDeflateOptions: {
+          // See zlib defaults.
+          chunkSize: 1024,
+          memLevel: 7,
+          level: 3
+        },
+        zlibInflateOptions: {
+          chunkSize: 10 * 1024
+        },
+        // Other options settable:
+        clientNoContextTakeover: true, // Defaults to negotiated value.
+        serverNoContextTakeover: true, // Defaults to negotiated value.
+        serverMaxWindowBits: 10, // Defaults to negotiated value.
+        // Below options specified as default values.
+        concurrencyLimit: 10, // Limits zlib concurrency for perf.
+        threshold: 1024 // Size (in bytes) below which messages
+        // should not be compressed if context takeover is disabled.
+      }
+    }
+
     return new Promise(resolve => {
       this.clients = []
       this.wss = new WebSocketServer({
-        port
+        port,
+        perMessageDeflate
       }, () => {
         console.log(`%c embedded server %c started (${this.status} game)`, CONSOLE_SERVER_COLOR, '')
         resolve()
