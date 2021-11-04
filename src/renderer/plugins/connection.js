@@ -1,4 +1,3 @@
-import WebSocket from 'ws'
 import Vue from 'vue'
 import { randomId, randomInt } from '@/utils/random'
 
@@ -51,7 +50,7 @@ class ConnectionPlugin extends EventsBase {
       }
 
       console.log('%c client %c trying to connect to ' + host, CONSOLE_CLIENT_COLOR, '')
-      this.ws = new WebSocket(host)
+      this.ws = new WebSocket(host) // use browser websocket, ws library is used only for server
       this.ws.addEventListener('open', () => {
         console.log('%c client %c connected to ' + host, CONSOLE_CLIENT_COLOR, '')
         const appVersion = getAppVersion()

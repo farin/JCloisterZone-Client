@@ -1,5 +1,5 @@
 
-import WebSocket from 'ws'
+import { WebSocketServer } from 'ws'
 
 import camelCase from 'lodash/camelCase'
 import shuffle from 'lodash/shuffle'
@@ -70,7 +70,7 @@ export default class GameServer {
   async start (port) {
     return new Promise(resolve => {
       this.clients = []
-      this.wss = new WebSocket.Server({
+      this.wss = new WebSocketServer({
         port
       }, () => {
         console.log(`%c embedded server %c started (${this.status} game)`, CONSOLE_SERVER_COLOR, '')
