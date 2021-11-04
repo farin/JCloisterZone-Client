@@ -108,7 +108,7 @@ export default {
       selected: this.$store.state.loaded.tiles ? Expansion.BASIC.releases[0] : null,
       editionIdx: 0,
       sizeIdx: 4,
-      modeIdx: 1,
+      modeIdx: 2,
       sizes: [40, 100, 140, 180, 240, 300],
       releases
     }

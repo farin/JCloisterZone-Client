@@ -76,6 +76,11 @@ module.exports = {
           name: '[path][name].[ext]'
         }
       })
+
+      config.module.rules.push({
+        test: /\.ohm$/i,
+        loader: 'raw-loader'
+      })
     }
   }
 }
