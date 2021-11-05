@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import WebSocket from 'ws'
 import { randomId, randomInt } from '@/utils/random'
 
 import { getAppVersion } from '@/utils/version'
@@ -50,7 +51,11 @@ class ConnectionPlugin extends EventsBase {
       }
 
       console.log('%c client %c trying to connect to ' + host, CONSOLE_CLIENT_COLOR, '')
-      this.ws = new WebSocket(host) // use browser websocket, ws library is used only for server
+      // use websocket from ws library instead browser implementation
+      // ws provides
+      // - callback for data written out
+      // - ping event
+      this.ws = new WebSocket(host)
       this.ws.addEventListener('open', () => {
         console.log('%c client %c connected to ' + host, CONSOLE_CLIENT_COLOR, '')
         const appVersion = getAppVersion()
