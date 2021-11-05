@@ -111,9 +111,9 @@ class ConnectionPlugin extends EventsBase {
             } else {
               this.heartbeat = null
             }
-            heartbeat()
             resolve()
           }
+          heartbeat()
           onMessage(msg)
           this.emit('message', msg)
         }
