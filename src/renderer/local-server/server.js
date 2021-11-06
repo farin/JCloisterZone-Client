@@ -151,6 +151,10 @@ export default class GameServer {
 
     let helloExpected = true
     ws.on('message', async data => {
+      if (data.length === 0) { // data has Buffer type!
+        ws.send('')
+        return
+      }
       const message = JSON.parse(data)
       if (isDev) {
         console.log('%c embedded server %c received message', CONSOLE_SERVER_COLOR, '')

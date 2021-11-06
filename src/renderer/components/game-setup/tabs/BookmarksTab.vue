@@ -124,8 +124,8 @@ export default {
       try {
         await this.$store.dispatch('game/load', { setupOnly: true })
         this.$emit('load')
-      } catch {
-        // error message shown from action handler
+      } catch (e) {
+        console.error(e)
       }
     },
 
