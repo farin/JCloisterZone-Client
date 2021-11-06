@@ -9,7 +9,8 @@ import { NETWORK_PROTOCOL_COMPATIBILITY } from '@/constants/versions'
 import { randomId } from '@/utils/random'
 import { ENGINE_MESSAGES } from '@/constants/messages'
 import { CONSOLE_SERVER_COLOR } from '@/constants/logging'
-import { HEARTBEAT_INTERVAL } from '@/constants/ws'
+
+const SERVER_HEARTBEAT_INTERVAL = 10 * 1000
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -116,7 +117,7 @@ export default class GameServer {
           ws.isAlive = false
           ws.ping()
         })
-      }, HEARTBEAT_INTERVAL)
+      }, SERVER_HEARTBEAT_INTERVAL)
     })
   }
 
@@ -303,7 +304,7 @@ export default class GameServer {
       type: 'WELCOME',
       payload: {
         sessionId,
-        heartbeat: HEARTBEAT_INTERVAL
+        heartbeat: SERVER_HEARTBEAT_INTERVAL
       }
     })
 

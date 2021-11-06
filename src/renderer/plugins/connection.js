@@ -1,14 +1,14 @@
 import Vue from 'vue'
-import WebSocket from 'ws'
 import { randomId, randomInt } from '@/utils/random'
 
 import { getAppVersion } from '@/utils/version'
 import { CONSOLE_CLIENT_COLOR } from '@/constants/logging'
 import { NETWORK_PROTOCOL_COMPATIBILITY } from '@/constants/versions'
-import { HEARTBEAT_INTERVAL } from '@/constants/ws'
 import { EventsBase } from '@/utils/events'
 
 const isDev = process.env.NODE_ENV === 'development'
+const HEARTBEAT_INTERVAL = 10 * 1000
+const HEARTBEAT_TIMEOUT = 10 * 1000
 
 class ConnectionPlugin extends EventsBase {
   constructor (app) {
@@ -16,7 +16,8 @@ class ConnectionPlugin extends EventsBase {
     this.app = app
     this.ws = null
     this.recentlyUsedSourceHash = null
-    this.heartbeat = HEARTBEAT_INTERVAL
+    this.pingTimeout = null
+    this.pongTimeout = null
 
     if (process.env.JCZ_NETWORK_DELAY) {
       this.debugDelay = process.env.JCZ_NETWORK_DELAY.split('-').map(bound => +bound)
@@ -27,11 +28,26 @@ class ConnectionPlugin extends EventsBase {
     }
   }
 
+  heartbeat = () => {
+    clearTimeout(this.pingTimeout)
+    clearTimeout(this.pongTimeout)
+
+    this.pingTimeout = setTimeout(() => {
+      this.pingTimeout = null
+      if (this.ws.readyState === 1) {
+        this.ws.send('') // send empty frame = app level ping
+        this.pongTimeout = setTimeout(() => {
+          console.log('heartbeat timeout')
+          this.ws.close(4001)
+        }, HEARTBEAT_TIMEOUT)
+      }
+    }, HEARTBEAT_INTERVAL)
+  }
+
   // TODO use emitter instead callback
   async connect (host, { onMessage, onClose }) {
     let closeCalled = false
     let fulfilled = false
-    let pingTimeout = null
 
     const handleClose = code => {
       if (onClose && !closeCalled) {
@@ -41,15 +57,6 @@ class ConnectionPlugin extends EventsBase {
     }
 
     return new Promise((resolve, reject) => {
-      const heartbeat = () => {
-        clearTimeout(pingTimeout)
-        if (this.heartbeat !== null) {
-          pingTimeout = setTimeout(() => {
-            this.ws.terminate()
-          }, this.heartbeat + 2000)
-        }
-      }
-
       console.log('%c client %c trying to connect to ' + host, CONSOLE_CLIENT_COLOR, '')
       // use websocket from ws library instead browser implementation
       // ws provides
@@ -73,10 +80,8 @@ class ConnectionPlugin extends EventsBase {
             secret: settings.secret
           }
         }))
-        heartbeat()
+        this.heartbeat()
       })
-
-      this.ws.addEventListener('ping', heartbeat)
 
       this.ws.addEventListener('error', e => {
         console.log(`%c client %c websocket error ${e.message}`, CONSOLE_CLIENT_COLOR, '')
@@ -88,6 +93,14 @@ class ConnectionPlugin extends EventsBase {
       })
 
       this.ws.addEventListener('message', ev => {
+        this.heartbeat()
+        if (ev.data === '') {
+          if (isDev) {
+            console.log('%c client %c received empty message (pong)', CONSOLE_CLIENT_COLOR, '')
+          }
+          return
+        }
+
         const handle = () => {
           const msg = JSON.parse(ev.data)
           if (isDev) {
@@ -106,14 +119,9 @@ class ConnectionPlugin extends EventsBase {
           if (msg.type === 'WELCOME') {
             console.log('%c client %c session id assigned ' + msg.payload.sessionId, CONSOLE_CLIENT_COLOR, '')
             fulfilled = true
-            if (msg.heartbeat) {
-              this.heartbeat = msg.heartbeat
-            } else {
-              this.heartbeat = null
-            }
             resolve()
           }
-          heartbeat()
+          this.heartbeat()
           onMessage(msg)
           this.emit('message', msg)
         }
@@ -127,7 +135,8 @@ class ConnectionPlugin extends EventsBase {
       })
 
       this.ws.addEventListener('close', ev => {
-        clearTimeout(pingTimeout)
+        clearTimeout(this.pingTimeout)
+        clearTimeout(this.pongTimeout)
         console.log(`%c client %c websocket closed  code: ${ev.code} reason: ${ev.reason}`, CONSOLE_CLIENT_COLOR, '')
         this.ws = null
         this.emit('close', ev)
@@ -169,14 +178,14 @@ class ConnectionPlugin extends EventsBase {
           message = { id: randomId(), ...message }
         }
 
-        const cb = err => err ? reject(err) : resolve()
-
         if (this.debugDelay) {
           setTimeout(() => {
-            this.ws.send(JSON.stringify(message), cb)
+            this.ws.send(JSON.stringify(message))
+            resolve()
           }, randomInt(...this.debugDelay))
         } else {
-          this.ws.send(JSON.stringify(message), cb)
+          this.ws.send(JSON.stringify(message))
+          resolve()
         }
       } else {
         reject(new Error('not connected'))

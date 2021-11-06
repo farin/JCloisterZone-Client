@@ -108,7 +108,7 @@ class ConnectionHandler {
   async onClose (errCode) {
     const { state, commit, dispatch } = this.ctx
     const reconnecting = state.connectionStatus === STATUS_RECONNECTING
-    if ([1001, 1006].includes(errCode) || reconnecting) {
+    if ([1001, 1006, 1007, 4001].includes(errCode) || reconnecting) {
       const attempt = reconnecting ? state.reconnectAttempt + 1 : 1
       let delay
       if (attempt === 1) {
