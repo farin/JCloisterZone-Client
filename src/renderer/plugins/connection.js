@@ -7,8 +7,8 @@ import { NETWORK_PROTOCOL_COMPATIBILITY } from '@/constants/versions'
 import { EventsBase } from '@/utils/events'
 
 const isDev = process.env.NODE_ENV === 'development'
-const HEARTBEAT_INTERVAL = 10 * 1000
-const HEARTBEAT_TIMEOUT = 10 * 1000
+const HEARTBEAT_INTERVAL = 9 * 1000
+const HEARTBEAT_TIMEOUT = 9 * 1000
 
 class ConnectionPlugin extends EventsBase {
   constructor (app) {
@@ -19,12 +19,26 @@ class ConnectionPlugin extends EventsBase {
     this.pingTimeout = null
     this.pongTimeout = null
 
+    this.callbacks = null
+    this.connectCallbacks = null
+
     if (process.env.JCZ_NETWORK_DELAY) {
       this.debugDelay = process.env.JCZ_NETWORK_DELAY.split('-').map(bound => +bound)
       if (this.debugDelay.length === 1) {
         // make interval from it
         this.debugDelay.push(this.debugDelay[0])
       }
+    }
+
+    this._onOpen = () => { this.onOpen() }
+    this._onMessage = ev => { this.onMessage(ev) }
+    this._onError = ev => {
+      console.log(`%c client %c websocket error ${ev.message}`, CONSOLE_CLIENT_COLOR, '')
+      this.onClose(4001, ev)
+    }
+    this._onClose = ev => {
+      console.log(`%c client %c websocket closed  code: ${ev.code} reason: ${ev.reason}`, CONSOLE_CLIENT_COLOR, '')
+      this.onClose(ev.code, ev)
     }
   }
 
@@ -44,107 +58,106 @@ class ConnectionPlugin extends EventsBase {
     }, HEARTBEAT_INTERVAL)
   }
 
+  onOpen () {
+    console.log('%c client %c connected to ' + this.ws.url, CONSOLE_CLIENT_COLOR, '')
+    const appVersion = getAppVersion()
+    const engineVersion = this.app.store.state.engine.version
+    const { settings } = this.app.store.state
+    this.ws.send(JSON.stringify({
+      id: randomId(),
+      type: 'HELLO',
+      payload: {
+        appVersion,
+        engineVersion,
+        protocolVersion: NETWORK_PROTOCOL_COMPATIBILITY,
+        name: settings.nickname,
+        clientId: settings.clientId,
+        secret: settings.secret
+      }
+    }))
+    this.heartbeat()
+  }
+
+  onMessage (ev) {
+    this.heartbeat()
+    if (ev.data === '') {
+      if (isDev) {
+        console.log('%c client %c received empty message (pong)', CONSOLE_CLIENT_COLOR, '')
+      }
+      return
+    }
+
+    const handle = () => {
+      const msg = JSON.parse(ev.data)
+      if (isDev) {
+        console.log('%c client %c received message', CONSOLE_CLIENT_COLOR, '')
+        console.debug(msg)
+      }
+      // console.debug(`%c client %c received ${msg.type}`, CONSOLE_CLIENT_COLOR, '')
+      if (msg.type === 'ERR') {
+        this.connectCallbacks?.reject(msg)
+        this.emit('error', msg.payload)
+        return
+      }
+      if (msg.type === 'WELCOME') {
+        console.log('%c client %c session id assigned ' + msg.payload.sessionId, CONSOLE_CLIENT_COLOR, '')
+        this.connectCallbacks?.resolve()
+      }
+
+      this.heartbeat()
+      this.callbacks.onMessage(msg)
+      this.emit('message', msg)
+    }
+
+    if (this.debugDelay) {
+      setTimeout(() => {
+        handle()
+      }, randomInt(...this.debugDelay))
+    } else {
+      handle()
+    }
+  }
+
+  onClose (code, ev) {
+    clearTimeout(this.pingTimeout)
+    clearTimeout(this.pongTimeout)
+    this.connectCallbacks?.reject(ev)
+    this.emit('close', ev)
+
+    this.callbacks?.onClose(code)
+    this.callbacks = null
+    this.ws = null
+  }
+
+  terminate () {
+    // close has 30 sec timeout, remove listeners and call onClose immediatelly
+    if (this.ws) {
+      this.ws.removeEventListener('open', this._onOpen)
+      this.ws.removeEventListener('message', this._onMessage)
+      this.ws.removeEventListener('close', this._onClose)
+      this.ws.removeEventListener('error', this._onError)
+      this.ws.close(4001)
+      this.onClose(4001, null)
+    }
+  }
+
   // TODO use emitter instead callback
   async connect (host, { onMessage, onClose }) {
-    let closeCalled = false
-    let fulfilled = false
-
-    const handleClose = code => {
-      if (onClose && !closeCalled) {
-        closeCalled = true // call it only once. error event can be emited after close
-        onClose(code)
-      }
-    }
+    this.callbacks = { onMessage, onClose }
 
     return new Promise((resolve, reject) => {
       console.log('%c client %c trying to connect to ' + host, CONSOLE_CLIENT_COLOR, '')
-      // use websocket from ws library instead browser implementation
-      // ws provides
-      // - callback for data written out
-      // - ping event
+
+      this.connectCallbacks = {
+        resolve: () => { this.connectCallbacks = null; resolve() },
+        reject: err => { this.connectCallbacks = null; reject(err) }
+      }
+
       this.ws = new WebSocket(host)
-      this.ws.addEventListener('open', () => {
-        console.log('%c client %c connected to ' + host, CONSOLE_CLIENT_COLOR, '')
-        const appVersion = getAppVersion()
-        const engineVersion = this.app.store.state.engine.version
-        const { settings } = this.app.store.state
-        this.ws.send(JSON.stringify({
-          id: randomId(),
-          type: 'HELLO',
-          payload: {
-            appVersion,
-            engineVersion,
-            protocolVersion: NETWORK_PROTOCOL_COMPATIBILITY,
-            name: settings.nickname,
-            clientId: settings.clientId,
-            secret: settings.secret
-          }
-        }))
-        this.heartbeat()
-      })
-
-      this.ws.addEventListener('error', e => {
-        console.log(`%c client %c websocket error ${e.message}`, CONSOLE_CLIENT_COLOR, '')
-        this.ws = null
-        if (!fulfilled) {
-          reject(e)
-        }
-        handleClose(null)
-      })
-
-      this.ws.addEventListener('message', ev => {
-        this.heartbeat()
-        if (ev.data === '') {
-          if (isDev) {
-            console.log('%c client %c received empty message (pong)', CONSOLE_CLIENT_COLOR, '')
-          }
-          return
-        }
-
-        const handle = () => {
-          const msg = JSON.parse(ev.data)
-          if (isDev) {
-            console.log('%c client %c received message', CONSOLE_CLIENT_COLOR, '')
-            console.debug(msg)
-          }
-          // console.debug(`%c client %c received ${msg.type}`, CONSOLE_CLIENT_COLOR, '')
-          if (msg.type === 'ERR') {
-            if (!fulfilled) {
-              fulfilled = true
-              reject(msg)
-            }
-            this.emit('error', msg.payload)
-            return
-          }
-          if (msg.type === 'WELCOME') {
-            console.log('%c client %c session id assigned ' + msg.payload.sessionId, CONSOLE_CLIENT_COLOR, '')
-            fulfilled = true
-            resolve()
-          }
-          this.heartbeat()
-          onMessage(msg)
-          this.emit('message', msg)
-        }
-        if (this.debugDelay) {
-          setTimeout(() => {
-            handle()
-          }, randomInt(...this.debugDelay))
-        } else {
-          handle()
-        }
-      })
-
-      this.ws.addEventListener('close', ev => {
-        clearTimeout(this.pingTimeout)
-        clearTimeout(this.pongTimeout)
-        console.log(`%c client %c websocket closed  code: ${ev.code} reason: ${ev.reason}`, CONSOLE_CLIENT_COLOR, '')
-        this.ws = null
-        this.emit('close', ev)
-        if (!fulfilled) {
-          reject(ev)
-        }
-        handleClose(ev.code)
-      })
+      this.ws.addEventListener('open', this._onOpen)
+      this.ws.addEventListener('message', this._onMessage)
+      this.ws.addEventListener('error', this._onOpen)
+      this.ws.addEventListener('close', this._onClose)
     })
   }
 
