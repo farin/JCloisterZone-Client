@@ -27,7 +27,7 @@ export default {
 
   computed: {
     max () {
-      let mx = DEFAULT_MAX
+      let mx = isNil(this.release.max) ? DEFAULT_MAX : this.release.max
       this.release.sets.forEach(s => {
         if (!isNil(s.max)) {
           mx = Math.min(mx, s.max)
