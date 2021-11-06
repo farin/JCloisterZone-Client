@@ -29,17 +29,6 @@ class ConnectionPlugin extends EventsBase {
         this.debugDelay.push(this.debugDelay[0])
       }
     }
-
-    this._onOpen = () => { this.onOpen() }
-    this._onMessage = ev => { this.onMessage(ev) }
-    this._onError = ev => {
-      console.log(`%c client %c websocket error ${ev.message}`, CONSOLE_CLIENT_COLOR, '')
-      this.onClose(4001, ev)
-    }
-    this._onClose = ev => {
-      console.log(`%c client %c websocket closed  code: ${ev.code} reason: ${ev.reason}`, CONSOLE_CLIENT_COLOR, '')
-      this.onClose(ev.code, ev)
-    }
   }
 
   heartbeat = () => {
@@ -48,11 +37,11 @@ class ConnectionPlugin extends EventsBase {
 
     this.pingTimeout = setTimeout(() => {
       this.pingTimeout = null
-      if (this.ws.readyState === 1) {
+      if (this.ws?.readyState === 1) {
         this.ws.send('') // send empty frame = app level ping
         this.pongTimeout = setTimeout(() => {
           console.log('heartbeat timeout')
-          this.ws.close(4001)
+          this.ws?.close(4001)
         }, HEARTBEAT_TIMEOUT)
       }
     }, HEARTBEAT_INTERVAL)
@@ -118,24 +107,35 @@ class ConnectionPlugin extends EventsBase {
     }
   }
 
-  onClose (code, ev) {
+  // onError (err) {
+  //   console.log(`%c client %c websocket error ${err.message}`, CONSOLE_CLIENT_COLOR, '')
+  //   this.afterClose(4001, err)
+  // }
+
+  onClose (ev) {
+    console.log(`%c client %c websocket closed  code: ${ev.code} reason: ${ev.reason}`, CONSOLE_CLIENT_COLOR, '')
+    this.afterClose(this.connectCallbacks ? 1000 : ev.code, ev) // not connected yet, do not report 1006
+  }
+
+  afterClose (code, ev) {
     clearTimeout(this.pingTimeout)
     clearTimeout(this.pongTimeout)
-    this.connectCallbacks?.reject(ev)
-    this.emit('close', ev)
+    if (this.ws) {
+      this.connectCallbacks?.reject(ev)
+      this.emit('close', ev)
 
-    this.callbacks?.onClose(code)
-    this.callbacks = null
-    this.ws = null
+      this.callbacks?.onClose(code)
+      this.callbacks = null
+      this.ws = null
+    }
   }
 
   terminate () {
     // close has 30 sec timeout, remove listeners and call onClose immediatelly
     if (this.ws) {
-      this.ws.removeEventListener('open', this._onOpen)
-      this.ws.removeEventListener('message', this._onMessage)
-      this.ws.removeEventListener('close', this._onClose)
-      this.ws.removeEventListener('error', this._onError)
+      this.ws.onpen = undefined
+      this.ws.onmessage = undefined
+      this.ws.onclose = undefined
       this.ws.close(4001)
       this.onClose(4001, null)
     }
@@ -154,17 +154,15 @@ class ConnectionPlugin extends EventsBase {
       }
 
       this.ws = new WebSocket(host)
-      this.ws.addEventListener('open', this._onOpen)
-      this.ws.addEventListener('message', this._onMessage)
-      this.ws.addEventListener('error', this._onOpen)
-      this.ws.addEventListener('close', this._onClose)
+      this.ws.onopen = this.onOpen.bind(this)
+      this.ws.onmessage = this.onMessage.bind(this)
+      this.ws.onclose = this.onClose.bind(this)
     })
   }
 
   disconnect () {
     if (this.ws) {
       this.ws.close()
-      this.ws = null
       this.recentlyUsedSourceHash = null
     }
   }
