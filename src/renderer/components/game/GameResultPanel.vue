@@ -83,6 +83,7 @@ export default {
 <style lang="sass" scoped>
 section
   display: flex
+  overflow: hidden
 
 .standing
   padding-top: 20px
@@ -90,6 +91,8 @@ section
   display: flex
   justify-content: center
   align-items: center
+  flex-wrap: wrap
+
 
 .buttons
   display: flex
@@ -117,5 +120,16 @@ svg.meeple
 
     +theme using ($theme)
       color: map-get($theme, 'gray-text-color')
+
+@media (max-width: 1960px)
+  svg.meeple
+    width: 40px
+    height: 40px
+
+  .rank
+    margin: 0 15px
+
+    .num
+      font-size: 36px
 
 </style>
