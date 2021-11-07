@@ -1,3 +1,5 @@
+import last from 'lodash/last'
+
 import { ENGINE_MESSAGES } from '@/constants/messages'
 import { connectExceptionToMessage } from '@/utils/networking'
 
@@ -42,7 +44,18 @@ class ConnectionHandler {
       commit('reconnectAttempt', null)
       if (state.connectionType === 'online') {
         if (reconnected && rootState.game.id) {
-          await this.$connection.send({ type: 'JOIN_GAME', payload: { gameId: rootState.game.id } })
+          const payload = { gameId: rootState.game.id }
+          const lastMsg = last(rootState.game.gameMessages)
+          if (lastMsg) {
+            payload.lastMessage = {
+              id: lastMsg.id,
+              seq: lastMsg.seq
+            }
+          }
+          await this.$connection.send({
+            type: 'JOIN_GAME',
+            payload
+          })
         } else {
           this.$router.push('/online')
         }
@@ -72,9 +85,18 @@ class ConnectionHandler {
         }
       }
 
+      if (payload.replay === true) {
+        payload.replay = rootState.game.gameMessages
+      }
+
       await dispatch('game/handleGameMessage', payload, { root: true })
       if (payload.state === 'R' || payload.state === 'F') { // running or finished
-        await dispatch('game/handleStartMessage', { clock: message.clock, id: null, payload: {} }, { root: true })
+        await dispatch('game/handleStartMessage', {
+          clock: message.clock,
+          id: null,
+          payload: {}
+        }, { root: true })
+
         if (!rootState.runningTests) {
           if (this.$router.currentRoute.path !== '/game') {
             commit('board/reset', null, { root: true })
