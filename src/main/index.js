@@ -12,6 +12,7 @@ import dialog from './modules/dialog'
 import updater from './modules/updater'
 import winevents from './modules/winevents'
 import settingsWatch from './modules/settingsWatch'
+import localServer from './modules/localServer'
 
 autoUpdater.logger = electronLogger
 autoUpdater.logger.transports.file.level = 'info'
@@ -73,6 +74,7 @@ app.whenReady().then(() => {
     modules.push(menu(settings))
     modules.push(dialog(settings))
     modules.push(winevents(settings))
+    modules.push(localServer(settings))
 
     if (process.env.NODE_ENV === 'production') {
       modules.push(updater(settings))

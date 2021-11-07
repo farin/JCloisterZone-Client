@@ -254,6 +254,10 @@ export default {
     onThemeChange(this.$store.state.settings.theme)
     this.updateMenu()
 
+    ipcRenderer.on('error', (ev, value) => {
+      this.$store.commit('errorMessage', value)
+    })
+
     ipcRenderer.on('settings.changed', (ev, value) => {
       this.$store.dispatch('settings/loaded', value)
     })
@@ -369,7 +373,7 @@ export default {
         date: (new Date()).toISOString(),
         os: `${os.platform()} ${os.release()}`,
         java: this.java ? `${this.java.vendor} ${this.java.version}` : '',
-        ...this.$server.getServer().dump()
+        ...(await this.$server.dump())
       }
 
       let { filePath } = await ipcRenderer.invoke('dialog.showSaveDialog', {
