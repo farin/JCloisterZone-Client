@@ -23,7 +23,7 @@ ShapeTemplateGrammar {
   transform = t_reverse | t_translate | t_rotate | t_mirror
 
   t_reverse = "reverse"
-  t_translate = "translate(" number "," space* number ")"
+  t_translate = "translate(" number ","? space* number ")"
   t_rotate = "rotate(" ("0" | "90" | "180" | "270") ")"
   t_mirror = "mirror(" ("x" | "y") ")"
 

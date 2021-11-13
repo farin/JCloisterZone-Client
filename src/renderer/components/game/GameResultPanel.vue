@@ -93,7 +93,6 @@ section
   align-items: center
   flex-wrap: wrap
 
-
 .buttons
   display: flex
   justify-content: center

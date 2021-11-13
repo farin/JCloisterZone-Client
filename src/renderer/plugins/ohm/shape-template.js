@@ -122,6 +122,10 @@ export function createSemantics (loader, artwork) {
         return t(p)
       },
 
+      t_translate (a, x, c, d, y, f) {
+        return p => p.translate(new Point(x, y))
+      },
+
       t_rotate (a, rot, c) {
         return p => p.rotate(~~rot.sourceString, center)
       },
