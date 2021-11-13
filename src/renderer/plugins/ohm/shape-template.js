@@ -1,3 +1,4 @@
+import zip from 'lodash/zip'
 import ohm from 'ohm-js'
 import { Path, Point } from 'paper/dist/paper-core'
 
@@ -28,6 +29,7 @@ export function createSemantics (loader, artwork) {
       },
 
       _iter (...args) {
+        // used only for PathTemplate expr
         const r = { expr: false, refs: [] }
         args.forEach(a => {
           const { expr, refs } = a.getRefs()
@@ -65,7 +67,7 @@ export function createSemantics (loader, artwork) {
         return [this.sourceString]
       },
 
-      var_transform (name, pipeOp, transform) {
+      variable (name, op, transform) {
         return name.getRefs()
       }
     })
@@ -74,13 +76,19 @@ export function createSemantics (loader, artwork) {
         return this.sourceString
       },
 
+      PathFragment (a) {
+        return this.sourceString
+      },
+
       PathTemplate (f1, expr, f2) {
-        return f1.sourceString + expr.eval() + f2.eval()
+        const tail = zip(expr.eval(), f2.eval()).map(([a, b]) => {
+          return ` ${a} ${b}`
+        }).join('')
+        return f1.sourceString + tail
       },
 
       _iter (...args) {
-        // console.log(this)
-        return args.map(a => a.eval()).join(' ')
+        return args.map(a => a.eval())
       },
 
       _terminal () {
@@ -116,13 +124,24 @@ export function createSemantics (loader, artwork) {
         return p1.join(p2)
       },
 
-      var_transform (name, pipeOp, transform) {
-        const p = asPath(name.eval())
-        const t = transform.eval()
-        return t(p)
+      variable (name, op, transform) {
+        const n = name.eval()
+        const ops = transform.eval()
+        if (!ops.length) {
+          return n
+        }
+        const p = asPath(n)
+        return ops.reduce((p, t) => t(p), p)
+      },
+
+      t_reverse (a) {
+        return p => { p.reverse(); return p }
       },
 
       t_translate (a, x, c, d, y, f) {
+        x = ~~x.sourceString
+        y = ~~y.sourceString
+        console.log(x, y)
         return p => p.translate(new Point(x, y))
       },
 

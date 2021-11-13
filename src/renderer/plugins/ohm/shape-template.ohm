@@ -15,10 +15,9 @@ ShapeTemplateGrammar {
   ShapeTag = "circle" | "ellipse" | "polygon" | "rect"
   ShapeAttributes = (~"/>" any)*  // nice to have validate also attributes validity
 
-  path = literal | var
+  path = literal | variable
   literal = "(" (~")" any)* ")"
-  var = path_ref "|" transform -- transform
-      | path_ref
+  variable = path_ref ("|" transform)*
   path_ref = (letter | digit | "." | "_" | "/" | "#" )* ("@" "0".."3")?
   transform = t_reverse | t_translate | t_rotate | t_mirror
 
