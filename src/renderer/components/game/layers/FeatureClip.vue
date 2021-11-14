@@ -12,16 +12,13 @@ export default {
 
   computed: {
     attrs () {
-      let attrs = {}
       switch (this.clip.shape) {
-      case 'circle': attrs = pick(this.clip, ['cx', 'cy', 'r']); break
-      case 'ellipse': attrs = pick(this.clip, ['cx', 'cy', 'rx', 'ry']); break
-      case 'path': attrs = pick(this.clip, ['d']); break
+      case 'circle': return pick(this.clip, ['cx', 'cy', 'r', 'fill-rule'])
+      case 'ellipse': return pick(this.clip, ['cx', 'cy', 'rx', 'ry', 'fill-rule'])
+      case 'path': return pick(this.clip, ['d', 'fill-rule'])
       }
-      return attrs
+      return {}
     }
   }
 }
 </script>
-
-=

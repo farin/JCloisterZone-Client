@@ -168,9 +168,9 @@ export default class ArtworkLoader {
         const clip = this.semantics(r).eval()
         const [id, rotKey] = featureId.split('@')
         const feature = this.features[id]
-        if (rotKey) feature['@' + rotKey].clip = clip
-        else if (feature.clip) feature.clip = clip
-        else if (feature['clip-rotate']) feature['clip-rotate'] = clip
+        if (rotKey) feature['@' + rotKey].clip = this.injectClip(feature['@' + rotKey].clip, clip)
+        else if (feature.clip) feature.clip = this.injectClip(feature.clip, clip)
+        else if (feature['clip-rotate']) feature['clip-rotate'] = this.injectClip(feature['clip-rotate'], clip)
 
         injected = true
         delete this.refs[featureId]
@@ -209,6 +209,11 @@ export default class ArtworkLoader {
     })
 
     console.log(`Loaded artwork '${id}' from ${folder}`)
+  }
+
+  injectClip (attr, clip) {
+    if (isObject(attr)) return { ...attr, d: clip }
+    return clip
   }
 
   processTile (artwork, tileId, data) {
