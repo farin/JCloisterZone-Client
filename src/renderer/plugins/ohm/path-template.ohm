@@ -20,6 +20,5 @@ PathTemplateGrammar {
   t_rotate = "rotate(" ("0" | "90" | "180" | "270") ")"
   t_mirror = "mirror(" ("x" | "y") ")"
 
-  number = digit* "." digit+  -- fract
-         | digit+             -- whole
+  number = "-"? digit* ("." digit+)?
 }
