@@ -1,6 +1,8 @@
+import isObject from 'lodash/isObject'
 import zip from 'lodash/zip'
 import ohm from 'ohm-js'
 import { Path, Point } from 'paper/dist/paper-core'
+import { ConcatenationScope } from 'webpack'
 
 import PathTemplateGrammar from './path-template.ohm'
 
@@ -170,7 +172,22 @@ export function createSemantics (loader, artwork) {
           return ''
         }
 
-        return feature.clip
+        const { clip } = feature
+        if (isObject(clip)) {
+          // https://stackoverflow.com/questions/5737975/circle-drawing-with-svgs-arc-path
+          if (clip.shape === 'circle') {
+            const { cx, cy, r} = clip
+            return `M${cx - r},${cy}a${r},${r} 0 1,0 ${r * 2},0a${r},${r} 0 1,0 -${r * 2},0 Z`
+          }
+          if (clip.shape === 'ellipse') {
+            const { cx, cy, rx, ry} = clip
+            return `M${cx - rx},${cy}a${rx},${ry} 0 1,0 ${rx * 2},0a${rx},${ry} 0 1,0 -${rx * 2},0 Z`
+          }
+          console.error('Only path, cicle or ellopse can be referenced from path expression')
+          return ''
+        }
+
+        return clip
       }
     })
 }
