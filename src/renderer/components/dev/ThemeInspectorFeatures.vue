@@ -17,26 +17,19 @@
           @click="ev => onSelect(opt, feature)"
         />
       </g>
-      <g v-else>
+      <g
+        v-else
+        :transform="artwork.inverseScaleTransform + ' ' + transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
+        :class="{ area: true, [opt.cssClass]: true, mouseover: opt === mouseOver, mouseout: opt !== mouseOver }"
+        @mouseenter="onMouseOver(opt)"
+        @mouseleave="onMouseLeave(opt)"
+        @click="ev => onSelect(opt, feature)"
+      >
         <path
-          v-if="feature.clip && feature.clip[0] !== '<'"
+          v-if="typeof feature.clip === 'string'"
           :d="feature.clip"
-          :transform="artwork.inverseScaleTransform + ' ' + transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
-          :class="{ area: true, [opt.cssClass]: true, mouseover: opt === mouseOver, mouseout: opt !== mouseOver }"
-          @mouseenter="onMouseOver(opt)"
-          @mouseleave="onMouseLeave(opt)"
-          @click="ev => onSelect(opt, feature)"
         />
-        <!-- eslint-disable vue/no-v-html-->
-        <g
-          v-else-if="feature.clip"
-          :transform="artwork.inverseScaleTransform + ' ' + transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
-          :class="{ area: true, [opt.cssClass]: true, mouseover: opt === mouseOver, mouseout: opt !== mouseOver }"
-          @mouseenter="onMouseOver(opt)"
-          @mouseleave="onMouseLeave(opt)"
-          @click="ev => onSelect(opt, feature)"
-          v-html="feature.clip"
-        />
+        <FeatureClip v-else :clip="feature.clip" />
       </g>
     </g>
   </g>
@@ -45,11 +38,13 @@
 <script>
 import LayerMixin from '@/components/game/layers/LayerMixin'
 import Location from '@/models/Location'
+import FeatureClip from '@/components/game/layers/FeatureClip.vue'
 
 const MEEPLES_SVG = require('~/assets/meeples.svg')
 
 export default {
   components: {
+    FeatureClip
   },
 
   mixins: [LayerMixin],

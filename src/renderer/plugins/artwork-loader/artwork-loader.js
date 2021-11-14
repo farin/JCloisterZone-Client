@@ -6,7 +6,7 @@ import isObject from 'lodash/isObject'
 import mapValues from 'lodash/mapValues'
 
 import { PaperScope } from 'paper/dist/paper-core'
-import { grammar, createSemantics } from '@/plugins/ohm/shape-template'
+import { grammar, createSemantics } from '@/plugins/ohm/path-template'
 
 const FEATURE_PATTERN = /([^[]+)(?:\[([^\]]+)\])/
 const EMPTY_PATH = 'M0 0 Z'
@@ -363,6 +363,23 @@ export default class ArtworkLoader {
   }
 
   validateFeatureClip (featureId, clip) {
+    if (isObject(clip)) {
+      const shape = clip.shape
+      if (!['path', 'circle', 'ellipse'].includes(shape)) {
+        console.error(`Clip doesn't define valid shape ${featureId}\n${clip}`)
+        return false
+      }
+      if (shape === 'path') {
+        // validate path itself
+        clip = clip.d
+      } else {
+        return true
+      }
+    } if (clip.charAt(0) === '<') {
+      console.error(`Raw SVG is no longer supported as clip ${featureId}\n${clip}`)
+      return false
+    }
+
     const r = grammar.match(clip)
     if (r.failed()) {
       console.error(`Invalid clip for ${featureId}\n${r.message}`)
@@ -374,14 +391,6 @@ export default class ArtworkLoader {
     const { expr, refs } = this.semantics(r).getRefs()
     if (expr) {
       this.refs[featureId] = refs
-
-      // refs.forEach(ref => {
-      //   let backref = this.backrefs[ref]
-      //   if (!backref) {
-      //     backref = this.backrefs[ref] = []
-      //   }
-      //   backref.push(featureId)
-      // })
     }
 
     return true

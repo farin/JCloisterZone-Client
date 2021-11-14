@@ -1,5 +1,4 @@
-ShapeTemplateGrammar {
-  ShapeTemplate = ShapeElement | PathTemplate
+PathTemplateGrammar {
   PathTemplate = PathFragment (Expr PathFragment)*
   PathFragment = (PathCommand|digit|"."|","|"-")*
   PathCommand = "M"|"m"|"L"|"l"|"H"|"h"|"V"|"v"|"Z"|"z"|"C"|"c"|"S"|"s"|"Q"|"q"|"T"|"t"|"A"|"a"
@@ -9,11 +8,6 @@ ShapeTemplateGrammar {
            | ExprBody "&" path -- intersection
            | ExprBody ">" path -- join
            | path
-
-
-  ShapeElement = "<" ShapeTag ShapeAttributes "/>"
-  ShapeTag = "circle" | "ellipse" | "polygon" | "rect"
-  ShapeAttributes = (~"/>" any)*  // nice to have validate also attributes validity
 
   path = literal | variable
   literal = "(" (~")" any)* ")"

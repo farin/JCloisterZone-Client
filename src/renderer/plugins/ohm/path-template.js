@@ -2,7 +2,7 @@ import zip from 'lodash/zip'
 import ohm from 'ohm-js'
 import { Path, Point } from 'paper/dist/paper-core'
 
-import PathTemplateGrammar from './shape-template.ohm'
+import PathTemplateGrammar from './path-template.ohm'
 
 export const grammar = ohm.grammar(PathTemplateGrammar)
 
@@ -20,16 +20,12 @@ export function createSemantics (loader, artwork) {
 
   return grammar.createSemantics()
     .addOperation('getRefs', {
-      ShapeElement (a, b, c, d) {
-        return { expr: false, refs: [] }
-      },
-
       PathTemplate (f1, expr, f2) {
         return expr.getRefs()
       },
 
       _iter (...args) {
-        // used only for PathTemplate expr
+        // used only for PathTemplate expr, TODO move ites impl there
         const r = { expr: false, refs: [] }
         args.forEach(a => {
           const { expr, refs } = a.getRefs()
@@ -72,10 +68,6 @@ export function createSemantics (loader, artwork) {
       }
     })
     .addOperation('eval', {
-      ShapeElement (a, b, c, d) {
-        return this.sourceString
-      },
-
       PathFragment (a) {
         return this.sourceString
       },
@@ -141,7 +133,6 @@ export function createSemantics (loader, artwork) {
       t_translate (a, x, c, d, y, f) {
         x = ~~x.sourceString
         y = ~~y.sourceString
-        console.log(x, y)
         return p => p.translate(new Point(x, y))
       },
 
