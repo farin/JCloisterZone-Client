@@ -24,11 +24,7 @@
         @mouseleave="onMouseLeave(opt)"
         @click="ev => onSelect(ev, opt, abbotChoice)"
       >
-        <path
-          v-if="typeof feature.clip === 'string'"
-          :d="feature.clip"
-        />
-        <FeatureClip v-else :clip="feature.clip" />
+        <FeatureClip :clip="feature.clip" />
       </g>
     </g>
   </g>
@@ -36,9 +32,11 @@
 
 <script>
 import LayerMixin from '@/components/game/layers/LayerMixin'
+import FeatureClip from '@/components/game/layers/FeatureClip.vue'
 
 export default {
   components: {
+    FeatureClip
   },
 
   mixins: [LayerMixin],

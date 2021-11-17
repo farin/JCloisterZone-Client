@@ -25,11 +25,7 @@
         @mouseleave="onMouseLeave(opt)"
         @click="ev => onSelect(opt, feature)"
       >
-        <path
-          v-if="typeof feature.clip === 'string'"
-          :d="feature.clip"
-        />
-        <FeatureClip v-else :clip="feature.clip" />
+        <FeatureClip :clip="feature.clip" />
       </g>
     </g>
   </g>
