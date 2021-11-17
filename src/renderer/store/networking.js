@@ -258,7 +258,7 @@ export const actions = {
     }
   },
 
-  close ({ commit }) {
+  close ({ commit, rootState }) {
     const { $server, $connection } = this._vm
     if (reconnectTimeout) {
       clearTimeout(reconnectTimeout)
@@ -269,6 +269,8 @@ export const actions = {
     commit('connectionType', null)
     commit('connectionStatus', null)
     commit('reconnectAttempt', null)
-    this.$router.push('/')
+    if (!rootState.runningTests) {
+      this.$router.push('/')
+    }
   }
 }

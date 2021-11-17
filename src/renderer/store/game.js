@@ -539,6 +539,7 @@ export const actions = {
       }, { root: true })
 
       if (sg.test) {
+        commit('id', sg.gameId) // HACK, prevent clear when GAME message is received
         commit('testScenario', sg.test)
         dispatch('game/start', null, { root: true })
       }
