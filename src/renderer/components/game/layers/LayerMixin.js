@@ -60,20 +60,11 @@ export default {
 
     transformTunnelEnd (ptr) {
       const { position, location } = ptr
-      let rotation = 0
-      if (location === 'E') rotation = 90
-      if (location === 'S') rotation = 180
-      if (location === 'W') rotation = 270
+
       const tile = this.tileOn(position)
-      let y = 300
-      if (!tile.id.startsWith('TU/')) {
-        if (tile.id === 'AM/CRcr+' && Location.parse(location).rotateCCW(tile.rotation).name === 'N') {
-          y = 400
-        } else {
-          y = 60
-        }
-      }
-      return `${this.transformPosition(tile.position)} ${this.transformRotation(rotation)} translate(500 ${y}) rotate(${-rotation} 0 0)`
+      const feature = this.$theme.getFeature(tile, 'Tunnel', location, [])
+      const { point, rotation, transform, inverseScaleTransform } = feature
+      return `${this.transformPosition(tile.position)} ${this.transformRotation(rotation)} ${transform || ''} translate(${point[0]} ${point[1]}) rotate(${-rotation} 0 0) ${inverseScaleTransform || ''}`
     }
   }
 }
