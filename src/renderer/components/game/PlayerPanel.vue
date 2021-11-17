@@ -3,11 +3,10 @@
     :class="{
       'active-turn': index === turnPlayer,
       'active-action': index === actionPlayer,
-      'offline': !slot.sessionId,
-      [colorCssClass(index)]: true
+      'offline': !slot.sessionId
     }"
   >
-    <div class="name-box">
+    <div :class="'name-box '+ color">
       <div class="points">
         <div>{{ player.points }}</div>
       </div>
@@ -26,7 +25,7 @@
       <div
         v-for="({ follower, count }) in followers"
         :key="follower"
-        :class="'item item-follower ' + colorCssClass(index)"
+        :class="'item item-follower ' + color"
       >
         <Meeple :type="follower" />
         <span v-if="count > 1" class="count">{{ count }}</span>
@@ -105,6 +104,10 @@ export default {
       colorCssClass: 'game/colorCssClass',
       canPayRansom: 'game/canPayRansom'
     }),
+
+    color () {
+      return this.colorCssClass(this.index)
+    },
 
     slot () {
       return this.$store.state.game.slots.find(s => s.number === this.player.slot)
