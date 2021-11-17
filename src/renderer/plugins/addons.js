@@ -22,7 +22,7 @@ class Addons extends EventsBase {
       classic: {
         url: 'https://jcloisterzone.com/packages/classic/classic-6-5.9.0.jca',
         version: 6,
-        sha256: '5bd75e432f976d7524a1bc22fd4178fed7744edaf27c76231249ef34fd6b20c9'
+        sha256: '26b1fc8edc37c9df162b6b5a74164c6ba09951e450df7b62f2568c2db03327b0'
       }
     }
 
