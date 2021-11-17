@@ -20,9 +20,9 @@ class Addons extends EventsBase {
 
     this.AUTO_DOWNLOADED = {
       classic: {
-        url: 'https://jcloisterzone.com/packages/classic/classic-5-5.7.1.jca',
-        version: 5,
-        sha256: '0a57a52b395da2bafcd2893bd1870bf307f8353ef59dd6c4e6185a0f907e5b6f'
+        url: 'https://jcloisterzone.com/packages/classic/classic-6-5.9.0.jca',
+        version: 6,
+        sha256: '5bd75e432f976d7524a1bc22fd4178fed7744edaf27c76231249ef34fd6b20c9'
       }
     }
 
