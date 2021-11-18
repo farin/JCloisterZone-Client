@@ -81,6 +81,11 @@ module.exports = {
         test: /\.ohm$/i,
         loader: 'raw-loader'
       })
+
+      // https://github.com/yan-foto/electron-reload/issues/71
+      config.externals = {
+        fsevents: "require('fsevents')"
+      }
     }
   }
 }
