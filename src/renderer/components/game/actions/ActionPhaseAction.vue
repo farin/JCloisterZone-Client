@@ -100,6 +100,11 @@
         :position="item.position"
         :active="idx === selected"
       />
+      <AcrobatsScoreItem
+        v-else-if="item.type == 'AcrobatsScore'"
+        :options="item.options"
+        :active="idx === selected"
+      />
       <div v-else>{{ item.type }}</div>
     </div>
     <slot />
@@ -111,6 +116,7 @@ import { mapState } from 'vuex'
 
 import { Expansion } from '@/models/expansions'
 import ExpansionSymbol from '@/components/ExpansionSymbol'
+import AcrobatsScoreItem from '@/components/game/actions/items/AcrobatsScoreItem.vue'
 import BridgeItem from '@/components/game/actions/items/BridgeItem.vue'
 import LittleBuildingItem from '@/components/game/actions/items/LittleBuildingItem.vue'
 import MeeplePlacementItem from '@/components/game/actions/items/MeeplePlacementItem.vue'
@@ -123,6 +129,7 @@ import TunnelItem from '@/components/game/actions/items/TunnelItem.vue'
 
 export default {
   components: {
+    AcrobatsScoreItem,
     BridgeItem,
     ExpansionSymbol,
     LittleBuildingItem,

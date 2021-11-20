@@ -160,6 +160,18 @@ export const HILL_TIEBREAKER = Rule.HILL_TIEBREAKER = new Rule('hill-tiebreaker'
   }
 )
 
+export const RINGMASTER_VARIANT = Rule.RINGMASTER_VARIANT = new Rule('ringmaster-variant', GAMEPLAY,
+  'Ringmaster bonus for: {}.',
+  [GameElement.RINGMASTER],
+  [
+    { value: 'basic-features', text: 'only basic game features', flags: ['HiG'] },
+    { value: 'all-features', text: 'all features' }
+  ],
+  {
+    link: 'https://wikicarpedia.com/index.php/Under_the_Big_Top'
+  }
+)
+
 export const ESCAPE_VARIANT = Rule.ESCAPE_VARIANT = new Rule('espace-variant', GAMEPLAY,
   'Monastery must be placed adjacent to {} of a\u00A0besieged city to espace.',
   [GameElement.ESCAPE],

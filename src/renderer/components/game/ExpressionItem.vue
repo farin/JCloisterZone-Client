@@ -36,6 +36,9 @@
       <template v-else-if="item.name.startsWith('sheep.')"><TokenImage :token="item.name.replace('sheep.', '')" :height="40" /></template>
       <template v-else-if="item.name.startsWith('trade-goods.')"><TokenImage :token="item.name.replace('trade-goods.', '')" :height="40" /></template>
       <template v-else-if="item.name.startsWith('little-buildings.')"><TokenImage :token="item.name.replace('little-buildings.', '')" :height="40" /></template>
+      <template v-else-if="item.name.startsWith('bigtop.')"><TokenImage :token="item.name.replace('bigtop.', '')" :height="40" /></template>
+      <template v-else-if="item.name === 'ringmaster'"><v-icon title="Tiles">fas fa-square</v-icon></template>
+      <template v-else-if="item.name === 'acrobats'"><svg class="meeple" :width="40" :height="40"><use :href="`${MEEPLES_SVG}#small-follower`" /></svg></template>
       <template v-else-if="item.name === 'tiles.N'"><v-icon>fas fa-arrow-up</v-icon></template>
       <template v-else-if="item.name === 'tiles.S'"><v-icon>fas fa-arrow-down</v-icon></template>
       <template v-else-if="item.name === 'tiles.W'"><v-icon>fas fa-arrow-left</v-icon></template>

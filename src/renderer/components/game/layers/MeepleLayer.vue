@@ -88,6 +88,10 @@
         <use v-if="n.type === 'count'" :width="420" :height="420" x="-210" y="-210" :href="`${NEUTRAL_SVG}#count`" />
         <use v-if="n.type === 'mage'" :width="420" :height="420" x="-210" y="-210" :href="`${NEUTRAL_SVG}#mage`" />
         <use v-if="n.type === 'witch'" :width="420" :height="420" x="-210" y="-210" :href="`${NEUTRAL_SVG}#witch`" />
+        <g v-if="n.type === 'bigtop'">
+          <image width="400" height="400" x="-200" y="-200" href="~/assets/figures/circus_back.png" transform="scale(1.4)" />
+	      <use :width="400" :height="400" x="-200" y="-225" :href="`${NEUTRAL_SVG}#bigtop`" />
+	    </g>
       </g>
     </g>
 
@@ -138,7 +142,12 @@ import { FOLLOWER_ORDERING } from '@/constants/ordering'
 
 const MEEPLES_SVG = require('~/assets/meeples.svg')
 const NEUTRAL_SVG = require('~/assets/neutral.svg')
-const NEUTRAL_FIGURES = ['count', 'mage', 'witch']
+const NEUTRAL_FIGURES = [
+  'count',
+  'mage',
+  'witch',
+  'bigtop'
+]
 
 export default {
   components: {
@@ -167,6 +176,7 @@ export default {
       count: state => state.game.neutralFigures.count,
       mage: state => state.game.neutralFigures.mage,
       witch: state => state.game.neutralFigures.witch,
+      bigtop: state => state.game.neutralFigures.bigtop,
       meepleSelect: state => state.board.layers.MeepleSelectLayer
     }),
 
@@ -185,6 +195,7 @@ export default {
       const getGroupKey = ptr => {
         return `${ptr.position[0]},${ptr.position[1]},${ptr.feature}/${ptr.location}`
       }
+
 
       const castlePlaces = {}
       this.castles.forEach(c => {
@@ -222,6 +233,17 @@ export default {
           feature: sample.feature,
           location: sample.location,
           meeples: meeples.map(m => {
+            if (m.feature == 'Acrobats') {
+              if (x==0) {
+                x = -220;
+              } else if (x==-220) {
+                x = 220;
+              } else if (x==220) {
+                y = -220;
+                x = 0;
+              }
+            }
+            
             const mapped = {
               ...m,
               x,
@@ -229,8 +251,10 @@ export default {
               rotate90: m.location === 'AS_ABBOT' || (deployedOnFarm && !['Shepherd', 'Pig'].includes(m.type)),
               selectable: selectable && selectable[m.id]
             }
-            x += m.type === 'SmallFollower' ? 100 : 140
-            y += 20
+            if (m.feature != 'Acrobats') {
+	            x += m.type === 'SmallFollower' ? 100 : 140
+    	        y += 20
+    	    }
             return mapped
           }),
           neutral: []

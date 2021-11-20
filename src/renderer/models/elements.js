@@ -40,6 +40,7 @@ export const BARN = GameElement.BARN = new GameElement('barn', 'Barn', Number, {
 export const WAGON = GameElement.WAGON = new GameElement('wagon', 'Wagon', Number, { default: 0 })
 export const MAYOR = GameElement.MAYOR = new GameElement('mayor', 'Mayor', Number, { default: 0 })
 export const SHEPHERD = GameElement.SHEPHERD = new GameElement('shepherd', 'Shepherd', Number, { default: 0 })
+export const RINGMASTER = GameElement.RINGMASTER = new GameElement('ringmaster', 'Ringmaster', Number, { default: 0 })
 
 // Neutral
 export const DRAGON = GameElement.DRAGON = new GameElement('dragon', 'Dragon', Number, { selector: 'dragon' })
@@ -56,6 +57,7 @@ export const CASTLE = GameElement.CASTLE = new GameElement('castle', 'Castles', 
 export const TUNNEL = GameElement.TUNNEL = new GameElement('tunnel', 'Tunnel tokens', Number)
 export const FERRY = GameElement.FERRY = new GameElement('ferry', 'Ferries', Number, { selector: 'ferry' })
 export const LITTLE_BUILDINGS = GameElement.LITTLE_BUILDINGS = new GameElement('little-buildings', 'Little Buildings', Number, { default: 0 })
+export const BIGTOP = GameElement.BIGTOP = new GameElement('bigtop', 'Big Top', Number, { selector: 'circus' });
 
 // Rewards
 export const TRADERS = GameElement.TRADERS = new GameElement('traders', 'Trade goods', Boolean, { selector: 'city[resource]' })
@@ -104,4 +106,7 @@ export const SIEGE = GameElement.SIEGE = new GameElement('siege', 'Besieged citi
 })
 export const ESCAPE = GameElement.ESCAPE = new GameElement('escape', 'Escaping a besieged city', Boolean, {
   selector: 'city[besieged]'
+})
+export const ACROBATS = GameElement.ACROBATS = new GameElement('acrobats', 'Acrobats pyramid', Boolean, {
+  selector: 'acrobats'
 })

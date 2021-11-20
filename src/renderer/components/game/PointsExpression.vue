@@ -50,8 +50,11 @@ const TITLE_MAPPING = {
   'special-monastery': 'Special monastery',
   'gold': 'Gold ingots',
   'vodyanoy': 'Vodyanoy',
-  'watchtower': 'Watchtower'
-}
+  'watchtower': 'Watchtower',
+  'ringmaster': 'Ringmaster',
+  'bigtop': 'Big Top',
+  'acrobats': 'Acrobats'
+ }
 
 const SUBTITLE_MAPPING = {
   'incomplete': '(incomplete)',

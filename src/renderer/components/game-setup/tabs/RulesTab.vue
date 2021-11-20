@@ -128,6 +128,23 @@
           <template #description>Espace allowed via a&nbsp;neighboring monastery.</template>
           <template #disabled>Siege expansion is not in the game.</template>
         </GameMechanicsBox>
+
+        <GameMechanicsBox :item="GameElement.ACROBATS">
+          <template #icon>
+            <svg class="meeple" :width="25" :height="25">
+              <use :href="`${MEEPLES_SVG}#small-follower`" />
+            </svg>
+            <br />
+            <svg class="meeple" :width="25" :height="25">
+              <use :href="`${MEEPLES_SVG}#small-follower`" />
+            </svg>
+            <svg class="meeple" :width="25" :height="25">
+              <use :href="`${MEEPLES_SVG}#small-follower`" />
+            </svg>
+          </template>
+          <template #description>Acrobats space for create Pyramid</template>
+          <template #disabled>Big Top expansion is not in the game.</template>
+        </GameMechanicsBox>
       </div>
     </ConfigSection>
 

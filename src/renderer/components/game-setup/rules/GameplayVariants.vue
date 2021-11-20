@@ -101,6 +101,18 @@
 
     <RuleBox
       :setup="setup"
+      :rules="[Rule.RINGMASTER_VARIANT]"
+      :read-only="readOnly"
+    >
+      <template #icon>
+        <svg class="meeple" :width="45" :height="45">
+          <use :href="`${MEEPLES_SVG}#ringmaster`" />
+        </svg>
+      </template>
+    </RuleBox>
+
+    <RuleBox
+      :setup="setup"
       :rules="[Rule.FESTIVAL_RETURN]"
       :read-only="readOnly"
     >

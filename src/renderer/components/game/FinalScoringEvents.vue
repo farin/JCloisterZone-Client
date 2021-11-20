@@ -43,7 +43,8 @@ export default {
         tradeGoods: { title: 'Trade Goods', events: [] },
         gold: { title: 'Gold ingots', events: [] },
         kingAndRobber: { title: 'King & Robber', events: [] },
-        penalties: { title: 'Penalties', events: [] }
+        penalties: { title: 'Penalties', events: [] },
+        other: { title: 'Other', events: [] }
       }
       item.events.forEach(ev => {
         if (!ev.points.length) {
@@ -63,6 +64,8 @@ export default {
           rows.monasteries.events.push(ev)
         } else if (type === 'vodyanoy') {
           rows.penalties.events.push(ev)
+        } else if (type === 'ringmaster' || type === 'acrobats') {
+          rows.other.events.push(ev)
         } else {
           rows.features.events.push(ev)
         }

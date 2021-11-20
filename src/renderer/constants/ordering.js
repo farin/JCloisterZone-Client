@@ -6,6 +6,7 @@ export const FOLLOWER_ORDERING = {
   Abbot: 30,
   Mayor: 40,
   Wagon: 50,
+  Ringmaster: 55,
   Shepherd: 60,
   Builder: 70,
   Pig: 80,

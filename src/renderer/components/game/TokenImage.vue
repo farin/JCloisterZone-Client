@@ -36,7 +36,13 @@ const TOKENS = {
   GOLD: { tag: 'img', src: require('~/assets/figures/gold.png') },
   LB_HOUSE: { tag: 'img', src: require('~/assets/figures/lb_house.png') },
   LB_SHED: { tag: 'img', src: require('~/assets/figures/lb_shed.png') },
-  LB_TOWER: { tag: 'img', src: require('~/assets/figures/lb_tower.png') }
+  LB_TOWER: { tag: 'img', src: require('~/assets/figures/lb_tower.png') },
+  BIGTOP_1: { tag: 'img', src: require('~/assets/figures/circus_1.png') },
+  BIGTOP_3: { tag: 'img', src: require('~/assets/figures/circus_3.png') },
+  BIGTOP_4: { tag: 'img', src: require('~/assets/figures/circus_4.png') },
+  BIGTOP_5: { tag: 'img', src: require('~/assets/figures/circus_5.png') },
+  BIGTOP_6: { tag: 'img', src: require('~/assets/figures/circus_6.png') },
+  BIGTOP_7: { tag: 'img', src: require('~/assets/figures/circus_7.png') }
 }
 
 export default {

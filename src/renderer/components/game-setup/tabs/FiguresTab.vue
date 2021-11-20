@@ -52,6 +52,11 @@
             <use :href="`${MEEPLES_SVG}#shepherd`" />
           </svg>
         </GameElementBox>
+        <GameElementBox :item="GameElement.RINGMASTER" :max="9">
+          <svg class="meeple" :width="55" :height="55">
+            <use :href="`${MEEPLES_SVG}#ringmaster`" />
+          </svg>
+        </GameElementBox>
       </div>
     </ConfigSection>
 
@@ -123,6 +128,11 @@
             <img src="~/assets/figures/gold.png" height="40">
           </div>
         </GameElementBox>
+        <GameElementBox :item="GameElement.BIGTOP">
+          <svg class="meeple" :width="55" :height="55">
+            <use :href="`${NEUTRAL_SVG}#bigtop`" />
+          </svg>
+        </GameElementBox>
       </div>
     </ConfigSection>
   </div>
@@ -137,6 +147,7 @@ import NeutralFigure from '@/components/game/NeutralFigure'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
 
 const MEEPLES_SVG = require('~/assets/meeples.svg')
+const NEUTRAL_SVG = require('~/assets/neutral.svg')
 const TOKENS_SVG = require('~/assets/tokens.svg')
 
 export default {
@@ -150,6 +161,7 @@ export default {
   data () {
     return {
       MEEPLES_SVG,
+      NEUTRAL_SVG,
       TOKENS_SVG,
       GameElement
     }
@@ -203,6 +215,9 @@ export default {
 
       svg.witch
         fill: $witch-color
+
+      svg.bigtop
+        fill: $bigtop-color
 
       svg.wooden-token
         fill: $wooden-token-color

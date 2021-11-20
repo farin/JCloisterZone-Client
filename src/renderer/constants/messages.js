@@ -1,5 +1,6 @@
 
 export const ENGINE_MESSAGES = new Set([
+  'ACROBATS_SCORE',
   'BAZAAR_BID',
   'BAZAAR_BUY_OR_SELL',
   'CAPTURE_FOLLOWER',
