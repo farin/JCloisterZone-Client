@@ -1,52 +1,53 @@
 <template>
   <div v-if="loaded" class="theme-inspector">
-    <div class="close">
-      <NuxtLink to="/">Close</NuxtLink>
-    </div>
-    <v-container>
-      <div class="expansions">
-        <div
-          v-for="(r, idx) in releases"
-          :key="idx"
-          class="set"
-          :class="{ selected: selected == r }"
-          :title="r.title"
-          @click="selected = r"
-        >
-          <ExpansionSymbol :expansion="r.expansion" />
-        </div>
+    <header>
+      <div class="close">
+        <NuxtLink to="/">Close</NuxtLink>
       </div>
-      <div class="options">
-        <div>
-          Edition:
-          <v-btn-toggle v-model="editionIdx">
-            <v-btn>1st</v-btn>
-            <v-btn>2nd</v-btn>
-          </v-btn-toggle>
+      <v-container>
+        <div class="expansions">
+          <div
+            v-for="(r, idx) in releases"
+            :key="idx"
+            class="set"
+            :class="{ selected: selected == r }"
+            :title="r.title"
+            @click="selected = r"
+          >
+            <ExpansionSymbol :expansion="r.expansion" />
+          </div>
         </div>
+        <div class="options">
+          <div>
+            Edition:
+            <v-btn-toggle v-model="editionIdx">
+              <v-btn>1st</v-btn>
+              <v-btn>2nd</v-btn>
+            </v-btn-toggle>
+          </div>
 
-        <div>
-          Size:
-          <v-btn-toggle v-model="sizeIdx">
-            <v-btn v-for="s in sizes" :key="s">
-              {{ s }}
-            </v-btn>
-          </v-btn-toggle>
-        </div>
+          <div>
+            Size:
+            <v-btn-toggle v-model="sizeIdx">
+              <v-btn v-for="s in sizes" :key="s">
+                {{ s }}
+              </v-btn>
+            </v-btn-toggle>
+          </div>
 
-        <div>
-          Mode:
-          <v-btn-toggle v-model="modeIdx">
-            <v-btn>Tiles</v-btn>
-            <v-btn>Strokes</v-btn>
-            <v-btn>Shapes</v-btn>
-            <v-btn>Meeples</v-btn>
-          </v-btn-toggle>
+          <div>
+            Mode:
+            <v-btn-toggle v-model="modeIdx">
+              <v-btn>Tiles</v-btn>
+              <v-btn>Strokes</v-btn>
+              <v-btn>Shapes</v-btn>
+              <v-btn>Meeples</v-btn>
+            </v-btn-toggle>
+          </div>
         </div>
-      </div>
-      <hr>
-      <h2>{{ selected ? selected.title : '' }}</h2>
-    </v-container>
+      </v-container>
+    </header>
+    <h2>{{ selected ? selected.title : '' }}</h2>
     <template v-if="selected === 'count'">
       <div class="tile-row">
         <CountMiniboard :size="size" />
@@ -149,6 +150,14 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+header
+  position: sticky
+  top: 0
+
+  +theme using ($theme)
+    background: map-get($theme, 'cards-bg')
+    border-bottom: 1px solid map-get($theme, 'line-color')
+
 .close
   position: absolute
   top: 10px
@@ -157,26 +166,36 @@ export default {
 .expansions
   display: flex
   flex-wrap: wrap
+  justify-content: center
 
   svg
     cursor: pointer
-    width: 48px
-    height: 48px
+    width: 40px
+    height: 40px
     margin: 2px
 
+    +theme using ($theme)
+      fill: map-get($theme, 'text-color')
+
   .selected svg
-    fill: var(--v-primary-base)
+    // use theme to be more specific then ordinary color
+    +theme using ($theme)
+      fill: var(--v-primary-base)
 
 .options
   margin-top: 10px
   display: flex
-  justify-content: space-around
+  justify-content: center
+  gap: 40px
 
 hr
   margin: 10px 0
 
 h2
+  margin-top: 10px
   text-align: center
+  font-weight: 300
+
   +theme using ($theme)
     color: map-get($theme, 'text-color')
 
