@@ -74,10 +74,12 @@
               :rotation="(n - 1) * 90"
               :mode="[null, 'strokes', 'shapes', 'meeples'][modeIdx]"
               :artwork="artwork"
+              @tooltip="ev => location = ev"
             />
           </template>
         </StandaloneTileImage>
       </div>
+      <div v-show="location" class="location">{{ location }}</div>
     </template>
   </div>
 </template>
@@ -111,7 +113,8 @@ export default {
       sizeIdx: 4,
       modeIdx: 2,
       sizes: [40, 100, 140, 180, 240, 300],
-      releases
+      releases,
+      location: null
     }
   },
 
@@ -145,6 +148,9 @@ export default {
   },
 
   methods: {
+    showTooltip (loc) {
+      this.location = loc
+    }
   }
 }
 </script>
@@ -217,4 +223,9 @@ h2
 
   svg
     margin: 0 5px
+
+.location
+  position: fixed
+  left: 2px
+  bottom: 2px
 </style>

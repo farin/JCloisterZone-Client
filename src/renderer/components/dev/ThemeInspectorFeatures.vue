@@ -15,14 +15,16 @@
           width="320" height="320"
           :href="`${MEEPLES_SVG}#small-follower`"
           @click="ev => onSelect(opt, feature)"
+          @mouseenter="onMouseOver(opt, feature)"
+          @mouseleave="onMouseLeave(opt, feature)"
         />
       </g>
       <g
         v-else
         :transform="artwork.inverseScaleTransform + ' ' + transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
         :class="{ area: true, [opt.cssClass]: true, mouseover: opt === mouseOver, mouseout: opt !== mouseOver }"
-        @mouseenter="onMouseOver(opt)"
-        @mouseleave="onMouseLeave(opt)"
+        @mouseenter="onMouseOver(opt, feature)"
+        @mouseleave="onMouseLeave(opt, feature)"
         @click="ev => onSelect(opt, feature)"
       >
         <FeatureClip :clip="feature.clip" />
@@ -123,12 +125,15 @@ export default {
   },
 
   methods: {
-    onMouseOver (opt) {
+    onMouseOver (opt, feature) {
       this.mouseOver = opt
+      const location = Location.parse(opt.location).rotateCCW(feature.rotation).name
+      this.$emit('tooltip', opt.featureType + '/' + location)
     },
 
-    onMouseLeave (opt) {
+    onMouseLeave (opt, feature) {
       this.mouseOver = null
+      this.$emit('tooltip', null)
     },
 
     onSelect (option, feature) {
