@@ -1,13 +1,16 @@
 <template>
-  <div>
-    <svg class="meeple" :width="30" :height="30">
-      <g>
-        <use :href="`${MEEPLES_SVG}#small-follower`" x="0" y="0" />
-        <use :href="`${MEEPLES_SVG}#small-follower`" x="15" y="15" />
-        <use :href="`${MEEPLES_SVG}#small-follower`" x="-15" y="-15"/>
+  <div :class="{ active }">
+    <svg class="meeple color color-1" :width="50" :height="50">
+      <g transform="translate(0 25) scale(0.5)">
+        <use :href="`${MEEPLES_SVG}#small-follower`" />
+      </g>
+      <g transform="translate(12.5 0) scale(0.5)">
+        <use :href="`${MEEPLES_SVG}#small-follower`" />
+      </g>
+      <g transform="translate(25 25) scale(0.5)">
+        <use :href="`${MEEPLES_SVG}#small-follower`" />
       </g>
     </svg>
-    <v-icon class="color-overlay">fas fa-undo</v-icon>
   </div>
 </template>
 
