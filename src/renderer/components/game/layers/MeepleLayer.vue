@@ -254,7 +254,7 @@ export default {
             if (m.feature != 'Acrobats') {
 	            x += m.type === 'SmallFollower' ? 100 : 140
     	        y += 20
-    	    }
+    	      }
             return mapped
           }),
           neutral: []
