@@ -31,7 +31,6 @@ function createWindow () {
       contextIsolation: false,
       additionalArguments: [
         '--user-data=' + app.getPath('userData'),
-        '--app-path' + app.getAppPath(),
         '--app-version=' + app.getVersion()
       ],
       devTools: !process.env.SPECTRON // disable on e2e test environment
