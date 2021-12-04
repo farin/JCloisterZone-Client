@@ -44,11 +44,11 @@ export default {
   computed: {
     ...mapState({
       edition: state => {
-        const setup = state.game.setup || state.gameSetup
+        const setup = state.gameSetup || state.game.setup
         return getSelectedEdition(setup.elements)
       },
       start: state => {
-        const setup = state.game.setup || state.gameSetup
+        const setup = state.gameSetup || state.game.setup
         const { elements, sets, start } = setup
         return getSelectedStartingTiles(elements, sets, start)
       }
