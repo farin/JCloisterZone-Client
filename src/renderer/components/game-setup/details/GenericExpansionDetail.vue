@@ -5,6 +5,7 @@
         v-for="(link, idx) in expansion.links"
         :key="idx"
         :title="link.title"
+        :type="link.type"
         :href="link.url"
       />
     </p>

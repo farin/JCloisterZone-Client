@@ -7,7 +7,8 @@
     :title="href"
     @click.prevent="open"
   >
-    <v-icon v-if="site === 'wica'" left>fab fa-wikipedia-w</v-icon>
+    <v-icon v-if="type === 'download'" left>fa-file-download</v-icon>
+    <v-icon v-else-if="type === 'wiki' || site === 'wica'" left>fab fa-wikipedia-w</v-icon>
     <template v-else-if="site === 'bgg'">
       <img src="~/assets/bgg.svg" width="60" height="29">&nbsp;
     </template>
@@ -21,7 +22,8 @@ import { shell } from 'electron'
 export default {
   props: {
     title: { type: String, default: null },
-    href: { type: String, required: true }
+    href: { type: String, required: true },
+    type: { type: String, default: null }
   },
 
   computed: {

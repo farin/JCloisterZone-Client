@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { mapState} from 'vuex'
+import { mapState } from 'vuex'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
 import CountMiniboard from '@/components/game-setup/details/CountMiniboard'
 

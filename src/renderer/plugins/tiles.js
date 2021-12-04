@@ -319,7 +319,8 @@ class Tiles extends EventsBase {
         Array.from(el.querySelectorAll(':scope > link[url]')).forEach(link => {
           const title = link.getAttribute('title')
           const url = link.getAttribute('url')
-          exp.links.push({ title, url })
+          const type = link.getAttribute('type')
+          exp.links.push({ title, url, type })
         })
 
         exp.description = el.querySelector(':scope > description')?.textContent || ''
