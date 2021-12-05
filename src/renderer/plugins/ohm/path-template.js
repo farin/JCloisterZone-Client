@@ -2,7 +2,6 @@ import isObject from 'lodash/isObject'
 import zip from 'lodash/zip'
 import ohm from 'ohm-js'
 import { Path, Point } from 'paper/dist/paper-core'
-import { ConcatenationScope } from 'webpack'
 
 import PathTemplateGrammar from './path-template.ohm'
 
@@ -143,7 +142,7 @@ export function createSemantics (loader, artwork) {
       },
 
       t_mirror (a, axis, c) {
-        if (axis.sourceString === 'y') {
+        if (axis.sourceString === 'x') {
           return p => p.scale(-1, 1, center)
         } else {
           return p => p.scale(1, -1, center)
