@@ -28,7 +28,7 @@ export default {
 
   computed: {
     site () {
-      if (this.href.startsWith('http://wikicarpedia.com')) {
+      if (this.href.startsWith('https://wikicarpedia.com') || this.href.startsWith('http://wikicarpedia.com')) {
         return 'wica'
       }
       if (this.href.startsWith('https://boardgamegeek.com')) {
