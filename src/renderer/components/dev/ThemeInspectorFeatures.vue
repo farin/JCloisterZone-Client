@@ -72,11 +72,9 @@ export default {
       }
 
       Object.keys(tile.features).forEach(fp => {
-        if (fp === 'X') {
-          // supplementary "fake" feature
-          return
-        }
+        if (fp === 'X') return // supplementary "fake" feature
         const [featureType, _location] = fp.split('/')
+        if (featureType === 'X' || featureType === 'Inn') return // also supplementary "fake" feature
         const locObj = Location.parse(_location)
         if (!locObj) {
           console.warn(`Invalid location ${fp} on ${this.tileId}`)
