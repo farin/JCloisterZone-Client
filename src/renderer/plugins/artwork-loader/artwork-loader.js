@@ -16,7 +16,7 @@ const makeAbsPath = (prefix, path, artworkId = null) => {
     return path
   }
   if (path[0] === '#') {
-    return `#${artworkId}-${path.substring(1)}`
+    return `#${artworkId}/${path.substring(1)}`
   }
   return prefix + path
 }
@@ -120,7 +120,7 @@ export default class ArtworkLoader {
       const parser = new DOMParser()
       const doc = parser.parseFromString(content, 'image/svg+xml')
       doc.querySelectorAll('symbol').forEach(el => {
-        const symbolId = `${id}-${el.getAttribute('id')}`
+        const symbolId = `${id}/${el.getAttribute('id')}`
         el.setAttribute('id', symbolId)
         const [w, h] = el.getAttribute('viewBox').split(' ').slice(2).map(val => parseInt(val))
         artwork.symbols[symbolId] = { size: [w, h] }
