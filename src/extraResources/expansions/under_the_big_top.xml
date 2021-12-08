@@ -128,7 +128,7 @@
     </tile>
   </tiles>
   <sets>
-    <tile-set id="under-big-top:1">
+    <tile-set id="under-the-big-top:1">
       <ref count="1" tile="BT/ffff.ac" />
       <ref count="1" tile="BT/ffrf.ac" />
       <ref count="3" tile="BT/ffrr.ac" />
@@ -146,7 +146,7 @@
       <ref count="1" tile="BT/ccrf.bt" />
       <ref count="1" tile="BT/crfc.bt" />
     </tile-set>
-    <tile-set id="under-big-top:2">
+    <tile-set id="under-the-big-top:2">
       <ref count="1" tile="BT/ffff.g.ac" />
       <ref count="1" tile="BT/ffrf.ac" />
       <ref count="3" tile="BT/ffrr.ac" />
