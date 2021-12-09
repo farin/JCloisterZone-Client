@@ -12,7 +12,7 @@
             class="set"
             :class="{ selected: selected == r }"
             :title="r.title"
-            @click="selected = r"
+            @click="select(r)"
           >
             <ExpansionSymbol :expansion="r.expansion" />
           </div>
@@ -20,7 +20,7 @@
         <div class="options">
           <div>
             Edition:
-            <v-btn-toggle v-model="editionIdx">
+            <v-btn-toggle v-model="editionIdx" @change="onEditionChange">
               <v-btn>1st</v-btn>
               <v-btn>2nd</v-btn>
             </v-btn-toggle>
@@ -28,7 +28,7 @@
 
           <div>
             Size:
-            <v-btn-toggle v-model="sizeIdx">
+            <v-btn-toggle v-model="sizeIdx" @change="onSizeChange">
               <v-btn v-for="s in sizes" :key="s">
                 {{ s }}
               </v-btn>
@@ -37,7 +37,7 @@
 
           <div>
             Mode:
-            <v-btn-toggle v-model="modeIdx">
+            <v-btn-toggle v-model="modeIdx" @change="onModeChange">
               <v-btn>Tiles</v-btn>
               <v-btn>Strokes</v-btn>
               <v-btn>Shapes</v-btn>
@@ -47,45 +47,48 @@
         </div>
       </v-container>
     </header>
-    <h2>{{ selected ? selected.title : '' }}</h2>
-    <template v-if="selected === 'count'">
-      <div class="tile-row">
-        <CountMiniboard :size="size" />
-      </div>
-    </template>
-    <template v-else-if="selected">
-      <div
-        v-for="tile in tiles"
-        :key="tile.id"
-        class="tile-row"
-      >
-        <div class="tile-id">{{ tile.id }}</div>
-        <StandaloneTileImage
-          v-for="n in 4" :key="n"
-          :tile-id="tile.id"
-          :size="size"
-          :padding="[0, 73]"
-          :rotation="(n - 1) * 90"
+    <template v-if="artworksLoaded">
+      <h2>{{ selected.title }}</h2>
+      <template v-if="selected === 'count'">
+        <div class="tile-row">
+          <CountMiniboard :size="size" />
+        </div>
+      </template>
+      <template v-else>
+        <div
+          v-for="tile in tiles"
+          :key="tile.id"
+          class="tile-row"
         >
-          <template v-if="modeIdx > 0" #default="{ tileSize, artwork }">
-            <ThemeInspectorFeatures
-              :tile-id="tile.id"
-              :tile-size="tileSize"
-              :rotation="(n - 1) * 90"
-              :mode="[null, 'strokes', 'shapes', 'meeples'][modeIdx]"
-              :artwork="artwork"
-              @tooltip="ev => location = ev"
-            />
-          </template>
-        </StandaloneTileImage>
-      </div>
-      <div v-show="location" class="location">{{ location }}</div>
+          <div class="tile-id">{{ tile.id }}</div>
+          <StandaloneTileImage
+            v-for="n in 4" :key="n"
+            :tile-id="tile.id"
+            :size="size"
+            :padding="[0, 73]"
+            :rotation="(n - 1) * 90"
+          >
+            <template v-if="modeIdx > 0" #default="{ tileSize, artwork }">
+              <ThemeInspectorFeatures
+                v-if="artwork"
+                :tile-id="tile.id"
+                :tile-size="tileSize"
+                :rotation="(n - 1) * 90"
+                :mode="[null, 'strokes', 'shapes', 'meeples'][modeIdx]"
+                :artwork="artwork"
+                @tooltip="ev => location = ev"
+              />
+            </template>
+          </StandaloneTileImage>
+        </div>
+        <div v-show="location" class="location">{{ location }}</div>
+      </template>
     </template>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import { Expansion } from '@/models/expansions'
 import ExpansionSymbol from '@/components/ExpansionSymbol'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
@@ -102,16 +105,26 @@ export default {
 
   data () {
     const releases = []
+    const r = localStorage.getItem('themeInspector.r')
+    let selected = null
     for (const expansion of Expansion.all()) {
       for (const release of expansion.releases) {
         releases.push(release)
+        if (release.title === r) {
+          selected = release
+        }
       }
     }
+
+    const editionIdx = localStorage.getItem('themeInspector.edition')
+    const modeIdx = localStorage.getItem('themeInspector.mode')
+    const sizeIdx = localStorage.getItem('themeInspector.size')
+
     return {
-      selected: this.$store.state.loaded.tiles ? Expansion.BASIC.releases[0] : null,
-      editionIdx: 1,
-      sizeIdx: 4,
-      modeIdx: 2,
+      selected: selected || Expansion.BASIC.releases[0],
+      editionIdx: editionIdx === null ? 1 : ~~editionIdx,
+      sizeIdx: sizeIdx === null ? 4 : ~~sizeIdx,
+      modeIdx: modeIdx === null ? 2 : ~~modeIdx,
       sizes: [40, 100, 140, 180, 240, 300],
       releases,
       location: null
@@ -121,6 +134,10 @@ export default {
   computed: {
     ...mapGetters({
       loaded: 'loaded'
+    }),
+
+    ...mapState({
+      artworksLoaded: state => state.loaded.artworks
     }),
 
     size () {
@@ -147,9 +164,34 @@ export default {
     }
   },
 
+  watch: {
+    artworksLoaded (val) {
+      if (val && !this.selected) {
+        this.selected = Expansion.BASIC.releases[0]
+      }
+    }
+  },
+
   methods: {
     showTooltip (loc) {
       this.location = loc
+    },
+
+    select (release) {
+      this.selected = release
+      localStorage.setItem('themeInspector.r', release.title)
+    },
+
+    onEditionChange () {
+      localStorage.setItem('themeInspector.edition', this.editionIdx)
+    },
+
+    onSizeChange () {
+      localStorage.setItem('themeInspector.size', this.sizeIdx)
+    },
+
+    onModeChange () {
+      localStorage.setItem('themeInspector.mode', this.modeIdx)
     }
   }
 }
