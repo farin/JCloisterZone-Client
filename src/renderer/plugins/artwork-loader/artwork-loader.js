@@ -223,6 +223,11 @@ export default class ArtworkLoader {
       return
     }
 
+    if (!data.features) {
+      console.error(`'features' key is missing for ${tileId} in ${artwork.id}`)
+      return
+    }
+
     const tile = {
       id: tileId,
       rotation: data.rotation || 0,
