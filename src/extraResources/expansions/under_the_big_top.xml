@@ -118,10 +118,11 @@
       <field city="E">SL</field>
       <field city="N">SR WL WR</field>
     </tile>
-    <tile id="BT/crfc.bt">
+    <tile id="BT/crrc.bt">
       <circus />
       <city>N W</city>
       <road>E</road>
+      <road>S</road>
       <field city="N">EL</field>
       <field>ER SL</field>
       <field city="N">SR</field>
@@ -144,7 +145,7 @@
       <ref count="1" tile="BT/crfr.bt" />
       <ref count="1" tile="BT/cfcf.bt" />
       <ref count="1" tile="BT/ccrf.bt" />
-      <ref count="1" tile="BT/crfc.bt" />
+      <ref count="1" tile="BT/crrc.bt" />
     </tile-set>
     <tile-set id="under-the-big-top:2">
       <ref count="1" tile="BT/ffff.g.ac" />
@@ -162,7 +163,7 @@
       <ref count="1" tile="BT/crfr.bt" />
       <ref count="1" tile="BT/cfcf.bt" />
       <ref count="1" tile="BT/ccrf.bt" />
-      <ref count="1" tile="BT/crfc.bt" />
+      <ref count="1" tile="BT/crrc.bt" />
     </tile-set>
   </sets>
 </defs>
