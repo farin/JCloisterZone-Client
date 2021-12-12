@@ -27,7 +27,7 @@
           </v-btn>
         </div>
 
-        <ConfigSection title="Recently Saved To File">
+        <ConfigSection title="Setups Saved To File">
           <div v-if="!recentSetupSaves.length" class="empty-message">
             <i>Nothing saved.</i>
           </div>
