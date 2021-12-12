@@ -35,17 +35,9 @@
               :key="idx"
               :transform="transformPosition(feature.tile.position)"
             >
-              <path
-                v-if="feature.clip[0] !== '<'"
-                :d="feature.clip"
-                :transform="transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
-              />
-              <!-- eslint-disable vue/no-v-html-->
-              <g
-                v-else
-                :transform="transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
-                v-html="feature.clip"
-              />
+              <g :transform="transformRotation(feature.rotation) + ' ' + (feature.transform || '')">
+                <FeatureClip :clip="feature.clip" />
+              </g>
             </g>
           </g>
           <circle
@@ -67,8 +59,13 @@
 
 <script>
 import LayerMixin from '@/components/game/layers/LayerMixin'
+import FeatureClip from '@/components/game/layers/FeatureClip.vue'
 
 export default {
+  components: {
+    FeatureClip
+  },
+
   mixins: [LayerMixin],
 
   props: {
