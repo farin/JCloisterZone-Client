@@ -128,6 +128,19 @@
           <template #description>Espace allowed via a&nbsp;neighboring monastery.</template>
           <template #disabled>Siege expansion is not in the game.</template>
         </GameMechanicsBox>
+        <GameMechanicsBox :item="GameElement.ACROBATS">
+          <template #icon>
+            <svg class="meeple" width="55" height="55">
+              <g transform="scale(0.55)">
+                <use :href="`${MEEPLES_SVG}#small-follower`" x="22" y="0" />
+                <use :href="`${MEEPLES_SVG}#small-follower`" x="-1" y="41" />
+                <use :href="`${MEEPLES_SVG}#small-follower`" x="46" y="41" />
+              </g>
+            </svg>
+          </template>
+          <template #description>Placing meeple as an acrobat on acrobat tile.</template>
+          <template #disabled>Under The Big Top expansion is not in the game.</template>
+        </GameMechanicsBox>
       </div>
     </ConfigSection>
 
@@ -209,7 +222,7 @@ export default {
 
   svg.meeple
     +theme using ($theme)
-      fill: map-get($theme, 'disabled-fill')
+      fill: map-get($theme, 'disabled-rules-fill')
 
   .selected
     svg.meeple
