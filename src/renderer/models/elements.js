@@ -40,6 +40,7 @@ export const BARN = GameElement.BARN = new GameElement('barn', 'Barn', Number, {
 export const WAGON = GameElement.WAGON = new GameElement('wagon', 'Wagon', Number, { default: 0 })
 export const MAYOR = GameElement.MAYOR = new GameElement('mayor', 'Mayor', Number, { default: 0 })
 export const SHEPHERD = GameElement.SHEPHERD = new GameElement('shepherd', 'Shepherd', Number, { default: 0 })
+export const RINGMASTER = GameElement.RINGMASTER = new GameElement('ringmaster', 'Ringmaster', Number, { default: 0 })
 
 // Neutral
 export const DRAGON = GameElement.DRAGON = new GameElement('dragon', 'Dragon', Number, { selector: 'dragon' })
