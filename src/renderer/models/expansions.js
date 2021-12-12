@@ -79,7 +79,7 @@ export const HILLS_AND_SHEEP = Expansion.HILLS_AND_SHEEP = new Expansion('HILLS_
 
 export const UNDER_THE_BIG_TOP = Expansion.UNDER_THE_BIG_TOP = new Expansion('UNDER_THE_BIG_TOP', 'Under The Big Top', {
   // implies: ['big-top', 'ringmaster', 'acrobats']
-  implies: []
+  implies: ['big-top']
 })
 
 export const KING_AND_ROBBER = Expansion.KING_AND_ROBBER = new Expansion('KING_AND_ROBBER', 'King and Robber', { implies: ['king', 'robber'] })

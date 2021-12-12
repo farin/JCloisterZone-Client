@@ -72,6 +72,9 @@
         <GameElementBox :item="GameElement.WITCH">
           <NeutralFigure figure="witch" :width="55" :height="55" />
         </GameElementBox>
+        <GameElementBox :item="GameElement.BIG_TOP">
+          <NeutralFigure figure="big-top" :width="55" :height="55" />
+        </GameElementBox>
       </div>
     </ConfigSection>
 
@@ -192,7 +195,7 @@ export default {
       svg.fairy
         fill: $fairy-color
 
-      svg.dragon
+      svg.dragon, svg.big-top
         fill: $dragon-color
 
       svg.count

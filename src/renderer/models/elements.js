@@ -47,6 +47,7 @@ export const FAIRY = GameElement.FAIRY = new GameElement('fairy', 'Fairy', Numbe
 export const COUNT = GameElement.COUNT = new GameElement('count', 'Count', Number, { selector: 'quarter' })
 export const MAGE = GameElement.MAGE = new GameElement('mage', 'Mage', Number, { selector: 'mage' })
 export const WITCH = GameElement.WITCH = new GameElement('witch', 'Witch', Number, { selector: 'mage' }) // trigger on tile is simply called mage
+export const BIG_TOP = GameElement.BIG_TOP = new GameElement('big-top', 'Big Top', Number, { selector: 'circus' })
 
 // Player Tokens
 export const TOWER = GameElement.TOWER = new GameElement('tower', 'Tower pieces', Number, { selector: 'tower' })
