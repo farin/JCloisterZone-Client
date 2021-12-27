@@ -434,7 +434,7 @@ body
   min-height: 100vh
 
 svg, g, use
-  &.dragon
+  &.dragon, &.bigtop
     fill: $dragon-color
 
 svg, g, use

@@ -88,6 +88,7 @@
         <use v-if="n.type === 'count'" :width="420" :height="420" x="-210" y="-210" :href="`${NEUTRAL_SVG}#count`" />
         <use v-if="n.type === 'mage'" :width="420" :height="420" x="-210" y="-210" :href="`${NEUTRAL_SVG}#mage`" />
         <use v-if="n.type === 'witch'" :width="420" :height="420" x="-210" y="-210" :href="`${NEUTRAL_SVG}#witch`" />
+        <use v-if="n.type === 'bigtop'" :width="420" :height="420" x="-210" y="-210" :href="`${NEUTRAL_SVG}#big-top`" />
       </g>
     </g>
 
@@ -138,7 +139,7 @@ import { FOLLOWER_ORDERING } from '@/constants/ordering'
 
 const MEEPLES_SVG = require('~/assets/meeples.svg')
 const NEUTRAL_SVG = require('~/assets/neutral.svg')
-const NEUTRAL_FIGURES = ['count', 'mage', 'witch']
+const NEUTRAL_FIGURES = ['count', 'mage', 'witch', 'bigtop']
 
 export default {
   components: {
@@ -167,6 +168,10 @@ export default {
       count: state => state.game.neutralFigures.count,
       mage: state => state.game.neutralFigures.mage,
       witch: state => state.game.neutralFigures.witch,
+      bigtop: state => {
+        const bt = state.game.neutralFigures.bigtop
+        return bt ? { placement: { position: bt.placement, feature: 'Circus', location: 'I' } } : null
+      },
       meepleSelect: state => state.board.layers.MeepleSelectLayer
     }),
 

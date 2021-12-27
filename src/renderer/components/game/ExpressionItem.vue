@@ -27,6 +27,16 @@
       <template v-else-if="item.name === 'little-buildings'"><img src="~/assets/figures/lb.png" width="40" height="40"></template>
       <template v-else-if="item.name === 'mage'"><NeutralFigure figure="mage" :width="40" :height="40" /></template>
       <template v-else-if="item.name === 'witch'"><NeutralFigure figure="witch" :width="40" :height="40" /></template>
+      <template v-else-if="item.name === 'circus'"><ExpansionSymbol :expansion="Expansion.UNDER_THE_BIG_TOP" :style="{ width: 40, height: 40 }" /></template>
+      <template v-else-if="item.name === 'acrobats'">
+        <svg class="meeple" width="40" height="40" viewBox="0 0 55 55">
+          <g transform="scale(0.55)">
+            <use :href="`${MEEPLES_SVG}#small-follower`" x="22" y="0" />
+            <use :href="`${MEEPLES_SVG}#small-follower`" x="-1" y="41" />
+            <use :href="`${MEEPLES_SVG}#small-follower`" x="46" y="41" />
+          </g>
+        </svg>
+      </template>
       <template v-else-if="item.name === 'gold'"><img src="~/assets/figures/gold.png" height="40"></template>
       <template v-else-if="item.name === 'king'"><TokenImage token="KING" :height="40" /></template>
       <template v-else-if="item.name === 'robber'"><TokenImage token="ROBBER" :height="40" /></template>
