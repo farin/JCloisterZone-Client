@@ -52,11 +52,11 @@
             <use :href="`${MEEPLES_SVG}#shepherd`" />
           </svg>
         </GameElementBox>
-        <!-- <GameElementBox :item="GameElement.RINGMASTER" :max="9">
+        <GameElementBox :item="GameElement.RINGMASTER" :max="9">
           <svg class="meeple" :width="55" :height="55">
             <use :href="`${MEEPLES_SVG}#ringmaster`" />
           </svg>
-        </GameElementBox> -->
+        </GameElementBox>
       </div>
     </ConfigSection>
 

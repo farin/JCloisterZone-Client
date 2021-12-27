@@ -128,7 +128,7 @@
           <template #description>Espace allowed via a&nbsp;neighboring monastery.</template>
           <template #disabled>Siege expansion is not in the game.</template>
         </GameMechanicsBox>
-        <!-- <GameMechanicsBox :item="GameElement.ACROBATS">
+        <GameMechanicsBox :item="GameElement.ACROBATS">
           <template #icon>
             <svg class="meeple" width="55" height="55">
               <g transform="scale(0.55)">
@@ -140,7 +140,7 @@
           </template>
           <template #description>Placing meeple as an acrobat on acrobat tile.</template>
           <template #disabled>Under The Big Top expansion is not in the game.</template>
-        </GameMechanicsBox> -->
+        </GameMechanicsBox>
       </div>
     </ConfigSection>
 
