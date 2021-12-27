@@ -7,7 +7,6 @@
     @wheel.passive="onWheel"
     @mousedown="onMouseDown"
     @mousemove="onMouseMove"
-    @mouseup="onMouseUp"
     @click.right="onRightClick"
   >
     <g :transform="transform">
@@ -172,17 +171,22 @@ export default {
     }
 
     this.pressedKeys = {}
-    window.addEventListener('keydown', this.onKeyDown)
-    window.addEventListener('keyup', this.onKeyUp)
-    window.addEventListener('mouseup', this.onMouseUp) // reset it even if mouse is putside
+    // this._onKeyDown = this.onKeyDown.bind(this)
+    // this._onKeyUp = this.onKeyUp.bind(this)
+    // this._stopDragging = this.stopDragging.bind(this)
+    document.addEventListener('keydown', this.onKeyDown)
+    document.addEventListener('keyup', this.onKeyUp)
+    document.addEventListener('mouseup', this.stopDragging) // reset it even if mouse is outside
+    document.addEventListener('mouseleave', this.stopDragging)
     this.$root.$on('request-zoom', this.onRequestZoom)
   },
 
   beforeDestroy () {
     clearInterval(this.pressedKeysInterval)
-    window.removeEventListener('keydown', this.onKeyDown)
-    window.removeEventListener('keyup', this.onKeyUp)
-    window.removeEventListener('mouseup', this.onMouseUp)
+    document.removeEventListener('keydown', this.onKeyDown)
+    document.removeEventListener('keyup', this.onKeyUp)
+    document.removeEventListener('mouseup', this.stopDragging)
+    document.removeEventListener('mouseleave', this.stopDragging)
     this.$root.$off('request-zoom', this.onRequestZoom)
   },
 
@@ -284,13 +288,13 @@ export default {
       }
     },
 
-    onMouseUp (ev) {
-      if (ev.button === 0) {
+    stopDragging (ev) {
+      if (this.dragging) {
         // let resolve first click handler
-        // (it is ignored if mouse is )
+        // (it should be ignored if mouse is dragging)
         setTimeout(() => {
           Vue.nextTick(() => {
-            this.dragging && this.$store.commit('board/dragging', null)
+            this.$store.commit('board/dragging', null)
           })
         })
       }
@@ -325,5 +329,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="sass" scoped>
+.board
+  user-select: none
 </style>
