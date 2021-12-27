@@ -100,6 +100,12 @@
         :position="item.position"
         :active="idx === selected"
       />
+      <ScoreAcrobatsItem
+        v-else-if="item.type == 'ScoreAcrobats'"
+        :player="action.player"
+        :options="item.options"
+        :active="idx === selected"
+      />
       <div v-else>{{ item.type }}</div>
     </div>
     <slot />
@@ -118,6 +124,7 @@ import MoveFairyNextToItem from '@/components/game/actions/items/MoveFairyNextTo
 import MoveFairyOnTileItem from '@/components/game/actions/items/MoveFairyOnTileItem.vue'
 import NeutralFigureItem from '@/components/game/actions/items/NeutralFigureItem.vue'
 import ReturnMeepleItem from '@/components/game/actions/items/ReturnMeepleItem.vue'
+import ScoreAcrobatsItem from '@/components/game/actions/items/ScoreAcrobatsItem.vue'
 import TowerPieceItem from '@/components/game/actions/items/TowerPieceItem.vue'
 import TunnelItem from '@/components/game/actions/items/TunnelItem.vue'
 
@@ -131,6 +138,7 @@ export default {
     MoveFairyOnTileItem,
     NeutralFigureItem,
     ReturnMeepleItem,
+    ScoreAcrobatsItem,
     TowerPieceItem,
     TunnelItem
   },

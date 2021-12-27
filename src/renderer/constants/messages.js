@@ -14,5 +14,6 @@ export const ENGINE_MESSAGES = new Set([
   'PLACE_TILE',
   'PLACE_TOKEN',
   'RETURN_MEEPLE',
+  'SCORE_ACROBATS',
   'UNDO'
 ])

@@ -30,6 +30,7 @@ import { Expansion } from '@/models/expansions'
 import ExpressionItem from '@/components/game/ExpressionItem'
 
 const TITLE_MAPPING = {
+  'acrobats': 'Acrobats',
   'bigtop': 'Big Top',
   'city': 'City',
   'city.tiny': 'Tiny city',
