@@ -1,5 +1,5 @@
 import { mapGetters } from 'vuex'
-import Location from '@/models/Location'
+import { BASE_SIZE } from '@/constants/ui'
 
 export default {
   computed: mapGetters({
@@ -22,11 +22,11 @@ export default {
     },
 
     getX (pos) {
-      return pos[0] * 1000
+      return pos[0] * BASE_SIZE
     },
 
     getY (pos) {
-      return pos[1] * 1000
+      return pos[1] * BASE_SIZE
     },
 
     getTilePoint ({ position, feature, location }) {
@@ -46,7 +46,8 @@ export default {
     },
 
     transformRotation (rot) {
-      return `rotate(${rot} 500 500)`
+      const c = BASE_SIZE / 2
+      return `rotate(${rot} ${c} ${c})`
     },
 
     transformPoint (ptr) { // ptr is { position, feature, location }

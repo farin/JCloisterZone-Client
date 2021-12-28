@@ -7,6 +7,7 @@ import mapValues from 'lodash/mapValues'
 
 import { PaperScope } from 'paper/dist/paper-core'
 import { grammar, createSemantics } from '@/plugins/ohm/path-template'
+import { BASE_SIZE } from '@/constants/ui'
 
 const FEATURE_PATTERN = /([^[]+)(?:\[([^\]]+)\])/
 const EMPTY_PATH = 'M0 0 Z'
@@ -80,7 +81,7 @@ export default class ArtworkLoader {
       version: json.version,
       perspective: json.perspective || 'rotate',
       background: null,
-      tileSize: parseInt(json.tileSize) || 1000,
+      tileSize: parseInt(json.tileSize) || BASE_SIZE,
       classes: json.classes || {},
       defaultZindex: json.defaultZindex === undefined ? 1 : json.defaultZindex,
       aliases: json.aliases || {},
@@ -91,12 +92,12 @@ export default class ArtworkLoader {
       pathPrefix: `file://${folder}/`
     }
 
-    if (artwork.tileSize === 1000) {
+    if (artwork.tileSize === BASE_SIZE) {
       artwork.scaleTransform = ''
       artwork.inverseScaleTransform = ''
     } else {
-      const s = 1000.0 / artwork.tileSize
-      const inv = artwork.tileSize / 1000.0
+      const s = (BASE_SIZE / artwork.tileSize).toFixed(3)
+      const inv = (artwork.tileSize / BASE_SIZE).toFixed(3)
       artwork.scaleTransform = `scale(${s} ${s})`
       artwork.inverseScaleTransform = `scale(${inv} ${inv})`
     }

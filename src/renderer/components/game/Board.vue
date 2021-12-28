@@ -93,6 +93,7 @@ import TileSelectLayer from '@/components/game/layers/TileSelectLayer'
 import TowerSelectLayer from '@/components/game/layers/TowerSelectLayer'
 import TunnelSelectLayer from '@/components/game/layers/TunnelSelectLayer'
 import WagonPhaseLayer from '@/components/game/layers/WagonPhaseLayer'
+import { BASE_SIZE } from '@/constants/ui'
 
 const ACTION_PANEL_HEIGHT = 160
 const KEY_PRESSED_OFFSET = 30
@@ -132,7 +133,7 @@ export default {
     ...mapState({
       layers: state => state.board.layers,
       dragging: state => state.board.dragging,
-      zoom: state => state.board.zoom,
+      zoom: state => state.board.zoom.toFixed(3),
       elements: state => state.game.setup ? state.game.setup.elements : {}
     }),
 
@@ -141,11 +142,13 @@ export default {
     }),
 
     transform () {
-      return `translate(${this.offsetX} ${this.offsetY}) scale(${this.zoom} ${this.zoom})`
+      const x = this.offsetX.toFixed(2)
+      const y = this.offsetY.toFixed(2)
+      return `translate(${x} ${y}) scale(${this.zoom} ${this.zoom})`
     },
 
     tileSize () {
-      return Math.round(1000 * this.zoom)
+      return Math.round(BASE_SIZE * this.zoom)
     },
 
     boardWidth () {

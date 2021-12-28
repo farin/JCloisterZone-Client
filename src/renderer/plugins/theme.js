@@ -5,11 +5,12 @@ import sortBy from 'lodash/sortBy'
 import Location from '@/models/Location'
 import { EventsBase } from '@/utils/events'
 import ArtworkLoader from './artwork-loader/artwork-loader'
+import { BASE_SIZE } from '@/constants/ui'
 
 
 const NULL_ARTWORK = {
   id: '_null',
-  tileSize: 1000,
+  tileSize: BASE_SIZE,
   background: null,
   scaleTransform: '',
   inverseScaleTransform: ''
@@ -74,8 +75,6 @@ class Theme extends EventsBase {
     this.emit('load')
   }
 
-
-
   getArtwork (artworkId) {
     return this.artworks[artworkId]
   }
@@ -97,8 +96,8 @@ class Theme extends EventsBase {
     const bridge = bridges.find(b => b.position[0] === position[0] && b.position[1] === position[1])
     if (bridge && loc === bridge.location) {
       return {
-        clip: 'M 0 600 L 0 400 L 1000 400 L 1000 600 L 850 600 C 850 435 150 435 150 600 Z',
-        point: [750, 500],
+        clip: 'M 0 540 L 0 360 L 900 360 L 900 540 L 765 540 C 765 392 135 392 135 540 Z',
+        point: [675, 450],
         rotation: loc === 'NS' ? 90 : 0,
         bridge: true
       }

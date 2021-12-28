@@ -6,10 +6,10 @@
       :transform="transformPosition(bridge.position)"
     >
       <path
-        d="M 0 600 L 0 400 L 1000 400 L 1000 600 L 850 600 C 850 435 150 435 150 600 Z"
+        d="M 0 540 L 0 360 L 900 360 L 900 540 L 765 540 C 765 392 135 392 135 540 Z"
         :fill="fillColor(bridge)"
         :fill-opacity="0.75"
-        :transform="bridge.location === 'NS' ? 'rotate(90 500 500)' : ''"
+        :transform="bridge.location === 'NS' ? 'rotate(90 450 450)' : ''"
       />
     </g>
   </g>
