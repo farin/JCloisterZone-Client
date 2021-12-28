@@ -1,9 +1,11 @@
 <template>
+  <!-- use bg-color-N on whole section to not interact with capturd meeples-->
   <section
     :class="{
       'active-turn': index === turnPlayer,
       'active-action': index === actionPlayer,
-      'offline': !slot.sessionId
+      'offline': !slot.sessionId,
+      [color.replaceAll('color', 'panel-color')]: true
     }"
   >
     <div :class="'name-box '+ color">
