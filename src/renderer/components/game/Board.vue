@@ -142,8 +142,8 @@ export default {
     }),
 
     transform () {
-      const x = this.offsetX.toFixed(2)
-      const y = this.offsetY.toFixed(2)
+      const x = this.offsetX
+      const y = this.offsetY
       return `translate(${x} ${y}) scale(${this.zoom} ${this.zoom})`
     },
 
@@ -297,6 +297,8 @@ export default {
         // (it should be ignored if mouse is dragging)
         setTimeout(() => {
           Vue.nextTick(() => {
+            this.offsetX = Math.round(this.offsetX)
+            this.offsetY = Math.round(this.offsetY)
             this.$store.commit('board/dragging', null)
           })
         })
