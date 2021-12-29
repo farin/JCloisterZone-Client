@@ -11,8 +11,10 @@
       >
         <use
           :class="{meeple: true, 'rot-90': opt.featureType === 'Field'}"
-          x="-160" y="-160"
-          width="320" height="320"
+          :x="-BASE_SIZE * 0.16"
+          :y="-BASE_SIZE * 0.16"
+          :width="BASE_SIZE * 0.32"
+          :height="BASE_SIZE * 0.32"
           :href="`${MEEPLES_SVG}#small-follower`"
           @click="ev => onSelect(opt, feature)"
           @mouseenter="onMouseOver(opt, feature)"
@@ -37,6 +39,7 @@
 import LayerMixin from '@/components/game/layers/LayerMixin'
 import Location from '@/models/Location'
 import FeatureClip from '@/components/game/layers/FeatureClip.vue'
+import { BASE_SIZE } from '@/constants/ui'
 
 const MEEPLES_SVG = require('~/assets/meeples.svg')
 
@@ -58,6 +61,7 @@ export default {
   data () {
     return {
       MEEPLES_SVG,
+      BASE_SIZE,
       mouseOver: null
     }
   },
