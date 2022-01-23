@@ -101,14 +101,11 @@
     </tile>
     <tile id="TO/CcR!">
       <tower />
-      <road>E</road>
-      <city>N W</city>
+      <road wagon-move="a">E</road>
+      <city wagon-move="a">N W</city>
       <field city="N">EL</field>
       <field city="N">ER</field>
       <field city="N">SL SR</field>
-      <wagon-move>
-        <neighbouring>N E</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="TO/CC.2">
       <tower />
@@ -126,13 +123,10 @@
     </tile>
     <tile id="TO/CccR">
       <tower />
-      <road>S</road>
-      <city>N W E</city>
+      <road wagon-move="a">S</road>
+      <city wagon-move="a">N W E</city>
       <field city="N">SL</field>
       <field city="N">SR</field>
-      <wagon-move>
-        <neighbouring>N S</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="TO/CccC+">
       <tower />

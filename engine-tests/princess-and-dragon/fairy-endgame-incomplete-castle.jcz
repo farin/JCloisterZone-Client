@@ -2,7 +2,7 @@
   "appVersion": "5.7.0",
   "gameId": "1",
   "name": "",
-  "initialSeed": "3152298788236461510",
+  "initialRandom": 0.0,
   "created": "2020-09-15T20:58:42.306Z",
   "clock": 0,
   "test": {
@@ -24,25 +24,7 @@
       "bazaar": true,
       "fairy": 1
     },
-    "rules": {
-      "princess-action": "may",
-      "fairy-placement": "next-follower",
-      "dragon-move": "before-scoring",
-      "barn-placement": "not-occupied",
-      "wagon-move": "C2",
-      "bazaar-no-auction": false,
-      "hill-tiebreaker": "at-least-one-follower",
-      "espace-variant": "any-tile",
-      "gq11-pig-herd": "pig",
-      "tunnelize-other-expansions": true,
-      "more-tunnel-tokens": "3/2",
-      "festival-return": "meeple",
-      "keep-monasteries": "replace",
-      "labyrinth-variant": "advanced",
-      "little-buildings-scoring": "1/1/1",
-      "king-and-robber-scoring": "default",
-      "tiny-city-scoring": "4"
-    },
+    "rules": {},
     "timer": null,
     "start": [
       {
@@ -79,6 +61,7 @@
             0,
             1
           ],
+          "feature": "City",
           "location": "S"
         },
         "meepleId": "0.small.1"
@@ -87,7 +70,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "3035603397109346867"
+        "random": 0.0
       }
     },
     {
@@ -111,6 +94,7 @@
               0,
               1
             ],
+            "feature": "City",
             "location": "S"
           },
           "meepleId": "0.small.1"
@@ -120,7 +104,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-2120494260917256654"
+        "random": 0.0
       }
     },
     {
@@ -147,6 +131,7 @@
             0,
             2
           ],
+          "feature": "City",
           "location": "N"
         }
       }
@@ -154,7 +139,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "7378771773385501461"
+        "random": 0.0
       }
     },
     {
@@ -175,7 +160,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-3485505953906008635"
+        "random": 0.0
       }
     }
   ],

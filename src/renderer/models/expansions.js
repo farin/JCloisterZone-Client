@@ -45,6 +45,12 @@ export class Expansion {
   }
 }
 
+Expansion._UNKNOWN = {
+  name: '_UNKNOWN',
+  title: 'Missing expansion'
+}
+Expansion._UNKNOWN.releases = [{ title: 'Missing expansion', sets: [], expansion: Expansion._UNKNOWN }]
+
 export const BASIC = Expansion.BASIC = new Expansion('BASIC', 'Base game')
 export const WINTER = Expansion.WINTER = new Expansion('WINTER', 'Winter')
 
@@ -53,10 +59,10 @@ export const INNS_AND_CATHEDRALS = Expansion.INNS_AND_CATHEDRALS = new Expansion
 })
 export const TRADERS_AND_BUILDERS = Expansion.TRADERS_AND_BUILDERS = new Expansion('TRADERS_AND_BUILDERS', 'Traders & Builders', {
   implies: ['builder', 'pig', 'traders'],
-  impliesAllowed: ['pig-herd'] // expansion makes pig-herd enabled but don't autimatically allows it
+  impliesAllowed: ['pig-herd'] // expansion makes pig-herd enabled but don't automatically allows it
 })
 export const PRINCESS_AND_DRAGON = Expansion.PRINCESS_AND_DRAGON = new Expansion('PRINCESS_AND_DRAGON', 'The Princess & The Dragon', {
-  implies: ['dragon', 'fairy', 'princess']
+  implies: ['dragon', 'fairy', 'princess', 'portal']
 })
 export const TOWER = Expansion.TOWER = new Expansion('TOWER', 'The Tower', {
   implies: ['tower']
@@ -69,6 +75,9 @@ export const BRIDGES_CASTLES_AND_BAZAARS = Expansion.BRIDGES_CASTLES_AND_BAZAARS
 })
 export const HILLS_AND_SHEEP = Expansion.HILLS_AND_SHEEP = new Expansion('HILLS_AND_SHEEP', 'Hills & Sheep', {
   implies: ['shepherd', 'hill', 'vineyard']
+})
+export const UNDER_THE_BIG_TOP = Expansion.UNDER_THE_BIG_TOP = new Expansion('UNDER_THE_BIG_TOP', 'Under The Big Top', {
+  implies: ['big-top', 'ringmaster', 'acrobats']
 })
 
 export const KING_AND_ROBBER = Expansion.KING_AND_ROBBER = new Expansion('KING_AND_ROBBER', 'King and Robber', { implies: ['king', 'robber'] })
@@ -103,12 +112,14 @@ export const MONASTERIES = Expansion.MONASTERIES = new Expansion('MONASTERIES', 
 
 export const FLIER = Expansion.FLIER = new Expansion('FLIER', 'The Flying Machines', { enforces: ['flier'] })
 export const FERRIES = Expansion.FERRIES = new Expansion('FERRIES', 'The Ferries', {
-  implies: ['ferries']
+  implies: ['ferry']
 })
 export const GOLDMINES = Expansion.GOLDMINES = new Expansion('GOLDMINES', 'The Goldmines', { implies: ['gold'] })
 export const MAGE_AND_WITCH = Expansion.MAGE_AND_WITCH = new Expansion('MAGE_AND_WITCH', 'Mage & Witch', {
   implies: ['mage', 'witch']
 })
+
+export const WATCHTOWERS = Expansion.WATCHTOWERS = new Expansion('WATCHTOWERS', 'The Watchtowers', { enforces: ['watchtower'] })
 
 export const RUSSIAN_PROMOS = Expansion.RUSSIAN_PROMOS = new Expansion('RUSSIAN_PROMOS', 'Russian Promos', { enforces: ['yaga', 'russian-trap'] }, [
   new Release('Russian Promos', ['russian-promos/2013', 'russian-promos/2016'])

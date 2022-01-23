@@ -21,6 +21,8 @@
         :tile-id="tileId"
         :rotation="rotation"
       />
+
+      <slot :tile-size="tileSize" :artwork="artwork" />
     </g>
   </svg>
 </template>
@@ -28,6 +30,7 @@
 <script>
 import { v4 as uuidv4 } from 'uuid'
 import TileImage from '@/components/game/TileImage'
+import { BASE_SIZE } from '@/constants/ui'
 
 export default {
   components: {
@@ -53,7 +56,7 @@ export default {
     },
 
     tileSize () {
-      return this.artwork?.tileSize || 1000
+      return this.artwork?.tileSize || BASE_SIZE
     },
 
     background () {

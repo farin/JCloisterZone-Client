@@ -6,16 +6,18 @@
       :transform="transformPosition(pos)"
     >
       <circle
-        cx="500" cy="500" r="420"
+        :cx="BASE_SIZE / 2"
+        :cy="BASE_SIZE / 2"
+        :r="BASE_SIZE * 0.42"
         fill="none"
         :stroke="color"
-        stroke-width="70"
+        :stroke-width="BASE_SIZE * 0.07"
         :stroke-opacity="mouseOver === pos ? 1 : 0.5"
       />
 
       <!-- invisible rect for tracking mouse events -->
       <rect
-        :x="0" :y="0" width="1000" height="1000"
+        :x="0" :y="0" :width="BASE_SIZE" :height="BASE_SIZE"
         :style="{'pointer-events': 'all', fill: 'none'}"
         @mouseenter="onMouseOver(pos)"
         @mouseleave="onMouseLeave(pos)"
@@ -27,6 +29,7 @@
 
 <script>
 import LayerMixin from '@/components/game/layers/LayerMixin'
+import { BASE_SIZE } from '@/constants/ui'
 
 export default {
   components: {
@@ -41,7 +44,8 @@ export default {
 
   data () {
     return {
-      mouseOver: null
+      mouseOver: null,
+      BASE_SIZE
     }
   },
 

@@ -133,7 +133,8 @@ export default {
         color: map-get($theme, 'link-detail-color')
 
     &:hover .v-icon
-      color: black
+      +theme using ($theme)
+        color: map-get($theme, 'text-color')
 
   &.selected
     +theme using ($theme)

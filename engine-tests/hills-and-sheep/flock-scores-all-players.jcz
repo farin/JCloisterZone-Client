@@ -1,0 +1,168 @@
+{
+  "appVersion": "5.7.3",
+  "gameId": "48b44dc08cbd465e8346ec9d1edbc154",
+  "name": "",
+  "initialRandom": 0.18055938044892073,
+  "created": "2021-08-22T20:04:41.541Z",
+  "clock": 50956,
+  "test": {
+    "description": "Guide the flock to the stable scores all shepherd on the field",
+    "assertions": [
+      "Alice has 4 points",
+      "Bob has 4 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "hills-and-sheep:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "shepherd": 1,
+      "hill": true,
+      "vineyard": true
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R90",
+        "position": [
+          0,
+          1
+        ]
+      },
+      "player": 0,
+      "clock": 2828
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            1
+          ],
+          "location": "NL.NR.SL.SR.WL.WR",
+          "feature": "Field"
+        },
+        "meepleId": "0.shepherd.1"
+      },
+      "player": 0,
+      "clock": 3664
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.7083015696377595
+      },
+      "player": 0,
+      "clock": 3679
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R0",
+        "position": [
+          -1,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 6270
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            -1,
+            0
+          ],
+          "location": "NL.NR.EL.WR",
+          "feature": "Field"
+        },
+        "meepleId": "1.shepherd.1"
+      },
+      "player": 1,
+      "clock": 7334
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.5940742508963572
+      },
+      "player": 1,
+      "clock": 7351
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/LR",
+        "rotation": "R90",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 9773
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 11184
+    },
+    {
+      "type": "FLOCK_EXPAND_OR_SCORE",
+      "payload": {
+        "value": "SCORE",
+        "random": 0.9602309281902375
+      },
+      "player": 0,
+      "clock": 14491
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.3175794168057924
+      },
+      "player": 0,
+      "clock": 14504
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/C",
+      "BA/RFr",
+      "BA/LR"
+    ]
+  }
+}

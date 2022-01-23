@@ -2,7 +2,7 @@
   "appVersion": "5.7.0",
   "gameId": "1",
   "name": "",
-  "initialSeed": "-8751171668661362147",
+  "initialRandom": 0.0,
   "created": "2021-05-14T20:09:14.054Z",
   "clock": 0,
   "test": {
@@ -25,9 +25,7 @@
       "traders": true,
       "pig-herd": true
     },
-    "rules": {
-      "tiny-city-scoring": "4"
-    },
+    "rules": {},
     "timer": null,
     "start": [
       {
@@ -72,7 +70,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-1598628822618607422"
+        "random": 0.0
       },
       "player": 0,
       "clock": 6220
@@ -99,7 +97,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-6401676093207640819"
+        "random": 0.0
       },
       "player": 1,
       "clock": 7444
@@ -126,7 +124,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-3847683927813497155"
+        "random": 0.0
       },
       "player": 0,
       "clock": 10497

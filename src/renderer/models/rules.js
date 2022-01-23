@@ -24,7 +24,23 @@ export class Rule {
     return Rule.__all
   }
 
-  isAvailable ({ elements, sets }) {
+  isAvailable ($tiles, { elements, sets }) {
+    if (this.id === 'keep-monasteries') {
+      const edition = elements.garden ? 2 : 1
+      return Object.keys(sets).some(id => {
+        const set = $tiles.sets[id] || $tiles.sets[id + ':' + edition]
+        return set.enforces && set.enforces.includes('monastery')
+      })
+    }
+
+    if (this.id === 'labyrinth-variant') {
+      const edition = elements.garden ? 2 : 1
+      return Object.keys(sets).some(id => {
+        const set = $tiles.sets[id] || $tiles.sets[id + ':' + edition]
+        return set.allows && set.allows.includes('labyrinth-variant')
+      })
+    }
+
     if (!this.deps.length) {
       return true
     }
@@ -75,7 +91,7 @@ export const GAMEPLAY = 'gameplay'
 export const SCORING = 'scoring'
 
 export const PRINCESS_ACTION = Rule.PRINCESS_ACTION = new Rule('princess-action', GAMEPLAY,
-  'The Princess {} remove knight from a city.',
+  'The Princess {} remove knight from a\u00A0city.',
   [GameElement.PRINCESS],
   [
     { value: 'may', text: 'may', flags: ['HiG'] },
@@ -88,7 +104,7 @@ export const FAIRY_PLACEMENT = Rule.FAIRY_PLACEMENT = new Rule('fairy-placement'
   'The Fairy is deployed {}.',
   [GameElement.FAIRY],
   [
-    { value: 'next-follower', text: 'next to a follower', flags: ['HiG'] },
+    { value: 'next-follower', text: 'next to a\u00A0follower', flags: ['HiG'] },
     { value: 'on-tile', text: 'on a tile', flags: ['RGG', 'ZMG'] }
   ]
 )
@@ -145,7 +161,7 @@ export const HILL_TIEBREAKER = Rule.HILL_TIEBREAKER = new Rule('hill-tiebreaker'
 )
 
 export const ESCAPE_VARIANT = Rule.ESCAPE_VARIANT = new Rule('espace-variant', GAMEPLAY,
-  'Monastery must be placed adjacent to {} of a\u00A0;besieged city to espace.',
+  'Monastery must be placed adjacent to {} of a\u00A0besieged city to espace.',
   [GameElement.ESCAPE],
   [
     { value: 'any-tile', text: 'any tile', flags: ['RGG'] },
@@ -206,10 +222,10 @@ export const FESTIVAL_RETURN = Rule.FESTIVAL_RETURN = new Rule('festival-return'
 
 export const KEEP_MONASTERIES = Rule.KEEP_MONASTERIES = new Rule('keep-monasteries', GAMEPLAY,
   'Special monasteries {}.',
-  [Expansion.MONASTERIES],
+  [], // managed manually by enforced "monastery" element
   [
     { value: 'replace', text: 'replace orignal monasteries' },
-    { value: 'add', text: 'are just added' }
+    { value: 'keep', text: 'are just added' }
   ],
   {
     link: 'http://wikicarpedia.com/index.php/Monasteries#cite_note-1',
@@ -219,7 +235,7 @@ export const KEEP_MONASTERIES = Rule.KEEP_MONASTERIES = new Rule('keep-monasteri
 
 export const LABYRINTH_VARIANT = Rule.LABYRINTH_VARIANT = new Rule('labyrinth-variant', GAMEPLAY,
   'Play {} labyrinth variant',
-  [Expansion.LABYRINTH],
+  [], // managed manually by labyringh presence - TODO use selectors
   [
     { value: 'basic', text: 'basic' },
     { value: 'advanced', text: 'advanced' }

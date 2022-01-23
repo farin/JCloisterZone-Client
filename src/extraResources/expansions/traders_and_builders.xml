@@ -32,100 +32,70 @@
 			<field city="N E S">I</field>
 		</tile>
 		<tile id="TB/CcRR!.c">
-			<road>S</road>
-			<road>E</road>
-			<city resource="cloth">N W</city>
+			<road wagon-move="a">S</road>
+			<road wagon-move="b">E</road>
+			<city resource="cloth" wagon-move="a b">N W</city>
 			<field city="N">SR</field>
 			<field city="N">SL</field>
 			<field city="N">ER</field>
 			<field city="N">EL</field>
-			<wagon-move>
-				<neighbouring>N E</neighbouring>
-				<neighbouring>N S</neighbouring>
-			</wagon-move>
 		</tile>
 		<tile id="TB/CcRR.w">
-			<city resource="wine">N W</city>
-			<road>S</road>
-			<road>E</road>
+			<city resource="wine" wagon-move="a b">N W</city>
+			<road wagon-move="a">S</road>
+			<road wagon-move="b">E</road>
 			<field city="N">SR</field>
 			<field city="N">SL ER</field>
 			<field city="N">EL</field>
-			<wagon-move>
-				<neighbouring>N E</neighbouring>
-				<neighbouring>N S</neighbouring>
-			</wagon-move>
     </tile>
     <tile id="TB/CcRR.wG">
       <garden />
-			<city resource="wine">N W</city>
-			<road>S</road>
-			<road>E</road>
+			<city resource="wine" wagon-move="a b">N W</city>
+			<road wagon-move="a">S</road>
+			<road wagon-move="b">E</road>
 			<field city="N">SR</field>
 			<field city="N">SL ER</field>
 			<field city="N">EL</field>
-			<wagon-move>
-				<neighbouring>N E</neighbouring>
-				<neighbouring>N S</neighbouring>
-			</wagon-move>
 		</tile>
 		<tile id="TB/CcRC.c">
-			<city resource="cloth">N W</city>
+			<city resource="cloth" wagon-move="a">N W</city>
 			<city>S</city>
-			<road>E</road>
+			<road wagon-move="a">E</road>
 			<field city="N">EL</field>
 			<field city="N S">ER</field>
-			<wagon-move>
-				<neighbouring>N E</neighbouring>
-			</wagon-move>
 		</tile>
 		<tile id="TB/CcRC.g">
-			<city resource="grain">N W</city>
+			<city resource="grain" wagon-move="a">N W</city>
 			<city>S</city>
-			<road>E</road>
+			<road wagon-move="a">E</road>
 			<field city="N">EL</field>
 			<field city="N S">ER</field>
-			<wagon-move>
-				<neighbouring>N E</neighbouring>
-			</wagon-move>
 		</tile>
 		<tile id="TB/CcR.c">
-			<city resource="cloth">N W</city>
-			<road>E</road>
+			<city resource="cloth" wagon-move="a">N W</city>
+			<road wagon-move="a">E</road>
 			<field city="N">EL</field>
 			<field city="N">ER SL SR</field>
-			<wagon-move>
-				<neighbouring>N E</neighbouring>
-			</wagon-move>
     </tile>
     <tile id="TB/CcR.cG">
       <garden />
-			<city resource="cloth">N W</city>
-			<road>E</road>
+			<city resource="cloth" wagon-move="a">N W</city>
+			<road wagon-move="a">E</road>
 			<field city="N">EL</field>
 			<field city="N">ER SL SR</field>
-			<wagon-move>
-				<neighbouring>N E</neighbouring>
-			</wagon-move>
 		</tile>
 		<tile id="TB/CcR!.w">
-			<road>E</road>
-			<city resource="wine">N W</city>
+			<road wagon-move="a">E</road>
+			<city resource="wine" wagon-move="a">N W</city>
 			<field city="N">EL</field>
 			<field city="N">ER</field>
 			<field city="N">SL SR</field>
-			<wagon-move>
-				<neighbouring>N E</neighbouring>
-			</wagon-move>
 		</tile>
 		<tile id="TB/CccR.w">
-			<city resource="wine">N W E</city>
-			<road>S</road>
+			<city resource="wine" wagon-move="a">N W E</city>
+			<road wagon-move="a">S</road>
 			<field city="N">SR</field>
 			<field city="N">SL</field>
-			<wagon-move>
-				<neighbouring>N S</neighbouring>
-			</wagon-move>
 		</tile>
 		<tile id="TB/CcCc.w">
 			<city resource="wine">N W</city>
@@ -138,90 +108,63 @@
 			<field city="W">SL SR</field>
 		</tile>
 		<tile id="TB/CR">
-			<city>N</city>
-			<road>E</road>
+			<city wagon-move="a">N</city>
+			<road wagon-move="a">E</road>
 			<field city="N">EL</field>
 			<field city="N">WL WR SL SR ER</field>
-			<wagon-move>
-				<neighbouring>N E</neighbouring>
-			</wagon-move>
 		</tile>
 		<tile id="TB/CRc.g">
-			<city resource="grain">W E</city>
-			<road>S</road>
+			<city resource="grain" wagon-move="a">W E</city>
+			<road wagon-move="a">S</road>
 			<field city="W">NL NR</field>
 			<field city="W">SR</field>
 			<field city="W">SL</field>
-			<wagon-move>
-				<neighbouring>W S</neighbouring>
-			</wagon-move>
 		</tile>
 		<tile id="TB/CRc.w">
-			<city resource="wine">W E</city>
-			<road>S</road>
+			<city resource="wine" wagon-move="a">W E</city>
+			<road wagon-move="a">S</road>
 			<field city="W">NL NR</field>
 			<field city="W">SR</field>
 			<field city="W">SL</field>
-			<wagon-move>
-				<neighbouring>W S</neighbouring>
-			</wagon-move>
 		</tile>
 		<tile id="TB/CRcR.w">
-			<city resource="wine">E W</city>
-			<road>N</road>
-			<road>S</road>
+			<city resource="wine" wagon-move="a b">E W</city>
+			<road wagon-move="a">N</road>
+			<road wagon-move="b">S</road>
 			<field city="W">NL</field>
 			<field city="W">NR</field>
 			<field city="W">SL</field>
 			<field city="W">SR</field>
-			<wagon-move>
-				<neighbouring>W N</neighbouring>
-				<neighbouring>W S</neighbouring>
-			</wagon-move>
 		</tile>
 		<tile id="TB/LRRR">
-			<monastery/>
-			<road>E</road>
-			<road>S</road>
-			<road>W</road>
+			<monastery wagon-move="a b c"/>
+			<road wagon-move="a">E</road>
+			<road wagon-move="b">S</road>
+			<road wagon-move="c">W</road>
 			<field>WR NL NR EL</field>
 			<field>ER SL</field>
 			<field>WL SR</field>
-			<wagon-move>
-				<neighbouring>MONASTERY W</neighbouring>
-				<neighbouring>MONASTERY S</neighbouring>
-				<neighbouring>MONASTERY E</neighbouring>
-			</wagon-move>
 		</tile>
 		<tile id="TB/RCc.g">
-			<city resource="grain">N W</city>
-			<road>S</road>
+			<city resource="grain" wagon-move="a">N W</city>
+			<road wagon-move="a">S</road>
 			<field city="N">SR</field>
 			<field city="N">SL EL ER</field>
-			<wagon-move>
-				<neighbouring>N S</neighbouring>
-			</wagon-move>
 		</tile>
 		<tile id="TB/RCc!.g">
-			<road>S</road>
-			<city resource="grain">N W</city>
+			<road wagon-move="a">S</road>
+			<city resource="grain" wagon-move="a">N W</city>
 			<field city="N">SR</field>
 			<field city="N">SL</field>
 			<field city="N">EL ER</field>
-			<wagon-move>
-				<neighbouring>N S</neighbouring>
-			</wagon-move>
 		</tile>
 		<tile id="TB/RRC">
-			<city>N</city>
+			<city wagon-move="a">N</city>
 			<road>W</road>
-			<road>S</road>
+			<road wagon-move="a">S</road>
 			<field city="N">WR</field>
 			<field>WL SR</field>
 			<field city="N">EL ER SL</field>
-			<wagon-move>
-				<neighbouring>N S</neighbouring>
-			</wagon-move>
 		</tile>
 		<tile id="TB/RRrr">
 			<road>N S</road>

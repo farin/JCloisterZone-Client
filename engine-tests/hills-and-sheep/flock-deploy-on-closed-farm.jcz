@@ -1,0 +1,176 @@
+{
+  "appVersion": "5.7.3",
+  "gameId": "b1d978b00c7e453b8707efc13c63619f",
+  "name": "",
+  "initialRandom": 0.9444126853125474,
+  "created": "2021-08-22T20:02:22.502Z",
+  "clock": 45376,
+  "test": {
+    "description": "Shepherd deployed on closed farm",
+    "assertions": [
+      "Bob has 2 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "hills-and-sheep:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "shepherd": 1,
+      "hill": true,
+      "vineyard": true
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRRR",
+        "rotation": "R0",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 2015
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 2799
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.2038562799118535
+      },
+      "player": 0,
+      "clock": 2806
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Rr",
+        "rotation": "R0",
+        "position": [
+          2,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 3534
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 4254
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.7374325362669172
+      },
+      "player": 1,
+      "clock": 4261
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Rr",
+        "rotation": "R90",
+        "position": [
+          2,
+          1
+        ]
+      },
+      "player": 0,
+      "clock": 5375
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 5601
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.37092481091376195
+      },
+      "player": 0,
+      "clock": 5622
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Rr",
+        "rotation": "R180",
+        "position": [
+          1,
+          1
+        ]
+      },
+      "player": 1,
+      "clock": 6856
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            1
+          ],
+          "location": "NR.EL",
+          "feature": "Field"
+        },
+        "meepleId": "1.shepherd.1"
+      },
+      "player": 1,
+      "clock": 8553
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.6789012327508657
+      },
+      "player": 1,
+      "clock": 8569
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/RRRR",
+      "BA/Rr",
+      "BA/Rr",
+      "BA/Rr"
+    ]
+  }
+}

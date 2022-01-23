@@ -1,8 +1,8 @@
 <template>
   <div class="points-source">
     <div
-      v-for="p in ev.points"
-      :key="p.player"
+      v-for="(p, idx) in ev.points"
+      :key="idx"
       :class="'points ' + colorCssClass(p.player)"
       @mouseenter="onMouseEnter(p)"
       @mouseleave="onMouseLeave()"
@@ -41,35 +41,50 @@ export default {
       const { ptr } = points
       if (ptr) {
         if (Array.isArray(ptr)) {
-          this.$store.dispatch('board/showLayer', {
-            layer: 'EmphasizeLayer',
-            props: {
-              emphasis: {
-                type: 'tile',
-                position: ptr
-              }
-            }
-          })
+          this.showTile(ptr)
+        } else if (ptr.position && !ptr.location) {
+          this.showTile(ptr.position)
         } else {
           const feature = this.featureOn(ptr)
-          const places = feature.places.map(p => {
-            return {
-              tile: this.tileOn(p),
-              location: p[2]
-            }
-          })
-          this.$store.dispatch('board/showLayer', {
-            layer: 'EmphasizeLayer',
-            props: {
-              emphasis: {
-                type: 'feature',
-                places
-              }
-            }
-          })
+          if (feature) {
+            this.showFeature(feature)
+          } else {
+            console.error('No feature found for ', ptr)
+          }
         }
       }
       this.$store.commit('board/pointsExpression', points)
+    },
+
+    showTile (position) {
+      this.$store.dispatch('board/showLayer', {
+        layer: 'EmphasizeLayer',
+        props: {
+          emphasis: {
+            type: 'tile',
+            position
+          }
+        }
+      })
+    },
+
+    showFeature (feature) {
+      const places = feature.places.map(p => {
+        return {
+          tile: this.tileOn(p),
+          feature: feature.type,
+          location: p[2]
+        }
+      })
+      this.$store.dispatch('board/showLayer', {
+        layer: 'EmphasizeLayer',
+        props: {
+          emphasis: {
+            type: 'feature',
+            places
+          }
+        }
+      })
     },
 
     onMouseLeave () {

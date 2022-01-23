@@ -1,0 +1,221 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "c8a2b5ea94f7488d96c8a6ee31c697ec",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-07-03T20:35:53.385Z",
+  "clock": 97288,
+  "test": {
+    "description": "Bridge placed berween city gates",
+    "assertions": [
+      "Alice has 1 points"
+    ]
+  },
+  "setup": {
+    "addons": {
+      "city-gates": 1
+    },
+    "options": {},
+    "sets": {
+      "basic:1": 1,
+      "city-gates": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "bridge": 1
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ]
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "City-Gates/ccrg+",
+        "rotation": "R180",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 3831
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 4814
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 4820
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R0",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 5558
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 5957
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 5978
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R0",
+        "position": [
+          2,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 8031
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 8124
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 8129
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "City-Gates/fcfg",
+        "rotation": "R0",
+        "position": [
+          2,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 9264
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 9867
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 9888
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/L",
+        "rotation": "R0",
+        "position": [
+          1,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 12914
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "BRIDGE",
+        "pointer": {
+          "position": [
+            1,
+            -1
+          ],
+          "location": "WE",
+          "feature": "Road"
+        }
+      },
+      "player": 0,
+      "clock": 48955
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            -1
+          ],
+          "location": "WE",
+          "feature": "Road"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 50829
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 51972
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "City-Gates/ccrg+",
+      "BA/RFr",
+      "BA/RFr",
+      "City-Gates/fcfg",
+      "BA/L"
+    ]
+  }
+}

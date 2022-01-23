@@ -2,14 +2,14 @@
   "appVersion": "5.7.0",
   "gameId": "1",
   "name": "",
-  "initialSeed": "-1158007083210809278",
+  "initialRandom": 0.0,
   "created": "2021-05-22T18:32:38.765Z",
   "clock": 45023,
   "test": {
     "description": "City of Carcassonne is score as additonal city on a field",
     "assertions": [
       "Alice has 6 points",
-      "Alice scored farm for 6 points"
+      "Alice scored field for 6 points"
     ]
   },
   "setup": {
@@ -22,27 +22,7 @@
       "farmers": true,
       "count": 1
     },
-    "rules": {
-      "princess-action": "may",
-      "fairy-placement": "next-follower",
-      "dragon-move": "before-scoring",
-      "barn-placement": "not-occupied",
-      "wagon-move": "C2",
-      "bazaar-no-auction": false,
-      "hill-tiebreaker": "at-least-one-follower",
-      "espace-variant": "any-tile",
-      "gq11-pig-herd": "pig",
-      "tunnelize-other-expansions": true,
-      "more-tunnel-tokens": "3/2",
-      "festival-return": "meeple",
-      "keep-monasteries": "replace",
-      "labyrinth-variant": "advanced",
-      "coc-final-scoring": "market-only",
-      "count-move": "by-player",
-      "little-buildings-scoring": "1/1/1",
-      "king-and-robber-scoring": "default",
-      "tiny-city-scoring": "4"
-    },
+    "rules": {},
     "timer": null,
     "start": [
       {
@@ -148,6 +128,7 @@
             2,
             0
           ],
+          "feature": "Field",
           "location": "NL.NR.EL.ER.SL.SR.WL.WR"
         },
         "meepleId": "0.small.1"
@@ -158,7 +139,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-4579364103472010608"
+        "random": 0.0
       },
       "player": 0,
       "clock": 4217
@@ -185,7 +166,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-6737388882183913943"
+        "random": 0.0
       },
       "player": 0,
       "clock": 6468

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defs>
+  <tiles>
+    <tile id="BT/ffff.ac">
+      <acrobats />
+      <field>NL NR EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="BT/ffff.g.ac">
+      <acrobats />
+      <garden />
+      <field>NL NR EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="BT/ffrf.ac">
+      <acrobats />
+      <road>S</road>
+      <field>NL NR EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="BT/ffrr.ac">
+      <acrobats />
+      <road>S</road>
+      <road>W</road>
+      <field>NL NR EL ER SL WR</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="BT/rfrf.ac">
+      <acrobats />
+      <road>S</road>
+      <road>N</road>
+      <field>NR EL ER SL</field>
+      <field>NL SR WL WR</field>
+    </tile>
+    <tile id="BT/rrrf.ac">
+      <acrobats />
+      <road>N</road>
+      <road>E</road>
+      <road>S</road>
+      <field>SR WL WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL</field>
+    </tile>
+
+    <tile id="BT/ffrf.bt">
+      <circus />
+      <road>S</road>
+      <field>NL NR EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="BT/frrf.bt">
+      <circus />
+      <road>E</road>
+      <road>S</road>
+      <field>NL NR EL SR WL WR</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="BT/frrf.g.bt">
+      <circus />
+      <garden />
+      <road>E</road>
+      <road>S</road>
+      <field>NL NR EL SR WL WR</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="BT/frfr.bt">
+      <circus />
+      <road>W</road>
+      <road>E</road>
+      <field>NL NR EL WR</field>
+      <field>ER SL SR WL</field>
+    </tile>
+    <tile id="BT/frrr.bt">
+      <circus />
+      <road>S</road>
+      <road>W</road>
+      <road>E</road>
+      <field>NL NR EL WR</field>
+      <field>SR WL</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="BT/cfff.bt">
+      <circus />
+      <city>N</city>
+      <field city="N">EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="BT/cffr.bt">
+      <circus />
+      <city>N</city>
+      <road>W</road>
+      <field city="N">WR</field>
+      <field city="N">EL ER SL SR WL</field>
+    </tile>
+    <tile id="BT/cfrf.bt">
+      <circus />
+      <city>N</city>
+      <road>S</road>
+      <field city="N">SR WL WR</field>
+      <field city="N">EL ER SL</field>
+    </tile>
+    <tile id="BT/crfr.bt">
+      <circus />
+      <city>N</city>
+      <road>W</road>
+      <road>E</road>
+      <field city="N">EL</field>
+      <field city="N">WR</field>
+      <field>ER SL SR WL</field>
+    </tile>
+    <tile id="BT/cfcf.bt">
+      <circus />
+      <city>N</city>
+      <city>S</city>
+      <field city="N S">WL WR</field>
+      <field city="N S">EL ER</field>
+    </tile>
+    <tile id="BT/ccrf.bt">
+      <circus />
+      <city>N</city>
+      <city>E</city>
+      <road>S</road>
+      <field city="E">SL</field>
+      <field city="N">SR WL WR</field>
+    </tile>
+    <tile id="BT/crrc.bt">
+      <circus />
+      <city>N W</city>
+      <road>E</road>
+      <road>S</road>
+      <field city="N">EL</field>
+      <field>ER SL</field>
+      <field city="N">SR</field>
+    </tile>
+  </tiles>
+  <sets>
+    <tile-set id="under-the-big-top:1">
+      <ref count="1" tile="BT/ffff.ac" />
+      <ref count="1" tile="BT/ffrf.ac" />
+      <ref count="3" tile="BT/ffrr.ac" />
+      <ref count="2" tile="BT/rfrf.ac" />
+      <ref count="1" tile="BT/rrrf.ac" />
+      <ref count="1" tile="BT/ffrf.bt" />
+      <ref count="1" tile="BT/frrf.bt" />
+      <ref count="1" tile="BT/frfr.bt" />
+      <ref count="1" tile="BT/frrr.bt" />
+      <ref count="1" tile="BT/cfff.bt" />
+      <ref count="1" tile="BT/cffr.bt" />
+      <ref count="2" tile="BT/cfrf.bt" />
+      <ref count="1" tile="BT/crfr.bt" />
+      <ref count="1" tile="BT/cfcf.bt" />
+      <ref count="1" tile="BT/ccrf.bt" />
+      <ref count="1" tile="BT/crrc.bt" />
+    </tile-set>
+    <tile-set id="under-the-big-top:2">
+      <ref count="1" tile="BT/ffff.g.ac" />
+      <ref count="1" tile="BT/ffrf.ac" />
+      <ref count="3" tile="BT/ffrr.ac" />
+      <ref count="2" tile="BT/rfrf.ac" />
+      <ref count="1" tile="BT/rrrf.ac" />
+      <ref count="1" tile="BT/ffrf.bt" />
+      <ref count="1" tile="BT/frrf.g.bt" />
+      <ref count="1" tile="BT/frfr.bt" />
+      <ref count="1" tile="BT/frrr.bt" />
+      <ref count="1" tile="BT/cfff.bt" />
+      <ref count="1" tile="BT/cffr.bt" />
+      <ref count="2" tile="BT/cfrf.bt" />
+      <ref count="1" tile="BT/crfr.bt" />
+      <ref count="1" tile="BT/cfcf.bt" />
+      <ref count="1" tile="BT/ccrf.bt" />
+      <ref count="1" tile="BT/crrc.bt" />
+    </tile-set>
+  </sets>
+</defs>

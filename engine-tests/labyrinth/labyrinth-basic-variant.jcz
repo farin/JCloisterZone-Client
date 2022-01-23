@@ -2,7 +2,7 @@
   "appVersion": "5.7.0",
   "gameId": "1",
   "name": "",
-  "initialSeed": "-5548846429787238112",
+  "initialRandom": 0.0,
   "created": "2021-05-22T16:36:38.202Z",
   "clock": 27968,
   "test": {
@@ -22,25 +22,7 @@
       "farmers": true
     },
     "rules": {
-      "princess-action": "may",
-      "fairy-placement": "next-follower",
-      "dragon-move": "before-scoring",
-      "barn-placement": "not-occupied",
-      "wagon-move": "C2",
-      "bazaar-no-auction": false,
-      "hill-tiebreaker": "at-least-one-follower",
-      "espace-variant": "any-tile",
-      "gq11-pig-herd": "pig",
-      "tunnelize-other-expansions": true,
-      "more-tunnel-tokens": "3/2",
-      "festival-return": "meeple",
-      "keep-monasteries": "replace",
-      "labyrinth-variant": "basic",
-      "coc-final-scoring": "market-only",
-      "count-move": "by-player",
-      "little-buildings-scoring": "1/1/1",
-      "king-and-robber-scoring": "default",
-      "tiny-city-scoring": "4"
+      "labyrinth-variant": "basic"
     },
     "timer": null,
     "start": [
@@ -82,7 +64,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-7056980520250606553"
+        "random": 0.0
       },
       "player": 0,
       "clock": 2769
@@ -108,6 +90,7 @@
             1,
             -1
           ],
+          "feature": "Road",
           "location": "S"
         },
         "meepleId": "0.small.1"
@@ -118,7 +101,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "4370891877114676890"
+        "random": 0.0
       },
       "player": 0,
       "clock": 3878
@@ -145,7 +128,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "342814508590725393"
+        "random": 0.0
       },
       "player": 0,
       "clock": 7656
@@ -172,7 +155,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "5204438794610214831"
+        "random": 0.0
       },
       "player": 0,
       "clock": 9205
@@ -199,7 +182,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "7878331928060324195"
+        "random": 0.0
       },
       "player": 0,
       "clock": 11573

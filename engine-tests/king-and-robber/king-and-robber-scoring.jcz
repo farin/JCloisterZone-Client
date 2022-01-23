@@ -2,7 +2,7 @@
   "appVersion": "5.7.0",
   "gameId": "366d2413c59d4b80b22f380201f06cc3",
   "name": "",
-  "initialSeed": "-6579118197312124808",
+  "initialRandom": 0.0,
   "created": "2021-05-23T05:23:34.237Z",
   "clock": 51303,
   "test": {
@@ -23,27 +23,7 @@
       "king": true,
       "robber": true
     },
-    "rules": {
-      "princess-action": "may",
-      "fairy-placement": "next-follower",
-      "dragon-move": "before-scoring",
-      "barn-placement": "not-occupied",
-      "wagon-move": "C2",
-      "bazaar-no-auction": false,
-      "hill-tiebreaker": "at-least-one-follower",
-      "espace-variant": "any-tile",
-      "gq11-pig-herd": "pig",
-      "tunnelize-other-expansions": true,
-      "more-tunnel-tokens": "3/2",
-      "festival-return": "meeple",
-      "keep-monasteries": "replace",
-      "labyrinth-variant": "advanced",
-      "coc-final-scoring": "market-only",
-      "count-move": "by-player",
-      "little-buildings-scoring": "1/1/1",
-      "king-and-robber-scoring": "default",
-      "tiny-city-scoring": "4"
-    },
+    "rules": {},
     "timer": null,
     "start": [
       {
@@ -88,7 +68,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-4910843108099382533"
+        "random": 0.0
       },
       "player": 0,
       "clock": 2408
@@ -115,7 +95,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "8053856004464920621"
+        "random": 0.0
       },
       "player": 1,
       "clock": 3957
@@ -142,7 +122,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-8987638207666586148"
+        "random": 0.0
       },
       "player": 0,
       "clock": 6456
@@ -169,7 +149,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-9123452990413968497"
+        "random": 0.0
       },
       "player": 1,
       "clock": 9774
@@ -196,7 +176,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "5407470270493252700"
+        "random": 0.0
       },
       "player": 0,
       "clock": 11534
@@ -223,7 +203,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "4216694079193727767"
+        "random": 0.0
       },
       "player": 1,
       "clock": 13430
@@ -250,7 +230,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "338838488721827929"
+        "random": 0.0
       },
       "player": 0,
       "clock": 15257
@@ -277,7 +257,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "3369320955310572880"
+        "random": 0.0
       },
       "player": 1,
       "clock": 18392

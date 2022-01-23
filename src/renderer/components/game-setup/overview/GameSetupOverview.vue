@@ -1,7 +1,7 @@
 <template>
   <div class="game-setup-overview">
     <div class="label">
-      <h2>Selected Tiles</h2>
+      <h3>Selected Tiles</h3>
     </div>
     <section>
       <OverviewExpansionTile
@@ -13,7 +13,7 @@
       />
     </section>
     <div v-if="additions.length" class="label">
-      <h2>Additional elements</h2>
+      <h3>Additional elements</h3>
     </div>
     <section>
       <OverviewElementTile
@@ -24,7 +24,7 @@
       />
     </section>
     <div v-if="removals.length" class="label">
-      <h2>Removed Elements</h2>
+      <h3>Removed Elements</h3>
     </div>
     <section>
       <OverviewElementTile
@@ -35,7 +35,7 @@
       />
     </section>
     <div v-if="timer" class="label">
-      <h2>Timer</h2>
+      <h3>Timer</h3>
     </div>
     <section v-if="timer" class="timer">
       <TimerValue :value="timer.initial" />
@@ -46,20 +46,33 @@
 
     <div v-if="gameplayAltred" class="rules">
       <div class="label">
-        <h2>Altered Gameplay</h2>
+        <h3>Altered Gameplay</h3>
       </div>
       <GameplayVariants :setup="setup" show="changed" read-only />
     </div>
 
     <div v-if="scoringAltred" class="rules">
       <div class="label">
-        <h2>Altered Scoring</h2>
+        <h3>Altered Scoring</h3>
       </div>
       <ScoringVariants :setup="setup" show="changed" read-only />
     </div>
 
+    <v-divider />
+
     <div class="setup-buttons">
-      <v-btn small color="secondary" @click="saveGameSetup">Save Game Setup</v-btn>
+      <v-btn v-if="!$store.getters['settings/isMySetup'](setup)" small color="secondary" @click="addToMySetups">
+        <v-icon left>far fa-heart</v-icon>
+        Add To Favorites
+      </v-btn>
+      <v-btn v-else small color="secondary" @click="removeFromMySetups">
+        <v-icon left>fa-heart</v-icon>
+        Remove From Favorites
+      </v-btn>
+      <v-btn small color="secondary" @click="saveGameSetup">
+        <v-icon left>fa-file</v-icon>
+        Save To File
+      </v-btn>
     </div>
   </div>
 </template>
@@ -96,15 +109,23 @@ export default {
     timer () { return this.setup?.timer },
 
     gameplayAltred () {
-      return Rule.all().filter(r => r.kind === GAMEPLAY).some(r => r.default !== this.rules[r.id])
+      return Rule.all().filter(r => r.kind === GAMEPLAY).some(r => this.rules[r.id] !== undefined && r.default !== this.rules[r.id])
     },
 
     scoringAltred () {
-      return Rule.all().filter(r => r.kind === SCORING).some(r => r.default !== this.rules[r.id])
+      return Rule.all().filter(r => r.kind === SCORING).some(r => this.rules[r.id] !== undefined && r.default !== this.rules[r.id])
     }
   },
 
   methods: {
+    addToMySetups () {
+      this.$store.dispatch('settings/addMySetup', this.setup)
+    },
+
+    removeFromMySetups () {
+      this.$store.dispatch('settings/removeMySetup', this.setup)
+    },
+
     saveGameSetup () {
       this.$store.dispatch('game/save', { onlySetup: true })
     }
@@ -116,6 +137,7 @@ export default {
 section
   display: flex
   flex-wrap: wrap
+  padding: 0 20px
 
   .element-box
     width: 80px
@@ -140,9 +162,9 @@ section
 
 .label
   text-align: center
-  margin: 20px 0 10px 0
+  padding: 20px 0 10px 0
 
-  h2
+  h2, h3
     font-weight: 300
     font-size: 16px
     text-transform: uppercase
@@ -150,8 +172,16 @@ section
     +theme using ($theme)
       color: map-get($theme, 'gray-text-color')
 
+.v-divider
+  margin-top: 20px
+
 .setup-buttons
-  padding-top: 20px
+  padding: 20px
   display: flex
-  justify-content: flex-start
+  flex-direction: column
+  align-items: flex-start
+
+  .v-btn
+    margin-bottom: 10px
+
 </style>

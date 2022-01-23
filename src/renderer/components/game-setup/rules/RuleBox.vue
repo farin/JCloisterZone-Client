@@ -43,7 +43,9 @@ export default {
     },
 
     available () {
-      return this.rules.some(r => r.isAvailable(this.setup))
+      return this.rules.some(r => {
+        return r.isAvailable(this.$tiles, this.setup)
+      })
     }
   }
 }
@@ -59,6 +61,9 @@ export default {
   +theme using ($theme)
     color: map-get($theme, 'cards-text')
     background: map-get($theme, 'cards-bg')
+
+    svg
+      fill: map-get($theme, 'cards-text')
 
   .rule-lines
     .rule-line

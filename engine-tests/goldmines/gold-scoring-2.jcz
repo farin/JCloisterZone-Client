@@ -2,7 +2,7 @@
   "appVersion": "5.7.0",
   "gameId": "bc037e6c25dc4d118b4dfef2d3352c79",
   "name": "",
-  "initialSeed": "2426732553779152774",
+  "initialRandom": 0.0,
   "created": "2021-05-23T06:11:26.395Z",
   "clock": 172321,
   "test": {
@@ -24,27 +24,7 @@
       "farmers": true,
       "gold": true
     },
-    "rules": {
-      "princess-action": "may",
-      "fairy-placement": "next-follower",
-      "dragon-move": "before-scoring",
-      "barn-placement": "not-occupied",
-      "wagon-move": "C2",
-      "bazaar-no-auction": false,
-      "hill-tiebreaker": "at-least-one-follower",
-      "espace-variant": "any-tile",
-      "gq11-pig-herd": "pig",
-      "tunnelize-other-expansions": true,
-      "more-tunnel-tokens": "3/2",
-      "festival-return": "meeple",
-      "keep-monasteries": "replace",
-      "labyrinth-variant": "advanced",
-      "coc-final-scoring": "market-only",
-      "count-move": "by-player",
-      "little-buildings-scoring": "1/1/1",
-      "king-and-robber-scoring": "default",
-      "tiny-city-scoring": "4"
-    },
+    "rules": {},
     "timer": null,
     "start": [
       {
@@ -88,7 +68,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-6140104025693127343"
+        "random": 0.0
       },
       "player": 0,
       "clock": 5747
@@ -127,7 +107,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-2969104278332642411"
+        "random": 0.0
       },
       "player": 1,
       "clock": 11792
@@ -154,7 +134,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-6899769050510222748"
+        "random": 0.0
       },
       "player": 0,
       "clock": 17207
@@ -193,7 +173,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "4373679081412124564"
+        "random": 0.0
       },
       "player": 1,
       "clock": 23329
@@ -232,7 +212,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-1851893309974231038"
+        "random": 0.0
       },
       "player": 0,
       "clock": 56263
@@ -271,7 +251,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-7167261984956883777"
+        "random": 0.0
       },
       "player": 1,
       "clock": 66190
@@ -310,7 +290,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "4313296281534257405"
+        "random": 0.0
       },
       "player": 0,
       "clock": 73363
@@ -349,7 +329,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-1601407313336981896"
+        "random": 0.0
       },
       "player": 1,
       "clock": 78352
@@ -388,7 +368,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-6201155328323624496"
+        "random": 0.0
       },
       "player": 0,
       "clock": 81600
@@ -414,6 +394,7 @@
             1,
             -3
           ],
+          "feature": "City",
           "location": "S"
         },
         "meepleId": "1.small.1"
@@ -424,7 +405,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "6450533404202803711"
+        "random": 0.0
       },
       "player": 1,
       "clock": 85044
@@ -451,7 +432,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "1193319062430899202"
+        "random": 0.0
       },
       "player": 0,
       "clock": 89314
@@ -477,6 +458,7 @@
             3,
             -1
           ],
+          "feature": "Road",
           "location": "W"
         },
         "meepleId": "1.small.1"
@@ -487,7 +469,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-8858490062047111562"
+        "random": 0.0
       },
       "player": 1,
       "clock": 127041
@@ -514,7 +496,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-9099174034150104519"
+        "random": 0.0
       },
       "player": 0,
       "clock": 146361

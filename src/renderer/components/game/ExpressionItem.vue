@@ -18,14 +18,25 @@
         </svg>
       </template>
       <template v-else-if="item.name === 'pigHerds'"><img src="~/assets/features/C1/pig_herd.jpg" height="40"></template>
-      <template v-else-if="item.name === 'cities'"><img src="~/assets/icons/city-icon.png" height="40"></template>
-      <template v-else-if="item.name === 'roads'"><img src="~/assets/icons/road-icon.png" height="40"></template>
+      <template v-else-if="item.name === 'cities'"><img class="bw" src="~/assets/icons/city-icon.png" height="40"></template>
+      <template v-else-if="item.name === 'roads'"><img class="bw" src="~/assets/icons/road-icon.png" height="40"></template>
+      <template v-else-if="item.name === 'monasteries'"><img src="~/assets/features/C1/cloister.png" height="40"></template>
       <template v-else-if="item.name === 'vineyards'"><img src="~/assets/features/C1/vineyard.png" height="40"></template>
       <template v-else-if="item.name === 'castles' || item.name.startsWith('castle.')"><img src="~/assets/figures/castle.png" height="40"></template>
       <template v-else-if="item.name === 'church'"><ExpansionSymbol :expansion="Expansion.DARMSTADT" :style="{ width: 40, height: 40 }" /></template>
       <template v-else-if="item.name === 'little-buildings'"><img src="~/assets/figures/lb.png" width="40" height="40"></template>
       <template v-else-if="item.name === 'mage'"><NeutralFigure figure="mage" :width="40" :height="40" /></template>
       <template v-else-if="item.name === 'witch'"><NeutralFigure figure="witch" :width="40" :height="40" /></template>
+      <template v-else-if="item.name === 'circus'"><ExpansionSymbol :expansion="Expansion.UNDER_THE_BIG_TOP" :style="{ width: 40, height: 40 }" /></template>
+      <template v-else-if="item.name === 'acrobats'">
+        <svg class="meeple" width="40" height="40" viewBox="0 0 55 55">
+          <g transform="scale(0.55)">
+            <use :href="`${MEEPLES_SVG}#small-follower`" x="22" y="0" />
+            <use :href="`${MEEPLES_SVG}#small-follower`" x="-1" y="41" />
+            <use :href="`${MEEPLES_SVG}#small-follower`" x="46" y="41" />
+          </g>
+        </svg>
+      </template>
       <template v-else-if="item.name === 'gold'"><img src="~/assets/figures/gold.png" height="40"></template>
       <template v-else-if="item.name === 'king'"><TokenImage token="KING" :height="40" /></template>
       <template v-else-if="item.name === 'robber'"><TokenImage token="ROBBER" :height="40" /></template>
@@ -46,7 +57,17 @@
       <template v-else-if="item.name === 'shrine-challenge'"><ExpansionSymbol :expansion="Expansion.CULT" :style="{ width: 40, height: 40 }" /></template>
       <template v-else-if="item.name === 'coc'"><ExpansionSymbol :expansion="Expansion.COUNT" :style="{ width: 40, height: 40 }" /></template>
       <template v-else-if="item.name === 'bardsnotes'"><TokenImage token="BARDS_NOTE" :height="40" /></template>
-      <template v-else><v-icon :title="item.name">fas fa-question</v-icon></template>
+      <template v-else-if="artworkValue && artworkValue.tag === 'svg'">
+        <svg
+          class="artwork-element"
+          width="40" height="40"
+          :viewBox="artworkValue.viewBox"
+          v-html="artworkValue.content"
+        />
+      </template>
+      <template v-else>
+        <v-icon :title="item.name">fas fa-question</v-icon>
+      </template>
     </div>
     <div class="points">{{ points }}</div>
   </div>
@@ -92,6 +113,10 @@ export default {
         return '+' + points
       }
       return points + ''
+    },
+
+    artworkValue () {
+      return this.$theme.getElementImage(`expr/${this.item.name}`)
     }
   }
 }
@@ -117,7 +142,7 @@ export default {
     .v-icon
       font-size: 40px
 
-    svg.meeple
+    svg.meeple, svg.artwork-element
       +theme using ($theme)
         fill: map-get($theme, 'gray-text-color')
 
@@ -135,16 +160,6 @@ export default {
     .icon
       margin-left: 6px
 
-    //+theme using ($theme)
-      //color: map-get($theme, 'text-color')
-  // .expr
-  //   display: flex
-  //   align-items: stretch
-  //   font-size: 28px
-  //   font-weight: 500
-  //   padding-top: 1px
-
-  //   +theme using ($theme)
-  //     color: map-get($theme, 'gray-text-color')
-
+#app.theme--dark .icon img.bw
+  filter: invert(1)
 </style>

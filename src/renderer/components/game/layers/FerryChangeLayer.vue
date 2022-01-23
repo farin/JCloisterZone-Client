@@ -186,7 +186,7 @@ export default {
       if (this.isDragging(ev)) {
         return
       }
-      this.$root.$emit('ferry.select', { position, location })
+      this.$root.$emit('ferry.select', { position, feature: 'Road', location })
     }
   }
 }

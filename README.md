@@ -51,3 +51,9 @@ https://github.com/electron-userland/electron-builder/issues/1340
 https://www.bittbox.com/culture/convert-paths-to-shapes-in-photoshop
 
 With path selected choose "Layers / New fill layer"
+
+### Run second client with different config in dev
+
+```
+JCZ_CONFIG=/home/farin/.config/Electron/jcz-config-2.json JCZ_NETWORK_DELAY=1-50 yarn dev
+```

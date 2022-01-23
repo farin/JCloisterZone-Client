@@ -60,4 +60,7 @@ p
   text-align: center
   margin-top: 20px
   font-size: 18px
+
+.v-card__text
+  padding-bottom: 0 !important
 </style>

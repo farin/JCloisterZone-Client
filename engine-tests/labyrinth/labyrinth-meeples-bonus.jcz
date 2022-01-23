@@ -2,7 +2,7 @@
   "appVersion": "5.7.0",
   "gameId": "1",
   "name": "",
-  "initialSeed": "8066627671785220472",
+  "initialRandom": 0.0,
   "created": "2021-05-22T16:31:11.632Z",
   "clock": 1,
   "test": {
@@ -21,27 +21,7 @@
       "small-follower": 7,
       "farmers": true
     },
-    "rules": {
-      "princess-action": "may",
-      "fairy-placement": "next-follower",
-      "dragon-move": "before-scoring",
-      "barn-placement": "not-occupied",
-      "wagon-move": "C2",
-      "bazaar-no-auction": false,
-      "hill-tiebreaker": "at-least-one-follower",
-      "espace-variant": "any-tile",
-      "gq11-pig-herd": "pig",
-      "tunnelize-other-expansions": true,
-      "more-tunnel-tokens": "3/2",
-      "festival-return": "meeple",
-      "keep-monasteries": "replace",
-      "labyrinth-variant": "advanced",
-      "coc-final-scoring": "market-only",
-      "count-move": "by-player",
-      "little-buildings-scoring": "1/1/1",
-      "king-and-robber-scoring": "default",
-      "tiny-city-scoring": "4"
-    },
+    "rules": {},
     "timer": null,
     "start": [
       {
@@ -82,7 +62,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-6373745489891222422"
+        "random": 0.0
       },
       "player": 0,
       "clock": 4206
@@ -108,6 +88,7 @@
             1,
             -1
           ],
+          "feature": "Road",
           "location": "S"
         },
         "meepleId": "0.small.1"
@@ -118,7 +99,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-2312714415849920073"
+        "random": 0.0
       },
       "player": 0,
       "clock": 6474
@@ -144,6 +125,7 @@
             2,
             0
           ],
+          "feature": "Road",
           "location": "W"
         },
         "meepleId": "0.small.2"
@@ -154,7 +136,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-8265009079811179255"
+        "random": 0.0
       },
       "player": 0,
       "clock": 7849
@@ -181,7 +163,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-4073867263097941364"
+        "random": 0.0
       },
       "player": 0,
       "clock": 8822
@@ -207,6 +189,7 @@
             -1,
             0
           ],
+          "feature": "Road",
           "location": "E"
         },
         "meepleId": "0.small.3"
@@ -217,7 +200,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-7328317554261224864"
+        "random": 0.0
       },
       "player": 0,
       "clock": 12175

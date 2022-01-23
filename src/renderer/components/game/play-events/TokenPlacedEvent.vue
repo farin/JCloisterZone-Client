@@ -50,7 +50,7 @@ export default {
           type: 'tile',
           position: this.ev.to.position
         }
-      } else if (this.ev.token === 'GOLD' || this.ev.token.startsWith('LB_')) {
+      } else if (Array.isArray(this.ev.to)) {
         emphasis = {
           type: 'tile',
           position: this.ev.to

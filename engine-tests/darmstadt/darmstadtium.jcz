@@ -2,7 +2,7 @@
   "appVersion": "5.7.0",
   "gameId": "1",
   "name": "",
-  "initialSeed": "-1083928485176885387",
+  "initialRandom": 0.0,
   "created": "2021-05-22T14:43:17.690Z",
   "clock": 78255,
   "test": {
@@ -21,27 +21,7 @@
       "small-follower": 7,
       "farmers": true
     },
-    "rules": {
-      "princess-action": "may",
-      "fairy-placement": "next-follower",
-      "dragon-move": "before-scoring",
-      "barn-placement": "not-occupied",
-      "wagon-move": "C2",
-      "bazaar-no-auction": false,
-      "hill-tiebreaker": "at-least-one-follower",
-      "espace-variant": "any-tile",
-      "gq11-pig-herd": "pig",
-      "tunnelize-other-expansions": true,
-      "more-tunnel-tokens": "3/2",
-      "festival-return": "meeple",
-      "keep-monasteries": "replace",
-      "labyrinth-variant": "advanced",
-      "coc-final-scoring": "market-only",
-      "count-move": "by-player",
-      "little-buildings-scoring": "1/1/1",
-      "king-and-robber-scoring": "default",
-      "tiny-city-scoring": "4"
-    },
+    "rules": {},
     "timer": null,
     "start": [
       {
@@ -82,7 +62,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "3623665861274701948"
+        "random": 0.0
       },
       "player": 0,
       "clock": 2584
@@ -109,7 +89,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-6848926835996297991"
+        "random": 0.0
       },
       "player": 0,
       "clock": 4677
@@ -135,6 +115,7 @@
             0,
             -2
           ],
+          "feature": "City",
           "location": "S"
         },
         "meepleId": "0.small.1"
@@ -145,7 +126,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-3444309339253904673"
+        "random": 0.0
       },
       "player": 0,
       "clock": 6612
@@ -172,7 +153,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-2440938198682053313"
+        "random": 0.0
       },
       "player": 0,
       "clock": 9250

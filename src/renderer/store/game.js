@@ -5,18 +5,21 @@ import compareVersions from 'compare-versions'
 
 import difference from 'lodash/difference'
 import pick from 'lodash/pick'
+import sortBy from 'lodash/sortBy'
 import omit from 'lodash/omit'
 import range from 'lodash/range'
 import zip from 'lodash/zip'
 import isNil from 'lodash/isNil'
+import groupBy from 'lodash/groupBy'
 import Vue from 'vue'
 
 import { SAVED_GAME_COMPATIBILITY } from '@/constants/versions'
 import Location from '@/models/Location'
 import { randomId } from '@/utils/random'
 import { getAppVersion } from '@/utils/version'
-import { isSameFeature, migrateLegacyReplay } from '@/utils/gameUtils'
+import { isSameFeature } from '@/utils/gameUtils'
 import { verifyScenario } from '@/utils/testing'
+import { Rule, getDefaultRules } from '@/models/rules'
 
 const SAVED_GAME_FILTERS = [{ name: 'Saved Game', extensions: ['jcz'] }]
 
@@ -35,7 +38,7 @@ const deployedOnField = (state, response) => {
 const deployedOnTower = (state, response) => {
   for (let i = 0; i < response.undo.depth; i++) {
     const msg = state.gameMessages[state.gameMessages.length - i - 1]
-    if (msg.type === 'DEPLOY_MEEPLE' && msg.payload.pointer?.location === 'TOWER') {
+    if (msg.type === 'DEPLOY_MEEPLE' && msg.payload.pointer?.feature === 'Tower') {
       return true
     }
   }
@@ -60,11 +63,12 @@ const computeClock = (playersCount, messages) => {
 export const state = () => ({
   id: null,
   compatAppVersion: null, // original app version in which was game created
-  pin: null,
-  hash: null,
+  key: null,
+  name: null,
   lastMessageId: null,
   owner: null,
   setup: null,
+  packSize: null,
   slots: null,
   players: null,
   clock: null,
@@ -84,23 +88,25 @@ export const state = () => ({
     allowed: false,
     depth: 0
   },
-  initialSeed: null,
+  initialRandom: null,
   gameMessages: null,
   gameAnnotations: {},
   testScenario: null,
   testScenarioResult: null,
-  lockUi: false
+  lockUi: false,
+  showGameStats: false
 })
 
 export const mutations = {
   clear (state) {
     state.id = null
     state.originAppVersion = null
-    state.pin = null
-    state.hash = null
+    state.key = null
+    state.name = null
     state.lastMessageId = null
     state.owner = null
     state.setup = null
+    state.packSize = null
     state.slots = null
     state.players = null
     state.clock = null
@@ -117,12 +123,13 @@ export const mutations = {
     state.action = null
     state.history = null
     state.undo = false
-    state.initialSeed = null
+    state.initialRandom = null
     state.gameMessages = null
     state.gameAnnotations = {}
     state.testScenario = null
     state.testScenarioResult = null
     state.lockUi = false
+    state.showGameStats = false
   },
 
   id (state, value) {
@@ -133,12 +140,12 @@ export const mutations = {
     state.originAppVersion = value
   },
 
-  pin (state, value) {
-    state.pin = value ? value.substring(0, 3) + '-' + value.substring(3) : null
+  key (state, value) {
+    state.key = value ? value.substring(0, 3) + '-' + value.substring(3) : null
   },
 
-  hash (state, value) {
-    state.hash = value
+  name (state, value) {
+    state.name = value
   },
 
   lastMessageId (state, value) {
@@ -150,7 +157,11 @@ export const mutations = {
   },
 
   setup (state, value) {
+    const { $tiles } = this._vm
     state.setup = value
+    if (value) {
+      state.packSize = $tiles.getPackSize(value.sets, value.rules)
+    }
   },
 
   options (state, options) {
@@ -202,8 +213,8 @@ export const mutations = {
     }
   },
 
-  initialSeed (state, value) {
-    state.initialSeed = value
+  initialRandom (state, value) {
+    state.initialRandom = value
   },
 
   appendMessage (state, msg) {
@@ -232,6 +243,10 @@ export const mutations = {
 
   lockUi (state, value) {
     state.lockUi = value
+  },
+
+  showGameStats (state, value) {
+    state.showGameStats = value
   }
 }
 
@@ -260,8 +275,8 @@ export const getters = {
   },
 
   featureOn: state => ({ position, location }) => {
-    if (location === 'MONASTERY_AS_ABBOT') {
-      location = 'MONASTERY'
+    if (location === 'AS_ABBOT') {
+      location = 'I'
     }
     return state.features.find(({ places }) => {
       return !!places.find(p => p[0] === position[0] && p[1] === position[1] && p[2] === location)
@@ -331,6 +346,24 @@ export const getters = {
 
   isUndoAllowed: (state, getters) => {
     return state.undo?.allowed && getters.isActionLocal
+  },
+
+  ranks (state) {
+    const playersWithIndex = state.players.map((p, index) => ({ ...p, index }))
+    const groups = groupBy(playersWithIndex, 'points')
+    const points = Object.keys(groups).map(p => parseInt(p))
+    points.sort((a, b) => b - a)
+    let rank = 0
+    const ranks = []
+    points.forEach(p => {
+      ranks.push({
+        points: p,
+        players: groups[p],
+        rank: rank + 1
+      })
+      rank += groups[p].length
+    })
+    return ranks
   }
 }
 
@@ -346,12 +379,18 @@ export const actions = {
         if (extname(filePath) === '') {
           filePath += '.jcz'
         }
+        const rules = {}
+        Rule.all().forEach(r => {
+          const value = state.setup.rules[r.id]
+          if (r.default !== value) rules[r.id] = value
+        })
+        const setup = { ...state.setup, rules }
         let content
         if (onlySetup) {
           content = {
             appVersion: getAppVersion(),
             created: (new Date()).toISOString(),
-            setup: state.setup
+            setup
           }
         } else {
           const clock = state.lastMessageClock + Date.now() - state.lastMessageClockLocal
@@ -359,10 +398,10 @@ export const actions = {
             appVersion: state.originAppVersion || getAppVersion(),
             gameId: state.id,
             name: '',
-            initialSeed: state.initialSeed,
+            initialRandom: state.initialRandom,
             created: (new Date()).toISOString(),
             clock,
-            setup: state.setup,
+            setup,
             players: state.players.map(p => ({
               name: p.name,
               slot: p.slot,
@@ -385,7 +424,7 @@ export const actions = {
             reject(err)
           } else {
             Vue.nextTick(() => {
-              dispatch(onlySetup ? 'settings/addRecentSetupSave' : 'settings/addRecentSave', filePath, { root: true })
+              dispatch(onlySetup ? 'settings/addRecentSetupSave' : 'settings/addRecentSave', { file: filePath, setup }, { root: true })
             })
             resolve(filePath)
           }
@@ -396,7 +435,7 @@ export const actions = {
     })
   },
 
-  async load ({ commit, dispatch, rootState }, filePath) {
+  async load ({ commit, dispatch, rootState }, { file: filePath, setupOnly = false } = {}) {
     return new Promise(async (resolve, reject) => {
       if (!filePath) {
         const { filePaths } = await ipcRenderer.invoke('dialog.showOpenDialog', {
@@ -416,26 +455,53 @@ export const actions = {
         try {
           sg = JSON.parse(data)
         } catch (err) {
-          ipcRenderer.invoke('dialog.showErrorBox', { title: 'File is not valid', content: err + '' })
+          commit('errorMessage', { title: 'File is not valid', content: err + '' }, { root: true })
           reject(err)
         }
         if (compareVersions.compare(sg.appVersion, SAVED_GAME_COMPATIBILITY, '<')) {
           const msg = `Saves created prior ${SAVED_GAME_COMPATIBILITY} are not supported.`
-          ipcRenderer.invoke('dialog.showErrorBox', { title: 'Load Error', content: msg })
+          commit('errorMessage', { title: 'Load Error', content: msg }, { root: true })
           reject(msg)
           return
         }
 
-        if (sg.setup && !sg.test && (isNil(sg.players) || isNil(sg.initialSeed) || isNil(sg.replay) || isNil(sg.clock) || isNil(sg.gameId))) {
+        if (sg.setup) {
+          if (sg.setup.addons) {
+            const { $addons } = this._vm
+            if (sg.setup.addons) {
+              const missing = $addons.findMissingAddons(sg.setup.addons)
+
+              if (missing.length) {
+                const msg = `Saved game (or setup) requires addon(s) which are not installed:\n\n${missing.join(', ')}`
+                commit('errorMessage', { title: 'Load Error', content: msg }, { root: true })
+                reject(msg)
+                return
+              }
+            }
+          }
+
+          sg.setup.rules = { ...getDefaultRules(), ...sg.setup.rules }
+        }
+
+        const containsSetupOnly = isNil(sg.players) || isNil(sg.initialRandom) || isNil(sg.replay) || isNil(sg.clock) || isNil(sg.gameId)
+
+        if (sg.setup && !sg.test && (containsSetupOnly || setupOnly)) {
           if (rootState.runningTests) {
             console.error('Loaded game setup from test runner')
           }
           dispatch('gameSetup/load', sg.setup, { root: true })
-          Vue.nextTick(() => {
-            dispatch('settings/addRecentSetupSave', filePath, { root: true })
-            this.$router.push('/game-setup')
+          if (containsSetupOnly) { // don't all file with game to recent setup saves
+            Vue.nextTick(() => {
+              dispatch('settings/addRecentSetupSave', {
+                file: filePath,
+                setup: sg.setup
+              }, { root: true })
+              this.$router.push('/game-setup')
+              resolve(sg)
+            })
+          } else {
             resolve(sg)
-          })
+          }
           return
         }
 
@@ -465,39 +531,55 @@ export const actions = {
           options: {},
           ...sg.setup
         },
-        initialSeed: sg.initialSeed,
+        initialRandom: sg.initialRandom,
         gameAnnotations: sg.gameAnnotations || {},
         slots,
-        replay: migrateLegacyReplay(sg.appVersion, sg.replay),
+        replay: sg.replay,
         clock: sg.clock
       }, { root: true })
 
       if (sg.test) {
+        commit('id', sg.gameId) // HACK, prevent clear when GAME message is received
         commit('testScenario', sg.test)
         dispatch('game/start', null, { root: true })
       }
       Vue.nextTick(() => {
-        dispatch('settings/addRecentSave', filePath, { root: true })
+        dispatch('settings/addRecentSave', { file: filePath, setup: sg.setup }, { root: true })
       })
       resolve(sg)
+
       if (!rootState.runningTests) {
-        this.$router.push(sg.test ? '/game' : '/open-game')
+        if (sg.test) {
+          this.$router.push('/game')
+        } else if (window.location.pathname !== '/open-game') { // don't redirect if loaded from bookmark tab
+          this.$router.push('/open-game')
+        }
       }
     })
   },
 
   async handleGameMessage ({ state, commit }, payload) {
-    if (payload.started) {
+    const occupiedSlots = sortBy(payload.slots.filter(s => s.order), 'order').map(s => s.number)
+    const slots = payload.slots.map(s => {
+      if (!s.order) return s
+      return {
+        ...s,
+        order: occupiedSlots.indexOf(s.number) + 1
+      }
+    })
+
+    if (payload.state === 'R') {
       commit('lockUi', true)
     }
     if (state.id !== payload.gameId) {
       commit('clear')
       commit('originAppVersion', payload.originAppVersion)
     }
-    commit('pin', payload.pin || null)
+    commit('name', payload.name || '')
+    commit('key', payload.key || null)
     commit('setup', payload.setup)
-    commit('slots', payload.slots)
-    commit('initialSeed', payload.initialSeed)
+    commit('slots', slots)
+    commit('initialRandom', payload.initialRandom)
     commit('gameAnnotations', payload.gameAnnotations || {})
     commit('gameMessages', payload.replay)
     commit('owner', payload.owner)
@@ -535,6 +617,11 @@ export const actions = {
     $connection.send({ type: 'START', payload: { gameId: state.id } })
   },
 
+  async rename ({ state }, name) {
+    const { $connection } = this._vm
+    $connection.send({ type: 'RENAME_GAME', payload: { gameId: state.id, name: name.trim() } })
+  },
+
   async handleStartMessage ({ state, commit, dispatch, rootState }, message) {
     const { $tiles } = this._vm
     let slots
@@ -568,12 +655,12 @@ export const actions = {
     const loggingEnabled = rootState.settings.devMode
     const engine = this._vm.$engine.spawn({ loggingEnabled })
     engine.on('error', data => {
-      ipcRenderer.invoke('dialog.showErrorBox', { title: 'Engine error', content: data + '' })
+      commit('errorMessage', { title: 'Engine error', content: data + '' }, { root: true })
     })
 
-    if (state.originAppVersion && state.originAppVersion !== getAppVersion()) {
-      await engine.write(`%compat ${state.originAppVersion}`)
-    }
+    // if (state.originAppVersion && state.originAppVersion !== getAppVersion()) {
+    //   await engine.write(`%compat ${state.originAppVersion}`)
+    // }
 
     for (const xml of this._vm.$tiles.xmls) {
       await engine.write(`%load ${xml}`)
@@ -602,13 +689,19 @@ export const actions = {
       }
     }
 
+    // // uncomment for online server game finish debugging
+    // annotations.tilePack = {
+    //   className: 'com.jcloisterzone.debug.ForcedDrawTilePack',
+    //   params: { drawLimit: 3 }
+    // }
+
     const setupMessage = {
       type: 'GAME_SETUP',
       payload: {
         ...$tiles.getFullSetup(state.setup),
         gameId: state.id,
         players: players.length,
-        initialSeed: state.initialSeed,
+        initialRandom: state.initialRandom,
         gameAnnotations: annotations
       }
     }
@@ -650,8 +743,8 @@ export const actions = {
     }
   },
 
-  async apply ({ state }, { type, payload }) {
-    if (state.lockUi) {
+  async apply ({ state }, { type, payload, force = false }) {
+    if (state.lockUi && !force) {
       return
     }
     const { $connection } = this._vm
@@ -660,24 +753,26 @@ export const actions = {
       id,
       type,
       payload: { ...payload, gameId: state.id },
-      parentId: state.lastMessageId,
-      sourceHash: state.hash,
-      player: state.action.player
+      seq: 1 + state.gameMessages.length,
+      player: state.action?.player
     }
+    if (type === 'COMMIT') {
+      const usedTiles = state.packSize - state.tilePack.size
+      message.progress = `${usedTiles}/${state.packSize}`
+    }
+
     $connection.send(message)
   },
 
   async handleEngineMessage ({ state, commit, dispatch, rootState }, message) {
+    if (message.seq !== 1 + state.gameMessages.length) {
+      console.warn(`Seq doesn't match ${message.seq} != ${1 + state.gameMessages.length}`)
+      const { $connection } = this._vm
+      $connection.send({ type: 'SYNC_GAME' })
+      return
+    }
     const engine = this._vm.$engine.get()
     const { response, hash } = await engine.writeMessage(message)
-    if (rootState.networking.sessionId !== state.players[message.player].sessionId) {
-      if (message.sourceHash && message.sourceHash !== state.hash) {
-        console.warn(`Message source ${message.sourceHash} doesn't match ${state.hash}`)
-        // const { $connection } = this._vm
-        // $connection.send({ type: 'SYNC_GAME' })
-        // return
-      }
-    }
     commit('appendMessage', message)
     commit('lastMessageId', message.id)
     commit('updateClock', { player: state.action?.player, clock: message.clock || 0 })
@@ -701,13 +796,25 @@ export const actions = {
         autoCommit = true
       }
     }
-    commit('hash', hash)
     if (autoCommit) {
-      dispatch('apply', { type: 'COMMIT', payload: { gameId: state.id } })
+      dispatch('apply', { type: 'COMMIT', payload: { gameId: state.id }, force: true })
     } else {
+      const gameFinished = state.phase !== response.phase && response.phase === 'GameOverPhase'
       commit('update', response)
       if (state.testScenario) {
         commit('testScenarioResult', verifyScenario(state, state.testScenario))
+      }
+
+      if (gameFinished) {
+        commit('showGameStats', true)
+        dispatch('apply', {
+          type: 'GAME_FINISHED',
+          payload: {
+            gameId: state.id,
+            points: state.players.map(p => p.points)
+          },
+          force: true
+        })
       }
     }
   },

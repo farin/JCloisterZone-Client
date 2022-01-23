@@ -1,5 +1,15 @@
 <template>
   <v-app>
+    <div v-if="notifyConnectionReconnecting" class="top-bar">
+      <v-alert type="error">
+        Connection interrupted. Reconnecting&hellip;
+        <v-progress-linear
+          indeterminate
+          color="white"
+        />
+      </v-alert>
+    </div>
+
     <nuxt />
     <v-dialog
       v-model="showAbout"
@@ -29,6 +39,17 @@
         @close="showSettings = false"
       />
     </v-dialog>
+    <v-dialog
+      v-model="showErrorDialog"
+      content-class="error-dialog"
+      max-width="800"
+    >
+      <ErrorDialog
+        v-if="errorMessage"
+        :msg="errorMessage"
+        @close="showErrorDialog = false"
+      />
+    </v-dialog>
   </v-app>
 </template>
 
@@ -40,15 +61,19 @@ import { webFrame, shell, ipcRenderer } from 'electron'
 import { mapState, mapGetters } from 'vuex'
 
 import AboutDialog from '@/components/AboutDialog'
+import ErrorDialog from '@/components/ErrorDialog'
 import JoinGameDialog from '@/components/JoinGameDialog'
 import SettingsDialog from '@/components/SettingsDialog'
 import { getAppVersion } from '@/utils/version'
+
+import { STATUS_CONNECTED } from '@/store/networking'
 
 const ZOOM_SENSITIVITY = 1.4
 
 export default {
   components: {
     AboutDialog,
+    ErrorDialog,
     JoinGameDialog,
     SettingsDialog
   },
@@ -59,10 +84,20 @@ export default {
     }
   },
 
+  head () {
+    return {
+      title: this.onlineConnected ? 'JCloisterZone @ ' + this.playOnlineHostname : 'JCloisterZone'
+    }
+  },
+
   computed: {
     ...mapState({
       java: state => state.java,
-      onlineConnected: state => state.networking.connectionType === 'online'
+      engine: state => state.engine,
+      connectionState: state => state.networking.connectionStatus,
+      onlineConnected: state => state.networking.connectionType === 'online',
+      playOnlineHostname: state => state.settings.playOnlineUrl.split('/')[0],
+      errorMessage: state => state.errorMessage
     }),
 
     ...mapGetters({
@@ -87,6 +122,20 @@ export default {
       set (value) {
         this.$store.commit('showSettings', value)
       }
+    },
+
+    showErrorDialog: {
+      get () {
+        return !!this.errorMessage
+      },
+
+      set (value) {
+        this.$store.commit('errorMessage', null)
+      }
+    },
+
+    notifyConnectionReconnecting () {
+      return this.connectionState === 'reconnecting'
     }
   },
 
@@ -107,6 +156,10 @@ export default {
       if (val) {
         this.$refs.settings?.clean()
       }
+    },
+
+    engine () {
+      this.updateMenu()
     }
   },
 
@@ -175,8 +228,8 @@ export default {
     ipcRenderer.on('menu.test-runner', () => {
       this.$router.push('/test-runner')
     })
-    ipcRenderer.on('menu.reload-artworks', () => {
-      this.$theme.loadArtworks()
+    ipcRenderer.on('menu.reload-addons', () => {
+      this.loadAddons()
     })
     ipcRenderer.on('menu.theme-inspector', () => {
       this.$router.push('/theme-inspector')
@@ -201,6 +254,10 @@ export default {
     onThemeChange(this.$store.state.settings.theme)
     this.updateMenu()
 
+    ipcRenderer.on('error', (ev, value) => {
+      this.$store.commit('errorMessage', value)
+    })
+
     ipcRenderer.on('settings.changed', (ev, value) => {
       this.$store.dispatch('settings/loaded', value)
     })
@@ -218,17 +275,23 @@ export default {
       // do nothing, state flags asre set
     }
 
-    await this.$tiles.loadExpansions()
-    this.$store.dispatch('loadPlugins')
+    await this.loadAddons()
 
     window.addEventListener('keydown', this.onKeyDown)
 
     await this.$store.dispatch('settings/registerChangeCallback', ['theme', onThemeChange])
-    await this.$store.dispatch('settings/registerChangeCallback', ['userArtworks', () => { this.$theme.loadPlugins() }])
-    await this.$store.dispatch('settings/registerChangeCallback', ['enabledArtworks', () => { this.$theme.loadArtworks() }])
-    await this.$store.dispatch('settings/registerChangeCallback', ['userExpansions', () => { this.$tiles.loadExpansions() }])
+    await this.$store.dispatch('settings/registerChangeCallback', ['userAddons', () => { this.loadAddons() }])
+    await this.$store.dispatch('settings/registerChangeCallback', ['enabledArtworks', (_, source) => {
+      if (source === 'load') {
+        // load only when triggered by manual user change, otherwise it's cause by addon install/uninstall and reloaed from her
+        this.$theme.loadArtworks()
+      }
+    }])
     await this.$store.dispatch('settings/registerChangeCallback', ['dev', () => { this.updateMenu() }])
-    await this.$store.dispatch('settings/registerChangeCallback', ['experimental.playOnline', () => { this.updateMenu() }])
+
+    this.$addons.on('change', () => {
+      this.loadAddons()
+    })
   },
 
   beforeDestroy () {
@@ -236,19 +299,27 @@ export default {
   },
 
   methods: {
+    async loadAddons () {
+      await this.$addons.loadAddons()
+      await this.$tiles.loadExpansions()
+
+      // during start up, don't wait for artworks, theme can be loaded in background
+      this.$theme.loadArtworks()
+    },
+
     updateMenu () {
       const routeName = this.$route.name
       const gameOpen = routeName === 'game-setup' || routeName === 'open-game' || routeName === 'game'
       const gameRunning = routeName === 'game'
 
       ipcRenderer.invoke('update-menu', {
-        'playonline-connect': !this.onlineConnected && !gameOpen,
+        'playonline-connect': !this.onlineConnected && !gameOpen && this.engine?.ok,
         'playonline-disconnect': this.onlineConnected,
         'new-game': !this.onlineConnected && !gameOpen,
-        'join-game': !this.onlineConnected && !gameOpen,
+        'join-game': !this.onlineConnected && !gameOpen && this.engine?.ok,
         'leave-game': gameOpen,
         'save-game': gameRunning,
-        'load-game': !gameOpen,
+        'load-game': !gameOpen && this.engine?.ok,
         'undo': gameRunning && this.undoAllowed,
         'zoom-in': gameRunning,
         'zoom-out': gameRunning,
@@ -265,7 +336,9 @@ export default {
         const { $connection } = this
         const gameId = this.$store.state.game.id
         if (gameId) {
-          $connection.send({ type: 'LEAVE_GAME', payload: { gameId } })
+          if (this.$store.state.networking.connectionStatus === STATUS_CONNECTED) {
+            $connection.send({ type: 'LEAVE_GAME', payload: { gameId } })
+          }
         }
         this.$router.push('/online')
       } else {
@@ -300,7 +373,7 @@ export default {
         date: (new Date()).toISOString(),
         os: `${os.platform()} ${os.release()}`,
         java: this.java ? `${this.java.vendor} ${this.java.version}` : '',
-        ...this.$server.getServer().dump()
+        ...(await this.$server.dump())
       }
 
       let { filePath } = await ipcRenderer.invoke('dialog.showSaveDialog', {
@@ -361,7 +434,7 @@ body
   min-height: 100vh
 
 svg, g, use
-  &.dragon
+  &.dragon, &.bigtop
     fill: $dragon-color
 
 svg, g, use
@@ -384,6 +457,13 @@ svg, g, use
   height: 80vh
   display: grid
 
-#theme-resources
+#theme-resources, #symbols
   display: none
+
+.top-bar
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  z-index: 999
 </style>

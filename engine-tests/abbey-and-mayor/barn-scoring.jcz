@@ -2,7 +2,7 @@
   "appVersion": "5.7.0",
   "gameId": "e60c411455744a0d9cc49e98edd04106",
   "name": "",
-  "initialSeed": "2283369834947990234",
+  "initialRandom": 0.0,
   "created": "2021-05-23T06:39:34.494Z",
   "clock": 41592,
   "test": {
@@ -24,27 +24,7 @@
       "mayor": 1,
       "abbey": 1
     },
-    "rules": {
-      "princess-action": "may",
-      "fairy-placement": "next-follower",
-      "dragon-move": "before-scoring",
-      "barn-placement": "not-occupied",
-      "wagon-move": "C2",
-      "bazaar-no-auction": false,
-      "hill-tiebreaker": "at-least-one-follower",
-      "espace-variant": "any-tile",
-      "gq11-pig-herd": "pig",
-      "tunnelize-other-expansions": true,
-      "more-tunnel-tokens": "3/2",
-      "festival-return": "meeple",
-      "keep-monasteries": "replace",
-      "labyrinth-variant": "advanced",
-      "coc-final-scoring": "market-only",
-      "count-move": "by-player",
-      "little-buildings-scoring": "1/1/1",
-      "king-and-robber-scoring": "default",
-      "tiny-city-scoring": "4"
-    },
+    "rules": {},
     "timer": null,
     "start": [
       {
@@ -85,6 +65,7 @@
             0,
             -1
           ],
+          "feature": "Field",
           "location": "NL.NR.EL.ER.WL.WR"
         },
         "meepleId": "0.small.1"
@@ -95,7 +76,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "6015270342992375782"
+        "random": 0.0
       },
       "player": 0,
       "clock": 2631
@@ -122,7 +103,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-7795312505027229141"
+        "random": 0.0
       },
       "player": 0,
       "clock": 3882
@@ -149,7 +130,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "5037222710971117936"
+        "random": 0.0
       },
       "player": 0,
       "clock": 5650
@@ -176,7 +157,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "5489099159944406211"
+        "random": 0.0
       },
       "player": 0,
       "clock": 7596
@@ -202,6 +183,7 @@
             1,
             -1
           ],
+          "feature": "Field",
           "location": "NL.NR.SL.SR.WL.WR"
         },
         "meepleId": "0.barn.1"
@@ -212,7 +194,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "7106605248186048265"
+        "random": 0.0
       },
       "player": 0,
       "clock": 15679

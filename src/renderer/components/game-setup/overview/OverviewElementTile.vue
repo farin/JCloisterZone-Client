@@ -38,7 +38,7 @@
 
     <template #quantity>
       <div class="quantity" :class="enabled ? 'addition': 'removal'">
-        {{ enabled ? '+' : '-' }}
+        {{ label }}
       </div>
     </template>
 
@@ -50,7 +50,6 @@
 </template>
 
 <script>
-import { isConfigValueEnabled } from '@/models/elements'
 import NeutralFigure from '@/components/game/NeutralFigure'
 import OverviewTile from '@/components/game-setup/overview/OverviewTile'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
@@ -77,7 +76,14 @@ export default {
 
   computed: {
     enabled () {
-      return isConfigValueEnabled(this.value)
+      return this.value === true || this.value > 0
+    },
+
+    label () {
+      if (this.value === true || this.value === 1) return '+'
+      if (this.value === false) return '-'
+      if (this.value > 0) return '+' + this.value
+      return '' + this.value
     }
   },
 

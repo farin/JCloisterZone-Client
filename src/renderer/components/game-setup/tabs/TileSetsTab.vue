@@ -16,6 +16,7 @@
         <ExpansionBox :expansion="Expansion.ABBEY_AND_MAYOR" @open-detail="openDetail" />
         <ExpansionBox :expansion="Expansion.BRIDGES_CASTLES_AND_BAZAARS" @open-detail="openDetail" />
         <ExpansionBox :expansion="Expansion.HILLS_AND_SHEEP" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.UNDER_THE_BIG_TOP" @open-detail="openDetail" />
       </div>
     </ConfigSection>
 
@@ -36,6 +37,7 @@
         <ExpansionBox :expansion="Expansion.FERRIES" @open-detail="openDetail" />
         <ExpansionBox :expansion="Expansion.GOLDMINES" @open-detail="openDetail" />
         <ExpansionBox :expansion="Expansion.MAGE_AND_WITCH" @open-detail="openDetail" />
+        <ExpansionBox :expansion="Expansion.WATCHTOWERS" @open-detail="openDetail" />
       </div>
     </ConfigSection>
 

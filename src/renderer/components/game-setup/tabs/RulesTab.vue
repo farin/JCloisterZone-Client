@@ -37,7 +37,7 @@
           <template #icon>
             <img src="~/assets/features/C1/cathedral.png" height="55">
           </template>
-          <template #description>Completed cities with cathedral x3 instead of x2, no points during final scoring.</template>
+          <template #description>Completed cities with cathedral &times;3 instead of &times;2, no points during final scoring.</template>
           <template #disabled>Inns &amp; Cathedrals expansion is not selected.</template>
         </GameMechanicsBox>
 
@@ -45,7 +45,7 @@
           <template #icon>
             <img src="~/assets/features/C1/inn.png" width="80">
           </template>
-          <template #description>Completed roads with inn x2, no points during final scoring.</template>
+          <template #description>Completed roads with inn &times;2, no points during final scoring.</template>
           <template #disabled>No tile with Inn is in the game.</template>
         </GameMechanicsBox>
 
@@ -53,7 +53,7 @@
           <template #icon>
             <img src="~/assets/features/C1/princess.png" height="42">
           </template>
-          <template #description>Princess can remove knight from a city.</template>
+          <template #description>Princess can remove knight from a&nbsp;city.</template>
           <template #disabled>Princess &amp; Dragon expansion is not selected.</template>
         </GameMechanicsBox>
 
@@ -128,6 +128,19 @@
           <template #description>Espace allowed via a&nbsp;neighboring monastery.</template>
           <template #disabled>Siege expansion is not in the game.</template>
         </GameMechanicsBox>
+        <GameMechanicsBox :item="GameElement.ACROBATS">
+          <template #icon>
+            <svg class="meeple" width="55" height="55">
+              <g transform="scale(0.55)">
+                <use :href="`${MEEPLES_SVG}#small-follower`" x="22" y="0" />
+                <use :href="`${MEEPLES_SVG}#small-follower`" x="-1" y="41" />
+                <use :href="`${MEEPLES_SVG}#small-follower`" x="46" y="41" />
+              </g>
+            </svg>
+          </template>
+          <template #description>Placing meeple as an acrobat on acrobat tile.</template>
+          <template #disabled>Under The Big Top expansion is not in the game.</template>
+        </GameMechanicsBox>
       </div>
     </ConfigSection>
 
@@ -161,9 +174,9 @@ import { Rule } from '@/models/rules'
 import ConfigSection from '@/components/game-setup/ConfigSection'
 import GameMechanicsBox from '@/components/game-setup/GameMechanicsBox'
 import GameplayVariants from '@/components/game-setup/rules/GameplayVariants'
+import ScoringVariants from '@/components/game-setup/rules/ScoringVariants'
 import StartingTiles from '@/components/game-setup/StartingTiles'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
-import ScoringVariants from '../rules/ScoringVariants'
 
 const MEEPLES_SVG = require('~/assets/meeples.svg')
 
@@ -209,7 +222,7 @@ export default {
 
   svg.meeple
     +theme using ($theme)
-      fill: map-get($theme, 'disabled-fill')
+      fill: map-get($theme, 'disabled-rules-fill')
 
   .selected
     svg.meeple

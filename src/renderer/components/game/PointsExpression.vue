@@ -30,6 +30,8 @@ import { Expansion } from '@/models/expansions'
 import ExpressionItem from '@/components/game/ExpressionItem'
 
 const TITLE_MAPPING = {
+  'acrobats': 'Acrobats',
+  'bigtop': 'Big Top',
   'city': 'City',
   'city.tiny': 'Tiny city',
   'road': 'Road',
@@ -45,11 +47,13 @@ const TITLE_MAPPING = {
   'field': 'Field',
   'trade-goods': 'Trade Goods',
   'king': 'King',
+  'ringmaster': 'Ringmaster',
   'robber': 'Robber',
   'king+robber': 'King & Robber',
   'special-monastery': 'Special monastery',
   'gold': 'Gold ingots',
-  'vodyanoy': 'Vodyanoy'
+  'vodyanoy': 'Vodyanoy',
+  'watchtower': 'Watchtower'
 }
 
 const SUBTITLE_MAPPING = {

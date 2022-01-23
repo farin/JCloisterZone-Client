@@ -2,7 +2,7 @@
   "appVersion": "5.7.0",
   "gameId": "3e67ca1840614f99bb1c4c5929aae20b",
   "name": "",
-  "initialSeed": "3649687550125300271",
+  "initialRandom": 0.0,
   "created": "2021-05-22T17:57:07.418Z",
   "clock": 28769,
   "test": {
@@ -21,27 +21,7 @@
       "farmers": true,
       "shrine": true
     },
-    "rules": {
-      "princess-action": "may",
-      "fairy-placement": "next-follower",
-      "dragon-move": "before-scoring",
-      "barn-placement": "not-occupied",
-      "wagon-move": "C2",
-      "bazaar-no-auction": false,
-      "hill-tiebreaker": "at-least-one-follower",
-      "espace-variant": "any-tile",
-      "gq11-pig-herd": "pig",
-      "tunnelize-other-expansions": true,
-      "more-tunnel-tokens": "3/2",
-      "festival-return": "meeple",
-      "keep-monasteries": "replace",
-      "labyrinth-variant": "advanced",
-      "coc-final-scoring": "market-only",
-      "count-move": "by-player",
-      "little-buildings-scoring": "1/1/1",
-      "king-and-robber-scoring": "default",
-      "tiny-city-scoring": "4"
-    },
+    "rules": {},
     "timer": null,
     "start": [
       {
@@ -81,7 +61,8 @@
             0,
             1
           ],
-          "location": "MONASTERY"
+          "feature": "Monastery",
+          "location": "I"
         },
         "meepleId": "0.small.1"
       },
@@ -91,7 +72,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-7685738357557542149"
+        "random": 0.0
       },
       "player": 0,
       "clock": 3133
@@ -118,7 +99,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-124513889289550853"
+        "random": 0.0
       },
       "player": 0,
       "clock": 6515

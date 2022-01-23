@@ -2,65 +2,56 @@
 <defs>
   <tiles>
     <tile id="SI.BE/Ccc">
-      <city besieged="yes">N E W</city>
+      <city besieged="true">N E W</city>
       <field city="N">SL SR</field>
     </tile>
     <tile id="SI.BE/CcR">
-      <city besieged="yes">N W</city>
-      <road>E</road>
+      <city besieged="true" wagon-move="a">N W</city>
+      <road wagon-move="a">E</road>
       <field city="W">EL</field>
       <field city="W">ER SL SR</field>
-      <wagon-move>
-        <neighbouring>N E</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="SI.BE/CFR">
-      <city besieged="yes">N</city>
-      <road>S</road>
+      <city besieged="true" wagon-move="a">N</city>
+      <road wagon-move="a">S</road>
       <field city="N">WL WR SR</field>
       <field city="N">EL ER SL</field>
-      <wagon-move>
-        <neighbouring>N S</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="SI.BE/CRr">
       <road>E S</road>
-      <city besieged="yes">N</city>
+      <city besieged="true">N</city>
       <field city="N">EL WL WR SR</field>
       <field>ER SL</field>
     </tile>
     <tile id="SI.BE/RCc">
-      <city besieged="yes">N W</city>
-      <road>S</road>
+      <city besieged="true" wagon-move="a">N W</city>
+      <road wagon-move="a">S</road>
       <field city="W">SR</field>
       <field city="W">SL EL ER</field>
-      <wagon-move>
-        <neighbouring>N S</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="SI.BE/RrC">
       <road>S W</road>
-      <city besieged="yes">N</city>
+      <city besieged="true">N</city>
       <field city="N">WR EL ER SL</field>
       <field>WL SR</field>
     </tile>
 
     <tile id="SI.CA/C">
-      <city besieged="yes">N</city>
+      <city besieged="true">N</city>
       <field city="N">WL WR SL SR EL ER</field>
     </tile>
     <tile id="SI.CA/RCr">
-      <city besieged="yes">N</city>
+      <city besieged="true">N</city>
       <road>W E</road>
       <field city="N">WR EL</field>
       <field>WL SL SR ER</field>
     </tile>
     <tile id="SI.CA/Cc">
-      <city besieged="yes">N W</city>
+      <city besieged="true">N W</city>
       <field city="N">EL ER SL SR</field>
     </tile>
     <tile id="SI.CA/CcRr">
-      <city besieged="yes">N W</city>
+      <city besieged="true">N W</city>
       <road>S E</road>
       <field city="N">EL SR</field>
       <field>ER SL</field>

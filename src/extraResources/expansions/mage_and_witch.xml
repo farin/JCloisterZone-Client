@@ -3,16 +3,13 @@
   <tiles>
     <tile id="MW/CRRR.3">
       <mage></mage>
-      <road>E</road>
-      <road>S</road>
-      <road>W</road>
+      <road wagon-move="a">E</road>
+      <road wagon-move="a">S</road>
+      <road wagon-move="a">W</road>
       <city>N</city>
       <field city="N">WR EL</field>
       <field>WL SR</field>
       <field>ER SL</field>
-      <wagon-move>
-        <neighbouring>W S E</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="MW/CcRr.1">
       <mage></mage>
@@ -25,27 +22,20 @@
       <mage></mage>
       <city>W</city>
       <city>N</city>
-      <city>E</city>
-      <road>S</road>
+      <city wagon-move="a">E</city>
+      <road wagon-move="a">S</road>
       <field city="W N E">SR</field>
       <field city="E">SL</field>
-      <wagon-move>
-        <neighbouring>S E</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="MW/CRcR">
       <mage></mage>
-      <city>E W</city>
-      <road>N</road>
-      <road>S</road>
+      <city wagon-move="a b">E W</city>
+      <road wagon-move="a">N</road>
+      <road wagon-move="b">S</road>
       <field city="W">NL</field>
       <field city="W">NR</field>
       <field city="W">SL</field>
       <field city="W">SR</field>
-      <wagon-move>
-        <neighbouring>N W</neighbouring>
-        <neighbouring>S W</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="MW/CFC">
       <mage></mage>
@@ -55,25 +45,19 @@
     </tile>
     <tile id="MW/CccR.1">
       <mage></mage>
-      <road>S</road>
-      <city>N W E</city>
+      <road wagon-move="a">S</road>
+      <city wagon-move="a">N W E</city>
       <field city="N">SL</field>
       <field city="N">SR</field>
-      <wagon-move>
-        <neighbouring>N S</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="MW/CRRr.2">
       <mage></mage>
-      <road>E</road>
+      <road wagon-move="a">E</road>
       <road>S W</road>
-      <city>N</city>
+      <city wagon-move="a">N</city>
       <field city="N">EL</field>
       <field city="N">ER SL WR</field>
       <field>SR WL</field>
-      <wagon-move>
-        <neighbouring>N E</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="MW/CCRr.2">
       <mage></mage>

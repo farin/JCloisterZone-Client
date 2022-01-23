@@ -2,7 +2,7 @@
   "appVersion": "5.7.0",
   "gameId": "1",
   "name": "",
-  "initialSeed": "8658692847944871398",
+  "initialRandom": 0.0,
   "created": "2020-09-15T19:33:45.636Z",
   "clock": 0,
   "test": {
@@ -20,25 +20,7 @@
       "farmers": true,
       "fairy": 1
     },
-    "rules": {
-      "princess-action": "may",
-      "fairy-placement": "next-follower",
-      "dragon-move": "before-scoring",
-      "barn-placement": "not-occupied",
-      "wagon-move": "C2",
-      "bazaar-no-auction": false,
-      "hill-tiebreaker": "at-least-one-follower",
-      "espace-variant": "any-tile",
-      "gq11-pig-herd": "pig",
-      "tunnelize-other-expansions": true,
-      "more-tunnel-tokens": "3/2",
-      "festival-return": "meeple",
-      "keep-monasteries": "replace",
-      "labyrinth-variant": "advanced",
-      "little-buildings-scoring": "1/1/1",
-      "king-and-robber-scoring": "default",
-      "tiny-city-scoring": "4"
-    },
+    "rules": {},
     "timer": null,
     "start": [
       {
@@ -75,6 +57,7 @@
             1,
             0
           ],
+          "feature": "Road",
           "location": "WE"
         },
         "meepleId": "0.small.1"
@@ -83,7 +66,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-1995277982013117638"
+        "random": 0.0
       }
     },
     {
@@ -107,6 +90,7 @@
               1,
               0
             ],
+            "feature": "Road",
             "location": "WE"
           },
           "meepleId": "0.small.1"
@@ -116,7 +100,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "6916934543542206720"
+        "random": 0.0
       }
     }
   ],

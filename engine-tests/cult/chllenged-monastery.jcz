@@ -2,7 +2,7 @@
   "appVersion": "5.7.0",
   "gameId": "10f9cd7f9d844ded8de5c596f2efdeda",
   "name": "",
-  "initialSeed": "-3143899554322034319",
+  "initialRandom": 0.0,
   "created": "2021-05-22T18:00:08.652Z",
   "clock": 78836,
   "test": {
@@ -22,27 +22,7 @@
       "farmers": true,
       "shrine": true
     },
-    "rules": {
-      "princess-action": "may",
-      "fairy-placement": "next-follower",
-      "dragon-move": "before-scoring",
-      "barn-placement": "not-occupied",
-      "wagon-move": "C2",
-      "bazaar-no-auction": false,
-      "hill-tiebreaker": "at-least-one-follower",
-      "espace-variant": "any-tile",
-      "gq11-pig-herd": "pig",
-      "tunnelize-other-expansions": true,
-      "more-tunnel-tokens": "3/2",
-      "festival-return": "meeple",
-      "keep-monasteries": "replace",
-      "labyrinth-variant": "advanced",
-      "coc-final-scoring": "market-only",
-      "count-move": "by-player",
-      "little-buildings-scoring": "1/1/1",
-      "king-and-robber-scoring": "default",
-      "tiny-city-scoring": "4"
-    },
+    "rules": {},
     "timer": null,
     "start": [
       {
@@ -86,7 +66,8 @@
             1,
             0
           ],
-          "location": "MONASTERY"
+          "feature": "Monastery",
+          "location": "I"
         },
         "meepleId": "0.small.1"
       },
@@ -96,7 +77,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-7737514387483300149"
+        "random": 0.0
       },
       "player": 0,
       "clock": 3212
@@ -122,7 +103,8 @@
             0,
             1
           ],
-          "location": "MONASTERY"
+          "feature": "Monastery",
+          "location": "I"
         },
         "meepleId": "1.small.1"
       },
@@ -132,7 +114,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "4969899268964465277"
+        "random": 0.0
       },
       "player": 1,
       "clock": 14194
@@ -158,7 +140,8 @@
             -1,
             0
           ],
-          "location": "MONASTERY"
+          "feature": "Monastery",
+          "location": "I"
         },
         "meepleId": "0.small.2"
       },
@@ -168,7 +151,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-1383186356929829925"
+        "random": 0.0
       },
       "player": 0,
       "clock": 34681
@@ -195,7 +178,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "1189761341680528902"
+        "random": 0.0
       },
       "player": 1,
       "clock": 38980
@@ -222,7 +205,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-4127050732521416648"
+        "random": 0.0
       },
       "player": 0,
       "clock": 41775
@@ -249,7 +232,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "3651073191802903908"
+        "random": 0.0
       },
       "player": 1,
       "clock": 48853
@@ -276,7 +259,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-7053619010132247865"
+        "random": 0.0
       },
       "player": 0,
       "clock": 50387
@@ -303,7 +286,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "6762292192214626992"
+        "random": 0.0
       },
       "player": 1,
       "clock": 52790
@@ -330,7 +313,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-7186755452057286869"
+        "random": 0.0
       },
       "player": 0,
       "clock": 55889
@@ -357,7 +340,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "4570870010774969001"
+        "random": 0.0
       },
       "player": 1,
       "clock": 57935
@@ -384,7 +367,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-8168870717827200244"
+        "random": 0.0
       },
       "player": 0,
       "clock": 63063
@@ -399,7 +382,10 @@
       "BA/RFr",
       "BA/Cc+",
       "BA/CFc+",
-      "BA/CFc+"
+      "BA/CFc+",
+      "BA/RRRR",
+      "BA/RFr",
+      "BA/C"
     ]
   }
 }

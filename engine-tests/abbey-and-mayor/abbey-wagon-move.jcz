@@ -1,0 +1,311 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "1",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-07-03T20:00:39.987Z",
+  "clock": 111197,
+  "test": {
+    "description": "Wagon can move to abbey",
+    "assertions": [
+      "Bob has 5 points"
+    ]
+  },
+  "setup": {
+    "options": {},
+    "sets": {
+      "basic:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "wagon": 1,
+      "abbey": 1
+    },
+    "rules": {
+      "wagon-move": "C1"
+    },
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ]
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R0",
+        "position": [
+          -1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 4456
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 5502
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 5508
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Rr",
+        "rotation": "R90",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 6677
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            0
+          ],
+          "location": "NW",
+          "feature": "Road"
+        },
+        "meepleId": "1.wagon.1"
+      },
+      "player": 1,
+      "clock": 7919
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 8316
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Rr",
+        "rotation": "R0",
+        "position": [
+          1,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 9040
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 9224
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 9229
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/L",
+        "rotation": "R0",
+        "position": [
+          -1,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 11739
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 12068
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 12075
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/L",
+        "rotation": "R0",
+        "position": [
+          1,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 12787
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 12984
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 12990
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/L",
+        "rotation": "R0",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 1,
+      "clock": 13638
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 13760
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 13767
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "AM/A",
+        "rotation": "R0",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 14881
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 15324
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 15346
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRRR",
+        "rotation": "R0",
+        "position": [
+          -2,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 18037
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 20916
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 20925
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -1
+          ],
+          "location": "I",
+          "feature": "Monastery"
+        },
+        "meepleId": "1.wagon.1"
+      },
+      "player": 1,
+      "clock": 60510
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 69397
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/RFr",
+      "BA/Rr",
+      "BA/Rr",
+      "BA/L",
+      "BA/L",
+      "BA/L",
+      "BA/RRRR"
+    ]
+  }
+}

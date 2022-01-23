@@ -36,63 +36,49 @@
     </tile>
     <tile id="DG/LRRR.d">
       <dragon />
-      <monastery />
-      <road>E</road>
-      <road>S</road>
-      <road>W</road>
+      <monastery wagon-move="a b c"/>
+      <road wagon-move="a">E</road>
+      <road wagon-move="b">S</road>
+      <road wagon-move="c">W</road>
       <field>WR NL NR EL</field>
       <field>ER SL</field>
       <field>WL SR</field>
-      <wagon-move>
-        <neighbouring>MONASTERY W</neighbouring>
-        <neighbouring>MONASTERY S</neighbouring>
-        <neighbouring>MONASTERY E</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="DG/RRR.d">
       <dragon />
-      <road>E</road>
-      <road>S</road>
-      <road>W</road>
+      <road wagon-move="a">E</road>
+      <road wagon-move="a">S</road>
+      <road wagon-move="a">W</road>
       <field>WR NL NR EL</field>
       <field>ER SL</field>
       <field>SR WL</field>
-      <wagon-move>
-        <neighbouring>E S W</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="DG/RRR.g">
       <portal />
-      <road>E</road>
-      <road>S</road>
-      <road>W</road>
+      <road wagon-move="a">E</road>
+      <road wagon-move="a">S</road>
+      <road wagon-move="a">W</road>
       <field>WR NL NR EL</field>
       <field>ER SL</field>
       <field>SR WL</field>
-      <wagon-move>
-        <neighbouring>E S W</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="DG/CRRR.p">
-      <road>E</road>
-      <road>S</road>
-      <road>W</road>
-      <city princess="yes">N</city>
+      <road wagon-move="a">E</road>
+      <road wagon-move="a">S</road>
+      <road wagon-move="a">W</road>
+      <city princess="true">N</city>
       <field city="N">WR EL</field>
       <field>WL SR</field>
       <field>ER SL</field>
-      <wagon-move>
-        <neighbouring>E S W</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="DG/CCc+.p">
-      <city princess="yes" castle-base="false">N</city>
+      <city princess="true" castle-base="false">N</city>
       <city pennants="1">E S</city>
       <field city="N">WL WR</field>
       <field city="N S">I</field>
     </tile>
     <tile id="DG/Ccc.p">
-      <city princess="yes">N E W</city>
+      <city princess="true">N E W</city>
       <field city="N">SL SR</field>
     </tile>
     <tile id="DG/Ccc+.g">
@@ -102,12 +88,9 @@
     </tile>
     <tile id="DG/LCcc.d">
       <dragon />
-      <monastery />
-      <city>N E W</city>
+      <monastery wagon-move="a"/>
+      <city wagon-move="a">N E W</city>
       <field city="N">SL SR</field>
-      <wagon-move>
-        <neighbouring>MONASTERY N</neighbouring>
-      </wagon-move>
     </tile>
     <tile id="DG/Rr.d">
       <dragon />
@@ -134,7 +117,7 @@
       <field>WL SL SR ER</field>
     </tile>
     <tile id="DG/Cc!.p">
-      <city princess="yes">N W</city>
+      <city princess="true">N W</city>
       <field city="N">EL ER</field>
       <field city="N">SL SR</field>
     </tile>
@@ -144,12 +127,12 @@
       <field city="N">SL SR EL ER</field>
     </tile>
     <tile id="DG/Cc.p">
-      <city princess="yes">N W</city>
+      <city princess="true">N W</city>
       <field city="N">SL SR EL ER</field>
     </tile>
     <tile id="DG/Cc.pG">
       <garden />
-      <city princess="yes">N W</city>
+      <city princess="true">N W</city>
       <field city="N">SL SR EL ER</field>
     </tile>
     <tile id="DG/CC.v">
@@ -166,7 +149,7 @@
     </tile>
     <tile id="DG/CcRr.p">
       <road>E S</road>
-      <city princess="yes">N W</city>
+      <city princess="true">N W</city>
       <field city="N">EL SR</field>
       <field>ER SL</field>
     </tile>
@@ -180,7 +163,7 @@
     <tile id="DG/CRcr.d">
       <dragon />
       <city>E W</city>
-      <road tunnel="yes">N S</road>
+      <road tunnel="true">N S</road>
       <field city="W">NL NR</field>
       <field city="W">SL SR</field>
     </tile>

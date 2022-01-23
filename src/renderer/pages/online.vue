@@ -1,26 +1,70 @@
 <template>
   <div class="online-page">
+    <OnlineStatus />
     <header>
-      <span class="text">Connected to play.jcloisterzone.com</span>
-
-      <v-btn large color="primary" @click="createGame()">
+      <v-btn :disabled="!connected" large color="primary" @click="createGame()">
         Create Game
+      </v-btn>
+
+      <v-btn :disabled="!connected" large color="primary" @click="openJoinGameDialog()">
+        Join Game
+      </v-btn>
+
+      <v-btn large color="secondary" @click="disconnect()">
+        Disconnect
       </v-btn>
     </header>
     <main>
-      <h2>Started Games</h2>
+      <h2>Games in progress</h2>
+
+      <div v-if="!vefiriedGameList.length" class="empty-message">
+        <p>
+          <i>You have no game in progress.</i>
+        </p>
+        <p>
+          <i>
+            Leaving online game just keep the unfinished game in the background.<br>
+            You can rejoin it from this list whenever you want.
+          </i>
+        </p>
+      </div>
 
       <div class="game-list">
         <div
-          v-for="game in gameList"
+          v-for="{ game, slots, valid } in vefiriedGameList"
           :key="game.gameId"
           class="game"
         >
-          <GameSetupOverviewInline :sets="game.setup.sets" :elements="game.setup.elements" />
+          <div v-if="game.name" class="game-name">
+            {{ game.name }}
+          </div>
+
+          <div class="game-header">
+            <span class="game-key">{{ game.key.substring(0,3) }}-{{ game.key.substring(3) }}</span>
+            <span class="game-started">{{ game.started | formatDate }}</span>
+          </div>
+
+          <div
+            class="game-slots"
+            :class="{ full: slots.length > 8 }"
+          >
+            <div
+              v-for="s in slots"
+              :key="s.number"
+              :class="'game-slot color color-' + s.number"
+              :title="s.name"
+            >
+              <Meeple type="SmallFollower" />
+            </div>
+          </div>
+
+          <div :class="{ invalid: !valid }">
+            <GameSetupOverviewInline :sets="game.setup.sets" :elements="game.setup.elements" />
+          </div>
 
           <div class="buttons">
-            <v-btn color="primary" @click="resume(game)"><v-icon left>fa-play</v-icon> Resume</v-btn>
-            <v-btn color="secondary" @click="del(game)"><v-icon>fa-trash-alt</v-icon></v-btn>
+            <v-btn color="primary" :disabled="!valid || !connected" @click="resume(game)"><v-icon left>fa-play</v-icon> Resume</v-btn>
+            <v-btn color="secondary" :disabled="!connected" @click="del(game)"><v-icon>fa-trash-alt</v-icon></v-btn>
           </div>
         </div>
       </div>
@@ -55,49 +99,94 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog
+      v-model="showJoinDialog"
+      max-width="400px"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="headline">Join Game</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <p>Paste a game key provided by host</p>
+            <v-text-field ref="joinInput" v-model="joinGameId" label="Game ID" @keydown.enter="joinGame"  />
+            <v-alert
+              v-if="joinError"
+              type="error"
+              dense
+            >
+              {{ joinError }}
+            </v-alert>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn text @click="showJoinDialog = false">Cancel</v-btn>
+          <v-btn text @click="joinGame">Confirm</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
+import sortBy from 'lodash/sortBy'
 
 import GameSetupOverviewInline from '@/components/game-setup/overview/GameSetupOverviewInline'
+import OnlineStatus from '@/components/OnlineStatus'
+import Meeple from '@/components/game/Meeple'
+
+import { STATUS_CONNECTED } from '@/store/networking'
 
 export default {
   components: {
-    GameSetupOverviewInline
+    GameSetupOverviewInline,
+    OnlineStatus,
+    Meeple
   },
 
   data () {
     return {
       showDeleteDialog: false,
-      showDeleteGameId: null
+      showDeleteGameId: null,
+      showJoinDialog: false,
+      joinGameId: '',
+      joinError: null
     }
   },
 
   computed: {
     ...mapState({
-      gameList: state => state.online.gameList
+      gameList: state => state.online.gameList,
+      playOnlineHostname: state => state.settings.playOnlineUrl.split('/')[0],
+      connected: state => state.networking.connectionStatus === STATUS_CONNECTED
     }),
 
-    ...mapGetters({
-    })
+    vefiriedGameList () {
+      return this.gameList.map(game => {
+        const edition = game.setup.elements.garden ? 2 : 1
+        const valid = !this.$tiles.getExpansions(game.setup.sets, edition)._UNKNOWN
+        const slots = sortBy(game.slots.filter(s => s.clientId), 'order')
+        return { game, valid, slots }
+      })
+    }
   },
 
   beforeCreate () {
     // useful for dev mode, reload on this page redirects back to home
-    if (!this.$connection.isConnectedOrConnecting()) {
+    if (!this.$store.state.networking.connectionType) {
       this.$router.push('/')
     }
   },
 
   mounted () {
-    this.$connection.on('close', this._onClose = () => {
-      // TODO print message
-      this.$router.push('/')
-    })
-
-    this.$connection.send({ type: 'LIST_GAMES', payload: {} })
+    if (this.$store.state.networking.connectionStatus === STATUS_CONNECTED) {
+      // not reconnecting
+      this.$connection.send({ type: 'LIST_GAMES', payload: {} })
+    }
   },
 
   beforeDestroy () {
@@ -108,6 +197,27 @@ export default {
     createGame () {
       this.$store.dispatch('gameSetup/newGame')
       this.$router.push('/game-setup')
+    },
+
+    openJoinGameDialog () {
+      this.joinGameId = ''
+      this.showJoinDialog = true
+      setTimeout(() => {
+        this.$refs.joinInput.focus()
+      }, 1)
+    },
+
+    joinGame () {
+      this.joinError = null
+      this.$connection.onNextSendError(err => {
+        this.joinError = err.message
+      })
+      this.$connection.send({ type: 'JOIN_GAME', payload: { gameKey: this.joinGameId } })
+    },
+
+    disconnect () {
+      this.$store.dispatch('networking/close')
+      this.$router.push('/')
     },
 
     resume (game) {
@@ -136,7 +246,7 @@ export default {
     background: map-get($theme, 'board-bg')
 
 header
-  height: var(--action-bar-height)
+  padding: 8px 0 16px
   display: flex
   align-items: center
   justify-content: center
@@ -145,12 +255,8 @@ header
     background-color: map-get($theme, 'cards-bg')
     color: map-get($theme, 'gray-text-color')
 
-    .text
-      font-size: 20px
-      font-weight: 300
-
   .v-btn
-    margin-left: 30px
+    margin: 0 15px
 
 h2
   font-weight: 300
@@ -173,8 +279,11 @@ h2
   margin: 10px
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15), 0 3px 10px 0 rgba(0, 0, 0, 0.10)
 
+  .invalid
+    opacity: 0.4
+
   .buttons
-    margin: 0 20px
+    margin: 0 6px
 
     .v-btn
       margin-right: 10px
@@ -182,4 +291,42 @@ h2
   +theme using ($theme)
     color: map-get($theme, 'cards-text')
     background-color: map-get($theme, 'cards-bg')
+
+  .game-name
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+    margin: -8px 8px 6px
+
+    +theme using ($theme)
+      color: map-get($theme, 'text-color')
+
+  .game-header
+    display: flex
+    justify-content: space-between
+    margin: -8px 8px 6px
+    font-weight: 300
+    font-size: 16px
+    text-transform: uppercase
+
+    +theme using ($theme)
+      color: map-get($theme, 'gray-text-color')
+
+  .game-slots
+    display: flex
+    margin: 0 8px 12px
+    gap: 4px
+    min-height: 43px
+
+    &.full
+      margin: 0 4px 12px
+
+  .game-slot
+    svg.meeple
+      width: 36px
+      height: 36px
+
+.empty-message
+  margin: 30px 0
+  text-align: center
 </style>

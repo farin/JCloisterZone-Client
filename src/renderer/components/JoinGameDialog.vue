@@ -3,7 +3,7 @@
     <v-card-title class="headline">Join Remote Game</v-card-title>
     <v-card-text>
       Connect to remote host with created game.<br>
-      <i>The must on remote host must be in color selection phase.</i>
+      <i>The game on remote host must be in color selection phase.</i>
       <div class="field-wrapper">
         <v-progress-linear
           v-if="connecting"
@@ -11,6 +11,7 @@
         />
         <v-text-field
           v-else
+          ref="input"
           v-model="host"
           label="Host"
           @keydown.enter="connect"
@@ -28,6 +29,12 @@
       <v-spacer />
       <v-btn
         text
+        @click="$emit('close')"
+      >
+        Cancel
+      </v-btn>
+      <v-btn
+        text
         :disabled="host.trim() === ''"
         @click="connect"
       >
@@ -38,6 +45,8 @@
 </template>
 
 <script>
+import { connectExceptionToMessage } from '@/utils/networking'
+
 export default {
 
   data () {
@@ -47,6 +56,12 @@ export default {
       error: null,
       host: recent[0] || ''
     }
+  },
+
+  mounted () {
+    setTimeout(() => {
+      this.$refs.input.focus()
+    }, 1)
   },
 
   methods: {
@@ -60,13 +75,7 @@ export default {
         this.$emit('close')
       } catch (e) {
         this.connecting = false
-        if (e.error?.errno === 'EAI_AGAIN') {
-          this.error = "Can't resolve host"
-        } else if (e.error?.errno === 'ECONNREFUSED') {
-          this.error = 'Connection refused'
-        } else {
-          this.error = e.message || 'Connection failed'
-        }
+        this.error = connectExceptionToMessage(e)
         console.error(e)
       }
     }

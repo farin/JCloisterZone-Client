@@ -7,7 +7,8 @@
       'mutable': mutable,
       'read-only': !mutable,
       'selected': value > 0,
-      'with-hover-message': $slots.hover
+      'with-hover-message': $slots.hover,
+      'reset': reset && reset === value
     }"
     @click.stop="onClick"
   >
@@ -41,7 +42,8 @@ export default {
   props: {
     value: { type: [Number, Boolean], required: true },
     max: { type: Number, required: true },
-    mutable: { type: Boolean, default: true }
+    mutable: { type: Boolean, default: true },
+    reset: { type: Number, default: null }
   },
 
   computed: {
@@ -82,6 +84,12 @@ export default {
     },
 
     onClick () {
+      if (this.reset !== null) {
+        if (this.value !== this.reset) {
+          this.$emit('input', this.reset)
+        }
+        return
+      }
       if (this.value) {
         this.removeAll()
       } else {
@@ -161,6 +169,12 @@ export default {
 
   &.read-only .quantity
     cursor: default
+
+  &.reset
+    cursor: default
+
+    .remove, .add
+      cursor: pointer
 
   &:hover
     .remove, .add

@@ -1,0 +1,328 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "ea72cff6ae1f4892a253e078559fcb37",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-07-03T20:13:28.387Z",
+  "clock": 69357,
+  "test": {
+    "description": "Wagon can move to abbey with bridge",
+    "assertions": [
+      "Bob has 2 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "bridge": 1,
+      "abbey": 1,
+      "wagon": 1
+    },
+    "rules": {
+      "wagon-move": "C1"
+    },
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRR",
+        "rotation": "R0",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 2788
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 3952
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 3959
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R90",
+        "position": [
+          1,
+          1
+        ]
+      },
+      "player": 1,
+      "clock": 5317
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "BRIDGE",
+        "pointer": {
+          "position": [
+            1,
+            1
+          ],
+          "location": "WE",
+          "feature": "Road"
+        }
+      },
+      "player": 1,
+      "clock": 8329
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            1
+          ],
+          "location": "WE",
+          "feature": "Road"
+        },
+        "meepleId": "1.wagon.1"
+      },
+      "player": 1,
+      "clock": 11998
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 13895
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRRR",
+        "rotation": "R0",
+        "position": [
+          2,
+          1
+        ]
+      },
+      "player": 0,
+      "clock": 15264
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 17321
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 17328
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Rr",
+        "rotation": "R90",
+        "position": [
+          1,
+          2
+        ]
+      },
+      "player": 1,
+      "clock": 18822
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 19780
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 19787
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R0",
+        "position": [
+          0,
+          2
+        ]
+      },
+      "player": 0,
+      "clock": 21118
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 21767
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 21774
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RrC",
+        "rotation": "R270",
+        "position": [
+          -1,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 23508
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 23692
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 23699
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R90",
+        "position": [
+          -1,
+          1
+        ]
+      },
+      "player": 0,
+      "clock": 26440
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 28819
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 28827
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "AM/A",
+        "rotation": "R0",
+        "position": [
+          0,
+          1
+        ]
+      },
+      "player": 1,
+      "clock": 33245
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 34909
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 34916
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            1
+          ],
+          "location": "I",
+          "feature": "Monastery"
+        },
+        "meepleId": "1.wagon.1"
+      },
+      "player": 1,
+      "clock": 43803
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 50113
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/RRR",
+      "BA/RFr",
+      "BA/RRRR",
+      "BA/Rr",
+      "BA/RFr",
+      "BA/RrC",
+      "BA/RFr"
+    ]
+  }
+}

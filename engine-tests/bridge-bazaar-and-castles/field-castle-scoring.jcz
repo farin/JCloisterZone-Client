@@ -2,14 +2,14 @@
   "appVersion": "5.7.0",
   "gameId": "7b33fd9d5e214185bb1b39d560b8cc37",
   "name": "",
-  "initialSeed": "-8860687864015867011",
+  "initialRandom": 0.0,
   "created": "2021-05-22T19:00:20.051Z",
   "clock": 70729,
   "test": {
     "description": "Castles on field scoring",
     "assertions": [
       "Alice has 11 points",
-      "Alice scored farm for 11 points",
+      "Alice scored field for 11 points",
       "Alice scored castle for 0 points"
     ]
   },
@@ -22,27 +22,7 @@
       "farmers": true,
       "castle": 1
     },
-    "rules": {
-      "princess-action": "may",
-      "fairy-placement": "next-follower",
-      "dragon-move": "before-scoring",
-      "barn-placement": "not-occupied",
-      "wagon-move": "C2",
-      "bazaar-no-auction": false,
-      "hill-tiebreaker": "at-least-one-follower",
-      "espace-variant": "any-tile",
-      "gq11-pig-herd": "pig",
-      "tunnelize-other-expansions": true,
-      "more-tunnel-tokens": "3/2",
-      "festival-return": "meeple",
-      "keep-monasteries": "replace",
-      "labyrinth-variant": "advanced",
-      "coc-final-scoring": "market-only",
-      "count-move": "by-player",
-      "little-buildings-scoring": "1/1/1",
-      "king-and-robber-scoring": "default",
-      "tiny-city-scoring": "4"
-    },
+    "rules": {},
     "timer": null,
     "start": [
       {
@@ -83,6 +63,7 @@
             0,
             -1
           ],
+          "feature": "Field",
           "location": "NL.NR.EL.ER"
         },
         "meepleId": "0.small.1"
@@ -93,7 +74,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "4984445642060632628"
+        "random": 0.0
       },
       "player": 0,
       "clock": 5487
@@ -119,6 +100,7 @@
             -1,
             -1
           ],
+          "feature": "City",
           "location": "E"
         },
         "meepleId": "0.small.2"
@@ -135,6 +117,7 @@
             -1,
             -1
           ],
+          "feature": "City",
           "location": "E"
         }
       },
@@ -144,7 +127,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "6855255824497586822"
+        "random": 0.0
       },
       "player": 0,
       "clock": 9974
@@ -170,6 +153,7 @@
             0,
             -2
           ],
+          "feature": "City",
           "location": "N"
         },
         "meepleId": "0.small.3"
@@ -180,7 +164,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "-8350789287367044708"
+        "random": 0.0
       },
       "player": 0,
       "clock": 14093
@@ -213,6 +197,7 @@
             0,
             -3
           ],
+          "feature": "City",
           "location": "S"
         }
       },
@@ -222,7 +207,7 @@
     {
       "type": "COMMIT",
       "payload": {
-        "salt": "394485015366782008"
+        "random": 0.0
       },
       "player": 0,
       "clock": 20911
