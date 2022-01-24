@@ -107,7 +107,7 @@
       "City/N": "city.N",
       "Road/W": { "id": "road.N.circus", "rotate": 270 },
       "Field/WR": "field.U.Ci",
-      "Field/EL.ER.SL.SR": "field.zUFF.Ci"
+      "Field/EL.ER.SL.SR.WL": "field.zUFF.Ci"
     }
   },
   "BT/cfrf.bt": {
