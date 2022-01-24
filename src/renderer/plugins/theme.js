@@ -66,6 +66,10 @@ class Theme extends EventsBase {
     }
 
     const enabledArtworks = settings.enabledArtworks.map(id => artworks[id]).filter(a => a)
+    // enable system defaults
+    if (artworks['jcz/simplified']) {
+      enabledArtworks.push(artworks['jcz/simplified'])
+    }
     const loaded = await (new ArtworkLoader()).loadArworks(enabledArtworks)
 
     this.artworks = loaded.artworks
