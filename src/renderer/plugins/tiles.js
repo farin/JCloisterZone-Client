@@ -164,6 +164,7 @@ class Tiles extends EventsBase {
 
     Object.keys(sets).forEach(id => {
       const set = this.sets[id] || this.sets[id + ':1'] || this.sets[id + ':2'] || UNKWNOWN_SET
+console.log(set);
       set.implies.forEach(elem => { implies.add(elem) })
       set.impliesAllowed.forEach(elem => { impliesAllowed.add(elem) })
       set.allows.forEach(elem => { allows.add(elem) })
@@ -303,10 +304,11 @@ class Tiles extends EventsBase {
         const title = el.querySelector('title').textContent || name
         const tileSets = Array.from(el.querySelectorAll('ref[tile-set]')).map(ref => ref.getAttribute('tile-set'))
         const enforces = Array.from(el.querySelectorAll('enforces[element]')).map(ref => ref.getAttribute('element'))
+        const implies = Array.from(el.querySelectorAll('implies[element]')).map(ref => ref.getAttribute('element'))
 
         const svgIcon = el.querySelector('icon svg')
 
-        const exp = new Expansion(name, title, { enforces }, [new Release(name, tileSets)])
+        const exp = new Expansion(name, title, { enforces: enforces, implies: implies }, [new Release(name, tileSets)])
         if (svgIcon) {
           this.symbols.push(`<symbol id="expansion-${name}" viewBox="${svgIcon.getAttribute('viewBox')}">${svgIcon.innerHTML}</symbol>`)
           exp.svgIcon = true
