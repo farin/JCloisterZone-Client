@@ -122,6 +122,24 @@ class Theme extends EventsBase {
     let feature = tile?.features[`${featureType}/${loc}`]
 
     if (!feature) {
+	  if (featureType == "Tunnel") {
+		// Failback for old Addons
+		const tunnelX = (loc == 'N' || loc == 'S') ? 500 : (loc == 'W' ? 250 : 750);
+		const tunnelY = (loc == 'W' || loc == 'E') ? 500 : (loc == 'N' ? 250 : 750);
+		return {
+		  clip: {
+            shape: "circle",
+            cx: tunnelX,
+            cy: tunnelY,
+            r: 200
+          },
+          point: [
+            tunnelX,
+            tunnelY
+          ],
+          rotation: rotation
+	    }
+      }
       throw new Error(`Artwork doesn't provide feature for ${id} ${featureType}/${loc}`)
     }
 
