@@ -50,15 +50,15 @@
       <watchtower bonus="1/city" />
       <city>W</city>
       <city>E</city>
-      <field city="W">NL NR</field>
-      <field city="W">SL SR</field>
+      <field city="W E">NL NR</field>
+      <field city="W E">SL SR</field>
     </tile>
     <tile id="WT/FCRC_2T">
       <watchtower bonus="2/coat-of-arms" />
       <city>E</city>
       <city>W</city>
       <road>S</road>
-      <field city="W">NL NR</field>
+      <field city="W E">NL NR</field>
       <field city="E">SL</field>
       <field city="W">SR</field>
     </tile>
