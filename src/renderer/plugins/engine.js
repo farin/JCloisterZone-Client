@@ -4,8 +4,6 @@ import { spawn } from 'child_process'
 import debounce from 'lodash/debounce'
 import Vue from 'vue'
 
-import { remote } from 'electron'
-
 class BaseEngine {
   async enableBulkMode () {
     this.bulkMode = true
@@ -18,6 +16,10 @@ class BaseEngine {
       this.onMessage = { resolve, reject }
       this._write('%bulk off')
     })
+  }
+
+  async write (cmd) {
+    await this._write(cmd)
   }
 
   writeMessage (message) {
@@ -205,6 +207,9 @@ class SocketEngine extends BaseEngine {
 export default ({ app }, inject) => {
   let spawnedEngine = null
 
+  const appPath = window.process.argv.find(arg => arg.startsWith('--app-path=')).replace('--app-path=', '')
+  const basePath = path.dirname(appPath)
+
   Vue.prototype.$engine = {
     getJavaExecutable () {
       const { settings } = app.store.state
@@ -220,7 +225,7 @@ export default ({ app }, inject) => {
       if (process.env.NODE_ENV === 'development') {
         return ['-jar', 'Engine.jar']
       }
-      const basePath = path.dirname(remote.app.getAppPath())
+
       return ['-jar', path.join(basePath, 'Engine.jar')]
     },
 

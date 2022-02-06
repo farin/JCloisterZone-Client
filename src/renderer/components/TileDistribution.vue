@@ -1,5 +1,5 @@
 <template>
-  <div class="tile-distribution">
+  <div class="tile-distribution" :class="{ small }">
     <div
       v-for="{id, count, rotation } in tiles"
       :key="id"
@@ -22,9 +22,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
 import CountMiniboard from '@/components/game-setup/details/CountMiniboard'
+
+import { getSelectedEdition, getSelectedStartingTiles } from '@/utils/gameSetupUtils'
 
 export default {
   components: {
@@ -35,13 +37,21 @@ export default {
   props: {
     sets: { type: Object, required: true },
     rules: { type: Object, default: null },
-    tileSize: { type: Number, default: 100 }
+    tileSize: { type: Number, default: 100 },
+    small: { type: Boolean, default: false }
   },
 
   computed: {
-    ...mapGetters({
-      edition: 'gameSetup/getSelectedEdition',
-      start: 'gameSetup/selectedStartingTiles'
+    ...mapState({
+      edition: state => {
+        const setup = state.gameSetup || state.game.setup
+        return getSelectedEdition(setup.elements)
+      },
+      start: state => {
+        const setup = state.gameSetup || state.game.setup
+        const { elements, sets, start } = setup
+        return getSelectedStartingTiles(elements, sets, start)
+      }
     }),
 
     tiles () {
@@ -51,7 +61,7 @@ export default {
         delete sets.count
       }
 
-      const counts = this.$tiles.getTilesCounts(sets, this.rules, this.edition, this.start)
+      const counts = this.$tiles.getTilesCounts(sets, this.rules, this.edition, this.rules === null ? null : this.start)
       const tiles = Object.keys(counts).map(id => ({ id, ...this.$tiles.tiles[id] }))
       tiles.sort(this.$tiles.sortByEdge)
 
@@ -87,4 +97,9 @@ export default {
     margin-bottom: 10px
     font-weight: 300
     font-size: 26px
+
+  &.small .count
+    font-size: 18px
+    margin-bottom: 3px
+    padding: 0
 </style>

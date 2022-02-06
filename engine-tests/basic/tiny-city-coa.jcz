@@ -1,0 +1,92 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "1",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-22T14:30:57.308Z",
+  "clock": 1,
+  "test": {
+    "description": "Inns scoring",
+    "assertions": [
+      "Wendy has 3 points",
+      "Wendy scored city for 3 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "abbey-and-mayor:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "barn": 1,
+      "wagon": 1,
+      "mayor": 1,
+      "abbey": 1
+    },
+    "rules": {
+      "tiny-city-scoring": "2"
+    },
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Wendy",
+      "slot": 0
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "AM/CCc+",
+        "rotation": "R180",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 2781
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -1
+          ],
+          "feature": "City",
+          "location": "S"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 3693
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 6602
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "AM/CCc+"
+    ]
+  }
+}

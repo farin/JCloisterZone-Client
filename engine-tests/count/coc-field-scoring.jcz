@@ -1,0 +1,182 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "1",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-22T18:32:38.765Z",
+  "clock": 45023,
+  "test": {
+    "description": "City of Carcassonne is score as additonal city on a field",
+    "assertions": [
+      "Alice has 6 points",
+      "Alice scored field for 6 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "count": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "count": 1
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "CO/1",
+        "x": -2,
+        "y": -1,
+        "rotation": 0
+      },
+      {
+        "tile": "CO/2",
+        "x": -1,
+        "y": -1,
+        "rotation": 0
+      },
+      {
+        "tile": "CO/3",
+        "x": 0,
+        "y": -1,
+        "rotation": 0
+      },
+      {
+        "tile": "CO/4",
+        "x": 1,
+        "y": -1,
+        "rotation": 0
+      },
+      {
+        "tile": "CO/5",
+        "x": -2,
+        "y": 0,
+        "rotation": 0
+      },
+      {
+        "tile": "CO/6",
+        "x": -1,
+        "y": 0,
+        "rotation": 0
+      },
+      {
+        "tile": "CO/7",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      },
+      {
+        "tile": "CO/8",
+        "x": 1,
+        "y": 0,
+        "rotation": 0
+      },
+      {
+        "tile": "CO/9",
+        "x": -2,
+        "y": 1,
+        "rotation": 0
+      },
+      {
+        "tile": "CO/10",
+        "x": -1,
+        "y": 1,
+        "rotation": 0
+      },
+      {
+        "tile": "CO/11",
+        "x": 0,
+        "y": 1,
+        "rotation": 0
+      },
+      {
+        "tile": "CO/12",
+        "x": 1,
+        "y": 1,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/L",
+        "rotation": "R0",
+        "position": [
+          2,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 1989
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            2,
+            0
+          ],
+          "feature": "Field",
+          "location": "NL.NR.EL.ER.SL.SR.WL.WR"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 2525
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 4217
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R270",
+        "position": [
+          2,
+          1
+        ]
+      },
+      "player": 0,
+      "clock": 5111
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 6462
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 6468
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/L",
+      "BA/C"
+    ],
+    "endTurn": 2
+  }
+}

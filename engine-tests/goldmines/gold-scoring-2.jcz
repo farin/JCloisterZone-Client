@@ -1,0 +1,523 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "bc037e6c25dc4d118b4dfef2d3352c79",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-23T06:11:26.395Z",
+  "clock": 172321,
+  "test": {
+    "description": "Goldmines scoring",
+    "assertions": [
+      "Alice has 0 points",
+      "Bob has 77 points",
+      "Bob scored gold for 60 points"
+    ]
+  },
+  "setup": {
+    "options": {},
+    "sets": {
+      "basic:1": 1,
+      "goldmines": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "gold": true
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ]
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "GO/RrRr",
+        "rotation": "R90",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 3538
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 5739
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 5747
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "GO/RRrr.X",
+        "rotation": "R0",
+        "position": [
+          1,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 8762
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "GOLD",
+        "pointer": [
+          1,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 10109
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 11785
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 11792
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRRR",
+        "rotation": "R0",
+        "position": [
+          2,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 16434
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 17200
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 17207
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "GO/LRrRr",
+        "rotation": "R0",
+        "position": [
+          2,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 18930
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "GOLD",
+        "pointer": [
+          1,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 21408
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 23321
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 23329
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "GO/LRr",
+        "rotation": "R270",
+        "position": [
+          1,
+          1
+        ]
+      },
+      "player": 0,
+      "clock": 50478
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "GOLD",
+        "pointer": [
+          1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 54898
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 56255
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 56263
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "GO/CRcr",
+        "rotation": "R90",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 58371
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "GOLD",
+        "pointer": [
+          1,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 65388
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 66182
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 66190
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "GO/CcRr",
+        "rotation": "R0",
+        "position": [
+          1,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 71172
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "GOLD",
+        "pointer": [
+          1,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 72769
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 73355
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 73363
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "GO/LCcRr",
+        "rotation": "R90",
+        "position": [
+          2,
+          -2
+        ]
+      },
+      "player": 1,
+      "clock": 74596
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "GOLD",
+        "pointer": [
+          1,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 77598
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 78340
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 78352
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "GO/LCc",
+        "rotation": "R180",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 79882
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "GOLD",
+        "pointer": [
+          1,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 81058
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 81575
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 81600
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CFC.2",
+        "rotation": "R0",
+        "position": [
+          1,
+          -3
+        ]
+      },
+      "player": 1,
+      "clock": 83163
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            -3
+          ],
+          "feature": "City",
+          "location": "S"
+        },
+        "meepleId": "1.small.1"
+      },
+      "player": 1,
+      "clock": 83722
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 85044
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CC.2",
+        "rotation": "R0",
+        "position": [
+          3,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 89152
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 89291
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 89314
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRR",
+        "rotation": "R0",
+        "position": [
+          3,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 124977
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            3,
+            -1
+          ],
+          "feature": "Road",
+          "location": "W"
+        },
+        "meepleId": "1.small.1"
+      },
+      "player": 1,
+      "clock": 125764
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 127041
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [
+          2,
+          -3
+        ]
+      },
+      "player": 0,
+      "clock": 131114
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 146352
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 146361
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "GO/RrRr",
+      "GO/RRrr.X",
+      "BA/RRRR",
+      "GO/LRrRr",
+      "GO/LRr",
+      "GO/CRcr",
+      "GO/CcRr",
+      "GO/LCcRr",
+      "GO/LCc",
+      "BA/CFC.2",
+      "BA/CC.2",
+      "BA/RRR",
+      "BA/C"
+    ],
+    "endTurn": 13
+  }
+}

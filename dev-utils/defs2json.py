@@ -50,7 +50,7 @@ tiles = {}
 multi_tiles = {}
 sets = {}
 
-for f in glob.glob("src/tile-definitions-xml/*.xml"):
+for f in glob.glob("src/tile-definitions-xml/**/*.xml", recursive=True):
     print(f"Parsing {f}")
     tree = ET.parse(f)
 
@@ -97,7 +97,7 @@ for f in glob.glob("src/tile-definitions-xml/*.xml"):
                 sets[id]['remove'].append(item.attrib['tile'])
 
 
-with open('src/resources/tiles.json', 'w') as out:
+with open('src/extraResources/tiles.json', 'w') as out:
     json.dump({
         'tiles': tiles,
         'multiTiles': multi_tiles,

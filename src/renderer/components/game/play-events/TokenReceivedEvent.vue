@@ -39,6 +39,7 @@ export default {
         const places = feature.places.map(p => {
           return {
             tile: this.tileOn(p),
+            feature: feature.type,
             location: p[2]
           }
         })

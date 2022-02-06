@@ -31,7 +31,7 @@ export default {
 
     towerItems () {
       return this.towers.map(t => {
-        const { tile, point, rotation } = this.getTilePoint({ position: t.places[0], location: 'TOWER' })
+        const { tile, point, rotation } = this.getTilePoint({ position: t.places[0], feature: 'Tower', location: 'I' })
         return {
           height: t.height,
           tile,

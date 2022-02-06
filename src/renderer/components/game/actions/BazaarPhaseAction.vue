@@ -42,7 +42,7 @@
           class="auction"
         >
           <template v-if="!noAuction">
-            <BidPriceInput v-if="local && actionItem.type !== 'BazaarSelectBuyOrSell'" v-model="bid" :min="0" :max="999" />
+            <BidPriceInput v-if="local && actionItem.type !== 'BazaarSelectBuyOrSell'" v-model="bid" :min="actionItem.type === 'BazaarBid' ? bi.price + 1 : bi.price" :max="999" />
             <span v-else class="bid-price">{{ bid }}</span>
           </template>
           <template v-if="local && actionItem.type === 'BazaarSelectTile'">

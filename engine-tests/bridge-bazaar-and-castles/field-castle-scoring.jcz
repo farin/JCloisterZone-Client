@@ -1,0 +1,225 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "7b33fd9d5e214185bb1b39d560b8cc37",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-22T19:00:20.051Z",
+  "clock": 70729,
+  "test": {
+    "description": "Castles on field scoring",
+    "assertions": [
+      "Alice has 11 points",
+      "Alice scored field for 11 points",
+      "Alice scored castle for 0 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "castle": 1
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0,
+      "clientId": "940fcdf0041e4a7e9f8b07c1b8aaab02"
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CC.2",
+        "rotation": "R270",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 2309
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -1
+          ],
+          "feature": "Field",
+          "location": "NL.NR.EL.ER"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 3553
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 5487
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R90",
+        "position": [
+          -1,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 6369
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            -1,
+            -1
+          ],
+          "feature": "City",
+          "location": "E"
+        },
+        "meepleId": "0.small.2"
+      },
+      "player": 0,
+      "clock": 6832
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "CASTLE",
+        "pointer": {
+          "position": [
+            -1,
+            -1
+          ],
+          "feature": "City",
+          "location": "E"
+        }
+      },
+      "player": 0,
+      "clock": 8375
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 9974
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R0",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 12267
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -2
+          ],
+          "feature": "City",
+          "location": "N"
+        },
+        "meepleId": "0.small.3"
+      },
+      "player": 0,
+      "clock": 13227
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 14093
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [
+          0,
+          -3
+        ]
+      },
+      "player": 0,
+      "clock": 15043
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 18211
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "CASTLE",
+        "pointer": {
+          "position": [
+            0,
+            -3
+          ],
+          "feature": "City",
+          "location": "S"
+        }
+      },
+      "player": 0,
+      "clock": 19026
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 20911
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/CC.2",
+      "BA/C",
+      "BA/C",
+      "BA/C"
+    ],
+    "endTurn": 4
+  }
+}

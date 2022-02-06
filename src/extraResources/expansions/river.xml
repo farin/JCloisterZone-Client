@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defs>
+  <tiles>
+    <tile id="RI/s" max="1" group="river-spring">
+      <field>NL NR EL ER SL SR WL WR</field>
+      <river>E</river>
+    </tile>
+    <tile id="RI.1/I.e" max="1" group="river-lake">
+      <field>NL NR EL ER SL SR WL WR</field>
+      <river>W</river>
+    </tile>
+    <tile id="RI.1/CICI" group="river">
+      <city>N</city>
+      <city>S</city>
+      <field city="N">EL WR</field>
+      <field city="S">ER WL</field>
+      <river>W E</river>
+    </tile>
+    <tile id="RI.1/CIRI" group="river">
+      <city wagon-move="a">N</city>
+      <road wagon-move="a">S</road>
+      <field city="N">EL</field>
+      <field city="N">WR</field>
+      <field>ER SL</field>
+      <field>WL SR</field>
+      <river>W E</river>
+    </tile>
+    <tile id="RI.1/LIRI" group="river">
+      <monastery wagon-move="a"/>
+      <road wagon-move="a">S</road>
+      <field>WR NL NR EL</field>
+      <field>ER SL</field>
+      <field>WL SR</field>
+      <river>W E</river>
+    </tile>
+    <tile id="RI.1/RIrI" group="river">
+      <road>W E</road>
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL</field>
+      <field>WL SR</field>
+      <river>N S</river>
+    </tile>
+    <tile id="RI.1/IFI" group="river">
+      <field>WR NL NR EL</field>
+      <field>WL SL SR ER</field>
+      <river>W E</river>
+    </tile>
+    <tile id="RI.1/CcII" group="river">
+      <city>N W</city>
+      <field city="N">SR EL</field>
+      <field>ER SL</field>
+      <river>S E</river>
+    </tile>
+    <tile id="RI.1/RrII" group="river">
+      <road>N E</road>
+      <field>WR NL ER SL</field>
+      <field>NR EL</field>
+      <field>WL SR</field>
+      <river>W S</river>
+    </tile>
+    <tile id="RI.1/II" group="river">
+      <field>WR NL NR EL ER SL</field>
+      <field>WL SR</field>
+      <river>W S</river>
+    </tile>
+    <tile id="RI.1/IIG" group="river">
+      <garden />
+      <field>WR NL NR EL ER SL</field>
+      <field>WL SR</field>
+      <river>W S</river>
+    </tile>
+
+    <tile id="RI.2/IFC" group="river">
+      <city>E</city>
+      <field city="E">NL NR WR</field>
+      <field city="E">SL SR WL</field>
+      <river>W</river>
+    </tile>
+    <tile id="RI.2/I.v" max="1" group="river-lake">
+      <volcano />
+      <field>NL NR EL ER SL SR WL WR</field>
+      <river>W</river>
+    </tile>
+    <tile id="RI.2/III" group="river-fork">
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL SR WL</field>
+      <river>W N E</river>
+    </tile>
+    <tile id="RI.2/CIcI" group="river">
+      <city>W E</city>
+      <field city="W">NR SL</field>
+      <field city="W">NL SR</field>
+      <river>N S</river>
+    </tile>
+    <tile id="RI.2/LIFI" group="river">
+      <monastery />
+      <field>WR NL NR EL</field>
+      <field>WL SL SR ER</field>
+      <river>W E</river>
+    </tile>
+    <tile id="RI.2/RIrI" group="river">
+      <road inn="true">W E</road>
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL</field>
+      <field>WL SR</field>
+      <river>N S</river>
+    </tile>
+    <tile id="RI.2/CIRI" group="river">
+      <city wagon-move="a">N</city>
+      <road wagon-move="a">S</road>
+      <field city="N">EL</field>
+      <field city="N">WR</field>
+      <field>ER SL</field>
+      <field>WL SR</field>
+      <river>W E</river>
+    </tile>
+    <tile id="RI.2/II" group="river">
+      <field>WR NL NR EL ER SL</field>
+      <field>WL SR</field>
+      <river>W S</river>
+    </tile>
+    <tile id="RI.2/IIG" group="river">
+      <garden />
+      <field>WR NL NR EL ER SL</field>
+      <field>WL SR</field>
+      <river>W S</river>
+    </tile>
+    <tile id="RI.2/CcII+" group="river">
+      <city pennants="1">N W</city>
+      <field city="N">SR EL</field>
+      <field>ER SL</field>
+      <river>S E</river>
+    </tile>
+    <tile id="RI.2/II+" group="river">
+      <field pig-herd="true">WL SL SR EL ER NR</field>
+      <field>WR NL</field>
+      <river>W N</river>
+    </tile>
+    <tile id="RI.2/RrII" group="river">
+      <road>N E</road>
+      <field>WR NL ER SL</field>
+      <field>NR EL</field>
+      <field>WL SR</field>
+      <river>W S</river>
+    </tile>
+  </tiles>
+  <sets>
+    <tile-set id="river/1:1">
+      <ref count="1" tile="RI/s" />
+      <ref count="1" tile="RI.1/I.e" />
+      <ref count="1" tile="RI.1/CICI" />
+      <ref count="1" tile="RI.1/CIRI" />
+      <ref count="1" tile="RI.1/LIRI" />
+      <ref count="1" tile="RI.1/RIrI" />
+      <ref count="2" tile="RI.1/IFI" />
+      <ref count="1" tile="RI.1/CcII" />
+      <ref count="1" tile="RI.1/RrII" />
+      <ref count="2" tile="RI.1/II" />
+    </tile-set>
+    <tile-set id="river/1:2">
+      <ref count="1" tile="RI/s" />
+      <ref count="1" tile="RI.1/I.e" />
+      <ref count="1" tile="RI.1/CICI" />
+      <ref count="1" tile="RI.1/CIRI" />
+      <ref count="1" tile="RI.1/LIRI" />
+      <ref count="1" tile="RI.1/RIrI" />
+      <ref count="2" tile="RI.1/IFI" />
+      <ref count="1" tile="RI.1/CcII" />
+      <ref count="1" tile="RI.1/RrII" />
+      <ref count="1" tile="RI.1/II" />
+      <ref count="1" tile="RI.1/IIG" />
+    </tile-set>
+
+    <tile-set id="river/2:1">
+      <remove tile="RI.1/I.e" />
+
+      <ref count="1" tile="RI/s" />
+      <ref count="1" tile="RI.2/IFC" />
+      <ref count="1" tile="RI.2/I.v" />
+      <ref count="1" tile="RI.2/III" />
+      <ref count="1" tile="RI.2/CIcI" />
+      <ref count="1" tile="RI.2/LIFI" />
+      <ref count="1" tile="RI.2/RIrI" />
+      <ref count="1" tile="RI.2/CIRI" />
+      <ref count="1" tile="RI.2/II" />
+      <ref count="1" tile="RI.2/CcII+" />
+      <ref count="1" tile="RI.2/II+" />
+      <ref count="1" tile="RI.2/RrII" />
+    </tile-set>
+    <tile-set id="river/2:2">
+      <remove tile="RI.1/I.e" />
+
+      <ref count="1" tile="RI/s" />
+      <ref count="1" tile="RI.2/IFC" />
+      <ref count="1" tile="RI.2/I.v" />
+      <ref count="1" tile="RI.2/III" />
+      <ref count="1" tile="RI.2/CIcI" />
+      <ref count="1" tile="RI.2/LIFI" />
+      <ref count="1" tile="RI.2/RIrI" />
+      <ref count="1" tile="RI.2/CIRI" />
+      <ref count="1" tile="RI.2/IIG" />
+      <ref count="1" tile="RI.2/CcII+" />
+      <ref count="1" tile="RI.2/II+" />
+      <ref count="1" tile="RI.2/RrII" />
+    </tile-set>
+  </sets>
+</defs>

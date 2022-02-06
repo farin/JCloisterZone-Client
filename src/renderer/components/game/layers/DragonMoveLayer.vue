@@ -9,12 +9,12 @@
         :transform="arrowTransform(pos)"
         fill="#7a172d"
         :fill-opacity="mouseOver === pos ? 1 : 0.5"
-        points="90,1000 400,1000 400,1090 600,1090 600,1000 910,1000 500,700"
+        points="81,900 360,900 360,981 540,981 540,900 819,900 450,630"
       />
 
       <!-- invisible rect for tracking mouse events -->
       <rect
-        :x="0" :y="0" width="1000" height="1000"
+        :x="0" :y="0" width="900" height="900"
         :style="{'pointer-events': 'all', fill: 'none'}"
         @mouseenter="onMouseOver(pos)"
         @mouseleave="onMouseLeave(pos)"

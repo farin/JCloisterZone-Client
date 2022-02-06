@@ -1,0 +1,201 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "1",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-22T18:24:49.630Z",
+  "clock": 58196,
+  "test": {
+    "description": "Farm with besieged cities scoring",
+    "assertions": [
+      "Alice has 12 points",
+      "Alice scored field for 12 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "siege/cathars": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "siege": true,
+      "escape": true
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CFC.2",
+        "rotation": "R0",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 2698
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 3843
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 3850
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CC.2",
+        "rotation": "R0",
+        "position": [
+          -1,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 4801
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            -1,
+            -1
+          ],
+          "feature": "Field",
+          "location": "EL.ER.SL.SR"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 5921
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 6281
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R90",
+        "position": [
+          -2,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 7237
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 7360
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 7365
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "SI.CA/Cc",
+        "rotation": "R180",
+        "position": [
+          -1,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 8793
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 8937
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 8944
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Cc+",
+        "rotation": "R270",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 9651
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 12828
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 12834
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/CFC.2",
+      "BA/CC.2",
+      "BA/C",
+      "SI.CA/Cc",
+      "BA/Cc+"
+    ],
+    "endTurn": 5
+  }
+}

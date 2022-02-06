@@ -1,0 +1,21 @@
+{
+  "monastery": {
+    "image": {
+      "href": "#monastery",
+      "class": "monastery"
+    },
+    "clip": "M 295 640 V 310 L 385 190 L 475 310 V 400 L 590 360 L 655 430 v 150 L 385 670 Z",
+    "point": [450, 450]
+  },
+  "garden": {
+    "image": {
+      "href": "images/garden.webp",
+      "width": "220",
+      "height": "220",
+      "transform": "translate(340 340)",
+      "class": "monastery"
+    },
+    "clip": "M340 340 h220 v220 h-220 Z",
+    "point": [450, 450]
+  }
+}

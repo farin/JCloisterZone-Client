@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defs>
+  <tile id="FE/CCc">
+    <festival />
+    <city>W E</city>
+    <city>S</city>
+    <field city="W">NL NR</field>
+    <field city="W S">I</field>
+  </tile>
+  <tile id="FE/CcCc">
+    <festival />
+    <city>N W</city>
+    <city>S E</city>
+    <field city="N S">I</field>
+  </tile>
+  <tile id="FE/CFR">
+    <festival />
+    <city wagon-move="a">N</city>
+    <road wagon-move="a">S</road>
+    <field city="N">WL WR SR</field>
+    <field city="N">EL ER SL</field>
+  </tile>
+  <tile id="FE/CR">
+    <festival />
+    <city wagon-move="a">N</city>
+    <road wagon-move="a">E</road>
+    <field city="N">EL</field>
+    <field city="N">WL WR SL SR ER</field>
+  </tile>
+  <tile id="FE/CRCR">
+    <festival />
+    <city wagon-move="a">N</city>
+    <city wagon-move="a">S</city>
+    <road wagon-move="a">W</road>
+    <road wagon-move="a">E</road>
+    <field city="S">ER</field>
+    <field city="S">WL</field>
+    <field city="N">EL</field>
+    <field city="N">WR</field>
+  </tile>
+  <tile id="FE/CRr">
+    <festival />
+    <road>E S</road>
+    <city>N</city>
+    <field city="N">EL WL WR SR</field>
+    <field>ER SL</field>
+  </tile>
+  <tile id="FE/LRR">
+    <festival />
+    <monastery wagon-move="a b" />
+    <road wagon-move="a">S</road>
+    <road wagon-move="b">W</road>
+    <field>WR NL NR EL ER SL</field>
+    <field>WL SR</field>
+  </tile>
+  <tile id="FE/RC">
+    <festival />
+    <city wagon-move="a">N</city>
+    <road wagon-move="a">W</road>
+    <field city="N">WR</field>
+    <field city="N">EL ER SL SR WL</field>
+  </tile>
+  <tile id="FE/RrC">
+    <festival />
+    <road>S W</road>
+    <city>N</city>
+    <field city="N">WR EL ER SL</field>
+    <field>WL SR</field>
+  </tile>
+  <tile id="FE/RrRr">
+    <festival />
+    <road>N W</road>
+    <road>S E</road>
+    <field>NL WR</field>
+    <field>SL ER</field>
+    <field>NR EL SR WL</field>
+  </tile>
+  <sets>
+    <tile-set id="festival">
+      <ref count="1" tile="FE/CCc" />
+      <ref count="1" tile="FE/CcCc" />
+      <ref count="1" tile="FE/CFR" />
+      <ref count="1" tile="FE/CR" />
+      <ref count="1" tile="FE/CRCR" />
+      <ref count="1" tile="FE/CRr" />
+      <ref count="1" tile="FE/LRR" />
+      <ref count="1" tile="FE/RC" />
+      <ref count="1" tile="FE/RrC" />
+      <ref count="1" tile="FE/RrRr" />
+    </tile-set>
+  </sets>
+</defs>

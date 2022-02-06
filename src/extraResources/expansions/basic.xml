@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defs>
+  <tiles>
+    <tile id="BA/L">
+      <monastery />
+      <field>NL NR EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="BA/LR">
+      <monastery wagon-move="a"/>
+      <road wagon-move="a">S</road>
+      <field>NL NR EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="BA/RCr">
+      <road>W E</road>
+      <city>N</city>
+      <field city="N">EL WR</field>
+      <field>ER SL SR WL</field>
+    </tile>
+
+    <tile id="BA/Cccc+">
+      <city pennants="1">N W S E</city>
+    </tile>
+    <tile id="BA/CccR+">
+      <road wagon-move="a">S</road>
+      <city pennants="1" wagon-move="a">N W E</city>
+      <field city="N">SL</field>
+      <field city="N">SR</field>
+    </tile>
+    <tile id="BA/CccR">
+      <road wagon-move="a">S</road>
+      <city wagon-move="a">N W E</city>
+      <field city="N">SL</field>
+      <field city="N">SR</field>
+    </tile>
+    <tile id="BA/CFc+">
+      <city pennants="1">W E</city>
+      <field city="W">NL NR</field>
+      <field city="W">SL SR</field>
+    </tile>
+    <tile id="BA/CFc.1">
+      <city>W E</city>
+      <field city="W">NL NR</field>
+      <field city="W">SL SR</field>
+    </tile>
+    <tile id="BA/Cc.1">
+      <city>N W</city>
+      <field city="N">SL SR EL ER</field>
+    </tile>
+    <tile id="BA/CcG">
+      <garden />
+      <city>N W</city>
+      <field city="N">SL SR EL ER</field>
+    </tile>
+    <tile id="BA/Cc+">
+      <city pennants="1">N W</city>
+      <field city="N">SL SR EL ER</field>
+    </tile>
+    <tile id="BA/Cc+G">
+      <garden />
+      <city pennants="1">N W</city>
+      <field city="N">SL SR EL ER</field>
+    </tile>
+    <tile id="BA/CcRr">
+      <road>E S</road>
+      <city>N W</city>
+      <field city="N">EL SR</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="BA/CcRr+">
+      <road>E S</road>
+      <city pennants="1">N W</city>
+      <field city="N">EL SR</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="BA/Ccc">
+      <city>N E W</city>
+      <field city="N">SL SR</field>
+    </tile>
+    <tile id="BA/CccG">
+      <garden />
+      <city>N E W</city>
+      <field city="N">SL SR</field>
+    </tile>
+    <tile id="BA/Ccc+">
+      <city pennants="1">N E W</city>
+      <field city="N">SL SR</field>
+    </tile>
+    <tile id="BA/CRr">
+      <road>E S</road>
+      <city>N</city>
+      <field city="N">EL WL WR SR</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="BA/CRRR">
+      <road wagon-move="a">E</road>
+      <road wagon-move="a">S</road>
+      <road wagon-move="a">W</road>
+      <city>N</city>
+      <field city="N">WR EL</field>
+      <field>WL SR</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="BA/RrC">
+      <road>S W</road>
+      <city>N</city>
+      <field city="N">WR EL ER SL</field>
+      <field>WL SR</field>
+    </tile>
+    <tile id="BA/C">
+      <city>N</city>
+      <field city="N">WL WR SL SR EL ER</field>
+    </tile>
+    <tile id="BA/CG">
+      <garden />
+      <city>N</city>
+      <field city="N">WL WR SL SR EL ER</field>
+    </tile>
+    <tile id="BA/CFC.2">
+      <city>N</city>
+      <city>S</city>
+      <field city="N S">WL WR EL ER</field>
+    </tile>
+    <tile id="BA/CFCG">
+      <garden />
+      <city>N</city>
+      <city>S</city>
+      <field city="N S">WL WR EL ER</field>
+    </tile>
+    <tile id="BA/CC.2">
+      <city>N</city>
+      <city>W</city>
+      <field city="N W">EL ER SL SR</field>
+    </tile>
+    <tile id="BA/CCG">
+      <garden />
+      <city>N</city>
+      <city>W</city>
+      <field city="N W">EL ER SL SR</field>
+    </tile>
+    <tile id="BA/RRRR">
+      <road wagon-move="a">N</road>
+      <road wagon-move="a">E</road>
+      <road wagon-move="a">S</road>
+      <road wagon-move="a">W</road>
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="BA/RRR">
+      <road wagon-move="a">E</road>
+      <road wagon-move="a">S</road>
+      <road wagon-move="a">W</road>
+      <field>WR NL NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="BA/Rr">
+      <road>W S</road>
+      <field>WR NL NR EL ER SL</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="BA/RrG">
+      <garden />
+      <road>W S</road>
+      <field>WR NL NR EL ER SL</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="BA/RFr">
+      <road>W E</road>
+      <field>WR NL NR EL</field>
+      <field>ER SL SR WL</field>
+    </tile>
+    <tile id="BA/RFrG">
+      <garden />
+      <road>W E</road>
+      <field>WR NL NR EL</field>
+      <field>ER SL SR WL</field>
+    </tile>
+  </tiles>
+  <sets>
+    <tile-set id="basic:1">
+      <ref count="4" tile="BA/L" />
+      <ref count="2" tile="BA/LR" />
+      <ref count="4" tile="BA/RCr" />
+      <ref count="1" tile="BA/Cccc+" />
+      <ref count="2" tile="BA/CccR+" />
+      <ref count="1" tile="BA/CccR" />
+      <ref count="2" tile="BA/CFc+" />
+      <ref count="1" tile="BA/CFc.1" />
+      <ref count="3" tile="BA/Cc.1" />
+      <ref count="2" tile="BA/Cc+" />
+      <ref count="3" tile="BA/CcRr" />
+      <ref count="2" tile="BA/CcRr+" />
+      <ref count="3" tile="BA/Ccc" />
+      <ref count="1" tile="BA/Ccc+" />
+      <ref count="3" tile="BA/CRr" />
+      <ref count="3" tile="BA/CRRR" />
+      <ref count="3" tile="BA/RrC" />
+      <ref count="5" tile="BA/C" />
+      <ref count="3" tile="BA/CFC.2" />
+      <ref count="2" tile="BA/CC.2" />
+      <ref count="1" tile="BA/RRRR" />
+      <ref count="4" tile="BA/RRR" />
+      <ref count="9" tile="BA/Rr" />
+      <ref count="8" tile="BA/RFr" />
+    </tile-set>
+    <tile-set id="basic:2">
+      <ref count="4" tile="BA/L" />
+      <ref count="2" tile="BA/LR" />
+      <ref count="4" tile="BA/RCr" />
+      <ref count="1" tile="BA/Cccc+" />
+      <ref count="2" tile="BA/CccR+" />
+      <ref count="1" tile="BA/CccR" />
+      <ref count="2" tile="BA/CFc+" />
+      <ref count="1" tile="BA/CFc.1" />
+      <ref count="2" tile="BA/Cc.1" />
+      <ref count="1" tile="BA/CcG" />
+      <ref count="1" tile="BA/Cc+" />
+      <ref count="1" tile="BA/Cc+G" />
+      <ref count="3" tile="BA/CcRr" />
+      <ref count="2" tile="BA/CcRr+" />
+      <ref count="2" tile="BA/Ccc" />
+      <ref count="1" tile="BA/CccG" />
+      <ref count="1" tile="BA/Ccc+" />
+      <ref count="3" tile="BA/CRr" />
+      <ref count="3" tile="BA/CRRR" />
+      <ref count="3" tile="BA/RrC" />
+      <ref count="4" tile="BA/C" />
+      <ref count="1" tile="BA/CG" />
+      <ref count="2" tile="BA/CFC.2" />
+      <ref count="1" tile="BA/CFCG" />
+      <ref count="1" tile="BA/CC.2" />
+      <ref count="1" tile="BA/CCG" />
+      <ref count="1" tile="BA/RRRR" />
+      <ref count="4" tile="BA/RRR" />
+      <ref count="8" tile="BA/Rr" />
+      <ref count="1" tile="BA/RrG" />
+      <ref count="7" tile="BA/RFr" />
+      <ref count="1" tile="BA/RFrG" />
+    </tile-set>
+  </sets>
+</defs>

@@ -2,7 +2,7 @@
   <div :class="'tile-auctioned' + (noAuction ? ' no-auction' : '')">
     <div class="points-wrapper">
       <div :class="'points ' + colorCssClass(ev.auctioneer)">{{ noAuction ? '' : -ev.points }}</div>
-      <div v-if="ev.bidder" :class="'points ' + colorCssClass(ev.bidder)">{{ noAuction ? '' : ev.points }}</div>
+      <div v-if="ev.bidder !== undefined" :class="'points ' + colorCssClass(ev.bidder)">{{ noAuction ? '' : ev.points }}</div>
     </div>
     <StandaloneTileImage :tile-id="ev.tile" />
   </div>

@@ -4,21 +4,21 @@
       'exp-box': true,
       [expansion.name]: true,
       'selected': selected,
-      'multiset': expansion.sets.length > 1 && !expansion.mergeSets,
-      ['multiset-' + expansion.sets.length]: expansion.sets.length > 1 && !expansion.mergeSets
+      'multiset': expansion.releases.length > 1,
+      ['multiset-' + expansion.releases.length]: expansion.releases.length > 1
     }"
   >
     <a href="#" class="detail-link" @click.prevent="open">
       <v-icon>fas fa-layer-group</v-icon>
     </a>
 
-    <template v-if="expansion.sets.length === 1 || expansion.mergeSets">
-      <TileSetButtons :set="expansion.sets">
+    <template v-if="expansion.releases.length === 1">
+      <ReleaseButtons :release="expansion.releases[0]">
         <div class="exp-title">
           <ExpansionSymbol :expansion="expansion" />
           <h3>{{ expansion.title }}</h3>
         </div>
-      </TileSetButtons>
+      </ReleaseButtons>
     </template>
     <template v-else>
       <div class="exp-title" @click="onMultisetTitleClick">
@@ -26,13 +26,13 @@
         <h3>{{ expansion.title }}</h3>
       </div>
       <div
-        v-for="set in expansion.sets"
-        :key="set.id"
+        v-for="(release, idx) in expansion.releases"
+        :key="idx"
         class="tile-set-row"
       >
-        <TileSetButtons :set="set">
-          <h4 :title="set.note">{{ set.title }}</h4>
-        </TileSetButtons>
+        <ReleaseButtons :release="release">
+          <h4 :title="release.note">{{ release.title }}</h4>
+        </ReleaseButtons>
       </div>
     </template>
   </div>
@@ -41,12 +41,12 @@
 <script>
 import { mapState } from 'vuex'
 import ExpansionSymbol from '@/components/ExpansionSymbol'
-import TileSetButtons from '@/components/game-setup/buttons/TileSetButtons'
+import ReleaseButtons from '@/components/game-setup/buttons/ReleaseButtons'
 
 export default {
   components: {
     ExpansionSymbol,
-    TileSetButtons
+    ReleaseButtons
   },
 
   props: {
@@ -59,7 +59,14 @@ export default {
     }),
 
     selected () {
-      return this.expansion.sets.reduce((acc, set) => acc || !!this.sets[set.id], false)
+      for (const release of this.expansion.releases) {
+        for (const id of release.sets) {
+          if (this.sets[id]) {
+            return true
+          }
+        }
+      }
+      return false
     }
   },
 
@@ -70,11 +77,11 @@ export default {
 
     onMultisetTitleClick () {
       if (this.selected) {
-        this.expansion.sets.forEach(set => {
-          this.$store.dispatch('gameSetup/setTileSetQuantity', { id: set.id, quantity: 0 })
-        })
+        for (const release of this.expansion.releases) {
+          this.$store.dispatch('gameSetup/setReleaseQuantity', { release, quantity: 0 })
+        }
       } else {
-        this.$store.dispatch('gameSetup/setTileSetQuantity', { id: this.expansion.sets[0].id, quantity: 1 })
+        this.$store.dispatch('gameSetup/setReleaseQuantity', { release: this.expansion.releases[0], quantity: 1 })
       }
     }
   }
@@ -126,7 +133,8 @@ export default {
         color: map-get($theme, 'link-detail-color')
 
     &:hover .v-icon
-      color: black
+      +theme using ($theme)
+        color: map-get($theme, 'text-color')
 
   &.selected
     +theme using ($theme)

@@ -13,8 +13,8 @@ import LayeredItemMixin from '@/components/game/actions/items/LayeredItemMixin.j
 
 const FEATURE_QUARTERS = {
   City: 'QUARTER_CASTLE',
-  Cloister: 'QUARTER_CATHEDRAL',
-  Farm: 'QUARTER_MARKET',
+  Monastery: 'QUARTER_CATHEDRAL',
+  Field: 'QUARTER_MARKET',
   Road: 'QUARTER_BLACKSMITH'
 }
 
@@ -38,8 +38,7 @@ export default {
   computed: {
     ...mapGetters({
       meepleIdFromSupply: 'game/meepleIdFromSupply',
-      colorCssClass: 'game/colorCssClass',
-      featureOn: 'game/featureOn'
+      colorCssClass: 'game/colorCssClass'
     }),
 
     layers () {
@@ -71,7 +70,7 @@ export default {
       if (this.active) {
         let meepleId
         if (this.coc) {
-          const quarter = FEATURE_QUARTERS[this.featureOn(opt).type]
+          const quarter = FEATURE_QUARTERS[opt.feature]
           meepleId = this.$store.state.game.deployedMeeples.find(m => m.player === this.player && m.location === quarter && m.type === this.meeple).id
         } else {
           meepleId = this.meepleIdFromSupply(this.player, this.meeple)
@@ -94,6 +93,10 @@ export default {
 svg
   width: 74px
   height: 74px
+
+  @media (max-height: 768px)
+    width: 54px
+    height: 54px
 
 svg.inactive
   +theme using ($theme)

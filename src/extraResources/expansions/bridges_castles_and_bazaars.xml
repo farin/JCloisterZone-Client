@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defs>
+  <tiles>
+    <tile count="2" id="BB/Cccc.b">
+      <bazaar />
+      <city>N E S W</city>
+    </tile>
+    <tile id="BB/CCCR">
+      <city>W</city>
+      <city>N</city>
+      <city wagon-move="a">E</city>
+      <road wagon-move="a">S</road>
+      <field city="W N E">SR</field>
+      <field city="E">SL</field>
+    </tile>
+    <tile id="BB/CFc.b">
+      <bazaar />
+      <city>W E</city>
+      <field city="W">NL NR</field>
+      <field city="W">SL SR</field>
+    </tile>
+    <tile id="BB/CFR!">
+      <city castle-base="false" wagon-move="a">W</city>
+      <road wagon-move="a">E</road>
+      <field city="W">NL NR</field>
+      <field city="W">EL</field>
+      <field city="W">ER SL SR</field>
+    </tile>
+    <tile id="BB/CFR!G">
+      <garden/>
+      <city castle-base="false" wagon-move="a">W</city>
+      <road wagon-move="a">E</road>
+      <field city="W">NL NR</field>
+      <field city="W">EL</field>
+      <field city="W">ER SL SR</field>
+    </tile>
+    <tile id="BB/CFR.b">
+      <bazaar />
+      <city>N</city>
+      <road>S</road>
+      <field city="N">EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="BB/F.b">
+      <bazaar />
+      <field>NL NR EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="BB/LCFc">
+      <monastery wagon-move="a" />
+      <city wagon-move="a">W E</city>
+      <field city="W">NL NR</field>
+      <field city="W">SL SR</field>
+    </tile>
+    <tile id="BB/LRFr">
+      <monastery />
+      <road>W E</road>
+      <field>WR NL NR EL</field>
+      <field>ER SL SR WL</field>
+    </tile>
+    <tile id="BB/R.bi">
+      <bazaar />
+      <road inn="true">S</road>
+      <field>NL NR EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="BB/RFR.b">
+      <bazaar />
+      <road>N</road>
+      <road>S</road>
+      <field>SR WL WR NL</field>
+      <field>NR EL ER SL</field>
+    </tile>
+    <tile id="BB/RFR.bi">
+      <bazaar />
+      <road>N</road>
+      <road inn="true">S</road>
+      <field>SR WL WR NL</field>
+      <field>NR EL ER SL</field>
+    </tile>
+  </tiles>
+  <sets>
+    <tile-set id="bridges-castles-and-bazaars:1">
+      <ref count="2" tile="BB/Cccc.b" />
+      <ref count="1" tile="BB/CCCR" />
+      <ref count="1" tile="BB/CFc.b" />
+      <ref count="1" tile="BB/CFR!" />
+      <ref count="1" tile="BB/CFR.b" />
+      <ref count="1" tile="BB/F.b" />
+      <ref count="1" tile="BB/LCFc" />
+      <ref count="1" tile="BB/LRFr" />
+      <ref count="1" tile="BB/R.bi" />
+      <ref count="1" tile="BB/RFR.b" />
+      <ref count="1" tile="BB/RFR.bi" />
+    </tile-set>
+    <tile-set id="bridges-castles-and-bazaars:2">
+      <ref count="2" tile="BB/Cccc.b" />
+      <ref count="1" tile="BB/CCCR" />
+      <ref count="1" tile="BB/CFc.b" />
+      <ref count="1" tile="BB/CFR!G" />
+      <ref count="1" tile="BB/CFR.b" />
+      <ref count="1" tile="BB/F.b" />
+      <ref count="1" tile="BB/LCFc" />
+      <ref count="1" tile="BB/LRFr" />
+      <ref count="1" tile="BB/R.bi" />
+      <ref count="1" tile="BB/RFR.b" />
+      <ref count="1" tile="BB/RFR.bi" />
+    </tile-set>
+  </sets>
+</defs>

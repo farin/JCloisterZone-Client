@@ -8,7 +8,7 @@ module.exports = {
   head: {
     title: 'JCloisterZone',
     meta: [
-      { hid: 'charset', name: 'charset', content: 'utf-8' }
+      { charset: 'utf-8' }
     ]
   },
   loading: false,
@@ -17,10 +17,12 @@ module.exports = {
     '~/plugins/engine',
     '~/plugins/server',
     '~/plugins/connection',
+    '~/plugins/addons',
     '~/plugins/tiles',
     '~/plugins/theme',
     { ssr: true, src: '@/plugins/icons.js' },
-    '~/plugins/router-patch'
+    '~/plugins/router-patch',
+    '~/plugins/date-format'
   ],
   buildModules: [
     '@nuxtjs/style-resources'
@@ -74,6 +76,16 @@ module.exports = {
           name: '[path][name].[ext]'
         }
       })
+
+      config.module.rules.push({
+        test: /\.ohm$/i,
+        loader: 'raw-loader'
+      })
+
+      // https://github.com/yan-foto/electron-reload/issues/71
+      config.externals = {
+        fsevents: "require('fsevents')"
+      }
     }
   }
 }

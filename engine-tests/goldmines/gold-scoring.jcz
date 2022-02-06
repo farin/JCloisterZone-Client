@@ -1,0 +1,256 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "722d04a2f81d40708e5422f012e2ebcc",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-23T06:02:02.122Z",
+  "clock": 68151,
+  "test": {
+    "description": "Goldmines scoring",
+    "assertions": [
+      "Alice has 9 points",
+      "Bob has 5 points",
+      "Alice scored gold for 3 points",
+      "Bob scored gold for 1 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "goldmines": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "gold": true
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "GO/CRcr",
+        "rotation": "R90",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 8863
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -1
+          ],
+          "feature": "City",
+          "location": "NS"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 12051
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 12958
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "GO/LRr",
+        "rotation": "R90",
+        "position": [
+          1,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 15779
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "GOLD",
+        "pointer": [
+          0,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 19629
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 20290
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 20298
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 25269
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 27455
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 27464
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R0",
+        "position": [
+          1,
+          -2
+        ]
+      },
+      "player": 1,
+      "clock": 29975
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 31428
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 31435
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRR",
+        "rotation": "R90",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 34487
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 35944
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 35953
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRR",
+        "rotation": "R0",
+        "position": [
+          -1,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 37351
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            -1,
+            -1
+          ],
+          "feature": "Road",
+          "location": "E"
+        },
+        "meepleId": "1.small.1"
+      },
+      "player": 1,
+      "clock": 42355
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 42992
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "GO/CRcr",
+      "GO/LRr",
+      "BA/C",
+      "BA/C",
+      "BA/RRR",
+      "BA/RRR"
+    ],
+    "endTurn": 6
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "title": "Simplified",
+  "design": "simplified",
+  "description": "Simplified shapes inspired by classic",
+  "icon": "icon.jpg",
+  "perspective": "rotate",
+  "tileSize": 900,
+  "background": {
+    "image": "images/bg.webp",
+    "cols": 1,
+    "rows": 1
+  },
+  "resources": [
+    "resources.svg"
+  ],
+  "pathsInclude": [
+    "jsons/paths.json"
+  ],
+  "featuresInclude": [
+    "jsons/features/monasteries.json",
+    "jsons/features/roads.json",
+    "jsons/features/cities.json",
+    "jsons/features/fields.json",
+    "jsons/features/others.json"
+  ],
+  "tilesInclude": [
+    "jsons/tiles/BA.json",
+    "jsons/tiles/BT.json",
+    "jsons/tiles/IC.json",
+    "jsons/tiles/SD.json",
+    "jsons/tiles/TB.json"
+  ],
+  "classes": {
+    "river": { "zindex": 1 },
+    "road": { "zindex": 2 },
+    "above-road": { "zindex": 3 },
+    "city": { "zindex": 4 },
+    "monastery": { "zindex": 5 },
+    "symbols": { "zindex": 8 }
+  },
+  "defaultZindex": 2,
+  "aliases": {
+    "RI.2/CIRI": "RI.1/CIRI",
+    "RI.2/II": "RI.1/II",
+    "RI.2/RrII": "RI.1/RrII",
+    "SD/RRR": "BA/RRR",
+    "SD/CC": "BA/CC.2"
+  }
+}

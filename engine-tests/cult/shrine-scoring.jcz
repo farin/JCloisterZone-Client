@@ -1,0 +1,115 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "3e67ca1840614f99bb1c4c5929aae20b",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-22T17:57:07.418Z",
+  "clock": 28769,
+  "test": {
+    "description": "Shrine scoring",
+    "assertions": [
+      "Alice has 3 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "cult/6": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "shrine": true
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "CU/S",
+        "rotation": "R0",
+        "position": [
+          0,
+          1
+        ]
+      },
+      "player": 0,
+      "clock": 1926
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            1
+          ],
+          "feature": "Monastery",
+          "location": "I"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 2753
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 3133
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R0",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 3673
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 6492
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 6515
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "CU/S",
+      "BA/RFr"
+    ],
+    "endTurn": 2
+  }
+}

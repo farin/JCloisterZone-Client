@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defs>
+  <tiles>
+    <tile id="CC.1/Cc.1">
+      <corn-circle type="City" />
+      <city>N W</city>
+      <field city="N">SL SR EL ER</field>
+    </tile>
+    <tile id="CC.1/CC.2">
+      <corn-circle type="City" />
+      <city>N</city>
+      <city>E</city>
+      <field city="N E">SL SR WL WR</field>
+    </tile>
+    <tile id="CC.1/CR">
+      <corn-circle type="Field" />
+      <city>N</city>
+      <road>E</road>
+      <field city="N">WL WR SL SR EL ER</field>
+    </tile>
+    <tile id="CC.1/Rr">
+      <corn-circle type="Road" />
+      <road>W S</road>
+      <field>WR NL NR EL ER SL</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="CC.1/RrC">
+      <corn-circle type="Field" />
+      <road>S W</road>
+      <city>N</city>
+      <field city="N">WR EL ER SL</field>
+      <field>WL SR</field>
+    </tile>
+    <tile id="CC.1/RRR">
+      <corn-circle type="Road" />
+      <road>N</road>
+      <road>W</road>
+      <road>S</road>
+      <field>NR EL ER SL</field>
+      <field>SR WL</field>
+      <field>WR NL</field>
+    </tile>
+
+    <tile id="CC.2/RRr">
+      <corn-circle type="Road" />
+      <road>W S</road>
+      <road>E</road>
+      <field>WR NL NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="CC.2/RRRr">
+      <corn-circle type="Road" />
+      <road>W S</road>
+      <road>N</road>
+      <road>E</road>
+      <field>WR NL ER SL</field>
+      <field>NR EL</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="CC.2/CFR">
+      <corn-circle type="Field" />
+      <city>N</city>
+      <road>S</road>
+      <field city="N">WR WL SL SR EL ER</field>
+    </tile>
+    <tile id="CC.2/RCR">
+      <corn-circle type="Field" />
+      <city>N</city>
+      <road>W</road>
+      <road>E</road>
+      <field city="N">WR EL</field>
+      <field>ER SL SR WL</field>
+    </tile>
+    <tile id="CC.2/CFC">
+      <corn-circle type="City" />
+      <city>N</city>
+      <city>S</city>
+      <field city="N S">WL WR</field>
+      <field city="N S">EL ER</field>
+    </tile>
+    <tile id="CC.2/CcCc">
+      <corn-circle type="City" />
+      <city>W N</city>
+      <city>E S</city>
+    </tile>
+  </tiles>
+  <sets>
+    <tile-set id="corn-circles/1">
+      <ref count="1" tile="CC.1/Cc.1" />
+      <ref count="1" tile="CC.1/CC.2" />
+      <ref count="1" tile="CC.1/CR" />
+      <ref count="1" tile="CC.1/Rr" />
+      <ref count="1" tile="CC.1/RrC" />
+      <ref count="1" tile="CC.1/RRR" />
+    </tile-set>
+    <tile-set id="corn-circles/2">
+      <ref count="1" tile="CC.2/RRr" />
+      <ref count="1" tile="CC.2/RRRr" />
+      <ref count="1" tile="CC.2/CFR" />
+      <ref count="1" tile="CC.2/RCR" />
+      <ref count="1" tile="CC.2/CFC" />
+      <ref count="1" tile="CC.2/CcCc" />
+    </tile-set>
+  </sets>
+</defs>

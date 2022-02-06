@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defs>
+	<tiles>
+		<tile id="TB/Cc.g">
+			<city resource="grain">N W</city>
+			<field city="N">SL SR EL ER</field>
+		</tile>
+		<tile id="TB/Cc.w">
+			<city resource="wine">N W</city>
+			<field city="N">SL SR EL ER</field>
+		</tile>
+		<tile id="TB/CCc.c">
+			<city resource="cloth">W E</city>
+			<city>S</city>
+			<field city="W">NL NR</field>
+			<field city="W S">I</field>
+		</tile>
+		<tile id="TB/CCc.w">
+			<city resource="wine">W E</city>
+			<city>S</city>
+			<field city="W">NL NR</field>
+			<field city="W S">I</field>
+		</tile>
+		<tile id="TB/Ccc.g">
+			<city resource="grain">N W E</city>
+			<field city="N">SL SR</field>
+		</tile>
+		<tile id="TB/CcCC.c">
+			<city resource="cloth">N W</city>
+			<city>S</city>
+			<city>E</city>
+			<field city="N E S">I</field>
+		</tile>
+		<tile id="TB/CcRR!.c">
+			<road wagon-move="a">S</road>
+			<road wagon-move="b">E</road>
+			<city resource="cloth" wagon-move="a b">N W</city>
+			<field city="N">SR</field>
+			<field city="N">SL</field>
+			<field city="N">ER</field>
+			<field city="N">EL</field>
+		</tile>
+		<tile id="TB/CcRR.w">
+			<city resource="wine" wagon-move="a b">N W</city>
+			<road wagon-move="a">S</road>
+			<road wagon-move="b">E</road>
+			<field city="N">SR</field>
+			<field city="N">SL ER</field>
+			<field city="N">EL</field>
+    </tile>
+    <tile id="TB/CcRR.wG">
+      <garden />
+			<city resource="wine" wagon-move="a b">N W</city>
+			<road wagon-move="a">S</road>
+			<road wagon-move="b">E</road>
+			<field city="N">SR</field>
+			<field city="N">SL ER</field>
+			<field city="N">EL</field>
+		</tile>
+		<tile id="TB/CcRC.c">
+			<city resource="cloth" wagon-move="a">N W</city>
+			<city>S</city>
+			<road wagon-move="a">E</road>
+			<field city="N">EL</field>
+			<field city="N S">ER</field>
+		</tile>
+		<tile id="TB/CcRC.g">
+			<city resource="grain" wagon-move="a">N W</city>
+			<city>S</city>
+			<road wagon-move="a">E</road>
+			<field city="N">EL</field>
+			<field city="N S">ER</field>
+		</tile>
+		<tile id="TB/CcR.c">
+			<city resource="cloth" wagon-move="a">N W</city>
+			<road wagon-move="a">E</road>
+			<field city="N">EL</field>
+			<field city="N">ER SL SR</field>
+    </tile>
+    <tile id="TB/CcR.cG">
+      <garden />
+			<city resource="cloth" wagon-move="a">N W</city>
+			<road wagon-move="a">E</road>
+			<field city="N">EL</field>
+			<field city="N">ER SL SR</field>
+		</tile>
+		<tile id="TB/CcR!.w">
+			<road wagon-move="a">E</road>
+			<city resource="wine" wagon-move="a">N W</city>
+			<field city="N">EL</field>
+			<field city="N">ER</field>
+			<field city="N">SL SR</field>
+		</tile>
+		<tile id="TB/CccR.w">
+			<city resource="wine" wagon-move="a">N W E</city>
+			<road wagon-move="a">S</road>
+			<field city="N">SR</field>
+			<field city="N">SL</field>
+		</tile>
+		<tile id="TB/CcCc.w">
+			<city resource="wine">N W</city>
+			<city>E S</city>
+			<field city="N S">I</field>
+		</tile>
+		<tile id="TB/CFc.w">
+			<city resource="wine">W E</city>
+			<field city="W">NL NR</field>
+			<field city="W">SL SR</field>
+		</tile>
+		<tile id="TB/CR">
+			<city wagon-move="a">N</city>
+			<road wagon-move="a">E</road>
+			<field city="N">EL</field>
+			<field city="N">WL WR SL SR ER</field>
+		</tile>
+		<tile id="TB/CRc.g">
+			<city resource="grain" wagon-move="a">W E</city>
+			<road wagon-move="a">S</road>
+			<field city="W">NL NR</field>
+			<field city="W">SR</field>
+			<field city="W">SL</field>
+		</tile>
+		<tile id="TB/CRc.w">
+			<city resource="wine" wagon-move="a">W E</city>
+			<road wagon-move="a">S</road>
+			<field city="W">NL NR</field>
+			<field city="W">SR</field>
+			<field city="W">SL</field>
+		</tile>
+		<tile id="TB/CRcR.w">
+			<city resource="wine" wagon-move="a b">E W</city>
+			<road wagon-move="a">N</road>
+			<road wagon-move="b">S</road>
+			<field city="W">NL</field>
+			<field city="W">NR</field>
+			<field city="W">SL</field>
+			<field city="W">SR</field>
+		</tile>
+		<tile id="TB/LRRR">
+			<monastery wagon-move="a b c"/>
+			<road wagon-move="a">E</road>
+			<road wagon-move="b">S</road>
+			<road wagon-move="c">W</road>
+			<field>WR NL NR EL</field>
+			<field>ER SL</field>
+			<field>WL SR</field>
+		</tile>
+		<tile id="TB/RCc.g">
+			<city resource="grain" wagon-move="a">N W</city>
+			<road wagon-move="a">S</road>
+			<field city="N">SR</field>
+			<field city="N">SL EL ER</field>
+		</tile>
+		<tile id="TB/RCc!.g">
+			<road wagon-move="a">S</road>
+			<city resource="grain" wagon-move="a">N W</city>
+			<field city="N">SR</field>
+			<field city="N">SL</field>
+			<field city="N">EL ER</field>
+		</tile>
+		<tile id="TB/RRC">
+			<city wagon-move="a">N</city>
+			<road>W</road>
+			<road wagon-move="a">S</road>
+			<field city="N">WR</field>
+			<field>WL SR</field>
+			<field city="N">EL ER SL</field>
+		</tile>
+		<tile id="TB/RRrr">
+			<road>N S</road>
+			<road>W E</road>
+			<field>WR NL</field>
+			<field>NR EL</field>
+			<field>ER SL</field>
+			<field>SR WL</field>
+		</tile>
+	</tiles>
+  <sets>
+    <tile-set id="traders-and-builders:1">
+      <ref count="1" tile="TB/Cc.g" />
+      <ref count="1" tile="TB/Cc.w" />
+      <ref count="1" tile="TB/CCc.c" />
+      <ref count="1" tile="TB/CCc.w" />
+      <ref count="1" tile="TB/Ccc.g" />
+      <ref count="1" tile="TB/CcCC.c" />
+      <ref count="1" tile="TB/CcRR!.c" />
+      <ref count="1" tile="TB/CcRR.w" />
+      <ref count="1" tile="TB/CcRC.c" />
+      <ref count="1" tile="TB/CcRC.g" />
+      <ref count="1" tile="TB/CcR.c" />
+      <ref count="1" tile="TB/CcR!.w" />
+      <ref count="1" tile="TB/CccR.w" />
+      <ref count="1" tile="TB/CcCc.w" />
+      <ref count="1" tile="TB/CFc.w" />
+      <ref count="1" tile="TB/CR" />
+      <ref count="1" tile="TB/CRc.g" />
+      <ref count="1" tile="TB/CRc.w" />
+      <ref count="1" tile="TB/CRcR.w" />
+      <ref count="1" tile="TB/LRRR" />
+      <ref count="1" tile="TB/RCc.g" />
+      <ref count="1" tile="TB/RCc!.g" />
+      <ref count="1" tile="TB/RRC" />
+      <ref count="1" tile="TB/RRrr" />
+    </tile-set>
+    <tile-set id="traders-and-builders:2">
+      <ref count="1" tile="TB/Cc.g" />
+      <ref count="1" tile="TB/Cc.w" />
+      <ref count="1" tile="TB/CCc.c" />
+      <ref count="1" tile="TB/CCc.w" />
+      <ref count="1" tile="TB/Ccc.g" />
+      <ref count="1" tile="TB/CcCC.c" />
+      <ref count="1" tile="TB/CcRR!.c" />
+      <ref count="1" tile="TB/CcRR.wG" />
+      <ref count="1" tile="TB/CcRC.c" />
+      <ref count="1" tile="TB/CcRC.g" />
+      <ref count="1" tile="TB/CcR.cG" />
+      <ref count="1" tile="TB/CcR!.w" />
+      <ref count="1" tile="TB/CccR.w" />
+      <ref count="1" tile="TB/CcCc.w" />
+      <ref count="1" tile="TB/CFc.w" />
+      <ref count="1" tile="TB/CR" />
+      <ref count="1" tile="TB/CRc.g" />
+      <ref count="1" tile="TB/CRc.w" />
+      <ref count="1" tile="TB/CRcR.w" />
+      <ref count="1" tile="TB/LRRR" />
+      <ref count="1" tile="TB/RCc.g" />
+      <ref count="1" tile="TB/RCc!.g" />
+      <ref count="1" tile="TB/RRC" />
+      <ref count="1" tile="TB/RRrr" />
+    </tile-set>
+  </sets>
+</defs>

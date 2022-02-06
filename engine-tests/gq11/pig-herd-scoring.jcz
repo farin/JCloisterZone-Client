@@ -1,0 +1,185 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "1c037a7daaea41eba5fa72f3084e7164",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-22T21:33:35.092Z",
+  "clock": 67255,
+  "test": {
+    "description": "Pig scoring",
+    "assertions": [
+      "Alice has 10 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "gq11": 1,
+      "traders-and-builders:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "builder": 1,
+      "pig": 1,
+      "traders": true,
+      "pig-herd": true
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 2035
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -1
+          ],
+          "feature": "Field",
+          "location": "NL.NR.EL.ER.WL.WR"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 3700
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 4625
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "GQ/F",
+        "rotation": "R0",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 5284
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -2
+          ],
+          "feature": "Field",
+          "location": "NL.NR.EL.ER.SL.SR.WL.WR"
+        },
+        "meepleId": "0.pig.1"
+      },
+      "player": 0,
+      "clock": 6663
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 8079
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R0",
+        "position": [
+          0,
+          -3
+        ]
+      },
+      "player": 0,
+      "clock": 8868
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 11200
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 11206
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [
+          0,
+          -4
+        ]
+      },
+      "player": 0,
+      "clock": 12120
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 12903
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 12924
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/C",
+      "GQ/F",
+      "BA/C",
+      "BA/C"
+    ],
+    "endTurn": 4
+  }
+}

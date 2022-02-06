@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defs>
+  <tiles>
+    <tile id="DA/Cccc">
+      <city darmstadtium="true">N W S E</city>
+    </tile>
+    <tile id="DA/LRRRR">
+      <monastery church="true" wagon-move="a b c d"/>
+      <road wagon-move="a">N</road>
+      <road wagon-move="b">W</road>
+      <road wagon-move="c">S</road>
+      <road wagon-move="d">E</road>
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="DA/LRR">
+      <monastery church="true" wagon-move="a"/>
+      <road wagon-move="a">E S</road>
+      <field>NL NR EL SR WL WR</field>
+      <field>ER SL</field>
+    </tile>
+  </tiles>
+  <sets>
+    <tile-set id="darmstadt">
+      <ref count="1" tile="DA/Cccc" />
+      <ref count="1" tile="DA/LRRRR" />
+      <ref count="1" tile="DA/LRR" />
+    </tile-set>
+  </sets>
+</defs>

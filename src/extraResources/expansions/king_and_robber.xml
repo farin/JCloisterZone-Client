@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defs>
+  <tiles>
+    <tile id="KR/LC">
+      <monastery />
+      <city>N</city>
+      <field city="N">EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="KR/RC">
+      <road wagon-move="a">W</road>
+      <city wagon-move="a">N</city>
+      <field city="N">WR</field>
+      <field city="N">EL ER SL SR WL</field>
+    </tile>
+    <tile id="KR/RCG">
+      <garden/>
+      <road wagon-move="a">W</road>
+      <city wagon-move="a">N</city>
+      <field city="N">WR</field>
+      <field city="N">EL ER SL SR WL</field>
+    </tile>
+    <tile id="KR/CRrR">
+      <road wagon-move="a">W</road>
+      <road>S E</road>
+      <city wagon-move="a">N</city>
+      <field city="N">WR</field>
+      <field city="N">EL SR WL</field>
+      <field>SL ER</field>
+    </tile>
+    <tile id="KR/CcRR!">
+      <road wagon-move="b">S</road>
+      <road wagon-move="a">E</road>
+      <city wagon-move="a b">N W</city>
+      <field city="N">SR</field>
+      <field city="N">SL</field>
+      <field city="N">ER</field>
+      <field city="N">EL</field>
+    </tile>
+    <tile id="KR/CCcc">
+      <city>W E</city>
+      <city>N S</city>
+      <field city="N W">I</field>
+      <field city="N W">II</field>
+    </tile>
+  </tiles>
+  <sets>
+    <tile-set id="king-and-robber:1">
+      <ref count="1" tile="KR/LC" />
+      <ref count="1" tile="KR/RC" />
+      <ref count="1" tile="KR/CRrR" />
+      <ref count="1" tile="KR/CcRR!" />
+      <ref count="1" tile="KR/CCcc" />
+    </tile-set>
+    <tile-set id="king-and-robber:2">
+      <ref count="1" tile="KR/LC" />
+      <ref count="1" tile="KR/RCG" />
+      <ref count="1" tile="KR/CRrR" />
+      <ref count="1" tile="KR/CcRR!" />
+      <ref count="1" tile="KR/CCcc" />
+    </tile-set>
+  </sets>
+</defs>

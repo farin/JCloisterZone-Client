@@ -2,7 +2,7 @@
   <section>
     <div class="text">
       {{ local ? 'Place a gold ingot' : 'Player must place a gold ingot' }}
-      <img src="~/assets/figures/gold.png" height="30">
+      <img src="~/assets/figures/gold.png" :height="$vuetify.breakpoint.height > 768 ? 30 : 20">
     </div>
     <slot
       plain

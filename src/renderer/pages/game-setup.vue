@@ -1,28 +1,36 @@
 <template>
-  <GameSetupGrid v-if="loaded" :sets="sets" :rules="rules">
+  <GameSetupGrid v-if="loaded" :sets="sets" :rules="rules" :show-detail="tab > 0" :show-pack-size="tab > 0">
     <template #header>
       <v-tabs v-model="tab" @change="onTabChange">
+        <v-tab><v-icon small>far fa-heart</v-icon></v-tab>
         <v-tab>Tiles</v-tab>
         <v-tab>Components</v-tab>
         <v-tab>Rules</v-tab>
         <v-tab>Timer</v-tab>
       </v-tabs>
 
-      <HeaderGameButton title="Create" @click="createGame" />
+      <HeaderMessage v-if="tab > 0" :sets="sets" />
+      <HeaderGameButton v-if="tab > 0" title="Create" :sets="sets" @click="createGame" />
     </template>
 
     <template #main>
-      <TileSetsTab v-show="tab === 0" />
-      <FiguresTab v-show="tab === 1" />
-      <RulesTab v-show="tab === 2" />
-      <TimerTab v-show="tab === 3" />
+      <BookmarksTab v-show="tab === 0" @load="tab = 1" @select="selectedSetupDetail = $event" />
+      <TileSetsTab v-show="tab === 1" />
+      <FiguresTab v-show="tab === 2" />
+      <RulesTab v-show="tab === 3" />
+      <TimerTab v-show="tab === 4" />
     </template>
 
     <template #detail>
-      <div class="detail-pack">
+      <div v-if="tab > 0" class="detail-pack">
         <h2>Selected tiles</h2>
-        <TileDistribution :sets="sets" :rules="rules" @tile-click="onTileClick" />
-        <GameAnnotationsPanel v-if="settings.devMode" ref="annotationsPanel" />
+        <TileDistribution
+          :tile-size="$vuetify.breakpoint.height > 768 ? 100 : 80"
+          :sets="sets"
+          :rules="rules"
+          @tile-click="onTileClick"
+        />
+        <GameAnnotationsPanel v-if="settings.devMode && $store.state.networking.connectionType !== 'online'" ref="annotationsPanel" />
       </div>
     </template>
   </GameSetupGrid>
@@ -31,9 +39,11 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 
+import BookmarksTab from '@/components/game-setup/tabs/BookmarksTab'
 import FiguresTab from '@/components/game-setup/tabs/FiguresTab'
 import GameAnnotationsPanel from '@/components/dev/GameAnnotationsPanel'
 import GameSetupGrid from '@/components/game-setup/GameSetupGrid'
+import HeaderMessage from '@/components/game-setup/HeaderMessage'
 import HeaderGameButton from '@/components/game-setup/HeaderGameButton'
 import TileDistribution from '@/components/TileDistribution'
 import TileSetsTab from '@/components/game-setup/tabs/TileSetsTab'
@@ -42,9 +52,11 @@ import RulesTab from '@/components/game-setup/tabs/RulesTab'
 
 export default {
   components: {
+    BookmarksTab,
     FiguresTab,
     GameSetupGrid,
     GameAnnotationsPanel,
+    HeaderMessage,
     HeaderGameButton,
     TileDistribution,
     TileSetsTab,
@@ -53,8 +65,10 @@ export default {
   },
 
   data () {
+    const tabParam = this.$route.query.tab
     return {
-      tab: 0
+      tab: tabParam === undefined ? 1 : ~~tabParam,
+      selectedSetupDetail: null
     }
   },
 
@@ -67,9 +81,18 @@ export default {
     }),
 
     ...mapGetters({
-      loaded: 'loaded',
-      containsCoreSet: 'gameSetup/containsCoreSet'
+      loaded: 'loaded'
     })
+  },
+
+  beforeCreate () {
+    // useful for dev mode, if setup not exist, redirect to home
+    if (this.$store.state.gameSetup.sets == null) {
+      this.$store.dispatch('game/close')
+      this.$router.push('/')
+      // it would be nice to create one, but also wait for artwork load is needed
+      // this.$store.dispatch('gameSetup/newGame')
+    }
   },
 
   methods: {
@@ -78,7 +101,7 @@ export default {
     },
 
     onTileClick (tileId) {
-      if (this.settings.devMode) {
+      if (this.settings.devMode && this.$store.state.networking.connectionType !== 'online') {
         this.$refs.annotationsPanel.appendTile(tileId)
       }
     },
@@ -126,4 +149,9 @@ header
   h5
     margin-top: 10px
     text-align: center
+
+@media (max-height: 768px)
+  .detail-pack
+    padding: 10px
+
 </style>

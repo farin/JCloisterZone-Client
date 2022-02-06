@@ -5,7 +5,7 @@
   >
     <g
       v-for="({option: opt, feature, abbotChoice}) in optionsWithFeature"
-      :key="positionAsKey(opt.position) + opt.location"
+      :key="positionAsKey(opt.position) + opt.feature + opt.location"
       :transform="transformPosition(opt.position)"
     >
       <circle
@@ -16,36 +16,27 @@
         @mouseleave="onMouseLeave(opt)"
         @click="ev => onSelect(ev, opt, abbotChoice)"
       />
-      <path
-        v-else-if="feature.clip && feature.clip[0] !== '<'"
-        :d="feature.clip"
-        :transform="transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
-        :class="{ area: true, mouseover: opt === mouseOver, mouseout: opt !== mouseOver }"
-        @mouseenter="onMouseOver(opt)"
-        @mouseleave="onMouseLeave(opt)"
-        @click="ev => onSelect(ev, opt, abbotChoice)"
-      />
-      <!-- eslint-disable vue/no-v-html-->
       <g
-        v-else-if="feature.clip"
+        v-else
         :transform="transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
         :class="{ area: true, mouseover: opt === mouseOver, mouseout: opt !== mouseOver }"
         @mouseenter="onMouseOver(opt)"
         @mouseleave="onMouseLeave(opt)"
         @click="ev => onSelect(ev, opt, abbotChoice)"
-        v-html="feature.clip"
-      />
+      >
+        <FeatureClip :clip="feature.clip" />
+      </g>
     </g>
   </g>
 </template>
 
 <script>
-import Location from '@/models/Location'
-
 import LayerMixin from '@/components/game/layers/LayerMixin'
+import FeatureClip from '@/components/game/layers/FeatureClip.vue'
 
 export default {
   components: {
+    FeatureClip
   },
 
   mixins: [LayerMixin],
@@ -69,14 +60,14 @@ export default {
       const cloisterOptionsWithFeature = []
       const monasteries = []
       this.options.forEach(option => {
-        if (option.location === 'MONASTERY') {
+        if (option.location === 'AS_ABBOT') {
           monasteries.push(option)
           return
         }
         const tile = this.tileOn(option.position)
         const opt = {
           option,
-          feature: this.$theme.getFeature(tile, option.location, this.bridges),
+          feature: this.$theme.getFeature(tile, option.feature, option.location, this.bridges),
           abbotChoice: null
         }
 
@@ -85,7 +76,7 @@ export default {
         }
 
         optionsWithFeature.push(opt)
-        if (option.location === 'CLOISTER') {
+        if (option.location === 'I') {
           cloisterOptionsWithFeature.push(opt)
         }
       })
@@ -93,14 +84,14 @@ export default {
       monasteries.forEach(m => {
         const opt = cloisterOptionsWithFeature.find(({ option }) => option.position[0] === m.position[0] && option.position[1] === m.position[1])
         if (opt) {
-          opt.abbotChoice = 'cloister-or-monastery'
+          opt.abbotChoice = 'monk-or-as-abbot'
         } else {
           // abbot only placement
           const tile = this.tileOn(m.position)
           optionsWithFeature.push({
             option: m,
-            feature: this.$theme.getFeature(tile, 'CLOISTER', this.bridges),
-            abbotChoice: 'monastery-only'
+            feature: this.$theme.getFeature(tile, 'Monastery', 'I', this.bridges),
+            abbotChoice: 'as-abbot-only'
           })
         }
       })
@@ -112,10 +103,10 @@ export default {
           return aBridge - bBridge
         }
 
-        const aFarm = Location.parse(a.option.location).isFarmLocation()
-        const bFarm = Location.parse(b.option.location).isFarmLocation()
-        if (aFarm !== bFarm) {
-          return bFarm - aFarm
+        const aField = a.option.feature === 'Field'
+        const bField = b.option.feature === 'Field'
+        if (aField !== bField) {
+          return bField - aField
         }
         return 0
       })

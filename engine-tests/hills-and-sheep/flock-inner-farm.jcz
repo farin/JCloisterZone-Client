@@ -1,0 +1,96 @@
+{
+  "appVersion": "5.7.3",
+  "gameId": "90cf979ae5354e95bd81b4210db4cca8",
+  "name": "",
+  "initialRandom": 0.5669692151459806,
+  "created": "2021-08-22T19:59:10.006Z",
+  "clock": 39009,
+  "test": {
+    "description": "Shepherd deployed on inner farm",
+    "assertions": [
+      "Alice has 3 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "hills-and-sheep:1": 1,
+      "inns-and-cathedrals:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "shepherd": 1,
+      "hill": true,
+      "vineyard": true,
+      "big-follower": 1,
+      "cathedral": true,
+      "inn": true
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "IC/CCCC",
+        "rotation": "R0",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 1699
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -1
+          ],
+          "location": "I",
+          "feature": "Field"
+        },
+        "meepleId": "0.shepherd.1"
+      },
+      "player": 0,
+      "clock": 3435
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.6808754389086455
+      },
+      "player": 0,
+      "clock": 3452
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "IC/CCCC"
+    ]
+  }
+}

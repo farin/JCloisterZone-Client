@@ -1,0 +1,141 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "0c0cbf93652b4bf38ece79ce310b55e3",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-23T05:55:08.148Z",
+  "clock": 33776,
+  "test": {
+    "description": "King continuous scoring",
+    "assertions": [
+      "Alice has 2 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "king-and-robber:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "king": true,
+      "robber": true
+    },
+    "rules": {
+      "king-and-robber-scoring": "continuously"
+    },
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0,
+      "clientId": "940fcdf0041e4a7e9f8b07c1b8aaab02"
+    },
+    {
+      "name": "Bob",
+      "slot": 1,
+      "clientId": "940fcdf0041e4a7e9f8b07c1b8aaab02"
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CC.2",
+        "rotation": "R270",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 3464
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 3882
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 3900
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RCr",
+        "rotation": "R0",
+        "position": [
+          -1,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 5122
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 5455
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 5462
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CC.2",
+        "rotation": "R180",
+        "position": [
+          -1,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 6714
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 8365
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 8375
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/CC.2",
+      "BA/RCr",
+      "BA/CC.2"
+    ]
+  }
+}

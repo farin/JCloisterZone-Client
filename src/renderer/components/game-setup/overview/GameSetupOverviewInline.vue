@@ -1,8 +1,8 @@
 <template>
   <div class="game-setup-overview-inline" :class="sizeClass">
-    <OverviewTileSetTile
-      v-for="({ expansion, id, title, quantity }, idx) in tileSets"
-      :key="'s' + id"
+    <OverviewExpansionTile
+      v-for="({ expansion, title, quantity }, idx) in releases"
+      :key="'r' + expansion.name + idx"
       :expansion="expansion"
       :title="title"
       :quantity="quantity"
@@ -13,14 +13,14 @@
       :key="'a' + element"
       :element="element"
       :value="value"
-      :z-index="toZindex(idx + tileSets.length)"
+      :z-index="toZindex(idx + releases.length)"
     />
     <OverviewElementTile
       v-for="([element, value], idx) in removals"
       :key="'r' + element"
       :element="element"
       :value="value"
-      :z-index="toZindex(idx + tileSets.length + additions.length)"
+      :z-index="toZindex(idx + releases.length + additions.length)"
     />
   </div>
 </template>
@@ -28,12 +28,12 @@
 <script>
 import GameSetupOverviewMixin from '@/components/game-setup/overview/GameSetupOverviewMixin'
 import OverviewElementTile from '@/components/game-setup/overview/OverviewElementTile'
-import OverviewTileSetTile from '@/components/game-setup/overview/OverviewTileSetTile'
+import OverviewExpansionTile from '@/components/game-setup/overview/OverviewExpansionTile'
 
 export default {
   components: {
     OverviewElementTile,
-    OverviewTileSetTile
+    OverviewExpansionTile
   },
 
   mixins: [GameSetupOverviewMixin],
@@ -117,15 +117,4 @@ export default {
 
   .element-box:nth-child(9n+6)
     grid-column-start: 2
-
-// .game-setup-overview-inline.small
-//   grid-template-columns: repeat(9, 36px)
-//   grid-auto-rows: 80px
-//   padding-bottom: 30px
-
-//   .element-box:nth-child(9n+2),
-//   .element-box:nth-child(9n+4),
-//   .element-box:nth-child(9n+6),
-//   .element-box:nth-child(9n+8)
-//     transform: translateY(40px)
 </style>

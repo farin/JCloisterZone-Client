@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defs>
+  <tiles>
+    <tile id="WI/RRR">
+      <road wagon-move="a">E</road>
+      <road wagon-move="a">S</road>
+      <road wagon-move="a">W</road>
+      <field>WR NL NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="WI/RC">
+      <city wagon-move="a">N</city>
+      <road wagon-move="a">W</road>
+      <field city="N">WR</field>
+      <field city="N">EL ER SL SR WL</field>
+    </tile>
+    <tile id="WI/CR">
+      <city wagon-move="a">N</city>
+      <road wagon-move="a">E</road>
+      <field city="N">EL</field>
+      <field city="N">WL WR SL SR ER</field>
+    </tile>
+    <tile id="WI/LR">
+      <monastery wagon-move="a" />
+      <road wagon-move="a">S</road>
+      <field>NL NR EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="WI/RCc.i">
+      <city wagon-move="a">N W</city>
+      <road inn="true" wagon-move="a">S</road>
+      <field city="W">SR</field>
+      <field city="W">SL EL ER</field>
+    </tile>
+    <tile id="WI/LRFR">
+      <monastery wagon-move="a b"/>
+      <road wagon-move="a">W</road>
+      <road wagon-move="b">E</road>
+      <field>ER SL SR WL</field>
+      <field>EL NL NR WR</field>
+    </tile>
+    <tile id="WI/CRr">
+      <city>N</city>
+      <road>S E</road>
+      <field city="N">SR WL WR EL</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="WI/CFR">
+      <city wagon-move="a">N</city>
+      <road wagon-move="a">S</road>
+      <field city="N">WL WR SR</field>
+      <field city="N">EL ER SL</field>
+    </tile>
+    <tile id="WI/RrRr">
+      <road>N W</road>
+      <road>S E</road>
+      <field>NL WR</field>
+      <field>SL ER</field>
+      <field>NR EL SR WL</field>
+    </tile>
+    <tile id="WI/CcR">
+      <city wagon-move="a">N W</city>
+      <road wagon-move="a">E</road>
+      <field city="W">EL</field>
+      <field city="W">ER SL SR</field>
+    </tile>
+    <tile id="WI/R">
+      <road>S</road>
+      <field>NL NR EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="WI/RrC">
+      <city>N</city>
+      <road>W S</road>
+      <field>SR WL</field>
+      <field city="N">WR EL ER SL</field>
+    </tile>
+  </tiles>
+  <sets>
+    <tile-set id="winter">
+      <ref count="4" tile="BA/L" />
+      <ref count="2" tile="BA/LR" />
+      <ref count="4" tile="BA/RCr" />
+      <ref count="1" tile="BA/Cccc+" />
+      <ref count="2" tile="BA/CccR+" />
+      <ref count="1" tile="BA/CccR" />
+      <ref count="2" tile="BA/CFc+" />
+      <ref count="1" tile="BA/CFc.1" />
+      <ref count="3" tile="BA/Cc.1" />
+      <ref count="2" tile="BA/Cc+" />
+      <ref count="3" tile="BA/CcRr" />
+      <ref count="2" tile="BA/CcRr+" />
+      <ref count="3" tile="BA/Ccc" />
+      <ref count="1" tile="BA/Ccc+" />
+      <ref count="3" tile="BA/CRr" />
+      <ref count="3" tile="BA/CRRR" />
+      <ref count="3" tile="BA/RrC" />
+      <ref count="5" tile="BA/C" />
+      <ref count="3" tile="BA/CFC.2" />
+      <ref count="2" tile="BA/CC.2" />
+      <ref count="1" tile="BA/RRRR" />
+      <ref count="4" tile="BA/RRR" />
+      <ref count="9" tile="BA/Rr" />
+      <ref count="8" tile="BA/RFr" />
+
+      <ref count="1" tile="WI/RRR" />
+      <ref count="1" tile="WI/RC" />
+      <ref count="1" tile="WI/CR" />
+      <ref count="1" tile="WI/LR" />
+      <ref count="1" tile="WI/RCc.i" />
+      <ref count="1" tile="WI/LRFR" />
+      <ref count="1" tile="WI/CRr" />
+      <ref count="1" tile="WI/CFR" />
+      <ref count="1" tile="WI/RrRr" />
+      <ref count="1" tile="WI/CcR" />
+      <ref count="1" tile="WI/R" />
+      <ref count="1" tile="WI/RrC" />
+    </tile-set>
+  </sets>
+</defs>

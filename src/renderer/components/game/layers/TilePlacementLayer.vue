@@ -9,12 +9,12 @@
         v-if="!mouseOver || mouseOver[0] !== pos"
         class="available-tile"
         :class="{ local }"
-        :x="60" :y="60" width="880" height="880"
+        :x="BASE_SIZE * 0.06" :y="BASE_SIZE * 0.06" :width="BASE_SIZE * 0.88" :height="BASE_SIZE * 0.88"
       />
 
       <!-- invisible rect for tracking mouse events -->
       <rect
-        :x="0" :y="0" width="1000" height="1000"
+        :x="0" :y="0" :width="BASE_SIZE" :height="BASE_SIZE"
         :style="{'pointer-events': 'all', fill: 'none'}"
         @mouseenter="local && onMouseOver(pos, getForcedRotation(rotations))"
         @mouseleave="local && onMouseLeave()"
@@ -27,6 +27,7 @@
 <script>
 import { mapState } from 'vuex'
 import LayerMixin from '@/components/game/layers/LayerMixin'
+import { BASE_SIZE } from '@/constants/ui'
 
 export default {
   mixins: [LayerMixin],
@@ -36,6 +37,10 @@ export default {
     rotation: { type: Number, required: true },
     options: { type: Array, required: true },
     local: { type: Boolean }
+  },
+
+  data () {
+    return { BASE_SIZE }
   },
 
   computed: {
@@ -54,7 +59,7 @@ export default {
     backgroundScale () {
       const w = this.background.width / this.background.cols
       const h = this.background.height / this.background.rows
-      return `scale(${1000 / w} ${1000 / h})`
+      return `scale(${BASE_SIZE / w} ${BASE_SIZE / h})`
     }
   },
 
@@ -96,7 +101,7 @@ export default {
 
 <style lang="sass" scoped>
 .available-tile
-  stroke-width: 70px
+  stroke-width: 63px
   fill: none
 
   +theme using ($theme)

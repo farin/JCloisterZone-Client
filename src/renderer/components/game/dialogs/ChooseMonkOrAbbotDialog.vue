@@ -13,8 +13,8 @@
       <v-btn
         large
         color="secondary"
-        :disabled="choice === 'monastery-only'"
-        @click="select('CLOISTER')"
+        :disabled="choice === 'as-abbot-only'"
+        @click="select('I')"
       >
         As a Monk
         <Meeple :type="meeple" />
@@ -24,7 +24,7 @@
         large
         color="secondary"
         class="abbot-choice"
-        @click="select('MONASTERY')"
+        @click="select('AS_ABBOT')"
       >
         As an Abbot
         <Meeple :type="meeple" />

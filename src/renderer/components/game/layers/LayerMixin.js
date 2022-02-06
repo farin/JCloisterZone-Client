@@ -1,5 +1,5 @@
 import { mapGetters } from 'vuex'
-import Location from '@/models/Location'
+import { BASE_SIZE } from '@/constants/ui'
 
 export default {
   computed: mapGetters({
@@ -18,26 +18,26 @@ export default {
       if (ptr?.length === 3) {
         return ptr.join(',')
       }
-      return `${ptr.position[0]},${ptr.position[1]},${ptr.location}`
+      return `${ptr.position[0]},${ptr.position[1]},${ptr.feature}/${ptr.location}`
     },
 
     getX (pos) {
-      return pos[0] * 1000
+      return pos[0] * BASE_SIZE
     },
 
     getY (pos) {
-      return pos[1] * 1000
+      return pos[1] * BASE_SIZE
     },
 
-    getTilePoint ({ position, location }) {
+    getTilePoint ({ position, feature, location }) {
       const tile = this.tileOn(position)
-      const feature = this.$theme.getFeature(tile, location, this.bridges)
+      const featureObj = this.$theme.getFeature(tile, feature, location, this.bridges)
       return {
         tile,
-        point: feature.point,
-        rotation: feature.rotation,
-        transform: feature.transform,
-        inverseScaleTransform: feature.inverseScaleTransform
+        point: featureObj.point,
+        rotation: featureObj.rotation,
+        transform: featureObj.transform,
+        inverseScaleTransform: featureObj.inverseScaleTransform
       }
     },
 
@@ -46,10 +46,11 @@ export default {
     },
 
     transformRotation (rot) {
-      return `rotate(${rot} 500 500)`
+      const c = BASE_SIZE / 2
+      return `rotate(${rot} ${c} ${c})`
     },
 
-    transformPoint (ptr) { // ptr is { position, location }
+    transformPoint (ptr) { // ptr is { position, feature, location }
       const { tile, point, rotation, transform, inverseScaleTransform } = this.getTilePoint(ptr)
       if (!point) {
         console.warn('Point not defined', ptr)
@@ -60,20 +61,11 @@ export default {
 
     transformTunnelEnd (ptr) {
       const { position, location } = ptr
-      let rotation = 0
-      if (location === 'E') rotation = 90
-      if (location === 'S') rotation = 180
-      if (location === 'W') rotation = 270
+
       const tile = this.tileOn(position)
-      let y = 300
-      if (!tile.id.startsWith('TU/')) {
-        if (tile.id === 'AM/CRcr+' && Location.parse(location).rotateCCW(tile.rotation).name === 'N') {
-          y = 400
-        } else {
-          y = 60
-        }
-      }
-      return `${this.transformPosition(tile.position)} ${this.transformRotation(rotation)} translate(500 ${y}) rotate(${-rotation} 0 0)`
+      const feature = this.$theme.getFeature(tile, 'Tunnel', location, [])
+      const { point, rotation, transform, inverseScaleTransform } = feature
+      return `${this.transformPosition(tile.position)} ${this.transformRotation(rotation)} ${transform || ''} translate(${point[0]} ${point[1]}) rotate(${-rotation} 0 0) ${inverseScaleTransform || ''}`
     }
   }
 }

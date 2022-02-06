@@ -1,7 +1,7 @@
 <template>
   <svg
     class="miniboard"
-    :viewBox="`0 0 ${1000 * columns} ${1000 * rows}`"
+    :viewBox="`0 0 ${BASE_SIZE * columns} ${BASE_SIZE * rows}`"
     v-bind="sizeAttrs"
   >
     <defs>
@@ -31,6 +31,7 @@
 <script>
 import { v4 as uuidv4 } from 'uuid'
 import TileImage from '@/components/game/TileImage'
+import { BASE_SIZE } from '@/constants/ui'
 
 export default {
   components: {
@@ -44,7 +45,8 @@ export default {
 
   data () {
     return {
-      uuid: uuidv4()
+      uuid: uuidv4(),
+      BASE_SIZE
     }
   },
 
@@ -54,7 +56,7 @@ export default {
     },
 
     tileSize () {
-      return this.artwork?.tileSize || 1000
+      return this.artwork?.tileSize || BASE_SIZE
     },
 
     background () {

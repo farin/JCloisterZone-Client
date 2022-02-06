@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defs>
+  <tiles>
+    <tile id="GO/LRr">
+      <goldmine />
+      <monastery />
+      <road>E S</road>
+      <field>NL NR EL SR WL WR</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="GO/LCc">
+      <goldmine />
+      <monastery />
+      <city>N W</city>
+      <field city="N">SL SR EL ER</field>
+    </tile>
+    <tile id="GO/LCcRr">
+      <goldmine />
+      <monastery />
+      <road>E S</road>
+      <city>N W</city>
+      <field city="N">EL SR</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="GO/LRrRr">
+      <goldmine />
+      <monastery />
+      <road>N E</road>
+      <road>S W</road>
+      <field>NR EL</field>
+      <field>SR WL</field>
+      <field>WR NL ER SL</field>
+    </tile>
+    <tile id="GO/RrRr">
+      <goldmine />
+      <road>N W</road>
+      <road>S E</road>
+      <field>NL WR</field>
+      <field>SL ER</field>
+      <field>NR EL SR WL</field>
+    </tile>
+    <tile id="GO/CcRr">
+      <goldmine />
+      <road>E S</road>
+      <city>N W</city>
+      <field city="N">EL SR</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="GO/CRcr">
+      <goldmine />
+      <road>N S</road>
+      <city>W E</city>
+      <field city="W">NL</field>
+      <field city="W">NR</field>
+      <field city="W">SL</field>
+      <field city="W">SR</field>
+    </tile>
+    <tile id="GO/RRrr.X">
+      <goldmine />
+      <road>N S</road>
+      <road>W E</road>
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
+    </tile>
+  </tiles>
+  <sets>
+    <tile-set id="goldmines">
+      <ref count="1" tile="GO/LRr" />
+      <ref count="1" tile="GO/LCc" />
+      <ref count="1" tile="GO/LCcRr" />
+      <ref count="1" tile="GO/LRrRr" />
+      <ref count="1" tile="GO/RrRr" />
+      <ref count="1" tile="GO/CcRr" />
+      <ref count="1" tile="GO/CRcr" />
+      <ref count="1" tile="GO/RRrr.X" />
+    </tile-set>
+  </sets>
+</defs>

@@ -4,7 +4,7 @@
       v-for="h in reversed"
       :key="h.turn"
       class="turn"
-      :style="{ display: -offset + (h.top + h.height) < BASE_Y ? 'none' : 'block' }"
+      :style="{ display: -offset + (h.top + h.height) < baseY ? 'none' : 'block' }"
       @wheel.passive="onWheel"
     >
       <div
@@ -30,8 +30,6 @@ import { mapGetters, mapState } from 'vuex'
 
 import EventsRow from '@/components/game/play-events/EventsRow'
 
-const BASE_Y = 94 // action panel height + gap
-
 export default {
   components: {
     EventsRow
@@ -40,8 +38,7 @@ export default {
   data () {
     return {
       finalHeight: 0,
-      offset: 0,
-      BASE_Y
+      offset: 0
     }
   },
 
@@ -55,9 +52,13 @@ export default {
       phase: state => state.game.phase
     }),
 
+    baseY () {
+      return this.$vuetify.breakpoint.height > 768 ? 94 : 70 // action panel height + gap
+    },
+
     reversed () {
       const items = []
-      let top = BASE_Y
+      let top = this.baseY
       for (let i = this.history.length - 1; i >= 0; i--) {
         if (this.history[i].finalScoring) {
           continue
@@ -71,6 +72,12 @@ export default {
         let row = null
         item.rows = []
         item.events.forEach(ev => {
+          if (ev.type === 'neutral-moved' && ev.figure.startsWith('bigtop.')) {
+            // do not show big top moves in history
+            // it's always bound to circus tile, no need to have explicit item there
+            return
+          }
+
           const isScore = ev.type === 'points' || ev.type === 'token-received'
           const isNewLineEvent = ev.type === 'tile-auctioned' || ev.type === 'dragon-moved'
           if (isScore !== lastRowIsScore || isNewLineEvent || row?.events.length === 4) {
@@ -97,7 +104,7 @@ export default {
         item.height = height - 1 // 1px margin
         items.push(item)
       }
-      this.eventsHeight = top - BASE_Y// eslint-disable-line
+      this.eventsHeight = top - this.baseY// eslint-disable-line
       return items
     }
   },
@@ -121,8 +128,8 @@ export default {
 
   methods: {
     getClipPath (top, height) {
-      if (top < BASE_Y - 9) {
-        return `inset(${BASE_Y - 9 - top}px 0 0 0)`
+      if (top < this.baseY - 9) {
+        return `inset(${this.baseY - 9 - top}px 0 0 0)`
       }
       return 'none'
     },
@@ -133,7 +140,7 @@ export default {
 
     onWheel (ev) {
       if (ev.clientX < 52) {
-        const availableHeight = document.documentElement.clientHeight - BASE_Y
+        const availableHeight = document.documentElement.clientHeight - this.baseY
         const maxOffset = this.eventsHeight - availableHeight
         // handle wheel only on first item
         this.offset += ev.deltaY / 3

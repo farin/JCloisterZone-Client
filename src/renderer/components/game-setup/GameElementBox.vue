@@ -11,6 +11,7 @@
       :mutable="mutable && enabled"
       :item="item"
       :max="max"
+      :reset="reset"
     >
       <div class="box-title">
         <slot />
@@ -40,7 +41,8 @@ export default {
   props: {
     item: { type: Object, required: true },
     mutable: { type: Boolean, default: true },
-    max: { type: Number, default: 1 }
+    max: { type: Number, default: 1 },
+    reset: { type: Number, default: null }
   },
 
   computed: {
@@ -50,7 +52,7 @@ export default {
     }),
 
     enabled () {
-      return this.item.isEnabled(this.sets, this.elements)
+      return this.$tiles.isElementEnabled(this.item, this.sets, this.elements)
     },
 
     mandatory () {

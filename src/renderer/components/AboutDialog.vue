@@ -16,16 +16,16 @@
         </div>
         <div>
           <div class="version">version {{ version }}</div>
-          Roman Krejcik<br>
+          Roman Krejčík<br>
           farin@farin.cz
         </div>
       </section>
       <hr>
       <section class="my-3">
         <div class="label">Configuration file</div>
-        <div class="value config-file" @click="openConfig">{{ $store.getters['settings/settingsFile'] }}</div>
+        <div class="value config-file" @click="openConfig">{{ $store.state.settings.file }}</div>
         <div class="label">System Java Version</div>
-        <div class="value">{{ java ? java.versionString : '' }}</div>
+        <div class="value">{{ java ? (java.version || '') : '' }}</div>
         <div class="label">JCloisteZone Game Engine</div>
         <div class="value">{{ engine ? engine.path : '' }}</div>
         <div class="value">{{ engine ? engine.version : '' }}</div>
@@ -61,7 +61,7 @@ export default {
 
   methods: {
     openConfig () {
-      shell.openPath(this.$store.getters['settings/settingsFile'])
+      shell.openPath(this.$store.state.settings.file)
     }
   }
 }

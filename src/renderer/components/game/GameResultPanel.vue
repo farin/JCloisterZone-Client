@@ -17,19 +17,24 @@
       </div>
     </div>
 
-    <div class="play-again">
+    <div class="buttons">
+      <v-btn large color="secondary" @click="toggleStats">
+        <v-icon left>fa-chart-bar</v-icon>
+        {{ showGameStats ? 'Hide Stats' : 'Show Stats' }}
+      </v-btn>
       <v-btn large color="secondary" @click="playAgain">
         <v-icon left>fas fa-play</v-icon>
         Play Again
+      </v-btn>
+      <v-btn large color="secondary" @click="close">
+        <v-icon left>fa-times</v-icon>
+        Close
       </v-btn>
     </div>
   </section>
 </template>
 
 <script>
-import groupBy from 'lodash/groupBy'
-import mapKeys from 'lodash/mapKeys'
-
 import { mapGetters, mapState } from 'vuex'
 import Meeple from '@/components/game/Meeple'
 
@@ -40,40 +45,36 @@ export default {
 
   computed: {
     ...mapState({
-      ranks: state => {
-        const playersWithIndex = state.game.players.map((p, index) => ({ ...p, index }))
-        const groups = groupBy(playersWithIndex, 'points')
-        const points = Object.keys(groups).map(p => parseInt(p))
-        points.sort((a, b) => b - a)
-        let rank = 0
-        const ranks = []
-        points.forEach(p => {
-          ranks.push({
-            points: p,
-            players: groups[p],
-            rank: rank + 1
-          })
-          rank += groups[p].length
-        })
-        return ranks
-      }
+      showGameStats: state => state.game.showGameStats,
+      onlineConnected: state => state.networking.connectionType === 'online'
     }),
 
     ...mapGetters({
-      colorCssClass: 'game/colorCssClass'
+      colorCssClass: 'game/colorCssClass',
+      ranks: 'game/ranks'
     })
   },
 
   methods: {
+    async close () {
+      if (this.onlineConnected) {
+        this.$router.push('/online')
+      } else {
+        this.$store.dispatch('game/close')
+        this.$router.push('/')
+      }
+    },
+
     async playAgain () {
       const { setup, gameAnnotations } = this.$store.state.game
       await this.$store.dispatch('game/close')
-      this.$store.commit('gameSetup/setup', {
-        ...setup,
-        sets: mapKeys(setup.sets, (val, key) => key.split(':')[0])
-      })
+      this.$store.dispatch('gameSetup/load', setup)
       this.$store.commit('gameSetup/gameAnnotations', gameAnnotations)
       await this.$store.dispatch('gameSetup/createGame')
+    },
+
+    toggleStats () {
+      this.$store.commit('game/showGameStats', !this.showGameStats)
     }
   }
 }
@@ -82,6 +83,7 @@ export default {
 <style lang="sass" scoped>
 section
   display: flex
+  overflow: hidden
 
 .standing
   padding-top: 20px
@@ -89,12 +91,16 @@ section
   display: flex
   justify-content: center
   align-items: center
+  flex-wrap: wrap
 
-.play-again
+.buttons
   display: flex
   justify-content: center
   align-items: center
   padding-right: 20px
+
+  .v-btn
+    margin-left: 10px
 
 svg.meeple
   width: 55px
@@ -113,5 +119,16 @@ svg.meeple
 
     +theme using ($theme)
       color: map-get($theme, 'gray-text-color')
+
+@media (max-width: 1960px)
+  svg.meeple
+    width: 40px
+    height: 40px
+
+  .rank
+    margin: 0 15px
+
+    .num
+      font-size: 36px
 
 </style>

@@ -1,0 +1,334 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "045aa811f97241af9351c922154cd8d3",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-23T06:43:29.901Z",
+  "clock": 66918,
+   "test": {
+    "description": "Barn connected scoring",
+    "assertions": [
+      "Alice has 8 points",
+      "Bob has 8 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "abbey-and-mayor:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "barn": 1,
+      "wagon": 1,
+      "mayor": 1,
+      "abbey": 1,
+      "pig": 1
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0,
+      "clientId": "940fcdf0041e4a7e9f8b07c1b8aaab02"
+    },
+    {
+      "name": "Bob",
+      "slot": 1,
+      "clientId": "940fcdf0041e4a7e9f8b07c1b8aaab02"
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 1863
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -1
+          ],
+          "feature": "Field",
+          "location": "NL.NR.EL.ER.WL.WR"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 3305
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 4045
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/L",
+        "rotation": "R0",
+        "position": [
+          1,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 5485
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 6308
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 6315
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/L",
+        "rotation": "R0",
+        "position": [
+          1,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 7633
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            -2
+          ],
+          "feature": "Field",
+          "location": "NL.NR.EL.ER.SL.SR.WL.WR"
+        },
+        "meepleId": "0.pig.1"
+      },
+      "player": 0,
+      "clock": 9035
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 9545
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R0",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 1,
+      "clock": 14795
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            -1
+          ],
+          "feature": "Field",
+          "location": "NL.NR.EL.ER.SL.SR.WL.WR"
+        },
+        "meepleId": "1.barn.1"
+      },
+      "player": 1,
+      "clock": 19007
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 20429
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [
+          0,
+          -3
+        ]
+      },
+      "player": 0,
+      "clock": 26081
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -3
+          ],
+          "feature": "Field",
+          "location": "NL.NR.EL.ER.WL.WR"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 28087
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 29599
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R0",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 32349
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 33979
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 33989
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "AM/R",
+        "rotation": "R180",
+        "position": [
+          0,
+          -4
+        ]
+      },
+      "player": 0,
+      "clock": 35809
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -4
+          ],
+          "feature": "Field",
+          "location": "NL.NR.EL.ER.SL.SR.WL.WR"
+        },
+        "meepleId": "0.pig.1"
+      },
+      "player": 0,
+      "clock": 37353
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 37875
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Rr",
+        "rotation": "R180",
+        "position": [
+          1,
+          -3
+        ]
+      },
+      "player": 1,
+      "clock": 39029
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 39718
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 39726
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/C",
+      "BA/L",
+      "BA/L",
+      "BA/C",
+      "BA/C",
+      "BA/RFr",
+      "AM/R",
+      "BA/Rr"
+    ],
+    "endTurn": 8
+  }
+}

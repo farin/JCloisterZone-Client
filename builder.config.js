@@ -65,7 +65,10 @@ module.exports = {
       to: 'dist/resources/'
     }
   ],
-  extraResources: ['Engine.jar', 'icons'],
+  extraResources: ['Engine.jar', 'icons', {
+    from: 'src/extraResources/',
+    to: ''
+  }],
   ...windowsOS,
   ...linuxOS,
   ...macOS

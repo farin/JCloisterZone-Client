@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defs>
+  <!-- expansion also contains Abbey tile, with id AM.A when placed
+       this is not part of tile pack and tile is created from code separately
+  -->
+  <tiles>
+    <tile id="AM/C++">
+      <city pennants="2">N E S W</city>
+    </tile>
+    <tile id="AM/CCcc+">
+      <city pennants="1">N S</city>
+      <city>W E</city>
+      <field city="N W">I</field>
+      <field city="N W">II</field>
+    </tile>
+    <tile id="AM/CCc+">
+      <city pennants="1" castle-base="false">N</city>
+      <city>W E</city>
+      <field city="N W">I</field>
+      <field city="N W">SL SR</field>
+    </tile>
+    <tile id="AM/CCRR">
+      <city wagon-move="a">N</city>
+      <city wagon-move="b">W</city>
+      <road wagon-move="a">E</road>
+      <road wagon-move="b">S</road>
+      <field city="N">EL</field>
+      <field city="W">SR</field>
+      <field city="N W">ER SL</field>
+    </tile>
+    <tile id="AM/LRRRR">
+      <monastery wagon-move="a b c d"/>
+      <road wagon-move="a">N</road>
+      <road wagon-move="b">W</road>
+      <road wagon-move="c">S</road>
+      <road wagon-move="d">E</road>
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="AM/RC">
+      <city wagon-move="a">N</city>
+      <road wagon-move="a">W</road>
+      <field city="N">WR</field>
+      <field city="N">EL ER SL SR WL</field>
+    </tile>
+    <tile id="AM/CRr">
+      <city>N</city>
+      <road>S E</road>
+      <field city="N">WL WR SR</field>
+      <field city="N">EL</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="AM/RrC">
+      <city>N</city>
+      <road>W S</road>
+      <field city="N">EL ER SL</field>
+      <field city="N">WR</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="AM/C!+">
+      <city pennants="1" castle-base="false">W</city>
+      <field city="W">NL NR</field>
+      <field city="W">EL ER</field>
+      <field city="W">SL SR</field>
+    </tile>
+    <tile id="AM/R">
+      <road>S</road>
+      <field>NL NR EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="AM/RG">
+      <garden/>
+      <road>S</road>
+      <field>NL NR EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="AM/Rrr">
+      <road wells="1">N W E</road>
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL SR WL</field>
+    </tile>
+    <tile id="AM/CRcr+">
+      <city pennants="1">W E</city>
+      <road tunnel="true">N S</road>
+      <field city="W">SL SR</field>
+      <field city="W">NL</field>
+      <field city="W">NR</field>
+    </tile>
+  </tiles>
+  <sets>
+    <tile-set id="abbey-and-mayor:1">
+      <ref count="1" tile="AM/C++" />
+      <ref count="1" tile="AM/CCcc+" />
+      <ref count="1" tile="AM/CCc+" />
+      <ref count="1" tile="AM/CCRR" />
+      <ref count="1" tile="AM/LRRRR" />
+      <ref count="1" tile="AM/RC" />
+      <ref count="1" tile="AM/CRr" />
+      <ref count="1" tile="AM/RrC" />
+      <ref count="1" tile="AM/C!+" />
+      <ref count="1" tile="AM/R" />
+      <ref count="1" tile="AM/Rrr" />
+      <ref count="1" tile="AM/CRcr+" />
+    </tile-set>
+    <tile-set id="abbey-and-mayor:2">
+      <ref count="1" tile="AM/C++" />
+      <ref count="1" tile="AM/CCcc+" />
+      <ref count="1" tile="AM/CCc+" />
+      <ref count="1" tile="AM/CCRR" />
+      <ref count="1" tile="AM/LRRRR" />
+      <ref count="1" tile="AM/RC" />
+      <ref count="1" tile="AM/CRr" />
+      <ref count="1" tile="AM/RrC" />
+      <ref count="1" tile="AM/C!+" />
+      <ref count="1" tile="AM/RG" />
+      <ref count="1" tile="AM/Rrr" />
+      <ref count="1" tile="AM/CRcr+" />
+    </tile-set>
+  </sets>
+</defs>

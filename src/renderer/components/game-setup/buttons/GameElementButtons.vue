@@ -3,8 +3,9 @@
     v-model="quantity"
     :max="max"
     :mutable="mutable"
+    :reset="reset"
   >
-    <slot/>
+    <slot />
 
     <template v-if="$slots.hover" #hover>
       <slot name="hover" />
@@ -24,7 +25,8 @@ export default {
   props: {
     item: { type: Object, required: true },
     mutable: { type: Boolean, default: true },
-    max: { type: Number, required: true }
+    max: { type: Number, required: true },
+    reset: { type: Number, default: null }
   },
 
   computed: {

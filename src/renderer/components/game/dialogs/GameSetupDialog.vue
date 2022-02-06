@@ -4,7 +4,7 @@
       Game Setup
     </v-card-title>
     <v-card-text>
-      <GameSetupOverview :sets="sets" :elements="elements" :timer="timer" />
+      <GameSetupOverview :setup="setup" />
     </v-card-text>
     <v-card-actions>
       <v-spacer />
@@ -31,9 +31,7 @@ export default {
 
   computed: {
     ...mapState({
-      sets: state => state.game.setup?.sets,
-      elements: state => state.game.setup?.elements,
-      timer: state => state.game.setup?.timer
+      setup: state => state.game.setup
     })
   }
 }
@@ -62,4 +60,7 @@ p
   text-align: center
   margin-top: 20px
   font-size: 18px
+
+.v-card__text
+  padding-bottom: 0 !important
 </style>

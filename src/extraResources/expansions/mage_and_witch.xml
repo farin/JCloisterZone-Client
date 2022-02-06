@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defs>
+  <tiles>
+    <tile id="MW/CRRR.3">
+      <mage></mage>
+      <road wagon-move="a">E</road>
+      <road wagon-move="a">S</road>
+      <road wagon-move="a">W</road>
+      <city>N</city>
+      <field city="N">WR EL</field>
+      <field>WL SR</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="MW/CcRr.1">
+      <mage></mage>
+      <road>E S</road>
+      <city>N W</city>
+      <field city="N">EL SR</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="MW/CCCR.3">
+      <mage></mage>
+      <city>W</city>
+      <city>N</city>
+      <city wagon-move="a">E</city>
+      <road wagon-move="a">S</road>
+      <field city="W N E">SR</field>
+      <field city="E">SL</field>
+    </tile>
+    <tile id="MW/CRcR">
+      <mage></mage>
+      <city wagon-move="a b">E W</city>
+      <road wagon-move="a">N</road>
+      <road wagon-move="b">S</road>
+      <field city="W">NL</field>
+      <field city="W">NR</field>
+      <field city="W">SL</field>
+      <field city="W">SR</field>
+    </tile>
+    <tile id="MW/CFC">
+      <mage></mage>
+      <city>N</city>
+      <city>S</city>
+      <field city="N S">WL WR EL ER</field>
+    </tile>
+    <tile id="MW/CccR.1">
+      <mage></mage>
+      <road wagon-move="a">S</road>
+      <city wagon-move="a">N W E</city>
+      <field city="N">SL</field>
+      <field city="N">SR</field>
+    </tile>
+    <tile id="MW/CRRr.2">
+      <mage></mage>
+      <road wagon-move="a">E</road>
+      <road>S W</road>
+      <city wagon-move="a">N</city>
+      <field city="N">EL</field>
+      <field city="N">ER SL WR</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="MW/CCRr.2">
+      <mage></mage>
+      <city>N</city>
+      <city>W</city>
+      <road>S E</road>
+      <field city="N W">EL SR</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="MW/CCRrG">
+      <mage></mage>
+      <garden/>
+      <city>N</city>
+      <city>W</city>
+      <road>S E</road>
+      <field city="N W">EL SR</field>
+      <field>ER SL</field>
+    </tile>
+  </tiles>
+  <sets>
+    <tile-set id="mage-and-witch:1">
+      <ref count="1" tile="MW/CRRR.3" />
+      <ref count="1" tile="MW/CcRr.1" />
+      <ref count="1" tile="MW/CCCR.3" />
+      <ref count="1" tile="MW/CRcR" />
+      <ref count="1" tile="MW/CFC" />
+      <ref count="1" tile="MW/CccR.1" />
+      <ref count="1" tile="MW/CRRr.2" />
+      <ref count="1" tile="MW/CCRr.2" />
+    </tile-set>
+    <tile-set id="mage-and-witch:2">
+      <ref count="1" tile="MW/CRRR.3" />
+      <ref count="1" tile="MW/CcRr.1" />
+      <ref count="1" tile="MW/CCCR.3" />
+      <ref count="1" tile="MW/CRcR" />
+      <ref count="1" tile="MW/CFC" />
+      <ref count="1" tile="MW/CccR.1" />
+      <ref count="1" tile="MW/CRRr.2" />
+      <ref count="1" tile="MW/CCRrG" />
+    </tile-set>
+  </sets>
+</defs>

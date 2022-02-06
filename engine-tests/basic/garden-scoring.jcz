@@ -1,0 +1,300 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "66aa9ed40513436c9ebd478bc0a1b1dd",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-22T14:15:27.955Z",
+  "clock": 34531,
+  "test": {
+    "description": "Garden scoring",
+    "assertions": [
+      "Alice has 9 points",
+      "Bob has 4 points",
+      "Alice scored garden for 9 points",
+      "Bob scored garden for 4 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:2": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "abbot": 1,
+      "garden": 1
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+   "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFrG",
+        "rotation": "R0",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 2029
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            0
+          ],
+          "feature": "Garden",
+          "location": "I"
+        },
+        "meepleId": "0.abbot.1"
+      },
+      "player": 0,
+      "clock": 3851
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 4826
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RrG",
+        "rotation": "R0",
+        "position": [
+          0,
+          1
+        ]
+      },
+      "player": 1,
+      "clock": 6058
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            1
+          ],
+          "feature": "Garden",
+          "location": "I"
+        },
+        "meepleId": "1.abbot.1"
+      },
+      "player": 1,
+      "clock": 7399
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 7727
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R0",
+        "position": [
+          2,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 9207
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 9574
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 9582
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/L",
+        "rotation": "R0",
+        "position": [
+          1,
+          1
+        ]
+      },
+      "player": 1,
+      "clock": 10835
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 10915
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 10920
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Rr",
+        "rotation": "R270",
+        "position": [
+          2,
+          1
+        ]
+      },
+      "player": 0,
+      "clock": 11939
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 13258
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 13265
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 17135
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 17227
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 17233
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R90",
+        "position": [
+          1,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 20233
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 20582
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 20590
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R270",
+        "position": [
+          2,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 35920
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 41575
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 41588
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/RFrG",
+      "BA/RrG",
+      "BA/RFr",
+      "BA/L",
+      "BA/Rr",
+      "BA/C",
+      "BA/C",
+      "BA/C"
+    ],
+    "endTurn": 8
+  }
+}

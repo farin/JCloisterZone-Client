@@ -2,8 +2,10 @@ import Vue from 'vue'
 import uniq from 'lodash/uniq'
 import mapKeys from 'lodash/mapKeys'
 
-import { GameElement, isConfigValueEnabled, getDefaultElements } from '@/models/elements'
-import { getDefaultRules } from '@/models/rules'
+import { GameElement, isConfigValueEnabled } from '@/models/elements'
+import { Rule, getDefaultRules } from '@/models/rules'
+import { Expansion } from '@/models/expansions'
+import { getSelectedEdition, getSelectedStartingTiles, getStartingTilesOptions } from '@/utils/gameSetupUtils'
 
 const DEFAULT_SETS = {
   basic: 1
@@ -29,9 +31,10 @@ function getEmptySlots () {
 }
 
 export const state = () => ({
-  sets: { ...DEFAULT_SETS },
-  elements: getDefaultElements(DEFAULT_SETS),
-  rules: getDefaultRules(),
+  sets: null,
+  excludedSets: {},
+  elements: null,
+  rules: null,
   start: null,
   timer: null,
   gameAnnotations: {}
@@ -39,8 +42,10 @@ export const state = () => ({
 
 export const mutations = {
   clear (state) {
+    const { $tiles } = this._vm
     state.sets = { ...DEFAULT_SETS }
-    state.elements = getDefaultElements(DEFAULT_SETS)
+    state.excludedSets = {}
+    state.elements = $tiles.getDefaultElements(DEFAULT_SETS)
     state.rules = getDefaultRules()
     state.start = null
     state.timer = null
@@ -49,6 +54,7 @@ export const mutations = {
 
   setup (state, setup) {
     state.sets = setup.sets
+    state.excludedSets = setup.excludedSets
     state.elements = setup.elements
     state.rules = setup.rules
     state.start = setup.start
@@ -65,6 +71,14 @@ export const mutations = {
       Vue.set(state.sets, id, quantity)
     } else {
       Vue.delete(state.sets, id)
+    }
+  },
+
+  tileSetExcludedQuantity (state, { id, quantity }) {
+    if (isConfigValueEnabled(quantity)) {
+      Vue.set(state.excludedSets, id, quantity)
+    } else {
+      Vue.delete(state.excludedSets, id)
     }
   },
 
@@ -92,32 +106,77 @@ export const mutations = {
 export const actions = {
   newGame ({ commit }) {
     commit('clear')
-    this.$router.push('/game-setup')
   },
 
-  setTileSetQuantity ({ state, commit }, { id, quantity }) {
-    const enabledStateChanged = (state.sets[id] > 0) !== (quantity > 0)
-    const before = enabledStateChanged ? getDefaultElements(state.sets) : null
-    commit('tileSetQuantity', { id, quantity })
-    if (id === 'gq11') {
-      const containsRiver = !!Object.keys(state.sets).find(id => id.startsWith('river/'))
-      commit('tileSetQuantity', { id: 'gq11/river', quantity: containsRiver ? quantity : 0 })
-    } else if (id.startsWith('river/') && state.sets.gq11) {
-      const containsRiver = !!Object.keys(state.sets).find(id => id.startsWith('river/'))
-      commit('tileSetQuantity', { id: 'gq11/river', quantity: containsRiver ? state.sets.gq11 : 0 })
-    }
-    const after = enabledStateChanged ? getDefaultElements(state.sets) : null
+  load ({ commit }, setup) {
+    const { $tiles } = this._vm
+    const sets = mapKeys(setup.sets, (val, key) => key.split(':')[0])
+    const excludedSets = {}
+    const edition = setup.elements.garden ? 2 : 1
+    const expansions = $tiles.getExpansions(sets, edition)
+    Object.entries(expansions).forEach(([expId, quantity]) => {
+      const expansion = Expansion[expId]
+      for (const release of expansion.releases) {
+        release.sets.forEach(id => {
+          if ($tiles.isTileSetExcluded(id, expansions, edition)) {
+            excludedSets[id] = quantity
+          }
+        })
+      }
+    })
+
+    commit('setup', {
+      ...setup,
+      rules: { ...getDefaultRules(), ...setup.rules },
+      sets,
+      excludedSets
+    })
+  },
+
+  setReleaseQuantity ({ state, getters, commit }, { release, quantity }) {
+    const { $tiles } = this._vm
+    const enabledStateChanged = (!!release.sets.find(id => !!state.sets[id])) !== (quantity > 0)
+    const before = enabledStateChanged ? $tiles.getDefaultElements(state.sets) : null
+    release.sets.forEach(id => {
+      if (state.excludedSets[id]) {
+        commit('tileSetExcludedQuantity', { id, quantity })
+      } else {
+        commit('tileSetQuantity', { id, quantity })
+      }
+    })
+    const edition = getters.getSelectedEdition
+    const expansions = $tiles.getExpansions(state.sets, edition)
+    const verifyExcluded = { ...state.excludedSets }
+    Object.entries(state.sets).forEach(([id, quantity]) => {
+      if ($tiles.isTileSetExcluded(id, expansions, edition)) {
+        commit('tileSetQuantity', { id, quantity: 0 })
+        commit('tileSetExcludedQuantity', { id, quantity })
+        delete verifyExcluded[id]
+      } else if (state.excludedSets[id]) {
+        commit('tileSetQuantity', { id, quantity })
+        commit('tileSetExcludedQuantity', { id, quantity: 0 })
+      }
+    })
+
+    // and reeable no longer excluded sets
+    Object.entries(verifyExcluded).forEach(([id, quantity]) => {
+      if (!$tiles.isTileSetExcluded(id, expansions, edition)) {
+        commit('tileSetQuantity', { id, quantity })
+        commit('tileSetExcludedQuantity', { id, quantity: 0 })
+      }
+    })
+    const after = enabledStateChanged ? $tiles.getDefaultElements(state.sets) : null
 
     if (enabledStateChanged) {
       const diff = getModifiedDefaults(before, after)
       Object.entries(diff).forEach(([id, config]) => {
-        // use commit, not dispatch - bounded meeples (eg mage/witch) are already reflected in rules
+        // use commit, not dispatch - bound meeples (eg mage/witch) are already reflected in rules
         commit('elementConfig', { id, config })
       })
 
       GameElement.all().forEach(ge => {
         if (ge.id in state.elements) {
-          if (!ge.isEnabled(state.sets, state.elements)) {
+          if (!$tiles.isElementEnabled(ge, state.sets, state.elements)) {
             commit('elementConfig', { id: ge.id, config: false })
           }
         }
@@ -161,22 +220,51 @@ export const actions = {
     })
   },
 
-  createGame ({ state, commit, getters, dispatch }) {
+  createGame ({ state, commit, getters, dispatch }, loadedSetup) {
     const { $tiles } = this._vm
-    const sets = mapKeys(state.sets, (value, key) => {
-      return $tiles.sets[key] ? key : key + ':' + getters.getSelectedEdition
-    })
+    let setup
 
-    const setup = {
-      sets,
-      elements: state.elements,
-      rules: state.rules,
-      timer: state.timer,
-      start: getters.selectedStartingTiles.value,
-      options: {}
+    if (loadedSetup) {
+      setup = {
+        options: {},
+        ...loadedSetup
+      }
+    } else {
+      const edition = getters.getSelectedEdition
+      const sets = mapKeys(state.sets, (value, key) => {
+        return $tiles.sets[key] ? key : key + ':' + edition
+      })
+      const addons = {}
+      Object.keys($tiles.getExpansions(sets, edition)).forEach(id => {
+        const { addon } = Expansion[id]
+        if (addon) {
+          addons[addon.id] = addon.json.version
+        }
+      })
+
+      setup = {
+        sets,
+        elements: state.elements,
+        rules: state.rules,
+        timer: state.timer,
+        start: getters.selectedStartingTiles.value,
+        options: {}
+      }
+
+      if (Object.keys(addons).length) {
+        setup.addons = addons
+      }
     }
 
-    dispatch('settings/addRecentGameSetup', setup, { root: true })
+    const rules = {}
+    Rule.all().forEach(r => {
+      if (r.isAvailable($tiles, setup)) {
+        const val = state.rules[r.id]
+        rules[r.id] = val === undefined ? r.default : val
+      }
+    })
+    setup.rules = rules
+
     dispatch('networking/startServer', {
       setup,
       slots: getEmptySlots(),
@@ -186,113 +274,7 @@ export const actions = {
 }
 
 export const getters = {
-  containsCoreSet: state => state.sets.basic || state.sets.winter,
-
-  getSelectedEdition: state => state.elements.garden ? 2 : 1,
-
-  startingTilesOptions: (state, getters) => {
-    const { sets } = state
-    const river = sets['river/1'] || sets['river/2'] || sets['river/3']
-    const count = !!sets.count
-    const windRoses = !!sets['wind-roses']
-
-    const countTiles = [
-      { tile: 'CO/1', x: -2, y: -1, rotation: 0 },
-      { tile: 'CO/2', x: -1, y: -1, rotation: 0 },
-      { tile: 'CO/3', x: 0, y: -1, rotation: 0 },
-      { tile: 'CO/4', x: 1, y: -1, rotation: 0 },
-      { tile: 'CO/5', x: -2, y: 0, rotation: 0 },
-      { tile: 'CO/6', x: -1, y: 0, rotation: 0 },
-      { tile: 'CO/7', x: 0, y: 0, rotation: 0 },
-      { tile: 'CO/8', x: 1, y: 0, rotation: 0 },
-      { tile: 'CO/9', x: -2, y: 1, rotation: 0 },
-      { tile: 'CO/10', x: -1, y: 1, rotation: 0 },
-      { tile: 'CO/11', x: 0, y: 1, rotation: 0 },
-      { tile: 'CO/12', x: 1, y: 1, rotation: 0 }
-    ]
-
-    const options = [
-      {
-        id: 'standard',
-        title: 'Standard',
-        value: [{ tile: 'BA/RCr', x: 0, y: 0, rotation: 0 }],
-        enabled: !river && !count && !windRoses,
-        default: !river && !count && !windRoses && !sets['spiel-doch']
-      }, {
-        id: 'wind-roses',
-        title: 'The Wind Roses',
-        value: [{ tile: 'WR/CFR', x: 0, y: 0, rotation: 0 }],
-        enabled: !river && !count && windRoses,
-        default: !river && !count && windRoses
-      }, {
-        id: 'spiel-doch',
-        title: 'Spiel Doch Promo',
-        value: [
-          { tile: 'SD/CC', x: 0, y: 0, rotation: 0 },
-          { tile: getters.getSelectedEdition === 1 ? 'SD/RRR' : 'SD/RRRG', x: 1, y: 0, rotation: 270 }
-        ],
-        enabled: !!sets['spiel-doch'] && !count && !river && !windRoses,
-        default: !!sets['spiel-doch'] && !count && !river && !windRoses
-      }, {
-        id: 'spring',
-        title: 'The River',
-        value: [{ tile: 'RI/s', x: 0, y: 0, rotation: 0 }],
-        enabled: river && !count && !windRoses,
-        default: river && !count && !windRoses && !sets.gq11
-      }, {
-        id: 'spring-alt',
-        title: 'GQ11 spring',
-        value: [{ tile: 'GQ/RFI', x: 0, y: 0, rotation: 0 }],
-        enabled: river && !count && !windRoses && sets.gq11,
-        default: river && !count && !windRoses && sets.gq11
-      }, {
-        id: 'spring-with-wind-roses',
-        title: 'The Wind Roses + The River',
-        value: [
-          { tile: 'WR/CFR', x: 0, y: 0, rotation: 0 },
-          { tile: 'RI/s', x: 0, y: 1, rotation: 90 }
-        ],
-        enabled: river && !count && windRoses,
-        default: river && !count && windRoses
-      }, {
-        id: 'count',
-        title: 'The Count',
-        value: countTiles,
-        enabled: count && !river && !windRoses,
-        default: count && !river && !windRoses
-      }, {
-        id: 'count-with-river',
-        title: 'The Count + The River',
-        value: [...countTiles, { tile: 'RI/s', x: 2, y: -1, rotation: 0 }],
-        enabled: count && river && !windRoses,
-        default: count && river && !windRoses
-      }, {
-        id: 'count-with-wind-roses',
-        title: 'The Count + The Wind Roses',
-        value: [...countTiles, { tile: 'WR/CFR', x: -1, y: -2, rotation: 0 }],
-        enabled: count && !river && windRoses,
-        default: count && !river && windRoses
-      }, {
-        id: 'count-with-wind-roses-and-river',
-        title: 'The Count + The Wind Roses + The River',
-        value: [
-          ...countTiles,
-          { tile: 'WR/CFR', x: -1, y: -2, rotation: 0 },
-          { tile: 'RI/s', x: 2, y: -1, rotation: 0 }
-        ],
-        enabled: count && river && windRoses,
-        default: count && river && windRoses
-      }
-    ]
-    return options
-  },
-
-  selectedStartingTiles: (state, getters) => {
-    const options = getters.startingTilesOptions
-    let selected = options.find(opt => opt.enabled && state.start === opt.id)
-    if (!selected) {
-      selected = options.find(opt => opt.default)
-    }
-    return selected
-  }
+  getSelectedEdition: state => getSelectedEdition(state.elements),
+  startingTilesOptions: state => getStartingTilesOptions(state.elements, state.sets),
+  selectedStartingTiles: state => getSelectedStartingTiles(state.elements, state.sets, state.start)
 }

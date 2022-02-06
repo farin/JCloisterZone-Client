@@ -1,26 +1,29 @@
 <template>
   <g id="tunnel-select-layer">
     <g
-      v-for="option in options"
-      :key="`${option.position}:${option.location}`"
-      :transform="transformTunnelEnd(option)"
+      v-for="({option: opt, feature}) in mappedOptions"
+      :key="`${opt.position}:${opt.location}`"
+      :transform="transformPosition(opt.position) + ' ' + transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
       :class="tunnelTokenColorCssClass(token, player)"
     >
-      <circle
-        cx="0" cy="0" r="200"
-        :class="{'color-stroke': true, mouseover: mouseOver === option}"
+      <FeatureClip
+        :clip="feature.clip"
+        :class="{'color-stroke': true, mouseover: mouseOver === opt}"
         fill="none"
         stroke-width="60"
       />
 
       <!-- invisible shape for tracking mouse events -->
-      <circle
-        cx="0" cy="0" r="200"
+      <g
         :style="{'pointer-events': 'all', fill: 'none'}"
-        @mouseenter="onMouseOver(option)"
-        @mouseleave="onMouseLeave(option)"
-        @click="ev => onSelect(ev, option)"
-      />
+        @mouseenter="onMouseOver(opt)"
+        @mouseleave="onMouseLeave(opt)"
+        @click="ev => onSelect(ev, opt)"
+      >
+        <FeatureClip
+          :clip="feature.clip"
+        />
+      </g>
     </g>
   </g>
 </template>
@@ -28,10 +31,14 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import { getMeeplePlayer } from '@/utils/gameUtils'
 import LayerMixin from '@/components/game/layers/LayerMixin'
+import FeatureClip from '@/components/game/layers/FeatureClip.vue'
 
 export default {
+  components: {
+    FeatureClip
+  },
+
   mixins: [LayerMixin],
 
   props: {
@@ -53,11 +60,11 @@ export default {
 
     mappedOptions () {
       return this.options.map(option => {
-        const { meepleId, featurePointer: ptr } = option
+        const tile = this.tileOn(option.position)
+        const feature = this.$theme.getFeature(tile, 'Tunnel', option.location, [])
         return {
-          option,
-          ptr,
-          meeplePlayer: getMeeplePlayer(meepleId)
+          feature,
+          option
         }
       })
     }
@@ -83,7 +90,7 @@ export default {
 
 <style lang="sass" scoped>
 
-circle.color-stroke
+.color-stroke
   stroke-opacity: 0.4
 
   &.mouseover

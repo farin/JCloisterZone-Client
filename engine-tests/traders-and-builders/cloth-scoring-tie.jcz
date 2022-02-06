@@ -1,0 +1,197 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "1",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-14T20:16:15.063Z",
+  "clock": 0,
+  "test": {
+    "description": "Grain scoring",
+    "assertions": [
+      "Alice has 10 points",
+      "Bob has 10 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "traders-and-builders:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "builder": 1,
+      "pig": 1,
+      "traders": true,
+      "pig-herd": true
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "TB/CcR.c",
+        "rotation": "R180",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 1677
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 2693
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 2699
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "TB/CcRC.c",
+        "rotation": "R90",
+        "position": [
+          1,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 6517
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 7621
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 7628
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CFC.2",
+        "rotation": "R90",
+        "position": [
+          2,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 14006
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 17414
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 17422
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CC.2",
+        "rotation": "R0",
+        "position": [
+          3,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 24825
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 25608
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 25618
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CFC.2",
+        "rotation": "R0",
+        "position": [
+          1,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 27769
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 29851
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 29857
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "TB/CcR.c",
+      "TB/CcRC.c",
+      "BA/CFC.2",
+      "BA/CC.2",
+      "BA/CFC.2"
+    ],
+    "endTurn": 5
+  }
+}

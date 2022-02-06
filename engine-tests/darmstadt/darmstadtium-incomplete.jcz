@@ -1,0 +1,115 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "8a273ea01d3a46e8bb06423174c728f9",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-22T14:51:59.929Z",
+  "clock": 1,
+  "test": {
+    "description": "Darmstadtium - no extra points for incomplete city",
+    "assertions": [
+      "Alice has 3 points",
+      "Alice scored city for 3 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "darmstadt": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "DA/Cccc",
+        "rotation": "R0",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 1415
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 1905
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 1929
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 2696
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -2
+          ],
+          "feature": "City",
+          "location": "S"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 3112
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 3922
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "DA/Cccc",
+      "BA/C"
+    ],
+    "endTurn": 2
+  }
+}

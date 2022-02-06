@@ -1,0 +1,385 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "bf0f4648d0d44fe4aa8eacacb58886c6",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-23T04:53:08.504Z",
+  "clock": 71217,
+  "test": {
+    "description": "Little Buildings 3/2/1 scoring",
+    "assertions": [
+      "Bob has 37 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "little-buildings": 1
+    },
+    "rules": {
+      "little-buildings-scoring": "3/2/1"
+    },
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Rr",
+        "rotation": "R0",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 2003
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "LB_SHED",
+        "pointer": [
+          1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 4741
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 5130
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CFc.1",
+        "rotation": "R90",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 6349
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -1
+          ],
+          "feature": "City",
+          "location": "NS"
+        },
+        "meepleId": "1.small.1"
+      },
+      "player": 1,
+      "clock": 8488
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 8853
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Ccc",
+        "rotation": "R90",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 9816
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "LB_SHED",
+        "pointer": [
+          0,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 11255
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 11483
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CFc+",
+        "rotation": "R0",
+        "position": [
+          1,
+          -2
+        ]
+      },
+      "player": 1,
+      "clock": 12394
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 12420
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 12426
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CccR+",
+        "rotation": "R0",
+        "position": [
+          2,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 13894
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "LB_TOWER",
+        "pointer": [
+          2,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 15675
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 16062
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CRr",
+        "rotation": "R270",
+        "position": [
+          3,
+          -2
+        ]
+      },
+      "player": 1,
+      "clock": 17362
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "LB_SHED",
+        "pointer": [
+          3,
+          -2
+        ]
+      },
+      "player": 1,
+      "clock": 18415
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 19079
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Cc+",
+        "rotation": "R270",
+        "position": [
+          0,
+          -3
+        ]
+      },
+      "player": 0,
+      "clock": 20936
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "LB_TOWER",
+        "pointer": [
+          0,
+          -3
+        ]
+      },
+      "player": 0,
+      "clock": 23607
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 23971
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CFC.2",
+        "rotation": "R90",
+        "position": [
+          -1,
+          -3
+        ]
+      },
+      "player": 1,
+      "clock": 25358
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "LB_TOWER",
+        "pointer": [
+          -1,
+          -3
+        ]
+      },
+      "player": 1,
+      "clock": 27719
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 28477
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRR",
+        "rotation": "R270",
+        "position": [
+          2,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 31733
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 32033
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 32060
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RCr",
+        "rotation": "R180",
+        "position": [
+          2,
+          -3
+        ]
+      },
+      "player": 1,
+      "clock": 35776
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "LB_HOUSE",
+        "pointer": [
+          2,
+          -3
+        ]
+      },
+      "player": 1,
+      "clock": 37068
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 39704
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/Rr",
+      "BA/CFc.1",
+      "BA/Ccc",
+      "BA/CFc+",
+      "BA/CccR+",
+      "BA/CRr",
+      "BA/Cc+",
+      "BA/CFC.2",
+      "BA/RRR",
+      "BA/RCr"
+    ]
+  }
+}

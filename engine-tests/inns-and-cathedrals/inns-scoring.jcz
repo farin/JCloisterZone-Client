@@ -1,0 +1,162 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "1",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-22T13:34:56.041Z",
+  "clock": 0,
+  "test": {
+    "description": "Inns scoring",
+    "assertions": [
+      "Alice has 6 points",
+      "Bob has 0 points",
+      "Alice scored road for 6 points",
+      "Bob scored road for 0 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "inns-and-cathedrals:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "big-follower": 1,
+      "cathedral": true,
+      "inn": true
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "IC/RRR.i",
+        "rotation": "R0",
+        "position": [
+          -1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 2267
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            -1,
+            0
+          ],
+          "feature": "Road",
+          "location": "E"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 4659
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 5760
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "IC/RFr.i",
+        "rotation": "R0",
+        "position": [
+          -2,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 6911
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            -2,
+            0
+          ],
+          "feature": "Road",
+          "location": "WE"
+        },
+        "meepleId": "1.small.1"
+      },
+      "player": 1,
+      "clock": 7491
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 8084
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRR",
+        "rotation": "R0",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 9130
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 10719
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 10742
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "IC/RRR.i",
+      "IC/RFr.i",
+      "BA/RRR"
+    ],
+    "endTurn": 3
+  }
+}

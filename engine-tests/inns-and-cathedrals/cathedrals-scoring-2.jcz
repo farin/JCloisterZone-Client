@@ -1,0 +1,233 @@
+{
+  "appVersion": "5.7.99",
+  "gameId": "9044388e9d934b41bd2de1772585ded6",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-09-22T19:35:07.715Z",
+  "clock": 44675,
+  "test": {
+    "description": "Cathedrals scoring",
+    "assertions": [
+      "Alice has 36 points",
+      "Alice scored city for 36 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "inns-and-cathedrals:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "big-follower": 1,
+      "cathedral": true,
+      "inn": true
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "IC/Cccc.c",
+        "rotation": "R0",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 1294
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -1
+          ],
+          "location": "NWSE",
+          "feature": "City"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 1688
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.9745359726791867
+      },
+      "player": 0,
+      "clock": 2376
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Cc+",
+        "rotation": "R0",
+        "position": [
+          1,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 3184
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 3314
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.6187724059305213
+      },
+      "player": 1,
+      "clock": 3378
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Cc+",
+        "rotation": "R270",
+        "position": [
+          1,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 4455
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 4584
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.6524789035684568
+      },
+      "player": 0,
+      "clock": 4641
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Ccc+",
+        "rotation": "R180",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 1,
+      "clock": 5793
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 5865
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.9595349788633938
+      },
+      "player": 1,
+      "clock": 5920
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "IC/CCc+",
+        "rotation": "R180",
+        "position": [
+          -1,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 7325
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 7440
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.9387580915328342
+      },
+      "player": 0,
+      "clock": 7496
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CcRr+",
+        "rotation": "R90",
+        "position": [
+          -1,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 8251
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 9586
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.1659882289974366
+      },
+      "player": 1,
+      "clock": 9657
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "IC/Cccc.c",
+      "BA/Cc+",
+      "BA/Cc+",
+      "BA/Ccc+",
+      "IC/CCc+",
+      "BA/CcRr+"
+    ]
+  }
+}

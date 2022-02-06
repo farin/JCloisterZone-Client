@@ -3,8 +3,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 import LayeredItemMixin from '@/components/game/actions/items/LayeredItemMixin.js'
 import NeutralFigure from '@/components/game/NeutralFigure'
 
@@ -22,10 +20,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      featureOn: 'game/featureOn'
-    }),
-
     figure () {
       return this.figureId.split('.')[0]
     },
@@ -67,6 +61,10 @@ export default {
 svg
   width: 74px
   height: 74px
+
+  @media (max-height: 768px)
+    width: 54px
+    height: 54px
 
 svg.inactive
   fill: #999

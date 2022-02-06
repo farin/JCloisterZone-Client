@@ -1,0 +1,118 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "1",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-22T16:40:16.001Z",
+  "clock": 45684,
+  "test": {
+    "description": "Vineyards doesn't affect incomplete monastery",
+    "assertions": [
+      "Alice has 3 points",
+      "Alice scored monastery for 3 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "hills-and-sheep:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "shepherd": 1,
+      "hill": true,
+      "vineyard": true
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "HS/RCC.v",
+        "rotation": "R90",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 2188
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 3069
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 3081
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/L",
+        "rotation": "R0",
+        "position": [
+          1,
+          1
+        ]
+      },
+      "player": 0,
+      "clock": 3847
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            1
+          ],
+          "feature": "Monastery",
+          "location": "I"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 4342
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 4704
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "HS/RCC.v",
+      "BA/L"
+    ],
+    "endTurn": 2
+  }
+}

@@ -1,5 +1,9 @@
 <template>
-  <section :class="{ local }">
+  <section :class="{
+    local,
+    [`size-${items.length}`]: true,
+    'size-max': items.length > 14
+  }">
     <div v-if="phase === 'CocFollowerPhase'" class="text-with-icons text-center">
       <v-icon>fas fa-arrow-right</v-icon>
       <v-icon>fab fa-fort-awesome-alt</v-icon>
@@ -96,6 +100,12 @@
         :position="item.position"
         :active="idx === selected"
       />
+      <ScoreAcrobatsItem
+        v-else-if="item.type == 'ScoreAcrobats'"
+        :player="action.player"
+        :options="item.options"
+        :active="idx === selected"
+      />
       <div v-else>{{ item.type }}</div>
     </div>
     <slot />
@@ -114,6 +124,7 @@ import MoveFairyNextToItem from '@/components/game/actions/items/MoveFairyNextTo
 import MoveFairyOnTileItem from '@/components/game/actions/items/MoveFairyOnTileItem.vue'
 import NeutralFigureItem from '@/components/game/actions/items/NeutralFigureItem.vue'
 import ReturnMeepleItem from '@/components/game/actions/items/ReturnMeepleItem.vue'
+import ScoreAcrobatsItem from '@/components/game/actions/items/ScoreAcrobatsItem.vue'
 import TowerPieceItem from '@/components/game/actions/items/TowerPieceItem.vue'
 import TunnelItem from '@/components/game/actions/items/TunnelItem.vue'
 
@@ -127,6 +138,7 @@ export default {
     MoveFairyOnTileItem,
     NeutralFigureItem,
     ReturnMeepleItem,
+    ScoreAcrobatsItem,
     TowerPieceItem,
     TunnelItem
   },
@@ -173,12 +185,10 @@ export default {
 
   mounted () {
     this.$root.$on('rclick', this.selectNext)
-    window.addEventListener('keydown', this.onKeyDown)
   },
 
   beforeDestroy () {
     this.$root.$off('rclick', this.selectNext)
-    window.removeEventListener('keydown', this.onKeyDown)
   },
 
   methods: {
@@ -191,13 +201,6 @@ export default {
     selectNext () {
       if (this.local) {
         this.select((this.selected + 1) % this.items.length)
-      }
-    },
-
-    onKeyDown (ev) {
-      if (this.local && ev.key === 'Tab' && !this.$store.state.gameDialog) {
-        this.selectNext()
-        ev.preventDefault()
       }
     }
   }
@@ -223,9 +226,12 @@ section
       margin-bottom: 4px
 
   .action-item
-    width: 120px
-    height: $action-bar-height + 10px
-    margin: -5px
+    --action-item-scale: 1.0
+    --action-item-margin: -5px
+    width: calc(120px * var(--action-item-scale))
+    height: calc(var(--action-bar-height) + 10px)
+    transform: scale(var(--action-item-scale))
+    margin: var(--action-item-margin)
     display: flex
     justify-content: center
     align-items: center
@@ -243,4 +249,133 @@ section.local
     &:hover
       +theme using ($theme)
         background: radial-gradient(circle, #{map-get($theme, 'action-panel-hover-bg')} 72%, transparent 73%)
+
+@media (max-height: 800px)
+  section
+    .action-item
+      --action-item-scale: 0.6
+      --action-item-margin: -12px
+
+@media (min-height: 769px)
+section.size-max
+    .action-item
+      --action-item-scale: 0.85
+      --action-item-margin: -8px
+
+@media (max-width: 1920px) and (min-height: 769px)
+  section.size-max
+    .action-item
+      --action-item-scale: 0.65
+      --action-item-margin: -11px
+  section.size-14, section.size-13
+    .action-item
+      --action-item-scale: 0.75
+      --action-item-margin: -10px
+  section.size-12, section.size-11
+    .action-item
+      --action-item-scale: 0.85
+      --action-item-margin: -8px
+
+@media (max-width: 1700px) and (min-height: 769px)
+  section.size-max
+    .action-item
+      --action-item-scale: 0.6
+      --action-item-margin: -12px
+  section.size-12, section.size-11
+    .action-item
+      --action-item-scale: 0.75
+      --action-item-margin: -10px
+  section.size-10, section.size-9
+    .action-item
+      --action-item-scale: 0.85
+      --action-item-margin: -8px
+
+@media (max-width: 1550px) and (min-height: 769px)
+  section.size-max, section.size-14, section.size-13, section.size-12, section.size-11
+    .action-item
+      --action-item-scale: 0.65
+      --action-item-margin: -11px
+  section.size-10, section.size-9
+    .action-item
+      --action-item-scale: 0.6
+      --action-item-margin: -12px
+
+@media (max-width: 1410px)
+  section.size-max, section.size-14, section.size-13, section.size-12, section.size-11
+    .action-item
+      --action-item-scale: 0.55
+      --action-item-margin: -12px
+@media (max-width: 1410px) and (min-height: 769px)
+   section.size-8, section.size-7
+    .action-item
+      --action-item-scale: 0.85
+      --action-item-margin: -8px
+
+@media (max-width: 1280px)
+  section.size-max, section.size-14, section.size-13, section.size-12, section.size-11
+    .action-item
+      --action-item-scale: 0.5
+      --action-item-margin: -12px
+@media (max-width: 1280px) and (min-height: 769px)
+   section.size-8, section.size-7
+    .action-item
+      --action-item-scale: 0.75
+      --action-item-margin: -10px
+
+@media (max-width: 1060px)
+  section.size-max, section.size-14, section.size-13, section.size-12, section.size-11
+    .action-item
+      --action-item-scale: 0.4
+      --action-item-margin: -12px
+  section.size-10, section.size-9
+    .action-item
+      --action-item-scale: 0.5
+      --action-item-margin: -12px
+@media (max-width: 1060px) and (min-height: 769px)
+  section.size-8, section.size-7
+    .action-item
+      --action-item-scale: 0.65
+      --action-item-margin: -11px
+  section.size-6, section.size-5
+    .action-item
+      --action-item-scale: 0.85
+      --action-item-margin: -8px
+
+@media (max-width: 960px)
+  section.size-max, section.size-14, section.size-13, section.size-12, section.size-11, section.size-10, section.size-9
+    .action-item
+      --action-item-scale: 0.4
+      --action-item-margin: -12px
+  section.size-8, section.size-7
+    .action-item
+      --action-item-scale: 0.5
+      --action-item-margin: -12px
+@media (max-width: 960px)  and (min-height: 769px)
+  section.size-6, section.size-5
+    .action-item
+      --action-item-scale: 0.75
+      --action-item-margin: -10px
+  section.size-4, section.size-3
+    .action-item
+      --action-item-scale: 0.85
+      --action-item-margin: -8px
+
+@media (max-width: 800px)
+  section.size-max, section.size-14, section.size-13, section.size-12, section.size-11, section.size-10, section.size-9, section.size-8, section.size-7
+    .action-item
+      --action-item-scale: 0.4
+      --action-item-margin: -12px
+  section.size-6, section.size-5
+    .action-item
+      --action-item-scale: 0.6
+      --action-item-margin: -12px
+@media (max-width: 800px)  and (min-height: 769px)
+  section.size-4, section.size-3
+    .action-item
+      --action-item-scale: 0.75
+      --action-item-margin: -10px
+  section.size-2, section.size-1
+    .action-item
+      --action-item-scale: 0.85
+      --action-item-margin: -8px
 </style>

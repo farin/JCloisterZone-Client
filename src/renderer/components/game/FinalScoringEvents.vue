@@ -46,8 +46,12 @@ export default {
         penalties: { title: 'Penalties', events: [] }
       }
       item.events.forEach(ev => {
-        if (!ev.points.length) {
-          console.error('Received empty points event')
+        if (!ev.points?.length) {
+          console.log(ev)
+          if (ev.type !== 'token-placed' || !ev.token.startsWith('BIGTOP_')) {
+            // ignore big top token
+            console.error('Received empty points event', ev)
+          }
           return
         }
         const type = ev.points[0].name.split('+')[0].split('.')[0]
@@ -55,11 +59,11 @@ export default {
           rows.tradeGoods.events.push(ev)
         } else if (type === 'gold') {
           rows.gold.events.push(ev)
-        } else if (type === 'farm') {
+        } else if (type === 'field') {
           rows.farms.events.push(ev)
         } else if (type === 'king' || type === 'robber') {
           rows.kingAndRobber.events.push(ev)
-        } else if (type === 'monastery') {
+        } else if (type === 'special-monastery') {
           rows.monasteries.events.push(ev)
         } else if (type === 'vodyanoy') {
           rows.penalties.events.push(ev)
@@ -95,7 +99,7 @@ export default {
 <style lang="sass" scoped>
 .final-scoring-events
   position: absolute
-  top: #{$action-bar-height + $panel-gap}
+  top: calc(var(--action-bar-height) + #{$panel-gap})
   left: 0
   user-select: none
   min-height: 0

@@ -1,13 +1,14 @@
-const instances = Object.create(null)
+const edgeInstances = Object.create(null)
 
 export default class Location {
-  constructor (name, mask) {
+  constructor (name, mask = null) {
+    if (mask != null && mask === 0) throw new Error('Empty mask is not allowed')
     this.mask = mask
     this.name = name
 
     if (!this.name) {
       const parts = []
-      Location.FARM_SIDES.forEach(side => {
+      Location.FIELD_SIDES.forEach(side => {
         if (this.intersect(side)) {
           parts.push(side.name)
         }
@@ -16,10 +17,10 @@ export default class Location {
     }
 
     Object.freeze(this)
-    if (instances[mask]) {
-      throw new Error('Duplicate Location')
+    if (mask !== null) {
+      if (edgeInstances[mask]) throw new Error('Duplicate Location')
+      edgeInstances[mask] = this
     }
-    instances[mask] = this
   }
 
   /** Rotation about quarter circle clockwise */
@@ -65,6 +66,7 @@ export default class Location {
    * @param rotation degrees
    */
   rotateCCW (rotation) {
+    if (this.mask === null) return this
     const ord = rotation / 90
     return this.shift((ord * 6) % 8)
   }
@@ -74,6 +76,7 @@ export default class Location {
    * @param rotation degrees
    */
   rotateCW (rotation) {
+    if (this.mask === null) return this
     const ord = rotation / 90
     return this.shift(ord * 2)
   }
@@ -95,24 +98,17 @@ export default class Location {
   /** Merge two locations together */
   union (loc) {
     if (!loc) return this
-    // TODO check type - and set type as property
-    // assert !isSpecialLocation() && !(isEdgeLocation() ^ d.isEdgeLocation())
-    // & !(isFarmLocation() ^ d.isFarmLocation()) : 'union('+this+','+d+')'
     return Location.get(this.mask | loc.mask)
   }
 
   /** Subtract given location from this */
   subtract (loc) {
-    if (!loc) return this
-    // assert !isSpecialLocation() && !(isEdgeLocation() ^ d.isEdgeLocation())
-    // & !(isFarmLocation() ^ d.isFarmLocation()) : 'substract('+this+','+d+')'
     return Location.get((~(this.mask & loc.mask)) & this.mask)
   }
 
   intersect (loc) {
-    if (!loc || (this.mask & loc.mask) === 0) return null
-    // assert !isSpecialLocation() && !(isEdgeLocation() ^ d.isEdgeLocation()) &
-    // !(isFarmLocation() ^ d.isFarmLocation()) : 'interasect('+this+','+d+')'
+    if (this === loc) return this
+    if (!loc || this.mask === null || loc.mask === null || (this.mask & loc.mask) === 0) return null
     return Location.get(this.mask & loc.mask)
   }
 
@@ -138,24 +134,8 @@ export default class Location {
 
   // assertion methods
 
-  isFarmLocation () {
-    return ((this.mask & 0x30000) | (this.mask & 0xFF)) > 0
-  }
-
-  isEdgeLocation () {
-    return (this.mask & 0xFF00) > 0
-  }
-
-  isSpecialLocation () {
-    return (this.mask & ~0x3FFFF) > 0
-  }
-
-  hashCode () {
-    return this.mask
-  }
-
-  equals (loc) {
-    return loc && (this.mask === loc.mask)
+  isFieldLocation () {
+    return ((this.mask & 0x30000) | (this.mask & 0xFF)) > 0 || this.mask === null
   }
 
   toString () {
@@ -163,7 +143,7 @@ export default class Location {
   }
 
   static get (mask) {
-    return instances[mask] || new Location(null, mask)
+    return edgeInstances[mask] || new Location(null, mask)
   }
 
   // Creates instance according to token delimuted by spaces or .
@@ -173,6 +153,9 @@ export default class Location {
       const loc = name ? Location[name] : null
       if (loc) result = loc.union(result)
     })
+    if (result === null) {
+      console.warn('Unmatched location ' + names)
+    }
     return result
   }
 }
@@ -196,20 +179,18 @@ export const _W = Location._W = new Location('_W', 63 << 8) // Supplement to the
 export const _S = Location._S = new Location('_S', 207 << 8) // Supplement to the south
 export const _E = Location._E = new Location('_E', 243 << 8) // Supplement to the east
 
-export const CLOISTER = Location.CLOISTER = new Location('CLOISTER', 1 << 18) // Cloister on tile
-export const MONASTERY = Location.MONASTERY = new Location('MONASTERY', 1 << 19)
-export const TOWER = Location.TOWER = new Location('TOWER', 1 << 20) // Tower on tile
-// Flier location - follower can be placed here just for moment, befor dice roll
-export const FLYING_MACHINE = Location.FLYING_MACHINE = new Location('FLYING_MACHINE', 1 << 21)
-export const QUARTER_CASTLE = Location.QUARTER_CASTLE = new Location('QUARTER_CASTLE', 1 << 22)
-export const QUARTER_MARKET = Location.QUARTER_MARKET = new Location('QUARTER_MARKET', 1 << 23)
-export const QUARTER_BLACKSMITH = Location.QUARTER_BLACKSMITH = new Location('QUARTER_BLACKSMITH', 1 << 24)
-export const QUARTER_CATHEDRAL = Location.QUARTER_CATHEDRAL = new Location('QUARTER_CATHEDRAL', 1 << 25)
+export const I = Location.I = new Location('I')
+export const II = Location.II = new Location('II')
+export const III = Location.III = new Location('III')
+export const IV = Location.IV = new Location('IV')
 
-// farm locations
-export const INNER_FARM = Location.INNER_FARM = new Location('INNER_FARM', 1 << 16) // Inner farm
-// for tiles with two inner farms
-export const INNER_FARM_B = Location.INNER_FARM_B = new Location('INNER_FARM_B', 1 << 17)
+export const AS_ABBOT = Location.AS_ABBOT = new Location('AS_ABBOT')
+
+export const QUARTER_CASTLE = Location.QUARTER_CASTLE = new Location('QUARTER_CASTLE')
+export const QUARTER_MARKET = Location.QUARTER_MARKET = new Location('QUARTER_MARKET')
+export const QUARTER_BLACKSMITH = Location.QUARTER_BLACKSMITH = new Location('QUARTER_BLACKSMITH')
+export const QUARTER_CATHEDRAL = Location.QUARTER_CATHEDRAL = new Location('QUARTER_CATHEDRAL')
+
 export const NL = Location.NL = new Location('NL', 1)
 export const NR = Location.NR = new Location('NR', 2)
 export const EL = Location.EL = new Location('EL', 4)
@@ -221,5 +202,5 @@ export const WR = Location.WR = new Location('WR', 128)
 
 Location.SIDES = Object.freeze([Location.N, Location.E, Location.S, Location.W])
 Location.DIAGONAL_SIDES = Object.freeze([Location.NE, Location.SE, Location.SW, Location.NW])
-Location.FARM_SIDES = Object.freeze([Location.NL, Location.NR, Location.EL, Location.ER,
+Location.FIELD_SIDES = Object.freeze([Location.NL, Location.NR, Location.EL, Location.ER,
   Location.SL, Location.SR, Location.WL, Location.WR])

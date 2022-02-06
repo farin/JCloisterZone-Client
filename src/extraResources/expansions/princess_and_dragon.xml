@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defs>
+  <tiles>
+    <tile id="DG/F.v">
+      <volcano />
+      <field>NL NR EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="DG/RrRr.g">
+      <portal />
+      <road>N W</road>
+      <road>S E</road>
+      <field>NL WR</field>
+      <field>SL ER</field>
+      <field>NR EL SR WL</field>
+    </tile>
+    <tile id="DG/R.v">
+      <volcano />
+      <road>S</road>
+      <field>NL NR EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="DG/C.d">
+      <dragon />
+      <city>N</city>
+      <field city="N">EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="DG/C.dG">
+      <dragon />
+      <garden />
+      <city>N</city>
+      <field city="N">EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="DG/C.v">
+      <volcano />
+      <city>N</city>
+      <field city="N">EL ER SL SR WL WR</field>
+    </tile>
+    <tile id="DG/LRRR.d">
+      <dragon />
+      <monastery wagon-move="a b c"/>
+      <road wagon-move="a">E</road>
+      <road wagon-move="b">S</road>
+      <road wagon-move="c">W</road>
+      <field>WR NL NR EL</field>
+      <field>ER SL</field>
+      <field>WL SR</field>
+    </tile>
+    <tile id="DG/RRR.d">
+      <dragon />
+      <road wagon-move="a">E</road>
+      <road wagon-move="a">S</road>
+      <road wagon-move="a">W</road>
+      <field>WR NL NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="DG/RRR.g">
+      <portal />
+      <road wagon-move="a">E</road>
+      <road wagon-move="a">S</road>
+      <road wagon-move="a">W</road>
+      <field>WR NL NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="DG/CRRR.p">
+      <road wagon-move="a">E</road>
+      <road wagon-move="a">S</road>
+      <road wagon-move="a">W</road>
+      <city princess="true">N</city>
+      <field city="N">WR EL</field>
+      <field>WL SR</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="DG/CCc+.p">
+      <city princess="true" castle-base="false">N</city>
+      <city pennants="1">E S</city>
+      <field city="N">WL WR</field>
+      <field city="N S">I</field>
+    </tile>
+    <tile id="DG/Ccc.p">
+      <city princess="true">N E W</city>
+      <field city="N">SL SR</field>
+    </tile>
+    <tile id="DG/Ccc+.g">
+      <portal />
+      <city pennants="1">N E W</city>
+      <field city="N">SL SR</field>
+    </tile>
+    <tile id="DG/LCcc.d">
+      <dragon />
+      <monastery wagon-move="a"/>
+      <city wagon-move="a">N E W</city>
+      <field city="N">SL SR</field>
+    </tile>
+    <tile id="DG/Rr.d">
+      <dragon />
+      <road>W S</road>
+      <field>WR NL NR EL ER SL</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="DG/Rr.v">
+      <volcano />
+      <road>W S</road>
+      <field>WR NL NR EL ER SL</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="DG/RFr.d">
+      <dragon />
+      <road>W E</road>
+      <field>WR NL NR EL</field>
+      <field>WL SL SR ER</field>
+    </tile>
+    <tile id="DG/RFr.v">
+      <volcano />
+      <road>W E</road>
+      <field>WR NL NR EL</field>
+      <field>WL SL SR ER</field>
+    </tile>
+    <tile id="DG/Cc!.p">
+      <city princess="true">N W</city>
+      <field city="N">EL ER</field>
+      <field city="N">SL SR</field>
+    </tile>
+    <tile id="DG/Cc.d">
+      <dragon />
+      <city>N W</city>
+      <field city="N">SL SR EL ER</field>
+    </tile>
+    <tile id="DG/Cc.p">
+      <city princess="true">N W</city>
+      <field city="N">SL SR EL ER</field>
+    </tile>
+    <tile id="DG/Cc.pG">
+      <garden />
+      <city princess="true">N W</city>
+      <field city="N">SL SR EL ER</field>
+    </tile>
+    <tile id="DG/CC.v">
+      <volcano />
+      <city>E</city>
+      <city>N</city>
+      <field city="N E">WL WR SL SR</field>
+    </tile>
+    <tile id="DG/CFc+.d">
+      <dragon />
+      <city pennants="1">W E</city>
+      <field city="W">NL NR</field>
+      <field city="W">SL SR</field>
+    </tile>
+    <tile id="DG/CcRr.p">
+      <road>E S</road>
+      <city princess="true">N W</city>
+      <field city="N">EL SR</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="DG/CcRr.g">
+      <portal />
+      <road>E S</road>
+      <city>N W</city>
+      <field city="N">EL SR</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="DG/CRcr.d">
+      <dragon />
+      <city>E W</city>
+      <road tunnel="true">N S</road>
+      <field city="W">NL NR</field>
+      <field city="W">SL SR</field>
+    </tile>
+    <tile id="DG/RrC.d">
+      <dragon />
+      <road>S W</road>
+      <city>N</city>
+      <field city="N">WR EL ER SL</field>
+      <field>WL SR</field>
+    </tile>
+    <tile id="DG/RrC.g">
+      <portal />
+      <road>S W</road>
+      <city>N</city>
+      <field city="N">WR EL ER SL</field>
+      <field>WL SR</field>
+    </tile>
+    <tile id="DG/CRr.d">
+      <dragon />
+      <road>E S</road>
+      <city>N</city>
+      <field city="N">EL WL WR SR</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="DG/CRr.g">
+      <portal />
+      <road>E S</road>
+      <city>N</city>
+      <field city="N">EL WL WR SR</field>
+      <field>ER SL</field>
+    </tile>
+  </tiles>
+  <sets>
+    <tile-set id="princess-and-dragon:1">
+      <ref count="1" tile="DG/F.v" />
+      <ref count="1" tile="DG/RrRr.g" />
+      <ref count="1" tile="DG/R.v" />
+      <ref count="1" tile="DG/C.d" />
+      <ref count="1" tile="DG/C.v" />
+      <ref count="1" tile="DG/LRRR.d" />
+      <ref count="1" tile="DG/RRR.d" />
+      <ref count="1" tile="DG/RRR.g" />
+      <ref count="1" tile="DG/CRRR.p" />
+      <ref count="1" tile="DG/CCc+.p" />
+      <ref count="1" tile="DG/Ccc.p" />
+      <ref count="1" tile="DG/Ccc+.g" />
+      <ref count="1" tile="DG/LCcc.d" />
+      <ref count="2" tile="DG/Rr.d" />
+      <ref count="1" tile="DG/Rr.v" />
+      <ref count="1" tile="DG/RFr.d" />
+      <ref count="1" tile="DG/RFr.v" />
+      <ref count="1" tile="DG/Cc!.p" />
+      <ref count="1" tile="DG/Cc.d" />
+      <ref count="1" tile="DG/Cc.p" />
+      <ref count="1" tile="DG/CC.v" />
+      <ref count="1" tile="DG/CFc+.d" />
+      <ref count="1" tile="DG/CcRr.p" />
+      <ref count="1" tile="DG/CcRr.g" />
+      <ref count="1" tile="DG/CRcr.d" />
+      <ref count="1" tile="DG/RrC.d" />
+      <ref count="1" tile="DG/RrC.g" />
+      <ref count="1" tile="DG/CRr.d" />
+      <ref count="1" tile="DG/CRr.g" />
+    </tile-set>
+    <tile-set id="princess-and-dragon:2">
+      <ref count="1" tile="DG/F.v" />
+      <ref count="1" tile="DG/RrRr.g" />
+      <ref count="1" tile="DG/R.v" />
+      <ref count="1" tile="DG/C.dG" />
+      <ref count="1" tile="DG/C.v" />
+      <ref count="1" tile="DG/LRRR.d" />
+      <ref count="1" tile="DG/RRR.d" />
+      <ref count="1" tile="DG/RRR.g" />
+      <ref count="1" tile="DG/CRRR.p" />
+      <ref count="1" tile="DG/CCc+.p" />
+      <ref count="1" tile="DG/Ccc.p" />
+      <ref count="1" tile="DG/Ccc+.g" />
+      <ref count="1" tile="DG/LCcc.d" />
+      <ref count="2" tile="DG/Rr.d" />
+      <ref count="1" tile="DG/Rr.v" />
+      <ref count="1" tile="DG/RFr.d" />
+      <ref count="1" tile="DG/RFr.v" />
+      <ref count="1" tile="DG/Cc!.p" />
+      <ref count="1" tile="DG/Cc.d" />
+      <ref count="1" tile="DG/Cc.pG" />
+      <ref count="1" tile="DG/CC.v" />
+      <ref count="1" tile="DG/CFc+.d" />
+      <ref count="1" tile="DG/CcRr.p" />
+      <ref count="1" tile="DG/CcRr.g" />
+      <ref count="1" tile="DG/CRcr.d" />
+      <ref count="1" tile="DG/RrC.d" />
+      <ref count="1" tile="DG/RrC.g" />
+      <ref count="1" tile="DG/CRr.d" />
+      <ref count="1" tile="DG/CRr.g" />
+    </tile-set>
+  </sets>
+</defs>

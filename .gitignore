@@ -5,3 +5,4 @@ build/*
 !build/icons
 node_modules
 temp
+Engine.jar

@@ -1,0 +1,110 @@
+{
+  "gameId": "1",
+  "appVersion": "5.7.0",
+  "initialRandom": 0.0,
+  "created": "2019-04-20T21:41:47.168Z",
+  "test": {
+    "description": "Multi-edge merge test",
+    "assertions": [
+      "Alice has 8 points"
+    ]
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "clock": 1,
+  "setup": {
+    "options": {},
+    "sets": {
+      "basic:1": 1,
+      "hills-and-sheep:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "shepherd": 1,
+      "hill": true,
+      "vineyard": true
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ]
+  },
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+        "payload": {
+          "tileId": "HS/CC!.v",
+          "rotation": "R90",
+          "position": [0, -1]
+        }
+    }, {
+      "type": "DEPLOY_MEEPLE",
+        "payload": {
+          "pointer": {
+            "position": [0, -1],
+            "feature": "City",
+            "location": "S"
+          },
+          "meepleId": "0.small.1"
+        }
+    }, {
+      "type": "COMMIT",
+        "payload": {
+          "random": 0.0
+        }
+    }, {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R270",
+        "position": [1, -1]
+      }
+    }, {
+      "type": "PASS",
+      "payload": {}
+    },{
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      }
+    }, {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [0, -2]
+      }
+    }, {
+      "type": "PASS",
+      "payload": {}
+    }, {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      }
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "HS/CC!.v",
+      "BA/C",
+      "BA/C",
+      "BA/C"
+    ]
+  }
+}

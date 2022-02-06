@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defs>
+  <tiles>
+    <tile id="IC/Cccc.c">
+      <city cathedral="true">N W S E</city>
+    </tile>
+    <tile id="IC/LRFR">
+      <monastery wagon-move="a b"/>
+      <road wagon-move="a">W</road>
+      <road wagon-move="b">E</road>
+      <field>ER SL SR WL</field>
+      <field>EL NL NR WR</field>
+    </tile>
+    <tile id="IC/CCCC">
+      <city>N</city>
+      <city>W</city>
+      <city>E</city>
+      <city>S</city>
+      <field city="N W E S">I</field>
+    </tile>
+    <tile id="IC/CCCCG">
+      <garden />
+      <city>N</city>
+      <city>W</city>
+      <city>E</city>
+      <city>S</city>
+      <field city="N W E S">I</field>
+    </tile>
+    <tile id="IC/CCC">
+      <city>N</city>
+      <city>W</city>
+      <city>E</city>
+      <field city="N W E">SL SR</field>
+    </tile>
+    <tile id="IC/CRCR">
+      <city wagon-move="a">N</city>
+      <city wagon-move="a">S</city>
+      <road wagon-move="a">W</road>
+      <road wagon-move="a">E</road>
+      <field city="S">ER</field>
+      <field city="S">WL</field>
+      <field city="N">EL</field>
+      <field city="N">WR</field>
+    </tile>
+    <tile id="IC/CCc+">
+      <city pennants="1">N W</city>
+      <city>S</city>
+      <field city="N S">EL ER</field>
+    </tile>
+    <tile id="IC/C!">
+      <city castle-base="false">N</city>
+      <field city="N">EL ER</field>
+      <field city="N">WL WR SL SR</field>
+    </tile>
+    <tile id="IC/CFR">
+      <city wagon-move="a">N</city>
+      <road wagon-move="a">S</road>
+      <field city="N">WL WR SR</field>
+      <field city="N">EL ER SL</field>
+    </tile>
+    <tile id="IC/CcR">
+      <city wagon-move="a">N W</city>
+      <road wagon-move="a">E</road>
+      <field city="W">EL</field>
+      <field city="W">ER SL SR</field>
+    </tile>
+    <tile id="IC/CRcR+">
+      <city pennants="1" wagon-move="a b">E W</city>
+      <road wagon-move="a">N</road>
+      <road wagon-move="b">S</road>
+      <field city="W">NL</field>
+      <field city="W">NR</field>
+      <field city="W">SL</field>
+      <field city="W">SR</field>
+    </tile>
+    <tile id="IC/RCc.i">
+      <city wagon-move="a">N W</city>
+      <road inn="true" wagon-move="a">S</road>
+      <field city="W">SR</field>
+      <field city="W">SL EL ER</field>
+    </tile>
+    <tile id="IC/RrC.i">
+      <city>N</city>
+      <road inn="true">W S</road>
+      <field>SR WL</field>
+      <field city="N">WR EL ER SL</field>
+    </tile>
+    <tile id="IC/CcRr+.i">
+      <city pennants="1">N W</city>
+      <road inn="true">E S</road>
+      <field>SL ER</field>
+      <field city="N">SR EL</field>
+    </tile>
+    <tile id="IC/RRR.i">
+      <road inn="true" wagon-move="a">E</road>
+      <road wagon-move="a">W</road>
+      <road wagon-move="a">S</road>
+      <field>WR NL NR EL</field>
+      <field>WL SR</field>
+      <field>ER SL</field>
+    </tile>
+    <tile id="IC/RFr.i">
+      <road inn="true">W E</road>
+      <field>WR NL NR EL</field>
+      <field>ER SL SR WL</field>
+    </tile>
+    <tile id="IC/RFr.iG">
+      <garden />
+      <road inn="true">W E</road>
+      <field>WR NL NR EL</field>
+      <field>ER SL SR WL</field>
+    </tile>
+    <tile id="IC/Rr.i">
+      <road inn="true">W S</road>
+      <field>WR NL NR EL ER SL</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="IC/RrRr">
+      <road>N W</road>
+      <road>S E</road>
+      <field>NL WR</field>
+      <field>SL ER</field>
+      <field>NR EL SR WL</field>
+    </tile>
+  </tiles>
+  <sets>
+    <tile-set id="inns-and-cathedrals:1">
+      <ref count="2" tile="IC/Cccc.c" />
+      <ref count="1" tile="IC/LRFR" />
+      <ref count="1" tile="IC/CCCC" />
+      <ref count="1" tile="IC/CCC" />
+      <ref count="1" tile="IC/CRCR" />
+      <ref count="1" tile="IC/CCc+" />
+      <ref count="1" tile="IC/C!" />
+      <ref count="1" tile="IC/CFR" />
+      <ref count="1" tile="IC/CcR" />
+      <ref count="1" tile="IC/CRcR+" />
+      <ref count="1" tile="IC/RCc.i" />
+      <ref count="1" tile="IC/RrC.i" />
+      <ref count="1" tile="IC/CcRr+.i" />
+      <ref count="1" tile="IC/RRR.i" />
+      <ref count="1" tile="IC/RFr.i" />
+      <ref count="1" tile="IC/Rr.i" />
+      <ref count="1" tile="IC/RrRr" />
+    </tile-set>
+    <tile-set id="inns-and-cathedrals:2">
+      <ref count="2" tile="IC/Cccc.c" />
+      <ref count="1" tile="IC/LRFR" />
+      <ref count="1" tile="IC/CCCCG" />
+      <ref count="1" tile="IC/CCC" />
+      <ref count="1" tile="IC/CRCR" />
+      <ref count="1" tile="IC/CCc+" />
+      <ref count="1" tile="IC/C!" />
+      <ref count="1" tile="IC/CFR" />
+      <ref count="1" tile="IC/CcR" />
+      <ref count="1" tile="IC/CRcR+" />
+      <ref count="1" tile="IC/RCc.i" />
+      <ref count="1" tile="IC/RrC.i" />
+      <ref count="1" tile="IC/CcRr+.i" />
+      <ref count="1" tile="IC/RRR.i" />
+      <ref count="1" tile="IC/RFr.iG" />
+      <ref count="1" tile="IC/Rr.i" />
+      <ref count="1" tile="IC/RrRr" />
+    </tile-set>
+  </sets>
+</defs>

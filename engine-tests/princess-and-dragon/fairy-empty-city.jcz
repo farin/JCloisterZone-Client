@@ -1,0 +1,127 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "427fcfb9affa4ddb8acc39fa4b4651cc",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-22T21:39:05.479Z",
+  "clock": 56899,
+  "test": {
+    "description": "Fairy - empty city complete",
+    "assertions": [
+      "Alice has 3 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "mayor": 1,
+      "fairy": 1
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CFc.1",
+        "rotation": "R90",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 1483
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -1
+          ],
+          "feature": "City",
+          "location": "NS"
+        },
+        "meepleId": "0.mayor.1"
+      },
+      "player": 0,
+      "clock": 2530
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 3375
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 4365
+    },
+    {
+      "type": "MOVE_NEUTRAL_FIGURE",
+      "payload": {
+        "figureId": "fairy.1",
+        "to": {
+          "featurePointer": {
+            "position": [
+              0,
+              -1
+            ],
+            "feature": "City",
+            "location": "NS"
+          },
+          "meepleId": "0.mayor.1"
+        }
+      },
+      "player": 0,
+      "clock": 5597
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 6867
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/CFc.1",
+      "BA/C"
+    ]
+  }
+}

@@ -1,24 +1,27 @@
 import fs from 'fs'
-import path from 'path'
 import Vue from 'vue'
 import isEqual from 'lodash/isEqual'
-import { randomId } from '@/utils/random'
+import { ipcRenderer } from 'electron'
 
 import username from 'username'
-import { remote } from 'electron'
+import { randomId } from '@/utils/random'
 import { CONSOLE_SETTINGS_COLOR } from '@/constants/logging'
 
-const RECENT_GAMES_COUNT = 14
-const RECENT_SETUPS_COUNT = 4
+const RECENT_SAVED_GAME_COUNT = 14
+const RECENT_SETUP_FILE_COUNT = 9
 
 /* eslint quote-props: 0 */
 export const state = () => ({
-  userArtworks: [],
-  enabledArtworks: ['classic'],
+  file: null,
+  userAddons: [],
+  enabledArtworks: ['classic/classic'],
   lastGameSetup: null,
+  mySetups: [],
+  // deprecated
   recentSaves: [],
-  recentGameSetups: [],
+  recentSetupSaves: [],
   recentJoinedGames: [],
+  // ---
   showValidRulesOnly: false,
   clientId: null,
   secret: null,
@@ -29,21 +32,20 @@ export const state = () => ({
   'confirm.field': true,
   'confirm.tower': true,
   beep: true,
+  activePlayerIndicatorBgColor: true,
+  activePlayerIndicatorTriangle: true,
+  playerListRotate: 'none', // none | active-on-top | local-on-top
   theme: 'light',
   enginePath: null, // explicit engine path
   javaPath: null, // exolicit java path
   playOnlineUrl: 'play.jcloisterzone.com/ws',
-  'experimental.playOnline': false,
   devMode: process.env.NODE_ENV === 'development'
 })
 
 const changeCallbacks = {}
 
-let fileModifiedBySave = false
-let watcher = null
-
 export const mutations = {
-  settings (state, settings) {
+  settings (state, { settings, source }) {
     const changed = []
     Object.keys(settings).forEach(key => {
       if (JSON.stringify(state[key]) !== JSON.stringify(settings[key])) {
@@ -52,11 +54,9 @@ export const mutations = {
       Vue.set(state, key, settings[key])
     })
 
-    console.log('Changed settings: ' + changed)
-
     changed.forEach(key => {
       const cb = changeCallbacks[key]
-      if (cb) cb(settings[key])
+      if (cb) cb(settings[key], source)
     })
   },
 
@@ -72,82 +72,68 @@ export const mutations = {
     state.recentSaves = value
   },
 
-  recentGameSetups (state, value) {
-    state.recentGameSetups = value
+  recentSetupSaves (state, value) {
+    state.recentSetupSaves = value
+  },
+
+  mySetups (state, value) {
+    state.mySetups = value
   }
 }
 
 export const getters = {
-  settingsFile: state => {
-    return path.join(remote.app.getPath('userData'), 'jcz-config.json')
+  isMySetup: state => setup => {
+    const bareSetup = { ...setup }
+    delete bareSetup.options
+    return !!state.mySetups.find(s => isEqual(s.setup, bareSetup))
   }
 }
 
 export const actions = {
-  async watchSettingsFile ({ dispatch, getters }) {
-    try {
-      watcher = fs.watch(getters.settingsFile, eventType => {
-        if (eventType === 'change' && !fileModifiedBySave) {
-          dispatch('load')
-        }
-      })
-    } catch (e) {
-      console.error(e)
-    }
-  },
-
-  async unwatchSettingsFile () {
-    watcher?.close()
-    watcher = null
-  },
-
   registerChangeCallback (ctx, [key, cb]) {
     changeCallbacks[key] = cb
   },
 
-  async load ({ commit, getters, dispatch }) {
-    const settingsFile = getters.settingsFile
+  async loaded ({ commit, dispatch }, { settings, file }) {
     let missingKey = false
-    try {
-      await fs.promises.access(settingsFile, fs.constants.R_OK)
-      const settings = JSON.parse(await fs.promises.readFile(settingsFile))
+    if (settings) {
+      settings = { ...settings, file }
       if (!settings.clientId) {
         missingKey = true
         settings.clientId = randomId()
-      }
-      // migrate old format
-      if (settings.clientId.includes('-')) {
-        missingKey = true
-        settings.clientId = settings.clientId.replaceAll('-', '')
       }
       if (!settings.secret) {
         missingKey = true
         settings.secret = randomId()
       }
-      // migrate old format
-      if (settings.secret.includes('-')) {
-        missingKey = true
-        settings.secret = settings.secret.replaceAll('-', '')
-      }
       if (!settings.nickname) {
         missingKey = true
         settings.nickname = await username()
       }
-      if (settings.playOnlineUrl === null) {
+      // migrate legacy play online settings
+      if (settings.playOnlineUrl === null || settings.playOnlineUrl === 'play.jcloisterzone.com/ws') {
         missingKey = true
-        settings.playOnlineUrl = 'play.jcloisterzone.com/ws'
+        settings.playOnlineUrl = 'play-online.jcloisterzone.com/ws'
       }
-      commit('settings', settings)
-      console.log(`%c settings %c loaded ${settingsFile}`, CONSOLE_SETTINGS_COLOR, '')
-    } catch (e) {
-      // do nothong, settings doesn't exist
+      // migrate 5.6
+      if (settings.enabledArtworks.length > 0 && settings.enabledArtworks[0] === 'classic') {
+        missingKey = true
+        settings.enabledArtworks = ['classic/classic']
+      }
+      commit('settings', { settings, source: 'load' })
+      console.log(`%c settings %c loaded ${file}`, CONSOLE_SETTINGS_COLOR, '')
+    } else {
       missingKey = true
       commit('settings', {
-        clientId: randomId(),
-        secret: randomId(),
-        nickname: await username()
+        settings: {
+          file,
+          clientId: randomId(),
+          secret: randomId(),
+          nickname: await username()
+        },
+        source: 'load'
       })
-      console.log(`%c settings %c file ${settingsFile} doesn't exist. Creating default one.`, CONSOLE_SETTINGS_COLOR, '')
+      console.log(`%c settings %c file ${file} doesn't exist. Creating default one.`, CONSOLE_SETTINGS_COLOR, '')
     }
     if (missingKey) {
       dispatch('save')
@@ -156,34 +142,49 @@ export const actions = {
     commit('settingsLoaded', true, { root: true })
   },
 
-  async save ({ state, getters }) {
-    const settingsFile = getters.settingsFile
+  async save ({ state }) {
     try {
       const data = { ...state }
+      delete data.file
       if (data.devMode !== process.env.NODE_ENV === 'development') {
         delete data.devMode
       }
       data.clientId = data.clientId.split('--')[0] // for dev mode, do not store changed id
-      fileModifiedBySave = true
-      await fs.promises.writeFile(settingsFile, JSON.stringify(data, null, 2))
-      console.log(`%c settings %c writing ${settingsFile}`, CONSOLE_SETTINGS_COLOR, '')
-      fileModifiedBySave = false
+      await ipcRenderer.invoke('settings.save', data)
+      console.log(`%c settings %c saved to ${state.file}`, CONSOLE_SETTINGS_COLOR, '')
     } catch (e) {
       console.error(e)
       // do nothong, settings doesnt exist
     }
   },
 
-  async addRecentSave ({ state, commit, dispatch }, file) {
+  async addRecentSave ({ state, commit, dispatch }, { file, setup }) {
+    const bareSetup = { ...setup }
+    delete bareSetup.options
     const recentSaves = state.recentSaves.filter(f => f !== file) // if file is contained, it will be only reordered to begining
     recentSaves.unshift(file)
-    recentSaves.splice(RECENT_GAMES_COUNT, recentSaves.length)
+    recentSaves.splice(RECENT_SAVED_GAME_COUNT, recentSaves.length)
     commit('recentSaves', recentSaves)
+    dispatch('save')
+  },
+
+  async addRecentSetupSave ({ state, commit, dispatch }, { file, setup }) {
+    const bareSetup = { ...setup }
+    delete bareSetup.options
+    const recentSaves = state.recentSetupSaves.filter(f => f !== file) // if file is contained, it will be only reordered to begining
+    recentSaves.unshift(file)
+    recentSaves.splice(RECENT_SETUP_FILE_COUNT, recentSaves.length)
+    commit('recentSetupSaves', recentSaves)
     dispatch('save')
   },
 
   async clearRecentSaves ({ commit, dispatch }) {
     commit('recentSaves', [])
+    dispatch('save')
+  },
+
+  async clearRecentSetupSaves ({ commit, dispatch }) {
+    commit('recentSetupSaves', [])
     dispatch('save')
   },
 
@@ -208,23 +209,45 @@ export const actions = {
     }
   },
 
-  async addRecentGameSetup ({ state, commit, dispatch }, setup) {
+  async validateRecentSetupSaves ({ state, commit }) {
+    const invalid = {}
+    let containsInvalid = false
+    for (const f of state.recentSetupSaves) {
+      try {
+        await fs.promises.access(f, fs.constants.R_OK)
+      } catch (e) {
+        invalid[f] = true
+        containsInvalid = true
+      }
+    }
+    if (containsInvalid) {
+      commit('recentSetupSaves', state.recentSetupSaves.filter(f => !invalid[f]))
+    }
+  },
+
+  async addMySetup ({ state, commit, dispatch }, setup) {
+    const { $tiles } = this._vm
     const bareSetup = { ...setup }
     delete bareSetup.options
-    const recentGameSetups = state.recentGameSetups.filter(s => !isEqual(s, bareSetup)) // if file is contained, it will be only reordered to begining
-    recentGameSetups.unshift(bareSetup)
-    recentGameSetups.splice(RECENT_SETUPS_COUNT, recentGameSetups.length)
-    commit('recentGameSetups', recentGameSetups)
+    if (state.mySetups.find(s => isEqual(s, bareSetup))) return
+    const mySetups = [...state.mySetups, {
+      size: $tiles.getPackSize(setup.sets, setup.rules),
+      setup: bareSetup
+    }]
+    commit('mySetups', mySetups)
     dispatch('save')
   },
 
-  async clearRecentGameSetups ({ commit, dispatch }) {
-    commit('recentGameSetups', [])
+  async removeMySetup ({ state, commit, dispatch }, setup) {
+    const bareSetup = { ...setup }
+    delete bareSetup.options
+    const mySetups = state.mySetups.filter(s => !isEqual(s.setup, bareSetup))
+    commit('mySetups', mySetups)
     dispatch('save')
   },
 
   async update ({ commit, dispatch }, settings) {
-    commit('settings', settings)
+    commit('settings', { settings, source: 'update' })
     dispatch('save')
   }
 }

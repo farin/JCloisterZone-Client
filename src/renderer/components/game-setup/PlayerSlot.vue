@@ -6,7 +6,7 @@
     >
       {{ order }}
     </div>
-    <svg class="meeple" :width="105" :height="105">
+    <svg class="meeple" :width="$vuetify.breakpoint.height > 768 ? 105 : 80" :height="$vuetify.breakpoint.height > 768 ? 105 : 80">
       <use :href="`${MEEPLES_SVG}#small-follower`" />
     </svg>
     <div class="state">
@@ -34,7 +34,7 @@
         </v-card-title>
         <v-card-text>
           <v-container>
-            <v-text-field v-model="editName" label="Name" @keydown.enter="rename" />
+            <v-text-field ref="nameInput" v-model="editName" label="Name" @keydown.enter="rename" />
           </v-container>
         </v-card-text>
         <v-card-actions>
@@ -97,6 +97,9 @@ export default {
       if (!this.readOnly) {
         this.editName = this.name
         this.edit = true
+        setTimeout(() => {
+          this.$refs.nameInput.focus()
+        }, 1)
       }
     },
 
@@ -193,4 +196,25 @@ export default {
   &.open
     .order
       color: #ccc
+
+@media (max-height: 768px)
+  .player-slot
+    padding: 20px 0 10px 0
+
+    svg
+      margin-bottom: 20px
+
+    .state, .name
+      font-size: 20px
+
+    .order
+      font-size: 136px
+      top: -30px
+      right: -22px
+
+    .order-1
+      right: -29px
+
+    .order-4
+      right: -21px
 </style>

@@ -23,5 +23,11 @@ export const TOKEN_ORDERING = {
   LB_TOWER: 62,
   TUNNEL_A: 70,
   TUNNEL_B: 71,
-  TUNNEL_C: 72
+  TUNNEL_C: 72,
+  WINE: 100,
+  GRAIN: 101,
+  CLOTH: 102,
+  GOLD: 110,
+  KING: 120,
+  ROBBER: 121
 }

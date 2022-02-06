@@ -1,5 +1,15 @@
 <template>
   <v-app>
+    <div v-if="notifyConnectionReconnecting" class="top-bar">
+      <v-alert type="error">
+        Connection interrupted. Reconnecting&hellip;
+        <v-progress-linear
+          indeterminate
+          color="white"
+        />
+      </v-alert>
+    </div>
+
     <nuxt />
     <v-dialog
       v-model="showAbout"
@@ -29,6 +39,17 @@
         @close="showSettings = false"
       />
     </v-dialog>
+    <v-dialog
+      v-model="showErrorDialog"
+      content-class="error-dialog"
+      max-width="800"
+    >
+      <ErrorDialog
+        v-if="errorMessage"
+        :msg="errorMessage"
+        @close="showErrorDialog = false"
+      />
+    </v-dialog>
   </v-app>
 </template>
 
@@ -36,19 +57,23 @@
 import os from 'os'
 import fs from 'fs'
 import { extname } from 'path'
-import { webFrame, remote, shell, ipcRenderer } from 'electron'
+import { webFrame, shell, ipcRenderer } from 'electron'
 import { mapState, mapGetters } from 'vuex'
 
 import AboutDialog from '@/components/AboutDialog'
+import ErrorDialog from '@/components/ErrorDialog'
 import JoinGameDialog from '@/components/JoinGameDialog'
 import SettingsDialog from '@/components/SettingsDialog'
 import { getAppVersion } from '@/utils/version'
 
-const { Menu } = remote
+import { STATUS_CONNECTED } from '@/store/networking'
+
+const ZOOM_SENSITIVITY = 1.4
 
 export default {
   components: {
     AboutDialog,
+    ErrorDialog,
     JoinGameDialog,
     SettingsDialog
   },
@@ -59,10 +84,20 @@ export default {
     }
   },
 
+  head () {
+    return {
+      title: this.onlineConnected ? 'JCloisterZone @ ' + this.playOnlineHostname : 'JCloisterZone'
+    }
+  },
+
   computed: {
     ...mapState({
       java: state => state.java,
-      onlineConnected: state => state.networking.connectionType === 'online'
+      engine: state => state.engine,
+      connectionState: state => state.networking.connectionStatus,
+      onlineConnected: state => state.networking.connectionType === 'online',
+      playOnlineHostname: state => state.settings.playOnlineUrl.split('/')[0],
+      errorMessage: state => state.errorMessage
     }),
 
     ...mapGetters({
@@ -87,6 +122,20 @@ export default {
       set (value) {
         this.$store.commit('showSettings', value)
       }
+    },
+
+    showErrorDialog: {
+      get () {
+        return !!this.errorMessage
+      },
+
+      set (value) {
+        this.$store.commit('errorMessage', null)
+      }
+    },
+
+    notifyConnectionReconnecting () {
+      return this.connectionState === 'reconnecting'
     }
   },
 
@@ -107,6 +156,10 @@ export default {
       if (val) {
         this.$refs.settings?.clean()
       }
+    },
+
+    engine () {
+      this.updateMenu()
     }
   },
 
@@ -117,6 +170,70 @@ export default {
     ipcRenderer.on('update-progress', (event, progress) => {
       this.$store.commit('updateProgress', progress.percent)
     })
+
+    ipcRenderer.on('menu.playonline-connect', () => {
+      this.$store.dispatch('networking/connectPlayOnline')
+    })
+    ipcRenderer.on('menu.playonline-disconnect', () => {
+      this.$store.dispatch('networking/close')
+      this.$router.push('/')
+    })
+    ipcRenderer.on('menu.new-game', () => {
+      this.$store.dispatch('gameSetup/newGame')
+      this.$router.push('/game-setup')
+    })
+    ipcRenderer.on('menu.join-game', () => {
+      this.showJoinDialog = true
+    })
+    ipcRenderer.on('menu.leave-game', () => {
+      this.leaveGame()
+    })
+    ipcRenderer.on('menu.save-game', () => {
+      this.$store.dispatch('game/save')
+    })
+    ipcRenderer.on('menu.load-game', () => {
+      this.$store.dispatch('game/load')
+    })
+    ipcRenderer.on('menu.show-settings', () => {
+      this.showSettings = true
+    })
+    ipcRenderer.on('menu.undo', () => {
+      this.$store.dispatch('game/undo')
+    })
+    ipcRenderer.on('menu.zoom-in', () => {
+      this.$root.$emit('request-zoom', ZOOM_SENSITIVITY)
+    })
+    ipcRenderer.on('menu.zoom-out', () => {
+      this.$root.$emit('request-zoom', -ZOOM_SENSITIVITY)
+    })
+    ipcRenderer.on('menu.game-tiles', () => {
+      this.$store.commit('showGameTiles', !this.$store.state.showGameTiles)
+    })
+    ipcRenderer.on('menu.game-history', () => {
+      this.$store.commit('toggleGameHistory')
+    })
+    ipcRenderer.on('menu.game-setup', () => {
+      this.$store.commit('showGameSetup', true)
+    })
+    ipcRenderer.on('menu.rules', () => {
+      shell.openExternal('http://wikicarpedia.com/index.php/Main_Page')
+    })
+    ipcRenderer.on('menu.about', () => {
+      this.showAbout = true
+    })
+
+    ipcRenderer.on('menu.dump-server', () => {
+      this.dumpServer()
+    })
+    ipcRenderer.on('menu.test-runner', () => {
+      this.$router.push('/test-runner')
+    })
+    ipcRenderer.on('menu.reload-addons', () => {
+      this.loadAddons()
+    })
+    ipcRenderer.on('menu.theme-inspector', () => {
+      this.$router.push('/theme-inspector')
+    })
   },
 
   async mounted () {
@@ -126,81 +243,28 @@ export default {
     const onThemeChange = val => {
       if (val === 'dark') {
         this.$vuetify.theme.dark = true
-        remote.nativeTheme.themeSource = 'dark'
+        ipcRenderer.invoke('theme.change', 'dark')
       } else {
         this.$vuetify.theme.dark = false
-        remote.nativeTheme.themeSource = 'light'
+        ipcRenderer.invoke('theme.change', 'light')
       }
     }
 
-    await this.$store.dispatch('settings/load')
+    await this.$store.dispatch('settings/loaded', await ipcRenderer.invoke('settings.get'))
     onThemeChange(this.$store.state.settings.theme)
-
-    const isMac = process.platform === 'darwin'
-    const sessionSubmenu = [
-      { id: 'playonline-connect', label: 'Play Online', accelerator: 'CommandOrControl+P', click: this.playOnline },
-      { id: 'playonline-disconnect', label: 'Disconnect', click: this.disconnect },
-      { type: 'separator' },
-      { id: 'new-game', label: 'New Game', accelerator: 'CommandOrControl+N', click: this.newGame },
-      { id: 'join-game', label: 'Join Game', accelerator: 'CommandOrControl+J', click: this.joinGame },
-      { type: 'separator' },
-      { id: 'leave-game', label: 'Leave Game', click: this.leaveGame },
-      { type: 'separator' },
-      { id: 'save-game', label: 'Save Game', accelerator: 'CommandOrControl+S', click: this.saveGame },
-      { id: 'load-game', label: 'Load Game', accelerator: 'CommandOrControl+L', click: this.loadGame },
-      { type: 'separator' },
-      { id: 'settigns', label: 'Settings', accelerator: 'CommandOrControl+,', click: () => { this.showSettings = true } },
-      { type: 'separator' },
-      isMac ? { role: 'close' } : { role: 'quit' }
-    ]
-
-    if (!this.$store.state.settings['experimental.playOnline']) {
-      sessionSubmenu.splice(0, 3)
-    }
-
-    const template = [
-      {
-        label: 'Session',
-        submenu: sessionSubmenu
-      },
-      {
-        label: 'Game',
-        submenu: [
-          { id: 'undo', label: 'Undo', accelerator: 'CommandOrControl+Z', click: this.undo },
-          { type: 'separator' },
-          { id: 'zoom-in', label: 'Zoom In', accelerator: 'numadd', registerAccelerator: false, click: this.zoomIn },
-          { id: 'zoom-out', label: 'Zoom Out', accelerator: 'numsub', registerAccelerator: false, click: this.zoomOut },
-          { type: 'separator' },
-          { id: 'game-tiles', label: 'Tiles', accelerator: 't', click: this.toggleRemainingTiles },
-          { id: 'toggle-history', label: 'Toggle History', accelerator: 'h', click: this.toggleGameHistory },
-          { type: 'separator' },
-          { id: 'game-setup', label: 'Show game setup', click: this.showGameSetup }
-        ]
-      }, {
-        label: 'Help',
-        submenu: [
-          { label: 'Rules (WikiCarpedia)', click: this.showRules },
-          { type: 'separator' },
-          { label: 'About', click: () => { this.showAbout = true } }
-        ]
-      }
-    ]
-    if (this.$store.state.settings.devMode) {
-      template.push({
-        label: 'Dev',
-        submenu: [
-          { role: 'toggleDevTools', label: 'Toggle DevTools' },
-          { label: 'Change clientId', click: this.changeClientId },
-          { id: 'dump-server', label: 'Dump hosted game server state', click: this.dumpServer },
-          { label: 'Reload artwokrs', click: () => { this.$theme.loadArtworks() } },
-          { id: 'theme-inspector', label: 'Theme inspector', click: () => { this.$router.push('/theme-inspector') } }
-        ]
-      })
-    }
-
-    this.menu = Menu.buildFromTemplate(template)
     this.updateMenu()
-    Menu.setApplicationMenu(this.menu)
+
+    ipcRenderer.on('error', (ev, value) => {
+      this.$store.commit('errorMessage', value)
+    })
+
+    ipcRenderer.on('settings.changed', (ev, value) => {
+      this.$store.dispatch('settings/loaded', value)
+    })
+
+    ipcRenderer.on('settings.update', (ev, update) => {
+      this.$store.dispatch('settings/update', update)
+    })
 
     try {
       await this.$store.dispatch('checkJavaVersion')
@@ -210,77 +274,61 @@ export default {
     } catch {
       // do nothing, state flags asre set
     }
-    this.$store.dispatch('loadPlugins')
+
+    await this.loadAddons()
 
     window.addEventListener('keydown', this.onKeyDown)
 
-    this.$store.dispatch('settings/watchSettingsFile')
-    // todo watch also artworks folder
-
     await this.$store.dispatch('settings/registerChangeCallback', ['theme', onThemeChange])
-    await this.$store.dispatch('settings/registerChangeCallback', ['userArtworks', () => { this.$theme.loadPlugins() }])
-    await this.$store.dispatch('settings/registerChangeCallback', ['enabledArtworks', () => { this.$theme.loadArtworks() }])
+    await this.$store.dispatch('settings/registerChangeCallback', ['userAddons', () => { this.loadAddons() }])
+    await this.$store.dispatch('settings/registerChangeCallback', ['enabledArtworks', (_, source) => {
+      if (source === 'load') {
+        // load only when triggered by manual user change, otherwise it's cause by addon install/uninstall and reloaed from her
+        this.$theme.loadArtworks()
+      }
+    }])
     await this.$store.dispatch('settings/registerChangeCallback', ['dev', () => { this.updateMenu() }])
-    await this.$store.dispatch('settings/registerChangeCallback', ['experimental.playOnline', () => { this.updateMenu() }])
+
+    this.$addons.on('change', () => {
+      this.loadAddons()
+    })
   },
 
   beforeDestroy () {
-    this.$store.dispatch('settings/unwatchSettingsFile')
     window.removeEventListener('keydown', this.onKeyDown)
   },
 
   methods: {
+    async loadAddons () {
+      await this.$addons.loadAddons()
+      await this.$tiles.loadExpansions()
+
+      // during start up, don't wait for artworks, theme can be loaded in background
+      this.$theme.loadArtworks()
+    },
+
     updateMenu () {
-      if (!this.menu) {
-        return
-      }
       const routeName = this.$route.name
       const gameOpen = routeName === 'game-setup' || routeName === 'open-game' || routeName === 'game'
       const gameRunning = routeName === 'game'
-      const playOnlineConnect = this.menu.getMenuItemById('playonline-connect')
-      const playOnlineDisConnect = this.menu.getMenuItemById('playonline-disconnect')
-      playOnlineConnect && (playOnlineConnect.enabled = !this.onlineConnected && !gameOpen)
-      playOnlineDisConnect && (playOnlineDisConnect.enabled = this.onlineConnected)
-      this.menu.getMenuItemById('new-game').enabled = !this.onlineConnected && !gameOpen
-      this.menu.getMenuItemById('join-game').enabled = !this.onlineConnected && !gameOpen
-      this.menu.getMenuItemById('leave-game').enabled = gameOpen
-      this.menu.getMenuItemById('save-game').enabled = gameRunning
-      this.menu.getMenuItemById('load-game').enabled = !gameOpen
-      this.menu.getMenuItemById('undo').enabled = gameRunning && this.undoAllowed
-      this.menu.getMenuItemById('zoom-in').enabled = gameRunning
-      this.menu.getMenuItemById('zoom-out').enabled = gameRunning
-      this.menu.getMenuItemById('toggle-history').enabled = gameRunning
-      this.menu.getMenuItemById('game-tiles').enabled = gameRunning
-      this.menu.getMenuItemById('game-setup').enabled = gameRunning
 
-      if (this.$store.state.settings.devMode) {
-        // devMode can be change in runtime, then menu item may not exist
-        const dumpServerItem = this.menu.getMenuItemById('dump-server')
-        if (dumpServerItem) {
-          dumpServerItem.enabled = this.$server.isRunning()
-        }
-        const inspectorItem = this.menu.getMenuItemById('theme-inspector')
-        if (inspectorItem) {
-          inspectorItem.enabled = !gameOpen
-        }
-      }
-    },
-
-    playOnline () {
-      this.$store.dispatch('networking/connectPlayOnline')
-    },
-
-    disconnect () {
-      this.$store.dispatch('networking/close')
-      this.$router.push('/')
-    },
-
-    newGame () {
-      this.$store.dispatch('gameSetup/newGame')
-    },
-
-    joinGame () {
-      this.showJoinDialog = true
+      ipcRenderer.invoke('update-menu', {
+        'playonline-connect': !this.onlineConnected && !gameOpen && this.engine?.ok,
+        'playonline-disconnect': this.onlineConnected,
+        'new-game': !this.onlineConnected && !gameOpen,
+        'join-game': !this.onlineConnected && !gameOpen && this.engine?.ok,
+        'leave-game': gameOpen,
+        'save-game': gameRunning,
+        'load-game': !gameOpen && this.engine?.ok,
+        'undo': gameRunning && this.undoAllowed,
+        'zoom-in': gameRunning,
+        'zoom-out': gameRunning,
+        'toggle-history': gameRunning,
+        'game-tiles': gameRunning,
+        'game-setup': gameRunning,
+        'dump-server': this.$server.isRunning(),
+        'theme-inspector': !gameOpen
+      })
     },
 
     leaveGame () {
@@ -288,7 +336,9 @@ export default {
         const { $connection } = this
         const gameId = this.$store.state.game.id
         if (gameId) {
-          $connection.send({ type: 'LEAVE_GAME', payload: { gameId } })
+          if (this.$store.state.networking.connectionStatus === STATUS_CONNECTED) {
+            $connection.send({ type: 'LEAVE_GAME', payload: { gameId } })
+          }
         }
         this.$router.push('/online')
       } else {
@@ -297,63 +347,23 @@ export default {
       }
     },
 
-    async saveGame () {
-      await this.$store.dispatch('game/save')
-    },
-
-    async loadGame () {
-      await this.$store.dispatch('game/load')
-    },
-
-    undo () {
-      this.$store.dispatch('game/undo')
-    },
-
-    zoomIn () {
-      this.$root.$emit('request-zoom', 1.4)
-    },
-
-    zoomOut () {
-      this.$root.$emit('request-zoom', -1.4)
-    },
-
-    toggleRemainingTiles () {
-      this.$store.commit('showGameTiles', !this.$store.state.showGameTiles)
-    },
-
-    toggleGameHistory () {
-      this.$store.commit('toggleGameHistory')
-    },
-
-    showGameSetup () {
-      this.$store.commit('showGameSetup', true)
-    },
-
-    showRules () {
-      shell.openExternal('http://wikicarpedia.com/index.php/Main_Page')
-    },
-
     onKeyDown (ev) {
       if (ev.key === '+') { // bind both + and numpad +
-        this.zoomIn()
+        this.$root.$emit('request-zoom', ZOOM_SENSITIVITY)
         return
       }
       if (ev.key === '-') {
-        this.zoomOut()
+        this.$root.$emit('request-zoom', -ZOOM_SENSITIVITY)
         return
       }
-      if (ev.key === 'Escape' && this.showAbout) {
-        this.showAbout = false
-        ev.preventDefault()
-        ev.stopPropagation()
+      if (ev.key === 'Escape') {
+        this.$store.commit('board/pointsExpression', null)
+        if (this.showAbout) {
+          this.showAbout = false
+          ev.preventDefault()
+          ev.stopPropagation()
+        }
       }
-    },
-
-    changeClientId () {
-      const [base, suffix = '0'] = this.$store.state.settings.clientId.split('--', 2)
-      const newId = `${base}--${~~suffix + 1}`
-      this.$store.commit('settings/clientId', newId)
-      console.log(`Client id changed to ${newId}`)
     },
 
     async dumpServer () {
@@ -363,11 +373,10 @@ export default {
         date: (new Date()).toISOString(),
         os: `${os.platform()} ${os.release()}`,
         java: this.java ? `${this.java.vendor} ${this.java.version}` : '',
-        ...this.$server.getServer().dump()
+        ...(await this.$server.dump())
       }
 
-      const { dialog } = remote
-      let { filePath } = await dialog.showSaveDialog({
+      let { filePath } = await ipcRenderer.invoke('dialog.showSaveDialog', {
         title: 'Save Server Dump',
         filters: [{ name: 'JSON files', extensions: ['json'] }],
         properties: ['createDirectory', 'showOverwriteConfirmation']
@@ -399,6 +408,8 @@ export default {
 :root
   --aside-width: 290px
   --aside-width-plus-gap: #{290px + $panel-gap}
+  --action-bar-height: 84px
+  --game-setup-header-height: 72px
 
   @media #{map-get($display-breakpoints, 'lg-and-down')}
     --aside-width: 250px
@@ -407,6 +418,10 @@ export default {
   @media #{map-get($display-breakpoints, 'md-and-down')}
     --aside-width: 210px
     --aside-width-plus-gap: #{210px + $panel-gap}
+
+  @media (max-height: 768px)
+    --action-bar-height: 60px
+    --game-setup-header-height: 50px
 
 html
   overflow-y: auto
@@ -419,7 +434,7 @@ body
   min-height: 100vh
 
 svg, g, use
-  &.dragon
+  &.dragon, &.bigtop
     fill: $dragon-color
 
 svg, g, use
@@ -442,6 +457,13 @@ svg, g, use
   height: 80vh
   display: grid
 
-#theme-resources
+#theme-resources, #symbols
   display: none
+
+.top-bar
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  z-index: 999
 </style>

@@ -1,0 +1,219 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "1",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-22T14:03:10.507Z",
+  "clock": 1,
+  "test": {
+    "description": "Cathedrals scoring",
+    "assertions": [
+      "Alice has 15 points",
+      "Bob has 0 points",
+      "Alice scored city for 15 points",
+      "Bob scored city for 0 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "inns-and-cathedrals:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "big-follower": 1,
+      "cathedral": true,
+      "inn": true
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "IC/Cccc.c",
+        "rotation": "R0",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 1616
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -1
+          ],
+          "feature": "City",
+          "location": "NWSE"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 1993
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 2144
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CFC.2",
+        "rotation": "R0",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 1,
+      "clock": 3271
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 3922
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 3928
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CFC.2",
+        "rotation": "R90",
+        "position": [
+          1,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 5100
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 5315
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 5330
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "IC/Cccc.c",
+        "rotation": "R0",
+        "position": [
+          2,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 6107
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            2,
+            -1
+          ],
+          "feature": "City",
+          "location": "NWSE"
+        },
+        "meepleId": "1.small.1"
+      },
+      "player": 1,
+      "clock": 6561
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 6855
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R90",
+        "position": [
+          -1,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 8007
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 8558
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 8565
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "IC/Cccc.c",
+      "BA/CFC.2",
+      "BA/CFC.2",
+      "IC/Cccc.c",
+      "BA/C",
+      "BA/C"
+    ],
+    "endTurn": 5
+  }
+}

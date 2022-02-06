@@ -1,0 +1,213 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "e60c411455744a0d9cc49e98edd04106",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-23T06:39:34.494Z",
+  "clock": 41592,
+  "test": {
+    "description": "Barn scoring",
+    "assertions": [
+      "Alice has 14 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "abbey-and-mayor:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "barn": 1,
+      "wagon": 1,
+      "mayor": 1,
+      "abbey": 1
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0,
+      "clientId": "940fcdf0041e4a7e9f8b07c1b8aaab02"
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 1610
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -1
+          ],
+          "feature": "Field",
+          "location": "NL.NR.EL.ER.WL.WR"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 2150
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 2631
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R0",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 3619
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 3876
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 3882
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [
+          0,
+          -3
+        ]
+      },
+      "player": 0,
+      "clock": 4977
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 5643
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 5650
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R0",
+        "position": [
+          1,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 7055
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 7589
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 7596
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R90",
+        "position": [
+          1,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 8731
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            -1
+          ],
+          "feature": "Field",
+          "location": "NL.NR.SL.SR.WL.WR"
+        },
+        "meepleId": "0.barn.1"
+      },
+      "player": 0,
+      "clock": 11354
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 15679
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/C",
+      "BA/C",
+      "BA/C",
+      "BA/C",
+      "BA/C"
+    ],
+    "endTurn": 5
+  }
+}

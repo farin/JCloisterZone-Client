@@ -12,11 +12,17 @@
         :removed-tiles-size="removedTilesSize"
         @click.native="tilePackOpen = !tilePackOpen"
       />
-      <aside ref="aside" :class="`shrink-${shrink}`">
+      <aside
+        ref="aside"
+        :class="{
+          [`shrink-${shrink}`]: true,
+          'active-player-indicator-bg-color': activePlayerIndicatorBgColor
+        }"
+      >
         <PlayerPanel
-          v-for="(player, idx) in players"
-          :key="idx"
-          :index="idx"
+          v-for="({player, index}) in orderedPlayers"
+          :key="index"
+          :index="index"
           :player="player"
         />
       </aside>
@@ -26,6 +32,7 @@
       />
       <PlayEvents />
       <FinalScoringEvents v-if="phase === 'GameOverPhase'" />
+      <FinalStats v-if="showGameStats" />
       <div
         v-if="gameDialog"
         class="game-modal"
@@ -61,13 +68,13 @@
 </template>
 
 <script>
-import path from 'path'
-import { mapState } from 'vuex'
-import { remote } from 'electron'
+import { mapGetters, mapState } from 'vuex'
+import { ipcRenderer } from 'electron'
 
 import ActionPanel from '@/components/game/ActionPanel.vue'
 import Board from '@/components/game/Board.vue'
 import FinalScoringEvents from '@/components/game/FinalScoringEvents.vue'
+import FinalStats from '@/components/game/FinalStats.vue'
 import ChooseMonkOrAbbotDialog from '@/components/game/dialogs/ChooseMonkOrAbbotDialog.vue'
 import PlayerPanel from '@/components/game/PlayerPanel.vue'
 import PlayEvents from '@/components/game/PlayEvents.vue'
@@ -82,6 +89,7 @@ export default {
     Board,
     ChooseMonkOrAbbotDialog,
     FinalScoringEvents,
+    FinalStats,
     GameSetupDialog,
     PlayerPanel,
     PlayEvents,
@@ -92,7 +100,8 @@ export default {
 
   data () {
     return {
-      shrink: 0
+      shrink: 0,
+      showFinalStats: true
     }
   },
 
@@ -113,8 +122,31 @@ export default {
         const { drawOrder, endTurn } = state.game.gameAnnotations
         return !!(drawOrder || endTurn)
       },
-      gameHash: state => state.game.hash
+      gameHash: state => state.game.hash,
+      playerListRotate: state => state.settings.playerListRotate,
+      activePlayerIndicatorBgColor: state => state.settings.activePlayerIndicatorBgColor,
+      showGameStats: state => state.game.showGameStats
     }),
+
+    ...mapGetters({
+      localPlayers: 'game/localPlayers'
+    }),
+
+    orderedPlayers () {
+      const players = this.players.map((player, index) => ({ player, index }))
+
+      if (this.playerListRotate === 'active-on-top' && this.activePlayerIdx) {
+        const n = this.activePlayerIdx
+        return [...players.slice(n, players.length), ...players.slice(0, n)]
+      }
+
+      if (this.playerListRotate === 'local-on-top' && this.localPlayers.length) {
+        const n = this.localPlayers[0]
+        return [...players.slice(n, players.length), ...players.slice(0, n)]
+      }
+
+      return players
+    },
 
     tilePackOpen: {
       get () {
@@ -151,7 +183,7 @@ export default {
 
   beforeCreate () {
     // useful for dev mode, reload on this page redirects back to home
-    if (!this.$connection.isConnectedOrConnecting()) {
+    if (!this.$store.state.networking.connectionType) {
       this.$store.dispatch('game/close')
       this.$router.push('/')
     }
@@ -189,18 +221,7 @@ export default {
         icon = 'default.png'
       }
 
-      try {
-        const { BrowserWindow, app } = remote
-        const w = BrowserWindow.getAllWindows()[0]
-        if (process.env.NODE_ENV === 'development') {
-          w.setIcon(path.join('icons', icon))
-        } else {
-          const basePath = path.dirname(app.getAppPath())
-          w.setIcon(path.join(basePath, 'icons', icon))
-        }
-      } catch (e) {
-        console.error(e)
-      }
+      ipcRenderer.invoke('win.setIcon', icon)
     },
 
     onRezize () {
@@ -221,7 +242,7 @@ export default {
             this.shrinkChanged = false
           } else {
             // triggered by changed content
-            this.shrinkSizes = [null, null, null]
+            this.shrinkSizes = [null, null, null, null]
             this.checkOverflow()
           }
         })
@@ -236,7 +257,7 @@ export default {
         sizes[this.shrink] = height
       }
 
-      if (availableHeight < height && this.shrink < 2) {
+      if (availableHeight < height && this.shrink < 3) {
         this.shrink += 1
         this.shrinkChanged = true
         setTimeout(this.checkOverflow, 1)
@@ -263,7 +284,7 @@ export default {
 
   .forced-draw, .test-result
     position: absolute
-    top: #{$action-bar-height + $panel-gap}
+    top: calc(var(--action-bar-height) + #{$panel-gap})
     right: var(--aside-width-plus-gap)
 
   .forced-draw
@@ -282,7 +303,7 @@ export default {
   top: 0
   right: 0
   width: var(--aside-width)
-  height: $action-bar-height
+  height: var(--action-bar-height)
   cursor: pointer
 
   +theme using ($theme)
@@ -290,13 +311,16 @@ export default {
 
 aside
   position: absolute
-  top: #{$action-bar-height + $panel-gap}
+  top: calc(var(--action-bar-height) + #{$panel-gap})
   right: 0
   width: var(--aside-width)
-  // max-height: calc(100vh - #{$action-bar-height + $panel-gap})
   user-select: none
   display: flex
   flex-direction: column
+  z-index: 2
+
+  &.shrink-3
+    top: calc(var(--action-bar-height) + 2px)
 
 .game-modal
   position: absolute

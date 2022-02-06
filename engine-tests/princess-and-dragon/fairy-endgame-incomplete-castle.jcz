@@ -1,0 +1,176 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "1",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2020-09-15T20:58:42.306Z",
+  "clock": 0,
+  "test": {
+    "description": "A fairy bonus is not warded because castle is not scored at the end",
+    "assertions": [
+      "Oscar has 2 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "bridges-castles-and-bazaars:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "bridge": 1,
+      "castle": 1,
+      "bazaar": true,
+      "fairy": 1
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ]
+  },
+  "players": [
+    {
+      "name": "Oscar",
+      "slot": 7
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            1
+          ],
+          "feature": "City",
+          "location": "S"
+        },
+        "meepleId": "0.small.1"
+      }
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      }
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R0",
+        "position": [
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "type": "MOVE_NEUTRAL_FIGURE",
+      "payload": {
+        "figureId": "fairy.1",
+        "to": {
+          "featurePointer": {
+            "position": [
+              0,
+              1
+            ],
+            "feature": "City",
+            "location": "S"
+          },
+          "meepleId": "0.small.1"
+        }
+      }
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      }
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R0",
+        "position": [
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "type": "PASS",
+      "payload": {}
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "CASTLE",
+        "pointer": {
+          "position": [
+            0,
+            2
+          ],
+          "feature": "City",
+          "location": "N"
+        }
+      }
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      }
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R0",
+        "position": [
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "type": "PASS",
+      "payload": {}
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      }
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/C",
+      "BA/RFr",
+      "BA/C",
+      "BA/RFr"
+    ],
+    "endTurn": 4
+  }
+}

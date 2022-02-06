@@ -1,0 +1,119 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "c6e44ab30e69439ea91b472f728da05e",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-23T13:06:17.880Z",
+  "clock": 62304,
+  "test": {
+    "description": "Yaga hut scoring",
+    "assertions": [
+      "Alice has 7 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1,
+      "russian-promos/2013": 1,
+      "russian-promos/2016": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "RU/L",
+        "rotation": "R0",
+        "position": [
+          0,
+          1
+        ]
+      },
+      "player": 0,
+      "clock": 2441
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            1
+          ],
+          "feature": "YagaHut",
+          "location": "I"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 3633
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 4854
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R0",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 5539
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 6430
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 6437
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "RU/L",
+      "BA/RFr"
+    ],
+    "endTurn": 2
+  }
+}

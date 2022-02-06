@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defs>
+  <tiles>
+    <tile id="GQ/RFI" max="1" group="river-spring">
+      <river>E</river>
+      <road>W</road>
+      <field>WR NL NR EL</field>
+      <field>ER SL SR WL</field>
+    </tile>
+    <tile id="GQ/CICI" group="river">
+      <river>W E</river>
+      <city>N</city>
+      <city>S</city>
+      <field city="N">WR EL</field>
+      <field city="S">WL ER</field>
+    </tile>
+    <tile id="GQ/LRRRR">
+      <monastery wagon-move="a b c d"/>
+      <road wagon-move="a">N</road>
+      <road wagon-move="b">W</road>
+      <road wagon-move="c">S</road>
+      <road wagon-move="d">E</road>
+      <field>WR NL</field>
+      <field>NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="GQ/F">
+      <field pig-herd="true">NL NR SL SR WL WR EL ER</field>
+    </tile>
+    <tile id="GQ/CRc">
+      <city wagon-move="a">W E</city>
+      <road wagon-move="a">S</road>
+      <field city="W">NL NR</field>
+      <field city="W">SR</field>
+      <field city="W">SL</field>
+    </tile>
+    <tile id="GQ/CRcR.1">
+      <city wagon-move="a b">W E</city>
+      <road wagon-move="a">S</road>
+      <road wagon-move="b">N</road>
+      <field city="W">NR</field>
+      <field city="W">NL</field>
+      <field city="W">SR</field>
+      <field city="W">SL</field>
+    </tile>
+    <tile id="GQ/CRCr.2">
+      <road>W E</road>
+      <city>N</city>
+      <city>S</city>
+      <field city="N">WR EL</field>
+      <field city="S">ER WL</field>
+    </tile>
+    <tile id="GQ/CRRr">
+      <road wagon-move="a">E</road>
+      <road>S W</road>
+      <city wagon-move="a">N</city>
+      <field city="N">EL</field>
+      <field city="N">ER SL WR</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="GQ/Cc!">
+      <city>N W</city>
+      <field city="N">SL SR</field>
+      <field city="N">EL ER</field>
+    </tile>
+    <tile id="GQ/RCc">
+      <city wagon-move="a">N W</city>
+      <road wagon-move="a">S</road>
+      <field city="N">SR</field>
+      <field city="N">SL EL ER</field>
+    </tile>
+    <tile id="GQ/CcRR">
+      <city wagon-move="a b">N W</city>
+      <road wagon-move="a">S</road>
+      <road wagon-move="b">E</road>
+      <field city="N">SR</field>
+      <field city="N">EL</field>
+      <field city="N">SL ER</field>
+    </tile>
+    <tile id="GQ/CcCR">
+      <city wagon-move="a">N W</city>
+      <city>E</city>
+      <road wagon-move="a">S</road>
+      <field city="N">SR</field>
+      <field city="N E">SL</field>
+    </tile>
+  </tiles>
+  <sets>
+    <tile-set id="gq11">
+      <ref count="1" tile="GQ/LRRRR" />
+      <ref count="1" tile="GQ/F" />
+      <ref count="1" tile="GQ/CRc" />
+      <ref count="1" tile="GQ/CRcR.1" />
+      <ref count="1" tile="GQ/CRCr.2" />
+      <ref count="1" tile="GQ/CRRr" />
+      <ref count="1" tile="GQ/Cc!" />
+      <ref count="1" tile="GQ/RCc" />
+      <ref count="1" tile="GQ/CcRR" />
+      <ref count="1" tile="GQ/CcCR" />
+    </tile-set>
+    <tile-set id="gq11/river">
+      <requires expansion="RIVER" />
+      <ref count="1" tile="GQ/RFI" />
+      <ref count="1" tile="GQ/CICI" />
+    </tile-set>
+  </sets>
+</defs>

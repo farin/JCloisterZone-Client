@@ -5,8 +5,8 @@
         <pattern
           :id="artwork.id + '/bg'"
           :key="artwork.id + '/bg'"
-          :width="artwork.background.cols * 1000"
-          :height="artwork.background.rows * 1000"
+          :width="artwork.background.cols * BASE_SIZE"
+          :height="artwork.background.rows * BASE_SIZE"
           :viewBox="`0 0 ${artwork.background.cols * artwork.tileSize} ${artwork.background.rows * artwork.tileSize}`"
           patternUnits="userSpaceOnUse"
         >
@@ -20,8 +20,8 @@
           <rect
             v-for="pos in positions"
             :key="'clip-' + positionAsKey(pos)"
-            width="1000"
-            height="1000"
+            :width="BASE_SIZE"
+            :height="BASE_SIZE"
             fill="white"
             :transform="transformPosition(pos)"
             :opacity="tilePlacementMouseOver && tilePlacementMouseOver[0] === pos ? PREVIEW_OPACITY : 1"
@@ -35,9 +35,10 @@
         v-for="({position: pos}) in tiles"
         :key="'bg-' + positionAsKey(pos)"
         class="tiles-border"
-        x="-80" y="-80"
-        width="1160"
-        height="1160"
+        :x="-BORDER_SIZE"
+        :y="-BORDER_SIZE"
+        :width="BASE_SIZE + 2 * BORDER_SIZE"
+        :height="BASE_SIZE + 2 * BORDER_SIZE"
         :transform="transformPosition(pos)"
       />
     </g>
@@ -45,10 +46,10 @@
     <rect
       v-for="({ artwork }) in artworksWithBackground"
       :key="artwork.id + '/bg-rect'"
-      :x="1000 * (bounds.x - 1)"
-      :y="1000 * (bounds.y - 1)"
-      :width="1000 * (bounds.width + 2)"
-      :height="1000 * (bounds.height + 2)"
+      :x="BASE_SIZE * (bounds.x - 1)"
+      :y="BASE_SIZE * (bounds.y - 1)"
+      :width="BASE_SIZE * (bounds.width + 2)"
+      :height="BASE_SIZE * (bounds.height + 2)"
       :fill="`url(#${artwork.id}/bg)`"
       :mask="`url(#${artwork.id}/placed-tiles-clip)`"
     />
@@ -60,10 +61,10 @@
       :transform="transformPosition(pos)"
     >
       <g class="last-placement">
-        <polygon points="0,0 -120,0 0,-120" />
-        <polygon points="1000,1000 1120,1000 1000,1120" />
-        <polygon points="1000,0 1120,0 1000,-120" />
-        <polygon points="0,1000 0,1120 -120,1000" />
+        <polygon :points="`0,0 -${TRIANGLE_SIZE},0 0,-${TRIANGLE_SIZE}`" />
+        <polygon :points="`${BASE_SIZE},${BASE_SIZE} ${BASE_SIZE + TRIANGLE_SIZE},${BASE_SIZE} ${BASE_SIZE},${BASE_SIZE + TRIANGLE_SIZE}`" />
+        <polygon :points="`${BASE_SIZE},0 ${BASE_SIZE + TRIANGLE_SIZE},0 ${BASE_SIZE},-${TRIANGLE_SIZE}`" />
+        <polygon :points="`0,${BASE_SIZE} 0,${BASE_SIZE + TRIANGLE_SIZE} -${TRIANGLE_SIZE},${BASE_SIZE}`" />
       </g>
     </g>
 
@@ -88,10 +89,10 @@
       :transform="transformPosition(pos)"
     >
       <g class="last-placement over">
-        <polygon points="0,0 -120,0 0,-120" />
-        <polygon points="1000,1000 1120,1000 1000,1120" />
-        <polygon points="1000,0 1120,0 1000,-120" />
-        <polygon points="0,1000 0,1120 -120,1000" />
+        <polygon :points="`0,0 -${TRIANGLE_SIZE},0 0,-${TRIANGLE_SIZE}`" />
+        <polygon :points="`${BASE_SIZE},${BASE_SIZE} ${BASE_SIZE + TRIANGLE_SIZE},${BASE_SIZE} ${BASE_SIZE},${BASE_SIZE + TRIANGLE_SIZE}`" />
+        <polygon :points="`${BASE_SIZE},0 ${BASE_SIZE + TRIANGLE_SIZE},0 ${BASE_SIZE},-${TRIANGLE_SIZE}`" />
+        <polygon :points="`0,${BASE_SIZE} 0,${BASE_SIZE + TRIANGLE_SIZE} -${TRIANGLE_SIZE},${BASE_SIZE}`" />
       </g>
     </g>
   </g>
@@ -103,6 +104,7 @@ import { mapGetters, mapState } from 'vuex'
 
 import LayerMixin from '@/components/game/layers/LayerMixin'
 import TileImage from '@/components/game/TileImage'
+import { BASE_SIZE } from '@/constants/ui'
 
 const PREVIEW_OPACITY = 0.8
 
@@ -116,6 +118,9 @@ export default {
   data () {
     return {
       PREVIEW_OPACITY,
+      BASE_SIZE,
+      TRIANGLE_SIZE: BASE_SIZE * 0.12,
+      BORDER_SIZE: BASE_SIZE * 0.08,
       artworks: {},
       artworksWithBackground: [],
       layerBuckets: []
@@ -225,7 +230,7 @@ export default {
       }
       this.layerBuckets = buckets
       this.artworks = Object.values(artworks)
-      this.artworksWithBackground = this.artworks.filter(({ artwork }) => artwork.background)
+      this.artworksWithBackground = this.artworks.filter(({ artwork }) => artwork?.background)
     }
   }
 }

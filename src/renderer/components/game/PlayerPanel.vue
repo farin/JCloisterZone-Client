@@ -1,25 +1,33 @@
 <template>
+  <!-- use bg-color-N on whole section to not interact with capturd meeples-->
   <section
     :class="{
       'active-turn': index === turnPlayer,
-      'active-action': index === actionPlayer
+      'active-action': index === actionPlayer,
+      'offline': !slot.sessionId,
+      [color.replaceAll('color', 'panel-color')]: true
     }"
   >
-    <div :class="'name-box ' + colorCssClass(index)">
+    <div :class="'name-box '+ color">
       <div class="points">
         <div>{{ player.points }}</div>
       </div>
-      <div class="name">{{ player.name }}</div>
-    </div>
-    <div v-if="!slot.sessionId" class="disconnected">
-      <!--v-icon>fas fa-exclamation</v-icon-->Disconnected
+      <div class="name">
+        <div>
+          <span class="name-label">{{ player.name }}</span>
+          <template v-if="!slot.sessionId">
+            <br>
+            <span class="offline-label">Offline</span>
+          </template>
+        </div>
+      </div>
     </div>
     <PlayerClock v-if="timer" :player="index" />
     <div ref="resources" class="resources">
       <div
         v-for="({ follower, count }) in followers"
         :key="follower"
-        :class="'item item-follower ' + colorCssClass(index)"
+        :class="'item item-follower ' + color"
       >
         <Meeple :type="follower" />
         <span v-if="count > 1" class="count">{{ count }}</span>
@@ -99,6 +107,10 @@ export default {
       canPayRansom: 'game/canPayRansom'
     }),
 
+    color () {
+      return this.colorCssClass(this.index)
+    },
+
     slot () {
       return this.$store.state.game.slots.find(s => s.number === this.player.slot)
     },
@@ -166,25 +178,30 @@ section
   word-wrap: none
   white-space: nowrap
   padding-left: 16px
+  line-height: 1.2
 
   +theme using ($theme)
     color: map-get($theme, 'player-panel-name-color')
 
-.disconnected
+.offline-label
   text-transform: uppercase
-  text-align: center
-  padding: 12px 0
-  font-weight: 500
-  color: rgba(0, 0, 0, 0.87)
-  background: #FFECB3
+  font-weight: 400
+  letter-spacing: 0.9px
 
 .active-turn
-  .name
+  .name-label
     text-decoration: underline dotted
 
 .active-action
-  .name
+  .name-box
+    +theme using ($theme)
+      background: map-get($theme, 'player-panel-active-name-bg')
+
+  .name-label
     text-decoration: underline solid
+
+    +theme using ($theme)
+      color: map-get($theme, 'player-panel-active-name-color')
 
 .points
   position: absolute
@@ -259,6 +276,9 @@ aside.shrink-0
     font-size: 18px
     margin-left: 65px
 
+    .offline-label
+      font-size: 14px
+
   .points
     border-radius: 30px
     width: 90px
@@ -289,6 +309,9 @@ aside.shrink-1
     font-size: 16px
     margin-left: 55px
 
+    .offline-label
+      font-size: 13px
+
   .points
     border-radius: 25px
     width: 80px
@@ -309,7 +332,7 @@ aside.shrink-1
       top: -6px
       margin-right: -14px
 
-aside.shrink-2
+aside.shrink-2, aside.shrink-3
   section
     padding-top: 5px
 
@@ -320,12 +343,18 @@ aside.shrink-2
     font-size: 14px
     margin-left: 45px
 
+    .offline-label
+      font-size: 11px
+
   .points
     border-radius: 20px
     width: 70px
 
     > div
       font-size: 26px
+
+  .item
+    height: 28px
 
   .resources
     padding: 9px 6px 3px
@@ -339,4 +368,33 @@ aside.shrink-2
       left: -12px
       top: -4px
       margin-right: -18px
+
+aside.shrink-3
+  section
+    margin-bottom: 2px
+
+  .name-box
+    display: inline-block
+    float: left
+
+  .name
+    display: none
+
+  .points
+    height: 28px
+    width: 50px
+    border-radius: 14px
+    margin-top: -1px
+
+    > div
+      font-size: 20px
+
+  .item
+    height: 26px
+
+  .resources
+    padding: 3px 2px 3px 6px
+
+    .item:first-child
+      padding-left: 25px
 </style>

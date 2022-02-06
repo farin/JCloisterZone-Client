@@ -1,11 +1,12 @@
 <template>
   <div class="points-source">
     <div
-      v-for="p in ev.points"
-      :key="p.player"
+      v-for="(p, idx) in ev.points"
+      :key="idx"
       :class="'points ' + colorCssClass(p.player)"
       @mouseenter="onMouseEnter(p)"
       @mouseleave="onMouseLeave()"
+      @click="persistBreakdown = !persistBreakdown"
     >
       {{ p.points }}
     </div>
@@ -20,6 +21,12 @@ export default {
     ev: { type: Object, required: true }
   },
 
+  data () {
+    return {
+      persistBreakdown: false
+    }
+  },
+
   computed: {
     ...mapGetters({
       tileOn: 'game/tileOn',
@@ -30,43 +37,61 @@ export default {
 
   methods: {
     onMouseEnter (points) {
+      this.persistBreakdown = false
       const { ptr } = points
       if (ptr) {
         if (Array.isArray(ptr)) {
-          this.$store.dispatch('board/showLayer', {
-            layer: 'EmphasizeLayer',
-            props: {
-              emphasis: {
-                type: 'tile',
-                position: ptr
-              }
-            }
-          })
+          this.showTile(ptr)
+        } else if (ptr.position && !ptr.location) {
+          this.showTile(ptr.position)
         } else {
           const feature = this.featureOn(ptr)
-          const places = feature.places.map(p => {
-            return {
-              tile: this.tileOn(p),
-              location: p[2]
-            }
-          })
-          this.$store.dispatch('board/showLayer', {
-            layer: 'EmphasizeLayer',
-            props: {
-              emphasis: {
-                type: 'feature',
-                places
-              }
-            }
-          })
+          if (feature) {
+            this.showFeature(feature)
+          } else {
+            console.error('No feature found for ', ptr)
+          }
         }
       }
       this.$store.commit('board/pointsExpression', points)
     },
 
+    showTile (position) {
+      this.$store.dispatch('board/showLayer', {
+        layer: 'EmphasizeLayer',
+        props: {
+          emphasis: {
+            type: 'tile',
+            position
+          }
+        }
+      })
+    },
+
+    showFeature (feature) {
+      const places = feature.places.map(p => {
+        return {
+          tile: this.tileOn(p),
+          feature: feature.type,
+          location: p[2]
+        }
+      })
+      this.$store.dispatch('board/showLayer', {
+        layer: 'EmphasizeLayer',
+        props: {
+          emphasis: {
+            type: 'feature',
+            places
+          }
+        }
+      })
+    },
+
     onMouseLeave () {
       this.$store.dispatch('board/hideLayerDebounced', { layer: 'EmphasizeLayer' })
-      this.$store.commit('board/pointsExpression', null)
+      if (!this.persistBreakdown) {
+        this.$store.commit('board/pointsExpression', null)
+      }
     }
   }
 }
@@ -81,6 +106,7 @@ export default {
   height: 26px
   text-align: center
   font-size: 18px
+  cursor: pointer
 
   &:first-child
     border-radius: 13px 0 0 13px

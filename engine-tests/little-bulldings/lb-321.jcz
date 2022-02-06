@@ -1,0 +1,195 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "1",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-05-23T04:28:12.289Z",
+  "clock": 116909,
+  "test": {
+    "description": "Little Buildings 3/2/1 scoring",
+    "assertions": [
+      "Bob has 20 points"
+    ]
+  },
+  "setup": {
+    "sets": {
+      "basic:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "little-buildings": 1
+    },
+    "rules": {
+      "little-buildings-scoring": "3/2/1"
+    },
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0,
+      "clientId": "940fcdf0041e4a7e9f8b07c1b8aaab02"
+    },
+    {
+      "name": "Bob",
+      "slot": 1,
+      "clientId": "940fcdf0041e4a7e9f8b07c1b8aaab02"
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CFc.1",
+        "rotation": "R90",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 2301
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "LB_SHED",
+        "pointer": [
+          0,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 4302
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 5886
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CFc+",
+        "rotation": "R90",
+        "position": [
+          0,
+          -2
+        ]
+      },
+      "player": 1,
+      "clock": 6950
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            0,
+            -2
+          ],
+          "feature": "City",
+          "location": "NS"
+        },
+        "meepleId": "1.small.1"
+      },
+      "player": 1,
+      "clock": 8310
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 9254
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CFc+",
+        "rotation": "R90",
+        "position": [
+          0,
+          -3
+        ]
+      },
+      "player": 0,
+      "clock": 10309
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "LB_TOWER",
+        "pointer": [
+          0,
+          -3
+        ]
+      },
+      "player": 0,
+      "clock": 12670
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 14469
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [
+          0,
+          -4
+        ]
+      },
+      "player": 1,
+      "clock": 20106
+    },
+    {
+      "type": "PLACE_TOKEN",
+      "payload": {
+        "token": "LB_HOUSE",
+        "pointer": [
+          0,
+          -4
+        ]
+      },
+      "player": 1,
+      "clock": 21950
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 24216
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/CFc.1",
+      "BA/CFc+",
+      "BA/CFc+",
+      "BA/C"
+    ]
+  }
+}

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defs>
+  <tiles>
+    <tile id="CO/1">
+      <road>W</road>
+      <field>WR NL NR EL</field>
+      <field>WL SR</field>
+    </tile>
+    <tile id="CO/2">
+      <field>WR NL NR EL</field>
+    </tile>
+    <tile id="CO/3">
+      <field>WR NL NR EL</field>
+    </tile>
+    <tile id="CO/4">
+      <road>N</road>
+      <field>WR NL</field>
+      <field>NR EL ER SL</field>
+    </tile>
+    <tile id="CO/5">
+      <field>SR WL WR NL</field>
+    </tile>
+    <tile id="CO/6">
+    </tile>
+    <tile id="CO/7">
+      <!--
+        all quarters are bound to this tile
+        <quarte is for now purely virtual element used only as target for game element selector
+      -->
+      <quarter />
+    </tile>
+    <tile id="CO/8">
+      <field>NR EL ER SL</field>
+    </tile>
+    <tile id="CO/9">
+      <city>S</city>
+      <field city="S">WL WR NL ER</field>
+    </tile>
+    <tile id="CO/10">
+      <field>ER SL SR WL</field>
+    </tile>
+    <tile id="CO/11">
+      <road>S</road>
+      <field>ER SL</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="CO/12">
+      <city>E</city>
+      <field city="E">NR SL SR WL</field>
+    </tile>
+  </tiles>
+
+  <sets>
+    <tile-set id="count" max="1">
+      <ref count="1" tile="CO/1" />
+      <ref count="1" tile="CO/2" />
+      <ref count="1" tile="CO/3" />
+      <ref count="1" tile="CO/4" />
+      <ref count="1" tile="CO/5" />
+      <ref count="1" tile="CO/6" />
+      <ref count="1" tile="CO/7" />
+      <ref count="1" tile="CO/8" />
+      <ref count="1" tile="CO/9" />
+      <ref count="1" tile="CO/10" />
+      <ref count="1" tile="CO/11" />
+      <ref count="1" tile="CO/12" />
+    </tile-set>
+  </sets>
+</defs>

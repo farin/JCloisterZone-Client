@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defs>
+  <tiles>
+    <tile id="SD/CC">
+      <city>N</city>
+      <city>W</city>
+      <field city="N W">EL ER SL SR</field>
+    </tile>
+    <tile id="SD/RRR">
+      <road wagon-move="a">E</road>
+      <road wagon-move="a">S</road>
+      <road wagon-move="a">W</road>
+      <field>WR NL NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
+    </tile>
+    <tile id="SD/RRRG">
+      <garden/>
+      <road wagon-move="a">E</road>
+      <road wagon-move="a">S</road>
+      <road wagon-move="a">W</road>
+      <field>WR NL NR EL</field>
+      <field>ER SL</field>
+      <field>SR WL</field>
+    </tile>
+  </tiles>
+  <sets>
+    <tile-set id="spiel-doch:1">
+      <ref count="1" tile="SD/CC" />
+      <ref count="1" tile="SD/RRR" />
+    </tile-set>
+    <tile-set id="spiel-doch:2">
+      <ref count="1" tile="SD/CC" />
+      <ref count="1" tile="SD/RRRG" />
+    </tile-set>
+  </sets>
+</defs>
