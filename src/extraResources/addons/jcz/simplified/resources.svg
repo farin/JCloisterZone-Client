@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="monastery" viewBox="0 0 900 900">
+    <path d="M295 640V310L385 340 475 310V490L655 430v150L385 670Z" fill="#e4e4e4" />
+    <path d="M295 640V310L385 340V670Z" fill="#d8d8d8" />
+
+    <path d="M295 310 385 190 475 310 385 340Z" fill="#c42828" />
+    <path d="M385 190 475 310 385 340Z" fill="#c02626" />
+    <path d="M475 400 590 360 655 430 475 490Z" fill="#c42828" />
+  </symbol>
+
+  <symbol id="road-N" viewBox="0 0 900 900">
+    <image href="images/road.webp" clip-path="path('M400 0 h100 v400 h-100 Z')" />
+  </symbol>
+
+  <symbol id="road-N.long" viewBox="0 0 900 900">
+    <image href="images/road.webp" clip-path="path('M400 0 h100 v700 h-100 Z')" />
+  </symbol>
+
+  <symbol id="road-S" viewBox="0 0 900 900">
+    <image href="images/road.webp" clip-path="path('M400 900 h100 v-400 h-100 Z')" />
+  </symbol>
+
+  <symbol id="road-E" viewBox="0 0 900 900">
+    <image href="images/road.webp" clip-path="path('M500 400 h400 v100 h-400 Z')" />
+  </symbol>
+
+  <symbol id="road-W" viewBox="0 0 900 900">
+    <image href="images/road.webp" clip-path="path('M0 400 h400 v100 H0 Z')" />
+  </symbol>
+
+  <symbol id="road-SE" viewBox="0 0 900 900">
+    <image href="images/road.webp" clip-path="path('M 400 900 A 500 500 90 0 1 900 400 L 900 500 A 400 400 90 0 0 500 900 Z')" />
+  </symbol>
+
+  <symbol id="road-se" viewBox="0 0 900 900">
+    <image href="images/road.webp" clip-path="path('M 500 900 h -100 v -300 A 200 200 90 0 1 600 400 H 900 v 100 h -300 A 100 100 90 0 0 500 600 Z')" />
+  </symbol>
+
+  <symbol id="road-WE" viewBox="0 0 900 900">
+    <image href="images/road.webp" clip-path="path('M0 400 h900 v100 h-900 Z')" />
+  </symbol>
+
+  <symbol id="road-WE-over" viewBox="0 0 900 900">
+    <!-- M 0 4 h 3.5 Q 4.5 3 5.5 4 H9 v1 h-3.5 Q 4.5 4 3.5 5 H0 Z -->
+    <image href="images/road.webp" clip-path="path('M 0 400 h 350 Q 450 300 550 400 H 900 v 100 h -350 Q 450 400 350 500 H 0 Z')" />
+    <path d="M350 400 Q 450 300 550 400" stroke="#444" stroke-width="20" fill="none" />
+    <path d="M350 500 Q 450 400 550 500" stroke="#444" stroke-width="20" fill="none" />
+  </symbol>
+
+  <symbol id="road-W-over" viewBox="0 0 900 900">
+    <image href="images/road.webp" clip-path="path('M 0 400 h 350 Q 450 300 550 400 H 725 v 100 H550 Q 450 400 350 500 H 0 Z')" />
+    <path d="M350 400 Q 450 300 550 400" stroke="#444" stroke-width="20" fill="none" />
+    <path d="M350 500 Q 450 400 550 500" stroke="#444" stroke-width="20" fill="none" />
+  </symbol>
+
+  <symbol id="city-N" viewBox="0 0 900 900">
+    <!-- M 0 0 H 15 Q 7 10 0 0 -->
+    <image href="images/city.webp" clip-path="path('M 0 0 H 900 Q 450 500 0 0')" />
+    <path d="M900 0 Q 450 500 0 0" stroke="#a78159" stroke-width="4" stroke-dasharray="20" fill="none" />
+  </symbol>
+
+  <symbol id="city-n" viewBox="0 0 900 900">
+    <image href="images/city.webp" clip-path="path('M 0 0 H 900 Q 450 320 0 0')" />
+    <path d="M900 0 Q 450 320 0 0" stroke="#a78159" stroke-width="4" stroke-dasharray="20" fill="none" />
+  </symbol>
+
+  <symbol id="city-W.spike" viewBox="0 0 900 900">
+    <image href="images/city.webp" clip-path="path('M 0 0 Q 450 450 900 0 C 660 240 720 360 540 540 S 240 660 0 900 Z')" />
+    <path d="M 0 0 Q 450 450 900 0 C 660 240 720 360 540 540 S 240 660 0 900" stroke="#a78159" stroke-width="4" stroke-dasharray="20" fill="none" />
+  </symbol>
+
+  <symbol id="city-_S" viewBox="0 0 900 900">
+    <image href="images/city.webp" clip-path="path('M 0 0 H 900 V 900 Q 450 300 0 900 Z')" />
+    <path d="M900 900 Q 450 300 0 900" stroke="#a78159" stroke-width="4" stroke-dasharray="20" fill="none" />
+  </symbol>
+
+  <symbol id="city-WE" viewBox="0 0 900 900">
+    <!-- M 0 0 H 15 Q 7 10 0 0 -->
+    <image href="images/city.webp" clip-path="path('M 0 0 Q 450 600 900 0 V 900 Q 450 300 0 900 Z')" />
+    <path d="M900 900 Q 450 300 0 900" stroke="#a78159" stroke-width="4" stroke-dasharray="20" fill="none" />
+    <path d="M0 0 Q 450 600 900 0" stroke="#a78159" stroke-width="4" stroke-dasharray="20" fill="none" />
+  </symbol>
+
+  <symbol id="city-NW" viewBox="0 0 900 900">
+    <!-- M 0 0 H 30 C 22 8 18 6 12 12 S 8 22 0 30 -->
+    <image href="images/city.webp" clip-path="path('M 0 0 H 900 C 660 240 540 180 360 360 S 240 660 0 900 Z')" />
+    <path d="M900 0 C 660 240 540 180 360 360 S 240 660 0 900" stroke="#a78159" stroke-width="4" stroke-dasharray="20" fill="none" />
+  </symbol>
+
+  <symbol id="city-NW-spike" viewBox="0 0 900 900">
+    <image href="images/city.webp" clip-path="path('M 0 0 H 900 Q 500 450 900 900 Q 450 500 0 900 Z')" />
+    <path d="M900 0 Q 500 450 900 900 Q 450 500 0 900" stroke="#a78159" stroke-width="4" stroke-dasharray="20" fill="none" />
+  </symbol>
+
+  <symbol id="city-N.spike2" viewBox="0 0 900 900">
+    <image href="images/city.webp" clip-path="path('M 0 0 H 900 C 660 240 540 180 360 360 S 240 660 0 900 Q 320 450 0 0 Z')" />
+    <path d="M900 0 C 660 240 540 180 360 360 S 240 660 0 900 Q 320 450 0 0" stroke="#a78159" stroke-width="4" stroke-dasharray="20" fill="none" />
+  </symbol>
+
+
+  <symbol id="cathedral" viewBox="0 0 900 900">
+    <path d="M 240 660 V 390 L 330 240 L 420 390 H 480 L 570 240 L 660 390 V 660 Z" fill="#997a59" />
+    <path d="M 420 600 H 480 V 660 H 420 Z" fill="#bf986f" />
+  </symbol>
+
+  <symbol id="inn" viewBox="0 0 900 900">
+    <g transform="translate(45 60)">
+      <path d="M405 400 h90 v-90 h-90 Z" fill="#e4e4e4" />
+      <path d="M405 310 h90 L450 280 Z" fill="#c02626" />
+    </g>
+    <ellipse cx="450" cy="490" rx="110" ry="80" fill="#a7b5d2" />
+  </symbol>
+
+  <symbol id="acrobats" viewBox="0 0 900 900">
+    <path d="M 150 300 L 300 150 L 750 600 L 600 750 Z" fill="#ba9745" />
+    <!-- TODO 2 acrobat sites and better colors -->
+  </symbol>
+
+  <symbol id="circus" viewBox="0 0 900 900">
+    <circle cx="450" cy="450" r="235" fill="#ba9745" />
+  </symbol>
+
+  <symbol id="coat-of-arms" viewBox="0 0 900 900">
+    <!-- M 0 0 L 4 0 C 4 2 4 4 2 6 C 0 4 0 2 0 0 -->
+    <path d="M 0 0 H 120 C 120 60 120 120 60 180 C 0 120 0 60 0 0 Z" fill="#568cc8" />
+    <path d="M 60 0 h 60 C 120 51 117.757 63.859 114.733 80 L 60 80 Z" fill="#d7e6f5" />
+    <path d="M 60 80 V 180 C 17.313 137.16 10.16 100.214 5.267 80 Z" fill="#d7e6f5" />
+  </symbol>
+
+  <symbol id="trade-goods-cloth" viewBox="0 0 900 900">
+    <!-- M 5 0 L 10 3 V 10 H 0 V 3 Z -->
+    <path d="M 90 0 L 180 54 V 180 H 0 V 54 Z" fill="#e4e4e4" />
+    <circle cx="90" cy="100" r="50" fill="#ff0040" />
+  </symbol>
+  <symbol id="trade-goods-grain" viewBox="0 0 900 900">
+    <path d="M 90 0 L 180 54 V 180 H 0 V 54 Z" fill="#e4e4e4" />
+    <path d="M85 50 l-50 100 h60 l50 -100 Z" fill="#dbc200"></path>
+  </symbol>
+  <symbol id="trade-goods-wine" viewBox="0 0 900 900">
+    <path d="M 90 0 L 180 54 V 180 H 0 V 54 Z" fill="#e4e4e4" />
+    <path d="M 52.5 50 Q 29.5 100 53.5 150 H 127.5 Q 145.5 100 127.5 50 Z" fill="#693a07" />
+  </symbol>
+
+  <symbol id="princess" viewBox="0 0 900 900">
+    <!--M 0 0 H 2 V 2 H 4 V 0 H 6 V 2 H 8 V 0 H 10 V 3 L 8.5 6 V 12 H 1.5 V 6 L 0 3 Z-->
+    <path d="M 0 0 H 32 V 32 H 64 V 0 H 96 V 32 H 128 V 0 H 160 V 48 L 136 96 V 192 H 24 V 96 L 0 48 Z" fill="#e4e4e4" />
+  </symbol>
+
+  <symbol id="portal" viewBox="0 0 900 900">
+    <g transform="translate(450 450)">
+      <ellipse rx="112" ry="86" fill="#e4e4e4" />
+      <path d="M 20 52 H -20 V -8 A 20 20 90 0 1 20 -8 Z" transform="translate(0 5)" fill="#420078"></path>
+      <path d="M 0 12 V -12 H 36 L 32 -28 L 64 0 L 32 28 L 36 12 Z" transform="translate(30 10)" fill="#420078" />
+      <path d="M 0 12 V -12 H 36 L 32 -28 L 64 0 L 32 28 L 36 12 Z" transform="translate(-30 10) scale(-1 1)" fill="#420078" />
+      <path d="M 0 12 V -12 H 18 L 14 -28 L 46 0 L 14 28 L 18 12 Z" transform="translate(0 -30) rotate(-90)" fill="#420078" />
+    </g>
+  </symbol>
+
+  <symbol id="dragon-trigger" viewBox="0 0 900 900">
+    <g transform="translate(450 450)">
+      <ellipse rx="112" ry="86" fill="#e4e4e4" />
+      <path d="M -47.74 -45.28 C -44.97 -44.24 -44.02 -41.57 -42.47 -39.31 C -39.63 -38.72 -37.23 -39.35 -35.13 -36.89 C -31.59 -34.14 -34.12 -30.59 -31.72 -27.3 C -29.91 -26.55 -28 -25.95 -26.11 -25.48 C -21.85 -31.09 -16.79 -35.9 -11.52 -40.55 C -9.06 -42.75 -7.02 -45.19 -3.53 -45.61 C 0.3 -46.04 4.95 -47.16 7.41 -43.33 C 8.67 -39.61 8.55 -35.24 9.17 -31.37 C 12.76 -28.41 16.89 -26.61 20.2 -23.21 C 22.32 -21.03 25 -19.29 26.81 -16.86 C 29.55 -12.75 32.18 -8.68 34.26 -4.19 C 38.45 -4.11 42.08 -4.27 46.04 -2.64 C 47.44 -3.39 48.67 -4.4 50.1 -5.11 C 52.8 -5.46 55.58 -5.14 58.29 -5.41 C 58.82 -7.25 59.01 -9.38 59.93 -11.06 C 62.02 -14.19 65.33 -16.37 69.06 -16.96 C 74.96 -18.04 81.7 -19.58 87.71 -18.84 C 90.02 -16.9 93.59 -14.41 93 -11 C 93.12 -4.72 90.91 0.72 89.93 6.8 C 88.49 10.72 85.38 11.93 81.5 12.5 C 75.67 20.65 69.6 28.09 60.08 32.07 C 52.15 35.84 43.88 37.26 35.13 36.9 C 32.73 38.8 31.37 41.94 28.58 43.59 C 23.38 47.16 16.71 45.92 10.81 45.5 C 7.25 45.42 3.84 44.56 0.42 43.61 C -1.76 42.12 -3.11 39.5 -4.83 37.84 C -7.58 36.19 -10.7 34.19 -13.93 33.82 C -18.39 35.62 -17.58 40.5 -21.33 43.68 C -23.79 46.09 -26.74 45.99 -29.95 45.98 C -37.91 45.77 -45.9 46.18 -53.85 45.85 C -56.93 45.61 -58.56 44.81 -60.41 42.33 C -63.11 36.43 -62.56 30.67 -61.57 24.44 C -59.9 21.78 -56.95 19.97 -55.84 16.91 C -55.5 14.61 -55.59 12.24 -55.66 9.93 C -55.63 5.19 -59.41 0.61 -63.42 -1.56 C -69.86 -5.14 -76.51 -2.39 -82.74 -6.23 C -88.11 -8.54 -91.58 -13.06 -93.83 -18.31 C -94.26 -22.12 -94.29 -27.43 -91.33 -30.31 C -88.25 -33.85 -83.96 -35.81 -79.35 -36.41 C -74.66 -37.78 -70.08 -36.92 -65.33 -37.4 C -62.39 -38.01 -60.77 -41.7 -58.63 -43.64 C -55.88 -46.66 -51.31 -46.49 -47.74 -45.28 Z" fill="#7a172d" />
+    </g>
+  </symbol>
+</svg>

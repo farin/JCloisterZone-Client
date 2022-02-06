@@ -38,7 +38,7 @@
     <h4>Installed add-ons</h4>
 
     <AddonBox
-      v-for="addon in $addons.addons"
+      v-for="addon in addons"
       :key="addon.id"
       :addon="addon"
       :disabled="gameOpen"
@@ -73,6 +73,11 @@ export default {
     gameOpen () {
       const routeName = this.$route.name
       return routeName === 'game-setup' || routeName === 'open-game' || routeName === 'game'
+    },
+
+    addons () {
+      // hide default
+      return this.$addons.addons.filter(addon => !addon.hidden)
     }
   },
 

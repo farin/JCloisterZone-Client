@@ -1,0 +1,33 @@
+{
+  "acrobats": {
+    "image": {
+      "href": "#acrobats",
+      "class": "above-road"
+    },
+    "clip": "M 150 300 L 300 150 L 750 600 L 600 750 Z",
+    "point": [450, 450]
+  },
+  "circus": {
+    "image": {
+      "href": "#circus",
+      "class": "above-road"
+    },
+    "clip": { "shape": "circle", "cx": 450, "cy": 450, "r": 235 },
+    "point": [450, 450]
+  },
+  "portal": {
+    "images": [
+      { "href": "#portal", "class": "symbols" }
+    ],
+    "clip": "M0 0 Z",
+    "point": [0, 0]
+  },
+  "dragon.trigger": {
+    "images": [
+      { "href": "#dragon-trigger", "class": "symbols" }
+    ],
+    "clip": "M0 0 Z",
+    "point": [0, 0]
+  }
+}
+

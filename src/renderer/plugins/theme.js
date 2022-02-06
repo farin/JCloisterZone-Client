@@ -66,6 +66,10 @@ class Theme extends EventsBase {
     }
 
     const enabledArtworks = settings.enabledArtworks.map(id => artworks[id]).filter(a => a)
+    // enable system defaults
+    if (artworks['jcz/simplified']) {
+      enabledArtworks.push(artworks['jcz/simplified'])
+    }
     const loaded = await (new ArtworkLoader()).loadArworks(enabledArtworks)
 
     this.artworks = loaded.artworks
@@ -118,6 +122,24 @@ class Theme extends EventsBase {
     let feature = tile?.features[`${featureType}/${loc}`]
 
     if (!feature) {
+      // Failback for old Addons - TODO remove in future
+      if (featureType === "Tunnel") {
+        const tunnelX = (loc == 'N' || loc == 'S') ? 450 : (loc == 'W' ? 225 : 675);
+        const tunnelY = (loc == 'W' || loc == 'E') ? 450 : (loc == 'N' ? 225 : 675);
+        return {
+          clip: {
+            shape: "circle",
+            cx: tunnelX,
+            cy: tunnelY,
+            r: 200
+          },
+          point: [
+            tunnelX,
+            tunnelY
+          ],
+          rotation: rotation
+        }
+      }
       throw new Error(`Artwork doesn't provide feature for ${id} ${featureType}/${loc}`)
     }
 
