@@ -9,9 +9,9 @@ export default function () {
     return await dialog.showSaveDialog(opts)
   })
 
-  ipcMain.handle('dialog.showErrorBox', async (ev, { title, content }) => {
-    dialog.showErrorBox(title, content)
-  })
+  // ipcMain.handle('dialog.showErrorBox', async (ev, { title, content }) => {
+  //   dialog.showErrorBox(title, content)
+  // })
 
   return {
     winCreated (win) {},

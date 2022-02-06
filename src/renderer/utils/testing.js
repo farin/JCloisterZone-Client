@@ -63,6 +63,20 @@ class PassAssert {
   }
 }
 
+class PhaseAssert {
+  constructor (state) {
+    this.REGEXP = /phase is (\w+)/
+    this.state = state
+  }
+
+  verify (assertion) {
+    const m = this.REGEXP.exec(assertion)
+    if (m) {
+      return { result: this.state.phase === m[1]}
+    }
+  }
+}
+
 export function verifyScenario (state, { description, assertions }) {
   const result = {
     description,
@@ -72,7 +86,8 @@ export function verifyScenario (state, { description, assertions }) {
   const rules = [
     new PointsAssert(state),
     new FeatureScoredAssert(state),
-    new PassAssert(state)
+    new PassAssert(state),
+    new PhaseAssert(state)
   ]
 
   for (const assertion of assertions) {

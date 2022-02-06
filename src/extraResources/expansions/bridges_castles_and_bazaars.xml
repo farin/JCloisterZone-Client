@@ -28,7 +28,7 @@
     </tile>
     <tile id="BB/CFR!G">
       <garden/>
-      <city wagon-move="a">W</city>
+      <city castle-base="false" wagon-move="a">W</city>
       <road wagon-move="a">E</road>
       <field city="W">NL NR</field>
       <field city="W">EL</field>
@@ -58,7 +58,7 @@
     </tile>
     <tile id="BB/R.bi">
       <bazaar />
-      <road inn="yes">S</road>
+      <road inn="true">S</road>
       <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="BB/RFR.b">
@@ -71,7 +71,7 @@
     <tile id="BB/RFR.bi">
       <bazaar />
       <road>N</road>
-      <road inn="yes">S</road>
+      <road inn="true">S</road>
       <field>SR WL WR NL</field>
       <field>NR EL ER SL</field>
     </tile>

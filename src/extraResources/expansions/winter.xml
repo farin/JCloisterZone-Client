@@ -28,7 +28,7 @@
     </tile>
     <tile id="WI/RCc.i">
       <city wagon-move="a">N W</city>
-      <road inn="yes" wagon-move="a">S</road>
+      <road inn="true" wagon-move="a">S</road>
       <field city="W">SR</field>
       <field city="W">SL EL ER</field>
     </tile>

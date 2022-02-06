@@ -2,28 +2,28 @@
 <defs>
   <tiles>
     <tile id="MO/M1">
-      <monastery special="yes" />
+      <monastery special="true" />
       <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="MO/M2">
-      <monastery special="yes" />
+      <monastery special="true" />
       <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="MO/M3">
-      <monastery special="yes" />
+      <monastery special="true" />
       <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="MO/M4">
-      <monastery special="yes" />
+      <monastery special="true" />
       <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="MO/MR1">
-      <monastery special="yes" wagon-move="a"/>
+      <monastery special="true" wagon-move="a"/>
       <road wagon-move="a">S</road>
       <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="MO/MR2">
-      <monastery special="yes" wagon-move="a"/>
+      <monastery special="true" wagon-move="a"/>
       <road wagon-move="a">S</road>
       <field>NL NR EL ER SL SR WL WR</field>
     </tile>

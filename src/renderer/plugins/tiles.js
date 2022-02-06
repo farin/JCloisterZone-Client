@@ -6,7 +6,7 @@ import sortBy from 'lodash/sortBy'
 
 import { Expansion, Release } from '@/models/expansions'
 import { GameElement } from '@/models/elements'
-import { set } from 'lodash'
+import { EventsBase } from '@/utils/events'
 
 const SIDES = ['N', 'E', 'S', 'W']
 const EDGE_CODE = {
@@ -15,6 +15,8 @@ const EDGE_CODE = {
   farm: 'f',
   river: 'i'
 }
+
+const UNKWNOWN_SET = { expansion: '_UNKNOWN', implies: [], impliesAllowed: [], allows: [] }
 
 function getFeatureSignature (feature) {
   const attrs = feature.attributes
@@ -49,20 +51,23 @@ function getEdges (features) {
   return sides.join('')
 }
 
-class Tiles {
+class Tiles extends EventsBase {
   constructor (ctx) {
+    super()
     this.ctx = ctx
     this.tiles = {}
     this.sets = {}
     this.loaded = false
     this.expansions = []
+    this.symbols = []
   }
 
   getExpansions (sets, edition) {
     const expansions = {}
     Object.entries(sets).forEach(([id, setCount]) => {
       if (setCount) {
-        const set = this.sets[id] || this.sets[id + ':' + edition]
+        const set = this.sets[id] || this.sets[id + ':' + edition] || UNKWNOWN_SET
+
         if (expansions[set.expansion]) {
           expansions[set.expansion] = Math.max(expansions[set.expansion], setCount)
         } else {
@@ -83,10 +88,12 @@ class Tiles {
     const counts = {}
     const remove = {}
 
+    let specialMonasteries = false
+
     Object.entries(sets).forEach(([id, setCount]) => {
       if (!setCount) return
 
-      const set = this.sets[id] || this.sets[id + ':' + edition]
+      const set = this.sets[id] || this.sets[id + ':' + edition] || UNKWNOWN_SET
       Object.entries(set.tiles).forEach(([tileId, tileCount]) => {
         counts[tileId] = (counts[tileId] || 0) + setCount * tileCount
         const { max } = this.tiles[tileId]
@@ -96,6 +103,9 @@ class Tiles {
       })
       if (set.remove) {
         set.remove.forEach(id => { remove[id] = true })
+      }
+      if (set.enforces) {
+        specialMonasteries ||= set.enforces.includes('monastery')
       }
     })
     Object.keys(remove).forEach(id => { delete counts[id] })
@@ -110,7 +120,7 @@ class Tiles {
       }
     }
 
-    if (sets.monasteries && rules && rules['keep-monasteries'] === 'replace') {
+    if (specialMonasteries && rules && rules['keep-monasteries'] === 'replace') {
       delete counts['BA/L']
       delete counts['BA/LR']
     }
@@ -118,8 +128,16 @@ class Tiles {
   }
 
   getPackSize (sets, rules) {
+    let countExp = 0
+    // count "The Count of Carcassonne" as single tile
+    if (sets.count) {
+      sets = { ...sets }
+      delete sets.count
+      countExp = 1
+    }
+
     const counts = this.getTilesCounts(sets, rules, '1') // both editions should provide same size
-    return Object.entries(counts).reduce((total, [tileId, tileCount]) => total + tileCount, 0)
+    return countExp + Object.entries(counts).reduce((total, [tileId, tileCount]) => total + tileCount, 0)
   }
 
   // helper
@@ -145,7 +163,7 @@ class Tiles {
     const allows = new Set([])
 
     Object.keys(sets).forEach(id => {
-      const set = this.sets[id] || this.sets[id + ':1'] || this.sets[id + ':2']
+      const set = this.sets[id] || this.sets[id + ':1'] || this.sets[id + ':2'] || UNKWNOWN_SET
       set.implies.forEach(elem => { implies.add(elem) })
       set.impliesAllowed.forEach(elem => { impliesAllowed.add(elem) })
       set.allows.forEach(elem => { allows.add(elem) })
@@ -182,61 +200,23 @@ class Tiles {
   }
 
   async loadExpansions () {
-    const { settings } = this.ctx.store.state
-    const userDataPath = window.process.argv.find(arg => arg.startsWith('--user-data=')).replace('--user-data=', '')
-
-    const lookupFolders = [
-      path.join(userDataPath, 'expansions'),
-      process.resourcesPath + '/expansions/'
-    ]
-
-    const xmls = []
-
-    for (const lookupFolder of lookupFolders) {
-      let listing
-      try {
-        listing = await fs.promises.readdir(lookupFolder)
-      } catch (e) {
-        console.log(`${lookupFolder} does not exist`)
-        continue
-      }
-      listing.filter(f => {
-        const ext = f.substr(f.lastIndexOf('.') + 1)
-        return ext === 'xml'
-      }).forEach(f => xmls.push(lookupFolder + f))
-    }
-
-    for (const fullPath of settings.userExpansions) {
-      try {
-        const stats = await fs.promises.stat(fullPath)
-        if (stats.isFile()) {
-          console.log(`Loading user expansion ${fullPath}`)
-          xmls.push(fullPath)
-        }
-      } catch (err) {
-        console.log(`${fullPath} is not accesible`)
-      }
-    }
-
-    // clean priosly loaded
-    Expansion.unregisterAll()
-    Expansion.all().forEach(exp => {
-      delete exp.requiredBy
-    })
-
     const gameElementsWithSelector = GameElement.all().filter(ge => ge.selector)
 
     const tiles = {}
     const sets = {}
     const expansions = []
+    const xmls = []
 
     const expansionRequiredBy = {}
     const tileAllows = {}
 
     const parser = new DOMParser()
-    for (const xml of xmls) {
+
+    const parseXml = async (xml, addon) => {
       const content = await fs.promises.readFile(xml)
       const doc = parser.parseFromString(content, 'application/xml')
+
+      xmls.push(xml)
 
       doc.querySelectorAll('tile[id]').forEach(t => {
         const id = t.getAttribute('id')
@@ -270,6 +250,10 @@ class Tiles {
             allows.add(ge.id)
           }
         })
+
+        if (t.querySelectorAll('road[labyrinth=true]').length) {
+          allows.add('labyrinth-variant')
+        }
       })
 
       doc.querySelectorAll('tile-set[id]').forEach(ts => {
@@ -316,11 +300,58 @@ class Tiles {
         const title = el.querySelector('title').textContent || name
         const tileSets = Array.from(el.querySelectorAll('ref[tile-set]')).map(ref => ref.getAttribute('tile-set'))
         const enforces = Array.from(el.querySelectorAll('enforces[element]')).map(ref => ref.getAttribute('element'))
+        const implies = Array.from(el.querySelectorAll('implies[element]')).map(ref => ref.getAttribute('element'))
 
-        const exp = new Expansion(name, title, { enforces }, [new Release(name, tileSets)])
+        const svgIcon = el.querySelector('icon svg')
+
+        const exp = new Expansion(name, title, { enforces, implies }, [new Release(name, tileSets)])
+        if (svgIcon) {
+          this.symbols.push(`<symbol id="expansion-${name}" viewBox="${svgIcon.getAttribute('viewBox')}">${svgIcon.innerHTML}</symbol>`)
+          exp.svgIcon = true
+        }
+        if (addon) {
+          exp.addon = addon
+        }
+
+        exp.links = []
+        Array.from(el.querySelectorAll(':scope > link[url]')).forEach(link => {
+          const title = link.getAttribute('title')
+          const url = link.getAttribute('url')
+          const type = link.getAttribute('type')
+          exp.links.push({ title, url, type })
+        })
+
+        exp.description = el.querySelector(':scope > description')?.textContent || ''
+
         Expansion.register(exp)
         expansions.push(exp)
+        addon?.expansions.push(exp)
       })
+    }
+
+    // clean priosly loaded
+    Expansion.unregisterAll()
+    Expansion.all().forEach(exp => {
+      delete exp.requiredBy
+    })
+
+    // load built-in expansions
+    const lookupFolder = process.resourcesPath + '/expansions/'
+    const listing = await fs.promises.readdir(lookupFolder)
+
+    for (const f of listing) {
+      if (f.substr(f.lastIndexOf('.') + 1) === 'xml') {
+        await parseXml(lookupFolder + f, null)
+      }
+    }
+
+    for (const addon of this.ctx.$addons.addons) {
+      addon.expansions = []
+      if (addon.error) continue
+      for (const relPath of (addon.json.expansions || [])) {
+        const fullPath = path.join(addon.folder, relPath)
+        await parseXml(fullPath, addon)
+      }
     }
 
     Object.entries(expansionRequiredBy).forEach(([expId, deps]) => {
@@ -366,8 +397,19 @@ class Tiles {
     this.expansions = sortBy(expansions, 'name')
     this.loaded = true
 
+    if (this.symbols.length) {
+      let symbolsContainer = document.getElementById('symbols')
+      if (!symbolsContainer) {
+        symbolsContainer = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+        symbolsContainer.setAttribute('id', 'symbols')
+        document.body.appendChild(symbolsContainer)
+      }
+      symbolsContainer.innerHTML = this.symbols.join('\n')
+    }
+
     console.log('Expansions definitions loaded.')
     this.ctx.app.store.commit('tilesLoaded')
+    this.emit('load')
   }
 }
 

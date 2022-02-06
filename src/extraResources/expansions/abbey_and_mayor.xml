@@ -75,14 +75,14 @@
       <field>NL NR EL ER SL SR WL WR</field>
     </tile>
     <tile id="AM/Rrr">
-      <road>N W E</road>
+      <road wells="1">N W E</road>
       <field>WR NL</field>
       <field>NR EL</field>
       <field>ER SL SR WL</field>
     </tile>
     <tile id="AM/CRcr+">
       <city pennants="1">W E</city>
-      <road tunnel="yes">N S</road>
+      <road tunnel="true">N S</road>
       <field city="W">SL SR</field>
       <field city="W">NL</field>
       <field city="W">NR</field>

@@ -1,6 +1,7 @@
 <template>
   <svg class="exp-symbol" viewBox="0 0 100 100">
     <use v-if="!expansion.fan" :href="`${EXP_SYMBOL_SVG}#${expansion.name}`" />
+    <use v-else-if="expansion.svgIcon" :href="`#expansion-${expansion.name}`" />
     <g v-else>
       <rect x="4" y="4" width="92" height="92" rx="10" />
       <text
@@ -28,9 +29,9 @@ export default {
     letters () {
       const { title } = this.expansion
       if (!title) return '?'
-      const words = title.split(/\s+/, 2)
+      const words = title.toUpperCase().split(/\s+/).filter(w => w !== 'THE')
       if (words.length > 1) {
-        return (words[0].charAt(0) + words[1].charAt(0)).toUpperCase()
+        return (words[0].charAt(0) + words[1].charAt(0))
       } else {
         return title.substring(0, 2).toUpperCase()
       }

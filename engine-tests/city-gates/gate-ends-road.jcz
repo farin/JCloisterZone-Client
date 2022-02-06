@@ -1,0 +1,120 @@
+{
+  "appVersion": "5.7.0",
+  "gameId": "1",
+  "name": "",
+  "initialRandom": 0.0,
+  "created": "2021-07-03T20:16:38.463Z",
+  "clock": 65368,
+  "test": {
+    "description": "Placed gate ends a road",
+    "assertions": [
+      "Alice has 2 points"
+    ]
+  },
+  "setup": {
+    "addons": {
+      "city-gates": 1
+    },
+    "sets": {
+      "basic:1": 1,
+      "city-gates": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ],
+    "options": {}
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "City-Gates/cfrg",
+        "rotation": "R90",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 2751
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            0
+          ],
+          "location": "W",
+          "feature": "Road"
+        },
+        "meepleId": "0.small.1"
+      },
+      "player": 0,
+      "clock": 3790
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 0,
+      "clock": 5578
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "City-Gates/fcrg",
+        "rotation": "R180",
+        "position": [
+          -1,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 10510
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 13299
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.0
+      },
+      "player": 1,
+      "clock": 13306
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "City-Gates/cfrg",
+      "City-Gates/fcrg"
+    ]
+  }
+}

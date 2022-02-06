@@ -1,0 +1,357 @@
+{
+  "appVersion": "5.7.3",
+  "gameId": "529b6d037fbc48e4933e76c05f5d7e21",
+  "name": "",
+  "initialRandom": 0.5810601404932261,
+  "created": "2021-08-22T20:54:52.548Z",
+  "clock": 175411,
+  "test": {
+    "description": "Multiple shepherds, grown once, scored once",
+    "assertions": [
+      "Alice has 15 points"
+    ]
+  },
+  "setup": {
+    "options": {},
+    "sets": {
+      "basic:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "shepherd": 2
+    },
+    "rules": {},
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ]
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R0",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 1231
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            0
+          ],
+          "location": "ER.SL.SR.WL",
+          "feature": "Field"
+        },
+        "meepleId": "0.shepherd.1"
+      },
+      "player": 0,
+      "clock": 4951
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.5373521429789723
+      },
+      "player": 0,
+      "clock": 4963
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R0",
+        "position": [
+          -1,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 7158
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 7993
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.7316116867684335
+      },
+      "player": 1,
+      "clock": 7999
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R0",
+        "position": [
+          -1,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 10398
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            -1,
+            -1
+          ],
+          "location": "EL.ER.SL.SR.WL.WR",
+          "feature": "Field"
+        },
+        "meepleId": "0.shepherd.2"
+      },
+      "player": 0,
+      "clock": 11582
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.8149788241851554
+      },
+      "player": 0,
+      "clock": 11590
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/C",
+        "rotation": "R180",
+        "position": [
+          0,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 17414
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 18182
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.3625642318395643
+      },
+      "player": 1,
+      "clock": 18191
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RFr",
+        "rotation": "R0",
+        "position": [
+          2,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 20190
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 21518
+    },
+    {
+      "type": "FLOCK_EXPAND_OR_SCORE",
+      "payload": {
+        "value": "EXPAND",
+        "random": 0.00358313429918522
+      },
+      "player": 0,
+      "clock": 76520
+    },
+    {
+      "type": "FLOCK_EXPAND_OR_SCORE",
+      "payload": {
+        "value": "EXPAND",
+        "random": 0.7711628230972922
+      },
+      "player": 0,
+      "clock": 78159
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.7600289616113878
+      },
+      "player": 0,
+      "clock": 78172
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/LR",
+        "rotation": "R90",
+        "position": [
+          3,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 109109
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 110699
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.5513726534218524
+      },
+      "player": 1,
+      "clock": 110704
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/L",
+        "rotation": "R0",
+        "position": [
+          1,
+          -1
+        ]
+      },
+      "player": 0,
+      "clock": 124771
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 125613
+    },
+    {
+      "type": "FLOCK_EXPAND_OR_SCORE",
+      "payload": {
+        "value": "EXPAND",
+        "random": 0.8217567823185794
+      },
+      "player": 0,
+      "clock": 126518
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.9270480344405714
+      },
+      "player": 0,
+      "clock": 126544
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Rr",
+        "rotation": "R180",
+        "position": [
+          2,
+          -1
+        ]
+      },
+      "player": 1,
+      "clock": 133851
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 135818
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.21809542591046038
+      },
+      "player": 1,
+      "clock": 135824
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/CRRR",
+        "rotation": "R0",
+        "position": [
+          2,
+          -2
+        ]
+      },
+      "player": 0,
+      "clock": 137371
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 0,
+      "clock": 138173
+    },
+    {
+      "type": "FLOCK_EXPAND_OR_SCORE",
+      "payload": {
+        "value": "SCORE",
+        "random": 0.0547869002929382
+      },
+      "player": 0,
+      "clock": 139786
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.8662810195657087
+      },
+      "player": 0,
+      "clock": 139797
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/RFr",
+      "BA/RFr",
+      "BA/C",
+      "BA/C",
+      "BA/RFr",
+      "BA/LR",
+      "BA/L"
+    ]
+  }
+}

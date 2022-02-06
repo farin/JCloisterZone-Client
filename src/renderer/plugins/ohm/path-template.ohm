@@ -1,0 +1,24 @@
+PathTemplateGrammar {
+  PathTemplate = PathFragment (Expr PathFragment)*
+  PathFragment = (PathCommand|digit|"."|","|"-")*
+  PathCommand = "M"|"m"|"L"|"l"|"H"|"h"|"V"|"v"|"Z"|"z"|"C"|"c"|"S"|"s"|"Q"|"q"|"T"|"t"|"A"|"a"
+  Expr = "${" ExprBody "}"
+  ExprBody = ExprBody "+" path -- union
+  		     | ExprBody "-" path -- difference
+           | ExprBody "&" path -- intersection
+           | ExprBody ">" path -- join
+           | path
+
+  path = literal | variable
+  literal = "(" (~")" any)* ")"
+  variable = path_ref ("|" transform)*
+  path_ref = (letter | digit | "." | "_" | "/" | "#" )* ("@" "0".."3")?
+  transform = t_reverse | t_translate | t_rotate | t_mirror
+
+  t_reverse = "reverse"
+  t_translate = "translate(" number ","? space* number ")"
+  t_rotate = "rotate(" ("0" | "90" | "180" | "270") ")"
+  t_mirror = "mirror(" ("x" | "y") ")"
+
+  number = "-"? digit* ("." digit+)?
+}

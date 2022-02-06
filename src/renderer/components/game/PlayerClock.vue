@@ -1,6 +1,6 @@
 <template>
-  <div class="player-clock" :class="{'out-of-time': remainingTime < 0}">
-    <div class="time">{{sign}}{{ minutes }}&thinsp;:&thinsp;{{ seconds }}</div>
+  <div class="player-clock" :class="{'out-of-time': remainingTimeSec < 0}">
+    <div class="time">{{ sign }}{{ minutes }}&thinsp;:&thinsp;{{ seconds }}</div>
   </div>
 </template>
 
@@ -8,9 +8,6 @@
 import { mapState } from 'vuex'
 
 export default {
-  components: {
-  },
-
   props: {
     player: { type: Number, required: true }
   },
@@ -40,22 +37,22 @@ export default {
       return this.clock[this.player]
     },
 
-    remainingTime () {
-      return this.timer.initial * 1000 + this.timer.turn * 1000 * this.playerTurns - this.milis
+    remainingTimeSec () {
+      return this.timer.initial + this.timer.turn * this.playerTurns - Math.round(this.milis / 1000)
     },
 
     minutes () {
-      const m = parseInt(Math.abs(this.remainingTime) / 60000)
+      const m = parseInt(Math.abs(this.remainingTimeSec) / 60)
       return m
     },
 
     seconds () {
-      const s = parseInt(Math.abs(this.remainingTime) / 1000) % 60
+      const s = parseInt(Math.abs(this.remainingTimeSec)) % 60
       return `${s < 10 ? '0' : ''}${s}`
     },
 
     sign () {
-      return this.remainingTime < 0 ? '- ' : ''
+      return this.remainingTimeSec < 0 ? '- ' : ''
     }
   },
 
@@ -73,6 +70,16 @@ export default {
     }
   },
 
+  mounted () {
+    if (this.running) {
+      this.start()
+    }
+  },
+
+  beforeDestroy () {
+    this.stop()
+  },
+
   methods: {
     start () {
       this.stop()
@@ -88,16 +95,6 @@ export default {
       this.milis = this.clockMilis + Date.now() - this.lastMessageClockLocal
       this.updateSecTimeout = setTimeout(this.updateSec, 1000 - (this.milis % 1000))
     }
-  },
-
-  mounted () {
-    if (this.running) {
-      this.start()
-    }
-  },
-
-  beforeDestroy () {
-    this.stop()
   }
 }
 </script>

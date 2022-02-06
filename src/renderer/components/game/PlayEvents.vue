@@ -72,6 +72,12 @@ export default {
         let row = null
         item.rows = []
         item.events.forEach(ev => {
+          if (ev.type === 'neutral-moved' && ev.figure.startsWith('bigtop.')) {
+            // do not show big top moves in history
+            // it's always bound to circus tile, no need to have explicit item there
+            return
+          }
+
           const isScore = ev.type === 'points' || ev.type === 'token-received'
           const isNewLineEvent = ev.type === 'tile-auctioned' || ev.type === 'dragon-moved'
           if (isScore !== lastRowIsScore || isNewLineEvent || row?.events.length === 4) {

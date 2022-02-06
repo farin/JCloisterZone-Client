@@ -1,0 +1,227 @@
+{
+  "TB/CcCC.c": {
+    "features": {
+      "Field/I":{ "id":  "field.WSS", "rotate": 180 },
+      "City/E": { "id": "city.N", "rotate": 90 },
+      "City/S": { "id": "city.N", "rotate": 180 },
+      "City/NW": "city.NW[cloth]"
+    }
+  },
+  "TB/CcCc.w": {
+    "features": {
+      "Field/I": "field.zEE",
+      "City/SE": { "id": "city.NW", "rotate": 180 },
+      "City/NW": "city.NW[wine]"
+    }
+  },
+  "TB/CCc.c": {
+    "features": {
+      "City/S": { "id": "city.n", "rotate": 180 },
+      "City/WE": "city.WE[cloth]",
+      "Field/I": { "id": "field.ii", "rotate": 180 },
+      "Field/NL.NR": "field.QQ"
+    }
+  },
+  "TB/CCc.w": {
+    "features": {
+      "City/S": { "id": "city.n", "rotate": 180 },
+      "City/WE": "city.WE[wine]",
+      "Field/I": { "id": "field.ii", "rotate": 180 },
+      "Field/NL.NR": "field.QQ"
+    }
+  },
+  "TB/Ccc.g": {
+    "features": {
+      "City/_S": "city._S[grain]",
+      "Field/SL.SR": "field.zzQQ"
+    }
+  },
+  "TB/CcRC.c": {
+    "features": {
+      "Road/E": { "id": "road.N.c2", "rotate": 90 },
+      "City/S": { "id": "city.N", "rotate": 180 },
+      "City/NW": "city.NW[cloth]",
+      "Field/EL": { "id": "field.C", "rotate": 90 },
+      "Field/ER": { "id": "field.US", "rotate": 180 }
+    }
+  },
+  "TB/CcRC.g": {
+    "features": {
+      "Road/E": { "id": "road.N.c2", "rotate": 90 },
+      "City/S": { "id": "city.N", "rotate": 180 },
+      "City/NW": "city.NW[grain]",
+      "Field/EL": { "id": "field.C", "rotate": 90 },
+      "Field/ER": { "id": "field.US", "rotate": 180 }
+    }
+  },
+  "TB/CccR.w": {
+    "features": {
+      "Road/S": { "id": "road.N.c", "rotate": 180 },
+      "City/_S": "city._S[wine]",
+      "Field/SL": { "id": "field.Q", "rotate": 180 },
+      "Field/SR": { "id": "field.zQ", "rotate": 180 }
+    }
+  },
+  "TB/Cc.g": {
+    "features": {
+      "City/NW": "city.NW[grain]",
+      "Field/EL.ER.SL.SR": "field.zCCC"
+    }
+  },
+  "TB/Cc.w": {
+    "features": {
+      "City/NW": "city.NW[wine]",
+      "Field/EL.ER.SL.SR": "field.zCCC"
+    }
+  },
+  "TB/CFc.w": {
+    "features": {
+      "City/WE": "city.WE[wine]",
+      "Field/NL.NR": "field.QQ",
+      "Field/SL.SR": "field.zzQQ"
+    }
+  },
+  "TB/CcR.c": {
+    "features": {
+      "Road/E": { "id": "road.N.c2", "rotate": 90 },
+      "City/NW": "city.NW[cloth]",
+      "Field/EL": { "id": "field.C", "rotate": 90 },
+      "Field/ER.SL.SR": "field.zzCF"
+    }
+  },
+  "TB/CcR.cG": {
+    "features": {
+      "Garden/I": { "id": "garden", "transform": "translate(80 280)"},
+      "Road/E": { "id": "road.N.c2", "rotate": 90 },
+      "City/NW": "city.NW[cloth]",
+      "Field/EL": { "id": "field.C", "rotate": 90 },
+      "Field/ER.SL.SR": "field.zzCF.G"
+    }
+  },
+  "TB/CcR!.w": {
+    "features": {
+      "Road/E": { "id": "road.N.c.spike", "rotate": 90 },
+      "City/NW": "city.NW.spike[wine]",
+      "Field/EL": { "id": "field.q", "rotate": 90 },
+      "Field/ER": { "id": "field.zq", "rotate": 90 },
+      "Field/SL.SR": { "id": "field.qq", "rotate": 180 }
+    }
+  },
+  "TB/CRc.g": {
+    "features": {
+      "Road/S": { "id": "road.N.c", "rotate": 180 },
+      "City/WE": "city.WE[grain]",
+      "Field/NL.NR": "field.QQ",
+      "Field/SL": { "id": "field.Q", "rotate": 180 },
+      "Field/SR": { "id": "field.zQ", "rotate": 180 }
+    }
+  },
+  "TB/CRc.w": {
+    "features": {
+      "Road/S": { "id": "road.N.c", "rotate": 180 },
+      "City/WE": "city.WE[wine]",
+      "Field/NL.NR": "field.QQ",
+      "Field/SL": { "id": "field.Q", "rotate": 180 },
+      "Field/SR": { "id": "field.zQ", "rotate": 180 }
+    }
+  },
+  "TB/RCc.g": {
+    "features": {
+      "Road/S": { "id": "road.N.c2x", "rotate": 180 },
+      "City/NW": "city.NW[grain]",
+      "Field/SR": { "id": "field.zC", "rotate": 180 },
+      "Field/EL.ER.SL": "field.zCzF"
+    }
+  },
+  "TB/RCc!.g": {
+    "features": {
+      "Road/S": { "id": "road.N.c.spike", "rotate": 180 },
+      "City/NW": "city.NW.spike[grain]",
+      "Field/EL.ER": { "id": "field.qq", "rotate": 90 },
+      "Field/SR": { "id": "field.zq", "rotate": 180 },
+      "Field/SL": { "id": "field.q", "rotate": 180 }
+    }
+  },
+  "TB/CcRR!.c": {
+    "features": {
+      "Road/E": { "id": "road.N.c.spike", "rotate": 90 },
+      "Road/S": { "id": "road.N.c.spike", "rotate": 180 },
+      "City/NW": "city.NW.spike[wine]",
+      "Field/ER": { "id": "field.zq", "rotate": 90 },
+      "Field/EL": { "id": "field.q", "rotate": 90 },
+      "Field/SR": { "id": "field.zq", "rotate": 180 },
+      "Field/SL": { "id": "field.q", "rotate": 180 }
+    }
+  },
+  "TB/CcRR.w": {
+    "features": {
+      "City/NW": "city.NW[wine]",
+      "Road/E": { "id": "road.SE.c2x", "rotate": 270 },
+      "Road/S": { "id": "road.SE.c2", "rotate": 90 },
+      "Field/SR": { "id": "field.zzzA.c2", "rotate": 90 },
+      "Field/EL": { "id": "field.zzzA.c2x", "rotate": 270 },
+      "Field/ER.SL": { "id": "field.FBB.c2", "rotate": 90 }
+    }
+  },
+  "TB/CcRR.wG": {
+    "features": {
+      "Garden/I": { "id": "garden", "transform": "translate(280 280)" },
+      "City/NW": "city.NW[wine]",
+      "Road/E": { "id": "road.SE.c2x", "rotate": 270 },
+      "Road/S": { "id": "road.SE.c2", "rotate": 90 },
+      "Field/SR": { "id": "field.zzzA.c2", "rotate": 90 },
+      "Field/EL": { "id": "field.zzzA.c2x", "rotate": 270 },
+      "Field/ER.SL": { "id": "field.FBB.c2.G", "rotate": 90 }
+    }
+  },
+  "TB/CRcR.w": {
+    "features": {
+      "Road/N": { "id": "road.N.c", "rotate": 0 },
+      "Road/S": { "id": "road.N.c", "rotate": 180 },
+      "City/WE": "city.WE[wine]",
+      "Field/NL": { "id": "field.Q", "rotate": 0 },
+      "Field/NR": { "id": "field.zQ", "rotate": 0 },
+      "Field/SL": { "id": "field.Q", "rotate": 180 },
+      "Field/SR": { "id": "field.zQ", "rotate": 180 }
+    }
+  },
+  "TB/CR": {
+    "features": {
+      "Road/E": { "id": "road.se.cE", "rotate": 270 },
+      "City/N": "city.N",
+      "Field/EL": "field.zu",
+      "Field/ER.SL.SR.WL.WR": { "id": "field.FFaF.cS", "rotate": 180 }
+    }
+  },
+  "TB/RRC": {
+    "features": {
+      "Road/S": { "id": "road.N.c.inv", "rotate": 180 },
+      "Road/W": "road.W.over",
+      "City/N": "city.N",
+      "Field/SR.WL": { "id": "field.F",  "rotate": 270 },
+      "Field/WR": { "id": "field.U", "rotate": 0 },
+      "Field/EL.ER.SL": "field.zUzF.TB_RRC"
+    }
+  },
+  "TB/LRRR": {
+    "features": {
+      "Monastery/I": "monastery",
+      "Road/E": "road.E.m",
+      "Road/W": "road.W.m",
+      "Road/S": "road.S.m",
+      "Field/NL.NR.EL.WR": "field.FF.L",
+      "Field/SR.WL": "field.zzF.L",
+      "Field/ER.SL": "field.zzzF.L"
+    }
+  },
+  "TB/RRrr": {
+    "features": {
+      "Road/WE": "road.WE.over",
+      "Road/NS": { "id": "road.WE.under", "rotate": 90 },
+      "Field/SR.WL": { "id": "field.F",  "rotate": 270 },
+      "Field/NL.WR": "field.F",
+      "Field/NR.EL": { "id": "field.F",  "rotate": 90 },
+      "Field/ER.SL": { "id": "field.F",  "rotate": 180 }
+    }
+  }
+}

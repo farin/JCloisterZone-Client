@@ -17,9 +17,10 @@
 import { mapGetters } from 'vuex'
 
 import LayerMixin from '@/components/game/layers/LayerMixin'
+import { BASE_SIZE } from '@/constants/ui'
 
-const CASTLE_WIDTH = 940
-const CASTLE_HEIGHT = 760
+const CASTLE_WIDTH = 846
+const CASTLE_HEIGHT = 684
 
 export default {
   mixins: [LayerMixin],
@@ -43,10 +44,10 @@ export default {
       const h2 = ~~(CASTLE_HEIGHT / 2)
       if (positions[0][0] === positions[1][0]) { /// compare X
         // vertical
-        return positions[0][1] < positions[1][1] ? `translate(${500 - w2}, ${1000 - h2})` : `translate(${500 - w2}, ${-h2})`
+        return positions[0][1] < positions[1][1] ? `translate(${BASE_SIZE / 2 - w2}, ${BASE_SIZE - h2})` : `translate(${BASE_SIZE / 2 - w2}, ${-h2})`
       } else {
         // horizontla
-        return (positions[0][0] < positions[1][0] ? `translate(${1000 + h2}, ${500 - w2})` : `translate(${h2}, ${500 - w2})`) + ' rotate(90 0 0)'
+        return (positions[0][0] < positions[1][0] ? `translate(${BASE_SIZE + h2}, ${BASE_SIZE / 2 - w2})` : `translate(${h2}, ${BASE_SIZE / 2 - w2})`) + ' rotate(90 0 0)'
       }
     }
   }

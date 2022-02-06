@@ -32,6 +32,7 @@
       />
       <PlayEvents />
       <FinalScoringEvents v-if="phase === 'GameOverPhase'" />
+      <FinalStats v-if="showGameStats" />
       <div
         v-if="gameDialog"
         class="game-modal"
@@ -73,6 +74,7 @@ import { ipcRenderer } from 'electron'
 import ActionPanel from '@/components/game/ActionPanel.vue'
 import Board from '@/components/game/Board.vue'
 import FinalScoringEvents from '@/components/game/FinalScoringEvents.vue'
+import FinalStats from '@/components/game/FinalStats.vue'
 import ChooseMonkOrAbbotDialog from '@/components/game/dialogs/ChooseMonkOrAbbotDialog.vue'
 import PlayerPanel from '@/components/game/PlayerPanel.vue'
 import PlayEvents from '@/components/game/PlayEvents.vue'
@@ -87,6 +89,7 @@ export default {
     Board,
     ChooseMonkOrAbbotDialog,
     FinalScoringEvents,
+    FinalStats,
     GameSetupDialog,
     PlayerPanel,
     PlayEvents,
@@ -97,7 +100,8 @@ export default {
 
   data () {
     return {
-      shrink: 0
+      shrink: 0,
+      showFinalStats: true
     }
   },
 
@@ -120,7 +124,8 @@ export default {
       },
       gameHash: state => state.game.hash,
       playerListRotate: state => state.settings.playerListRotate,
-      activePlayerIndicatorBgColor: state => state.settings.activePlayerIndicatorBgColor
+      activePlayerIndicatorBgColor: state => state.settings.activePlayerIndicatorBgColor,
+      showGameStats: state => state.game.showGameStats
     }),
 
     ...mapGetters({
@@ -178,7 +183,7 @@ export default {
 
   beforeCreate () {
     // useful for dev mode, reload on this page redirects back to home
-    if (!this.$connection.isConnectedOrConnecting()) {
+    if (!this.$store.state.networking.connectionType) {
       this.$store.dispatch('game/close')
       this.$router.push('/')
     }
@@ -312,6 +317,7 @@ aside
   user-select: none
   display: flex
   flex-direction: column
+  z-index: 2
 
   &.shrink-3
     top: calc(var(--action-bar-height) + 2px)

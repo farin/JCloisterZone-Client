@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <defs>
-  <feature-modifier selector="road[inn]" type="boolean" enabled-with="inn" />
-
   <tiles>
     <tile id="IC/Cccc.c">
-      <city cathedral="yes">N W S E</city>
+      <city cathedral="true">N W S E</city>
     </tile>
     <tile id="IC/LRFR">
       <monastery wagon-move="a b"/>
@@ -77,24 +75,24 @@
     </tile>
     <tile id="IC/RCc.i">
       <city wagon-move="a">N W</city>
-      <road inn="yes" wagon-move="a">S</road>
+      <road inn="true" wagon-move="a">S</road>
       <field city="W">SR</field>
       <field city="W">SL EL ER</field>
     </tile>
     <tile id="IC/RrC.i">
       <city>N</city>
-      <road inn="yes">W S</road>
+      <road inn="true">W S</road>
       <field>SR WL</field>
       <field city="N">WR EL ER SL</field>
     </tile>
     <tile id="IC/CcRr+.i">
       <city pennants="1">N W</city>
-      <road inn="yes">E S</road>
+      <road inn="true">E S</road>
       <field>SL ER</field>
       <field city="N">SR EL</field>
     </tile>
     <tile id="IC/RRR.i">
-      <road inn="yes" wagon-move="a">E</road>
+      <road inn="true" wagon-move="a">E</road>
       <road wagon-move="a">W</road>
       <road wagon-move="a">S</road>
       <field>WR NL NR EL</field>
@@ -102,18 +100,18 @@
       <field>ER SL</field>
     </tile>
     <tile id="IC/RFr.i">
-      <road inn="yes">W E</road>
+      <road inn="true">W E</road>
       <field>WR NL NR EL</field>
       <field>ER SL SR WL</field>
     </tile>
     <tile id="IC/RFr.iG">
       <garden />
-      <road inn="yes">W E</road>
+      <road inn="true">W E</road>
       <field>WR NL NR EL</field>
       <field>ER SL SR WL</field>
     </tile>
     <tile id="IC/Rr.i">
-      <road inn="yes">W S</road>
+      <road inn="true">W S</road>
       <field>WR NL NR EL ER SL</field>
       <field>SR WL</field>
     </tile>

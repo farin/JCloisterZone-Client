@@ -18,6 +18,6 @@ export default ({ app }, inject) => {
     } else {
       next(false)
     }
-    programmatic = false // cler flag
+    programmatic = false // clear flag
   })
 }

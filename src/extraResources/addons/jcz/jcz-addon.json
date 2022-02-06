@@ -1,0 +1,8 @@
+{
+  "title": "JCZ default artworks",
+  "maintainer": null,
+  "version": 1,
+  "minimumJczVersion": "5.10.0",
+  "expansions": [],
+  "artworks": ["simplified"]
+}

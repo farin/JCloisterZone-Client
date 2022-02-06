@@ -12,10 +12,10 @@
         :rotation="rotation"
         @click.native="$emit('tile-click', id)"
       />
-      <div class="count">{{ remainingCount }} <span class="total">/ {{ count }}</span></div>
+      <div class="count">{{ remainingCount }} <span v-if="!availableOnly" class="total">/ {{ count }}</span></div>
     </div>
 
-    <div v-if="sets.count" class="tile noleft">
+    <div v-if="sets.count && !availableOnly" class="tile noleft">
       <CountMiniboard :size="77" />
       <div class="count">1 <span class="total">/ 1</span></div>
     </div>
@@ -23,11 +23,13 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import countBy from 'lodash/countBy'
 
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
 import CountMiniboard from '@/components/game-setup/details/CountMiniboard'
+
+import { getSelectedEdition, getSelectedStartingTiles } from '@/utils/gameSetupUtils'
 
 export default {
   components: {
@@ -38,19 +40,20 @@ export default {
   props: {
     sets: { type: Object, required: true },
     rules: { type: Object, default: null },
-    tileSize: { type: Number, default: 100 }
+    tileSize: { type: Number, default: 100 },
+    availableOnly: { type: Boolean, default: false }
   },
 
   computed: {
     ...mapState({
       placedTiles: state => state.game.placedTiles,
       discardedTiles: state => state.game.discardedTiles,
-      action: state => state.game.action
-    }),
-
-    ...mapGetters({
-      edition: 'gameSetup/getSelectedEdition',
-      start: 'gameSetup/selectedStartingTiles'
+      action: state => state.game.action,
+      edition: state => getSelectedEdition(state.game.setup.elements),
+      start: state => {
+        const { elements, sets, start } = state.game.setup
+        return getSelectedStartingTiles(elements, sets, start)
+      }
     }),
 
     tiles () {
@@ -61,7 +64,7 @@ export default {
       }
 
       const counts = this.$tiles.getTilesCounts(sets, this.rules, this.edition, this.start)
-      const tiles = Object.keys(counts).map(id => ({ id, ...this.$tiles.tiles[id] }))
+      let tiles = Object.keys(counts).map(id => ({ id, ...this.$tiles.tiles[id] }))
       tiles.sort(this.$tiles.sortByEdge)
 
       const actionItem = this.action?.items[0]
@@ -75,7 +78,7 @@ export default {
         }
       })
 
-      return tiles.map(t => {
+      tiles = tiles.map(t => {
         const themeTile = this.$theme.getTile(t.id)
         const count = counts[t.id]
         return {
@@ -85,6 +88,12 @@ export default {
           rotation: themeTile ? themeTile.rotation : 0
         }
       })
+
+      if (this.availableOnly) {
+        tiles = tiles.filter(t => t.remainingCount)
+      }
+
+      return tiles
     }
   }
 }

@@ -1,0 +1,13 @@
+{
+  "SD/RRRG": {
+    "features": {
+      "Garden/I": { "id": "garden", "transform": "translate(0 -280)" },
+      "Road/E": { "id": "road.N", "rotate": 90 },
+      "Road/S": { "id": "road.N", "rotate": 180 },
+      "Road/W": { "id": "road.N", "rotate": 270 },
+      "Field/SR.WL": { "id": "field.F",  "rotate": 180 },
+      "Field/NL.NR.EL.WR": { "id": "field.zzFF.G", "rotate": 180 },
+      "Field/ER.SL": { "id": "field.F",  "rotate": 270 }
+    }
+  }
+}

@@ -1,18 +1,18 @@
 <template>
-  <div class="game-setup-grid view">
+  <div class="game-setup-grid view" :class="{ 'no-detail': !showDetail }">
     <header class="primary-header">
       <slot name="header" />
     </header>
 
     <header class="tiles-header">
-      <TilePackSize :size="packSize" />
+      <TilePackSize v-if="showPackSize" :size="packSize" />
     </header>
 
     <main>
       <slot name="main" />
     </main>
 
-    <aside>
+    <aside v-if="showDetail">
       <slot name="detail" />
     </aside>
   </div>
@@ -28,19 +28,14 @@ export default {
 
   props: {
     sets: { type: Object, required: true },
-    rules: { type: Object, required: true }
+    rules: { type: Object, required: true },
+    showPackSize: { type: Boolean, default: true },
+    showDetail: { type: Boolean, default: true }
   },
 
   computed: {
     packSize () {
-      let size = 0
-      let { sets } = this
-      if (sets.count) {
-        sets = { ...sets }
-        delete sets.count
-        size = 1
-      }
-      return size + this.$tiles.getPackSize(sets, this.rules)
+      return this.$tiles.getPackSize(this.sets, this.rules)
     }
   }
 }
@@ -52,6 +47,9 @@ export default {
   grid-template-columns: minmax(0, 1560px) minmax(372px, 1fr)
   grid-template-rows: var(--game-setup-header-height) auto
   grid-template-areas: "header tiles-header" "main detail"
+
+  &.no-detail
+    grid-template-areas: "header tiles-header" "main main"
 
   +theme using ($theme)
     background: map-get($theme, 'board-bg')
@@ -79,6 +77,7 @@ header
   grid-area: header
   align-items: center
   justify-content: flex-end
+  overflow-y: hidden
   padding: 0 30px
 
   .tabs
@@ -100,6 +99,9 @@ main
   margin-right: $panel-gap
   margin-top: -2px
 
+  &.no-detail
+    margin-right: 0
+
 aside
   overflow-y: overlay
   margin-top: -2px
@@ -114,6 +116,9 @@ aside
       position: static
       justify-content: center
       z-index: 0
+
+  main
+    margin-right: 0
 
 @media (max-height: 768px)
   .game-setup-grid

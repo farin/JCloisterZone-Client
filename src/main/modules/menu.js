@@ -24,10 +24,6 @@ async function createMenu (win) {
     isMac ? { role: 'close' } : { role: 'quit' }
   ]
 
-  if (!settings['experimental.playOnline']) {
-    sessionSubmenu.splice(0, 3)
-  }
-
   const template = [
     {
       label: 'Session',
@@ -62,16 +58,22 @@ async function createMenu (win) {
       win.webContents.send('settings.update', { enginePath: currValue === 'localhost:9000' ? null : 'localhost:9000' })
     }
 
+    const toggleLocalPlayOnline = async () => {
+      const currValue = (await getSettings()).playOnlineUrl
+      win.webContents.send('settings.update', { playOnlineUrl: currValue === 'localhost:8000/ws' ? 'play-online.jcloisterzone.com/ws' : 'localhost:8000/ws' })
+    }
+
     template.push({
       label: 'Dev',
       submenu: [
         { role: 'toggleDevTools', label: 'Toggle DevTools' },
         { type: 'separator' },
-        { id: 'remote-engine', label: 'Remote engine', type: 'checkbox', checked: settings.enginePath === 'localhost:9000', click () { toggleRemoteEngine() } },
-        { id: 'dump-server', label: 'Dump hosted game server state', click () { win.webContents.send('menu.dump-server') } },
+        { id: 'remote-engine', label: 'Use Remote Engine', type: 'checkbox', checked: settings.enginePath === 'localhost:9000', click () { toggleRemoteEngine() } },
+        { id: 'local-play-online', label: 'Use Local Play Online', type: 'checkbox', checked: settings.playOnlineUrl === 'localhost:8000/ws', click () { toggleLocalPlayOnline() } },
+        { id: 'dump-server', label: 'Dump Hosted Game Server State', click () { win.webContents.send('menu.dump-server') } },
         { id: 'test-runner', label: 'Test Runner', click () { win.webContents.send('menu.test-runner') } },
         { type: 'separator' },
-        { label: 'Reload artworks', click () { win.webContents.send('menu.reload-artworks') } },
+        { label: 'Reload Add-ons', click () { win.webContents.send('menu.reload-addons') } },
         { id: 'theme-inspector', label: 'Theme inspector', click () { win.webContents.send('menu.theme-inspector') } }
       ]
     })

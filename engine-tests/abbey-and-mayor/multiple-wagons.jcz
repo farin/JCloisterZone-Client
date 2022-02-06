@@ -1,0 +1,228 @@
+{
+  "appVersion": "5.7.3",
+  "gameId": "1",
+  "name": "",
+  "initialRandom": 0.8813287856196286,
+  "created": "2021-08-22T07:38:56.651Z",
+  "clock": 70776,
+  "test": {
+    "description": "Multiple wagons",
+    "assertions": [
+      "Alice has 9 points",
+      "Alice scored road for 1 point",
+      "Alice scored road for 2 points"
+    ]
+  },
+  "setup": {
+    "options": {},
+    "sets": {
+      "basic:1": 1
+    },
+    "elements": {
+      "small-follower": 7,
+      "farmers": true,
+      "wagon": 2
+    },
+    "rules": {
+      "wagon-move": "C1"
+    },
+    "timer": null,
+    "start": [
+      {
+        "tile": "BA/RCr",
+        "x": 0,
+        "y": 0,
+        "rotation": 0
+      }
+    ]
+  },
+  "players": [
+    {
+      "name": "Alice",
+      "slot": 0
+    },
+    {
+      "name": "Bob",
+      "slot": 1
+    }
+  ],
+  "replay": [
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRRR",
+        "rotation": "R0",
+        "position": [
+          1,
+          0
+        ]
+      },
+      "player": 0,
+      "clock": 1519
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            0
+          ],
+          "location": "E",
+          "feature": "Road"
+        },
+        "meepleId": "0.wagon.1"
+      },
+      "player": 0,
+      "clock": 3096
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.42740317106415304
+      },
+      "player": 0,
+      "clock": 3905
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Rr",
+        "rotation": "R0",
+        "position": [
+          2,
+          0
+        ]
+      },
+      "player": 1,
+      "clock": 4927
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 6871
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.804439574994936
+      },
+      "player": 1,
+      "clock": 6878
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/Rr",
+        "rotation": "R180",
+        "position": [
+          1,
+          1
+        ]
+      },
+      "player": 0,
+      "clock": 8351
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            1
+          ],
+          "location": "NE",
+          "feature": "Road"
+        },
+        "meepleId": "0.wagon.2"
+      },
+      "player": 0,
+      "clock": 9591
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.6032244241381606
+      },
+      "player": 0,
+      "clock": 11095
+    },
+    {
+      "type": "PLACE_TILE",
+      "payload": {
+        "tileId": "BA/RRR",
+        "rotation": "R90",
+        "position": [
+          2,
+          1
+        ]
+      },
+      "player": 1,
+      "clock": 12727
+    },
+    {
+      "type": "PASS",
+      "payload": {},
+      "player": 1,
+      "clock": 17887
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.8995003335997356
+      },
+      "player": 1,
+      "clock": 17894
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            0
+          ],
+          "location": "W",
+          "feature": "Road"
+        },
+        "meepleId": "0.wagon.1"
+      },
+      "player": 0,
+      "clock": 27343
+    },
+    {
+      "type": "DEPLOY_MEEPLE",
+      "payload": {
+        "pointer": {
+          "position": [
+            1,
+            0
+          ],
+          "location": "N",
+          "feature": "Road"
+        },
+        "meepleId": "0.wagon.2"
+      },
+      "player": 0,
+      "clock": 50908
+    },
+    {
+      "type": "COMMIT",
+      "payload": {
+        "random": 0.953722504542817
+      },
+      "player": 0,
+      "clock": 52864
+    }
+  ],
+  "gameAnnotations": {
+    "drawOrder": [
+      "BA/RRRR",
+      "BA/Rr",
+      "BA/Rr",
+      "BA/RRR"
+    ],
+    "endTurn": 4
+  }
+}
