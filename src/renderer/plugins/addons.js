@@ -38,32 +38,38 @@ class Addons extends EventsBase {
     console.log('Looking for installed` addons')
     const { settings } = this.ctx.store.state
     const userDataPath = window.process.argv.find(arg => arg.startsWith('--user-data=')).replace('--user-data=', '')
-
-    // clean up 5.6 data
-    let oldArtworkDir
-    try {
-      oldArtworkDir = await fs.promises.stat(path.join(userDataPath, 'artworks'))
-    } catch (e) {}
-    if (oldArtworkDir?.isDirectory()) {
-      try {
-        await fs.promises.rmdir(path.join(userDataPath, 'artworks'), { recursive: true })
-      } catch (e) {
-        console.error('Unable to remove old artwork folder', e)
-      }
-    }
-
-    const lookupFolders = [
-      path.join(userDataPath, 'addons')
-      // process.resourcesPath + '/addons/'
-    ]
-
     const installedAddons = []
     const installedAddonsIds = new Set()
+
+    const readFolder = async (folder, { removable, hidden }) => {
+      let listing
+      try {
+        listing = await fs.promises.readdir(folder)
+      } catch (e) {
+        console.log(`${folder} does not exist`)
+        return
+      }
+      for (const id of listing) {
+        // when same artwork is on path twice, register first found
+        // this allowes overide from user path
+        if (!installedAddonsIds.has(id)) {
+          const fullPath = path.join(folder, id)
+          const addon = await this._readAddon(id, fullPath)
+          if (addon) {
+            addon.removable = removable && id !== 'classic'
+            addon.hidden = hidden
+            installedAddons.push(addon)
+            installedAddonsIds.add(id)
+          }
+        }
+      }
+    }
 
     for (const fullPath of settings.userAddons) {
       const addon = await this._readAddon(path.basename(fullPath), fullPath)
       if (addon) {
         addon.removable = false
+        addon.hidden = false
         if (!installedAddonsIds.has(addon.id)) {
           installedAddons.push(addon)
           installedAddonsIds.add(addon.id)
@@ -71,28 +77,8 @@ class Addons extends EventsBase {
       }
     }
 
-    for (const lookupFolder of lookupFolders) {
-      let listing
-      try {
-        listing = await fs.promises.readdir(lookupFolder)
-      } catch (e) {
-        console.log(`${lookupFolder} does not exist`)
-        continue
-      }
-      for (const id of listing) {
-        // when same artwork is on path twice, register first found
-        // this allowes overide from user path
-        if (!installedAddonsIds.has(id)) {
-          const fullPath = path.join(lookupFolder, id)
-          const addon = await this._readAddon(id, fullPath)
-          if (addon) {
-            addon.removable = id !== 'classic'
-            installedAddons.push(addon)
-            installedAddonsIds.add(id)
-          }
-        }
-      }
-    }
+    await readFolder(process.resourcesPath + '/addons/', { removable: false, hidden: true })
+    await readFolder(path.join(userDataPath, 'addons'), { removable: true, hidden: false })
 
     await this.updateOutdated(installedAddons)
 

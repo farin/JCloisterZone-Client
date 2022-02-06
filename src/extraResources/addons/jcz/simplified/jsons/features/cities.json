@@ -1,0 +1,110 @@
+{
+  "city.NWSE[coa]": {
+    "images": [
+      { "href": "images/city.webp", "class": "city" },
+      { "if": "coa", "href": "#coat-of-arms", "class": "symbols", "x": 690, "y": 80 }
+    ],
+    "clip": "${all}",
+    "point": [450, 225]
+  },
+  "city.cathedral": {
+    "images": [
+      { "href": "images/city.webp", "class": "city" },
+      { "href": "#cathedral", "class": "city" }
+    ],
+    "clip": "${all}",
+    "point": [690, 210]
+  },
+  "city._S[coa,cloth,grain,wine]": {
+    "images": [
+      { "href": "#city-_S", "class": "city" },
+      { "if": "coa", "href": "#coat-of-arms", "class": "symbols", "x": 690, "y": 80 },
+      { "if": "cloth", "href": "#trade-goods-cloth", "class": "symbols", "x": 80, "y": 80 },
+      { "if": "grain", "href": "#trade-goods-grain", "class": "symbols", "x": 80, "y": 80 },
+      { "if": "wine", "href": "#trade-goods-wine", "class": "symbols", "x": 80, "y": 80 },
+      { "if": "princess", "href": "#princess", "class": "symbols", "x": 80, "y": 80 }
+    ],
+    "clip": "M 0 0 H 900 V 900 Q 450 300 0 900 Z",
+    "point": [450, 270]
+  },
+  "city._S.L": {
+    "images": [
+      { "href": "#city-_S", "class": "city" }
+    ],
+    "clip": "${city._S - monastery|translate(-200 -160)}",
+    "point": [600, 270]
+  },
+  "city.NW[coa,cloth,grain,wine]": {
+    "images": [
+      { "href": "#city-NW", "class": "city" },
+      { "if": "coa", "href": "#coat-of-arms", "class": "symbols", "x": 80, "y": 80 },
+      { "if": "cloth", "href": "#trade-goods-cloth", "class": "symbols", "x": 80, "y": 80 },
+      { "if": "grain", "href": "#trade-goods-grain", "class": "symbols", "x": 80, "y": 80 },
+      { "if": "wine", "href": "#trade-goods-wine", "class": "symbols", "x": 80, "y": 80 },
+      { "if": "princess", "href": "#princess", "class": "symbols", "x": 80, "y": 80 }
+    ],
+    "clip": "M 0 0 H 900 C 660 240 540 180 360 360 S 240 660 0 900 Z",
+    "point": [370, 160]
+  },
+  "city.NW.inv[coa]": {
+    "images": [
+      { "href": "#city-NW", "class": "city" },
+      { "if": "coa", "href": "#coat-of-arms", "class": "symbols", "x": 80, "y": 80 }
+    ],
+    "clip": "M 0 0 H 900 C 660 240 720 360 540 540 S 240 660 0 900 Z",
+    "point": [270, 270]
+  },
+  "city.NW.spike[coa,cloth,grain,wine]": {
+    "images": [
+      { "href": "#city-NW-spike", "class": "city" },
+      { "if": "coa", "href": "#coat-of-arms", "class": "symbols", "x": 690, "y": 80 },
+      { "if": "cloth", "href": "#trade-goods-cloth", "class": "symbols", "x": 80, "y": 80 },
+      { "if": "grain", "href": "#trade-goods-grain", "class": "symbols", "x": 80, "y": 80 },
+      { "if": "wine", "href": "#trade-goods-wine", "class": "symbols", "x": 80, "y": 80 },
+      { "if": "princess", "href": "#princess", "class": "symbols", "x": 80, "y": 80 }
+    ],
+    "clip": "M 0 0 H 900 Q 500 450 900 900 Q 450 500 0 900 Z",
+    "point": [450, 270]
+  },
+  "city.WE[coa,cloth,grain,wine]": {
+    "images": [
+      { "href": "#city-WE", "class": "city" },
+      { "if": "coa", "href": "#coat-of-arms", "class": "symbols", "x": 60, "y": 230 },
+      { "if": "cloth", "href": "#trade-goods-cloth", "class": "symbols", "x": 50, "y": 240 },
+      { "if": "grain", "href": "#trade-goods-grain", "class": "symbols", "x": 50, "y": 240 },
+      { "if": "wine", "href": "#trade-goods-wine", "class": "symbols", "x": 50, "y": 240 }
+    ],
+    "clip": "M 0 0 Q 450 600 900 0 V 900 Q 450 300 0 900 Z",
+    "point": [600, 450]
+  },
+  "city.N[coa]": {
+    "images": [
+      { "href": "#city-N", "class": "city" },
+      { "if": "coa", "href": "#coat-of-arms", "class": "symbols", "x": 690, "y": 80 }
+    ],
+    "clip": "M0,0 Q 450 500 900 0 Z",
+    "point": [450, 130]
+  },
+  "city.n": {
+    "images": [
+      { "href": "#city-n", "class": "city" }
+    ],
+    "clip": "M0,0 Q 450 320 900 0 Z",
+    "point": [450, 90]
+  },
+  "city.W.spike": {
+    "images": [
+      { "href": "#city-W.spike", "class": "city" }
+    ],
+    "clip": "M 0 0 Q 450 450 900 0 C 660 240 720 360 540 540 S 240 660 0 900 Z",
+    "point": [130, 450]
+  },
+  "city.N.spike2": {
+    "images": [
+      { "href": "#city-N.spike2", "class": "city" },
+      { "if": "princess", "href": "#princess", "class": "symbols", "x": 160, "y": 80 }
+    ],
+    "clip": "M 0 0 H 900 C 660 240 540 180 360 360 S 240 660 0 900 Q 300 450 0 0 Z",
+    "point": [500, 120]
+  }
+}

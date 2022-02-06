@@ -19,7 +19,7 @@
           <v-icon>fas fa-minus</v-icon>
         </span>
         <span class="quantity">
-          <v-icon v-if="value === 1 || value === true">fas fa-check</v-icon>
+          <v-icon v-if="(value === 1 || value === true) && !(reset > 1)">fas fa-check</v-icon>
           <template v-else>{{ value }}</template>
         </span>
         <span v-if="mutable" class="add" title="Add multiple instances" @click.stop="add">

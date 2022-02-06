@@ -1,0 +1,342 @@
+{
+  "field.TODO": {
+    "clip": "M0,0 Z",
+    "point": [0, 0]
+  },
+  "field.F": {
+    "clip": "M0,0 l360,0 l0,360 l-360,0 Z",
+    "point": [180, 180]
+  },
+  "field.zzF.L": {
+    "clip": "${field.F|rotate(270) - monastery}",
+    "point": [180, 720]
+  },
+  "field.zzzF.L": {
+    "clip": "${field.F|rotate(180) - monastery}",
+    "point": [720, 720]
+  },
+  "field.FF": {
+    "clip": "M0,0 l900,0 l0,360 l-900,0 Z",
+    "point": [600, 180]
+  },
+  "field.zzFF.G": {
+    "clip": "${field.FF|rotate(180) - garden|translate(0 280)}",
+    "point": [800, 720]
+  },
+  "field.FF.L": {
+    "clip": "${field.FF - monastery}",
+    "point": [720, 180]
+  },
+  "field.zzFF.L": {
+    "clip": "${field.FF|rotate(180) - monastery}",
+    "point": [720, 720]
+  },
+  "field.FFF": {
+    "clip": "M0 0 H900 v360 H360 V900 H0 Z",
+    "point": [180, 180]
+  },
+  "field.FFFF.L": {
+    "clip": "${all - monastery}",
+    "point": [720, 180]
+  },
+  "field.FFFF.LR": {
+    "clip": "${all - road.S.m - monastery}",
+    "point": [720, 180]
+  },
+  "field.q": {
+    "clip": "${field.qq & (M 0 0 H360 V450 H0 Z)}",
+    "point": [260, 90]
+  },
+  "field.zq": {
+    "clip": "${field.qq & (M 540 0 H900 V450 H540 Z)}",
+    "point": [640, 90]
+  },
+  "field.QQ": {
+    "clip": "M 0 0 Q 450 600 900 0 Z",
+    "point": [450, 100]
+  },
+  "field.Q": {
+    "clip": "${field.QQ & (M 0 0 H360 V450 H0 Z)}",
+    "point": [260, 100]
+  },
+  "field.zQ": {
+    "clip": "${field.QQ & (M 540 0 H900 V450 H540 Z)}",
+    "point": [640, 100]
+  },
+  "field.qq": {
+    "clip": "M 0 0 Q 450 400 900 0 Z",
+    "point": [450, 100]
+  },
+  "field.qq300": {
+    "clip": "M 0 0 Q 450 300 900 0 Z",
+    "point": [450, 100]
+  },
+  "field.zzQQ": {
+    "clip": "M 900 900 Q 450 300 0 900 Z",
+    "point": [450, 800]
+  },
+  "field.zzQQ.G": {
+    "clip": "${field.zzQQ - garden|translate(0 310)}",
+    "point": [700, 800]
+  },
+  "field.WWQQ": {
+    "clip": "${#city.N > #city.N|rotate(90) > (M900 900 L0 900) > #city.N|rotate(270)} Z",
+    "point": [450, 600]
+  },
+  "field.PP": {
+    "clip": "M 0 0 Q 450 450 900 0 Z",
+    "point": [450, 100]
+  },
+  "field.U": {
+    "clip": "${field.FF - city.N & (M0 0 h400 v360 H0 Z)}",
+    "point": [200, 300]
+  },
+  "field.zU": {
+    "clip": "${field.U|mirror(x)}",
+    "point": [800, 300]
+  },
+  "field.zu": {
+    "clip": "${field.zU - road.se|rotate(270)}",
+    "point": [800, 300]
+  },
+  "field.UU": {
+    "clip": "${field.FF - city.N}",
+    "point": [200, 300]
+  },
+  "field.US": {
+    "clip": "${field.UU - city.NW|rotate(180)}",
+    "point": [200, 300]
+  },
+  "field.UUFB": {
+    "clip": "${all - city.N - arc.SE}",
+    "point": [300, 450]
+  },
+  "field.UUBF": {
+    "clip": "${field.UUFB|mirror(x)}",
+    "point": [600, 450]
+  },
+  "field.UUUU": {
+    "clip": "${#city.N > #city.N|rotate(180)} Z",
+    "point": [630, 450]
+  },
+  "field.UUUU.G": {
+    "clip": "${field.UUUU - garden}",
+    "point": [750, 450]
+  },
+  "field.UUFF": {
+    "clip": "${#city.N} V900 H0 Z",
+    "point": [450, 600]
+  },
+  "field.UUFF.G": {
+    "clip": "${field.UUFF - garden|translate(0 180)}",
+    "point": [720, 400]
+  },
+  "field.WWWW": {
+    "clip": "${#city.N > #city.N|rotate(90) > #city.N|rotate(180) > #city.N|rotate(270)} Z",
+    "point": [450, 450]
+  },
+  "field.WWWW.G": {
+    "clip": "${field.WWWW - garden}",
+    "point": [600, 300]
+  },
+  "field.ii": {
+    "clip": "${(M0 0 H900 V450 H0 Z) - city.n - city.WE}",
+    "point": [450, 230]
+  },
+  "field.C": {
+    "clip": "${field.FF|rotate(270) - city.NW|rotate(270)}",
+    "point": [260, 100]
+  },
+  "field.zC": {
+    "clip": "${field.FF|rotate(90) - city.NW|rotate(180)}",
+    "point": [640, 100]
+  },
+  "field.zCCC": {
+    "clip": "${all - city.NW}",
+    "point": [600, 600]
+  },
+  "field.zCCC.G": {
+    "clip": "${field.zCCC - garden|translate(180 180)}",
+    "point": [800, 350]
+  },
+  "field.DDD": {
+    "clip": "${all - city.NW.inv|rotate(180)}",
+    "point": [200, 200]
+  },
+  "field.zzzA": {
+    "clip": "M 900 540 A 360 360 90 0 0 540 900 H 900 Z",
+    "point": [800, 800]
+  },
+  "field.zzzA.c2": {
+    "clip": "${field.zzzA - city.NW|rotate(270)}",
+    "point": [830, 680]
+  },
+  "field.zzzA.c2x": {
+    "clip": "${field.zzzA - city.NW|rotate(90)}",
+    "point": [680, 830]
+  },
+  "field.WQQF": {
+    "clip": "${#city.N} V900 H0 ${#city.N|rotate(270)} Z",
+    "point": [600, 600]
+  },
+  "field.WQQF.G": {
+    "clip": "${field.WQQF - garden|translate(180 180)}",
+    "point": [650, 300]
+  },
+  "field.zCCB": {
+    "clip": "${all - city.NW - arc.SE}",
+    "point": [780, 300]
+  },
+  "field.FBB": {
+    "clip": "M 360 900 A 540 540 90 0 1 900 360 L 900 0 540 0 A 540 540 90 0 1 0 540 V 900 Z",
+    "point": [700, 200]
+  },
+  "field.FBB.c2": {
+    "clip": "${field.FBB - city.NW|rotate(270)}",
+    "point": [700, 200]
+  },
+  "field.FBB.c2.G": {
+    "clip": "${field.FBB.c2 - garden|translate(280 -280)}",
+    "point": [450, 450]
+  },
+  "field.FFAF": {
+    "clip": "${all - arc.SE|rotate(90)}",
+    "point": [600, 300]
+  },
+  "field.FFaF": {
+    "clip": "M 0 0 H 900 V 900 H 540 v -300 A 240 240 90 0 0 300 360 H 0 Z",
+    "point": [600, 300]
+  },
+  "field.FFaF.cS": {
+    "clip": "${field.FFaF - city.N|rotate(180)}",
+    "point": [600, 300]
+  },
+  "field.FFAF.G": {
+    "clip": "${field.FFAF - garden|translate(180 -180)}",
+    "point": [200, 200]
+  },
+  "field.zCSQ": {
+    "clip": "${all - city.NW - city.N|rotate(180)}",
+    "point": [600, 450]
+  },
+  "field.zzCF": {
+    "clip": "${all - city.NW & field.FF|rotate(180)}",
+    "point": [450, 700]
+  },
+  "field.zzCF.G": {
+    "clip": "${field.zzCF - garden|translate(80 280)}",
+    "point": [760, 700]
+  },
+  "field.zzUF": {
+    "clip": "${all - city.N|rotate(270) & field.FF|rotate(180)}",
+    "point": [450, 700]
+  },
+  "field.zCzF": {
+    "clip": "${all - city.NW & field.FF|rotate(90)}",
+    "point": [700, 450]
+  },
+  "field.zUzF": {
+    "clip": "${all - city.N & field.FF|rotate(90)}",
+    "point": [700, 450]
+  },
+  "field.WSS": {
+    "clip": "${#city.N > #city.SE > #city.N|rotate(270)} Z",
+    "point": [450, 450]
+  },
+  "field.zEE": {
+    "clip": "${#city.SE > #city.NW} Z",
+    "point": [450, 450]
+  },
+  "field.zCCB.Inn": {
+    "clip": "${field.zCCB}",
+    "point": [300, 780]
+  },
+  "field.FFFF.Ac": {
+    "clip": "${all - acrobats}",
+    "point": [700, 200]
+  },
+  "field.FFFF.AcG": {
+    "clip": { "shape": "path", "d": "${all} ${acrobats} ${garden|translate(260 -260)}", "fill-rule": "evenodd" },
+    "point": [200, 700]
+  },
+  "field.FFFF.AcR": {
+    "clip": "${all - road.N|rotate(180) - acrobats}",
+    "point": [200, 700]
+  },
+  "field.FFzF.Ac": {
+    "clip": "${(M0 0 H900 V900 H540 V540 L360 360 H0 Z) - acrobats}",
+    "point": [700, 200]
+  },
+  "field.F.Ac": {
+    "clip": "${field.F - acrobats}",
+    "point": [200, 200]
+  },
+  "field.zzFz.Ac": {
+    "clip": "${field.F|rotate(270) - acrobats}",
+    "point": [200, 700]
+  },
+  "field.FzFz.Ac": {
+    "clip": "${field.FF|rotate(270) - acrobats}",
+    "point": [200, 700]
+  },
+  "field.FF.Ci": {
+    "clip": "${field.FF - circus}",
+    "point": [600, 180]
+  },
+  "field.U.Ci": {
+    "clip": "${field.U - circus}",
+    "point": [200, 300]
+  },
+  "field.zU.Ci": {
+    "clip": "${field.U|mirror(x) - circus}",
+    "point": [700, 300]
+  },
+  "field.zUFF.Ci": {
+    "clip": "${field.FFF|rotate(180) - city.N - circus}",
+    "point": [720, 720]
+  },
+  "field.F.Ci": {
+    "clip": "${field.F - circus}",
+    "point": [180, 180]
+  },
+  "field.FFF.Ci": {
+    "clip": "${(M0 0 H900 v360 H360 V900 H0 Z) - circus}",
+    "point": [180, 180]
+  },
+  "field.FFF.GCi": {
+    "clip": "${field.FFF - circus - garden|translate(300 -300)}",
+    "point": [180, 180]
+  },
+  "field.FFFF.CiR": {
+    "clip": "${all - road.N|rotate(180) - circus}",
+    "point": [720, 180]
+  },
+  "field.UUFF.Ci": {
+    "clip": "${field.UUFF - circus}",
+    "point": [720, 720]
+  },
+  "field.UzF.Ci": {
+    "clip": "${field.FF|rotate(270) - city.N - circus}",
+    "point": [180, 720]
+  },
+  "field.zUzF.Ci": {
+    "clip": "${field.FF|rotate(90) - city.N - circus}",
+    "point": [720, 720]
+  },
+  "field.UzU.Ci": {
+    "clip": "${(M0 0 H450 V900 H0 Z) - city.N - city.N|rotate(180) - circus}",
+    "point": [200, 300]
+  },
+  "field.C.Ci": {
+    "clip": "${field.C - circus}",
+    "point": [260, 100]
+  },
+  "field.zC.Ci": {
+    "clip": "${field.zC - circus}",
+    "point": [640, 100]
+  },
+  "field.zUzF.TB_RRC": {
+    "clip": "${field.FF|rotate(90) - city.N - road.W.over}",
+    "point": [720, 720]
+  }
+}
