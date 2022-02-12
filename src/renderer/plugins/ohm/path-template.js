@@ -2,6 +2,7 @@ import isObject from 'lodash/isObject'
 import zip from 'lodash/zip'
 import ohm from 'ohm-js'
 import { Path, Point } from 'paper/dist/paper-core'
+import { kForOnEventAttribute } from 'ws/lib/constants'
 
 import PathTemplateGrammar from './path-template.ohm'
 
@@ -160,9 +161,10 @@ export function createSemantics (loader, artwork) {
         }
 
         const [id, rotKey] = ref.split('@')
-        let feature = loader.features[id]
+        const root = loader.features[id]
+        let feature = root
         if (rotKey !== undefined) {
-          // TODO clip can be on parent, also clip-rotate may be used
+          // clip-rotate may be also used, TODO apply it
           feature = feature['@' + rotKey]
         }
 
@@ -171,7 +173,7 @@ export function createSemantics (loader, artwork) {
           return ''
         }
 
-        const { clip } = feature
+        let clip = feature.clip || root.clip
         if (isObject(clip)) {
           // https://stackoverflow.com/questions/5737975/circle-drawing-with-svgs-arc-path
           if (clip.shape === 'circle') {
@@ -184,6 +186,16 @@ export function createSemantics (loader, artwork) {
           }
           console.error('Only path, cicle or ellopse can be referenced from path expression')
           return ''
+        }
+
+        if (feature.transform) {
+          clip = asPath(clip)
+          const m = /translate\((-?\d+),\s*(-?\d+)\)/.exec(feature.transform)
+          if (m) {
+            clip = clip.translate(new Point(~~m[1], ~~m[2]))
+          } else {
+            console.error(`unimplemented transform (when rerefenced as ${ref}`)
+          }
         }
 
         return clip
