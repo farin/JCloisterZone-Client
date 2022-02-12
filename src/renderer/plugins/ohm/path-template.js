@@ -160,9 +160,9 @@ export function createSemantics (loader, artwork) {
         }
 
         const [id, rotKey] = ref.split('@')
-        let feature = loader.features[id]
+        const root = loader.features[id]
+        let feature = root
         if (rotKey !== undefined) {
-          // TODO clip can be on parent, also clip-rotate may be used
           feature = feature['@' + rotKey]
         }
 
@@ -171,19 +171,29 @@ export function createSemantics (loader, artwork) {
           return ''
         }
 
-        const { clip } = feature
+        let clip = feature.clip || root.clip || feature['clip-rotate']
         if (isObject(clip)) {
           // https://stackoverflow.com/questions/5737975/circle-drawing-with-svgs-arc-path
           if (clip.shape === 'circle') {
-            const { cx, cy, r} = clip
+            const { cx, cy, r } = clip
             return `M${cx - r},${cy}a${r},${r} 0 1,0 ${r * 2},0a${r},${r} 0 1,0 -${r * 2},0 Z`
           }
           if (clip.shape === 'ellipse') {
-            const { cx, cy, rx, ry} = clip
+            const { cx, cy, rx, ry } = clip
             return `M${cx - rx},${cy}a${rx},${ry} 0 1,0 ${rx * 2},0a${rx},${ry} 0 1,0 -${rx * 2},0 Z`
           }
           console.error('Only path, cicle or ellopse can be referenced from path expression')
           return ''
+        }
+
+        if (feature.transform) {
+          clip = asPath(clip)
+          const m = /translate\((-?\d+),\s*(-?\d+)\)/.exec(feature.transform)
+          if (m) {
+            clip = clip.translate(new Point(~~m[1], ~~m[2]))
+          } else {
+            console.error(`unimplemented transform (when rerefenced as ${ref}`)
+          }
         }
 
         return clip
