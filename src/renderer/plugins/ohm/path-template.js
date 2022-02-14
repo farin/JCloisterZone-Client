@@ -164,7 +164,6 @@ export function createSemantics (loader, artwork) {
         const root = loader.features[id]
         let feature = root
         if (rotKey !== undefined) {
-          // clip-rotate may be also used, TODO apply it
           feature = feature['@' + rotKey]
         }
 
@@ -173,15 +172,15 @@ export function createSemantics (loader, artwork) {
           return ''
         }
 
-        let clip = feature.clip || root.clip
+        let clip = feature.clip || root.clip || feature['clip-rotate']
         if (isObject(clip)) {
           // https://stackoverflow.com/questions/5737975/circle-drawing-with-svgs-arc-path
           if (clip.shape === 'circle') {
-            const { cx, cy, r} = clip
+            const { cx, cy, r } = clip
             return `M${cx - r},${cy}a${r},${r} 0 1,0 ${r * 2},0a${r},${r} 0 1,0 -${r * 2},0 Z`
           }
           if (clip.shape === 'ellipse') {
-            const { cx, cy, rx, ry} = clip
+            const { cx, cy, rx, ry } = clip
             return `M${cx - rx},${cy}a${rx},${ry} 0 1,0 ${rx * 2},0a${rx},${ry} 0 1,0 -${rx * 2},0 Z`
           }
           console.error('Only path, cicle or ellopse can be referenced from path expression')

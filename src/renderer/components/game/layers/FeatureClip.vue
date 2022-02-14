@@ -1,6 +1,6 @@
 <template>
   <component
-    :is="clip.shape ? clip.shape : 'path'"
+    :is="clip && clip.shape ? clip.shape : 'path'"
     v-bind="attrs"
   />
 </template>
@@ -18,7 +18,7 @@ export default {
       if (typeof this.clip === 'string') {
         return { d: this.clip }
       }
-      switch (this.clip.shape) {
+      switch (this.clip?.shape) {
       case 'circle': return pick(this.clip, ['cx', 'cy', 'r', 'fill-rule'])
       case 'ellipse': return pick(this.clip, ['cx', 'cy', 'rx', 'ry', 'fill-rule'])
       case 'path': return pick(this.clip, ['d', 'fill-rule'])
