@@ -28,6 +28,7 @@ import TilePlacedEvent from '@/components/game/play-events/TilePlacedEvent'
 import TileDiscardedEvent from '@/components/game/play-events/TileDiscardedEvent'
 import TokenPlacedEvent from '@/components/game/play-events/TokenPlacedEvent'
 import TokenReceivedEvent from '@/components/game/play-events/TokenReceivedEvent'
+import BlackDragonMovedEvent from '@/components/game/play-events/BlackDragonMovedEvent'
 
 const MAPPING = {
   'castle-created': CastleCreatedEvent,
@@ -44,7 +45,8 @@ const MAPPING = {
   'tile-placed': TilePlacedEvent,
   'tile-discarded': TileDiscardedEvent,
   'token-placed': TokenPlacedEvent,
-  'token-received': TokenReceivedEvent
+  'token-received': TokenReceivedEvent,
+  'blackdragon-moved': BlackDragonMovedEvent
 }
 
 export default {
@@ -62,7 +64,8 @@ export default {
     TilePlacedEvent,
     TileDiscardedEvent,
     TokenPlacedEvent,
-    TokenReceivedEvent
+    TokenReceivedEvent,
+    BlackDragonMovedEvent
   },
 
   props: {

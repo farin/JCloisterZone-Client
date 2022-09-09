@@ -79,7 +79,7 @@ export default {
           }
 
           const isScore = ev.type === 'points' || ev.type === 'token-received'
-          const isNewLineEvent = ev.type === 'tile-auctioned' || ev.type === 'dragon-moved'
+          const isNewLineEvent = ev.type === 'tile-auctioned' || ev.type === 'dragon-moved' || ev.type === 'blackdragon-moved'
           if (isScore !== lastRowIsScore || isNewLineEvent || row?.events.length === 4) {
             row = { events: [], height: isScore ? 27 : 41 }
             item.rows.unshift(row)

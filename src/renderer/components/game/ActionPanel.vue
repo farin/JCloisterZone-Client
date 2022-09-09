@@ -80,6 +80,7 @@ import SelectPrisonerToExchangeAction from '@/components/game/actions/SelectPris
 import ShepherdPhaseAction from '@/components/game/actions/ShepherdPhaseAction.vue'
 import TilePhaseAction from '@/components/game/actions/TilePhaseAction.vue'
 import TowerCapturePhaseAction from '@/components/game/actions/TowerCapturePhaseAction.vue'
+import BlackDragonMovePhaseAction from '@/components/game/actions/BlackDragonMovePhaseAction.vue'
 
 const MAPPING = {
   AbbeyPhase: TilePhaseAction,
@@ -113,7 +114,8 @@ export default {
     SelectPrisonerToExchangeAction,
     ShepherdPhaseAction,
     TilePhaseAction,
-    TowerCapturePhaseAction
+    TowerCapturePhaseAction,
+    BlackDragonMovePhaseAction
   },
 
   props: {
