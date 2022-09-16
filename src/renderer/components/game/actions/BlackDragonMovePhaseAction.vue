@@ -63,9 +63,7 @@ export default {
 
   methods: {
     showLayer () {
-      console.log('SHOW BG',this.local,this.actionItem.options);
       if (this.local) {
-      console.log('SHOW BG2');
         this.$store.dispatch('board/showLayer', {
           layer: 'BlackDragonMoveLayer',
           props: {
@@ -76,12 +74,10 @@ export default {
     },
 
     hideLayer () {
-      console.log('HIDE BG');
       this.$store.dispatch('board/hideLayer', { layer: 'BlackDragonMoveLayer' })
     },
 
     async onSelect (position) {
-      console.log('ONSELECT BG');
       if (this.local) {
         await this.$store.dispatch('game/apply', {
           type: 'MOVE_NEUTRAL_FIGURE',

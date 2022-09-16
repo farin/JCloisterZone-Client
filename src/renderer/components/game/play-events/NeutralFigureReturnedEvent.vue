@@ -33,7 +33,6 @@ export default {
 
   methods: {
     onMouseEnter () {
-      console.log(this.ev);
       this.$store.dispatch('board/showLayer', {
         layer: 'EmphasizeLayer',
         props: {

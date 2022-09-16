@@ -33,7 +33,6 @@ export default {
 
   methods: {
     onMouseEnter () {
-      console.log(this.ev);
       const { to } = this.ev
       if (!to) {
         return
