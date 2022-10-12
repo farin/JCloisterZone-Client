@@ -23,10 +23,10 @@
   },
   "keywords": [],
   "engines": {
-    "node": ">=14.16.0"
+    "node": ">=16.0.0"
   },
   "resolutions": {
-    "@types/node": "14.14.41"
+    "@types/node": "16.11.26"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "5.15.4",
@@ -40,10 +40,10 @@
     "browser-env": "3.3.0",
     "cross-env": "7.0.3",
     "deepmerge": "4.2.2",
-    "electron": "13.2.3",
-    "electron-builder": "22.11.7",
+    "electron": "21.1.0",
+    "electron-builder": "23.6.0",
     "electron-debug": "3.2.0",
-    "electron-devtools-installer": "^3.1.1",
+    "electron-devtools-installer": "^3.2.0",
     "eslint": "7.32.0",
     "eslint-friendly-formatter": "4.0.1",
     "eslint-loader": "4.0.2",
