@@ -1,15 +1,13 @@
 <template>
   <g id="farm-hints-layer">
     <defs>
-      <pattern
-        id="farm-hint-pattern-1"
-        x="0" y="0" width="200" height="200"
-        patternUnits="userSpaceOnUse"
-        :patternTransform="globalTransform"
-      >
-        <rect class="checker" x="0" width="100" height="100" y="0" />
-        <rect class="checker" x="100" width="100" height="100" y="100" />
-      </pattern>
+      <CheckerPattern
+        v-for="p in patterns"
+        :id="'farm-hint-pattern-1-' + (p === null ? 'N' : p)"
+        :key="p"
+        :pattern-transform="globalTransform"
+        :player="p"
+      />
 
       <clipPath
         v-for="fc in fieldsClip"
@@ -28,9 +26,10 @@
     <rect
       v-for="field in filedsMapped"
       :key="'farm-hint-'+field.id"
+      class="farm-hint-area"
       :clip-path="'url(#farm-hint-clip-' + field.id + ')'"
       width="100%" height="100%"
-      fill="url(#farm-hint-pattern-1)"
+      :fill="`url(#farm-hint-pattern-1-${field.owner || 'N'})`"
     />
   </g>
 </template>
@@ -40,9 +39,11 @@ import { mapState } from 'vuex'
 
 import LayerMixin from '@/components/game/layers/LayerMixin'
 import FeatureClip from '@/components/game/layers/FeatureClip.vue'
+import CheckerPattern from '@/components/game/layers/patterns/CheckerPattern.vue'
 
 export default {
   components: {
+    CheckerPattern,
     FeatureClip
   },
 
@@ -59,8 +60,16 @@ export default {
 
   computed: {
     ...mapState({
-      fields: state => state.game.features.filter(f => f.type === 'Field' && f.places.length > 1)
+      players: state => state.game.players,
+      fields: state => state.game.features.filter(f => f.type === 'Field' && f.cities && f.places.length > 1)
     }),
+
+    patterns () {
+      const res = [null]
+      console.log(this.players)
+      this.players.forEach((p, idx) => res.push(idx))
+      return res
+    },
 
     filedsMapped () {
       return this.fields.map(field => {
@@ -83,9 +92,10 @@ export default {
         }
         return {
           id: field.places[0].join('-').replaceAll('.', '_'),
+          owner: field.owners.length !== 1 ? null : field.owners[0],
           places
         }
-      }).filter(f => f.places.length)
+      }).filter(f => f.places.length) // filter out errors
     },
 
     fieldsClip () {
@@ -113,4 +123,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.farm-hint-area
+  opacity: 0.4
 </style>
