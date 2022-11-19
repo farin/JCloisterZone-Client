@@ -11,6 +11,9 @@
   >
     <g :transform="transform">
       <TileLayer />
+    </g>
+    <FarmHintsLayer :global-transform="transform" />
+    <g :transform="transform">
       <TilePlacementLayer
         v-if="layers.TilePlacementLayer"
         v-bind="layers.TilePlacementLayer"
@@ -26,9 +29,7 @@
         v-if="layers.WagonPhaseLayer"
         v-bind="layers.WagonPhaseLayer"
       />
-      <FarmHintsLayer />
     </g>
-
     <EmphasizeLayer
       v-if="layers.EmphasizeLayer"
       v-bind="layers.EmphasizeLayer"
