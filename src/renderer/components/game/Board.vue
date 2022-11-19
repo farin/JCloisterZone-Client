@@ -26,7 +26,9 @@
         v-if="layers.WagonPhaseLayer"
         v-bind="layers.WagonPhaseLayer"
       />
+      <FarmHintsLayer />
     </g>
+
     <EmphasizeLayer
       v-if="layers.EmphasizeLayer"
       v-bind="layers.EmphasizeLayer"
@@ -80,6 +82,7 @@ import CastleLayer from '@/components/game/layers/CastleLayer'
 import CastleBaseSelectLayer from '@/components/game/layers/CastleBaseSelectLayer'
 import DragonMoveLayer from '@/components/game/layers/DragonMoveLayer'
 import EmphasizeLayer from '@/components/game/layers/EmphasizeLayer'
+import FarmHintsLayer from '@/components/game/layers/FarmHintsLayer'
 import FerryChangeLayer from '@/components/game/layers/FerryChangeLayer'
 import FlierLayer from '@/components/game/layers/FlierLayer'
 import TokenLayer from '@/components/game/layers/TokenLayer'
@@ -106,6 +109,7 @@ export default {
     CastleBaseSelectLayer,
     DragonMoveLayer,
     EmphasizeLayer,
+    FarmHintsLayer,
     FeatureSelectLayer,
     FerryChangeLayer,
     FlierLayer,
