@@ -1,12 +1,11 @@
 <template>
   <pattern
-    x="0" y="0" width="162" height="162"
+    x="0" y="0" width="81" height="162"
     patternUnits="userSpaceOnUse"
     :patternTransform="patternTransform"
   >
     <g :class="player === null ? 'neutral-pattern' : colorCssClass(player) + ' color-fill'">
-      <rect x="0" y="0" width="81" height="81" />
-      <rect x="81" y="81" width="81" height="81" />
+      <rect width="81" height="81" />
     </g>
   </pattern>
 </template>
