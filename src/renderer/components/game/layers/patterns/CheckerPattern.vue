@@ -4,7 +4,10 @@
     patternUnits="userSpaceOnUse"
     :patternTransform="patternTransform"
   >
-    <g :class="player === null ? 'neutral-pattern' : colorCssClass(player) + ' color-fill'">
+    <g
+      class="farm-hint-pattern"
+      :class="player === null ? 'farm-hint-pattern-neutral' : colorCssClass(player) + ' color-fill'"
+    >
       <rect x="0" y="0" width="81" height="81" />
       <rect x="81" y="81" width="81" height="81" />
     </g>

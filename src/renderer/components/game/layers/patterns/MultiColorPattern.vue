@@ -1,15 +1,17 @@
 <template>
   <pattern
-    x="0" y="0" width="81" height="162"
+    x="0" y="0" width="81" :height="81 * (players.length + 1)"
     patternUnits="userSpaceOnUse"
     :patternTransform="patternTransform"
   >
-    <g
-      class="farm-hint-pattern"
-      :class="player === null ? 'farm-hint-pattern-neutral' : colorCssClass(player) + ' color-fill'"
-    >
-      <rect width="81" height="81" />
-    </g>
+    <rect
+      v-for="(player, idx) in players"
+      :key="player"
+      x="0"
+      :y="81 * idx"
+      width="81" height="81"
+      :class="colorCssClass(player) + ' color-fill farm-hint-pattern'"
+    />
   </pattern>
 </template>
 
@@ -18,7 +20,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   props: {
-    player: { type: Number, default: null },
+    players: { type: Array, required: true },
     patternTransform: { type: String, required: true }
   },
 

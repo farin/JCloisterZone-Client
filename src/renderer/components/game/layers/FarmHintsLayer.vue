@@ -1,22 +1,20 @@
 <template>
   <g id="farm-hints-layer">
-    <defs
-      v-for="(pattern, idx) in patterns"
-      :key="idx"
-    >
+    <defs>
       <component
-        :is="pattern.component"
-        v-for="p in patternPlayerIndexes"
-        :id="'farm-hint-pattern-' + idx + '-' + (p === null ? 'N' : p)"
-        :key="p"
-        :pattern-transform="globalTransform + ' ' + (pattern.transform || '')"
-        :player="p"
+        :is="p.component"
+        v-for="p in filedsMapped.usedPatterns"
+        :id="p.id"
+        :key="p.id"
+        :pattern-transform="globalTransform + ' ' + (p.transform || '')"
+        v-bind="p.props"
       />
     </defs>
+
     <!--- todo on demand multicolor -->
     <defs>
       <clipPath
-        v-for="fc in fieldsClip"
+        v-for="fc in filedsMapped.clips"
         :id="fc.id"
         :key="fc.id"
       >
@@ -30,7 +28,7 @@
     </defs>
 
     <rect
-      v-for="field in filedsMapped"
+      v-for="field in filedsMapped.fields"
       :key="'farm-hint-'+field.id"
       class="farm-hint-area"
       :clip-path="'url(#farm-hint-clip-' + field.id + ')'"
@@ -43,10 +41,11 @@
 <script>
 import { mapState } from 'vuex'
 
-import LayerMixin from '@/components/game/layers/LayerMixin'
-import FeatureClip from '@/components/game/layers/FeatureClip.vue'
 import CheckerPattern from '@/components/game/layers/patterns/CheckerPattern.vue'
+import FeatureClip from '@/components/game/layers/FeatureClip.vue'
+import LayerMixin from '@/components/game/layers/LayerMixin'
 import LinePattern from '@/components/game/layers/patterns/LinePattern.vue'
+import MultiColorPattern from '@/components/game/layers/patterns/MultiColorPattern.vue'
 import TrianglePattern from '@/components/game/layers/patterns/TrianglePattern.vue'
 import ZigZagPattern from '@/components/game/layers/patterns/ZigZagPattern.vue'
 
@@ -113,6 +112,9 @@ export default {
 
     filedsMapped () {
       const fields = []
+      const usedPatterns = {}
+      const clips = []
+
       this.fields.forEach(field => {
         let places = []
         try {
@@ -133,25 +135,40 @@ export default {
           return
         }
         // try to assign stable id
-        const id = minLoc(field.places).join('-').replaceAll('.', '_')
-        const owner = field.owners.length !== 1 ? 'N' : field.owners[0]
-        const patternIdx = positiveHashCode(id) % this.patterns.length
-        fields.push({
-          id,
-          pattern: `farm-hint-pattern-${patternIdx}-${owner}`,
-          places
-        })
-      })
+        const fieldId = minLoc(field.places).join('-').replaceAll('.', '_')
+        const patternIndex = positiveHashCode(fieldId) % this.patterns.length
+        const props = {}
+        let pattern
+        let patternId
+        if (field.owners.length > 1) {
+          const owners = [...field.owners]
+          owners.sort()
+          patternId = '-' + owners.join('-')
+          pattern = {
+            component: MultiColorPattern
+          }
+          props.players = owners
+        } else {
+          patternId = '' + patternIndex
+          pattern = this.patterns[patternIndex]
+          if (field.owners.length === 1) {
+            patternId += '--' + field.owners[0]
+            props.player = field.owners[0]
+          }
+        }
 
-      return fields
-    },
+        patternId = 'farm-hint-pattern-' + patternId
+        if (!usedPatterns[patternId]) {
+          usedPatterns[patternId] = {
+            id: patternId,
+            props,
+            ...pattern
+          }
+        }
 
-    fieldsClip () {
-      // <g> tags are not supported inside clip-path, transforms must be combined manually
-      return this.filedsMapped.map(f => {
-        return {
-          id: 'farm-hint-clip-' + f.id,
-          clips: f.places.map(p => {
+        clips.push({
+          id: 'farm-hint-clip-' + fieldId,
+          clips: places.map(p => {
             const tPos = this.transformPosition(p.tile.position)
             const fPos = this.transformRotation(p.rotation) + ' ' + (p.transform || '')
             return {
@@ -159,20 +176,38 @@ export default {
               clip: p.clip
             }
           })
-        }
+        })
+
+        fields.push({
+          id: fieldId,
+          pattern: patternId
+        })
       })
+
+      return {
+        fields,
+        clips,
+        usedPatterns: Object.values(usedPatterns)
+      }
     }
   }
 }
 </script>
 
-<style lang="sass" scoped>
-.farm-hint-area
-  opacity: 0.4
-</style>
-
 <style lang="sass">
-.neutral-pattern
-  fill: #444
+.farm-hint-pattern
+  opacity: 0.5
+
+// for black and white set opacity manually to looks better
+.farm-hint-pattern.color-7,
+.farm-hint-pattern.color-8
+  opacity: 0.7
+
+// and same for orange
+.farm-hint-pattern.color-4
   opacity: 0.6
+
+.farm-hint-pattern-neutral
+  fill: #444
+  opacity: 0.3
 </style>

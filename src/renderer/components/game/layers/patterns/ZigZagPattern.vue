@@ -4,7 +4,10 @@
     patternUnits="userSpaceOnUse"
     :patternTransform="patternTransform"
   >
-    <g :class="player === null ? 'neutral-pattern' : colorCssClass(player) + ' color-fill'">
+    <g
+      class="farm-hint-pattern"
+      :class="player === null ? 'farm-hint-pattern-neutral' : colorCssClass(player) + ' color-fill'"
+    >
       <polygon points="0,0 120,0 120,80, 160,80 160,120 80,120 80,40 0,40" />
       <polygon points="0,80 40,80 40,160 0,160" />
     </g>
