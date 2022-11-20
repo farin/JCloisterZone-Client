@@ -209,6 +209,16 @@ export default {
     ipcRenderer.on('menu.game-tiles', () => {
       this.$store.commit('showGameTiles', !this.$store.state.showGameTiles)
     })
+    ipcRenderer.on('menu.game-farm-hints', () => {
+      if (this.$store.state.board.layers.FarmHintsLayer) {
+        this.$store.dispatch('board/hideLayer', { layer: 'FarmHintsLayer' })
+      } else {
+        this.$store.dispatch('board/showLayer', {
+          layer: 'FarmHintsLayer',
+          props: {}
+        })
+      }
+    })
     ipcRenderer.on('menu.game-history', () => {
       this.$store.commit('toggleGameHistory')
     })
@@ -325,6 +335,7 @@ export default {
         'zoom-out': gameRunning,
         'toggle-history': gameRunning,
         'game-tiles': gameRunning,
+        'game-farm-hints': gameRunning,
         'game-setup': gameRunning,
         'dump-server': this.$server.isRunning(),
         'theme-inspector': !gameOpen

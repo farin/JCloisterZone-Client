@@ -38,6 +38,7 @@ async function createMenu (win) {
         { id: 'zoom-out', label: 'Zoom Out', accelerator: 'numsub', registerAccelerator: false, click () { win.webContents.send('menu.zoom-out') } },
         { type: 'separator' },
         { id: 'game-tiles', label: 'Tiles', accelerator: 't', click () { win.webContents.send('menu.game-tiles') } },
+        { id: 'game-farm-hints', label: 'Farm Hints', accelerator: 'f', click () { win.webContents.send('menu.game-farm-hints') } },
         { id: 'toggle-history', label: 'Toggle History', accelerator: 'h', click () { win.webContents.send('menu.game-history') } },
         { type: 'separator' },
         { id: 'game-setup', label: 'Show game setup', click () { win.webContents.send('menu.game-setup') } }

@@ -12,7 +12,7 @@
     <g :transform="transform">
       <TileLayer />
     </g>
-    <FarmHintsLayer :global-transform="transform" />
+    <FarmHintsLayer v-if="layers.FarmHintsLayer" :global-transform="transform" />
     <g :transform="transform">
       <TilePlacementLayer
         v-if="layers.TilePlacementLayer"
