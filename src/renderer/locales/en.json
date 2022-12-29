@@ -1,5 +1,5 @@
 {
-  "title": "JCloizterZone",
+  "title": "JCloisterZone",
   "game-setup": {
     "header": {
       "tiles": "Tiles",
@@ -29,7 +29,6 @@
       "gameplay-variants": "Gameplay variants",
       "scoring-variants": "Scoring variants",
       "starting-tiles-configuration": "Starting tile(s) configuration",
-      "show-available-only": "show available only",
       "starting-tiles-different-configuration": "The River, The Count, GQ11, The Wind Roses and Spiel Doch Promo provides alternative starting configurations.",
       "farmers-description": "Players are allowed to place followers on fields.",
       "garden-description": "Can be occupied by an abbot.",
@@ -109,7 +108,10 @@
       "remove-unfinished-game-confirmation": "Do you want to permanently remove unfinished game from your list?",
       "join-game": "Join game",
       "paste-a-game-key": "Paste a game key provided by host",
-      "game-id": "Game ID"
+      "game-id": "Game ID",
+      "games-in-progress": "Games in progress",
+      "you-have-no-game-in-progress": "You have no game in progress.",
+      "online-storage-description": "Leaving online game just keep the unfinished game in the background. You can rejoin it from this list whenever you want."
     },
     "local": {
       "title": "Player hosted games",
@@ -120,7 +122,10 @@
       "my-favorities": "my favorities",
       "continue-with-recently-saved-games": "Continue with recently saved games"
     },
-    "release-notes": "Release Notes"
+    "new-version-available": "New JCloisterZone version is available.",
+    "release-notes": "Release Notes",
+    "update-to": "Update to {version}",
+    "automatic-updates-linux-only": "Automatic updates are currently supported only on Linux platform. Please download new version directly and update manually"
   },
   "about": {
     "configuration-file": "Configuration file",
@@ -135,9 +140,12 @@
     "setups-saved-to-file": "Setups saved to file",
     "nothing-saved": "Nothing saved."
   },
-  "buttons": {
+  "button": {
     "add": "Add",
     "add-to-favorities": "Add To Favorites",
+    "as-a-abbot": "As a Abbot",
+    "as-a-monk": "As a Monk",
+    "buy": "Buy",
     "cancel": "Cancel",
     "change": "Change",
     "clear-list": "clear list",
@@ -147,10 +155,17 @@
     "create": "Create",
     "create-game": "Create Game",
     "disconnect": "Disconnect",
+    "hide-stats": "Hide Stats",
+    "grow-the-flock": "Grow the Flock",
     "join-game": "Join Game",
     "load": "Load",
     "load-setup-from-file": "Load Setup From File",
+    "may-deploy": "May deploy",
+    "must-remove": "Must remove",
+    "pass": "Pass",
+    "play-again": "Play again",
     "plus-description": "Add multiple instances",
+    "raise": "Raise",
     "remove": "Remove",
     "remove-from-favorites": "Remove From Favorites",
     "reset": "Reset",
@@ -158,8 +173,13 @@
     "rules": "Rules",
     "rules-1st-edition": "Rules (1st ed.)",
     "save-to-file": "Save To File",
+    "score-the-sheep": "Score the Sheep",
+    "select": "Select",
+    "sell": "Sell",
     "set": "Set",
-    "start": "Start"
+    "show-stats": "Show Stats",
+    "start": "Start",
+    "undo": "Undo"
   },
   "join-game": {
     "title": "Join Remote Game",
@@ -248,7 +268,13 @@
       "warning-file-is-not-java-binary": "File doesn't look like a Java binary.",
       "warning-java-not-found": "Java not found.",
       "java-is-not-installed": "Java is not installed!",
-      "java-is-outdated": "Java is outdated!"
+      "java-is-outdated": "Java is outdated!",
+      "unable-to-find-java": "Unable to locate Java on your system.",
+      "java-is-required": "Java is required to start a game.",
+      "download-java": "Download Java",
+      "java-path-is-not-valid": "Your manually configured Java path is not valid.",
+      "java-version-found": "Java 11 or higher is required (found {version}) to start a game.",
+      "change-in-settings": "Change it in {settings}."
     }
   },
   "tile-sets": {
@@ -279,22 +305,133 @@
     "traders-and-builders-release": "The second major expansion released in 2003",
     "winter-edition-description": "Basic set from Winter Edition spin-off. Contains basic game extended with additional 12 tiles."
   },
-  "expansions": {
-    "traders-and-builders": {
-      "trade-goods": "Trade Goods"
-    }
-  },
   "core-messages": {
     "game-engine-not-available": "Game engine not available.",
-    "no-core-set": "No Core set!"
+    "no-core-set": "No Core set!",
+    "show-available-only": "show available only",
+    "done": "Done",
+    "choose": "Choose",
+    "used-time": "Used time",
+    "tiles": "Tiles",
+    "the-biggest-city": "The Biggest City",
+    "the-longest-road": "The Longest Road",
+    "offline": "Offline",
+    "incomplete-features": "Incomplete features",
+    "penalties": "Penalties"
   },
   "game": {
     "tile-pack-dialog": {
+      "tiles": "Tiles",
       "game-tiles": "Game tiles",
       "disabled-show-remaining": "The game was created with option which doesn't allow showing remaining tiles count.",
       "remaining-tiles": "Remaining tiles",
       "hidden-tiles-under-hill": "Don't forget that {count} unknown {tiles} from list is hidden under a hill.",
-      "tiles": "tile | tile | tiles"
+      "tiles-plural": "tile | tile | tiles"
+    },
+    "action": {
+      "or": "or",
+      "your-action": "your action",
+      "skip-action": "Skip action",
+      "waiting-for-player-confirmation": "Waiting for player confirmation.",
+      "you-may-place-an-abbey": "You may place an abbey",
+      "player-may-place-an-abbey": "Player may place an abbey",
+      "place-the-tile": "Place the tile",
+      "player-must-place-the-tile": "Player must place the tile",
+      "draw-a-tile": "Draw a tile",
+      "you-may-place-a-meeple-in-a-city-district": "You may place a meeple in a city district.",
+      "player-may-place-a-meeple-in-a-city-district": "Player may place a meeple in a city district.",
+      "you-may-move-a-meeple-from-a-city-district": "You may move a meeple from a city district.",
+      "player-may-move-a-meeple-from-a-city-district": "Player may move a meeple from a city district.",
+      "you-may-move-a-meeple-from-the-market-district-before-final-scoring": "You may move a meeple from the market district before final scoring.",
+      "player-may-move-a-meeple-from-the-market-district-before-final-scoring": "Player may move a meeple from the market district before final scoring.",
+      "you-may-move-a-meeple-from-a-city-district-before-final-scoring": "You may move a meeple from a city district before final scoring.",
+      "player-may-move-a-meeple-from-a-city-district-before-final-scoring": "Player may move a meeple from a city district before final scoring.",
+      "you-may-place-a-meeple-next-to-already-present-one": "You may place a meeple next to already present one.",
+      "player-may-place-a-meeple-next-to-already-present-one": "Player may place a meeple next to already present one.",
+      "bazaar-choose-a-tile-and-your-bid": "Choose a tile and your bid",
+      "bazaar-player-must-choose-a-tile-and-bid": "Player must choose a tile and bid",
+      "bazaar-choose-a-tile": "Choose a tile",
+      "bazaar-player-must-choose-a-tile": "Player must choose a tile",
+      "bazaar-raise-bid-or-pass": "Raise bid or pass",
+      "bazaar-player-must-raise-bid-or-pass": "Player must raise bid or pass",
+      "bazaar-buy-sell-the-tile-from-to": "Buy/Sell the tile from/to",
+      "bazaar-player-must-buy-sell-the-tile-from-to": "Player must buy/sell the tile from/to",
+      "castle-you-are-allowed-to-place": "You are allowed to place'",
+      "castle-player-is-allowed-to-place": "Player is allowed to place'",
+      "coc-you-can-move-the-count": "You can move the Count",
+      "coc-player-can-move-the-count": "Player can move the Count",
+      "crop-circles-player-must-choose": "Player must choose: Each player may deploy or must remove meeple on/from {feature}.",
+      "crop-circles-choose-one": "Choose one. Each player {deploy} or {remove} meeple on/from {feature}.",
+      "crop-circles-you-must-return-meeple": "You must return on of your meeple.",
+      "crop-circles-player-must-return-meeple": "Player must return a meeple",
+      "siege-you-can-escape-a-besieged-city": "You can escape a besieged city.",
+      "siege-player-can-escape-a-besieged-city": "Player can escape a besieged city.",
+      "ferries-place-a-ferry": "Place a ferry",
+      "ferries-you-can-move-ferries": "You can move ferries",
+      "ferries-player-must-place-a-ferry": "Player must place a ferry",
+      "ferries-player-can-move-ferries": "Player can move ferries",
+      "goldmines-place-a-gold-ingot": "Place a gold ingot",
+      "goldmines-player-must-place-a-gold-ingot": "Player must place a gold ingot",
+      "mage-and-witch-remove-mage-or-witch": "Remove mage or witch.",
+      "mage-and-witch-player-must-remove-mage-or-witch": "Player must remove mage or witch.",
+      "tower-select-follower-for-exchange": "Select follower for exchange",
+      "tower-player-must-select-follower-for-exchange": "Player must select follower for exchange",
+      "hills-and-sheep-shepherd-fields-was-expanded": "Shepherd's field was expanded.",
+      "hills-and-sheep-tokens-left-plural": "None tokens left | 1 token left | {tokens} tokens left",
+      "hills-and-receive-points-plural": "receive 0 points | receive 1 point | receive {points} points",
+      "hills-and-player-must-choose-grow-or-score-plural": "Player must choose to grow the flock or score sheep for { points } point. | Player must choose to grow the flock or score sheep for { points } points.",
+      "tower-you-can-take-a-prisoner": "You can take a prisoner",
+      "tower-player-can-take-a-prisoner": "Player can take a prisoner",
+      "monasteries-how-do-you-want-place-follower": "How do you want to place follower on special monastery?"
+    },
+    "feature": {
+      "acrobats": "Acrobats",
+      "big-top": "Big Top",
+      "cathedral": "Cathedral",
+      "castle": "Castle",
+      "castles": "Castles",
+      "church-bonus": "Church bonus",
+      "city": "City",
+      "city-small": "Small City",
+      "cities": "Cities",
+      "coat-of-arms": "Coat of arms",
+      "crop-circle": "Crop Circle",
+      "fairy": "Fairy",
+      "field": "Field",
+      "fields": "Fields",
+      "flock": "Flock",
+      "garden": "Garden",
+      "gardens": "Gardens",
+      "gold": "Gold",
+      "gold-ingots": "Gold ingots",
+      "inn": "Inn",
+      "king": "King",
+      "king-and-robber": "King & Robber",
+      "monastery": "Monastery",
+      "monasteries": "Monasteries",
+      "ringmaster": "Ringmaster",
+      "road": "Road",
+      "roads": "Roads",
+      "robber": "Robber",
+      "shrine": "Shrine",
+      "special-monastery": "Special monastery",
+      "special-monasteries": "Special monasteries",
+      "trade-good": "Trade Good",
+      "trade-goods": "Trade Goods",
+      "vodyanoy": "Vodyanoy",
+      "watchtower": "Watchtower",
+      "watchtowers": "Watchtowers",
+      "wind-rose": "Wind rose",
+      "yaga-hut": "Yaga hut"
+    },
+    "scoring": {
+      "incomplete": "incomplete",
+      "challenged": "challenged",
+      "empty": "empty",
+      "feature-scored": "feature scored",
+      "turn-start": "turn start",
+      "barn-placed": "barn placed",
+      "barn-connected": "barn connected"
     }
   }
 }

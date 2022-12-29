@@ -39,8 +39,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn text @click="edit = false">{{ $t('buttons.cancel') }}</v-btn>
-          <v-btn text @click="rename">{{ $t('buttons.confirm') }}</v-btn>
+          <v-btn text @click="edit = false">{{ $t('button.cancel') }}</v-btn>
+          <v-btn text @click="rename">{{ $t('button.confirm') }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

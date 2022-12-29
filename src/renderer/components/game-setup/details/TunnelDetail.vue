@@ -2,7 +2,7 @@
   <div>
     <p>
       <RulesLink href="https://boardgamegeek.com/boardgame/59065/carcassonne-der-tunnel" />
-      <RulesLink :title="$t('buttons.rules')" href="http://wikicarpedia.com/index.php/The_Tunnel_(1st_edition)" />
+      <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/The_Tunnel_(1st_edition)" />
     </p>
 
     <TileDistribution :sets="{'tunnel': 1}" />

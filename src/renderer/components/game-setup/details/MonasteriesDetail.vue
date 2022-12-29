@@ -2,8 +2,8 @@
   <div>
     <p>
       <RulesLink href="https://boardgamegeek.com/boardgame/158041/carcassonne-kloster-deutschland" />
-      <RulesLink :title="$t('buttons.rules')" href="http://wikicarpedia.com/index.php/Monasteries" />
-      <RulesLink :title="$t('buttons.rules-1st-edition')" href="http://wikicarpedia.com/index.php/Monasteries_(1st_edition)" />
+      <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/Monasteries" />
+      <RulesLink :title="$t('button.rules-1st-edition')" href="http://wikicarpedia.com/index.php/Monasteries_(1st_edition)" />
     </p>
 
     <TileDistribution :sets="{'monasteries': 1}" />

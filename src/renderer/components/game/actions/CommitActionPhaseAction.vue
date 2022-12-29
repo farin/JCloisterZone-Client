@@ -2,18 +2,18 @@
   <section>
     <template v-if="local">
       <v-btn color="secondary" @click="confirm">
-        Confirm
+        {{ $t('button.confirm') }}
       </v-btn>
       <template v-if="undoAllowed">
-        or
-        <v-btn @click="undo">Undo</v-btn>
+        {{ $t('game.action.or') }}
+        <v-btn @click="undo">{{ $t('button.undo') }}</v-btn>
       </template>
       <span class="text">
-        your action
+        {{ $t('game.action.your-action') }}
       </span>
     </template>
     <span v-else class="text">
-      Waiting for player confirmation.
+      {{ $t('game.action.waiting-for-player-confirmation') }}
     </span>
   </section>
 </template>

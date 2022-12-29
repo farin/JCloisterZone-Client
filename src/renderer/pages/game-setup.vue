@@ -10,7 +10,7 @@
       </v-tabs>
 
       <HeaderMessage v-if="tab > 0" :sets="sets" />
-      <HeaderGameButton v-if="tab > 0" :title="$t('buttons.create')" :sets="sets" @click="createGame" />
+      <HeaderGameButton v-if="tab > 0" :title="$t('button.create')" :sets="sets" @click="createGame" />
     </template>
 
     <template #main>

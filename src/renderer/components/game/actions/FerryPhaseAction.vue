@@ -2,16 +2,16 @@
   <section>
     <div class="text">
       <template v-if="local">
-        {{ phase === 'PlaceFerryPhase' ? 'Place a ferry' : 'You can move ferries' }}
+        {{ phase === 'PlaceFerryPhase' ? $t('game.action.ferries-place-a-ferry') : $t('game.action.ferries-you-can-move-ferries') }}
       </template>
       <template v-else>
-        {{ phase === 'PlaceFerryPhase' ? 'Player must place a ferry' : 'Player can move ferries' }}
+        {{ phase === 'PlaceFerryPhase' ? $t('game.action.ferries-player-must-place-a-ferry') : $t('game.action.ferries-player-can-move-ferries') }}
       </template>
       <img src="~/assets/figures/ferry.png" :height="$vuetify.breakpoint.height > 768 ? 30 : 20">
     </div>
     <slot
       plain
-      label="Done"
+      :label="$t('core-messages.done')"
     />
   </section>
 </template>

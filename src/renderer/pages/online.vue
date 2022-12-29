@@ -3,35 +3,34 @@
     <OnlineStatus />
     <header>
       <v-btn :disabled="!connected" large color="primary" @click="createGame()">
-        {{ $t('buttons.create-game') }}
+        {{ $t('button.create-game') }}
       </v-btn>
 
       <v-btn :disabled="!connected" large color="primary" @click="openJoinGameDialog()">
-        {{ $t('buttons.join-game') }}
+        {{ $t('button.join-game') }}
       </v-btn>
 
       <v-btn large color="secondary" @click="disconnect()">
-        {{ $t('buttons.disconnect') }}
+        {{ $t('button.disconnect') }}
       </v-btn>
     </header>
     <main>
-      <h2>Games in progress</h2>
+      <h2>{{ $t('index.online.games-in-progress') }}</h2>
 
-      <div v-if="!vefiriedGameList.length" class="empty-message">
+      <div v-if="!verifiedGameList.length" class="empty-message">
         <p>
-          <i>You have no game in progress.</i>
+          <i>{{ $t('index.online.you-have-no-game-in-progress') }}</i>
         </p>
         <p>
           <i>
-            Leaving online game just keep the unfinished game in the background.<br>
-            You can rejoin it from this list whenever you want.
+            {{ $t('index.online.online-storage-description') }}
           </i>
         </p>
       </div>
 
       <div class="game-list">
         <div
-          v-for="{ game, slots, valid } in vefiriedGameList"
+          v-for="{ game, slots, valid } in verifiedGameList"
           :key="game.gameId"
           class="game"
         >
@@ -63,7 +62,7 @@
           </div>
 
           <div class="buttons">
-            <v-btn color="primary" :disabled="!valid || !connected" @click="resume(game)"><v-icon left>fa-play</v-icon> {{ $t('buttons.resume') }}</v-btn>
+            <v-btn color="primary" :disabled="!valid || !connected" @click="resume(game)"><v-icon left>fa-play</v-icon> {{ $t('button.resume') }}</v-btn>
             <v-btn color="secondary" :disabled="!connected" @click="del(game)"><v-icon>fa-trash-alt</v-icon></v-btn>
           </div>
         </div>
@@ -88,13 +87,13 @@
             text
             @click="showDeleteDialog = false"
           >
-            {{ $t('buttons.cancel') }}
+            {{ $t('button.cancel') }}
           </v-btn>
           <v-btn
             text
             @click="delConfirm()"
           >
-            {{ $t('buttons.remove') }}
+            {{ $t('button.remove') }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -111,7 +110,7 @@
         <v-card-text>
           <v-container>
             <p>{{ $t('index.online.paste-a-game-key') }}</p>
-            <v-text-field ref="joinInput" v-model="joinGameId" :label="$t('index.online-game-id')" @keydown.enter="joinGame"  />
+            <v-text-field ref="joinInput" v-model="joinGameId" :label="$t('index.online.game-id')" @keydown.enter="joinGame"  />
             <v-alert
               v-if="joinError"
               type="error"
@@ -123,8 +122,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn text @click="showJoinDialog = false">{{ $t('buttons.cancel') }}</v-btn>
-          <v-btn text @click="joinGame">{{ $t('buttons.confirm') }}</v-btn>
+          <v-btn text @click="showJoinDialog = false">{{ $t('button.cancel') }}</v-btn>
+          <v-btn text @click="joinGame">{{ $t('button.confirm') }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -165,7 +164,7 @@ export default {
       connected: state => state.networking.connectionStatus === STATUS_CONNECTED
     }),
 
-    vefiriedGameList () {
+    verifiedGameList () {
       return this.gameList.map(game => {
         const edition = game.setup.elements.garden ? 2 : 1
         const valid = !this.$tiles.getExpansions(game.setup.sets, edition)._UNKNOWN

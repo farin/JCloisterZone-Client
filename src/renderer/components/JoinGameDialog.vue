@@ -30,14 +30,14 @@
         text
         @click="$emit('close')"
       >
-        {{ $t('buttons.cancel') }}
+        {{ $t('button.cancel') }}
       </v-btn>
       <v-btn
         text
         :disabled="host.trim() === ''"
         @click="connect"
       >
-        {{ $t('buttons.connect') }}
+        {{ $t('button.connect') }}
       </v-btn>
     </v-card-actions>
   </v-card>

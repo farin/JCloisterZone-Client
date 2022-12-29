@@ -2,7 +2,7 @@
   <div>
     <p>
       <RulesLink href="https://boardgamegeek.com/boardgame/260589/carcassonne-spiel-doch-mini-expansion" />
-      <RulesLink :title="$t('buttons.rules')" href="http://wikicarpedia.com/index.php/Spiel_Doch_Promo" />
+      <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/Spiel_Doch_Promo" />
     </p>
 
     <TileDistribution :sets="{'spiel-doch': 1}" />

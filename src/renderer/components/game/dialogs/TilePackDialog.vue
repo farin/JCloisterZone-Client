@@ -1,13 +1,13 @@
 <template>
   <v-card>
     <v-card-title class="headline">
-      Tiles
+      {{ $t('game.tile-pack-dialog.tiles') }}
       <div  v-if="!options.puristTiles" class="switch-wrapper">
         <v-switch
           v-model="showAvailableOnly"
           dense
           hide-details
-          label="show available only"
+          :label="$t('core-messages.show-available-only')"
         />
       </div>
     </v-card-title>
@@ -46,7 +46,7 @@
 	          <b>{{ underHills }}</b>
             </template>
             <template #tiles>
-              {{ $tc('game.tile-pack-dialog.tiles', underHills) }}
+              {{ $tc('game.tile-pack-dialog.tiles-plural', underHills) }}
             </template>
           </i18n>
         </div>
@@ -59,7 +59,7 @@
       <v-btn
         text
         @click="$emit('close')"
-      >{{ $t('buttons.close') }}</v-btn>
+      >{{ $t('button.close') }}</v-btn>
     </v-card-actions>
   </v-card>
 </template>

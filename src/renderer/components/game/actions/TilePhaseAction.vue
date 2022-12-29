@@ -1,10 +1,10 @@
 <template>
   <section>
     <span v-if="actionItem.tileId == 'AM/A'" class="text">
-      {{ local ? 'You may place an abbey' : 'Player may place an abbey' }}
+      {{ local ? $t('game.action.you-may-place-an-abbey') : $t('game.action.player-may-place-an-abbey') }}
     </span>
     <span v-else class="text">
-      {{ local ? 'Place the tile' : 'Player must place the tile' }}
+      {{ local ? $t('game.action.place-the-tile') : $t('game.action.player-must-place-the-tile') }}
     </span>
     <TilePlacementItem
       :tile-id="actionItem.tileId"
@@ -12,7 +12,7 @@
       active
       :local="local"
     />
-    <slot :label="phase === 'AbbeyPhase' ? 'Draw a tile' : null" />
+    <slot :label="phase === 'AbbeyPhase' ? $t('game.action.draw-a-tile') : null" />
   </section>
 </template>
 

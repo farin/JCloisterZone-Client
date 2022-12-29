@@ -26,9 +26,9 @@
         #default="{ plain, label }"
       >
         <template v-if="local">
-          <span v-if="plain !== ''" class="skip-text text">or</span>
+          <span v-if="plain !== ''" class="skip-text text">{{ $t('game.action.or') }}</span>
           <div class="pass-item">
-            <v-btn :large="$vuetify.breakpoint.height > 768" color="secondary" @click="pass">{{ label || 'Skip action' }}</v-btn>
+            <v-btn :large="$vuetify.breakpoint.height > 768" color="secondary" @click="pass">{{ label || $t('game.action.skip-action') }}</v-btn>
           </div>
         </template>
         <template v-else>
@@ -171,6 +171,7 @@ export default {
       if (this.phase === 'TowerCapturePhase' && itemType === 'SelectPrisonerToExchange') {
         return SelectPrisonerToExchangeAction
       }
+        console.log(itemType);
       if (this.phase === 'MageAndWitchPhase') {
         if (itemType === 'RemoveMageOrWitch') {
           return RemoveMageOrWitchAction

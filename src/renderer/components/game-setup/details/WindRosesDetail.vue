@@ -2,7 +2,7 @@
   <div>
     <p>
       <RulesLink href="https://boardgamegeek.com/boardgame/131676/carcassonne-die-windrosen" />
-      <RulesLink :title="$t('buttons.rules')" href="http://wikicarpedia.com/index.php/Wind_Roses_(1st_edition)" />
+      <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/Wind_Roses_(1st_edition)" />
     </p>
 
     <TileDistribution :sets="{'wind-roses': 1}" />

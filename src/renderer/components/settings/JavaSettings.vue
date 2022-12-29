@@ -8,12 +8,12 @@
     <em>{{ $t('settings.java.you-may-set-path', [ platform === 'win32' ? 'java.exe' : 'java binary' ]) }}</em>
 
     <template v-if="javaPath === null">
-      <span class="v-label">{{ $t('settings.java.using-system-default') }}</span> <v-btn color="secondary" small @click="selectJava">{{ $t('buttons.change') }}</v-btn>
+      <span class="v-label">{{ $t('settings.java.using-system-default') }}</span> <v-btn color="secondary" small @click="selectJava">{{ $t('button.change') }}</v-btn>
     </template>
     <template v-else>
       <span class="v-label">{{ $t('settings.java.selected', [javaPath]) }}</span>
       <br>
-      <v-btn color="secondary" small @click="resetJava">{{ $t('buttons.reset') }}</v-btn>
+      <v-btn color="secondary" small @click="resetJava">{{ $t('button.reset') }}</v-btn>
     </template>
 
     <div class="mt-4">

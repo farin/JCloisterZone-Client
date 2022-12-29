@@ -6,22 +6,27 @@
 
     <div>
       <v-alert v-if="java && java.error === 'not-found' && !javaSelectedByUser" type="warning">
-        Unable to locate Java on your system.<br>
+        {{ $t('settings.java.unable-to-find-java') }}<br>
         <br>
-        Java is required to start a game.<br>
-        <a href="#" @click="openLink('https://www.oracle.com/java/technologies/javase-jdk14-downloads.html')">Download Java</a><br>
-        If Java is already installed, verify if Java is added to your system path or select java binary manually in <a href @click.prevent="() => $store.commit('showSettings', true)">settings</a>.
+        {{ $t('settings.java.java-is-required') }}<br>
+        <a href="#" @click="openLink('https://www.oracle.com/java/technologies/javase-jdk14-downloads.html')">{{ $t('settings.java.download-java') }}</a><br>
+        If Java is already installed, verify if Java is added to your system path or select java binary manually in <a href @click.prevent="() => $store.commit('showSettings', true)">{{ $t('settings.title') }}</a>.
       </v-alert>
       <v-alert v-if="java && java.error === 'not-found' && javaSelectedByUser" type="warning">
-        Your manually configured Java path is not valid.<br>
+        {{ $t('settings.java.java-path-is-not-valid') }}<br>
         <br>
-        Change it in <a href @click.prevent="() => $store.commit('showSettings', true)">settings</a>.
+        <i18n tag="span" path="settings.java.change-in-settings">
+          <template #settings>
+            <a href @click.prevent="() => $store.commit('showSettings', true)">{{ $t('settings.title') }}</a>
+          </template>
+        </i18n>
       </v-alert>
       <v-alert v-if="java && java.error === 'outdated'" type="warning">
-        You Java installation is outdated.<br>
+        {{ $t('settings.java.java-is-outdated') }}<br>
         <br>
-        Java 11 or higher is required (found {{ java.version }}) to start a game.<br>
-        <a href="#" @click="openLink('https://www.oracle.com/java/technologies/javase-jdk14-downloads.html')">Download Java</a><br>
+        {{ $t('settings.java.java-version-found', { version: java.version } ) }}
+        <br>
+        <a href="#" @click="openLink('https://www.oracle.com/java/technologies/javase-jdk14-downloads.html')">{{ $t('settings.java.download-java') }}</a><br>
         Or select proper java manually in <a href @click.prevent="() => $store.commit('showSettings', true)">settings</a>.
       </v-alert>
       <v-alert v-if="engine && engine.error === 'not-found'" type="warning">
@@ -50,14 +55,14 @@
         <v-progress-linear v-else indeterminate />
       </div>
       <div v-if="updateInfo" class="update-box">
-        <h3>New JCloisterZone version is available.</h3>
+        <h3>{{ $t('index.new-version-available') }}</h3>
 
         <div class="update-action">
           <template v-if="isMac || isWin">
-            Automatic updates are currently supported only on Linux platform. Please download new version directly and update manually<br>
+            {{ $t('index.automatic-updates-linux-only') }}<br>
             <a :href="updateInfoFile">{{ updateInfoFile }}</a>
           </template>
-          <v-btn v-else-if="!updating" color="secondary" @click="updateApp">Update to {{ updateInfo.version }}</v-btn>
+          <v-btn v-else-if="!updating" color="secondary" @click="updateApp">{{ $t('index.update-to', { version: updateInfo.version }) }}</v-btn>
           <v-progress-linear v-else-if="updateProgres === null" indeterminate />
           <v-progress-linear v-else :value="updateProgress" />
         </div>
@@ -106,7 +111,7 @@
 
         <div class="recent-list">
           <a v-for="save in recentSaves" :key="save" href="#" @click="loadSavedGame(save)">{{ save }}</a>
-          <a class="clear" href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> {{ $t('buttons.clear-list') }}</a>
+          <a class="clear" href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> {{ $t('button.clear-list') }}</a>
         </div>
       </div>
     </section>

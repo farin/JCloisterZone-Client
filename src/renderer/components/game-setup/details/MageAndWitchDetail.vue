@@ -2,8 +2,8 @@
   <div>
     <p>
       <RulesLink href="https://boardgamegeek.com/boardgameexpansion/118618/carcassonne-mage-witch" />
-      <RulesLink :title="$t('buttons.rules')" href="http://wikicarpedia.com/index.php/Mage_and_Witch" />
-      <RulesLink :title="$t('buttons.rules-1st-edition')" href="http://wikicarpedia.com/index.php/Mage_and_Witch_(1st_edition)" />
+      <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/Mage_and_Witch" />
+      <RulesLink :title="$t('button.rules-1st-edition')" href="http://wikicarpedia.com/index.php/Mage_and_Witch_(1st_edition)" />
     </p>
 
     <TileDistribution :sets="{'mage-and-witch': 1}" />

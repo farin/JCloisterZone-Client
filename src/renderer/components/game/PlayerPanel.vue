@@ -17,7 +17,7 @@
           <span class="name-label">{{ player.name }}</span>
           <template v-if="!slot.sessionId">
             <br>
-            <span class="offline-label">Offline</span>
+            <span class="offline-label">{{ $t('core-messages.offline') }}</span>
           </template>
         </div>
       </div>

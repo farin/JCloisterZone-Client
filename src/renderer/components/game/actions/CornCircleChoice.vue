@@ -1,13 +1,19 @@
 <template>
   <section>
     <template v-if="local">
-      <span class="text">Choose one. Each player</span>
-      <v-btn large color="secondary" @click="select('DEPLOY')">may deploy</v-btn>
-      <span class="text">or</span>
-      <v-btn large color="secondary" @click="select('REMOVE')">must remove</v-btn>
-      <span class="text">meeple on/from {{ featureName }}.</span>
+      <i18n tag="span" path="game.action.crop-circles-choose-one" class="text">
+        <template #deploy>
+          <v-btn large color="secondary" @click="select('DEPLOY')">{{ $t('button.may-deploy') }}</v-btn>
+        </template>
+        <template #remove>
+          <v-btn large color="secondary" @click="select('REMOVE')">{{ $t('button.must-remove') }}</v-btn>
+        </template>
+        <template #feature>
+          {{ featureName }}
+        </template>
+      </i18n>
     </template>
-    <span v-else class="text">Player must choose: Each player may deploy or myst remove meeple on/from {{ featureName }}.</span>
+    <span v-else class="text">{{ $t('game.action.crop-circles-player-must-choose', { feature: featureName } ) }}</span>
   </section>
 </template>
 

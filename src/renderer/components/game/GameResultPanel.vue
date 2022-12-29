@@ -20,15 +20,15 @@
     <div class="buttons">
       <v-btn large color="secondary" @click="toggleStats">
         <v-icon left>fa-chart-bar</v-icon>
-        {{ showGameStats ? 'Hide Stats' : 'Show Stats' }}
+        {{ showGameStats ? $t('button.hide-stats') : $t('button.show-stats') }}
       </v-btn>
       <v-btn large color="secondary" @click="playAgain">
         <v-icon left>fas fa-play</v-icon>
-        Play Again
+        {{ $t('button.play-again') }}
       </v-btn>
       <v-btn large color="secondary" @click="close">
         <v-icon left>fa-times</v-icon>
-        Close
+        {{ $t('button.close') }}
       </v-btn>
     </div>
   </section>

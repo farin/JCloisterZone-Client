@@ -2,8 +2,8 @@
   <div>
     <p>
       <RulesLink href="https://boardgamegeek.com/boardgameexpansion/31784/carcassonne-expansion-5-abbey-mayor" />
-      <RulesLink :title="$t('buttons.rules')" href="http://wikicarpedia.com/index.php/Abbey_and_the_Mayor" />
-      <RulesLink :title="$t('buttons.rules-1st-edition')" href="http://wikicarpedia.com/index.php/Abbey_and_the_Mayor_(1st_edition)" />
+      <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/Abbey_and_the_Mayor" />
+      <RulesLink :title="$t('button.rules-1st-edition')" href="http://wikicarpedia.com/index.php/Abbey_and_the_Mayor_(1st_edition)" />
     </p>
 
     <p>

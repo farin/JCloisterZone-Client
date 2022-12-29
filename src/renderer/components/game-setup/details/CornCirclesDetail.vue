@@ -3,8 +3,8 @@
     <p>
       <RulesLink :title="$t('tile-sets.crop-circles-I-title')" href="https://boardgamegeek.com/boardgame/67055/carcassonne-die-kornkreise" />
       <RulesLink :title="$t('tile-sets.crop-circles-II-title')" href="https://boardgamegeek.com/boardgame/120686/carcassonne-corn-circles-ii" />
-      <RulesLink :title="$t('buttons.rules')" href="http://wikicarpedia.com/index.php/Crop_Circles" />
-      <RulesLink :title="$t('buttons.rules-1st-edition')" href="http://wikicarpedia.com/index.php/Crop_Circles_(1st_edition)" />
+      <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/Crop_Circles" />
+      <RulesLink :title="$t('button.rules-1st-edition')" href="http://wikicarpedia.com/index.php/Crop_Circles_(1st_edition)" />
     </p>
 
     <h5>{{ $t('tile-sets.crop-circles-I-title') }}</h5>

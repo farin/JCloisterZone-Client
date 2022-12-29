@@ -2,7 +2,7 @@
   <div>
     <p>
       <RulesLink href="https://boardgamegeek.com/boardgameexpansion/168121/carcassonne-darmstadt" />
-      <RulesLink :title="$t('buttons.rules')" href="http://wikicarpedia.com/index.php/Darmstadt_Promo_(1st_edition)" />
+      <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/Darmstadt_Promo_(1st_edition)" />
     </p>
 
     <p>

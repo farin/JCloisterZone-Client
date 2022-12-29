@@ -35,7 +35,7 @@
 
       <HeaderGameButton
         v-if="isOwner"
-        :title="$t('buttons.start')"
+        :title="$t('button.start')"
         :sets="sets"
         :disabled="!slotsAssigned"
         @click="startGame"
@@ -76,8 +76,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn text @click="isRenameDialogOpen = false">{{ $t('buttons.cancel') }}</v-btn>
-            <v-btn text @click="renameGame">{{ $t('buttons.confirm') }}</v-btn>
+            <v-btn text @click="isRenameDialogOpen = false">{{ $t('button.cancel') }}</v-btn>
+            <v-btn text @click="renameGame">{{ $t('button.confirm') }}</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>

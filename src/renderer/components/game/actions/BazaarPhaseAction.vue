@@ -1,11 +1,11 @@
 <template>
   <section :class="{['action-' + actionItem.type]: true, local}">
     <span class="text">
-      <template v-if="actionItem.type === 'BazaarSelectTile' && !noAuction">{{ local ? 'Choose a tile and your bid' : 'Player must choose a tile and bid'}}</template>
-      <template v-else-if="actionItem.type === 'BazaarSelectTile' && noAuction">{{ local ? 'Choose a tile' : 'Player must choose a tile' }}</template>
-      <template v-else-if="actionItem.type === 'BazaarBid'">{{ local ? 'Raise bid or pass' : 'Player must raise bid or pass' }}</template>
+      <template v-if="actionItem.type === 'BazaarSelectTile' && !noAuction">{{ $t(local ? 'game.action.bazaar-choose-a-tile-and-your-bid' : 'game.action.bazaar-player-must-choose-a-tile-and-bid')}}</template>
+      <template v-else-if="actionItem.type === 'BazaarSelectTile' && noAuction">{{ $t(local ? 'game.action.bazaar-choose-a-tile' : 'game.action.bazaar-player-must-choose-a-tile') }}</template>
+      <template v-else-if="actionItem.type === 'BazaarBid'">{{ $t(local ? 'game.action.bazaar-raise-bid-or-pass' : 'game.action.bazaar-player-must-raise-bid-or-pass') }}</template>
       <template v-else-if="actionItem.type === 'BazaarSelectBuyOrSell'">
-        {{ local ? 'Buy/Sell the tile from/to' : 'Player must buy/sell the tile from/to' }}
+        {{ $t(local ? 'game.action.bazaar-buy-sell-the-tile-from-to' : 'game.action.bazaar-player-must-buy-sell-the-tile-from-to') }}
       </template>
       <template v-else>{{ actionItem.type }}</template>
     </span>
@@ -46,15 +46,15 @@
             <span v-else class="bid-price">{{ bid }}</span>
           </template>
           <template v-if="local && actionItem.type === 'BazaarSelectTile'">
-            <v-btn small color="secondary" @click="makeBid">Select</v-btn>
+            <v-btn small color="secondary" @click="makeBid">{{ $t('button.select') }}</v-btn>
           </template>
           <template v-else-if="local && actionItem.type === 'BazaarBid'">
-            <v-btn class="left-btn" small color="secondary" @click="makeBid">Raise</v-btn>
-            <v-btn small color="secondary" @click="pass">Pass</v-btn>
+            <v-btn class="left-btn" small color="secondary" @click="makeBid">{{ $t('button.raise') }}</v-btn>
+            <v-btn small color="secondary" @click="pass">{{ $t('button.pass') }}</v-btn>
           </template>
           <template v-else-if="local && actionItem.type === 'BazaarSelectBuyOrSell'">
-            <v-btn class="left-btn" small color="secondary" @click="buy">Buy</v-btn>
-            <v-btn small color="secondary" @click="sell">Sell</v-btn>
+            <v-btn class="left-btn" small color="secondary" @click="buy">{{ $t('button.buy') }}</v-btn>
+            <v-btn small color="secondary" @click="sell">{{ $t('button.sell') }}</v-btn>
           </template>
         </div>
       </div>

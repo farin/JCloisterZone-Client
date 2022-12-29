@@ -13,7 +13,7 @@
       <v-btn
         text
         @click="$emit('close')"
-      >{{ $t('buttons.close') }}</v-btn>
+      >{{ $t('button.close') }}</v-btn>
     </v-card-actions>
   </v-card>
 </template>

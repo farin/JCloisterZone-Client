@@ -63,15 +63,15 @@
     <div class="setup-buttons">
       <v-btn v-if="!$store.getters['settings/isMySetup'](setup)" small color="secondary" @click="addToMySetups">
         <v-icon left>far fa-heart</v-icon>
-        {{ $t('buttons.add-to-favorities') }}
+        {{ $t('button.add-to-favorities') }}
       </v-btn>
       <v-btn v-else small color="secondary" @click="removeFromMySetups">
         <v-icon left>fa-heart</v-icon>
-        {{ $t('buttons.remove-from-favorites') }}
+        {{ $t('button.remove-from-favorites') }}
       </v-btn>
       <v-btn small color="secondary" @click="saveGameSetup">
         <v-icon left>fa-file</v-icon>
-        {{ $t('buttons.save-to-file') }}
+        {{ $t('button.save-to-file') }}
       </v-btn>
     </div>
   </div>

@@ -34,7 +34,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer />
-      <v-btn text @click="$emit('close')">{{ $t('buttons.close') }}</v-btn>
+      <v-btn text @click="$emit('close')">{{ $t('button.close') }}</v-btn>
     </v-card-actions>
   </v-card>
 </template>

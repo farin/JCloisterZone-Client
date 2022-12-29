@@ -8,7 +8,7 @@
     >
       <v-icon>fas fa-times</v-icon>
     </div>
-    <span class="text">How do you want to place follower on special monastery?</span>
+    <span class="text">{{ $t('game.action.monasteries-how-do-you-want-place-follower') }}</span>
     <div>
       <v-btn
         large
@@ -16,7 +16,7 @@
         :disabled="choice === 'as-abbot-only'"
         @click="select('I')"
       >
-        As a Monk
+        {{ $t('button.as-a-monk') }}
         <Meeple :type="meeple" />
       </v-btn>
 
@@ -26,7 +26,7 @@
         class="abbot-choice"
         @click="select('AS_ABBOT')"
       >
-        As an Abbot
+        {{ $t('button.as-a-abbot') }}
         <Meeple :type="meeple" />
       </v-btn>
     </div>

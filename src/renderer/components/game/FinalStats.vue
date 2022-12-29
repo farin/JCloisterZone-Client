@@ -32,85 +32,85 @@
         </div>
       </div>
 
-      <!-- <div class="header" title="Used Time"><v-icon>fa-stopwatch</v-icon></div>
+      <!-- <div class="header" :title="$t('core-messages.used-time')"><v-icon>fa-stopwatch</v-icon></div>
       <div v-for="(val, idx) in stats.clock" :key="'clock-'+idx" class="clock value">
         {{ val }}
       </div> -->
 
-      <div class="header" title="Tiles"><v-icon>fas fa-square</v-icon></div>
+      <div class="header" :title="$t('core-messages.tiles')"><v-icon>fas fa-square</v-icon></div>
       <div v-for="(val, idx) in stats.tiles" :key="'tiles-'+idx" class="tiles value">
         {{ val }}
       </div>
 
-      <div class="header roads" title="Roads"><StandaloneTileImage tile-id="BA/RFr" :size="40" /></div>
+      <div class="header roads" :title="$t('feature.roads')"><StandaloneTileImage tile-id="BA/RFr" :size="40" /></div>
       <div v-for="(val, idx) in stats.points.road" :key="'roads-'+idx" class="roads value">
         {{ val }}
       </div>
 
-      <div class="header cities" title="Cities"><StandaloneTileImage tile-id="BA/Cccc+" :size="40" /></div>
+      <div class="header cities" :title="$t('feature.cities')"><StandaloneTileImage tile-id="BA/Cccc+" :size="40" /></div>
       <div v-for="(val, idx) in stats.points.city" :key="'cities-'+idx" class="cities value">
         {{ val }}
       </div>
 
-      <div class="header monasteries" title="Monasteries"><img src="~/assets/features/C1/cloister.png" height="40"></div>
+      <div class="header monasteries" :title="$t('feature.monasteries')"><img src="~/assets/features/C1/cloister.png" height="40"></div>
       <div v-for="(val, idx) in stats.points.monastery" :key="'monasteries-'+idx" class="monasteries value">
         {{ val }}
       </div>
 
-      <div class="header garden" title="Gardens"><img src="~/assets/features/C1/garden.png" height="40"></div>
+      <div class="header garden" :title="$t('feature.gardens')"><img src="~/assets/features/C1/garden.png" height="40"></div>
       <div v-for="(val, idx) in stats.points.garden" :key="'garden-'+idx" class="garden value">
         {{ val }}
       </div>
 
-      <div class="header fields" title="Fields"><StandaloneTileImage tile-id="GQ/F" :size="40" /></div>
+      <div class="header fields" :title="$t('feature.fields')"><StandaloneTileImage tile-id="GQ/F" :size="40" /></div>
       <div v-for="(val, idx) in stats.points.field" :key="'fields-'+idx" class="fields value">
         {{ val }}
       </div>
 
       <template v-if="stats.points['special-monastery'].some(p => p)">
-        <div class="header special-monasteries" title="Special Monasteries"><StandaloneTileImage tile-id="MO/M1" :size="40" /></div>
+        <div class="header special-monasteries" :title="$t('feature.special-monasteries')"><StandaloneTileImage tile-id="MO/M1" :size="40" /></div>
         <div v-for="(val, idx) in stats.points['special-monastery']" :key="'special-monasteries-'+idx" class="special-monasteries value">
           {{ val }}
         </div>
       </template>
 
       <template v-if="stats.points.castle.some(p => p)">
-        <div class="header castle" title="Castles"><img src="~/assets/figures/castle.png" height="40"></div>
+        <div class="header castle" :title="$t('feature.castles')"><img src="~/assets/figures/castle.png" height="40"></div>
         <div v-for="(val, idx) in stats.points.castle" :key="'castles-'+idx" class="castles value">
           {{ val }}
         </div>
       </template>
 
       <template v-if="stats.points.watchtower.some(p => p)">
-        <div class="header watchtowers" title="Watchtowers"><StandaloneTileImage tile-id="WT/CFff_3C" :size="40" /></div>
+        <div class="header watchtowers" :title="$t('feature.watchtowers')"><StandaloneTileImage tile-id="WT/CFff_3C" :size="40" /></div>
         <div v-for="(val, idx) in stats.points.watchtower" :key="'watchtowers-'+idx" class="watchtowers value">
           {{ val }}
         </div>
       </template>
 
       <!-- <template v-if="stats.points['trade-goods'].some(p => p)">
-        <div class="header traders" title="Trade Goods"><img src="~/assets/figures/trade.png" height="20"></div>
+        <div class="header traders" :title="$t('feature.trade-goods')"><img src="~/assets/figures/trade.png" height="20"></div>
         <div v-for="(val, idx) in stats.points['trade-goods']" :key="'traders-'+idx" class="traders value">
           {{ val }}
         </div>
       </template>
 
       <template v-if="stats.points.king.some(p => p)">
-        <div class="header king" title="The Biggest City"><img src="~/assets/figures/king.png" height="40"></div>
+        <div class="header king" :title="$t('core-messages.the-biggest-city')"><img src="~/assets/figures/king.png" height="40"></div>
         <div v-for="(val, idx) in stats.points.king" :key="'king-'+idx" class="king value">
           {{ val }}
         </div>
       </template>
 
       <template v-if="stats.points.robber.some(p => p)">
-        <div class="header robber" title="The Longest Road"><img src="~/assets/figures/robber.png" height="40"></div>
+        <div class="header robber" :title="$t('core-messages.the-longest-road')"><img src="~/assets/figures/robber.png" height="40"></div>
         <div v-for="(val, idx) in stats.points.robber" :key="'robber-'+idx" class="robber value">
           {{ val }}
         </div>
       </template>
 
       <template v-if="stats.points.gold.some(p => p)">
-        <div class="header gold" title="Gold"><img src="~/assets/figures/gold.png" height="20"></div>
+        <div class="header gold" :title="$t('features.gold')"><img src="~/assets/figures/gold.png" height="20"></div>
         <div v-for="(val, idx) in stats.points.gold" :key="'gold-'+idx" class="gold value">
           {{ val }}
         </div>

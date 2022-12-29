@@ -2,7 +2,7 @@
   <div>
     <p>
       <RulesLink href="https://boardgamegeek.com/boardgame/177728/carcassonne-hero-crossroads-baba-yaga" />
-      <RulesLink :title="$t('buttons.rules')" href="http://wikicarpedia.com/index.php/Russian_Promos_(1st_edition)" />
+      <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/Russian_Promos_(1st_edition)" />
     </p>
 
     <h5>{{ $t('tile-sets.russian-promos-2013-title') }}</h5>

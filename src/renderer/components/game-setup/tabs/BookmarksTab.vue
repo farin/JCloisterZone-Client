@@ -4,7 +4,7 @@
       <div>
         <ConfigSection :title="$t('bookmarks.title')">
           <div v-if="!verifiedMySetups.length" class="empty-message">
-            <i>{{ $t('bookmarks.description-start') }}<span class="btn-ref"><v-icon left>far fa-heart</v-icon>{{ $t('buttons.add-to-favorities') }}</span> {{ $t('bookmarks.description-end') }}</i>
+            <i>{{ $t('bookmarks.description-start') }}<span class="btn-ref"><v-icon left>far fa-heart</v-icon>{{ $t('button.add-to-favorities') }}</span> {{ $t('bookmarks.description-end') }}</i>
           </div>
           <div class="d-flex flex-wrap">
             <GameSetupBox
@@ -23,7 +23,7 @@
         <div class="load-button">
           <v-btn small color="secondary" @click="loadFromFile">
             <v-icon left>fa-file</v-icon>
-            {{ $t('buttons.load-setup-from-file') }}
+            {{ $t('button.load-setup-from-file') }}
           </v-btn>
         </div>
 
@@ -52,7 +52,7 @@
             </div>
 
             <div v-if="recentSetupSaves.length" class="clear">
-              <a href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> {{ $t('buttons.clear-list') }}</a>
+              <a href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> {{ $t('button.clear-list') }}</a>
             </div>
           </div>
         </ConfigSection>

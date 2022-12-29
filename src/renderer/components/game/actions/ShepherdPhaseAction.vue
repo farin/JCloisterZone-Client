@@ -1,7 +1,7 @@
 <template>
   <section>
     <div>
-      <div class="text">Shepherd's field was expanded.</div>
+      <div class="text">{{ $t('game.action.hills-and-sheep-shepherd-fields-was-expanded') }}</div>
       <div class="help flock-content">
         <Meeple
           v-for="flock in flocks"
@@ -24,24 +24,24 @@
     </div>
     <template v-if="local">
       <div>
-        <div class="text">Choose</div>
+        <div class="text">{{ $t('core-messages.choose') }}</div>
         <div class="help">&nbsp;</div>
       </div>
       <div>
-        <v-btn color="secondary" @click="grow">Grow the flock</v-btn>
-        <div class="help">{{ sheep.bagSize }} tokens left</div>
+        <v-btn color="secondary" @click="grow">{{ $t('button.grow-the-flock') }}</v-btn>
+        <div class="help">{{ $tc('game.action.hills-and-sheep-tokens-left-plural', sheep.bagSize, { tokens: sheep.bagSize } ) }}</div>
       </div>
       <div>
         <div class="text">or</div>
         <div class="help">&nbsp;</div>
       </div>
       <div>
-        <v-btn color="secondary" @click="score">Score the sheep</v-btn>
-        <div class="help">receive {{ points }} points</div>
+        <v-btn color="secondary" @click="score">{{ $t('button.score-the-sheep') }}</v-btn>
+        <div class="help">{{ $tc('game.action.hills-and-receive-points-plural', points, { points: points } ) }}</div>
       </div>
     </template>
     <div v-else class="text">
-      Player must choose to grow the flock or score sheep for {{ points }} points.
+      {{ $tc('game.action.hills-and-player-must-choose-grow-or-score-plural', points, { points: points }) }}
     </div>
   </section>
 </template>

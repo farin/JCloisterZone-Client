@@ -5,7 +5,7 @@
         v-model="showValidRulesOnly"
         dense
         hide-details
-        :label="$t('game-setup.rules.show-available-only')"
+        :label="$t('core-messages.show-available-only')"
       />
     </div>
 

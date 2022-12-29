@@ -37,13 +37,13 @@ export default {
       }
 
       const rows = {
-        features: { title: 'Incomplete features', events: [] },
-        farms: { title: 'Fields', events: [] },
-        monasteries: { title: 'Special monasteries', events: [] },
-        tradeGoods: { title: 'Trade Goods', events: [] },
-        gold: { title: 'Gold ingots', events: [] },
-        kingAndRobber: { title: 'King & Robber', events: [] },
-        penalties: { title: 'Penalties', events: [] }
+        features: { title: this.$t('core-messages.incomplete-features'), events: [] },
+        farms: { title: this.$t('game.feature.fields'), events: [] },
+        monasteries: { title: this.$t('game.feature.special-monasteries'), events: [] },
+        tradeGoods: { title: this.$t('game.feature.trade-goods'), events: [] },
+        gold: { title: this.$t('game.feature.gold-ingots'), events: [] },
+        kingAndRobber: { title: this.$t('game.feature.king-and-robber'), events: [] },
+        penalties: { title: this.$t('core-messages.penalties'), events: [] }
       }
       item.events.forEach(ev => {
         if (!ev.points?.length) {
