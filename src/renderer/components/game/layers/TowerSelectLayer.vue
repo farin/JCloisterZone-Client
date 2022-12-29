@@ -6,10 +6,10 @@
     >
       <circle
         :transform="transformPoint({ position, feature: 'Tower', location: 'I' })"
-        :cx="0" cy="0" r="420"
+        :cx="0" cy="0" :r="BASE_SIZE * 0.42"
         fill="none"
         stroke="black"
-        stroke-width="70"
+        stroke-width="63"
         :stroke-opacity="mouseOver === position ? 1 : 0.5"
       />
 
@@ -22,12 +22,12 @@
           fill="red"
           fill-opacity="0.06"
           stroke="red"
-          stroke-width="40"
+          :stroke-width="BASE_SIZE * 0.04"
           stroke-opacity="0.2"
         />
         <!-- invisible rect for tracking mouse events -->
         <rect
-          :x="0" :y="0" width="1000" height="1000"
+          :x="0" :y="0" :width="BASE_SIZE" :height="BASE_SIZE"
           :style="{'pointer-events': 'all', fill: 'none'}"
           @mouseenter="onMouseOver(position)"
           @mouseleave="onMouseLeave(position)"
@@ -42,6 +42,7 @@
 import { mapState } from 'vuex'
 
 import LayerMixin from '@/components/game/layers/LayerMixin'
+import { BASE_SIZE } from '@/constants/ui'
 
 export default {
   components: {
@@ -55,7 +56,8 @@ export default {
 
   data () {
     return {
-      mouseOver: null
+      mouseOver: null,
+      BASE_SIZE
     }
   },
 
@@ -74,7 +76,8 @@ export default {
     towers () {
       return this.options.map(position => {
         const h = this.heights[position[0] + ',' + position[1]] + 1
-        const reachPolygon = `-20,-20 -20,${-20 - h * 1000} 1020,${-20 - h * 1000} 1020,-20 ${20 + (h + 1) * 1000},-20 ${20 + (h + 1) * 1000},1020, 1020,1020 1020,${20 + (h + 1) * 1000} -20,${20 + (h + 1) * 1000} -20,1020 ${-20 - h * 1000},1020 ${-20 - h * 1000},-20`
+        const o = BASE_SIZE * 0.02
+        const reachPolygon = `-${o},-${o} -${o},${-o - h * BASE_SIZE} ${BASE_SIZE + o},${-o - h * BASE_SIZE} ${BASE_SIZE + o},-${o} ${o + (h + 1) * BASE_SIZE},-${o} ${o + (h + 1) * BASE_SIZE},${BASE_SIZE + o}, ${BASE_SIZE + o},${BASE_SIZE + o} ${BASE_SIZE + o},${o + (h + 1) * BASE_SIZE} -${o},${o + (h + 1) * BASE_SIZE} -${o},${BASE_SIZE + o} ${-o - h * BASE_SIZE},${BASE_SIZE + o} ${-o - h * BASE_SIZE},-${o}`
 
         return {
           position,

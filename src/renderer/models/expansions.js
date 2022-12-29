@@ -76,6 +76,9 @@ export const BRIDGES_CASTLES_AND_BAZAARS = Expansion.BRIDGES_CASTLES_AND_BAZAARS
 export const HILLS_AND_SHEEP = Expansion.HILLS_AND_SHEEP = new Expansion('HILLS_AND_SHEEP', 'Hills & Sheep', {
   implies: ['shepherd', 'hill', 'vineyard']
 })
+export const UNDER_THE_BIG_TOP = Expansion.UNDER_THE_BIG_TOP = new Expansion('UNDER_THE_BIG_TOP', 'Under The Big Top', {
+  implies: ['big-top', 'ringmaster', 'acrobats']
+})
 
 export const KING_AND_ROBBER = Expansion.KING_AND_ROBBER = new Expansion('KING_AND_ROBBER', 'King and Robber', { implies: ['king', 'robber'] })
 export const RIVER = Expansion.RIVER = new Expansion('RIVER', 'The River', { enforces: ['river'] }, [

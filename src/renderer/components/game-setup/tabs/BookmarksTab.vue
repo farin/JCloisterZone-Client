@@ -27,7 +27,7 @@
           </v-btn>
         </div>
 
-        <ConfigSection :title="$t('bookmarks.recently-saved-to-file')">
+        <ConfigSection :title="$t('bookmarks.setups-saved-to-file')">
           <div v-if="!recentSetupSaves.length" class="empty-message">
             <i>{{ $t('bookmarks.nothing-saved') }}</i>
           </div>
@@ -124,8 +124,8 @@ export default {
       try {
         await this.$store.dispatch('game/load', { setupOnly: true })
         this.$emit('load')
-      } catch {
-        // error message shown from action handler
+      } catch (e) {
+        console.error(e)
       }
     },
 

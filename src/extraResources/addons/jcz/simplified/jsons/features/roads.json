@@ -1,0 +1,157 @@
+{
+  "road.N": {
+    "images": [
+      { "href": "#road-N", "class": "road" }
+    ],
+    "clip": "M360,0 l180,0 l0,400, l-180,0 Z",
+    "point": [450, 180]
+  },
+  "road.N.c2": {
+    "images": [
+      { "href": "#road-N.long", "class": "road" }
+    ],
+    "clip": "${(M360,0 l180,0 l0,700, l-180,0 Z) - city.NW|rotate(270)}",
+    "point": [450, 180]
+  },
+  "road.N.c2x": {
+    "images": [
+      { "href": "#road-N.long", "class": "road" }
+    ],
+    "clip": "${road.N.c2|mirror(x)}",
+    "point": [450, 180]
+  },
+  "road.N.c": {
+    "images": [
+      { "href": "#road-N", "class": "road" }
+    ],
+    "clip": "${road.N - city._S|rotate(180)}",
+    "point": [450, 180]
+  },
+  "road.N.c.inv": {
+    "images": [
+      { "href": "#road-N.long", "class": "road" }
+    ],
+    "clip": "${road.WE|rotate(90) - city.N|rotate(180)}",
+    "point": [450, 180]
+  },
+  "road.N.c.spike": {
+    "images": [
+      { "href": "#road-N", "class": "road" }
+    ],
+    "clip": "${road.N - city.NW.spike|rotate(180)}",
+    "point": [450, 100]
+  },
+  "road.N.acro": {
+    "images": [
+      { "href": "#road-N", "class": "road" }
+    ],
+    "clip": "${road.N - acrobats}",
+    "point": [450, 180]
+  },
+  "road.N.acrox": {
+    "images": [
+      { "href": "#road-N", "class": "road" }
+    ],
+    "clip": "${road.N.acro|mirror(x)}",
+    "point": [450, 180]
+  },
+  "road.N.circus": {
+    "images": [
+      { "href": "#road-N", "class": "road" }
+    ],
+    "clip": "${road.N - circus}",
+    "point": [450, 120]
+  },
+  "road.S.m": {
+    "images": [
+      { "href": "#road-S", "class": "road" }
+    ],
+    "clip": "${road.N|rotate(180) - monastery}",
+    "point": [450, 760]
+  },
+  "road.E.m": {
+    "images": [
+      { "href": "#road-E", "class": "road" }
+    ],
+    "clip": "${road.N|rotate(90) - monastery}",
+    "point": [760, 450]
+  },
+  "road.W.m": {
+    "images": [
+      { "href": "#road-W", "class": "road" }
+    ],
+    "clip": "${road.N|rotate(270) - monastery}",
+    "point": [140, 450]
+  },
+  "road.SE": {
+    "images": [
+      { "href": "#road-SE", "class": "road" }
+    ],
+    "clip": "M 360 900 A 540 540 90 0 1 900 360 L 900 540 A 360 360 90 0 0 540 900 Z",
+    "point": [570, 570]
+  },
+  "road.se": {
+    "images": [
+      { "href": "#road-se", "class": "road" }
+    ],
+    "clip": "M 540 900 h -180 v -300 A 240 240 90 0 1 600 360 H 900 v 180 h -300 A 60 60 90 0 0 540 600 Z",
+    "point": [700, 450]
+  },
+  "road.se.cE": {
+    "images": [
+      { "href": "#road-se", "class": "road" }
+    ],
+    "clip": "${road.se - city.N|rotate(90)}",
+    "point": [450, 700]
+  },
+  "road.SE.c2": {
+    "images": [
+      { "href": "#road-SE", "class": "road" }
+    ],
+    "clip": "${road.SE - city.NW|rotate(270)}",
+    "point": [660, 500]
+  },
+  "road.SE.c2x": {
+    "images": [
+      { "href": "#road-SE", "class": "road" }
+    ],
+    "clip": "${road.SE - city.NW|rotate(90)}",
+    "point": [500, 660]
+  },
+  "road.WE": {
+    "images": [
+      { "href": "#road-WE", "class": "road" }
+    ],
+    "clip": "M0,360 l900,0 l0,180, l-900,0 Z",
+    "point": [450, 450]
+  },
+  "road.WE.under": {
+    "images": [
+      { "href": "#road-WE", "class": "road" }
+    ],
+    "clip": "${road.WE}",
+    "point": [720, 450]
+  },
+  "road.WE.over": {
+    "images": [
+      { "href": "#road-WE-over", "class": "above-road" }
+    ],
+    "clip": "M0,360 l900,0 l0,180, l-900,0 Z",
+    "point": [720, 450]
+  },
+  "road.W.over": {
+    "images": [
+      { "href": "#road-W-over", "class": "above-road" }
+    ],
+    "clip": "M0,360 H725 v180, H0 Z",
+    "point": [180, 450]
+  },
+
+  "inn": {
+    "images": [
+      { "href": "#inn", "class": "road" }
+    ],
+    "clip": "M0 0 Z",
+    "point": [450, 450]
+  }
+}

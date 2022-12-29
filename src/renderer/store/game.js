@@ -499,6 +499,8 @@ export const actions = {
               this.$router.push('/game-setup')
               resolve(sg)
             })
+          } else {
+            resolve(sg)
           }
           return
         }
@@ -537,6 +539,7 @@ export const actions = {
       }, { root: true })
 
       if (sg.test) {
+        commit('id', sg.gameId) // HACK, prevent clear when GAME message is received
         commit('testScenario', sg.test)
         dispatch('game/start', null, { root: true })
       }
@@ -544,6 +547,7 @@ export const actions = {
         dispatch('settings/addRecentSave', { file: filePath, setup: sg.setup }, { root: true })
       })
       resolve(sg)
+
       if (!rootState.runningTests) {
         if (sg.test) {
           this.$router.push('/game')

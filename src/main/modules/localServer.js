@@ -1,19 +1,20 @@
 
-import WebSocket from 'ws'
+import { ipcMain } from 'electron'
+import { WebSocketServer } from 'ws'
 
 import camelCase from 'lodash/camelCase'
 import shuffle from 'lodash/shuffle'
 import isNil from 'lodash/isNil'
 
-import { NETWORK_PROTOCOL_COMPATIBILITY } from '@/constants/versions'
-import { randomId } from '@/utils/random'
-import { ENGINE_MESSAGES } from '@/constants/messages'
-import { CONSOLE_SERVER_COLOR } from '@/constants/logging'
-import { HEARTBEAT_INTERVAL } from '@/constants/ws'
+import { NETWORK_PROTOCOL_COMPATIBILITY } from '../../renderer/constants/versions'
+import { randomId } from '../../renderer/utils/random'
+import { ENGINE_MESSAGES } from '../../renderer/constants/messages'
+
+const HEARTBEAT_INTERVAL = 10 * 1000
 
 const isDev = process.env.NODE_ENV === 'development'
 
-export default class GameServer {
+class GameServer {
   constructor (game, clientId, { engineVersion, appVersion }) {
     this.engineVersion = engineVersion
     this.appVersion = appVersion
@@ -44,7 +45,7 @@ export default class GameServer {
     return {
       gameStatus: this.status,
       initialClock: this.initialClock,
-      connectedClients: this.clients?.map(ws => ws.clientId),
+      connectedClients: this.clients && this.clients.map(ws => ws.clientId),
       receivedMessageIds: Array.from(this.receivedMessageIds),
       expectedParentId: this.expectedParentId,
       replay: this.replay,
@@ -68,12 +69,37 @@ export default class GameServer {
   }
 
   async start (port) {
+    let perMessageDeflate = false
+    if (process.env.WS_PERMESSAGE_DEFLATE === '1') {
+      console.info('local server permessage-deflate enabled')
+      perMessageDeflate = {
+        zlibDeflateOptions: {
+          // See zlib defaults.
+          chunkSize: 1024,
+          memLevel: 7,
+          level: 3
+        },
+        zlibInflateOptions: {
+          chunkSize: 10 * 1024
+        },
+        // Other options settable:
+        clientNoContextTakeover: true, // Defaults to negotiated value.
+        serverNoContextTakeover: true, // Defaults to negotiated value.
+        serverMaxWindowBits: 10, // Defaults to negotiated value.
+        // Below options specified as default values.
+        concurrencyLimit: 10, // Limits zlib concurrency for perf.
+        threshold: 1024 // Size (in bytes) below which messages
+        // should not be compressed if context takeover is disabled.
+      }
+    }
+
     return new Promise(resolve => {
       this.clients = []
-      this.wss = new WebSocket.Server({
-        port
+      this.wss = new WebSocketServer({
+        port,
+        perMessageDeflate
       }, () => {
-        console.log(`%c embedded server %c started (${this.status} game)`, CONSOLE_SERVER_COLOR, '')
+        console.log(`embedded server %c started (${this.status} game)`)
         resolve()
       })
       this.wss.on('connection', ws => this.onConnection(ws))
@@ -125,9 +151,13 @@ export default class GameServer {
 
     let helloExpected = true
     ws.on('message', async data => {
+      if (data.length === 0) { // data has Buffer type!
+        ws.send('')
+        return
+      }
       const message = JSON.parse(data)
       if (isDev) {
-        console.log('%c embedded server %c received message', CONSOLE_SERVER_COLOR, '')
+        console.log('embedded server %c received message')
         console.log(message)
       }
       const { id, type } = message
@@ -170,7 +200,7 @@ export default class GameServer {
       }
     })
     ws.on('close', code => {
-      console.log('%c embedded server %c websocket connection closed ' + code, CONSOLE_SERVER_COLOR, '')
+      console.log('embedded server %c websocket connection closed ' + code)
       if (this.clients === null) {
         return
       }
@@ -203,7 +233,7 @@ export default class GameServer {
   _resolveClose () {
     if (this.wss) {
       this.wss.close(() => {
-        console.log('%c embedded server %c stopped', CONSOLE_SERVER_COLOR, '')
+        console.log('embedded server %c stopped')
         this.closing()
         delete this.closing
       })
@@ -265,7 +295,7 @@ export default class GameServer {
       }
     }
 
-    console.log(`%c embedded server %c client ${clientId} connected`, CONSOLE_SERVER_COLOR, '')
+    console.log(`embedded server %c client ${clientId} connected`)
 
     this.clients.push(ws)
     const sessionId = randomId()
@@ -484,5 +514,48 @@ export default class GameServer {
       this.replay.push(msg)
     }
     this.broadcast(msg)
+  }
+}
+
+let win = null
+
+export default function () {
+  let gameServer = null
+
+  async function stop () {
+    if (gameServer) {
+      await gameServer.stop()
+      gameServer = null
+    }
+  }
+
+  ipcMain.handle('localserver.stop', stop)
+  ipcMain.handle('localserver.start', async (ev, { game, port, clientId, appVersion, engineVersion }) => {
+    await stop()
+    gameServer = new GameServer(game, clientId, {
+      appVersion,
+      engineVersion
+    })
+    gameServer.on('error', err => {
+      console.error(err)
+      let msg
+      if (err.errno === 'EADDRINUSE') {
+        msg = 'Have you alredy created game from another app instance?'
+      } else {
+        msg = err.message || '' + err
+      }
+      win.webContents.send('error', { title: `Can't start server on port ${port}`, content: msg })
+    })
+
+    await gameServer.start(port)
+  })
+
+  ipcMain.handle('localserver.dumo', () => {
+    return this.gameServe && this.gameServer.dump()
+  })
+
+  return {
+    winCreated (_win) { win = _win },
+    winClosed (_win) { win = null }
   }
 }

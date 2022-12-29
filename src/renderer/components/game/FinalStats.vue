@@ -4,7 +4,7 @@
   >
     <div
       class="grid"
-      :style="`width: ${60 + players.length * 200}px; grid-template-columns: 60px repeat(${players.length}, 1fr)`"
+      :style="`width: ${width}px; grid-template-columns: 60px repeat(${players.length}, 1fr)`"
     >
       <div />
       <div v-for="p in players" :key="'rank-'+p.index" class="rank">
@@ -123,6 +123,7 @@
 import { mapGetters, mapState } from 'vuex'
 
 import flatten from 'lodash/flatten'
+import debounce from 'lodash/debounce'
 
 import Meeple from '@/components/game/Meeple'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
@@ -131,6 +132,12 @@ export default {
   components: {
     Meeple,
     StandaloneTileImage
+  },
+
+  data () {
+    return {
+      width: 0
+    }
   },
 
   computed: {
@@ -188,6 +195,26 @@ export default {
       // console.log(stats)
       return stats
     }
+  },
+
+  mounted () {
+    const computeWidth = () => {
+      const { width: parentWidth } = this.$parent.$el.getBoundingClientRect()
+      const asideWidth = parseInt(getComputedStyle(document.body).getPropertyValue('--aside-width-plus-gap'), 10)
+      const maxWidth = parentWidth - asideWidth - 40 // 40px for padding
+      const width = 60 + this.players.length * 200
+      this.width = Math.min(maxWidth, width)
+    }
+    computeWidth()
+
+    this.resizeObserver = new ResizeObserver(debounce(entries => {
+      computeWidth()
+    }), 1000)
+    this.resizeObserver.observe(this.$parent.$el)
+  },
+
+  beforeDestroy () {
+    this.resizeObserver.disconnect()
   }
 }
 </script>
@@ -197,7 +224,7 @@ export default {
   --top: calc(var(--action-bar-height) + #{$panel-gap})
   position: absolute
   top: var(--top)
-  right: calc(var(--aside-width) + #{$panel-gap})
+  right: var(--aside-width-plus-gap)
   bottom: $panel-gap
   user-select: none
   overflow: auto

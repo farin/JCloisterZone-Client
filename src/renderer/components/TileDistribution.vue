@@ -22,9 +22,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
 import CountMiniboard from '@/components/game-setup/details/CountMiniboard'
+
+import { getSelectedEdition, getSelectedStartingTiles } from '@/utils/gameSetupUtils'
 
 export default {
   components: {
@@ -40,9 +42,16 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      edition: 'gameSetup/getSelectedEdition',
-      start: 'gameSetup/selectedStartingTiles'
+    ...mapState({
+      edition: state => {
+        const setup = state.gameSetup || state.game.setup
+        return getSelectedEdition(setup.elements)
+      },
+      start: state => {
+        const setup = state.gameSetup || state.game.setup
+        const { elements, sets, start } = setup
+        return getSelectedStartingTiles(elements, sets, start)
+      }
     }),
 
     tiles () {

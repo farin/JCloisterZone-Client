@@ -46,8 +46,12 @@ export default {
         penalties: { title: 'Penalties', events: [] }
       }
       item.events.forEach(ev => {
-        if (!ev.points.length) {
-          console.error('Received empty points event')
+        if (!ev.points?.length) {
+          console.log(ev)
+          if (ev.type !== 'token-placed' || !ev.token.startsWith('BIGTOP_')) {
+            // ignore big top token
+            console.error('Received empty points event', ev)
+          }
           return
         }
         const type = ev.points[0].name.split('+')[0].split('.')[0]

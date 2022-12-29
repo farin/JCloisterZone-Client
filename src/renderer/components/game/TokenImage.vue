@@ -12,6 +12,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
+import AnimalToken from '@/components/game/tokens/AnimalToken'
 
 const TOKENS_SVG = require('~/assets/tokens.svg')
 
@@ -41,7 +42,8 @@ const TOKENS = {
 
 export default {
   components: {
-    StandaloneTileImage
+    StandaloneTileImage,
+    AnimalToken
   },
 
   props: {
@@ -59,6 +61,9 @@ export default {
     tag () {
       if (this.token === 'ABBEY_TILE') {
         return StandaloneTileImage
+      }
+      if (this.token.startsWith('BIGTOP_')) {
+        return AnimalToken
       }
       return TOKENS[this.token].tag
     },
@@ -81,6 +86,11 @@ export default {
         return {
           'tile-id': 'AM/A',
           'size': this.height
+        }
+      }
+      if (this.token.startsWith('BIGTOP_')) {
+        return {
+          points: parseInt(this.token.split('_')[1], 10)
         }
       }
       const attrs = {}

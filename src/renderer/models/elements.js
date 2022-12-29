@@ -40,6 +40,7 @@ export const BARN = GameElement.BARN = new GameElement('barn', 'Barn', Number, {
 export const WAGON = GameElement.WAGON = new GameElement('wagon', 'Wagon', Number, { default: 0 })
 export const MAYOR = GameElement.MAYOR = new GameElement('mayor', 'Mayor', Number, { default: 0 })
 export const SHEPHERD = GameElement.SHEPHERD = new GameElement('shepherd', 'Shepherd', Number, { default: 0 })
+export const RINGMASTER = GameElement.RINGMASTER = new GameElement('ringmaster', 'Ringmaster', Number, { default: 0 })
 
 // Neutral
 export const DRAGON = GameElement.DRAGON = new GameElement('dragon', 'Dragon', Number, { selector: 'dragon' })
@@ -47,6 +48,7 @@ export const FAIRY = GameElement.FAIRY = new GameElement('fairy', 'Fairy', Numbe
 export const COUNT = GameElement.COUNT = new GameElement('count', 'Count', Number, { selector: 'quarter' })
 export const MAGE = GameElement.MAGE = new GameElement('mage', 'Mage', Number, { selector: 'mage' })
 export const WITCH = GameElement.WITCH = new GameElement('witch', 'Witch', Number, { selector: 'mage' }) // trigger on tile is simply called mage
+export const BIG_TOP = GameElement.BIG_TOP = new GameElement('big-top', 'Big Top', Number, { selector: 'circus' })
 
 // Player Tokens
 export const TOWER = GameElement.TOWER = new GameElement('tower', 'Tower pieces', Number, { selector: 'tower' })
@@ -104,4 +106,7 @@ export const SIEGE = GameElement.SIEGE = new GameElement('siege', 'Besieged citi
 })
 export const ESCAPE = GameElement.ESCAPE = new GameElement('escape', 'Escaping a besieged city', Boolean, {
   selector: 'city[besieged]'
+})
+export const ACROBATS = GameElement.ACROBATS = new GameElement('acrobats', 'Acrobats', Boolean, {
+  selector: 'acrobats'
 })

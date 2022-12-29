@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-const DEFAULT_ZOOM = 0.16
+const DEFAULT_ZOOM = 0.18
 
 export const state = () => ({
   dragging: null,
@@ -53,7 +53,7 @@ export const mutations = {
   changeZoom (state, steps) {
     let zoom = state.zoom * (1.3 ** steps)
     if (zoom < 0.03) { zoom = 0.03 };
-    if (zoom > 0.36) { zoom = 0.36 };
+    if (zoom > 0.4) { zoom = 0.4 };
     state.zoom = zoom
   },
 

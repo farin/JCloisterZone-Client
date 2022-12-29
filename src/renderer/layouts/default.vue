@@ -209,6 +209,16 @@ export default {
     ipcRenderer.on('menu.game-tiles', () => {
       this.$store.commit('showGameTiles', !this.$store.state.showGameTiles)
     })
+    ipcRenderer.on('menu.game-farm-hints', () => {
+      if (this.$store.state.board.layers.FarmHintsLayer) {
+        this.$store.dispatch('board/hideLayer', { layer: 'FarmHintsLayer' })
+      } else {
+        this.$store.dispatch('board/showLayer', {
+          layer: 'FarmHintsLayer',
+          props: {}
+        })
+      }
+    })
     ipcRenderer.on('menu.game-history', () => {
       this.$store.commit('toggleGameHistory')
     })
@@ -253,6 +263,10 @@ export default {
     await this.$store.dispatch('settings/loaded', await ipcRenderer.invoke('settings.get'))
     onThemeChange(this.$store.state.settings.theme)
     this.updateMenu()
+
+    ipcRenderer.on('error', (ev, value) => {
+      this.$store.commit('errorMessage', value)
+    })
 
     ipcRenderer.on('settings.changed', (ev, value) => {
       this.$store.dispatch('settings/loaded', value)
@@ -321,6 +335,7 @@ export default {
         'zoom-out': gameRunning,
         'toggle-history': gameRunning,
         'game-tiles': gameRunning,
+        'game-farm-hints': gameRunning,
         'game-setup': gameRunning,
         'dump-server': this.$server.isRunning(),
         'theme-inspector': !gameOpen
@@ -369,7 +384,7 @@ export default {
         date: (new Date()).toISOString(),
         os: `${os.platform()} ${os.release()}`,
         java: this.java ? `${this.java.vendor} ${this.java.version}` : '',
-        ...this.$server.getServer().dump()
+        ...(await this.$server.dump())
       }
 
       let { filePath } = await ipcRenderer.invoke('dialog.showSaveDialog', {
@@ -430,7 +445,7 @@ body
   min-height: 100vh
 
 svg, g, use
-  &.dragon
+  &.dragon, &.bigtop
     fill: $dragon-color
 
 svg, g, use

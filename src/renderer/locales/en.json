@@ -130,7 +130,7 @@
     "title": "My favorities",
     "description-start": "You have not game setup in favorites list. To add setup here create a game first and then use",
     "description-end": "button in overview sidebar.",
-    "recently-saved-to-file": "Recently saved to file",
+    "setups-saved-to-file": "Setups saved to file",
     "nothing-saved": "Nothing saved."
   },
   "buttons": {
@@ -181,6 +181,7 @@
     "zoom-in": "Zoom In",
     "zoom-out": "Zoom Out",
     "tiles": "Tiles",
+    "farm-hints": "Farm hints",
     "toggle-history": "Toggle History",
     "show-game-setup": "Show Game Setup",
     "rules": "Rules",

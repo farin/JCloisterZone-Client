@@ -100,6 +100,16 @@ module.exports = {
           name: '[path][name].[ext]'
         }
       })
+
+      config.module.rules.push({
+        test: /\.ohm$/i,
+        loader: 'raw-loader'
+      })
+
+      // https://github.com/yan-foto/electron-reload/issues/71
+      config.externals = {
+        fsevents: "require('fsevents')"
+      }
     }
   }
 }

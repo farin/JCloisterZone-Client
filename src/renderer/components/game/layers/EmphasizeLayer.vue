@@ -11,7 +11,7 @@
         >
           <rect
             v-if="emphasis.type === 'tile'"
-            :x="0" :y="0" width="1000" height="1000"
+            :x="0" :y="0" :width="BASE_SIZE" :height="BASE_SIZE"
             :transform="transformPosition(emphasis.position)"
           />
           <g
@@ -20,13 +20,13 @@
             <rect
               v-for="pos in emphasis.positions"
               :key="positionAsKey(pos)"
-              :x="0" :y="0" width="1000" height="1000"
+              :x="0" :y="0" :width="BASE_SIZE" :height="BASE_SIZE"
               :transform="transformPosition(pos)"
             />
           </g>
           <circle
             v-else-if="emphasis.type === 'meeple'"
-            :x="0" :y="0" r="500"
+            :x="0" :y="0" :r="BASE_SIZE / 2"
             :transform="emphasis.barn ? transformPosition(emphasis.position) : transformPoint(emphasis)"
           />
           <g v-else-if="emphasis.type === 'feature'">
@@ -35,22 +35,14 @@
               :key="idx"
               :transform="transformPosition(feature.tile.position)"
             >
-              <path
-                v-if="feature.clip[0] !== '<'"
-                :d="feature.clip"
-                :transform="transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
-              />
-              <!-- eslint-disable vue/no-v-html-->
-              <g
-                v-else
-                :transform="transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
-                v-html="feature.clip"
-              />
+              <g :transform="transformRotation(feature.rotation) + ' ' + (feature.transform || '')">
+                <FeatureClip :clip="feature.clip" />
+              </g>
             </g>
           </g>
           <circle
             v-else-if="emphasis.type === 'castle'"
-            v-bind="castlePoint()" r="600"
+            v-bind="castlePoint()" :r="BASE_SIZE * 0.6"
             :transform="transformPosition(emphasis.positions[0])"
           />
         </g>
@@ -67,13 +59,23 @@
 
 <script>
 import LayerMixin from '@/components/game/layers/LayerMixin'
+import FeatureClip from '@/components/game/layers/FeatureClip.vue'
+import { BASE_SIZE } from '@/constants/ui'
 
 export default {
+  components: {
+    FeatureClip
+  },
+
   mixins: [LayerMixin],
 
   props: {
     globalTransform: { type: String, required: true },
     emphasis: { type: Object, required: true }
+  },
+
+  data () {
+    return { BASE_SIZE }
   },
 
   computed: {
@@ -102,10 +104,10 @@ export default {
       const { positions } = this.emphasis
       if (positions[0][0] === positions[1][0]) { /// compare X
         // vertical
-        return positions[0][1] < positions[1][1] ? { cx: 500, cy: 1000 } : { cx: 500, cy: 1000 }
+        return positions[0][1] < positions[1][1] ? { cx: BASE_SIZE / 2, cy: BASE_SIZE } : { cx: BASE_SIZE / 2, cy: BASE_SIZE }
       } else {
         // horizontla
-        return positions[0][0] < positions[1][0] ? { cx: 1000, cy: 500 } : { cx: 0, cy: 500 }
+        return positions[0][0] < positions[1][0] ? { cx: BASE_SIZE, cy: BASE_SIZE / 2 } : { cx: 0, cy: BASE_SIZE / 2 }
       }
     }
   }

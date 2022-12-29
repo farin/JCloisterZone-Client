@@ -303,10 +303,11 @@ class Tiles extends EventsBase {
         const title = el.querySelector('title').textContent || name
         const tileSets = Array.from(el.querySelectorAll('ref[tile-set]')).map(ref => ref.getAttribute('tile-set'))
         const enforces = Array.from(el.querySelectorAll('enforces[element]')).map(ref => ref.getAttribute('element'))
+        const implies = Array.from(el.querySelectorAll('implies[element]')).map(ref => ref.getAttribute('element'))
 
         const svgIcon = el.querySelector('icon svg')
 
-        const exp = new Expansion(name, title, { enforces }, [new Release(name, tileSets)])
+        const exp = new Expansion(name, title, { enforces, implies }, [new Release(name, tileSets)])
         if (svgIcon) {
           this.symbols.push(`<symbol id="expansion-${name}" viewBox="${svgIcon.getAttribute('viewBox')}">${svgIcon.innerHTML}</symbol>`)
           exp.svgIcon = true
@@ -319,7 +320,8 @@ class Tiles extends EventsBase {
         Array.from(el.querySelectorAll(':scope > link[url]')).forEach(link => {
           const title = link.getAttribute('title')
           const url = link.getAttribute('url')
-          exp.links.push({ title, url })
+          const type = link.getAttribute('type')
+          exp.links.push({ title, url, type })
         })
 
         exp.description = el.querySelector(':scope > description')?.textContent || ''

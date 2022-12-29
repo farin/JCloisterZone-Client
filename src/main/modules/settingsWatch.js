@@ -1,27 +1,37 @@
+import { time } from 'console'
 import fs from 'fs'
 
 import { loadSettings, isSaveInProgress, SETTINGS_FILE } from '../settings'
 
-let win = null
+let timeout = null
+let watcher = null
 
 export default function () {
-  try {
-    fs.watch(SETTINGS_FILE, eventType => {
-      if (eventType === 'change' && !isSaveInProgress()) {
-        loadSettings().then(settings => {
-          if (win) {
-            win.webContents.send('settings.changed', { settings, file: SETTINGS_FILE })
-          }
-        })
-      }
-    })
-    console.log(`Watching ${SETTINGS_FILE}`)
-  } catch (e) {
-    console.error(e)
-  }
-
   return {
-    winCreated (_win) { win = _win },
-    winClosed (_win) { win = null }
+    winCreated (win) {
+      timeout = setTimeout(() => {
+        try {
+          watcher = fs.watch(SETTINGS_FILE, eventType => {
+            if (eventType === 'change' && !isSaveInProgress()) {
+              loadSettings().then(settings => {
+                win.webContents.send('settings.changed', { settings, file: SETTINGS_FILE })
+              })
+            }
+          })
+          console.log(`Watching ${SETTINGS_FILE}`)
+        } catch (e) {
+          console.error(e)
+        }
+      }, 500)
+    },
+
+    winClosed () {
+      clearTimeout(timeout)
+
+      if (watcher) {
+        watcher.close()
+        watcher = null
+      }
+    }
   }
 }

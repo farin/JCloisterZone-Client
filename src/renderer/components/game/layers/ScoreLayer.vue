@@ -1,5 +1,8 @@
 <template>
-  <g id="score-layer">
+  <g
+    id="score-layer"
+    :class="{ 'muted': local && layers.MeepleSelectLayer }"
+  >
     <g
       v-for="(scores, key) in scoreSources"
       :key="key"
@@ -31,7 +34,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import groupBy from 'lodash/groupBy'
 
 import LayerMixin from '@/components/game/layers/LayerMixin'
@@ -43,7 +46,12 @@ export default {
     ...mapState({
       gameEnd: state => state.game.phase === 'GameOverPhase',
       history: state => state.game.history,
-      playersCount: state => state.game.players.length
+      playersCount: state => state.game.players.length,
+      layers: state => state.board.layers
+    }),
+
+    ...mapGetters({
+      local: 'game/isActionLocal'
     }),
 
     scoreSources () {
@@ -99,4 +107,8 @@ export default {
 <style lang="sass" scoped>
 .in-game
   opacity: 0.5
+
+.muted
+  pointer-events: none
+  opacity: 0.3
 </style>

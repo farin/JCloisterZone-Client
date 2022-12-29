@@ -5,7 +5,7 @@
   >
     <g
       v-for="({option: opt, feature, abbotChoice}) in optionsWithFeature"
-      :key="positionAsKey(opt.position) + opt.location"
+      :key="positionAsKey(opt.position) + opt.feature + opt.location"
       :transform="transformPosition(opt.position)"
     >
       <circle
@@ -16,36 +16,27 @@
         @mouseleave="onMouseLeave(opt)"
         @click="ev => onSelect(ev, opt, abbotChoice)"
       />
-      <path
-        v-else-if="feature.clip && feature.clip[0] !== '<'"
-        :d="feature.clip"
-        :transform="transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
-        :class="{ area: true, mouseover: opt === mouseOver, mouseout: opt !== mouseOver }"
-        @mouseenter="onMouseOver(opt)"
-        @mouseleave="onMouseLeave(opt)"
-        @click="ev => onSelect(ev, opt, abbotChoice)"
-      />
-      <!-- eslint-disable vue/no-v-html-->
       <g
-        v-else-if="feature.clip"
+        v-else
         :transform="transformRotation(feature.rotation) + ' ' + (feature.transform || '')"
         :class="{ area: true, mouseover: opt === mouseOver, mouseout: opt !== mouseOver }"
         @mouseenter="onMouseOver(opt)"
         @mouseleave="onMouseLeave(opt)"
         @click="ev => onSelect(ev, opt, abbotChoice)"
-        v-html="feature.clip"
-      />
+      >
+        <FeatureClip :clip="feature.clip" />
+      </g>
     </g>
   </g>
 </template>
 
 <script>
-import Location from '@/models/Location'
-
 import LayerMixin from '@/components/game/layers/LayerMixin'
+import FeatureClip from '@/components/game/layers/FeatureClip.vue'
 
 export default {
   components: {
+    FeatureClip
   },
 
   mixins: [LayerMixin],

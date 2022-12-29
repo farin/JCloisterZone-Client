@@ -24,7 +24,7 @@ async function createMenu (win, messages) {
     { type: 'separator' },
     { id: 'settings', label: $t('menu.settings') || 'Settings', accelerator: 'CommandOrControl+,', click () { win.webContents.send('menu.show-settings') } },
     { type: 'separator' },
-    { role: isMac ? 'close' : 'quit' }
+    isMac ? { role: 'close' } : { role: 'quit' }
   ]
 
   const template = [
@@ -41,6 +41,7 @@ async function createMenu (win, messages) {
         { id: 'zoom-out', label: $t('menu.zoom-out') || 'Zoom Out', accelerator: 'numsub', registerAccelerator: false, click () { win.webContents.send('menu.zoom-out') } },
         { type: 'separator' },
         { id: 'game-tiles', label: $t('menu.tiles') || 'Tiles', accelerator: 't', click () { win.webContents.send('menu.game-tiles') } },
+        { id: 'game-farm-hints', label: $t('menu.farm-hints') || 'Farm Hints', accelerator: 'f', click () { win.webContents.send('menu.game-farm-hints') } },
         { id: 'toggle-history', label: $t('menu.toggle-history') || 'Toggle History', accelerator: 'h', click () { win.webContents.send('menu.game-history') } },
         { type: 'separator' },
         { id: 'game-setup', label: $t('menu.show-game-setup') || 'Show game setup', click () { win.webContents.send('menu.game-setup') } }

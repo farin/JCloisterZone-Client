@@ -13,8 +13,10 @@
     >
       <use
         class="meeple"
-        x="-160" y="-160"
-        width="320" height="320"
+        :x="-MEEPLE_SIZE / 2"
+        :y="-MEEPLE_SIZE / 2"
+        :width="MEEPLE_SIZE"
+        :height="MEEPLE_SIZE"
         :href="`${MEEPLES_SVG}#barn`"
       />
     </g>
@@ -33,12 +35,14 @@
         <FlockDetail
           v-if="meeple.type === 'Shepherd'"
           :meeple="meeple"
-          transform="translate(130 -130)"
+          :transform="`translate(${BASE_SIZE * 0.13} -${BASE_SIZE * 0.13})`"
         />
         <use
           :class="{meeple: true, 'rot-90': meeple.rotate90}"
-          x="-160" y="-160"
-          width="320" height="320"
+          :x="-MEEPLE_SIZE / 2"
+          :y="-MEEPLE_SIZE / 2"
+          :width="MEEPLE_SIZE"
+          :height="MEEPLE_SIZE"
           :href="`${MEEPLES_SVG}#${svgMeepleId(meeple)}`"
           @mouseenter="onMouseOver(meeple.selectable)"
           @mouseleave="onMouseLeave()"
@@ -49,11 +53,13 @@
           :class="meepleSelect.css || 'meeple-select'"
         >
           <circle
-            cx="0" cy="0" r="270"
+            cx="0"
+            cy="0"
+            :r="BASE_SIZE * 0.27"
             :class="{'color-stroke': true, mouseover: mouseOver === meeple.selectable }"
             :style="{'pointer-events': 'none'}"
             fill="none"
-            stroke-width="70"
+            :stroke-width="BASE_SIZE * 0.07"
           />
 
           <!--
@@ -62,7 +68,9 @@
           -->
           <circle
             v-if="group.meeples.length === 1"
-            cx="0" cy="0" r="305"
+            cx="0"
+            cy="0"
+            :r="BASE_SIZE * 0.305"
             :style="{'pointer-events': 'all', fill: 'none'}"
             @mouseenter="meepleSelect.local && onMouseOver(meeple.selectable)"
             @mouseleave="meepleSelect.local && onMouseLeave(meeple.selectable)"
@@ -73,8 +81,10 @@
         <use
           v-if="fairy && fairy.placement.meepleId === meeple.id"
           class="fairy"
-          x="-100" y="-240"
-          :width="420" :height="420"
+          :x="-BASE_SIZE * 0.1"
+          :y="-BASE_SIZE * 0.24"
+          :width="BASE_SIZE * 0.42"
+          :height="BASE_SIZE * 0.42"
           :href="`${NEUTRAL_SVG}#fairy`"
         />
       </g>
@@ -85,9 +95,13 @@
         :transform="`translate(${n.x} ${n.y})`"
         :class="n.type"
       >
-        <use v-if="n.type === 'count'" :width="420" :height="420" x="-210" y="-210" :href="`${NEUTRAL_SVG}#count`" />
-        <use v-if="n.type === 'mage'" :width="420" :height="420" x="-210" y="-210" :href="`${NEUTRAL_SVG}#mage`" />
-        <use v-if="n.type === 'witch'" :width="420" :height="420" x="-210" y="-210" :href="`${NEUTRAL_SVG}#witch`" />
+        <use
+          :width="BASE_SIZE * 0.42"
+          :height="BASE_SIZE * 0.42"
+          :x="-BASE_SIZE * 0.21"
+          :y="-BASE_SIZE * 0.21"
+          :href="`${NEUTRAL_SVG}#${n.type === 'bigtop' ? 'big-top' : n.type}`"
+        />
       </g>
     </g>
 
@@ -98,7 +112,7 @@
         :points="dragonVisitedPoints"
         fill="none"
         stroke="#7a172d"
-        stroke-width="120"
+        :stroke-width="BASE_SIZE * 0.12"
         stroke-opacity="0.7"
       />
 
@@ -106,7 +120,13 @@
         :transform="transformPosition(dragon.position)"
         class="dragon"
       >
-        <use :width="950" :height="475" x="25" y="250" :href="`${NEUTRAL_SVG}#dragon`" />
+        <use
+          :width="BASE_SIZE * 0.95"
+          :height="BASE_SIZE * 0.475"
+          :x="BASE_SIZE * 0.025"
+          :y="BASE_SIZE * 0.25"
+          :href="`${NEUTRAL_SVG}#dragon`"
+        />
       </g>
     </g>
 
@@ -119,7 +139,11 @@
       :transform="lonelyFairyTransform()"
       class="fairy"
     >
-      <use :width="420" :height="420" :href="`${NEUTRAL_SVG}#fairy`" />
+      <use
+        :width="BASE_SIZE * 0.42"
+        :height="BASE_SIZE * 0.42"
+        :href="`${NEUTRAL_SVG}#fairy`"
+      />
     </g>
   </g>
 </template>
@@ -134,11 +158,12 @@ import { isSameFeature } from '@/utils/gameUtils'
 import FlockDetail from '@/components/game/layers/FlockDetail'
 import LayerMixin from '@/components/game/layers/LayerMixin'
 
+import { BASE_SIZE } from '@/constants/ui'
 import { FOLLOWER_ORDERING } from '@/constants/ordering'
 
 const MEEPLES_SVG = require('~/assets/meeples.svg')
 const NEUTRAL_SVG = require('~/assets/neutral.svg')
-const NEUTRAL_FIGURES = ['count', 'mage', 'witch']
+const NEUTRAL_FIGURES = ['count', 'mage', 'witch', 'bigtop']
 
 export default {
   components: {
@@ -155,6 +180,8 @@ export default {
     return {
       MEEPLES_SVG,
       NEUTRAL_SVG,
+      BASE_SIZE,
+      MEEPLE_SIZE: BASE_SIZE * 0.32,
       mouseOver: null
     }
   },
@@ -167,6 +194,10 @@ export default {
       count: state => state.game.neutralFigures.count,
       mage: state => state.game.neutralFigures.mage,
       witch: state => state.game.neutralFigures.witch,
+      bigtop: state => {
+        const bt = state.game.neutralFigures.bigtop
+        return bt ? { placement: { position: bt.placement, feature: 'Circus', location: 'I' } } : null
+      },
       meepleSelect: state => state.board.layers.MeepleSelectLayer
     }),
 
@@ -229,16 +260,16 @@ export default {
               rotate90: m.location === 'AS_ABBOT' || (deployedOnFarm && !['Shepherd', 'Pig'].includes(m.type)),
               selectable: selectable && selectable[m.id]
             }
-            x += m.type === 'SmallFollower' ? 100 : 140
-            y += 20
+            x += m.type === 'SmallFollower' ? BASE_SIZE * 0.1 : BASE_SIZE * 0.14
+            y += BASE_SIZE * 0.02
             return mapped
           }),
           neutral: []
         }
 
         if (this.fairy && meeples.find(m => m.id === this.fairy.placement.meepleId)) {
-          x += 140
-          y += 20
+          x += BASE_SIZE * 0.14
+          y += BASE_SIZE * 0.02
         }
 
         NEUTRAL_FIGURES.forEach(figure => {
@@ -249,8 +280,8 @@ export default {
           if (isSameFeature(placement, sample) && !(this.isDeployedOnBridge(placement) ^ this.deployedOnBridge)) {
             neutralInGroup[figure] = true
             group.neutral.push({ type: figure, x, y })
-            x += 140
-            y += 20
+            x += BASE_SIZE * 0.14
+            y += BASE_SIZE * 0.02
           }
         })
         return group
@@ -280,18 +311,18 @@ export default {
       }
       const points = []
       visited.forEach(pos => {
-        const x = 500 + pos[0] * 1000
-        const y = 500 + pos[1] * 1000
+        const x = BASE_SIZE / 2 + pos[0] * BASE_SIZE
+        const y = BASE_SIZE / 2 + pos[1] * BASE_SIZE
         points.push(`${x},${y}`)
       })
       const last = visited[visited.length - 1]
-      let x = 500 + position[0] * 1000
-      let y = 500 + position[1] * 1000
+      let x = BASE_SIZE / 2 + position[0] * BASE_SIZE
+      let y = BASE_SIZE / 2 + position[1] * BASE_SIZE
       if (position[0] !== last[0]) {
-        x -= Math.sign(position[0] - last[0]) * 600
+        x -= Math.sign(position[0] - last[0]) * BASE_SIZE * 0.6
       }
       if (position[1] !== last[1]) {
-        y -= Math.sign(position[1] - last[1]) * 300
+        y -= Math.sign(position[1] - last[1]) * BASE_SIZE * 0.3
       }
       points.push(`${x},${y}`)
       return points.join(' ')
@@ -331,9 +362,9 @@ export default {
       const { placement } = this.fairy
       if (this.$store.state.game.setup.rules['fairy-placement'] === 'next-follower') {
         const fp = placement.featurePointer
-        return this.transformPoint(fp) + ' translate(-240 -240)'
+        return this.transformPoint(fp) + ` translate(-${BASE_SIZE * 0.24} -${BASE_SIZE * 0.24})`
       } else {
-        return this.transformPosition(placement) + ' translate(410 200)'
+        return this.transformPosition(placement) + ` translate(${BASE_SIZE * 0.41} ${BASE_SIZE * 0.2})`
       }
     },
 
@@ -342,11 +373,11 @@ export default {
       if (places[0][0] === places[1][0]) { /// compare X
         // vertical
         const upperY = Math.min(places[0][1], places[1][1])
-        t = position[1] === upperY ? 'translate(500 1000)' : 'translate(500 0)'
+        t = position[1] === upperY ? `translate(${BASE_SIZE / 2} ${BASE_SIZE})` : `translate(${BASE_SIZE / 2} 0)`
       } else {
         // horizontla
         const leftX = Math.min(places[0][0], places[1][0])
-        t = position[0] === leftX ? 'translate(1000 500)' : 'translate(0 500)'
+        t = position[0] === leftX ? `translate(${BASE_SIZE} ${BASE_SIZE / 2})` : `translate(0 ${BASE_SIZE / 2})`
       }
       return this.transformPosition(position) + ' ' + t
     }

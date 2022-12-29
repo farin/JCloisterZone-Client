@@ -309,10 +309,11 @@ h2
 
 .recent-list
   margin-top: 4px
+  display: flex
+  flex-direction: column
+  align-items: center
 
   a
-    display: block
-
     +theme using ($theme)
       &:hover
         color: map-get($theme, 'text-color')
