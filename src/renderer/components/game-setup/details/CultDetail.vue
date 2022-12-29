@@ -2,13 +2,13 @@
   <div>
     <p>
       <RulesLink href="https://boardgamegeek.com/boardgame/38431/carcassonne-cult" />
-      <RulesLink title="Rules" href="http://wikicarpedia.com/index.php/Count,_King_and_Robber#The_cultists" />
+      <RulesLink :title="$t('buttons.rules')" href="http://wikicarpedia.com/index.php/Count,_King_and_Robber#The_cultists" />
     </p>
 
-    <h5>Cult Places</h5>
+    <h5>{{ $t('tile-sets.cult-places-title') }}</h5>
     <TileDistribution :sets="{'cult/6': 1}" />
 
-    <h5>Heretics and Shrines</h5>
+    <h5>{{ $t('tile-sets.heretics-and-shrines-title') }}</h5>
     <TileDistribution :sets="{'cult/5': 1}" />
   </div>
 </template>

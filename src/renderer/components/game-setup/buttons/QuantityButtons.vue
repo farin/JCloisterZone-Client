@@ -22,12 +22,12 @@
           <v-icon v-if="value === 1 || value === true">fas fa-check</v-icon>
           <template v-else>{{ value }}</template>
         </span>
-        <span v-if="mutable" class="add" title="Add multiple instances" @click.stop="add">
+        <span v-if="mutable" class="add" :title="$t('buttons.plus-description')" @click.stop="add">
           <v-icon>fas fa-plus</v-icon>
         </span>
       </template>
       <template v-else-if="mutable">
-        <div class="add-first">Add</div>
+        <div class="add-first">{{ $t('buttons.add') }}	</div>
       </template>
     </div>
 

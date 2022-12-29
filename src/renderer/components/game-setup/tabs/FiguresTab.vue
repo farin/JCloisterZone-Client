@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ConfigSection title="Followers">
+    <ConfigSection :title="$t('game-setup.components.followers')">
       <div class="components">
         <GameElementBox :item="GameElement.SMALL_FOLLOWER" :max="99" :reset="7">
           <svg class="meeple" :width="55" :height="55">
@@ -55,7 +55,7 @@
       </div>
     </ConfigSection>
 
-    <ConfigSection title="Neutral Figures">
+    <ConfigSection :title="$t('game-setup.components.neutral-figures')">
       <div class="components">
         <GameElementBox :item="GameElement.FAIRY">
           <NeutralFigure figure="fairy" :width="55" :height="55" />
@@ -75,7 +75,7 @@
       </div>
     </ConfigSection>
 
-    <ConfigSection title="Tokens">
+    <ConfigSection :title="$t('game-setup.components.tokens')">
       <div class="components">
         <GameElementBox :item="GameElement.TOWER">
           <img src="~/assets/figures/tower-alt.png" height="55">
@@ -105,7 +105,7 @@
       </div>
     </ConfigSection>
 
-    <ConfigSection title="Rewards">
+    <ConfigSection :title="$t('game-setup.components.rewards')">
       <div class="components">
         <GameElementBox :item="GameElement.TRADERS">
           <div class="icon-wrapper">

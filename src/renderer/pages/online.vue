@@ -3,15 +3,15 @@
     <OnlineStatus />
     <header>
       <v-btn :disabled="!connected" large color="primary" @click="createGame()">
-        Create Game
+        {{ $t('buttons.create-game') }}
       </v-btn>
 
       <v-btn :disabled="!connected" large color="primary" @click="openJoinGameDialog()">
-        Join Game
+        {{ $t('buttons.join-game') }}
       </v-btn>
 
       <v-btn large color="secondary" @click="disconnect()">
-        Disconnect
+        {{ $t('buttons.disconnect') }}
       </v-btn>
     </header>
     <main>
@@ -63,7 +63,7 @@
           </div>
 
           <div class="buttons">
-            <v-btn color="primary" :disabled="!valid || !connected" @click="resume(game)"><v-icon left>fa-play</v-icon> Resume</v-btn>
+            <v-btn color="primary" :disabled="!valid || !connected" @click="resume(game)"><v-icon left>fa-play</v-icon> {{ $t('buttons.resume') }}</v-btn>
             <v-btn color="secondary" :disabled="!connected" @click="del(game)"><v-icon>fa-trash-alt</v-icon></v-btn>
           </div>
         </div>
@@ -77,10 +77,10 @@
     >
       <v-card>
         <v-card-title>
-          <span class="headline">Abandon game</span>
+          <span class="headline">{{ $t('index.online.abandon-game') }}</span>
         </v-card-title>
         <v-card-text>
-          Do you want to permanently remove unfinished game from your list?
+          {{ $t('index.online.remove-unfinished-game-confirmation') }}
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -88,13 +88,13 @@
             text
             @click="showDeleteDialog = false"
           >
-            Cancel
+            {{ $t('buttons.cancel') }}
           </v-btn>
           <v-btn
             text
             @click="delConfirm()"
           >
-            Remove
+            {{ $t('buttons.remove') }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -106,12 +106,12 @@
     >
       <v-card>
         <v-card-title>
-          <span class="headline">Join Game</span>
+          <span class="headline">{{ $t('index.online.join-game') }}</span>
         </v-card-title>
         <v-card-text>
           <v-container>
-            <p>Paste a game key provided by host</p>
-            <v-text-field ref="joinInput" v-model="joinGameId" label="Game ID" @keydown.enter="joinGame"  />
+            <p>{{ $t('index.online.paste-a-game-key') }}</p>
+            <v-text-field ref="joinInput" v-model="joinGameId" :label="$t('index.online-game-id')" @keydown.enter="joinGame"  />
             <v-alert
               v-if="joinError"
               type="error"
@@ -123,8 +123,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn text @click="showJoinDialog = false">Cancel</v-btn>
-          <v-btn text @click="joinGame">Confirm</v-btn>
+          <v-btn text @click="showJoinDialog = false">{{ $t('buttons.cancel') }}</v-btn>
+          <v-btn text @click="joinGame">{{ $t('buttons.confirm') }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

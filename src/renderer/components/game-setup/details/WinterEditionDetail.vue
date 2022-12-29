@@ -5,7 +5,7 @@
     </p>
 
     <p>
-      Basic set from Winter Edition spin-off. Contains basic game extended with additional 12 tiles.
+      {{ $t('tile-sets.winter-edition-description') }}
     </p>
 
     <TileDistribution :sets="{winter: 1}" />

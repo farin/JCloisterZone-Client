@@ -48,6 +48,10 @@ module.exports = {
       {
         code: 'cs',
         file: 'cs.json'
+      },
+      {
+        code: 'sk',
+        file: 'sk.json'
       }
     ],
     // lazy: true,

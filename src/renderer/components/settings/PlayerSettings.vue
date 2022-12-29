@@ -1,19 +1,19 @@
 <template>
   <div>
-    <h3 class="mt-2 mb-4">Player</h3>
+    <h3 class="mt-2 mb-4">{{ $t('settings.player.title') }}</h3>
 
-    <h4>Nickname</h4>
-    <em>Nickname used when player is assigned to a game.</em>
+    <h4>{{ $t('settings.player.nickname') }}</h4>
+    <em>{{ $t('settings.player.nickname-description') }}</em>
     <v-text-field
       v-model="nickname"
       outlined dense
       hide-details
     />
 
-    <h4>Preferred Color</h4>
-    <em>Automatically take a color after game join.</em>
+    <h4>{{ $t('settings.player.preferred-color') }}</h4>
+    <em>{{ $t('settings.player.preferred-color-description') }}</em>
     <div class="preferred-color">
-      <v-btn small :depressed="preferredColor !== null" @click="() => { preferredColor = null }">None</v-btn>
+      <v-btn small :depressed="preferredColor !== null" @click="() => { preferredColor = null }">{{ $t('settings.player.none') }}</v-btn>
       <v-btn
         v-for="(n, i) in 9"
         :key="i"

@@ -3,14 +3,14 @@
     <template #header>
       <v-tabs v-model="tab" @change="onTabChange">
         <v-tab><v-icon small>far fa-heart</v-icon></v-tab>
-        <v-tab>Tiles</v-tab>
-        <v-tab>Components</v-tab>
-        <v-tab>Rules</v-tab>
-        <v-tab>Timer</v-tab>
+        <v-tab>{{ $t('game-setup.header.tiles') }}</v-tab>
+        <v-tab>{{ $t('game-setup.header.components') }}</v-tab>
+        <v-tab>{{ $t('game-setup.header.rules') }}</v-tab>
+        <v-tab>{{ $t('game-setup.header.timer') }}</v-tab>
       </v-tabs>
 
       <HeaderMessage v-if="tab > 0" :sets="sets" />
-      <HeaderGameButton v-if="tab > 0" title="Create" :sets="sets" @click="createGame" />
+      <HeaderGameButton v-if="tab > 0" :title="$t('buttons.create')" :sets="sets" @click="createGame" />
     </template>
 
     <template #main>
@@ -23,7 +23,7 @@
 
     <template #detail>
       <div v-if="tab > 0" class="detail-pack">
-        <h2>Selected tiles</h2>
+        <h2>{{ $t('game-setup.selected-tiles') }}</h2>
         <TileDistribution
           :tile-size="$vuetify.breakpoint.height > 768 ? 100 : 80"
           :sets="sets"

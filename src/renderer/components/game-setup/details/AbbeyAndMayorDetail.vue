@@ -2,18 +2,18 @@
   <div>
     <p>
       <RulesLink href="https://boardgamegeek.com/boardgameexpansion/31784/carcassonne-expansion-5-abbey-mayor" />
-      <RulesLink title="Rules" href="http://wikicarpedia.com/index.php/Abbey_and_the_Mayor" />
-      <RulesLink title="Rules (1st ed.)" href="http://wikicarpedia.com/index.php/Abbey_and_the_Mayor_(1st_edition)" />
+      <RulesLink :title="$t('buttons.rules')" href="http://wikicarpedia.com/index.php/Abbey_and_the_Mayor" />
+      <RulesLink :title="$t('buttons.rules-1st-edition')" href="http://wikicarpedia.com/index.php/Abbey_and_the_Mayor_(1st_edition)" />
     </p>
 
     <p>
-      The fifth major expansion released in 2007.
+      {{ $t('tile-sets.abbey-mayor-release') }}
     </p>
 
     <TileDistribution :sets="{'abbey-and-mayor': 1}" />
 
     <p>
-      Each a player can also place Abbey tile from his supply.
+      {{ $t('tile-sets.abbey-mayor-description') }}
     </p>
 
     <StandaloneTileImage tile-id="AM/A" :size="100" />

@@ -2,12 +2,12 @@
   <div>
     <p>
       <RulesLink href="https://boardgamegeek.com/boardgameexpansion/21385/carcassonne-expansion-4-tower" />
-      <RulesLink title="Rules" href="http://wikicarpedia.com/index.php/The_Tower" />
-      <RulesLink title="Rules (1st ed.)" href="http://wikicarpedia.com/index.php/The_Tower_(1st_edition)" />
+      <RulesLink :title="$t('buttons.rules')" href="http://wikicarpedia.com/index.php/The_Tower" />
+      <RulesLink :title="$t('buttons.rules-1st-edition')" href="http://wikicarpedia.com/index.php/The_Tower_(1st_edition)" />
     </p>
 
     <p>
-      The fourth major expansion released in 2006.
+      {{ $t('tile-sets.tower-release') }}
     </p>
 
     <TileDistribution :sets="{'tower': 1}" />

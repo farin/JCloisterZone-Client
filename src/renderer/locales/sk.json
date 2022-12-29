@@ -1,0 +1,42 @@
+{
+  "index": {
+    "online": {
+      "title": "Hrať na verejnom serveri",
+      "play_online_button": "Hrať on-line",
+      "private-games-only": "Podrované sú len privátne hry",
+      "no-random-discovery": "zaťiaľ nie je možné vyhľadávanie hier"
+    },
+    "local": {
+      "title": "Hrať na lokálnom serveri",
+      "new-game": "Nová hra",
+      "join-game": "Pripojiť sa k hre",
+      "load-game": "Načítať hry",
+      "create-directly-from": "Vytvorenie hry priamo z ",
+      "my-favorities": "mojich obľúbených",
+      "continue-with-recently-saved-games": "Pokračovanie v posledných uložených hrách",
+      "clear-list": "vyčistiť zoznam"
+    },
+    "release-notes": "Informácie o vydaní"
+  },
+  "menu": {
+    "playonline-connect": "Hrať on-line",
+    "playonline-disconnect": "Odpojiť",
+    "new-game": "Nová hra",
+    "join-game": "Propojiť sa k hre",
+    "leave-game": "Opustiť hru",
+    "save-game": "Uložiť hru",
+    "load-game": "Načítať hry / Nastavenie",
+    "settings": "Nastavenia",
+    "session": "Relácia",
+    "game": "Hra",
+    "help": "Pomoc",
+    "undo": "Späť",
+    "zoom-in": "Priblíženie",
+    "zoom-out": "Vzdialenie",
+    "tiles": "Kartičky",
+    "toggle-history": "Zobraziť/Skryť históriu",
+    "show-game-setup": "Zobraziť konfiguráciu hry",
+    "rules": "Pravidlá",
+    "about": "O aplikácii"
+  }
+}

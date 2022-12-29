@@ -1,10 +1,165 @@
 {
+  "title": "JCloizterZone",
+  "game-setup": {
+    "header": {
+      "tiles": "Tiles",
+      "components": "Components",
+      "rules": "Rules",
+      "timer": "Timer"      
+    },
+    "tiles": {
+      "core-sets": "Core sets",
+      "major-expansions": "Major expansions",
+      "minor-expansions": "Minor expansions",
+      "promos": "Promos",
+      "fan-expansions": "Fan expansions"
+    },
+    "components": {
+      "followers": "Followers",
+      "neutral-figures": "Neutral figures",
+      "tokens": "Tokens",
+      "rewards": "Rewards"
+    },
+    "game-element-box": {
+      "mandatory-for-selected-files": "Mandatory for selected tiles",
+      "related-tiles-not-selected": "Related tiles not selected"
+    },
+    "rules": {
+      "optional-game-mechanics": "Optional game mechanics",
+      "gameplay-variants": "Gameplay variants",
+      "scoring-variants": "Scoring variants",
+      "starting-tiles-configuration": "Starting tile(s) configuration",
+      "show-available-only": "show available only",
+      "starting-tiles-different-configuration": "The River, The Count, GQ11, The Wind Roses and Spiel Doch Promo provides alternative starting configurations.",
+      "farmers-description": "Players are allowed to place followers on fields.",
+      "garden-description": "Can be occupied by an abbot.",
+      "garden-disabled": "Abbot is not selected.",
+      "cathedral-description": "Completed cities with cathedral &times;3 instead of &times;2, no points during final scoring.",
+      "cathedral-disabled": "Inns & Cathedrals expansion is not selected.",
+      "inn-description": "Completed roads with inn &times;2, no points during final scoring.",
+      "inn-disabled": "No tile with Inn is in the game.",
+      "princess-description": "Princess can remove knight from a&nbsp;city.",
+      "princess-disabled": "Princess & Dragon expansion is not selected.",
+      "portal-description": "Through portal meeple can be placed on any tile.",
+      "portal-disabled": "Princess & Dragon expansion is not selected.",
+      "bazaar-description": "Land tiles are auctioned when bazaar comes into play.",
+      "bazaar-disabled": "Bridges, Castles and Bazaars expansion is not selected.",
+      "hill-description": "Used as tiebreaker. Also hides one random tile under it.",
+      "hill-disabled": "Hills and Sheep expansion is not selected.",
+      "vineyard-description": "Additional points for nearby cloisters.",
+      "vineyard-disabled": "Hills and Sheep expansion is not selected.",
+      "pig-herd-description": "Counts as additional pig on field (farmers scores more points).",
+      "pig-herd-disabled": "Neither GQ11 nor River II is selected.",
+      "shrine-description": "Shrine placed next to a monastery compete who finish feature first. (second gets no points)",
+      "shrine-disabled": "The Cult expansion is not in the game.",
+      "festival-description": "With festival tile you can return one of your own meeples instead of placing one.",
+      "festival-disabled": "Festival expansion is not in the game.",
+      "siege-description": "Besieged cities are less valuable.",
+      "siege-disabled": "Siege expansion is not in the game.",
+      "escape-description": "Espace allowed via a&nbsp;neighboring monastery.",
+      "escape-diabled": "Siege expansion is not in the game."
+    },
+    "timer": {
+      "player-time-limit": "Player time limit",
+      "unlimited-time": "unlimited time",
+      "enable-limits": "enable limits",
+      "disable-limits": "disable limits",
+      "at-game-start-set-timer-to": "At game start set timer to",
+      "each-turn-increase-timer-by": "Each turn increase timer by",
+      "when-time-is-over": "When time is over",
+      "do-nothing": "do nothing"
+    },
+    "create": {
+      "open-slot": "open slot",
+      "local-player": "local player",
+      "remote-player": "remote player",
+      "click-to-assign": "click to assign",
+      "rename-player": "Rename Player",
+      "name": "Name"
+    },
+    "open-game": {
+      "untitled-game": "untitled game",
+      "assign-all-players-to-start": "Assign all players to start",
+      "no-player-in-game": "No player in game",
+      "share-the-key": "Share the key with other players to let them connect to the game.",
+      "waiting-for-host-to-start-the-game": "Waiting for host to start the game.",
+      "options": "Options",
+      "randomize-seating-order": "Randomize seating order",
+      "hide-remaining-tiles-cheat-sheet": "Hide remaining tiles cheat sheet",
+      "set-game-title": "Set Game Title",
+      "name": "Name"
+    },
+    "title": "Game Setyp",
+    "additional-elements": "Additional elements",
+    "altered-gameplay": "Altered Gameplay",
+    "altered-scoring": "Altered Scoring",
+    "removed-elements": "Removed Elements",
+    "selected-tiles": "Selected tiles"
+  },
   "index": {
     "online": {
       "title": "Public server hosted games",
-      "play_online_button": "Play Online"
+      "play_online_button": "Play Online",
+      "private-games-only": "Only private games are now supported.",
+      "no-random-discovery": "it means no random players discovery",
+      "connected-to": "Connected to {0}",
+      "abandon-game": "Abandon game",
+      "remove-unfinished-game-confirmation": "Do you want to permanently remove unfinished game from your list?",
+      "join-game": "Join game",
+      "paste-a-game-key": "Paste a game key provided by host",
+      "game-id": "Game ID"
+    },
+    "local": {
+      "title": "Player hosted games",
+      "new-game": "New game",
+      "join-game": "Join game",
+      "load-game": "Load game",
+      "create-directly-from": "Create a new game directly from",
+      "my-favorities": "my favorities",
+      "continue-with-recently-saved-games": "Continue with recently saved games"
     },
     "release-notes": "Release Notes"
+  },
+  "about": {
+    "configuration-file": "Configuration file",
+    "jcloisterzone-game-engine": "JCloisteZone Game Engine",
+    "system-java-version": "System Java Version",
+    "version": "version"
+  },
+  "bookmarks": {
+    "title": "My favorities",
+    "description-start": "You have not game setup in favorites list. To add setup here create a game first and then use",
+    "description-end": "button in overview sidebar.",
+    "recently-saved-to-file": "Recently saved to file",
+    "nothing-saved": "Nothing saved."
+  },
+  "buttons": {
+    "add": "Add",
+    "add-to-favorities": "Add To Favorites",
+    "cancel": "Cancel",
+    "clear-list": "clear list",
+    "close": "Close",
+    "confirm": "Confirm",
+    "connect": "Connect",
+    "create": "Create",
+    "create-game": "Create Game",
+    "disconnect": "Disconnect",
+    "join-game": "Join Game",
+    "load-setup-from-file": "Load Setup From File",
+    "plus-description": "Add multiple instances",
+    "remove": "Remove",
+    "remove-from-favorites": "Remove From Favorites",
+    "resume": "Resume",
+    "rules": "Rules",
+    "rules-1st-edition": "Rules (1st ed.)",
+    "save-to-file": "Save To File",
+    "set": "Set",
+    "start": "Start"
+  },
+  "join-game": {
+    "title": "Join Remote Game",
+    "host": "Host",
+    "description": "Connect to remote host with created game.<br><i>The game on remote host must be in color selection phase.</i>"
   },
   "menu": {
     "playonline-connect": "Play Online",
@@ -15,9 +170,10 @@
     "save-game": "Save Game",
     "load-game": "Load Game / Setup",
     "settings": "Settings",
+    "exit": "Exit",
     "session": "Session",
     "game": "Game",
-    "help": "Helo",
+    "help": "Help",
     "undo": "Undo",
     "zoom-in": "Zoom In",
     "zoom-out": "Zoom Out",
@@ -26,5 +182,56 @@
     "show-game-setup": "Show Game Setup",
     "rules": "Rules",
     "about": "About"
+  },
+  "settings": {
+    "title": "Settings",
+    "player": {
+      "title": "Player",
+      "nickname": "Nickname",
+      "nickname-description": "Nickname used when player is assigned to a game.",
+      "preferred-color": "Preferred Color",
+      "preferred-color-description": "Automatically take a color after game join.",
+      "none": "None"
+    },
+    "game-interface": {
+      "title": "Game Interface"
+    },
+    "apperance": {
+      "title": "Apperance"
+    },
+    "add-ons": {
+      "title": "Add-ons"
+    },
+    "java": {
+      "title": "Java"
+    }
+  },
+  "tile-sets": {
+    "abbey-mayor-release": "The fifth major expansion released in 2007.",
+    "abbey-mayor-description": "Each a player can also place Abbey tile from his supply.",
+    "base-game-description": "You can play tiles with 1st Edition or New edition rules (eg. gardens). This can be selected in second game setup step.",
+    "besiegers-title": "The Besiegers",
+    "bridges-castles-and-bazaars-release": "The eight major expansion released in 2010. (Sixth major expansion Count, King and Robber is splitted into individual small modules. Seventh, The Catapult, is obvously skipped)",
+    "cathars-title": "The Cathars",
+    "crop-circles-I-title": "Crop Circles I",
+    "crop-circles-II-title": "Crop Circles II",
+    "cult-places-title": "Cult places",
+    "darmstadt-release": "Originally released in 2014.",
+    "heretics-and-shrines-title": "Heretics and Shrines",
+    "gq11-release": "Originally released in Games Quarterly magazine in 2006.",
+    "hills-and-sheep-release": "The ninth major expansion released in 2014.",
+    "inns-and-cathedrals-release": "First major expansion for Carcassonne released in 2002.",
+    "king-and-robber-release": "Originally released in 2003 as part of King & Scout. Later included in the sixth major expansion: Count, King & Robber (2007)",
+    "labyrinth-release": "Originally released in 2016.",
+    "princess-and-dragon-release": "The third major expansion released in 2005.",
+    "river-I-title": "River I",
+    "river-I-release": "The River I is mini expansion released in 2001.",
+    "river-II-title": "River II",
+    "river-II-release": "The River II was released in 2006 and now is contained in sixth major expansion Count, King & Robber.",
+    "russian-promos-2013-title": "Tiles from 2013",
+    "russian-promos-2016-title": "Tiles from 2016",
+    "tower-release": "The fourth major expansion released in 2006.",
+    "traders-and-builders-release": "The second major expansion released in 2003",
+    "winter-edition-description": "Basic set from Winter Edition spin-off. Contains basic game extended with additional 12 tiles."
   }
 }

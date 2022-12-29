@@ -10,9 +10,9 @@
       <use :href="`${MEEPLES_SVG}#small-follower`" />
     </svg>
     <div class="state">
-      <template v-if="slotState === 'open'">open slot</template>
-      <template v-if="slotState === 'local'">local player</template>
-      <template v-if="slotState === 'remote'">remote player</template>
+      <template v-if="slotState === 'open'">{{ $t('game-setup.create.open-slot') }}</template>
+      <template v-if="slotState === 'local'">{{ $t('game-setup.create.local-player') }}</template>
+      <template v-if="slotState === 'remote'">{{ $t('game-setup.create.remote-player') }}</template>
     </div>
     <div
       v-if="slotState === 'local'"
@@ -23,24 +23,24 @@
       <v-icon v-if="slotState === 'local' && !readOnly">fas fa-pencil-alt</v-icon>
     </div>
     <div v-else class="name">
-      <template v-if="slotState === 'open' && !readOnly">click to assign</template>
+      <template v-if="slotState === 'open' && !readOnly">{{ $t('game-setup.create.click-to-assign') }}</template>
       <template v-else>{{ name }}</template>
     </div>
 
     <v-dialog v-model="edit" max-width="600px">
       <v-card>
         <v-card-title>
-          <span class="headline">Rename Player</span>
+          <span class="headline">{{ $t('game-setup.create.rename-player') }}</span>
         </v-card-title>
         <v-card-text>
           <v-container>
-            <v-text-field ref="nameInput" v-model="editName" label="Name" @keydown.enter="rename" />
+            <v-text-field ref="nameInput" v-model="editName" :label="$t('game-setup.create.name')" @keydown.enter="rename" />
           </v-container>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn text @click="edit = false">Cancel</v-btn>
-          <v-btn text @click="rename">Confirm</v-btn>
+          <v-btn text @click="edit = false">{{ $t('buttons.cancel') }}</v-btn>
+          <v-btn text @click="rename">{{ $t('buttons.confirm') }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

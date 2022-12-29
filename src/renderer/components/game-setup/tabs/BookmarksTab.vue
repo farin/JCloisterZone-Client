@@ -2,9 +2,9 @@
   <div>
     <div class="content">
       <div>
-        <ConfigSection title="My Favorites">
+        <ConfigSection :title="$t('bookmarks.title')">
           <div v-if="!verifiedMySetups.length" class="empty-message">
-            <i>You have not game setup in favorites list. To add setup here create a game first and then use <span class="btn-ref"><v-icon left>far fa-heart</v-icon>Add To Favorites</span> button in overview sidebar.</i>
+            <i>{{ $t('bookmarks.description-start') }}<span class="btn-ref"><v-icon left>far fa-heart</v-icon>{{ $t('buttons.add-to-favorities') }}</span> {{ $t('bookmarks.description-end') }}</i>
           </div>
           <div class="d-flex flex-wrap">
             <GameSetupBox
@@ -23,13 +23,13 @@
         <div class="load-button">
           <v-btn small color="secondary" @click="loadFromFile">
             <v-icon left>fa-file</v-icon>
-            Load Setup From File
+            {{ $t('buttons.load-setup-from-file') }}
           </v-btn>
         </div>
 
-        <ConfigSection title="Recently Saved To File">
+        <ConfigSection :title="$t('bookmarks.recently-saved-to-file')">
           <div v-if="!recentSetupSaves.length" class="empty-message">
-            <i>Nothing saved.</i>
+            <i>{{ $t('bookmarks.nothing-saved') }}</i>
           </div>
           <div class="file-list">
             <div
@@ -52,7 +52,7 @@
             </div>
 
             <div v-if="recentSetupSaves.length" class="clear">
-              <a href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> clear list</a>
+              <a href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> {{ $t('buttons.clear-list') }}</a>
             </div>
           </div>
         </ConfigSection>

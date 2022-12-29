@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title class="headline">
-      Game Setup
+      {{ $t('game-setup.title') }}
     </v-card-title>
     <v-card-text>
       <GameSetupOverview :setup="setup" />
@@ -11,7 +11,7 @@
       <v-btn
         text
         @click="$emit('close')"
-      >Close</v-btn>
+      >{{ $t('buttons.close') }}</v-btn>
     </v-card-actions>
   </v-card>
 </template>

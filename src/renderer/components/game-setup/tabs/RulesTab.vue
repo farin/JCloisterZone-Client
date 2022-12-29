@@ -5,11 +5,11 @@
         v-model="showValidRulesOnly"
         dense
         hide-details
-        label="show available only"
+        :label="$t('game-setup.rules.show-available-only')"
       />
     </div>
 
-    <ConfigSection title="Optional Game Mechanics">
+    <ConfigSection :title="$t('game-setup.rules.optional-game-mechanics')">
       <div class="rules-section game-mechanics">
         <GameMechanicsBox :item="GameElement.FARMERS">
           <template #icon>
@@ -22,116 +22,116 @@
               </svg>
             </div>
           </template>
-          <template #description>Players are allowed to place followers on fields.</template>
+          <template #description>{{ $t('game-setup.rules.farmers-description') }}</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.GARDEN">
           <template #icon>
             <img src="~/assets/features/C1/garden.png" width="80" height="55">
           </template>
-          <template #description>Can be occupied by an abbot.</template>
-          <template #disabled>Abbot is not selected.</template>
+          <template #description>{{ $t('game-setup.rules.garden-description') }}</template>
+          <template #disabled>{{ $t('game-setup.rules.garden-disabled') }}</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.CATHEDRAL">
           <template #icon>
             <img src="~/assets/features/C1/cathedral.png" height="55">
           </template>
-          <template #description>Completed cities with cathedral &times;3 instead of &times;2, no points during final scoring.</template>
-          <template #disabled>Inns &amp; Cathedrals expansion is not selected.</template>
+          <template #description>{{ $t('game-setup.rules.cathedral-description') }}</template>
+          <template #disabled>{{ $t('game-setup.rules.cathedral-disabled') }}</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.INN">
           <template #icon>
             <img src="~/assets/features/C1/inn.png" width="80">
           </template>
-          <template #description>Completed roads with inn &times;2, no points during final scoring.</template>
-          <template #disabled>No tile with Inn is in the game.</template>
+          <template #description>{{ $t('game-setup.rules.inn-description') }}</template>
+          <template #disabled>{{ $t('game-setup.rules.inn-disabled') }}</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.PRINCESS">
           <template #icon>
             <img src="~/assets/features/C1/princess.png" height="42">
           </template>
-          <template #description>Princess can remove knight from a&nbsp;city.</template>
-          <template #disabled>Princess &amp; Dragon expansion is not selected.</template>
+          <template #description>{{ $t('game-setup.rules.princess-description') }}</template>
+          <template #disabled>{{ $t('game-setup.rules.princess-disabled') }}</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.PORTAL">
           <template #icon>
             <img src="~/assets/features/C1/magic_portal.png" height="55">
           </template>
-          <template #description>Through portal meeple can be placed on any tile.</template>
-          <template #disabled>Princess &amp; Dragon expansion is not selected.</template>
+          <template #description>{{ $t('game-setup.rules.portal-description') }}</template>
+          <template #disabled>{{ $t('game-setup.rules.portal-disabled') }}</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.BAZAAR">
           <template #icon>
             <img src="~/assets/features/C1/bazaar.png" height="55">
           </template>
-          <template #description>Land tiles are auctioned when bazaar comes into play.</template>
-          <template #disabled>Bridges, Castles and Bazaars expansion is not selected.</template>
+          <template #description>{{ $t('game-setup.rules.bazaar-description') }}</template>
+          <template #disabled>{{ $t('game-setup.rules.bazaar-disabled') }}</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.HILL">
           <template #icon>
             <img src="~/assets/features/C1/hill.png" height="55">
           </template>
-          <template #description>Used as tiebreaker. Also hides one random tile under it.</template>
-          <template #disabled>Hills and Sheep expansion is not selected.</template>
+          <template #description>{{ $t('game-setup.rules.hill-description') }}</template>
+          <template #disabled>{{ $t('game-setup.rules.hill-disabled') }}</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.VINEYARD">
           <template #icon>
             <img src="~/assets/features/C1/vineyard.png" height="55">
           </template>
-          <template #description>Additional points for nearby cloisters.</template>
-          <template #disabled>Hills and Sheep expansion is not selected.</template>
+          <template #description>{{ $t('game-setup.rules.vineyard-description') }}</template>
+          <template #disabled>{{ $t('game-setup.rules.vineyard-disabled') }}</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.PIG_HERD">
           <template #icon>
             <img src="~/assets/features/C1/pig_herd.jpg" height="55">
           </template>
-          <template #description>Counts as additional pig on field (farmers scores more points).</template>
-          <template #disabled>Neither GQ11 nor River II is selected.</template>
+          <template #description>{{ $t('game-setup.rules.pig-herd-description') }}</template>
+          <template #disabled>{{ $t('game-setup.rules.pig-herd-disabled') }}</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.SHRINE">
           <template #icon>
             <img src="~/assets/features/C1/shrine.jpg" height="55">
           </template>
-          <template #description>Shrine placed next to a monastery compete who finish feature first. (second gets no points)</template>
-          <template #disabled>The Cult expansion is not in the game.</template>
+          <template #description>{{ $t('game-setup.rules.shrine-description') }}</template>
+          <template #disabled>{{ $t('game-setup.rules.shrine-disabled') }}</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.FESTIVAL">
           <template #icon>
             <img src="~/assets/features/C1/festival.png" height="55">
           </template>
-          <template #description>With festival tile you can return one of your own meeples instead of placing one.</template>
-          <template #disabled>Festival expansion is not in the game.</template>
+          <template #description>{{ $t('game-setup.rules.festival-description') }}</template>
+          <template #disabled>{{ $t('game-setup.rules.festival-disabled') }}</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.SIEGE">
           <template #icon>
             <img src="~/assets/features/C1/siege.png" height="55">
           </template>
-          <template #description>Besieged cities are less valuable.</template>
-          <template #disabled>Siege expansion is not in the game.</template>
+          <template #description>{{ $t('game-setup.rules.siege-description') }}</template>
+          <template #disabled>{{ $t('game-setup.rules.siege-disabled') }}</template>
         </GameMechanicsBox>
 
         <GameMechanicsBox :item="GameElement.ESCAPE">
           <template #icon>
             <img src="~/assets/features/C1/escape.png" height="55">
           </template>
-          <template #description>Espace allowed via a&nbsp;neighboring monastery.</template>
-          <template #disabled>Siege expansion is not in the game.</template>
+          <template #description>{{ $t('game-setup.rules.escape-description') }}</template>
+          <template #disabled>{{ $t('game-setup.rules.escape-disabled') }}</template>
         </GameMechanicsBox>
       </div>
     </ConfigSection>
 
-    <ConfigSection title="Gameplay Variants">
+    <ConfigSection :title="$t('game-setup.rules.gameplay-variants')">
       <GameplayVariants
         :setup="setup"
         class="rules-section other-rules"
@@ -139,7 +139,7 @@
       />
     </ConfigSection>
 
-    <ConfigSection title="Scoring Variants">
+    <ConfigSection :title="$t('game-setup.rules.scoring-variants')">
       <ScoringVariants
         :setup="setup"
         class="rules-section other-rules"
@@ -147,7 +147,7 @@
       />
     </ConfigSection>
 
-    <ConfigSection title="Starting tile(s) configuration">
+    <ConfigSection :title="$t('game-setup.rules.starting-tiles-configuration')">
       <StartingTiles />
     </ConfigSection>
   </div>

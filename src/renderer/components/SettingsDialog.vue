@@ -1,24 +1,24 @@
 <template>
   <v-card class="d-flex flex-column">
-    <v-card-title class="headline">Settings</v-card-title>
+    <v-card-title class="headline">{{ $t('settings.title') }}</v-card-title>
     <v-card-text class="flex-grow-1">
       <div class="d-flex">
         <v-list class="flex-shrink-0">
           <v-list-item-group v-model="section" mandatory>
             <v-list-item>
-              <v-list-item-title>Player</v-list-item-title>
+              <v-list-item-title>{{ $t('setting.player.title') }}</v-list-item-title>
             </v-list-item>
             <v-list-item>
-              <v-list-item-title>Game Interface</v-list-item-title>
+              <v-list-item-title>{{ $t('setting.game-interface.title') }}</v-list-item-title>
             </v-list-item>
             <v-list-item>
-              <v-list-item-title>Apperance</v-list-item-title>
+              <v-list-item-title>{{ $t('setting.apperance.title') }}</v-list-item-title>
             </v-list-item>
             <v-list-item>
-              <v-list-item-title>Add-ons</v-list-item-title>
+              <v-list-item-title>{{ $t('setting.add-ons.title') }}</v-list-item-title>
             </v-list-item>
             <v-list-item>
-              <v-list-item-title>Java</v-list-item-title>
+              <v-list-item-title>{{ $t('setting.java.title') }}</v-list-item-title>
             </v-list-item>
           </v-list-item-group>
         </v-list>
@@ -34,7 +34,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer />
-      <v-btn text @click="$emit('close')">Close</v-btn>
+      <v-btn text @click="$emit('close')">{{ $t('buttons.close') }}</v-btn>
     </v-card-actions>
   </v-card>
 </template>

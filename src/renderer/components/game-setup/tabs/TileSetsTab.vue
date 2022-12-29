@@ -1,13 +1,13 @@
 <template>
   <div>
-    <ConfigSection title="Core sets">
+    <ConfigSection :title="$t('game-setup.tiles.core-sets')">
       <div class="expansions">
         <ExpansionBox :expansion="Expansion.BASIC" @open-detail="openDetail" />
         <ExpansionBox :expansion="Expansion.WINTER" @open-detail="openDetail" />
       </div>
     </ConfigSection>
 
-    <ConfigSection title="Major expansions">
+    <ConfigSection :title="$t('game-setup.tiles.major-expansions')">
       <div class="expansions">
         <ExpansionBox :expansion="Expansion.INNS_AND_CATHEDRALS" @open-detail="openDetail" />
         <ExpansionBox :expansion="Expansion.TRADERS_AND_BUILDERS" @open-detail="openDetail" />
@@ -19,7 +19,7 @@
       </div>
     </ConfigSection>
 
-    <ConfigSection title="Minor expansions">
+    <ConfigSection :title="$t('game-setup.tiles.minor-expansions')">
       <div class="expansions">
         <ExpansionBox :expansion="Expansion.KING_AND_ROBBER" @open-detail="openDetail" />
         <ExpansionBox :expansion="Expansion.RIVER" @open-detail="openDetail" />
@@ -40,7 +40,7 @@
       </div>
     </ConfigSection>
 
-    <ConfigSection title="Promos">
+    <ConfigSection :title="$t('game-setup.tiles.promos')">
       <div class="expansions">
         <ExpansionBox :expansion="Expansion.RUSSIAN_PROMOS" @open-detail="openDetail" />
         <ExpansionBox :expansion="Expansion.DARMSTADT" @open-detail="openDetail" />
@@ -51,7 +51,7 @@
 
     <ConfigSection
       v-if="$tiles.expansions.length"
-      title="Fan Expansions"
+      :title="$t('game-setup.tiles.fan-expansions')"
     >
       <div class="expansions">
         <ExpansionBox

@@ -2,11 +2,11 @@
   <div>
     <p>
       <RulesLink href="https://boardgamegeek.com/boardgameexpansion/168121/carcassonne-darmstadt" />
-      <RulesLink title="Rules" href="http://wikicarpedia.com/index.php/Darmstadt_Promo_(1st_edition)" />
+      <RulesLink :title="$t('buttons.rules')" href="http://wikicarpedia.com/index.php/Darmstadt_Promo_(1st_edition)" />
     </p>
 
     <p>
-      Originally released in 2014.
+      {{ $t('tile-sets.darmstadt-release') }}
     </p>
 
     <TileDistribution :sets="{'darmstadt': 1}" />

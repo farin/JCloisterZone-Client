@@ -2,12 +2,12 @@
   <div>
     <p>
       <RulesLink href="https://boardgamegeek.com/boardgameexpansion/2993/carcassonne-expansion-1-inns-cathedrals" />
-      <RulesLink title="Rules" href="http://wikicarpedia.com/index.php/Inns_and_Cathedrals" />
-      <RulesLink title="Rules (1st ed.)" href="http://wikicarpedia.com/index.php/Inns_and_Cathedrals_(1st_edition)" />
+      <RulesLink :title="$t('buttons.rules')" href="http://wikicarpedia.com/index.php/Inns_and_Cathedrals" />
+      <RulesLink :title="$t('buttons.rules-1st-edition')" href="http://wikicarpedia.com/index.php/Inns_and_Cathedrals_(1st_edition)" />
     </p>
 
     <p>
-      First major expansion for Carcassonne released in 2002.
+      {{ $t('tile-sets.inns-and-cathedrals-release') }}
     </p>
 
     <TileDistribution :sets="{'inns-and-cathedrals': 1}" />

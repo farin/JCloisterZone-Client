@@ -19,11 +19,11 @@
       </div>
 
       <template v-if="!enabled" #hover>
-        <div class="text text-disabled">Related tiles<br>not selected</div>
+        <div class="text text-disabled">{{ $t('game-setup.game-element-box.related-tiles-not-selected') }}</div>
       </template>
 
       <template v-else-if="mandatory" #hover>
-        <div class="text text-mandatory">Mandatory for<br>selected tiles</div>
+        <div class="text text-mandatory">{{ $t('game-setup.game-element-box.mandatory-for-selected-tiles') }}</div>
       </template>
     </GameElementButtons>
   </div>

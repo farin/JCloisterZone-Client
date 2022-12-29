@@ -14,7 +14,7 @@
     </div>
     <div class="toggle">
       <v-icon v-if="selected">fas fa-check</v-icon>
-      <div v-else-if="enabled" class="add-first">Set</div>
+      <div v-else-if="enabled" class="add-first">{{ $t('buttons.set') }}</div>
       <div v-else class="disabled-message">
         <slot name="disabled" />
       </div>

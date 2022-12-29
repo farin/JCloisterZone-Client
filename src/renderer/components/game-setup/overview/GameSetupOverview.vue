@@ -1,7 +1,7 @@
 <template>
   <div class="game-setup-overview">
     <div class="label">
-      <h3>Selected Tiles</h3>
+      <h3>{{ $t('game-setup.selected-tiles') }}</h3>
     </div>
     <section>
       <OverviewExpansionTile
@@ -13,7 +13,7 @@
       />
     </section>
     <div v-if="additions.length" class="label">
-      <h3>Additional elements</h3>
+      <h3>{{ $t('game-setup.additional-elements') }}</h3>
     </div>
     <section>
       <OverviewElementTile
@@ -24,7 +24,7 @@
       />
     </section>
     <div v-if="removals.length" class="label">
-      <h3>Removed Elements</h3>
+      <h3>{{ $t('game-setup.removed-elements') }}</h3>
     </div>
     <section>
       <OverviewElementTile
@@ -35,7 +35,7 @@
       />
     </section>
     <div v-if="timer" class="label">
-      <h3>Timer</h3>
+      <h3>{{ $t('game-setup.header.timer') }}</h3>
     </div>
     <section v-if="timer" class="timer">
       <TimerValue :value="timer.initial" />
@@ -46,14 +46,14 @@
 
     <div v-if="gameplayAltred" class="rules">
       <div class="label">
-        <h3>Altered Gameplay</h3>
+        <h3>{{ $t('game-setup.altered-gameplay') }}</h3>
       </div>
       <GameplayVariants :setup="setup" show="changed" read-only />
     </div>
 
     <div v-if="scoringAltred" class="rules">
       <div class="label">
-        <h3>Altered Scoring</h3>
+        <h3>{{ $t('game-setup.altered-scoring') }}</h3>
       </div>
       <ScoringVariants :setup="setup" show="changed" read-only />
     </div>
@@ -63,15 +63,15 @@
     <div class="setup-buttons">
       <v-btn v-if="!$store.getters['settings/isMySetup'](setup)" small color="secondary" @click="addToMySetups">
         <v-icon left>far fa-heart</v-icon>
-        Add To Favorites
+        {{ $t('buttons.add-to-favorities') }}
       </v-btn>
       <v-btn v-else small color="secondary" @click="removeFromMySetups">
         <v-icon left>fa-heart</v-icon>
-        Remove From Favorites
+        {{ $t('buttons.remove-from-favorites') }}
       </v-btn>
       <v-btn small color="secondary" @click="saveGameSetup">
         <v-icon left>fa-file</v-icon>
-        Save To File
+        {{ $t('buttons.save-to-file') }}
       </v-btn>
     </div>
   </div>

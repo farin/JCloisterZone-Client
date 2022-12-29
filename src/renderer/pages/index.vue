@@ -2,6 +2,7 @@
   <div class="landing-view view">
     <div @click="$i18n.setLocale('cs')">CS</div>
     <div @click="$i18n.setLocale('en')">EN</div>
+    <div @click="$i18n.setLocale('sk')">SK</div>
 
     <div>
       <v-alert v-if="java && java.error === 'not-found' && !javaSelectedByUser" type="warning">
@@ -74,38 +75,38 @@
           <v-icon right>fa-cloud</v-icon>
         </v-btn>
         <div class="subsection">
-          Only private games are now supported.<br>(it means no random players discovery)
+          {{ $t('index.online.private-games-only') }}<br>({{ $t('index.online.no-random-discovery') }})
         </div>
       </div>
     </section>
 
     <section class="player-hosted">
-      <h2>Player hosted games</h2>
+      <h2>{{ $t('index.local.title') }}</h2>
 
       <div class="subsection">
         <v-btn large color="secondary" @click="newGame()">
-          New game
+          {{ $t('index.local.new-game') }}
         </v-btn>
 
         <v-btn large color="secondary" :disabled="!engine || !engine.ok" @click="joinGame()">
-          Join game
+          {{ $t('index.local.join-game') }}
         </v-btn>
 
         <v-btn large color="secondary" :disabled="!engine || !engine.ok" @click="loadGame()">
-          Load game
+          {{ $t('index.local.load-game') }}
         </v-btn>
       </div>
 
       <div class="subsection">
-        or create a new game directly from <a class="my-list" @click="newGame(0)"><v-icon>far fa-heart</v-icon> my favorites</a>
+        {{ $t('index.local.create-directly-from') }} <a class="my-list" @click="newGame(0)"><v-icon>far fa-heart</v-icon> {{ $t('index.local.my-favorities') }}</a>
       </div>
 
       <div v-if="recentSaves.length" class="subsection">
-        or continue with recently saved game
+        {{ $t('index.local.continue-with-recently-saved-games') }}
 
         <div class="recent-list">
           <a v-for="save in recentSaves" :key="save" href="#" @click="loadSavedGame(save)">{{ save }}</a>
-          <a class="clear" href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> clear list</a>
+          <a class="clear" href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> {{ $t('buttons.clear-list') }}</a>
         </div>
       </div>
     </section>

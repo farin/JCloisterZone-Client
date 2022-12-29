@@ -9,12 +9,12 @@
       >
         <v-icon v-if="isOwner && !readOnly">fas fa-pencil-alt</v-icon>
         {{ name }}
-        <span v-if="!name" class="unnamed">untitled game</span>
+        <span v-if="!name" class="unnamed">{{ $t('game-setup.open-game.untitled-game') }}</span>
       </div>
 
       <HeaderMessage
         :sets="sets"
-        :info="slotsAssigned ? null : (readOnly ? 'Assign all players to start' : 'No player in game')"
+        :info="slotsAssigned ? null : (readOnly ? $t('game-setup.open-game.assign-all-players-to-start') : $t('game-setup.open-game.no-player-in-game') )"
       />
 
       <div v-if="gameKey" class="game-key">
@@ -28,21 +28,21 @@
               <v-icon>far fa-question-circle</v-icon>
             </span>
           </template>
-          <span>Share the key with other players to let them connect to the game.</span>
+          <span>{{ $t('game-setup.open-game.share-the-key') }}</span>
         </v-tooltip>
         <strong @click="selectOnClick">{{ gameKey }}</strong>
       </div>
 
       <HeaderGameButton
         v-if="isOwner"
-        title="Start"
+        :title="$t('buttons.start')"
         :sets="sets"
         :disabled="!slotsAssigned"
         @click="startGame"
       />
 
       <template v-else>
-        <span class="text">Waiting for host to start the game.</span>
+        <span class="text">{{ $t('game-setup.open-game.waiting-for-host-to-start-the-game') }}</span>
       </template>
     </template>
 
@@ -67,17 +67,17 @@
       <v-dialog v-model="isRenameDialogOpen" max-width="600px">
         <v-card>
           <v-card-title>
-            <span class="headline">Set Game Title</span>
+            <span class="headline">{{ $t('game-setup.open-game.set-game-title') }}</span>
           </v-card-title>
           <v-card-text>
             <v-container>
-              <v-text-field ref="gameTitleInput" v-model="editName" label="Name" @keydown.enter="renameGame" />
+              <v-text-field ref="gameTitleInput" v-model="editName" :label="$t('game-setup.open-game.name')" @keydown.enter="renameGame" />
             </v-container>
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn text @click="isRenameDialogOpen = false">Cancel</v-btn>
-            <v-btn text @click="renameGame">Confirm</v-btn>
+            <v-btn text @click="isRenameDialogOpen = false">{{ $t('buttons.cancel') }}</v-btn>
+            <v-btn text @click="renameGame">{{ $t('buttons.confirm') }}</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -85,18 +85,18 @@
 
     <template #detail>
       <div class="options">
-        <h2>Options</h2>
+        <h2>{{ $t('game-setup.open-game.options') }}</h2>
         <v-checkbox
           v-if="!readOnly"
           v-model="randomizeSeating"
           dense hide-details
-          label="Randomize seating order"
+          :label="$t('game-setup.open-game.randomize-seating-order')"
           :disabled="!isOwner"
         />
         <v-checkbox
           v-model="puristTiles"
           dense hide-details
-          label="Hide remaining tiles cheat sheet"
+          :label="$t('game-setup.open-game.hide-remaining-tiles-cheat-sheet')"
           :disabled="readOnly || !isOwner"
         />
       </div>

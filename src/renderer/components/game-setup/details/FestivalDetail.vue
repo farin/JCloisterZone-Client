@@ -2,8 +2,8 @@
   <div>
     <p>
       <RulesLink href="https://boardgamegeek.com/boardgameexpansion/123905/carcassonne-festival" />
-      <RulesLink title="Rules" href="http://wikicarpedia.com/index.php/The_Festival" />
-      <RulesLink title="Rules (1st ed.)" href="http://wikicarpedia.com/index.php/The_Festival_(1st_edition)" />
+      <RulesLink :title="$t('buttons.rules')" href="http://wikicarpedia.com/index.php/The_Festival" />
+      <RulesLink :title="$t('buttons.rules-1st-edition')" href="http://wikicarpedia.com/index.php/The_Festival_(1st_edition)" />
     </p>
 
     <TileDistribution :sets="{'festival': 1}" />
