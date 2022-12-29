@@ -1,16 +1,16 @@
 <template>
   <div class="header-message">
     <div v-if="java && java.error === 'not-found'" class="warning-text">
-      Java is not installed!
+      {{ $t('settings.java.java-is-not-installed') }}
     </div>
     <div v-else-if="java && java.error === 'outdated'" class="warning-text">
-      Java is outdated!
+      {{ $t('settings.java.java-is-outdated') }}
     </div>
     <div v-else-if="engine && engine.error" class="warning-text">
-      Game engine not available.
+      {{ $t('core-messages.game-engine-not-available') }}
     </div>
     <div v-else-if="!containsCoreSet" class="info-text">
-      No core set!
+      {{ $t('core-messages.no-core-set') }}
     </div>
     <div v-else-if="info" class="info-text">
       {{ info }}

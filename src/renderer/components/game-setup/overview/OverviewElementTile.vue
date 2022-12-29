@@ -43,7 +43,7 @@
     </template>
 
     <template #title>
-      <template v-if="element === 'traders'">Trade Goods</template>
+      <template v-if="element === 'traders'">{{ $t('expansions.traders-and-builders.trade-goods') }}</template>
       <template v-else>{{ element.replace('-', ' ') }}</template>
     </template>
   </OverviewTile>

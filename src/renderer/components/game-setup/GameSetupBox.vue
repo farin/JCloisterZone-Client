@@ -15,19 +15,19 @@
     <div class="buttons">
       <v-btn v-if="$store.getters['settings/isMySetup'](setup)" small color="secondary" @click.stop="removeSetup(setup)">
         <v-icon left>fa-heart</v-icon>
-        Remove
+        {{ $t('buttons.remove') }}
       </v-btn>
       <v-btn v-else small color="secondary" @click.stop="addSetup(setup)">
         <v-icon left>far fa-heart</v-icon>
-        Add
+        {{ $t('buttons.add') }}
       </v-btn>
       <v-btn small color="secondary" :disabled="!valid" @click.stop="valid && loadSetup(setup)">
         <v-icon left>fa-share</v-icon>
-        Load
+        {{ $t('buttons.load') }}
       </v-btn>
       <v-btn small color="primary" :disabled="!valid" @click.stop="valid && createGame(setup)">
         <v-icon left>fa-play</v-icon>
-        Create
+        {{ $t('buttons.create') }}
       </v-btn>
     </div>
   </div>

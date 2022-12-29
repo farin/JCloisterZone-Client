@@ -32,10 +32,11 @@
       <div v-for="(error, idx) in errors" :key="idx">{{ error }}</div>
     </v-alert>
 
-    <p class="info-box">
-      Look at <a href="https://jcloisterzone.com/addons/" @click.prevent="openLink">https://jcloisterzone.com/addons/</a> for available add-ons.
-    </p>
-
+	<i18n path="settings.add-ons.loot-at-jcz-for-add-ons" tag="p" class="info-box">
+	    <template #link>
+	      <a href="https://jcloisterzone.com/addons/" @click.prevent="openLink">https://jcloisterzone.com/addons/</a>
+	    </template>
+    </i18n>
     <h4>{{ $t('settings.add-ons.installed-add-ons') }}</h4>
 
     <AddonBox

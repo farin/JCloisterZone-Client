@@ -89,7 +89,7 @@
       "set-game-title": "Set Game Title",
       "name": "Name"
     },
-    "title": "Game Setyp",
+    "title": "Game Setup",
     "additional-elements": "Additional elements",
     "altered-gameplay": "Altered Gameplay",
     "altered-scoring": "Altered Scoring",
@@ -146,6 +146,7 @@
     "create-game": "Create Game",
     "disconnect": "Disconnect",
     "join-game": "Join Game",
+    "load": "Load",
     "load-setup-from-file": "Load Setup From File",
     "plus-description": "Add multiple instances",
     "remove": "Remove",
@@ -226,11 +227,12 @@
     },
     "add-ons": {
       "title": "Add-ons",
-      "installation-is-not-avoled-during-game": "Installing or removing addon is not allowed when game is running or game setup is open.",
+      "installation-is-not-avoled-during-game": "Installing or removing add-on is not allowed when game is running or game setup is open.",
       "finish-or-leave-game-to-make-changes": "Please finish or leave the game first to make changes here.",
       "install-add-on": "Install add-on",
       "installed-add-ons": "Installed add-ons",
-      "drag-add-on-here-or-click-here": "Drag add-on here (.jca file) or click here to select it."
+      "drag-add-on-here-or-click-here": "Drag add-on here (.jca file) or click here to select it.",
+      "loot-at-jcz-for-add-ons": "Loot at {link} for available add-ons."
     },
     "java": {
       "title": "Java",
@@ -241,7 +243,9 @@
       "selected": "Selected: {0}",
       "version": "Java version {0}",
       "warning-file-is-not-java-binary": "File doesn't look like a Java binary.",
-      "warning-java-not-found": "Java not found."
+      "warning-java-not-found": "Java not found.",
+      "java-is-not-installed": "Java is not installed!",
+      "java-is-outdated": "Java is outdated!"
     }
   },
   "tile-sets": {
@@ -271,5 +275,14 @@
     "tower-release": "The fourth major expansion released in 2006.",
     "traders-and-builders-release": "The second major expansion released in 2003",
     "winter-edition-description": "Basic set from Winter Edition spin-off. Contains basic game extended with additional 12 tiles."
+  },
+  "expansions": {
+    "traders-and-builders": {
+      "trade-goods": "Trade Goods"
+    }
+  },
+  "core-messages": {
+    "game-engine-not-available": "Game engine not available.",
+    "no-core-set": "No Core set!"
   }
 }
