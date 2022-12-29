@@ -29,20 +29,26 @@
       </template>
 
       <template v-if="options.puristTiles">
-        <h2>Game Tiles</h2>
-        <p>The game was created with option which doesn't allow showing remaining tiles count.</p>
+        <h2>{{ $t('game.tile-pack-dialog.game-tiles') }}</h2>
+        <p>{{ $t('game.tile-pack-dialog.disabled-show-remaining') }}</p>
         <TileDistribution :sets="sets" :rules="rules" />
       </template>
       <template v-else>
-        <h2>Remaining tiles</h2>
+        <h2>{{ $t('game.tile-pack-dialog.remaining-tiles') }}</h2>
 
         <div
           v-if="underHills"
           class="hills-info"
         >
           <img src="~/assets/features/C1/hill.png" height="55">
-          <p v-if="underHills > 1">Don't forget that <b>{{ underHills }}</b> unknown tiles from list are hidden under hills.</p>
-          <p v-else>Don't forget that <b>1</b> unknown tile from list is hidden under a hill.</p>
+          <i18n tag="p" path="game.tile-pack-dialog.hidden-tiles-under-hill">
+            <template #count>
+	          <b>{{ underHills }}</b>
+            </template>
+            <template #tiles>
+              {{ $tc('game.tile-pack-dialog.tiles', underHills) }}
+            </template>
+          </i18n>  
         </div>
 
         <TileDistributionLive :sets="sets" :rules="rules" :available-only="showAvailableOnly" />
@@ -53,7 +59,7 @@
       <v-btn
         text
         @click="$emit('close')"
-      >Close</v-btn>
+      >{{ $t('buttons.close') }}</v-btn>
     </v-card-actions>
   </v-card>
 </template>
