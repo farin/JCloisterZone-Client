@@ -48,7 +48,7 @@
             <template #tiles>
               {{ $tc('game.tile-pack-dialog.tiles', underHills) }}
             </template>
-          </i18n>  
+          </i18n>
         </div>
 
         <TileDistributionLive :sets="sets" :rules="rules" :available-only="showAvailableOnly" />
