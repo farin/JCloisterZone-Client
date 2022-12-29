@@ -138,8 +138,8 @@
               </g>
             </svg>
           </template>
-          <template #description>Placing meeple as an acrobat on acrobat tile.</template>
-          <template #disabled>Under The Big Top expansion is not in the game.</template>
+          <template #description>{{ $t('game-setup.rules.acrobats-description') }}</template>
+          <template #disabled>{{ $t('game-setup.rules.acrobats-disabled') }}</template>
         </GameMechanicsBox>
       </div>
     </ConfigSection>

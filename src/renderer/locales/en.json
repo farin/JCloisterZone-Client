@@ -57,7 +57,9 @@
       "siege-description": "Besieged cities are less valuable.",
       "siege-disabled": "Siege expansion is not in the game.",
       "escape-description": "Espace allowed via a&nbsp;neighboring monastery.",
-      "escape-diabled": "Siege expansion is not in the game."
+      "escape-disabled": "Siege expansion is not in the game.",
+      "acrobats-description": "Placing meeple as an acrobat on acrobat tile.",
+      "acrobats-disabled": "Under The Big Top expansion is not in the game."
     },
     "timer": {
       "player-time-limit": "Player time limit",
