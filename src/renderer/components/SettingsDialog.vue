@@ -6,19 +6,19 @@
         <v-list class="flex-shrink-0">
           <v-list-item-group v-model="section" mandatory>
             <v-list-item>
-              <v-list-item-title>{{ $t('setting.player.title') }}</v-list-item-title>
+              <v-list-item-title>{{ $t('settings.player.title') }}</v-list-item-title>
             </v-list-item>
             <v-list-item>
-              <v-list-item-title>{{ $t('setting.game-interface.title') }}</v-list-item-title>
+              <v-list-item-title>{{ $t('settings.game-interface.title') }}</v-list-item-title>
             </v-list-item>
             <v-list-item>
-              <v-list-item-title>{{ $t('setting.apperance.title') }}</v-list-item-title>
+              <v-list-item-title>{{ $t('settings.apperance.title') }}</v-list-item-title>
             </v-list-item>
             <v-list-item>
-              <v-list-item-title>{{ $t('setting.add-ons.title') }}</v-list-item-title>
+              <v-list-item-title>{{ $t('settings.add-ons.title') }}</v-list-item-title>
             </v-list-item>
             <v-list-item>
-              <v-list-item-title>{{ $t('setting.java.title') }}</v-list-item-title>
+              <v-list-item-title>{{ $t('settings.java.title') }}</v-list-item-title>
             </v-list-item>
           </v-list-item-group>
         </v-list>

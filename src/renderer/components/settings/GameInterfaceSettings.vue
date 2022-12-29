@@ -1,71 +1,70 @@
 <template>
   <div>
-    <h3 class="mt-2 mb-4">Game Interface</h3>
-    <h4>Turn Confirmation</h4>
+    <h3 class="mt-2 mb-4">{{ $t('settings.game-interface.title') }}</h3>
+    <h4>{{ $t('settings.game-interface.turn-confirmation') }}</h4>
     <em>
-      Confirmation allows player undo performed actions before activity is passed to a next player.
-      It happens before scoring or eg. in during opponent turn when you move wagon, etc.
-      Enable explicit confirmation&hellip;</em>
+      {{ $t('settings.game-interface.turn-confirmation-description') }}
+    </em>
     <div class="checkboxes-wrapper">
       <v-checkbox
         v-model="confirmAlways"
         dense hide-details
-        label="always enabled"
+        :label="$t('settings.game-interface.always-enabled')"
       />
       <v-checkbox
         v-model="confirmField"
         :disabled="confirmAlways"
         dense hide-details
-        label="only when meeple was deployed on a field"
+        :label="$t('settings.game-interface.only-when-meeple-was-deployed-on-a-field')"
       />
       <v-checkbox
         :disabled="confirmAlways"
         dense hide-details
-        label="only when meeple was deployed on a tower"
+        :label="$t('settings.game-interface.only-when-meeple-was-deployed-on-a-field')"
       />
     </div>
 
-    <h4>Beep</h4>
-    <em>Beep when you are on turn (or when your action is required during opponent's turn).</em>
+    <h4>{{ $t('settings.game-interface.beep') }}</h4>
+    <em>{{ $t('settings.game-interface.beep-description') }}</em>
     <div class="checkboxes-wrapper">
       <v-checkbox
         v-model="beep"
         dense hide-details
-        label="Enable beep"
+        :label="$t('settings.game-interface.enable-beep')"
       />
     </div>
 
-    <h4>Active player indication</h4>
-    <em>Multiple indicators are allowed.</em>
+    <h4>{{ $t('settings.game-interface.active-player-indication') }}</h4>
+    <em>{{ $t('settings.game-interface.multiple-indicators-are-allowed') }}</em>
     <div class="checkboxes-wrapper">
       <v-checkbox
         v-model="activePlayerIndicatorBgColor"
         dense hide-details
-        label="colored background in right sidebar"
+        :label="$t('settings.game-interface.colored-background-in-right-sidebar')"
       />
       <v-checkbox
         v-model="activePlayerIndicatorTriangle"
         dense hide-details
-        label="triangle in top bar"
+        :label="$t('settings.game-interface.triangle-in-top-bar')"
       />
     </div>
 
-    <h4>Player List</h4>
-    <em>You may enable player list (right sidebar) rotation.</em>
+    <h4>{{ $t('settings.game-interface.player-list') }}</h4>
+    <em>{{ $t('settings.game-interface.player-list-description') }}</em>
     <v-radio-group
       v-model="playerListRotate"
       dense hide-details
     >
       <v-radio
-        label="No rotate"
+        :label="$t('settings.game-interface.player-list-no-rotate')"
         value="none"
       />
       <v-radio
-        label="Keep active player always on top"
+        :label="$t('settings.game-interface.player-list-active-on-top')"
         value="active-on-top"
       />
       <v-radio
-        label="Keep local player always on top"
+        :label="$t('settings.game-interface.player-list-local-on-top')"
         value="local-on-top"
       />
     </v-radio-group>

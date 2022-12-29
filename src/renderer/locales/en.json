@@ -137,6 +137,7 @@
     "add": "Add",
     "add-to-favorities": "Add To Favorites",
     "cancel": "Cancel",
+    "change": "Change",
     "clear-list": "clear list",
     "close": "Close",
     "confirm": "Confirm",
@@ -149,6 +150,7 @@
     "plus-description": "Add multiple instances",
     "remove": "Remove",
     "remove-from-favorites": "Remove From Favorites",
+    "reset": "Reset",
     "resume": "Resume",
     "rules": "Rules",
     "rules-1st-edition": "Rules (1st ed.)",
@@ -194,16 +196,52 @@
       "none": "None"
     },
     "game-interface": {
-      "title": "Game Interface"
+      "title": "Game Interface",
+      "turn-confirmation": "Turn Confirmation",
+      "turn-confirmation-description": "Confirmation allows player undo performed actions before activity is passed to a next player. It happens before scoring or eg. in during opponent turn when you move wagon, etc. Enable explicit confirmation…",
+      "always-enabled": "always enabled",
+      "only-when-meeple-was-deployed-on-a-field": "only when meeple was deployed on a field",
+      "only-when-meeple-was-deployed-on-a-tower": "only when meeple was deployed on a tower",
+      "beep": "Beep",
+      "beep-description": "Beep when you are on turn (or when your action is required during opponent's turn).",
+      "enable-beep": "Enable beep",
+      "active-player-indication": "Active player indication",
+      "multiple-indicators-are-allowed": "Multiple indicators are allowed.",
+      "colored-background-in-right-sidebar": "colored background in right sidebar",
+      "triangle-in-top-bar": "triangle in top bar",
+      "player-list": "Player List",
+      "player-list-description": "You may enable player list (right sidebar) rotation.",
+      "player-list-no-rotate": "No rotate",
+      "player-list-active-on-top": "Keep active player always on top",
+      "player-list-local-on-top": "Keep local player always on top"
     },
     "apperance": {
-      "title": "Apperance"
+      "title": "Apperance",
+      "theme": "Theme",
+      "theme-light": "Light",
+      "theme-dark": "Dark",
+      "artworks": "Artworks",
+      "artworks-description": "Additional artworks may by provided by add-ons.",
+      "illustrated-by": "(illustrated by {0})"
     },
     "add-ons": {
-      "title": "Add-ons"
+      "title": "Add-ons",
+      "installation-is-not-avoled-during-game": "Installing or removing addon is not allowed when game is running or game setup is open.",
+      "finish-or-leave-game-to-make-changes": "Please finish or leave the game first to make changes here.",
+      "install-add-on": "Install add-on",
+      "installed-add-ons": "Installed add-ons",
+      "drag-add-on-here-or-click-here": "Drag add-on here (.jca file) or click here to select it."
     },
     "java": {
-      "title": "Java"
+      "title": "Java",
+      "description": "Although JCloisterZone client is pure native application, Java is required to run game engine. In other words to play a game.",
+      "java-executable": "Java executable",
+      "you-may-set-path": "You can set manually path to {0}",
+      "using-system-default": "Using system default.",
+      "selected": "Selected: {0}",
+      "version": "Java version {0}",
+      "warning-file-is-not-java-binary": "File doesn't look like a Java binary.",
+      "warning-java-not-found": "Java not found."
     }
   },
   "tile-sets": {

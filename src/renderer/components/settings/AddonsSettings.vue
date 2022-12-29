@@ -1,13 +1,14 @@
 <template>
   <div>
-    <h3 class="mt-2 mb-4">Add-ons</h3>
+    <h3 class="mt-2 mb-4">{{ $t('settings.add-ons.title') }}</h3>
 
     <v-alert
       v-if="gameOpen"
       type="warning"
     >
-      Installing or removing addon is not allowed when game is running or game setup is open.<br><br>
-      Please finish or leave the game first to make changes here.
+      {{ $t('settings.add-ons.installation-is-not-avoled-during-game') }}
+      <br><br>
+      {{ $t('settings.add-ons.finish-or-leave-game-to-make-changes') }}
     </v-alert>
 
     <v-sheet
@@ -18,8 +19,8 @@
       @drop="onDrop"
       @click="selectFile"
     >
-      <strong>Install add-on</strong>
-      <div>Drag add-on here (.jca file) or click here to select it.</div>
+      <strong>{{ $t('settings.add-ons.install-add-on') }}</strong>
+      <div>{{ $t('settings.add-ons.drag-add-on-here-or-click-here') }}</div>
     </v-sheet>
 
     <v-alert
@@ -35,7 +36,7 @@
       Look at <a href="https://jcloisterzone.com/addons/" @click.prevent="openLink">https://jcloisterzone.com/addons/</a> for available add-ons.
     </p>
 
-    <h4>Installed add-ons</h4>
+    <h4>{{ $t('settings.add-ons.installed-add-ons') }}</h4>
 
     <AddonBox
       v-for="addon in $addons.addons"

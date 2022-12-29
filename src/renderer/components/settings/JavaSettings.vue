@@ -1,30 +1,30 @@
 <template>
   <div>
-    <h3 class="mt-2 mb-4">Java</h3>
+    <h3 class="mt-2 mb-4">{{ $t('settings.java.title') }}</h3>
 
-    <em>Although JCloisterZone client is pure native application, Java is required to run game engine. In other words to play a game.</em>
+    <em>{{ $t('settings.java.description') }}</em>
 
-    <h4>Java executable</h4>
-    <em>You can set manually path to {{ platform === 'win32' ? 'java.exe' : 'java binary' }}</em>
+    <h4>{{ $t('settings.java.java-executable') }}</h4>
+    <em>{{ $t('settings.java.you-may-set-path', [ platform === 'win32' ? 'java.exe' : 'java binary' ]) }}</em>
 
     <template v-if="javaPath === null">
-      <span class="v-label">Using system default.</span> <v-btn color="secondary" small @click="selectJava">Change</v-btn>
+      <span class="v-label">{{ $t('settings.java.using-system-default') }}</span> <v-btn color="secondary" small @click="selectJava">{{ $t('buttons.change') }}</v-btn>
     </template>
     <template v-else>
-      <span class="v-label">Selected: {{ javaPath }}</span>
+      <span class="v-label">{{ $t('settings.java.selected', [javaPath]) }}</span>
       <br>
-      <v-btn color="secondary" small @click="resetJava">Reset</v-btn>
+      <v-btn color="secondary" small @click="resetJava">{{ $t('buttons.reset') }}</v-btn>
     </template>
 
     <div class="mt-4">
       <v-alert v-if="notJavaError" type="warning" dense>
-        File doesn't look like a Java binary.
+        {{ $t('settings.java.warning-file-is-not-java-binary') }}
       </v-alert>
       <span v-else-if="java">
-        Java version {{ java.version }}
+        {{ $t('settings.java.version', [java.version]) }}
       </span>
       <v-alert v-else type="warning" dense>
-        Java not found.
+        {{ $t('settings.java.warning-java-not-found') }}
       </v-alert>
     </div>
   </div>
