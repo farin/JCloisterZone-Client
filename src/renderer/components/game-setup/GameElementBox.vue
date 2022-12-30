@@ -15,7 +15,7 @@
     >
       <div class="box-title">
         <slot />
-        <h3>{{ item.title }}</h3>
+        <h3>{{ $t(['game.element',item.id].join('.')) }}</h3>
       </div>
 
       <template v-if="!enabled" #hover>

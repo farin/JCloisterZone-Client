@@ -3,7 +3,7 @@
     <v-card-title class="headline">
       <ExpansionSymbol :expansion="expansion" :style="{ width: 32, height: 32 }" />
       &ensp;
-      {{ expansion.title }}
+      {{ $t(['tile-set',expansion.name.replaceAll('_','-').toLowerCase()].join('.')) }}
     </v-card-title>
     <v-card-text>
       <component :is="detailComponent" :expansion="expansion" />

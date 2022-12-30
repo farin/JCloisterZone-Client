@@ -5,7 +5,7 @@
     </p>
 
     <p>
-      {{ $t('tile-sets.winter-edition-description') }}
+      {{ $t('tile-set.winter-edition-description') }}
     </p>
 
     <TileDistribution :sets="{winter: 1}" />

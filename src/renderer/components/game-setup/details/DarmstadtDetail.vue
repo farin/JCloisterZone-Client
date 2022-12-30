@@ -6,7 +6,7 @@
     </p>
 
     <p>
-      {{ $t('tile-sets.darmstadt-release') }}
+      {{ $t('tile-set.darmstadt-release') }}
     </p>
 
     <TileDistribution :sets="{'darmstadt': 1}" />

@@ -6,7 +6,7 @@
     </p>
 
     <p>
-      {{ $t('tile-sets.gq11-release') }}
+      {{ $t('tile-set.gq11-release') }}
     </p>
 
     <TileDistribution :sets="{'gq11': 1, 'gq11/river': 1}" />

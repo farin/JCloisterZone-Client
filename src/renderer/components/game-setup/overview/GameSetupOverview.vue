@@ -5,11 +5,12 @@
     </div>
     <section>
       <OverviewExpansionTile
-        v-for="{ expansion, id, title, quantity } in releases"
+        v-for="{ expansion, id, title, quantity, lang } in releases"
         :key="id"
         :expansion="expansion"
         :title="title"
         :quantity="quantity"
+        :lang="lang"
       />
     </section>
     <div v-if="additions.length" class="label">

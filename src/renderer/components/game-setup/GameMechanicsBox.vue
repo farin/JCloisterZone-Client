@@ -10,7 +10,7 @@
   >
     <div class="box-title">
       <slot name="icon" />
-      <h3>{{ item.title }}</h3>
+      <h3>{{ $t(['game.feature',item.id].join('.')) }}</h3>
     </div>
     <div class="toggle">
       <v-icon v-if="selected">fas fa-check</v-icon>

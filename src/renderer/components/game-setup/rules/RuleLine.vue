@@ -39,7 +39,7 @@ export default {
     },
 
     titleParts () {
-      return this.rule.title.split('{}')
+      return this.$t(['game-setup.variant',this.rule.id,'description'].join('.')).split('{}')
     }
   }
 }

@@ -7,7 +7,7 @@
     </p>
 
     <p>
-      {{ $t('tile-sets.tower-release') }}
+      {{ $t('tile-set.tower-release') }}
     </p>
 
     <TileDistribution :sets="{'tower': 1}" />

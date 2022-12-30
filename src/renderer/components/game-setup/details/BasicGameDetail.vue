@@ -7,7 +7,7 @@
     </p>
 
     <p>
-      {{ $t('tile-sets.base-game-description') }}
+      {{ $t('tile-set.base-game-description') }}
     </p>
 
     <TileDistribution :sets="{basic: 1}" />

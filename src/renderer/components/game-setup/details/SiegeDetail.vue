@@ -1,16 +1,16 @@
 <template>
   <div>
     <p>
-      <RulesLink :title="$t('tile-sets.cathars-title')" href="https://boardgamegeek.com/boardgameexpansion/13300/carcassonne-die-katharer" />
-      <RulesLink :title="$t('tile-sets.besiegers-title')" href="https://boardgamegeek.com/boardgameexpansion/166518/carcassonne-die-belagerer" />
+      <RulesLink :title="$t('tile-set.cathars')" href="https://boardgamegeek.com/boardgameexpansion/13300/carcassonne-die-katharer" />
+      <RulesLink :title="$t('tile-set.besiegers')" href="https://boardgamegeek.com/boardgameexpansion/166518/carcassonne-die-belagerer" />
       <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/Besiegers_Cathars_Siege_(1st_edition)" />
     </p>
 
-    <h5>{{ $t('tile-sets.cathars-title') }}</h5>
+    <h5>{{ $t('tile-set.cathars-title') }}</h5>
 
     <TileDistribution :sets="{'siege/cathars': 1}" />
 
-    <h5>{{ $t('tile-sets.besiegers-title') }}</h5>
+    <h5>{{ $t('tile-set.besiegers-title') }}</h5>
 
     <TileDistribution :sets="{'siege/besiegers': 1}" />
   </div>

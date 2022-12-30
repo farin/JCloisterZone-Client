@@ -6,7 +6,7 @@
     </p>
 
     <p>
-      {{ $t('tile-sets.labyrinth-release') }}
+      {{ $t('tile-set.labyrinth-release') }}
     </p>
 
     <TileDistribution :sets="{'labyrinth': 1}" />

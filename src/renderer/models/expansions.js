@@ -6,6 +6,7 @@ export class Release {
     this.max = options.max || null
     this.note = options.note || null
     this.expansion = null
+    this.id = options.id || null
   }
 }
 
@@ -82,28 +83,28 @@ export const UNDER_THE_BIG_TOP = Expansion.UNDER_THE_BIG_TOP = new Expansion('UN
 
 export const KING_AND_ROBBER = Expansion.KING_AND_ROBBER = new Expansion('KING_AND_ROBBER', 'King and Robber', { implies: ['king', 'robber'] })
 export const RIVER = Expansion.RIVER = new Expansion('RIVER', 'The River', { enforces: ['river'] }, [
-  new Release('The River I', ['river/1']),
-  new Release('The River II', ['river/2'])
+  new Release('The River I', ['river/1'], { id: 'river-I' }),
+  new Release('The River II', ['river/2'], { id: 'river-II' })
 ])
 export const SIEGE = Expansion.SIEGE = new Expansion('SIEGE', 'Siege', { implies: ['siege', 'escape'] }, [
-  new Release('The Cathars / Siege', ['siege/cathars'], { note: 'The Cathars (2004), reprinted as Siege (2008)' }),
-  new Release('The Besiegers', ['siege/besiegers'], { note: '(2013)' })
+  new Release('The Cathars / Siege', ['siege/cathars'], { id: 'cathars', note: 'The Cathars (2004), reprinted as Siege (2008)' }),
+  new Release('The Besiegers', ['siege/besiegers'], { id: 'besiegers', note: '(2013)' })
 ])
 
 export const COUNT = Expansion.COUNT = new Expansion('COUNT', 'The Count of Carcassonne', { implies: ['count'] }, [
-  new Release('The Count of Carcassonne', ['count'], { max: 1 })
+  new Release('The Count of Carcassonne', ['count'], { id: 'count', max: 1 })
 ])
 export const GQ11 = Expansion.GQ11 = new Expansion('GQ11', 'The Mini Expansion (GQ11)', {}, [
-  new Release('The Mini Expansion (GQ11)', ['gq11', 'gq11/river'])
+  new Release('The Mini Expansion (GQ11)', ['gq11', 'gq11/river'], { id: 'gq11'} )
 ])
 export const CULT = Expansion.CULT = new Expansion('CULT', 'The Cult', { implies: ['shrine'] }, [
-  new Release('Cult Places', ['cult/6'], { note: '6 tiles (HiG)' }),
-  new Release('Heretics and Shrines', ['cult/5'], { note: '5 tiles (RGG)' })
+  new Release('Cult Places', ['cult/6'], { id: 'cult-places', note: '6 tiles (HiG)' }),
+  new Release('Heretics and Shrines', ['cult/5'], { id: 'heretics-and-shrines', note: '5 tiles (RGG)' })
 ])
 export const TUNNEL = Expansion.TUNNEL = new Expansion('TUNNEL', 'The Tunnel', { implies: ['tunnel'] })
 export const CORN_CIRCLES = Expansion.CORN_CIRCLES = new Expansion('CORN_CIRCLES', 'Corn Circles', { enforces: ['corn-circle'] }, [
-  new Release('Corn Circles I', ['corn-circles/1']),
-  new Release('Corn Circle II', ['corn-circles/2'], { note: 'mini #7' })
+  new Release('Corn Circles I', ['corn-circles/1'], { id: 'crop-circles-I' }),
+  new Release('Corn Circle II', ['corn-circles/2'], { id: 'crop-circles-II', note: 'mini #7' })
 ])
 
 export const FESTIVAL = Expansion.FESTIVAL = new Expansion('FESTIVAL', 'The Festival', { implies: ['festival'] })
@@ -122,7 +123,7 @@ export const MAGE_AND_WITCH = Expansion.MAGE_AND_WITCH = new Expansion('MAGE_AND
 export const WATCHTOWERS = Expansion.WATCHTOWERS = new Expansion('WATCHTOWERS', 'The Watchtowers', { enforces: ['watchtower'] })
 
 export const RUSSIAN_PROMOS = Expansion.RUSSIAN_PROMOS = new Expansion('RUSSIAN_PROMOS', 'Russian Promos', { enforces: ['yaga', 'russian-trap'] }, [
-  new Release('Russian Promos', ['russian-promos/2013', 'russian-promos/2016'])
+  new Release('Russian Promos', ['russian-promos/2013', 'russian-promos/2016'], { id: 'russian-promos' } )
 ])
 export const LABYRINTH = Expansion.LABYRINTH = new Expansion('LABYRINTH', 'The Labyrinth', { enforces: ['labyrinth'] })
 export const DARMSTADT = Expansion.DARMSTADT = new Expansion('DARMSTADT', 'Darmstadt', { enforces: ['church'] })

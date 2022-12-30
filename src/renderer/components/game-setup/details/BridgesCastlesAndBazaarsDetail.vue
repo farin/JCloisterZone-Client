@@ -7,7 +7,7 @@
     </p>
 
     <p>
-      {{ $t('tile-sets.bridges-castles-and-bazaars-release') }}
+      {{ $t('tile-set.bridges-castles-and-bazaars-release') }}
     </p>
 
     <TileDistribution :sets="{'bridges-castles-and-bazaars': 1}" />

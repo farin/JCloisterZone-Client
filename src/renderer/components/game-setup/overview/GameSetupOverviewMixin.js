@@ -19,7 +19,7 @@ export default {
           const max = Math.max(...quantities)
           const quantity = min === max ? min : -1
           if (quantity !== 0) {
-            releases.push({ expansion, id: `${expansion.name}:${release.sets.join(',')}`, title: release.title, quantity })
+            releases.push({ expansion, id: `${expansion.name}:${release.sets.join(',')}`, title: release.title, quantity, lang: release.id || expansion.name.toLowerCase().replace(/_/g, '-') })
           }
         }
       })

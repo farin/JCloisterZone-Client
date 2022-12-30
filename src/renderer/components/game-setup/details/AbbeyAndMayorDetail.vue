@@ -7,13 +7,13 @@
     </p>
 
     <p>
-      {{ $t('tile-sets.abbey-mayor-release') }}
+      {{ $t('tile-set.abbey-and-mayor-release') }}
     </p>
 
     <TileDistribution :sets="{'abbey-and-mayor': 1}" />
 
     <p>
-      {{ $t('tile-sets.abbey-mayor-description') }}
+      {{ $t('tile-set.abbey-and-mayor-description') }}
     </p>
 
     <StandaloneTileImage tile-id="AM/A" :size="100" />

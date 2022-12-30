@@ -7,7 +7,7 @@
     </p>
 
     <p>
-      {{ $t('tile-sets.king-and-robber-release') }}
+      {{ $t('tile-set.king-and-robber-release') }}
     </p>
 
     <TileDistribution :sets="{'king-and-robber': 1}" />
