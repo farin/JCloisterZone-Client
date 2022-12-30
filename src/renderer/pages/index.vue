@@ -1,6 +1,7 @@
 <template>
   <div class="landing-view view">
     <v-select
+      class="locale"
       v-model="currentLocale"
       :items="locales"
       @input="setLocale"
@@ -131,6 +132,7 @@
 
 <script>
 import { shell, ipcRenderer } from 'electron'
+import { polyfillCountryFlagEmojis } from 'country-flag-emoji-polyfill';
 
 import Vue from 'vue'
 import { mapState } from 'vuex'
@@ -139,6 +141,8 @@ import AddonsReloadObserverMixin from '@/components/AddonsReloadObserverMixin'
 
 const isMac = process.platform === 'darwin'
 const isWin = process.platform === 'win32'
+
+polyfillCountryFlagEmojis()
 
 export default {
   components: {
@@ -264,7 +268,6 @@ export default {
     },
     
     setLocale(event) {
-      console.log(event.value)
       this.$i18n.setLocale(event.value)
     }
   }
@@ -386,6 +389,13 @@ h2
 
   .description
     flex-grow: 1
+
+.v-select
+  max-width: 50vw
+  margin: 0 auto
+
+.v-select, .v-select-list
+  font-family: 'Twemoji Country Flags', 'Roboto', sans-serif
 
 @media (max-height: 1199px)
   .landing-view
