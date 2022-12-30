@@ -371,7 +371,9 @@
       "download-java": "Download Java",
       "java-path-is-not-valid": "Your manually configured Java path is not valid.",
       "java-version-found": "Java 11 or higher is required (found {version}) to start a game.",
-      "change-in-settings": "Change it in {settings}."
+      "change-in-settings": "Change it in {settings}.",
+      "verify": "If Java is already installed, verify if Java is added to your system path or select java binary manually in {settings}.",
+      "select-manually": "Or select proper java manually in {settings}."
     }
   },
   "tile-sets": {

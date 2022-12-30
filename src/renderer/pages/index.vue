@@ -1,16 +1,23 @@
 <template>
   <div class="landing-view view">
-    <div @click="$i18n.setLocale('cs')">CS</div>
-    <div @click="$i18n.setLocale('en')">EN</div>
-    <div @click="$i18n.setLocale('sk')">SK</div>
-
-    <div>
+    <v-select
+      v-model="currentLocale"
+      :items="locales"
+      @input="setLocale"
+      return-object
+      single-line
+    />
+.    <div>
       <v-alert v-if="java && java.error === 'not-found' && !javaSelectedByUser" type="warning">
         {{ $t('settings.java.unable-to-find-java') }}<br>
         <br>
         {{ $t('settings.java.java-is-required') }}<br>
         <a href="#" @click="openLink('https://www.oracle.com/java/technologies/javase-jdk14-downloads.html')">{{ $t('settings.java.download-java') }}</a><br>
-        If Java is already installed, verify if Java is added to your system path or select java binary manually in <a href @click.prevent="() => $store.commit('showSettings', true)">{{ $t('settings.title') }}</a>.
+        <i18n tag="span" path="settings.java.verify">
+          <template #settings>
+            <a href @click.prevent="() => $store.commit('showSettings', true)">{{ $t('settings.title') }}</a>
+          </template>
+        </i18n>
       </v-alert>
       <v-alert v-if="java && java.error === 'not-found' && javaSelectedByUser" type="warning">
         {{ $t('settings.java.java-path-is-not-valid') }}<br>
@@ -27,7 +34,11 @@
         {{ $t('settings.java.java-version-found', { version: java.version } ) }}
         <br>
         <a href="#" @click="openLink('https://www.oracle.com/java/technologies/javase-jdk14-downloads.html')">{{ $t('settings.java.download-java') }}</a><br>
-        Or select proper java manually in <a href @click.prevent="() => $store.commit('showSettings', true)">settings</a>.
+        <i18n tag="span" path="settings.java.select-manually">
+          <template #settings>
+            <a href @click.prevent="() => $store.commit('showSettings', true)">{{ $t('settings.title') }}</a>
+          </template>
+        </i18n>
       </v-alert>
       <v-alert v-if="engine && engine.error === 'not-found'" type="warning">
         Can't locate game engine (file <i>{{ engine.path }}</i> doesn't exist or can't be read)
@@ -145,7 +156,22 @@ export default {
       showRecentSetupMenu: false,
       menuX: null,
       menuY: null,
-      menuItemIdx: null
+      menuItemIdx: null,
+      currentLocale: this.$i18n.locale,
+      locales: [
+        {
+          value: 'en',
+          text: '🇬🇧 English'
+        },
+        {
+          value: 'cs',
+          text: '🇨🇿 Česky'
+        },
+        {
+          value: 'sk',
+          text: '🇸🇰 Slovensky'
+        }
+      ]
     }
   },
 
@@ -235,6 +261,11 @@ export default {
       Vue.nextTick(() => {
         this.showRecentSetupMenu = true
       })
+    },
+    
+    setLocale(event) {
+      console.log(event.value)
+      this.$i18n.setLocale(event.value)
     }
   }
 }
