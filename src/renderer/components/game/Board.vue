@@ -69,6 +69,10 @@
         v-if="layers.DragonMoveLayer"
         v-bind="layers.DragonMoveLayer"
       />
+      <BlackDragonMoveLayer
+        v-if="layers.BlackDragonMoveLayer"
+        v-bind="layers.BlackDragonMoveLayer"
+      />
     </g>
   </svg>
 </template>
@@ -97,6 +101,7 @@ import TileSelectLayer from '@/components/game/layers/TileSelectLayer'
 import TowerSelectLayer from '@/components/game/layers/TowerSelectLayer'
 import TunnelSelectLayer from '@/components/game/layers/TunnelSelectLayer'
 import WagonPhaseLayer from '@/components/game/layers/WagonPhaseLayer'
+import BlackDragonMoveLayer from '@/components/game/layers/BlackDragonMoveLayer'
 import { BASE_SIZE } from '@/constants/ui'
 
 const ACTION_PANEL_HEIGHT = 160
@@ -123,7 +128,8 @@ export default {
     TowerLayer,
     TowerSelectLayer,
     TunnelSelectLayer,
-    WagonPhaseLayer
+    WagonPhaseLayer,
+    BlackDragonMoveLayer
   },
 
   data () {

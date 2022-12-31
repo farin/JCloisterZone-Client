@@ -1,9 +1,9 @@
 <template>
   <section :class="{ remote: !local }">
-    <div class="move-dragon-item">
-      <NeutralFigure figure="dragon" :width="90" :height="45" />
+    <div class="move-black-dragon-item">
+      <NeutralFigure figure="black-dragon" :width="90" :height="45" />
       <v-icon
-        v-for="i in dragon.remaining"
+        v-for="i in blackdragon.remaining"
         :key="i"
       >
         fas fa-arrow-right
@@ -29,7 +29,7 @@ export default {
 
   computed: {
     ...mapState({
-      dragon: state => state.game.neutralFigures.dragon
+      blackdragon: state => state.game.neutralFigures.blackdragon
     }),
 
     actionItem () {
@@ -63,10 +63,9 @@ export default {
 
   methods: {
     showLayer () {
-      console.log('SHOW RD',this.local,this.actionItem.options);
       if (this.local) {
         this.$store.dispatch('board/showLayer', {
-          layer: 'DragonMoveLayer',
+          layer: 'BlackDragonMoveLayer',
           props: {
             options: this.actionItem.options
           }
@@ -75,7 +74,7 @@ export default {
     },
 
     hideLayer () {
-      this.$store.dispatch('board/hideLayer', { layer: 'DragonMoveLayer' })
+      this.$store.dispatch('board/hideLayer', { layer: 'BlackDragonMoveLayer' })
     },
 
     async onSelect (position) {
@@ -94,7 +93,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.move-dragon-item
+.move-black-dragon-item
   display: flex
   align-items: center
 
@@ -104,10 +103,10 @@ export default {
 .v-icon
   font-size: 30px
 
-svg.dragon
+svg.black-dragon
   margin: 0 20px
 
 .remote
-  svg.dragon
+  svg.black-dragon
     fill: #999
 </style>

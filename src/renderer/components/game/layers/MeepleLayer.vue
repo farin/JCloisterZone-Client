@@ -130,6 +130,30 @@
       </g>
     </g>
 
+    <g v-if="blackdragon">
+      <polyline
+        v-if="blackdragon.visited && blackdragon.visited.length"
+        :points="blackdragonVisitedPoints"
+        fill="none"
+        stroke="#111111"
+        :stroke-width="BASE_SIZE * 0.12"
+        stroke-opacity="0.7"
+      />
+
+      <g
+        :transform="transformPosition(blackdragon.position)"
+        class="black-dragon"
+      >
+        <use
+          :width="BASE_SIZE * 0.95"
+          :height="BASE_SIZE * 0.475"
+          :x="BASE_SIZE * 0.025"
+          :y="BASE_SIZE * 0.25"
+          :href="`${NEUTRAL_SVG}#black-dragon`"
+        />
+      </g>
+    </g>
+
     <!--
         even if meepleId is null, fairy still can be placed on feature.
         this happen when meeple is returned and fairy is no longer bound to it
@@ -198,6 +222,7 @@ export default {
         const bt = state.game.neutralFigures.bigtop
         return bt ? { placement: { position: bt.placement, feature: 'Circus', location: 'I' } } : null
       },
+      blackdragon: state => state.game.neutralFigures.blackdragon,
       meepleSelect: state => state.board.layers.MeepleSelectLayer
     }),
 
@@ -306,6 +331,30 @@ export default {
 
     dragonVisitedPoints () {
       const { visited, position } = this.dragon
+      if (!visited || !visited.length) {
+        return null
+      }
+      const points = []
+      visited.forEach(pos => {
+        const x = BASE_SIZE / 2 + pos[0] * BASE_SIZE
+        const y = BASE_SIZE / 2 + pos[1] * BASE_SIZE
+        points.push(`${x},${y}`)
+      })
+      const last = visited[visited.length - 1]
+      let x = BASE_SIZE / 2 + position[0] * BASE_SIZE
+      let y = BASE_SIZE / 2 + position[1] * BASE_SIZE
+      if (position[0] !== last[0]) {
+        x -= Math.sign(position[0] - last[0]) * BASE_SIZE * 0.6
+      }
+      if (position[1] !== last[1]) {
+        y -= Math.sign(position[1] - last[1]) * BASE_SIZE * 0.3
+      }
+      points.push(`${x},${y}`)
+      return points.join(' ')
+    },
+
+    blackdragonVisitedPoints () {
+      const { visited, position } = this.blackdragon
       if (!visited || !visited.length) {
         return null
       }

@@ -80,6 +80,9 @@
         <GameElementBox :item="GameElement.BIG_TOP">
           <NeutralFigure figure="big-top" :width="55" :height="55" />
         </GameElementBox>
+        <GameElementBox :item="GameElement.BLACK_DRAGON">
+          <NeutralFigure figure="black-dragon" :width="110" :height="55" />
+        </GameElementBox>
       </div>
     </ConfigSection>
 
@@ -202,6 +205,9 @@ export default {
 
       svg.dragon, svg.big-top
         fill: $dragon-color
+        
+      svg.black-dragon
+        fill: $black-dragon-color
 
       svg.count
         fill: $count-color

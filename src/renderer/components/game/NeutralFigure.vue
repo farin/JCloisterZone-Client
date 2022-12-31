@@ -1,6 +1,6 @@
 <template>
   <svg :class="`neutral ${figure}` ">
-    <use :href="`${NEUTRAL_SVG}#${figure}`" />
+    <use :href="`${NEUTRAL_SVG}#${figure === 'blackdragon' ? 'black-dragon' : figure}`" />
   </svg>
 </template>
 

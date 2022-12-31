@@ -449,6 +449,10 @@ svg, g, use
     fill: $dragon-color
 
 svg, g, use
+  &.black-dragon
+    fill: $black-dragon-color
+
+svg, g, use
   &.fairy
     fill: $fairy-color
 
