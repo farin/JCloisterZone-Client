@@ -42,16 +42,20 @@
         </i18n>
       </v-alert>
       <v-alert v-if="engine && engine.error === 'not-found'" type="warning">
-        Can't locate game engine (file <i>{{ engine.path }}</i> doesn't exist or can't be read)
+        <i18n tag="span" path="settings.engine.engine-path-not-exists">
+          <template #path>
+            <i>{{ engine.path }}</i>
+          </template>
+        </i18n>
       </v-alert>
       <v-alert v-if="engine && engine.error === 'exec-error'" type="warning">
-        Unable to spawn game engine. Details:<br>
+        {{ $t('settings.engine.unable-to-spawn-gane-engine') }}<br>
         <small>{{ engine.errorMessage }}</small>
       </v-alert>
       <v-alert v-if="artworksLoaded && !hasClassicAddon" type="warning">
-        Unable to locate or download addon with default artwork. Internet conection is needed at fist run to donwload it.<br>
-        Plese check your connectivity and restart app to try it again.<br>
-        <small>addon url: <a :href="$addons.getDefaultArtworkUrl()" @click.prevent="openLink($addons.getDefaultArtworkUrl())">>{{ $addons.getDefaultArtworkUrl() }}</a></small>
+        {{ $t('settings.add-ons.artwork-not-found-internet-connection-is-needed') }}<br>
+        {{ $t('settings.add-ons.please-check-connectivity-and-restast-app') }}<br>
+        <small>{{ $t('settings.add-ons.add-on-url') }}: <a :href="$addons.getDefaultArtworkUrl()" @click.prevent="openLink($addons.getDefaultArtworkUrl())">>{{ $addons.getDefaultArtworkUrl() }}</a></small>
       </v-alert>
       <div v-if="download" class="download">
         <div class="download-header">
