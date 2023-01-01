@@ -216,6 +216,7 @@ export default {
   watch: {
     settingsLoaded () {
       this.recentSaves = [...this.$store.state.settings.recentSaves]
+      this.$i18n.setLocale(this.$store.state.settings['locale'])
     }
   },
 

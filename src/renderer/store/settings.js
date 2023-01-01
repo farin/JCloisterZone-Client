@@ -120,6 +120,11 @@ export const actions = {
         missingKey = true
         settings.enabledArtworks = ['classic/classic']
       }
+      // locale
+      if (!settings.locale) {
+        missingKey = true
+        locale = 'en'
+      }
       commit('settings', { settings, source: 'load' })
       console.log(`%c settings %c loaded ${file}`, CONSOLE_SETTINGS_COLOR, '')
     } else {
