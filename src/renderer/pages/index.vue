@@ -2,7 +2,7 @@
   <div class="landing-view view">
     <v-select
       class="locale"
-      v-model="currentLocale"
+      v-model="locale"
       :items="locales"
       @input="setLocale"
       return-object
@@ -165,7 +165,6 @@ export default {
       menuX: null,
       menuY: null,
       menuItemIdx: null,
-      currentLocale: this.$i18n.locale,
       locales: [
         {
           value: 'en',
@@ -174,6 +173,10 @@ export default {
         {
           value: 'cs',
           text: '🇨🇿 Česky'
+        },
+        {
+          value: 'de',
+          text: '🇩🇪 Deutsch'
         },
         {
           value: 'sk',
@@ -201,7 +204,13 @@ export default {
         return `https://github.com/farin/JCloisterZone-Client/releases/download/v${this.updateInfo.version}/${this.updateInfo.files[0].url}`
       }
       return null
+    },
+    
+    locale: {
+      get () { return this.$store.state.settings['locale'] },
+      set (val) { this.$store.dispatch('settings/update', { 'locale': val.value }) }
     }
+    
   },
 
   watch: {

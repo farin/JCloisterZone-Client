@@ -462,7 +462,7 @@
       "disabled-show-remaining": "The game was created with option which doesn't allow showing remaining tiles count.",
       "remaining-tiles": "Remaining tiles",
       "hidden-tiles-under-hill": "Don't forget that {count} unknown {tiles} from list is hidden under a hill.",
-      "tiles-plural": "tile | tile | tiles"
+      "tiles-plural": "tiles | tile | tiles"
     },
     "action": {
       "or": "or",

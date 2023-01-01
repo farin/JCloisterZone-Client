@@ -50,6 +50,10 @@ module.exports = {
         file: 'cs.json'
       },
       {
+        code: 'de',
+        file: 'de.json'
+      },
+      {
         code: 'sk',
         file: 'sk.json'
       }
