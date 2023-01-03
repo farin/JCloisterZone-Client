@@ -9,16 +9,16 @@
       single-line
     >
       <template slot="selection" slot-scope="data">
-        <svg v-if="data.item.flag" :width="18" :height="12">
+        <svg class="flag" v-if="data.item.flag" :width="18" :height="12">
           <use :href="`${FLAGS_SVG}#${data.item.flag}`" />
         </svg>
-        {{ data.item.emoji }} &nbsp; <strong>{{ data.item.text }}</strong>
+        {{ data.item.emoji }}<strong>{{ data.item.text }}</strong>
       </template>
       <template slot="item" slot-scope="data">
-        <svg v-if="data.item.flag" :width="18" :height="12">
+        <svg class="flag" v-if="data.item.flag" :width="18" :height="12">
           <use :href="`${FLAGS_SVG}#${data.item.flag}`" />
         </svg>
-        {{ data.item.emoji }} &nbsp; <strong>{{ data.item.text }}</strong>
+        {{ data.item.emoji }}<strong>{{ data.item.text }}</strong>
       </template>
     </v-select>
 .    <div>
@@ -185,7 +185,7 @@ export default {
         {
           value: 'cat',
           flag: 'catalonia',
-          text: 'Catalan',
+          text: 'Català',
         },
         {
           value: 'cs',
@@ -440,6 +440,10 @@ h2
 
 .v-select, .v-select-list
   font-family: 'Twemoji Country Flags', 'Roboto', sans-serif
+
+.flag
+  margin-left: 1ex
+  margin-right: 1ex
 
 @media (max-height: 1199px)
   .landing-view
