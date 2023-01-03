@@ -31,4 +31,25 @@
     <path d="M0,0 50,30M50,0 0,30" clip-path="url(#great_britain_clip)" stroke="#C8102E" stroke-width="4"/>
     <path d="M-1 11h22v-12h8v12h22v8h-22v12h-8v-12h-22z" fill="#C8102E" stroke="#FFF" stroke-width="2"/>
   </symbol>
+  
+  
+  <symbol id="france" viewBox="0 0 900 600">
+    <rect width="900" height="600" fill="#ED2939"/>
+    <rect width="600" height="600" fill="#fff"/>
+    <rect width="300" height="600" fill="#002395"/>
+  </symbol>
+  
+  <symbol id="czechia" viewBox="0 0 900 600">
+  	<rect width="900" height="600" fill="#d7141a"/>
+	<rect width="900" height="300" fill="#fff"/>
+	<path d="M 450,300 0,0 V 600 z" fill="#11457e"/>
+  </symbol>
+
+
+  <symbol id="germany" viewBox="0 0 5 3">
+	<rect id="black_stripe" width="5" height="3" y="0" x="0" fill="#000"/>
+	<rect id="red_stripe" width="5" height="2" y="1" x="0" fill="#D00"/>
+	<rect id="gold_stripe" width="5" height="1" y="2" x="0" fill="#FFCE00"/>
+  </symbol>
+
 </svg>

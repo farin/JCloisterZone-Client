@@ -12,13 +12,13 @@
         <svg class="flag" v-if="data.item.flag" :width="18" :height="12">
           <use :href="`${FLAGS_SVG}#${data.item.flag}`" />
         </svg>
-        {{ data.item.emoji }}<strong>{{ data.item.text }}</strong>
+        {{ data.item.text }}
       </template>
       <template slot="item" slot-scope="data">
         <svg class="flag" v-if="data.item.flag" :width="18" :height="12">
           <use :href="`${FLAGS_SVG}#${data.item.flag}`" />
         </svg>
-        {{ data.item.emoji }}<strong>{{ data.item.text }}</strong>
+        {{ data.item.text }}
       </template>
     </v-select>
 .    <div>
@@ -149,7 +149,6 @@
 
 <script>
 import { shell, ipcRenderer } from 'electron'
-import { polyfillCountryFlagEmojis } from 'country-flag-emoji-polyfill';
 
 import Vue from 'vue'
 import { mapState } from 'vuex'
@@ -160,8 +159,6 @@ const isMac = process.platform === 'darwin'
 const isWin = process.platform === 'win32'
 
 const FLAGS_SVG = require('~/assets/flags.svg')
-
-polyfillCountryFlagEmojis()
 
 export default {
   components: {
@@ -189,12 +186,12 @@ export default {
         },
         {
           value: 'cs',
-          emoji: '🇨🇿',
+          flag: 'czechia',
           text: 'Česky'
         },
         {
           value: 'de',
-          emoji: '🇩🇪',
+          flag: 'germany',
           text: 'Deutsch'
         },
         {
@@ -204,7 +201,7 @@ export default {
         },
         {
           value: 'fr',
-          emoji: '🇫🇷',
+          flag: 'france',
           text: 'Français'
         },
         {
@@ -437,9 +434,6 @@ h2
 .v-select
   max-width: 50vw
   margin: 0 auto
-
-.v-select, .v-select-list
-  font-family: 'Twemoji Country Flags', 'Roboto', sans-serif
 
 .flag
   margin-left: 1ex
