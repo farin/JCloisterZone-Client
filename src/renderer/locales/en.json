@@ -55,7 +55,7 @@
       "festival-disabled": "No tile with Festival is in game.",
       "siege-description": "Besieged cities are less valuable.",
       "siege-disabled": "No tile with Siege is in game.",
-      "escape-description": "Espace allowed via a neighboring monastery.",
+      "escape-description": "Escape allowed via a neighboring monastery.",
       "escape-disabled": "No tile with Siege is in game.",
       "acrobats-description": "Placing meeple as an acrobat on acrobat space.",
       "acrobats-disabled": "No tile with Acrobats space is in game."
@@ -95,7 +95,7 @@
         "number-of-followers": "number of meeples"
       },
       "espace-variant": {
-        "description": "Monastery must be placed adjacent to {} of a\u00A0besieged city to espace.",
+        "description": "Monastery must be placed adjacent to {} of a\u00A0besieged city to escape.",
         "any-tile": "any tile",
         "siege-tile": "siege tile"
       },
@@ -120,7 +120,7 @@
       },
       "keep-monasteries": {
         "description": "Special monasteries {}.",
-        "replace": "replace orignal monasteries",
+        "replace": "replace original monasteries",
         "keep": "are just added"
       },
       "labyrinth-variant": {
