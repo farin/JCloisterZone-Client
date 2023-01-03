@@ -123,7 +123,7 @@ export const actions = {
       // locale
       if (!settings.locale) {
         missingKey = true
-        locale = 'en'
+        settings.locale = 'en'
       }
       commit('settings', { settings, source: 'load' })
       console.log(`%c settings %c loaded ${file}`, CONSOLE_SETTINGS_COLOR, '')
