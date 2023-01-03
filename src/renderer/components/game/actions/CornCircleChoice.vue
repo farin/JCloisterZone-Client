@@ -40,10 +40,10 @@ export default {
 
     featureName () {
       const { featureType } = this.actionItem
-      if (featureType === 'City') return 'a city'
-      if (featureType === 'Farm') return 'a field'
-      if (featureType === 'Road') return 'a road'
-      return featureType
+      if (featureType === 'City') featureType = 'city'
+      if (featureType === 'Farm') featureType = 'field'
+      if (featureType === 'Road') featureType = 'road'
+      return this.$t(['game.feature',featureType].join('.'))
     }
   },
 

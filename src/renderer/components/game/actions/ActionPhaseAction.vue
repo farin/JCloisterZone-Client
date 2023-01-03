@@ -29,7 +29,7 @@
       {{ $t(local ? 'game.action.you-may-move-a-meeple-from-a-city-district-before-final-scoring' : 'game.action.player-may-move-a-meeple-from-a-city-district-before-final-scoring') }}
     </div>
     <div v-if="phase === 'CornCirclePhase'" class="text-with-icons text-center">
-      <ExpansionSymbol :expansion="Expansion.CORN_CIRCLES" :style="{ width: 30, height: 30 }" /> Corn circle:
+      <ExpansionSymbol :expansion="Expansion.CORN_CIRCLES" :style="{ width: 30, height: 30 }" /> {{ $t('game.feature.crop-circle') }}
       <br>
       {{ $t(local ? 'game.action.you-may-place-a-meeple-next-to-already-present-one' : 'game.action.player-may-place-a-meeple-next-to-already-present-one') }}
     </div>
