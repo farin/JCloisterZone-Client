@@ -183,16 +183,19 @@ export default {
           value: 'ca',
           flag: 'catalonia',
           text: 'Català',
+          disabled: false
         },
         {
           value: 'cs',
           flag: 'czechia',
-          text: 'Čeština'
+          text: 'Čeština',
+          disabled: true
         },
         {
           value: 'de',
           flag: 'germany',
-          text: 'Deutsch'
+          text: 'Deutsch',
+          disabled: true
         },
         {
           value: 'en',
@@ -203,21 +206,25 @@ export default {
           value: 'es',
           flag: 'spain-civil',
           text: 'Español',
+          disabled: true
         },
         {
           value: 'fr',
           flag: 'france',
-          text: 'Français'
+          text: 'Français',
+          disabled: true
         },
         {
           value: 'lv',
           flag: 'latvia',
-          text: 'Latviešu'
+          text: 'Latviešu',
+          disabled: true
         },
         {
           value: 'ru',
           flag: 'russia-anti-war',
-          text: 'Русский'
+          text: 'Русский',
+          disabled: true
         },
         {
           value: 'sk',

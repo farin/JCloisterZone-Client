@@ -383,7 +383,7 @@
       "unable-to-spawn-gane-engine": "Nedá sa spustiť herný engine. "
     }
   },
-  "tile-sets": {
+  "tile-set": {
     "abbey-and-mayor": "Starosta a opátstva",
     "abbey-and-mayor-release": "Piate veľké rozšírenie vydané v roku 2007.",
     "abbey-and-mayor-description": "Každý hráč môže tiež umiestniť kartičku opátstva zo svojej zásoby.",

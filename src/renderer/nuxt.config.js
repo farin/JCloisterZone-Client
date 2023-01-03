@@ -50,12 +50,16 @@ module.exports = {
         file: 'cs.json'
       },
       {
-        code: 'de',
-        file: 'de.json'
-      },
-      {
         code: 'sk',
         file: 'sk.json'
+      },
+      {
+        code: 'fr',
+        file: 'fr.json'
+      },
+      {
+        code: 'ca',
+        file: 'ca.json'
       }
     ],
     // lazy: true,
