@@ -199,7 +199,7 @@ export default {
         },
         {
           value: 'en',
-          emoji: '🇬🇧',
+          flag: 'great-britain',
           text: 'English'
         },
         {
