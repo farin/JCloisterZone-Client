@@ -7,7 +7,20 @@
       @input="setLocale"
       return-object
       single-line
-    />
+    >
+      <template slot="selection" slot-scope="data">
+        <svg v-if="data.item.flag" :width="18" :height="12">
+          <use :href="`${FLAGS_SVG}#${data.item.flag}`" />
+        </svg>
+        {{ data.item.emoji }} &nbsp; <strong>{{ data.item.text }}</strong>
+      </template>
+      <template slot="item" slot-scope="data">
+        <svg v-if="data.item.flag" :width="18" :height="12">
+          <use :href="`${FLAGS_SVG}#${data.item.flag}`" />
+        </svg>
+        {{ data.item.emoji }} &nbsp; <strong>{{ data.item.text }}</strong>
+      </template>
+    </v-select>
 .    <div>
       <v-alert v-if="java && java.error === 'not-found' && !javaSelectedByUser" type="warning">
         {{ $t('settings.java.unable-to-find-java') }}<br>
@@ -146,6 +159,8 @@ import AddonsReloadObserverMixin from '@/components/AddonsReloadObserverMixin'
 const isMac = process.platform === 'darwin'
 const isWin = process.platform === 'win32'
 
+const FLAGS_SVG = require('~/assets/flags.svg')
+
 polyfillCountryFlagEmojis()
 
 export default {
@@ -165,22 +180,37 @@ export default {
       menuX: null,
       menuY: null,
       menuItemIdx: null,
+      FLAGS_SVG,
       locales: [
         {
-          value: 'en',
-          text: '🇬🇧 English'
+          value: 'cat',
+          flag: 'catalonia',
+          text: 'Catalan',
         },
         {
           value: 'cs',
-          text: '🇨🇿 Česky'
+          emoji: '🇨🇿',
+          text: 'Česky'
         },
         {
           value: 'de',
-          text: '🇩🇪 Deutsch'
+          emoji: '🇩🇪',
+          text: 'Deutsch'
+        },
+        {
+          value: 'en',
+          emoji: '🇬🇧',
+          text: 'English'
+        },
+        {
+          value: 'fr',
+          emoji: '🇫🇷',
+          text: 'Français'
         },
         {
           value: 'sk',
-          text: '🇸🇰 Slovensky'
+          flag: 'slovakia',
+          text: 'Slovensky'
         }
       ]
     }
