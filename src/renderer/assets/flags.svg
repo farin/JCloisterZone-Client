@@ -52,4 +52,18 @@
 	<rect id="gold_stripe" width="5" height="1" y="2" x="0" fill="#FFCE00"/>
   </symbol>
 
+  <symbol id="latvia" viewBox="0 0 1200 600">
+   <path fill="#9E3039" d="M0 0h1200v600H0"/>
+   <path fill="#FFF" d="M0 240h1200v120H0"/>
+  </symbol>
+  
+  <symbol id="russia-anti-war" viewBox="0 0 900 600">
+    <path fill="#fff" d="M0 0h900v600H0z"/>
+    <path fill="#0083d6" d="M0 200h900v200H0z"/>
+  </symbol>
+  
+  <symbol id="spain-civil" viewBox="0 0 750 500">
+    <rect width="750" height="500" fill="#c60b1e"/>
+    <rect width="750" height="250" fill="#ffc400" y="125"/>
+  </symbol>
 </svg>

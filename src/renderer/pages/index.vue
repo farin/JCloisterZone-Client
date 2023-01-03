@@ -180,14 +180,14 @@ export default {
       FLAGS_SVG,
       locales: [
         {
-          value: 'cat',
+          value: 'ca',
           flag: 'catalonia',
           text: 'Català',
         },
         {
           value: 'cs',
           flag: 'czechia',
-          text: 'Česky'
+          text: 'Čeština'
         },
         {
           value: 'de',
@@ -200,9 +200,24 @@ export default {
           text: 'English'
         },
         {
+          value: 'es',
+          flag: 'spain-civil',
+          text: 'Español',
+        },
+        {
           value: 'fr',
           flag: 'france',
           text: 'Français'
+        },
+        {
+          value: 'lv',
+          flag: 'latvia',
+          text: 'Latviešu'
+        },
+        {
+          value: 'ru',
+          flag: 'russia-anti-war',
+          text: 'Русский'
         },
         {
           value: 'sk',
