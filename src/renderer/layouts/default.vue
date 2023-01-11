@@ -226,7 +226,7 @@ export default {
       this.$store.commit('showGameSetup', true)
     })
     ipcRenderer.on('menu.rules', () => {
-      shell.openExternal('http://wikicarpedia.com/index.php/Main_Page')
+      shell.openExternal('http://wikicarpedia.com/index.php/Special:MyLanguage/Main_Page')
     })
     ipcRenderer.on('menu.about', () => {
       this.showAbout = true

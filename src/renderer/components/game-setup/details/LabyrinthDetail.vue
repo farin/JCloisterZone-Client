@@ -2,7 +2,7 @@
   <div>
     <p>
       <RulesLink href="https://boardgamegeek.com/boardgameexpansion/195771/carcassonne-das-labyrinth" />
-      <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/The_Labyrinths" />
+      <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/Special:MyLanguage/The_Labyrinths" />
     </p>
 
     <p>

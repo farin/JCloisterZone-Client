@@ -2,7 +2,7 @@
   <div>
     <p>
       <RulesLink href="https://boardgamegeek.com/boardgame/38431/carcassonne-cult" />
-      <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/Count,_King_and_Robber#The_cultists" />
+      <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/Special:MyLanguage/Count,_King_and_Robber#The_cultists" />
     </p>
 
     <h5>{{ $t('tile-set.cult-places') }}</h5>

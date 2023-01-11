@@ -2,8 +2,8 @@
   <div>
     <p>
       <RulesLink href="https://boardgamegeek.com/boardgame/33458/carcassonne-expansion-6-count-king-robber" />
-      <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/Count,_King_and_Robber#King_and_robber" />
-      <RulesLink :title="$t('button.rules-1st-edition')" href="http://wikicarpedia.com/index.php/Count,_King_and_Robber_(1st_edition)#King_and_Robber_Baron" />
+      <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/Special:MyLanguage/Count,_King_and_Robber#King_and_robber" />
+      <RulesLink :title="$t('button.rules-1st-edition')" href="http://wikicarpedia.com/index.php/Special:MyLanguage/Count,_King_and_Robber_(1st_edition)#King_and_Robber_Baron" />
     </p>
 
     <p>
