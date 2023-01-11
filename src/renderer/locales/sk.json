@@ -21,7 +21,7 @@
       "rewards": "Odmeny"
     },
     "game-element-box": {
-      "mandatory-for-selected-files": "Povinné pre vybrané kartičky",
+      "mandatory-for-selected-tiles": "Povinné pre vybrané kartičky",
       "related-tiles-not-selected": "Neboli vybraté žiadne súvisiace kartičky"
     },
     "rules": {
@@ -336,7 +336,7 @@
       "player-list-active-on-top": "Aktívny hráča vždy navrchu",
       "player-list-local-on-top": "Miestny hráč vždy navrchu"
     },
-    "apperance": {
+    "appearance": {
       "title": "Vzhľad",
       "theme": "Téma",
       "theme-light": "Svetlá",
@@ -352,9 +352,9 @@
       "install-add-on": "Nainštalujte doplnok",
       "installed-add-ons": "Nainštalované doplnky",
       "drag-add-on-here-or-click-here": "Potiahnite tu doplnok (súbor .jca) alebo ho vyberte kliknutím.",
-      "loot-at-jcz-for-add-ons": "Dostupné doplnky nájdete na stránke {link}.",
+      "look-at-jcz-for-add-ons": "Dostupné doplnky nájdete na stránke {link}.",
       "artwork-not-found-internet-connection-is-needed": "Nie je možné nájsť alebo stiahnuť doplnok s predvolenou grafikou kartičiek.",
-      "please-check-connectivity-and-restast-app": "Skontrolujte svoje pripojenie, reštartujte aplikáciu a skúste to znova.",
+      "please-check-connectivity-and-restart-app": "Skontrolujte svoje pripojenie, reštartujte aplikáciu a skúste to znova.",
       "add-on-url": "Adresa URL grafiky kartičiek"
     },
     "java": {
@@ -380,7 +380,7 @@
     },
     "engine": {
       "engine-path-not-exists": "Herný engine sa nepodarilo nájsť (súbor {path} neexistuje alebo sa nedá načítať).",
-      "unable-to-spawn-gane-engine": "Nedá sa spustiť herný engine. "
+      "unable-to-spawn-game-engine": "Nedá sa spustiť herný engine. "
     }
   },
   "tile-set": {

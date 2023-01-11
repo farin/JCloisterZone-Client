@@ -1,24 +1,24 @@
 <template>
   <div>
-    <h3 class="mt-2 mb-4">{{ $t('settings.apperance.title') }}</h3>
+    <h3 class="mt-2 mb-4">{{ $t('settings.appearance.title') }}</h3>
 
-    <h4>{{ $t('settings.apperance.theme') }}</h4>
+    <h4>{{ $t('settings.appearance.theme') }}</h4>
     <v-radio-group
       v-model="theme"
       dense hide-details
     >
       <v-radio
-        :label="$t('settings.apperance.theme-light')"
+        :label="$t('settings.appearance.theme-light')"
         value="light"
       />
       <v-radio
-        :label="$t('settings.apperance.theme-dark')"
+        :label="$t('settings.appearance.theme-dark')"
         value="dark"
       />
     </v-radio-group>
 
-    <h4>{{ $t('settings.apperance.artworks') }}</h4>
-    <em>{{ $t('settings.apperance.artworks-description') }}</em>
+    <h4>{{ $t('settings.appearance.artworks') }}</h4>
+    <em>{{ $t('settings.appearance.artworks-description') }}</em>
 
     <div
       v-for="{ json: artwork } in artworks"
@@ -32,7 +32,7 @@
       <div>
         <h5>{{ artwork.title }}</h5>
         <p>{{ artwork.description }}</p>
-        <p v-if="artwork.artist" class="artist">{{ $t('settings.apperance.illustrated-by', [artwork.artist]) }}</p>
+        <p v-if="artwork.artist" class="artist">{{ $t('settings.appearance.illustrated-by', [artwork.artist]) }}</p>
       </div>
     </div>
   </div>

@@ -12,7 +12,7 @@
               <v-list-item-title>{{ $t('settings.game-interface.title') }}</v-list-item-title>
             </v-list-item>
             <v-list-item>
-              <v-list-item-title>{{ $t('settings.apperance.title') }}</v-list-item-title>
+              <v-list-item-title>{{ $t('settings.appearance.title') }}</v-list-item-title>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>{{ $t('settings.add-ons.title') }}</v-list-item-title>

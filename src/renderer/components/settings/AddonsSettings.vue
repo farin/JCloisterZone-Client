@@ -32,7 +32,7 @@
       <div v-for="(error, idx) in errors" :key="idx">{{ error }}</div>
     </v-alert>
 
-	<i18n path="settings.add-ons.loot-at-jcz-for-add-ons" tag="p" class="info-box">
+	<i18n path="settings.add-ons.look-at-jcz-for-add-ons" tag="p" class="info-box">
 	    <template #link>
 	      <a href="https://jcloisterzone.com/addons/" @click.prevent="openLink">https://jcloisterzone.com/addons/</a>
 	    </template>

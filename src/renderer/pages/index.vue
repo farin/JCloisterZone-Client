@@ -62,12 +62,12 @@
         </i18n>
       </v-alert>
       <v-alert v-if="engine && engine.error === 'exec-error'" type="warning">
-        {{ $t('settings.engine.unable-to-spawn-gane-engine') }}<br>
+        {{ $t('settings.engine.unable-to-spawn-game-engine') }}<br>
         <small>{{ engine.errorMessage }}</small>
       </v-alert>
       <v-alert v-if="artworksLoaded && !hasClassicAddon" type="warning">
         {{ $t('settings.add-ons.artwork-not-found-internet-connection-is-needed') }}<br>
-        {{ $t('settings.add-ons.please-check-connectivity-and-restast-app') }}<br>
+        {{ $t('settings.add-ons.please-check-connectivity-and-restart-app') }}<br>
         <small>{{ $t('settings.add-ons.add-on-url') }}: <a :href="$addons.getDefaultArtworkUrl()" @click.prevent="openLink($addons.getDefaultArtworkUrl())">>{{ $addons.getDefaultArtworkUrl() }}</a></small>
       </v-alert>
       <div v-if="download" class="download">
@@ -183,7 +183,7 @@ export default {
           value: 'ca',
           flag: 'catalonia',
           text: 'Català',
-          disabled: false
+          disabled: true
         },
         {
           value: 'cs',
@@ -212,12 +212,18 @@ export default {
           value: 'fr',
           flag: 'france',
           text: 'Français',
-          disabled: true
+          disabled: false
         },
         {
           value: 'lv',
           flag: 'latvia',
           text: 'Latviešu',
+          disabled: true
+        },
+        {
+          value: 'pl',
+          flag: 'poland',
+          text: 'Polski',
           disabled: true
         },
         {
