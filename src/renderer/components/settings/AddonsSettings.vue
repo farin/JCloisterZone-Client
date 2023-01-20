@@ -40,7 +40,7 @@
     <h4>{{ $t('settings.add-ons.installed-add-ons') }}</h4>
 
     <AddonBox
-      v-for="addon in addons"
+      v-for="addon in getAddons()"
       :key="addon.id"
       :addon="addon"
       :disabled="gameOpen"
@@ -140,6 +140,11 @@ export default {
 
     afterAddonsReloaded () {
       this.$forceUpdate()
+    },
+
+    getAddons () {
+      // hide default
+      return this.$addons.addons.filter(addon => !addon.hidden)
     }
   }
 }

@@ -356,8 +356,8 @@
       "artwork-not-found-internet-connection-is-needed": "Kon de add-on met de standaardillustraties niet vinden of downloaden. Er is initieel een internetverbinding nodig om deze te downloaden.",
       "please-check-connectivity-and-restart-app": "Controleer a.u.b. uw verbinding en start de app opnieuw op het opnieuw te proberen.",
       "add-on-url": "add-on url",
-      "add-on-already-installed": "Add-on {id} is already installed. If you want to reinstall it please remove it first.",
-      "invalid-add-on-multiple-folders-in-root": "Invalid add-on: package must contain only single folder in root"
+      "add-on-already-installed": "Add-on {id} is al geïnstalleerd. Als u die opnieuw wilt installeren dient u deze eerst te verwijderen.",
+      "invalid-add-on-multiple-folders-in-root": "Ongeldige add-on: het pakket mag slechts één map in de hoofdmap bevatten"
     },
     "java": {
       "title": "Java",
