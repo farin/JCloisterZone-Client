@@ -42,24 +42,36 @@ module.exports = {
     detectBrowserLanguage: false,
     locales: [
       {
-        code: 'en',
-        file: 'en.json'
+        code: 'ca',
+        file: 'ca.json'
       },
       {
         code: 'cs',
         file: 'cs.json'
       },
       {
-        code: 'sk',
-        file: 'sk.json'
+        code: 'de',
+        file: 'de.json'
+      },
+      {
+        code: 'en',
+        file: 'en.json'
       },
       {
         code: 'fr',
         file: 'fr.json'
       },
       {
-        code: 'ca',
-        file: 'ca.json'
+        code: 'nl',
+        file: 'nl.json'
+      },
+      {
+        code: 'pl',
+        file: 'pl.json'
+      },
+      {
+        code: 'sk',
+        file: 'sk.json'
       }
     ],
     // lazy: true,

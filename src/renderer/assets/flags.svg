@@ -71,4 +71,11 @@
     <rect width="8" height="5" fill="#dc143c"/>
     <rect width="8" height="2.5" fill="#fff"/>
   </symbol>
+  
+  <symbol id="nederland" viewBox="0 0 9 6">
+    <rect fill="#21468B" width="9" height="6"/>
+    <rect fill="#FFF" width="9" height="4"/>
+    <rect fill="#AE1C28" width="9" height="2"/>
+  </symbol>
+</svg>
 </svg>

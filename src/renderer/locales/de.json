@@ -21,7 +21,7 @@
       "rewards": "Belohnung"
     },
     "game-element-box": {
-      "mandatory-for-selected-files": "Obligatorisch für ausgewählte Kacheln",
+      "mandatory-for-selected-tiles": "Obligatorisch für ausgewählte Kacheln",
       "related-tiles-not-selected": "Zugehörige Kacheln nicht ausgewählt"
     },
     "rules": {
@@ -55,7 +55,7 @@
       "festival-disabled": "Es ist kein Plättchen mit Festival im Spiel.",
       "siege-description": "Belagerte Städte sind weniger wertvoll.",
       "siege-disabled": "Es ist kein Plättchen mit Belagerung im Spiel.",
-      "escape-description": "Espace erlaubt über ein benachbartes Kloster.",
+      "escape-description": "Escape erlaubt über ein benachbartes Kloster.",
       "escape-disabled": "Es ist kein Plättchen mit Belagerung im Spiel.",
       "acrobats-description": "Meeple als Akrobat auf dem Akrobatenplatz platzieren.",
       "acrobats-disabled": "Es ist kein Plättchen mit Akrobaten-Feld im Spiel."
@@ -336,7 +336,7 @@
       "player-list-active-on-top": "Halten Sie den aktiven Spieler immer oben",
       "player-list-local-on-top": "Halten Sie den lokalen Spieler immer an der Spitze"
     },
-    "apperance": {
+    "appearance": {
       "title": "Aussehen",
       "theme": "Thema",
       "theme-light": "Hell",
@@ -352,10 +352,12 @@
       "install-add-on": "Addon installieren",
       "installed-add-ons": "Installierte Add-Ons",
       "drag-add-on-here-or-click-here": "Ziehen Sie das Add-on hierher (.jca-Datei) oder klicken Sie hier, um es auszuwählen.",
-      "loot-at-jcz-for-add-ons": "Suchen Sie unter {link} nach verfügbaren Add-ons.",
+      "look-at-jcz-for-add-ons": "Suchen Sie unter {link} nach verfügbaren Add-ons.",
       "artwork-not-found-internet-connection-is-needed": "Add-on mit Standardgrafik kann nicht gefunden oder heruntergeladen werden. ",
-      "please-check-connectivity-and-restast-app": "Bitte überprüfen Sie Ihre Konnektivität und starten Sie die App neu, um es erneut zu versuchen.",
-      "add-on-url": "Add-On-URL"
+      "please-check-connectivity-and-restart-app": "Bitte überprüfen Sie Ihre Konnektivität und starten Sie die App neu, um es erneut zu versuchen.",
+      "add-on-url": "Add-On-URL",
+      "add-on-already-installed": "Add-on {id} is already installed. If you want to reinstall it please remove it first.",
+      "invalid-add-on-multiple-folders-in-root": "Invalid add-on: package must contain only single folder in root"
     },
     "java": {
       "title": "Java",
@@ -380,7 +382,7 @@
     },
     "engine": {
       "engine-path-not-exists": " Spiel-Engine kann nicht gefunden werden (Datei {Pfad} existiert nicht oder kann nicht gelesen werden)",
-      "unable-to-spawn-gane-engine": "Spiel-Engine kann nicht gespawnt werden. "
+      "unable-to-spawn-game-engine": "Spiel-Engine kann nicht gespawnt werden. "
     }
   },
   "tile-sets": {

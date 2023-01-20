@@ -83,8 +83,8 @@
       },
       "wagon-move": {
         "description": "Après l’évaluation, le charriot peut être déplacé vers une zone adjacente inoccupée et incomplète.  Adjacent signifie : {}",
-        "C1": "connecté (intersection ou route menant vers une ville ou une abbaye) (1ʳᵉ éd.)",
-        "C2": "zone sur la même tuile ou sur une tuile orthogonalement ou diagonalement adjacente (2ᵉ éd.)"
+        "C1": "connecté (intersection ou route menant vers une ville ou une abbaye) (1ʳᵉ édition)",
+        "C2": "zone sur la même tuile ou sur une tuile orthogonalement ou diagonalement adjacente (2ᵉ édition)"
       },
       "bazaar-no-auction": {
         "description": "Pas d’enchères de bazar. Chaque joueur choisit simplement une tuile."
@@ -130,8 +130,8 @@
       },
       "coc-final-scoring": {
         "description": "Le déplacement de meeples de la Ville de Carcassonne avant l’évaluation finale {}.",
-        "market-only": "est seulement autorisé du marché vers un pré (2ᵉ éd.)",
-        "any-district": "n’est pas limité (1ʳᵉ éd.)"
+        "market-only": "est seulement autorisé du marché vers un pré (2ᵉ édition)",
+        "any-district": "n’est pas limité (1ʳᵉ édition)"
       },
       "count-move": {
         "description": "Lorsqu’un meeple est posé dans la Ville de Carcassonne, le comte {}.",
@@ -171,8 +171,8 @@
       "open-slot": "ouvrir emplacement",
       "local-player": "joueur local",
       "remote-player": "joueur à distance",
-      "click-to-assign": "cliquer pour répartir",
-      "rename-player": "Renommer joueur",
+      "click-to-assign": "cliquer pour attribuer",
+      "rename-player": "Renommer le joueur",
       "name": "Nom"
     },
     "open-game": {
@@ -182,15 +182,15 @@
       "share-the-key": "Partagez la clé avec d’autres joueurs pour leur permettre de se connecter à la partie.",
       "waiting-for-host-to-start-the-game": "En attente de l’hôte pour commencer la partie.",
       "options": "Options",
-      "randomize-seating-order": "Randomiser l’ordre des places",
+      "randomize-seating-order": "Rendre aléatoire l’ordre de jeu",
       "hide-remaining-tiles-cheat-sheet": "Cacher l’aide-mémoire des tuiles restantes",
       "set-game-title": "Définir le titre de la partie",
       "name": "Nom"
     },
     "title": "Configuration de la partie",
     "additional-elements": "Éléments supplémentaires",
-    "altered-gameplay": "Jouabilité modifiée",
-    "altered-scoring": "Évaluation modifiée",
+    "altered-gameplay": "Règles modifiées",
+    "altered-scoring": "Évaluations modifiées",
     "removed-elements": "Éléments retirés",
     "selected-tiles": "Tuiles sélectionnées"
   },
@@ -203,12 +203,12 @@
       "connected-to": "Connecté à {0}",
       "abandon-game": "Abandonner la partie",
       "remove-unfinished-game-confirmation": "Voulez-vous supprimer définitivement la partie inachevée de votre liste ?",
-      "join-game": "Rejoindre la partie",
-      "paste-a-game-key": "Coller une clé de jeu fournie par l’hôte",
+      "join-game": "Rejoindre une partie",
+      "paste-a-game-key": "Coller la clé fournie par l’hôte",
       "game-id": "Identifiant de la partie",
       "games-in-progress": "Parties en cours",
       "you-have-no-game-in-progress": "Vous n’avez pas de partie en cours.",
-      "online-storage-description": "En quittant le jeu en ligne, la partie inachevée reste en arrière-plan. Vous pouvez la rejoindre à partir de cette liste quand vous le souhaitez."
+      "online-storage-description": "En quittant la partie en ligne, la partie inachevée reste en arrière-plan. Vous pouvez la rejoindre à partir de cette liste quand vous le souhaitez."
     },
     "local": {
       "title": "Parties hébergées par le joueur",
@@ -217,7 +217,7 @@
       "load-game": "Charger une partie",
       "create-directly-from": "Créez une nouvelle partie directement à partir de",
       "my-favorities": "mes favoris",
-      "continue-with-recently-saved-games": "Continuer avec des parties récemment sauvegardées"
+      "continue-with-recently-saved-games": "Continuer des parties récemment sauvegardées"
     },
     "new-version-available": "Une nouvelle version de JCloisterZone est disponible.",
     "release-notes": "Notes de version",
@@ -245,7 +245,7 @@
     "buy": "Acheter",
     "cancel": "Annuler",
     "change": "Changer",
-    "clear-list": "Nettoyer la liste",
+    "clear-list": "Vider la liste",
     "close": "Fermer",
     "confirm": "Confirmer",
     "connect": "Se connecter",
@@ -268,12 +268,12 @@
     "reset": "Réinitialiser",
     "resume": "Reprendre",
     "rules": "Règles",
-    "rules-1st-edition": "Règles (1ʳᵉ éd.)",
+    "rules-1st-edition": "Règles (1ʳᵉ édition)",
     "save-to-file": "Enregistrer dans un fichier",
     "score-the-sheep": "Évaluer les moutons",
     "select": "Selectionner",
     "sell": "Vendre",
-    "set": "Définir",
+    "set": "Sélectionner",
     "show-stats": "Afficher les statistiques",
     "start": "Démarrer",
     "undo": "Annuler"
@@ -300,9 +300,9 @@
     "zoom-in": "Zoom avant",
     "zoom-out": "Zoom arrière",
     "tiles": "Tuiles",
-    "farm-hints": "Conseils pour les prés",
-    "toggle-history": "Basculer vers l’historique",
-    "show-game-setup": "Montrer la configuration de la partie",
+    "farm-hints": "Délimiter les prés",
+    "toggle-history": "Activer/désactiver l’historique",
+    "show-game-setup": "Afficher la configuration de la partie",
     "rules": "Règles",
     "about": "À propos"
   },
@@ -323,7 +323,7 @@
       "always-enabled": "toujours activé",
       "only-when-meeple-was-deployed-on-a-field": "seulement quand un meeple est posé sur un pré",
       "only-when-meeple-was-deployed-on-a-tower": "seulement quand un meeple est posé sur une tour",
-      "beep": "Bip",
+      "beep": "Signal sonore",
       "beep-description": "Bippe lorsque c’est votre tour (ou lorsque votre action est requise pendant le tour de l’adversaire).",
       "enable-beep": "Activer le signal sonore",
       "active-player-indication": "Indication du joueur actif",
@@ -355,7 +355,9 @@
       "look-at-jcz-for-add-ons": "Consultez le site {link} pour connaître les modules complémentaires disponibles.",
       "artwork-not-found-internet-connection-is-needed": "Impossible de localiser ou de télécharger le module complémentaire avec les illustrations par défaut. Une connexion Internet est nécessaire pour le télécharger.",
       "please-check-connectivity-and-restart-app": "Veuillez vérifier votre connexion et redémarrer l’application pour réessayer.",
-      "add-on-url": "Lien du module complémentaire"
+      "add-on-url": "Lien du module complémentaire",
+      "add-on-already-installed": "Add-on {id} is already installed. If you want to reinstall it please remove it first.",
+      "invalid-add-on-multiple-folders-in-root": "Invalid add-on: package must contain only single folder in root"
     },
     "java": {
       "title": "Java",
@@ -444,7 +446,7 @@
   "core-messages": {
     "game-engine-not-available": "Moteur de jeu non disponible.",
     "no-core-set": "Pas de jeu de base !",
-    "show-available-only": "montrer disponible uniquement",
+    "show-available-only": "Afficher tuiles disponibles uniquement",
     "done": "Terminé",
     "choose": "Choisissez",
     "used-time": "Temps utilisé",
@@ -459,7 +461,7 @@
     "tile-pack-dialog": {
       "tiles": "Tuiles",
       "game-tiles": "Tuiles de la partie",
-      "disabled-show-remaining": "La partie a été créée avec une option qui ne permet pas de montrer le nombre de tuiles restantes.",
+      "disabled-show-remaining": "La partie a été créée avec une option qui ne permet pas d’afficher le nombre de tuiles restantes.",
       "remaining-tiles": "Tuiles restantes",
       "hidden-tiles-under-hill": "N’oubliez pas {tiles} sous une colline.",
       "tiles-plural": "qu’aucune tuile de la liste n’est cachée|qu’1 tuile inconnue de la liste est cachée| que {count} tuiles inconnues de la liste sont cachées"

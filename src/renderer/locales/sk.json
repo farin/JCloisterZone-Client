@@ -355,7 +355,9 @@
       "look-at-jcz-for-add-ons": "Dostupné doplnky nájdete na stránke {link}.",
       "artwork-not-found-internet-connection-is-needed": "Nie je možné nájsť alebo stiahnuť doplnok s predvolenou grafikou kartičiek.",
       "please-check-connectivity-and-restart-app": "Skontrolujte svoje pripojenie, reštartujte aplikáciu a skúste to znova.",
-      "add-on-url": "Adresa URL grafiky kartičiek"
+      "add-on-url": "Adresa URL grafiky kartičiek",
+      "add-on-already-installed": "Doplnok {id} je už nainštalovaný. Pred jeho preinštalovaním, ho musíte najprv odstrániť.",
+      "invalid-add-on-multiple-folders-in-root": "Chybný doplnok: súbor musí obsahovať len jeden hlavný podadresár"
     },
     "java": {
       "title": "Java",

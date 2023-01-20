@@ -355,7 +355,9 @@
       "look-at-jcz-for-add-ons": "Loot at {link} for available add-ons.",
       "artwork-not-found-internet-connection-is-needed": "Unable to locate or download addon with default artwork. Internet conection is needed at fist run to donwload it.",
       "please-check-connectivity-and-restart-app": "Please check your connectivity and restart app to try it again.",
-      "add-on-url": "add-on url"
+      "add-on-url": "add-on url",
+      "add-on-already-installed": "Add-on {id} is already installed. If you want to reinstall it please remove it first.",
+      "invalid-add-on-multiple-folders-in-root": "Invalid add-on: package must contain only single folder in root"
     },
     "java": {
       "title": "Java",

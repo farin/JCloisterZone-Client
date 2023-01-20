@@ -188,8 +188,7 @@ export default {
         {
           value: 'cs',
           flag: 'czechia',
-          text: 'Čeština',
-          disabled: true
+          text: 'Čeština'
         },
         {
           value: 'de',
@@ -211,14 +210,18 @@ export default {
         {
           value: 'fr',
           flag: 'france',
-          text: 'Français',
-          disabled: false
+          text: 'Français'
         },
         {
           value: 'lv',
           flag: 'latvia',
           text: 'Latviešu',
           disabled: true
+        },
+        {
+          value: 'nl',
+          flag: 'nederland',
+          text: 'Nederlands'
         },
         {
           value: 'pl',
