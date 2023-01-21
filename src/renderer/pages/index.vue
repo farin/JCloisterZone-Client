@@ -179,45 +179,45 @@ export default {
       menuItemIdx: null,
       FLAGS_SVG,
       locales: [
-        {
-          value: 'ca',
-          flag: 'catalonia',
-          text: 'Català',
-          disabled: true
-        },
+//        {
+//          value: 'ca',
+//          flag: 'catalonia',
+//          text: 'Català',
+//          disabled: true
+//        },
         {
           value: 'cs',
           flag: 'czechia',
           text: 'Čeština'
         },
-        {
-          value: 'de',
-          flag: 'germany',
-          text: 'Deutsch',
-          disabled: true
-        },
+//        {
+//          value: 'de',
+//          flag: 'germany',
+//          text: 'Deutsch',
+//          disabled: true
+//        },
         {
           value: 'en',
           flag: 'great-britain',
           text: 'English'
         },
-        {
-          value: 'es',
-          flag: 'spain-civil',
-          text: 'Español',
-          disabled: true
-        },
+//        {
+//          value: 'es',
+//          flag: 'spain-civil',
+//          text: 'Español',
+//          disabled: true
+//        },
         {
           value: 'fr',
           flag: 'france',
           text: 'Français'
         },
-        {
-          value: 'lv',
-          flag: 'latvia',
-          text: 'Latviešu',
-          disabled: true
-        },
+//        {
+//          value: 'lv',
+//          flag: 'latvia',
+//          text: 'Latviešu',
+//          disabled: true
+//        },
         {
           value: 'nl',
           flag: 'nederland',
@@ -229,12 +229,12 @@ export default {
           text: 'Polski',
           disabled: true
         },
-        {
-          value: 'ru',
-          flag: 'russia-anti-war',
-          text: 'Русский',
-          disabled: true
-        },
+//        {
+//          value: 'ru',
+//          flag: 'russia-anti-war',
+//          text: 'Русский',
+//          disabled: true
+//        },
         {
           value: 'sk',
           flag: 'slovakia',
