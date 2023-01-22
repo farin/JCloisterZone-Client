@@ -42,11 +42,11 @@
       "inn-disabled": "V hre nie je žiadna kartička s hostincom.",
       "princess-description": "Princezná môže odstrániť rytiera z mesta.",
       "princess-disabled": "V hre nie je žiadna kartička s princeznou.",
-      "portal-description": "Prostredníctvom magického portálu je možné meeple umiestniť na akúkoľvek kartičku.",
-      "portal-disabled": "V hre nie je žiadna kartička s magickým portálom.",
+      "portal-description": "Prostredníctvom tajnej chodby je možné umiestniť spoločníka na akúkoľvek kartičku.",
+      "portal-disabled": "V hre nie je žiadna kartička s tajnou chodbou.",
       "bazaar-description": "Kartičky krajiny sa dražia, keď do hry vstúpi bazár.",
       "bazaar-disabled": "V hre nie je žiadna kartička s bazárom.",
-      "hill-description": "Používa sa pri remíze.",
+      "hill-description": "Používa sa pri remíze. A zároveň skrýva náhodnú kartičku pod kopcom.",
       "hill-disabled": "V hre nie je žiadna kartička s kopcom.",
       "vineyard-description": "Ďalšie body pre ukočený kláštor.",
       "vineyard-disabled": "V hre nie je žiadna kartička s vinicami.",
@@ -65,7 +65,7 @@
     },
     "variant": {
       "princess-action": {
-        "description": "Princezná {} odstráni rytiera z mesta.",
+        "description": "Princezná {} odstrániť rytiera z mesta.",
         "may": "môže",
         "must": "musí"
       },
@@ -75,25 +75,25 @@
         "on-tile": "na kartičke"
       },
       "dragon-move": {
-        "description": "Pohyb draka nastáva {} bodovanie.",
-        "before-scoring": "pred",
-        "after-scoring": "po"
+        "description": "Pohyb draka nastáva {}.",
+        "before-scoring": "pred bodovaním",
+        "after-scoring": "po bodovaní"
       },
       "barn-placement": {
-        "description": "Stodola {} umiestnená na pole, na ktoré už je iná stodola.",
+        "description": "Stodola {} umiestnená na pole, na ktorom už je iná stodola.",
         "not-occupied": "nemôže byť",
         "occupied": "môže byť"
       },
       "wagon-move": {
-        "description": "Po skórovaní može byť povoz presunutý na susedného neobsadené a ​​neukočené územia ",
+        "description": "Po skórovaní može byť povoz presunutý na susedného neobsadené a ​​neukočené územia {}.",
         "C1": "prepojené (cestou alebo cesta smerujúca do mesta/kláštora) (1. vydanie)",
-        "C2": "územie na rovnakej alebo susednej kartičke (2. vydanie)"
+        "C2": "na rovnakej alebo susednej kartičke (2. vydanie)"
       },
       "bazaar-no-auction": {
-        "description": "Variant bez dražby."
+         "description": "Variant bez dražby. Každý hráč si len vyberie kartu."
       },
       "hill-tiebreaker": {
-        "description": "Rozhodovanie: {} na kopcoch.",
+        "description": "Rozhodovanie remízy: {} na kopcoch.",
         "at-least-one-follower": "aspoň jeden spoločník",
         "number-of-followers": "počet spoločníkov"
       },
@@ -103,7 +103,7 @@
         "siege-tile": "kartičky s obliehaním"
       },
       "gq11-pig-herd": {
-        "description": "Kartička poľa z rozšírenia Game Quarterly 11 {}.",
+        "description": "Kartička poľa z rozšírenia Games Quarterly 11 {}.",
         "pig": "obsahuje stádo ošípaných",
         "nothing": "je len prázdne pole"
       },
@@ -123,8 +123,8 @@
       },
       "keep-monasteries": {
         "description": "Špeciálne kláštory {}.",
-        "replace": "vyradzujú pôvodné kláštory",
-        "keep": "sú len pridané"
+        "replace": "nahrádzajú pôvodné kláštory",
+        "keep": "sú pridané do hry"
       },
       "labyrinth-variant": {
         "description": "{} labyrintový variant",
@@ -134,7 +134,7 @@
       "coc-final-scoring": {
         "description": "Umiestnenie spoločníkov z mesta Carcassonne pred konečným bodovaním {}.",
         "market-only": "je povolené len z trhoviska (C2)",
-        "any-district": "nie je obmedzený (C1)"
+        "any-district": "nie je obmedzené (C1)"
       },
       "count-move": {
         "description": "Keď je spoločník umiestnený do Carcassonne, potom sa gróf presunie {}.",
@@ -143,21 +143,21 @@
         "follow-meeple": "do ľubovoľnej štvrte"
       },
       "little-buildings-scoring": {
-        "description": "Priraďte {} bodov za vežu/dom/prístrešok.",
+        "description": "Priradenie {} bodov za vežu/dom/prístrešok.",
         "1/1/1": "1/1/1",
         "3/2/1": "3/2/1"
       },
       "king-and-robber-scoring": {
-        "description": "Skóre {} na konci hry.",
-        "default": "1 bod za každú dokončené územie",
-        "10/20": "10 bodov / každý žetón",
-        "15/40": "15/40 bodov za jeden alebo obe žetóny",
-        "continuously": "bodov nepretržite počas hry"
+        "description": "Skóre {}.",
+        "default": "1 bod za každé dokončené územie na konci hry",
+        "10/20": "10 bodov za každý žetón na konci hry",
+        "15/40": "15/40 bodov za jeden alebo oba žetóny na konci hry",
+        "continuously": "1 bod za každé dokončené územie počas hry"
       },
       "tiny-city-scoring": {
-        "description": "Malé mesto získa {}",
-        "2": "2 body",
-        "4": "4 body"
+        "description": "Malé mesto získa {}.",
+        "4": "4 body",
+        "2": "2 body"
       }
     },
     "timer": {
