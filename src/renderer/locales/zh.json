@@ -39,7 +39,7 @@
       "inn-disabled": "No tile with Inn is in the game.",
       "princess-description": "Princess can remove knight from a\u00A0city.",
       "princess-disabled": "No tile with Princess is in game.",
-      "portal-description": "Through magic portal a meeple can be placed on any tile.",
+      "portal-description": "Through magic portal meeple can be placed on any tile.",
       "portal-disabled": "No tile with Magic portal is in game.",
       "bazaar-description": "Land tiles are auctioned when bazaar comes into play.",
       "bazaar-disabled": "No tile with Bazaar is in game.",
@@ -145,14 +145,14 @@
         "3/2/1": "3/2/1"
       },
       "king-and-robber-scoring": {
-        "description": "Score {} at the end of the game.",
-        "default": "1 point for every completed feature",
-        "10/20": "10 points / each card",
-        "15/40": "15/40 pts for having single/both cards",
+        "description": "Score {}.",
+        "default": "1 point for every completed feature at the end of the game",
+        "10/20": "10 points / each card at the end of the game",
+        "15/40": "15/40 pts for having single/both cards at the end of the game",
         "continuously": "points continuously during play"
       },
       "tiny-city-scoring": {
-        "description": "Tiny city is scored for {}",
+        "description": "Tiny city is scored for {}.",
         "4": "4 points",
         "2": "2 points"
       }
@@ -222,11 +222,11 @@
     "new-version-available": "New JCloisterZone version is available.",
     "release-notes": "Release Notes",
     "update-to": "Update to {version}",
-    "automatic-updates-linux-only": "Automatic updates are currently supported only on Linux platform. Please download new version directly and update manually"
+    "automatic-updates-linux-only": "Automatic updates are currently supported only on Linux platform. Please download new version directly and update manually."
   },
   "about": {
     "configuration-file": "Configuration file",
-    "jcloisterzone-game-engine": "JCloisteZone Game Engine",
+    "jcloisterzone-game-engine": "JCloisterZone Game Engine",
     "system-java-version": "System Java Version",
     "version": "version"
   },
@@ -494,8 +494,8 @@
       "bazaar-player-must-raise-bid-or-pass": "Player must raise bid or pass",
       "bazaar-buy-sell-the-tile-from-to": "Buy/Sell the tile from/to",
       "bazaar-player-must-buy-sell-the-tile-from-to": "Player must buy/sell the tile from/to",
-      "castle-you-are-allowed-to-place": "You are allowed to place'",
-      "castle-player-is-allowed-to-place": "Player is allowed to place'",
+      "castle-you-are-allowed-to-place": "You are allowed to place",
+      "castle-player-is-allowed-to-place": "Player is allowed to place",
       "coc-you-can-move-the-count": "You can move the Count",
       "coc-player-can-move-the-count": "Player can move the Count",
       "crop-circles-player-must-choose": "Player must choose: Each player may deploy or must remove meeple on/from {feature}.",
@@ -517,7 +517,7 @@
       "hills-and-sheep-shepherd-fields-was-expanded": "Shepherd's field was expanded.",
       "hills-and-sheep-tokens-left-plural": "None tokens left | 1 token left | {tokens} tokens left",
       "hills-and-receive-points-plural": "receive 0 points | receive 1 point | receive {points} points",
-      "hills-and-player-must-choose-grow-or-score-plural": "Player must choose to grow the flock or score sheep for { points } point. | Player must choose to grow the flock or score sheep for { points } points.",
+      "hills-and-player-must-choose-grow-or-score-plural": "Player must choose to grow the flock or score sheep for {points} point. | Player must choose to grow the flock or score sheep for {points} points.",
       "tower-you-can-take-a-prisoner": "You can take a prisoner",
       "tower-player-can-take-a-prisoner": "Player can take a prisoner",
       "monasteries-how-do-you-want-place-follower": "How do you want to place meeple on special monastery?"

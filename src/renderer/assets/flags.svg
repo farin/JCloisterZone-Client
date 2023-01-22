@@ -40,16 +40,16 @@
   </symbol>
   
   <symbol id="czechia" viewBox="0 0 900 600">
-  	<rect width="900" height="600" fill="#d7141a"/>
-	<rect width="900" height="300" fill="#fff"/>
-	<path d="M 450,300 0,0 V 600 z" fill="#11457e"/>
+    <rect width="900" height="600" fill="#d7141a"/>
+    <rect width="900" height="300" fill="#fff"/>
+    <path d="M 450,300 0,0 V 600 z" fill="#11457e"/>
   </symbol>
 
 
   <symbol id="germany" viewBox="0 0 5 3">
-	<rect id="black_stripe" width="5" height="3" y="0" x="0" fill="#000"/>
-	<rect id="red_stripe" width="5" height="2" y="1" x="0" fill="#D00"/>
-	<rect id="gold_stripe" width="5" height="1" y="2" x="0" fill="#FFCE00"/>
+    <rect id="black_stripe" width="5" height="3" y="0" x="0" fill="#000"/>
+    <rect id="red_stripe" width="5" height="2" y="1" x="0" fill="#D00"/>
+    <rect id="gold_stripe" width="5" height="1" y="2" x="0" fill="#FFCE00"/>
   </symbol>
 
   <symbol id="latvia" viewBox="0 0 1200 600">
@@ -77,5 +77,24 @@
     <rect fill="#FFF" width="9" height="4"/>
     <rect fill="#AE1C28" width="9" height="2"/>
   </symbol>
-</svg>
+  
+  <symbol id="china" viewBox="0 0 2230 1646.306">
+  <rect
+      width="2230"
+      height="1646.306"
+      fill="#e20212"
+  />
+    <g>
+			<polygon fill="#FFDE00" points="389.063,730.822 357.932,635.01 326.801,730.822 226.058,730.822 307.561,790.037 
+				276.43,885.849 357.932,826.633 439.435,885.849 408.303,790.037 489.806,730.822 			"/>
+			<polygon fill="#FFDE00" points="582.124,651.257 599.401,680.053 602.349,646.601 635.074,639.068 604.171,625.927 
+				607.119,592.476 585.071,617.806 554.168,604.665 571.446,633.46 549.399,658.79 			"/>
+			<polygon fill="#FFDE00" points="668.801,739.743 673.55,772.986 689.248,743.301 722.331,749.057 698.949,724.954 
+				714.647,695.268 684.498,710.058 661.117,685.955 665.866,719.198 635.717,733.987 			"/>
+			<polygon fill="#FFDE00" points="724.89,850.261 691.331,851.465 679.815,819.92 670.59,852.209 637.031,853.413 664.888,872.165 
+				655.663,904.453 682.105,883.754 709.963,902.505 698.447,870.961 			"/>
+			<polygon fill="#FFDE00" points="605.34,915.303 584.361,941.525 552.94,929.677 571.396,957.731 550.419,983.953 
+				582.803,975.069 601.26,1003.124 602.818,969.579 635.203,960.695 603.781,948.847 			"/>
+    </g>
+  </symbol>
 </svg>

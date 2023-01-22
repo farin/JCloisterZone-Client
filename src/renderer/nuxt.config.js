@@ -72,6 +72,10 @@ module.exports = {
       {
         code: 'sk',
         file: 'sk.json'
+      },
+      {
+        code: 'zh',
+        file: 'zh.json'
       }
     ],
     // lazy: true,

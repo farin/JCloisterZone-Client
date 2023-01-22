@@ -1,5 +1,8 @@
 {
   "title": "JCloisterZone",
+  "author": "Bumsakalaka",
+  "version": "0.2",
+  "jcz-version": "5.10.2",
   "game-setup": {
     "header": {
       "tiles": "Kartičky",
@@ -39,8 +42,8 @@
       "inn-disabled": "V hre nie je žiadna kartička s hostincom.",
       "princess-description": "Princezná môže odstrániť rytiera z mesta.",
       "princess-disabled": "V hre nie je žiadna kartička s princeznou.",
-      "portal-description": "SKProstredníctvom magického portálu je možné meeple umiestniť na akúkoľvek kartičku.",
-      "portal-disabled": "SKV hre nie je žiadna kartička s magickým portálom Princess.",
+      "portal-description": "Prostredníctvom magického portálu je možné meeple umiestniť na akúkoľvek kartičku.",
+      "portal-disabled": "V hre nie je žiadna kartička s magickým portálom.",
       "bazaar-description": "Kartičky krajiny sa dražia, keď do hry vstúpi bazár.",
       "bazaar-disabled": "V hre nie je žiadna kartička s bazárom.",
       "hill-description": "Používa sa pri remíze.",
@@ -553,7 +556,7 @@
       "monastery": "Kláštor",
       "monasteries": "Kláštory",
       "pig-herd": "Stádo ošípaných",
-      "portal": "SKMagický portál",
+      "portal": "Magický portál",
       "princess": "princezná",
       "ringmaster": "Riaditeľ",
       "road": "Cesta",

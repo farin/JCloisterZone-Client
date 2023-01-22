@@ -1,5 +1,8 @@
 {
   "title": "JCloisterZone",
+  "author": "BlackBear",
+  "version": "0.2",
+  "jcz-version": "5.10.2",
   "game-setup": {
     "header": {
       "tiles": "Tuiles",

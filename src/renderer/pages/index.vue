@@ -190,12 +190,11 @@ export default {
           flag: 'czechia',
           text: 'Čeština'
         },
-//        {
-//          value: 'de',
-//          flag: 'germany',
-//          text: 'Deutsch',
-//          disabled: true
-//        },
+        {
+          value: 'de',
+          flag: 'germany',
+          text: 'Deutsch'
+        },
         {
           value: 'en',
           flag: 'great-britain',
@@ -223,12 +222,12 @@ export default {
           flag: 'nederland',
           text: 'Nederlands'
         },
-        {
-          value: 'pl',
-          flag: 'poland',
-          text: 'Polski',
-          disabled: true
-        },
+//        {
+//          value: 'pl',
+//          flag: 'poland',
+//          text: 'Polski',
+//          disabled: true
+//        },
 //        {
 //          value: 'ru',
 //          flag: 'russia-anti-war',
@@ -239,6 +238,11 @@ export default {
           value: 'sk',
           flag: 'slovakia',
           text: 'Slovensky'
+        },
+        {
+          value: 'zh',
+          flag: 'china',
+          text: '简体中文'
         }
       ]
     }
