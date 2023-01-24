@@ -20,7 +20,7 @@
       <v-checkbox
         :disabled="confirmAlways"
         dense hide-details
-        :label="$t('settings.game-interface.only-when-meeple-was-deployed-on-a-field')"
+        :label="$t('settings.game-interface.only-when-meeple-was-deployed-on-a-tower')"
       />
     </div>
 

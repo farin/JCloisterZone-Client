@@ -32,7 +32,7 @@
           </div>
         </template>
         <template v-else>
-          <span class="skip-text text">or skip the action</span>
+          <span class="skip-text text">{{ $t('game.action.or') }} {{ $t('game.action.skip-action') }}</span>
         </template>
       </template>
     </component>

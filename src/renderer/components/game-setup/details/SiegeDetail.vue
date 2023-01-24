@@ -6,11 +6,11 @@
       <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/Special:MyLanguage/Besiegers_Cathars_Siege_(1st_edition)" />
     </p>
 
-    <h5>{{ $t('tile-set.cathars-title') }}</h5>
+    <h5>{{ $t('tile-set.cathars') }}</h5>
 
     <TileDistribution :sets="{'siege/cathars': 1}" />
 
-    <h5>{{ $t('tile-set.besiegers-title') }}</h5>
+    <h5>{{ $t('tile-set.besiegers') }}</h5>
 
     <TileDistribution :sets="{'siege/besiegers': 1}" />
   </div>
