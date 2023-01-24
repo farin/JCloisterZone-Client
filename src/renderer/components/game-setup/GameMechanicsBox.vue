@@ -84,7 +84,7 @@ export default {
       font-weight: 300
       margin-top: 16px
 
-    img
+    img, svg
       display: block
       opacity: 0.9
       filter: grayscale(100%)
@@ -123,10 +123,11 @@ export default {
       +theme using ($theme)
         color: map-get($theme, 'cards-selected-text')
 
-    .box-title img
-      opacity: 1
-      filter: none
-      display: block
+    .box-title
+      img, svg
+        opacity: 1
+        filter: none
+        display: block
 
   &.disabled
     background: transparent
