@@ -123,7 +123,7 @@
         </v-btn>
 
         <v-btn large color="secondary" :disabled="!engine || !engine.ok" @click="joinGame()">
-          {{ $t('index.local.join-game') }}
+          {{ $t('button.join-game') }}
         </v-btn>
 
         <v-btn large color="secondary" :disabled="!engine || !engine.ok" @click="loadGame()">
@@ -228,6 +228,11 @@ export default {
 //          text: 'Polski',
 //          disabled: true
 //        },
+        {
+          value: 'ro',
+          flag: 'romania',
+          text: 'Română'
+        },
 //        {
 //          value: 'ru',
 //          flag: 'russia-anti-war',
@@ -238,11 +243,11 @@ export default {
           value: 'sk',
           flag: 'slovakia',
           text: 'Slovensky'
-        },
-        {
-          value: 'zh',
-          flag: 'china',
-          text: '简体中文'
+//        },
+//        {
+//          value: 'zh',
+//          flag: 'china',
+//          text: '简体中文'
         }
       ]
     }

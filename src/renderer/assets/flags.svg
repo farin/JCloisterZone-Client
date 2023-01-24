@@ -97,4 +97,10 @@
 				582.803,975.069 601.26,1003.124 602.818,969.579 635.203,960.695 603.781,948.847 			"/>
     </g>
   </symbol>
+
+  <symbol id="romania" viewBox="0 0 3 2">
+    <rect width="3" height="2" x="0" y="0" fill="#002B7F"/>
+    <rect width="2" height="2" x="1" y="0" fill="#FCD116"/>
+    <rect width="1" height="2" x="2" y="0" fill="#CE1126"/>
+  </symbol>
 </svg>

@@ -70,6 +70,10 @@ module.exports = {
         file: 'pl.json'
       },
       {
+        code: 'ro',
+        file: 'ro.json'
+      },
+      {
         code: 'sk',
         file: 'sk.json'
       },
