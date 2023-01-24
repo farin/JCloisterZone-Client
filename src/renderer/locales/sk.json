@@ -218,7 +218,7 @@
       "join-game": "Pripojiť sa do hry",
       "load-game": "Načítať hru",
       "create-directly-from": "Vytvorte novú hru priamo z",
-      "my-favorities": "moje obľúbené",
+      "my-favorites": "moje obľúbené",
       "continue-with-recently-saved-games": "Pokračujte v nedávno uložených hrách"
     },
     "new-version-available": "K dispozícii je nová verzia JCloisterZone.",
@@ -241,7 +241,7 @@
   },
   "button": {
     "add": "Pridať",
-    "add-to-favorities": "Pridať k obľúbeným",
+    "add-to-favorites": "Pridať k obľúbeným",
     "as-a-abbot": "Ako opát",
     "as-a-monk": "Ako mních",
     "buy": "Kúpiť",

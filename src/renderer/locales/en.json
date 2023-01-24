@@ -217,7 +217,7 @@
       "new-game": "New game",
       "load-game": "Load game",
       "create-directly-from": "Create a new game directly from",
-      "my-favorities": "my favorities",
+      "my-favorites": "my favorities",
       "continue-with-recently-saved-games": "Continue with recently saved games"
     },
     "new-version-available": "New JCloisterZone version is available.",
@@ -240,7 +240,7 @@
   },
   "button": {
     "add": "Add",
-    "add-to-favorities": "Add To Favorites",
+    "add-to-favorites": "Add To Favorites",
     "as-a-abbot": "As a Abbot",
     "as-a-monk": "As a Monk",
     "buy": "Buy",
@@ -395,7 +395,7 @@
     "base-game-description": "You can play tiles with 1st Edition or New edition rules (eg. gardens). This can be selected in second game setup step.",
     "besiegers": "The Besiegers",
     "bridges-castles-and-bazaars": "Bridges, Castles and Bazaars",
-    "bridges-castles-and-bazaars-release": "The eight major expansion released in 2010. (Sixth major expansion Count, King and Robber is splitted into individual small modules. Seventh, The Catapult, is obvously skipped)",
+    "bridges-castles-and-bazaars-release": "The eight major expansion released in 2010. (Sixth major expansion King, Count and Robber is splitted into individual small modules. Seventh, The Catapult, is obvously skipped)",
     "cathars": "The Cathars",
     "count": "The Count of Carcassonne",
     "corn-circles": "Crop Circles",

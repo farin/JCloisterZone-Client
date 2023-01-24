@@ -132,7 +132,7 @@
       </div>
 
       <div class="subsection">
-        {{ $t('index.local.create-directly-from') }} <a class="my-list" @click="newGame(0)"><v-icon>far fa-heart</v-icon> {{ $t('index.local.my-favorities') }}</a>
+        {{ $t('index.local.create-directly-from') }} <a class="my-list" @click="newGame(0)"><v-icon>far fa-heart</v-icon> {{ $t('index.local.my-favorites') }}</a>
       </div>
 
       <div v-if="recentSaves.length" class="subsection">
@@ -182,8 +182,7 @@ export default {
 //        {
 //          value: 'ca',
 //          flag: 'catalonia',
-//          text: 'Català',
-//          disabled: true
+//          text: 'Català'
 //        },
         {
           value: 'cs',
@@ -203,8 +202,7 @@ export default {
 //        {
 //          value: 'es',
 //          flag: 'spain-civil',
-//          text: 'Español',
-//          disabled: true
+//          text: 'Español'
 //        },
         {
           value: 'fr',
@@ -214,20 +212,18 @@ export default {
 //        {
 //          value: 'lv',
 //          flag: 'latvia',
-//          text: 'Latviešu',
-//          disabled: true
+//          text: 'Latviešu'
 //        },
         {
           value: 'nl',
           flag: 'nederland',
           text: 'Nederlands'
         },
-//        {
-//          value: 'pl',
-//          flag: 'poland',
-//          text: 'Polski',
-//          disabled: true
-//        },
+        {
+          value: 'pl',
+          flag: 'poland',
+          text: 'Polski',
+        },
         {
           value: 'ro',
           flag: 'romania',
@@ -236,8 +232,7 @@ export default {
 //        {
 //          value: 'ru',
 //          flag: 'russia-anti-war',
-//          text: 'Русский',
-//          disabled: true
+//          text: 'Русский'
 //        },
         {
           value: 'sk',

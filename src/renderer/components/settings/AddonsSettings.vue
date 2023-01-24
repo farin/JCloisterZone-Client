@@ -6,7 +6,7 @@
       v-if="gameOpen"
       type="warning"
     >
-      {{ $t('settings.add-ons.installation-is-not-avoled-during-game') }}
+      {{ $t('settings.add-ons.installation-is-not-allowed-during-game') }}
       <br><br>
       {{ $t('settings.add-ons.finish-or-leave-game-to-make-changes') }}
     </v-alert>

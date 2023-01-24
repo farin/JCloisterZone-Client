@@ -218,7 +218,7 @@
       "join-game": "Alătură-te jocuului",
       "load-game": "Încarcă joc",
       "create-directly-from": "Creează un joc nou direct din",
-      "my-favorities": "favoritele mele",
+      "my-favorites": "favoritele mele",
       "continue-with-recently-saved-games": "Continuă cu jocurile salvate recent"
     },
     "new-version-available": "O nouă versiune de JCloisterZone este disponibilă.",
@@ -241,7 +241,7 @@
   },
   "button": {
     "add": "Adaugă",
-    "add-to-favorities": "Adaugă la favorite",
+    "add-to-favorites": "Adaugă la favorite",
     "as-a-abbot": "Ca stareț",
     "as-a-monk": "Ca călugăr",
     "buy": "Cumpără",

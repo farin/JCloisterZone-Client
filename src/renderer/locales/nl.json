@@ -218,7 +218,7 @@
       "join-game": "Met spel verbinden",
       "load-game": "Spel laden",
       "create-directly-from": "Direct een nieuw spel maken vanuit",
-      "my-favorities": "mijn favorieten",
+      "my-favorites": "mijn favorieten",
       "continue-with-recently-saved-games": "Recent opgeslagen spellen voortzetten"
     },
     "new-version-available": "Er is een nieuwe versie van JCloisterZone beschikbaar.",
@@ -241,7 +241,7 @@
   },
   "button": {
     "add": "Toevoegen",
-    "add-to-favorities": "Toevoegen aan favorieten",
+    "add-to-favorites": "Toevoegen aan favorieten",
     "as-a-abbot": "Als abt",
     "as-a-monk": "Als monnik",
     "buy": "Kopen",

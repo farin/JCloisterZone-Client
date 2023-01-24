@@ -218,7 +218,7 @@
       "join-game": "Rejoindre une partie",
       "load-game": "Charger une partie",
       "create-directly-from": "Créez une nouvelle partie directement à partir de",
-      "my-favorities": "mes favoris",
+      "my-favorites": "mes favoris",
       "continue-with-recently-saved-games": "Continuer des parties récemment sauvegardées"
     },
     "new-version-available": "Une nouvelle version de JCloisterZone est disponible.",
@@ -241,7 +241,7 @@
   },
   "button": {
     "add": "Ajouter",
-    "add-to-favorities": "Ajouter aux favoris",
+    "add-to-favorites": "Ajouter aux favoris",
     "as-a-abbot": "En tant qu’abbé",
     "as-a-monk": "En tant que moine",
     "buy": "Acheter",
