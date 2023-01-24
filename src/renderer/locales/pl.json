@@ -40,7 +40,7 @@
       "princess-description": "Princess can remove knight from a\u00A0city.",
       "princess-disabled": "No tile with Princess is in game.",
       "portal-description": "Through magic portal meeple can be placed on any tile.",
-      "portal-disabled": "No tile with Magic portal Princess is in game.",
+      "portal-disabled": "No tile with Magic portal is in game.",
       "bazaar-description": "Land tiles are auctioned when bazaar comes into play.",
       "bazaar-disabled": "No tile with Bazaar is in game.",
       "hill-description": "Used as tiebreaker. Also hides one random tile under it.",

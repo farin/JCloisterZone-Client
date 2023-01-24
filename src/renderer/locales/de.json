@@ -11,16 +11,16 @@
       "timer": "Timer"
     },
     "tiles": {
-      "core-sets": "Kernpakete",
-      "major-expansions": "Große Erweiterungen",
-      "minor-expansions": "Kleine Erweiterungen",
+      "core-sets": "Basispakete",
+      "major-expansions": "Haupterweiterungen",
+      "minor-expansions": "Mini-Erweiterungen",
       "promos": "Sonderplättchen",
       "fan-expansions": "Fan-Erweiterungen"
     },
     "components": {
       "followers": "Meeples",
       "neutral-figures": "Neutrale Figuren",
-      "tokens": "Spielmarken",
+      "tokens": "Sonstige Spielkomponenten",
       "rewards": "Belohnungen"
     },
     "game-element-box": {
@@ -30,8 +30,8 @@
     "rules": {
       "optional-game-mechanics": "Optionale Spielmechanik",
       "gameplay-variants": "Spielvarianten",
-      "scoring-variants": "Bewertungsvarianten",
-      "starting-tiles-configuration": "Konfiguration des/der Startplättchen(s)",
+      "scoring-variants": "Wertungsvarianten",
+      "starting-tiles-configuration": "Startplättchen-Konfiguration",
       "starting-tiles-different-configuration": "Einige Erweiterungen bieten alternative Startkonfigurationen.",
       "farmers-description": "Spieler dürfen Meeples auf Wiesen setzen.",
       "garden-description": "Hier kann ein Abt gesetzt werden.",
@@ -41,27 +41,27 @@
       "inn-description": "Fertige Strassen mit Wirtshaus ×2, keine Punkte bei der Schlusswertung.",
       "inn-disabled": "Kein Plättchen mit Wirtshaus ist im Spiel.",
       "princess-description": "Burgfräulein kann Ritter aus einer Stadt entfernen.",
-      "princess-disabled": "Es ist kein Plättchen mit Burgfräulein im Spiel.",
+      "princess-disabled": "Kein Plättchen mit Burgfräulein ist im Spiel.",
       "portal-description": "Durch einen Zaubergang können Meeple auf jedes Plättchen gesetzt werden.",
       "portal-disabled": "Kein Plättchen mit Zaubergang ist im Spiel.",
       "bazaar-description": "Plättchen werden versteigert, wenn ein Basarplättchen ins Spiel kommt.",
-      "bazaar-disabled": "Es ist kein Basarplättchen im Spiel.",
+      "bazaar-disabled": "Kein Basarplättchen ist im Spiel.",
       "hill-description": "Wird zum Gewinnen eines Mehrheits-Gleichstands verwendet. Versteckt ausserdem ein zufälliges Plättchen unter sich.",
-      "hill-disabled": "Es ist kein Plättchen mit Hügel im Spiel.",
+      "hill-disabled": "Kein Plättchen mit Hügel ist im Spiel.",
       "vineyard-description": "Zusätzliche Punkte für nahe gelegenes Kloster.",
-      "vineyard-disabled": "Es gibt kein Plättchen mit Weinberg im Spiel.",
+      "vineyard-disabled": "Kein Plättchen mit Weinberg ist im Spiel.",
       "pig-herd-description": "Zählt als zusätzliches Schwein auf der Wiese (Bauer erhält mehr Punkte).",
-      "pig-herd-disabled": "Es ist kein Plättchen mit Schweineherde im Spiel.",
+      "pig-herd-disabled": "Kein Plättchen mit Schweineherde ist im Spiel.",
       "shrine-description": "Neben einem Kloster platzierte Kultstätte bedeutet Herausforderung, wer als Erster das Gebäude fertigstellt. Der Zweite bekommt keine Punkte. ",
-      "shrine-disabled": "Es ist kein Plättchen mit Kultstätte im Spiel.",
+      "shrine-disabled": "Kein Plättchen mit Kultstätte ist im Spiel.",
       "festival-description": "Mit einem Festplättchen kann man eine eigene Figur zurückholen, anstatt eine einzusetzen.",
-      "festival-disabled": "Es ist kein Festplättchen im Spiel.",
+      "festival-disabled": "Kein Festplättchen ist im Spiel.",
       "siege-description": "Belagerte Städte sind weniger Punkte wert.",
-      "siege-disabled": "Es ist kein Plättchen mit Belagerung im Spiel.",
+      "siege-disabled": "Kein Plättchen mit Belagerung ist im Spiel.",
       "escape-description": "Flucht ist erlaubt über ein benachbartes Kloster.",
-      "escape-disabled": "Es ist kein Plättchen mit Belagerung im Spiel.",
+      "escape-disabled": "Kein Plättchen mit Belagerung ist im Spiel.",
       "acrobats-description": "Meeple als Artist auf das Artistenplättchen setzen.",
-      "acrobats-disabled": "Es ist kein Artistenplättchen im Spiel."
+      "acrobats-disabled": "Kein Artistenplättchen ist im Spiel."
     },
     "variant": {
       "princess-action": {
@@ -75,7 +75,7 @@
         "on-tile": "auf ein Plättchen"
       },
       "dragon-move": {
-        "description": "Drachenbewegung erfolgt {} Wertung.",
+        "description": "Die Drachenbewegung erfolgt {} Wertung.",
         "before-scoring": "vor der",
         "after-scoring": "nach der"
       },
@@ -86,7 +86,7 @@
       },
       "wagon-move": {
         "description": "Nach der Wertung kann der Wagen zu einem angrenzenden, unbesetzten, unvollständigen Bauwerk bewegt werden. Angrenzend heisst: {}",
-        "C1": "verbunden (Strassenkreuzung oder Strasse, die zu einer Stadt/einem Klosters führt) (alte Edition)",
+        "C1": "verbunden (Strassenkreuzung oder Strasse, die zu einer Stadt/einem Kloster führt) (1. Edition)",
         "C2": "Bauwerk auf demselben oder einem angrenzenden Plättchen (Neue Edition)"
       },
       "bazaar-no-auction": {
@@ -103,7 +103,7 @@
         "siege-tile": "das Belagerungsplättchen"
       },
       "gq11-pig-herd": {
-        "description": "Wiesenplättchen aus der Game Quarterly 11-Erweiterung {}.",
+        "description": "Das Wiesenplättchen aus der Game Quarterly 11-Erweiterung {}.",
         "pig": "enthält eine Schweineherde",
         "nothing": "ist nur eine leere Wiese"
       },
@@ -122,8 +122,8 @@
         "follower": "Meeple"
       },
       "keep-monasteries": {
-        "description": "Spezielle Klöster {}.",
-        "replace": "ersetzen ursprüngliche Klöster",
+        "description": "Besondere Klöster {}.",
+        "replace": "ersetzen Klöster des Basispakets",
         "keep": "werden einfach nur hinzugefügt"
       },
       "labyrinth-variant": {
@@ -143,19 +143,19 @@
         "follow-meeple": "in dasselbe Stadtviertel wie der Meeple"
       },
       "little-buildings-scoring": {
-        "description": "Es gibt {} Punkte für Turm/Haus/Schuppen.",
+        "description": "Es gibt {} Punkte für Turm/Bauernhof/Stall.",
         "1/1/1": "1/1/1",
         "3/2/1": "3/2/1"
       },
       "king-and-robber-scoring": {
         "description": "Punktewertung : {}",
         "default": "1 Punkt für jedes abgeschlossene Gebiet bei der Schlusswertung",
-        "10/20": "10 Punkte pro Sonderplättchen bei der Schlusswertung",
-        "15/40": "15/40 Punkte für den Besitz eines/beider Sonderplättchen am Ende des Spiels",
+        "10/20": "10 Punkte pro Karte bei der Schlusswertung",
+        "15/40": "15/40 Punkte für den Besitz einer/beider Karten am Ende des Spiels",
         "continuously": "1 Punkt für jedes abgeschlossene Gebiet bei Wertungen während des Spiels"
       },
       "tiny-city-scoring": {
-        "description": "Mini-Stadt ist {} wert",
+        "description": "Eine Mini-Stadt ist {} wert",
         "2": "2 Punkte",
         "4": "4 Punkte"
       }
@@ -174,7 +174,7 @@
       "open-slot": "offener Slot",
       "local-player": "lokaler Spieler",
       "remote-player": "Remote Spieler",
-      "click-to-assign": "Klicken Sie zum Zuweisen",
+      "click-to-assign": "zum Zuweisen hier klicken",
       "rename-player": "Spieler umbenennen",
       "name": "Name"
     },
@@ -187,13 +187,13 @@
       "options": "Optionen",
       "randomize-seating-order": "zufällige Sitzreihenfolge",
       "hide-remaining-tiles-cheat-sheet": "Liste der verbleibenden Plättchen ausblenden",
-      "set-game-title": "Spieltitel festlegen",
+      "set-game-title": "Spielnamen festlegen",
       "name": "Name"
     },
     "title": "Spiel Setup",
     "additional-elements": "Zusätzliche Elemente",
     "altered-gameplay": "Geänderte Spielregeln",
-    "altered-scoring": "Geänderte Wertung",
+    "altered-scoring": "Geänderte Wertungsregeln",
     "removed-elements": "Entfernte Elemente",
     "selected-tiles": "Ausgewählte Plättchen"
   },
@@ -202,14 +202,14 @@
       "title": "Auf öffentlichen Servern gehostete Spiele",
       "play_online_button": "Online spielen",
       "private-games-only": "Nur private Spiele werden jetzt unterstützt.",
-      "no-random-discovery": "es bedeutet, dass keine zufälligen Spieler gesucht werden",
+      "no-random-discovery": "Das bedeutet, dass keine zufälligen Spieler gesucht werden",
       "connected-to": "Verbunden mit {0}",
       "abandon-game": "Spiel aufgeben",
       "remove-unfinished-game-confirmation": "Möchtest du das unfertige Spiel dauerhaft aus deiner Liste entfernen?",
-      "join-game": "dem Spiel beitreten",
+      "join-game": "einem Spiel beitreten",
       "paste-a-game-key": "Füge einen vom Host bereitgestellten Spielschlüssel ein",
       "game-id": "Spiel-ID",
-      "games-in-progress": "Spiele im Gange",
+      "games-in-progress": "Laufende Spiele",
       "you-have-no-game-in-progress": "Du hast kein laufendes Spiel.",
       "online-storage-description": "Wenn du das Online-Spiel verlässt, bleibt das unvollendete Spiel im Hintergrund erhalten. Du kannst jederzeit von dieser Liste aus wieder beitreten. "
     },
@@ -252,7 +252,7 @@
     "close": "Schliessen",
     "confirm": "Bestätigen",
     "connect": "Verbinde",
-    "create": "Erstelle",
+    "create": "Erstelle Spiel",
     "create-game": "Spiel erstellen",
     "disconnect": "Trennen",
     "hide-stats": "Statistiken ausblenden",
@@ -272,11 +272,11 @@
     "resume": "Weitermachen",
     "rules": "Regeln",
     "rules-1st-edition": "Regeln (1. Ed.)",
-    "save-to-file": "Auf Datei speichern",
+    "save-to-file": "Auf Datenträger speichern",
     "score-the-sheep": "Schafe werten",
     "select": "Auswählen",
     "sell": "Verkaufen",
-    "set": "Setzen",
+    "set": "Einsetzen",
     "show-stats": "Statistiken anzeigen",
     "start": "Start",
     "undo": "Rückgängig machen"
@@ -284,11 +284,11 @@
   "join-game": {
     "title": "Trete dem Remote-Spiel bei",
     "host": "Host",
-    "description": "Verbinde dich mit dem erstellten Spiel mit dem Remote-Host.<br><i>Das Spiel auf dem Remote-Host muss sich in der Farbauswahlphase befinden.</i>"
+    "description": "Verbinde dich mit dem erstellten Spiel mit dem Remote-Host. Das Spiel auf dem Remote-Host muss sich in der Farbauswahlphase befinden."
   },
   "menu": {
-    "playonline-connect": "Online spielen",
-    "playonline-disconnect": "Trennen",
+    "playonline-connect": "Onlinespiel Verbinden",
+    "playonline-disconnect": "Onlinespiel Trennen",
     "new-game": "Neues Spiel",
     "join-game": "Spiel beitreten",
     "leave-game": "Spiel verlassen",
@@ -300,12 +300,12 @@
     "game": "Spiel",
     "help": "Hilfe",
     "undo": "Rückgängig machen",
-    "zoom-in": "Hineinzoomen",
-    "zoom-out": "Rauszoomen",
+    "zoom-in": "Vergrößern",
+    "zoom-out": "Verkleinern",
     "tiles": "Plättchen",
-    "farm-hints": "Bauern-Tipps",
+    "farm-hints": "Wiesen-Anzeige",
     "toggle-history": "Historie ein/aus",
-    "show-game-setup": "Spiel Setup anzeigen",
+    "show-game-setup": "Spiel-Setup anzeigen",
     "rules": "Regeln",
     "about": "Über"
   },
@@ -316,21 +316,21 @@
       "nickname": "Spitzname",
       "nickname-description": "Spitzname, der verwendet wird, wenn der Spieler einem Spiel zugewiesen wird.",
       "preferred-color": "Bevorzugte Farbe",
-      "preferred-color-description": "Farbe automatisch nach dem Beitritt zum Spiel.",
+      "preferred-color-description": "automatisch zugewiesene Farbe nach Beitritt zum Spiel",
       "none": "Keine"
     },
     "game-interface": {
-      "title": "Spielschnittstelle",
+      "title": "Spiel-Interaktion",
       "turn-confirmation": "Zugabschluss-Bestätigung",
       "turn-confirmation-description": "Die Bestätigung ermöglicht es dem Spieler, ausgeführte Aktionen rückgängig zu machen, bevor der nächste Spieler an die Reihe kommt. Das passiert vor dem Werten oder z.B. wenn während des Zugs eines anderen Spielers der Wagen bewegt wird, etc. Erlaube ausdrückliche Bestätigung:",
       "always-enabled": "immer aktiviert",
       "only-when-meeple-was-deployed-on-a-field": "nur wenn ein Meeple auf eine Wiese gesetzt wurde",
       "only-when-meeple-was-deployed-on-a-tower": "nur wenn ein Meeple auf einem Turm gesetzt wurde",
       "beep": "Signalton",
-      "beep-description": "Signalton, wenn du an die Reihe kommst (oder wenn dein Handeln während des Zuges eines Gegners erforderlich ist).",
+      "beep-description": "Signalton, wenn du an die Reihe kommst (oder wenn dein Handeln während des Zuges eines Mitspielers erforderlich ist).",
       "enable-beep": "Signalton aktivieren",
-      "active-player-indication": "Anzeiger für aktiven Spieler",
-      "multiple-indicators-are-allowed": "Mehrfache Anzeiger sind erlaubt.",
+      "active-player-indication": "Indikator für aktiven Spieler",
+      "multiple-indicators-are-allowed": "Mehrfachauswahl erlaubt.",
       "colored-background-in-right-sidebar": "farbiger Hintergrund in der rechten Seitenleiste",
       "triangle-in-top-bar": "Dreieck in der oberen Leiste",
       "player-list": "Spielerliste",
@@ -346,7 +346,7 @@
       "theme-dark": "Dunkel",
       "artworks": "Grafik",
       "artworks-description": "Zusätzliche Grafik kann durch Add-Ons bereitgestellt werden.",
-      "illustrated-by": "(illustriert von {0})"
+      "illustrated-by": "(graphische Gestaltung von {0})"
     },
     "add-ons": {
       "title": "Add-Ons",
@@ -378,7 +378,7 @@
       "java-is-required": "Java wird benötigt, um ein Spiel zu starten.",
       "download-java": "Java herunterladen",
       "java-path-is-not-valid": "Dein manuell konfigurierter Java-Pfad ist ungültig.",
-      "java-version-found": "Um ein Spiel zu starten, is Java 11 oder höher erforderlich (gefunden {Version}) ",
+      "java-version-found": "Um ein Spiel zu starten, ist Java 11 oder höher erforderlich (gefunden: {Version}) ",
       "change-in-settings": "Ändere es in {Einstellungen}.",
       "verify": "Wenn Java bereits installiert ist, überprüfe, ob Java zu deinem Systempfad hinzugefügt wurde, oder wähle die Java-Binärdatei manuell in {Einstellungen} aus.",
       "select-manually": "Oder wähle das richtige Java manuell in {Einstellungen} aus."
@@ -393,20 +393,20 @@
     "abbey-and-mayor-release": "Die fünfte große Erweiterung, die 2007 veröffentlicht wurde.",
     "abbey-and-mayor-description": "Jeder Spieler kann auch ein Abteiplättchen aus seinem Vorrat einsetzen.",
     "basic": "Grundspiel",
-    "base-game-description": "Du kannst die Plättchen mit den Regeln der 1. Edition oder der Neuen Edition spielen (z. B. Gärten). Das kann im 2. Setup-Schritt ausgewählt werden.",
+    "base-game-description": "Du kannst die Plättchen mit den Regeln der 1. Edition oder der neuen Edition spielen (z. B. Gärten). Das kann im 2. Setup-Schritt ausgewählt werden.",
     "besiegers": "Die Belagerer",
     "bridges-castles-and-bazaars": "Brücken, Burgen und Basare",
-    "bridges-castles-and-bazaars-release": "Die achte große Erweiterung, die 2010 veröffentlicht wurde. (Die sechste große Erweiterung Graf, König und Konsorten ist in einzelne kleine Module aufgeteilt. Die siebte, Das Katapult, wird offensichtlich übersprungen.)",
+    "bridges-castles-and-bazaars-release": "Die achte große Erweiterung, die 2010 veröffentlicht wurde. (Die sechste große Erweiterung 'Graf, König und Konsorten' ist in einzelne kleine Module aufgeteilt. Die siebte, 'Das Katapult', wird aus offensichtlichen Gründen übersprungen.)",
     "cathars": "Die Katharer",
     "count": "Der Graf von Carcassonne",
     "corn-circles": "Kornkreise",
     "crop-circles-I": "Die Kornkreise I",
     "crop-circles-II": "Die Kornkreise II",
-    "cult": "Cult",
-    "cult-places": "Die Kultstätten",
+    "cult": "Kultstätten",
+    "cult-places": "Die Kultstätte und der Ketzer (6 Plättchen)",
     "darmstadt": "Darmstadt",
     "darmstadt-release": "Ursprünglich im Jahr 2014 veröffentlicht.",
-    "heretics-and-shrines": "Die Kultstätte und der Ketzer",
+    "heretics-and-shrines": "Die Kultstätte (und der Ketzer) (5 Plättchen)",
     "ferries": "Die Fähren",
     "festival": "Das Fest",
     "flier": "Die Fluggeräte",
@@ -418,22 +418,22 @@
     "inns-and-cathedrals": "Wirtshäuser und Kathedralen",
     "inns-and-cathedrals-release": "Die erste große Erweiterung für Carcassonne, die 2002 veröffentlicht wurde.",
     "king-and-robber": "König und Raubritter",
-    "king-and-robber-release": "Ursprünglich 2003 als Teil von König und Späher veröffentlicht. Wurde später in die sechste große Erweiterung integriert: Graf, König und Konsorten (2007)",
+    "king-and-robber-release": "Ursprünglich 2003 als Teil von 'König und Späher' veröffentlicht. Wurde später in die sechste große Erweiterung integriert: 'Graf, König und Konsorten' (2007)",
     "labyrinth": "Das Labyrinth",
     "labyrinth-release": "Ursprünglich im Jahr 2016 veröffentlicht.",
     "mage-and-witch": "Magier und Hexe",
-    "monasteries": "Klöster",
+    "monasteries": "Besondere Klöster",
     "princess-and-dragon": "Burgfräulein und Drache",
     "princess-and-dragon-release": "Die dritte große Erweiterung, die 2005 veröffentlicht wurde.",
     "river": "Der Fluss",
     "river-I": "Der Fluss I",
     "river-I-release": "Der Fluss I ist eine Mini-Erweiterung, die 2001 veröffentlicht wurde.",
     "river-II": "Der Fluss II",
-    "river-II-release": "Der Fluss II wurde 2006 veröffentlicht und ist jetzt in der sechsten großen Erweiterung Graf, König und Konsorten enthalten.",
+    "river-II-release": "Der Fluss II wurde 2006 veröffentlicht und ist jetzt in der sechsten großen Erweiterung 'Graf, König und Konsorten' enthalten.",
     "russian-promos": "Russische Sonderplättchen",
     "russian-promos-2013-title": "Plättchen von 2013",
     "russian-promos-2016-title": "Plättchen von 2016",
-    "siege": "Die Belagerung",
+    "siege": "Belagerung",
     "spiel-doch": "Spiel Doch",
     "tower": "Der Turm",
     "tower-release": "Die vierte große Erweiterung, die 2006 veröffentlicht wurde.",
@@ -448,8 +448,8 @@
   },
   "core-messages": {
     "game-engine-not-available": "Spiel-Engine nicht verfügbar.",
-    "no-core-set": "Kein Kernpaket!",
-    "show-available-only": "nur verfügbare anzeigen",
+    "no-core-set": "Kein Basispaket!",
+    "show-available-only": "nur Verfügbare anzeigen",
     "done": "Erledigt",
     "choose": "Wählen",
     "used-time": "Genutzte Zeit",
@@ -471,7 +471,7 @@
     },
     "action": {
       "or": "oder",
-      "your-action": "Deine Aktion",
+      "your-action": "deiner Aktion",
       "skip-action": "Aktion überspringen",
       "waiting-for-player-confirmation": "Warten auf die Bestätigung des Spielers.",
       "you-may-place-an-abbey": "Du darfst eine Abtei einsetzen",
@@ -479,14 +479,14 @@
       "place-the-tile": "Lege das Plättchen",
       "player-must-place-the-tile": "Der Spieler muss das Plättchen legen",
       "draw-a-tile": "Ziehe ein Plättchen",
-      "you-may-place-a-meeple-in-a-city-district": "Du darfst einen Meeple auf ein Stadtviertel setzen.",
-      "player-may-place-a-meeple-in-a-city-district": "Der Spieler darf einen Meeple auf ein Stadtviertel setzen.",
-      "you-may-move-a-meeple-from-a-city-district": "Du darfst einen Meeple aus einem Stadtviertel herausnehmen.",
-      "player-may-move-a-meeple-from-a-city-district": "Der Spieler darf einen Meeple aus einem Stadtviertel herausnehmen.",
-      "you-may-move-a-meeple-from-the-market-district-before-final-scoring": "Du darfst vor der Schlusswertung einen Meeple aus dem Markt-Stadtviertel herausnehmen.",
-      "player-may-move-a-meeple-from-the-market-district-before-final-scoring": "Der Spieler darf vor der Schlusswertung einen Meeple aus dem Markt-Stadtviertel herausnehmen.",
-      "you-may-move-a-meeple-from-a-city-district-before-final-scoring": "Du darfst vor der Schlusswertung einen Meeple aus einem Stadtviertel herausnehmen.",
-      "player-may-move-a-meeple-from-a-city-district-before-final-scoring": "Der Spieler darf vor der Schlusswertung einen Meeple aus einem Stadtviertel herausnehmen.",
+      "you-may-place-a-meeple-in-a-city-district": "Du darfst 1 Meeple auf ein Stadtviertel setzen.",
+      "player-may-place-a-meeple-in-a-city-district": "Der Spieler darf 1 Meeple auf ein Stadtviertel setzen.",
+      "you-may-move-a-meeple-from-a-city-district": "Du darfst 1 Meeple aus einem Stadtviertel herausnehmen.",
+      "player-may-move-a-meeple-from-a-city-district": "Der Spieler darf 1 Meeple aus einem Stadtviertel herausnehmen.",
+      "you-may-move-a-meeple-from-the-market-district-before-final-scoring": "Du darfst vor der Schlusswertung 1 Meeple vom Markt herausnehmen.",
+      "player-may-move-a-meeple-from-the-market-district-before-final-scoring": "Der Spieler darf vor der Schlusswertung 1 Meeple vom Markt  herausnehmen.",
+      "you-may-move-a-meeple-from-a-city-district-before-final-scoring": "Du darfst vor der Schlusswertung 1 Meeple aus einem Stadtviertel herausnehmen.",
+      "player-may-move-a-meeple-from-a-city-district-before-final-scoring": "Der Spieler darf vor der Schlusswertung 1 Meeple aus einem Stadtviertel herausnehmen.",
       "you-may-place-a-meeple-next-to-already-present-one": "Du darfst einen Meeple neben einen bereits vorhandenen stellen.",
       "player-may-place-a-meeple-next-to-already-present-one": "Der Spieler kann einen Meeple neben einen bereits vorhandenen stellen.",
       "bazaar-choose-a-tile-and-your-bid": "Wähle ein Plättchen und ein Gebot",
@@ -498,11 +498,11 @@
       "bazaar-buy-sell-the-tile-from-to": "Plättchen kaufen/verkaufen von/an",
       "bazaar-player-must-buy-sell-the-tile-from-to": "Der Spieler muss das Plättchen von/an kaufen/verkaufen",
       "castle-you-are-allowed-to-place": "Du darfst setzen'",
-      "castle-player-is-allowed-to-place": "Spieler darf setzen'",
+      "castle-player-is-allowed-to-place": "Der Spieler darf setzen'",
       "coc-you-can-move-the-count": "Du darfst den Grafen in ein anderes Stadtviertel ziehen.",
       "coc-player-can-move-the-count": "Der Spieler darf den Grafen in ein anderes Stadtviertel ziehen.",
-      "crop-circles-player-must-choose": "Der Spieler muss wählen: Jeder Spieler darf einen Meeple auf/von {feature} einsetzen oder entfernen.",
-      "crop-circles-choose-one": "Wähle einen aus. Jeder Spieler legt oder entfernt einen Meeple auf/von {feature}.",
+      "crop-circles-player-must-choose": "Der Spieler muss wählen: Jeder Spieler darf 1 Meeple auf/von {feature} einsetzen oder entfernen.",
+      "crop-circles-choose-one": "Wähle: Jeder Spieler legt oder entfernt einen Meeple auf/von {feature}.",
       "crop-circles-you-must-return-meeple": "Du musst einen deiner Meeples zurücknehmen.",
       "crop-circles-player-must-return-meeple": "Der Spieler muss einen seiner Meeples zurücknehmen.",
       "siege-you-can-escape-a-besieged-city": "Du kannst aus einer belagerten Stadt fliehen.",
@@ -523,7 +523,7 @@
       "hills-and-player-must-choose-grow-or-score-plural": "Der Spieler muss wählen, ob er die Schafherde erweitert oder die Herde in den Stall treibt für {points} Punkt. | Der Spieler muss wählen, ob er die Schafherde erweitert oder die Herde in den Stall treibt für {points} Punkte.",
       "tower-you-can-take-a-prisoner": "Du kannst einen Gefangenen machen",
       "tower-player-can-take-a-prisoner": "Der Spieler kann einen Gefangenen machen",
-      "monasteries-how-do-you-want-place-follower": "Wie willst du den Meeple auf das spezielle Kloster setzen?"
+      "monasteries-how-do-you-want-place-follower": "Wie willst du den Meeple auf das besondere Kloster setzen?"
     },
     "feature": {
       "acrobats": "Artisten",
@@ -564,8 +564,8 @@
       "robber": "Raubritter",
       "shrine": "Kultstätte",
       "siege": "Belagerung",
-      "special-monastery": "Spezielles Kloster",
-      "special-monasteries": "Spezielle Klöster",
+      "special-monastery": "Besonderes Kloster",
+      "special-monasteries": "Besondere Klöster",
       "trade-good": "Warenplättchen",
       "trade-goods": "Warenplättchen",
       "vineyard": "Weinberg",
@@ -610,9 +610,9 @@
       "ferry": "Fähre",
       "little-buildings": "Häuser",
       "traders": "Warenplättchen",
-      "king": "König",
-      "robber": "Räuber",
-      "gold": "Gold"
+      "king": "König-Karte",
+      "robber": "Raubritter-Karte",
+      "gold": "Goldstücke"
     }
   }
 }

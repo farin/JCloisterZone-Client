@@ -257,7 +257,7 @@
     "disconnect": "Se déconnecter",
     "hide-stats": "Cacher les statistiques",
     "grow-the-flock": "Agrandir le troupeau",
-    "join-game": "Rejoindre la partie",
+    "join-game": "Rejoindre une partie",
     "load": "Charger",
     "load-setup-from-file": "Charger la configuration à partir d’un fichier",
     "may-deploy": "Pouvoir poser",
@@ -359,8 +359,8 @@
       "artwork-not-found-internet-connection-is-needed": "Impossible de localiser ou de télécharger le module complémentaire avec les illustrations par défaut. Une connexion Internet est nécessaire pour le télécharger.",
       "please-check-connectivity-and-restart-app": "Veuillez vérifier votre connexion et redémarrer l’application pour réessayer.",
       "add-on-url": "Lien du module complémentaire",
-      "add-on-already-installed": "Add-on {id} is already installed. If you want to reinstall it please remove it first.",
-      "invalid-add-on-multiple-folders-in-root": "Invalid add-on: package must contain only single folder in root"
+      "add-on-already-installed": "Le module complémentaire {id} est déjà installé. Si vous voulez le réinstaller, veuillez d’abord le supprimer.",
+      "invalid-add-on-multiple-folders-in-root": "Module complémentaire invalide : le module ne doit contenir qu’un seul dossier à la racine."
     },
     "java": {
       "title": "Java",

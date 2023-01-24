@@ -1,7 +1,7 @@
 {
   "title": "JCloisterZone",
   "author": "farin",
-  "version": "0.2",
+  "version": "0.2.1",
   "jcz-version": "5.10.2",
   "game-setup": {
     "header": {
@@ -216,7 +216,6 @@
     "local": {
       "title": "Player hosted games",
       "new-game": "New game",
-      "join-game": "Join game",
       "load-game": "Load game",
       "create-directly-from": "Create a new game directly from",
       "my-favorities": "my favorities",
@@ -355,7 +354,7 @@
       "install-add-on": "Install add-on",
       "installed-add-ons": "Installed add-ons",
       "drag-add-on-here-or-click-here": "Drag add-on here (.jca file) or click here to select it.",
-      "look-at-jcz-for-add-ons": "Loot at {link} for available add-ons.",
+      "look-at-jcz-for-add-ons": "Look at {link} for available add-ons.",
       "artwork-not-found-internet-connection-is-needed": "Unable to locate or download addon with default artwork. Internet conection is needed at fist run to donwload it.",
       "please-check-connectivity-and-restart-app": "Please check your connectivity and restart app to try it again.",
       "add-on-url": "add-on url",

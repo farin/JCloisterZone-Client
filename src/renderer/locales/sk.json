@@ -38,7 +38,7 @@
       "garden-disabled": "Opát nie je vybraný.",
       "cathedral-description": "Dokončené mestá s katedrálou x3 namiesto x2, žiadne body pri konečnom bodovaní.",
       "cathedral-disabled": "V hre nie je žiadna kartička s katedrálou.",
-      "inn-description": "Dokončené cesty s hostincom x2, bez bodov pri konečnom bodovaní.",
+      "inn-description": "Dokončené cesty 2x bodov s hostincom ale 0 bodov pri konečnom bodovaní.",
       "inn-disabled": "V hre nie je žiadna kartička s hostincom.",
       "princess-description": "Princezná môže odstrániť rytiera z mesta.",
       "princess-disabled": "V hre nie je žiadna kartička s princeznou.",
@@ -99,7 +99,7 @@
       },
       "espace-variant": {
         "description": "Kláštor musí byť umiestnený vedľa {}, aby sa umožnil útek.",
-        "any-tile": "akejkoľkev kartičky obliehaného mesta",
+        "any-tile": "akejkoľvek kartičky obliehaného mesta",
         "siege-tile": "kartičky s obliehaním"
       },
       "gq11-pig-herd": {
@@ -140,7 +140,7 @@
         "description": "Keď je spoločník umiestnený do Carcassonne, potom sa gróf presunie {}.",
         "by-player": "podľa hráča",
         "clockwise": "v smere hodinových ručičiek do nasledujúcej štvrte",
-        "follow-meeple": "do ľubovoľnej štvrte"
+        "follow-meeple": "do rovnakej štvrte ako spoločník"
       },
       "little-buildings-scoring": {
         "description": "Priradenie {} bodov za vežu/dom/prístrešok.",
@@ -180,7 +180,7 @@
     },
     "open-game": {
       "untitled-game": "nepomenovaná hra",
-      "assign-all-players-to-start": "Priraďte všetkým hráčom, aby začali",
+      "assign-all-players-to-start": "Priraďte všetkých hráčov, aby začali",
       "no-player-in-game": "Žiaden hráč v hre",
       "share-the-key": "Zdieľajte kód hry s ostatnými hráčmi, aby sa mohli pripojiť k hre.",
       "waiting-for-host-to-start-the-game": "Čaká sa, kým hostiteľ spustí hru.",
@@ -195,7 +195,7 @@
     "altered-gameplay": "Zmenená hrateľnosť",
     "altered-scoring": "Zmenené skóre",
     "removed-elements": "Odstránené prvky",
-    "selected-tiles": "Vybrané dlaždice"
+    "selected-tiles": "Zvolené kartičky"
   },
   "index": {
     "online": {
@@ -214,7 +214,7 @@
       "online-storage-description": "Ak opustíte online hru, nedokončená hra zostane rozhoraná na serveri a môžete ju dokončiť neskôr."
     },
     "local": {
-      "title": "Hry hostené hráčom",
+      "title": "Hry na tomto počítači",
       "new-game": "Nová hra",
       "join-game": "Pripojiť sa do hry",
       "load-game": "Načítať hru",
