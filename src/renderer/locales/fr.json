@@ -200,7 +200,6 @@
   "index": {
     "online": {
       "title": "Parties hébergées sur un serveur public",
-      "play_online_button": "Jouer en ligne",
       "private-games-only": "Seules les parties privées sont désormais prises en charge.",
       "no-random-discovery": "cela signifie qu’il n’y a pas de découverte de joueurs aléatoires",
       "connected-to": "Connecté à {0}",
@@ -264,6 +263,7 @@
     "must-remove": "Devoir retirer",
     "pass": "Passer",
     "play-again": "Jouer à nouveau",
+    "play-online": "Jouer en ligne",
     "plus-description": "Ajouter plusieurs instances",
     "raise": "Augmenter",
     "remove": "Retirer",

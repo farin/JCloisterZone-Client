@@ -200,7 +200,6 @@
   "index": {
     "online": {
       "title": "Hry hostované na veřejném serveru",
-      "play_online_button": "Hrát online",
       "private-games-only": "Nyní můžete hrát pouze lokální hry.",
       "no-random-discovery": "to znamená, že žádní náhodní hráči se neobjeví",
       "connected-to": "Připojeno k {0}",
@@ -264,6 +263,7 @@
     "must-remove": "Nutno odstranit",
     "pass": "Složit",
     "play-again": "Hrát znovu",
+    "play-online": "Hrát online",
     "plus-description": "Přidat více instancí",
     "raise": "Vyzdvihnout",
     "remove": "Odstranit",

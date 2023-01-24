@@ -200,7 +200,6 @@
   "index": {
     "online": {
       "title": "Jocuri găzduite pe servere publice",
-      "play_online_button": "Joacă online",
       "private-games-only": "Deocamdată sunt suportate numai jocuri private.",
       "no-random-discovery": "asta înseamnă că nu se pot descoperi jucători aleatorii",
       "connected-to": "Conectat la {0}",
@@ -264,6 +263,7 @@
     "must-remove": "Trebuie să elimine",
     "pass": "Omite",
     "play-again": "Joacă din nou",
+    "play-online": "Joacă online",
     "plus-description": "Adaugă multiple întâmplări",
     "raise": "Crește",
     "remove": "Elimină",

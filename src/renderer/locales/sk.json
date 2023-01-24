@@ -200,7 +200,6 @@
   "index": {
     "online": {
       "title": "Hry hostované na verejnom serveri",
-      "play_online_button": "Hrajte online",
       "private-games-only": "Aktuálne sú podporované iba súkromné ​​hry.",
       "no-random-discovery": "To znamená, že sa nezobrazia žiadne hry iných hráčov.",
       "connected-to": "Pripojené k {0}",
@@ -264,6 +263,7 @@
     "must-remove": "Musí odstrániť",
     "pass": "Prenechať",
     "play-again": "Hrať znova",
+    "play-online": "Hrajte online",
     "plus-description": "Pridať viacero",
     "raise": "Navýšiť",
     "remove": "Odstrániť",

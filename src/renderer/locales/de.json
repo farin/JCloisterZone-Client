@@ -200,7 +200,6 @@
   "index": {
     "online": {
       "title": "Auf öffentlichen Servern gehostete Spiele",
-      "play_online_button": "Online spielen",
       "private-games-only": "Nur private Spiele werden jetzt unterstützt.",
       "no-random-discovery": "Das bedeutet, dass keine zufälligen Spieler gesucht werden",
       "connected-to": "Verbunden mit {0}",
@@ -263,6 +262,7 @@
     "may-deploy": "Darf einsetzen",
     "must-remove": "Muss entfernen",
     "pass": "Passen",
+    "play-online": "Online spielen",
     "play-again": "Nochmal spielen",
     "plus-description": "Fügen Sie mehrere Instanzen hinzu",
     "raise": "Erhöhen",

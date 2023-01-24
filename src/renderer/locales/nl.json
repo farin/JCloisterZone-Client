@@ -200,7 +200,6 @@
   "index": {
     "online": {
       "title": "Spellen op openbare server",
-      "play_online_button": "Online spelen",
       "private-games-only": "Op dit moment worden alleen privéspellen ondersteund.",
       "no-random-discovery": "dat wil zeggen geen willekeurig zoeken naar spelers",
       "connected-to": "Verbonden met {0}",
@@ -264,6 +263,7 @@
     "must-remove": "Moet verwijderen",
     "pass": "Passen",
     "play-again": "Opnieuw spelen",
+    "play-online": "Online spelen",
     "plus-description": "Meerdere gevallen toevoegen",
     "raise": "Heffen",
     "remove": "Verwijderen",

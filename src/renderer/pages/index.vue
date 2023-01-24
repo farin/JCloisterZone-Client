@@ -105,7 +105,7 @@
       <div>
         <h2>{{ $t('index.online.title') }}</h2>
         <v-btn large color="secondary" :disabled="!engine || !engine.ok" @click="playOnline()">
-          {{ $t('index.online.play_online_button') }}
+          {{ $t('button.play-online') }}
           <v-icon right>fa-cloud</v-icon>
         </v-btn>
         <div class="subsection">

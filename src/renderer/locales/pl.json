@@ -197,7 +197,6 @@
   "index": {
     "online": {
       "title": "Public server hosted games",
-      "play_online_button": "Play Online",
       "private-games-only": "Only private games are now supported.",
       "no-random-discovery": "it means no random players discovery",
       "connected-to": "Connected to {0}",
@@ -261,6 +260,7 @@
     "must-remove": "Must remove",
     "pass": "Pass",
     "play-again": "Play again",
+    "play-online": "Play Online",
     "plus-description": "Add multiple instances",
     "raise": "Raise",
     "remove": "Remove",
