@@ -313,8 +313,8 @@
     "title": "Nastavenia",
     "player": {
       "title": "Hráč",
-      "nickname": "prezývka",
-      "nickname-description": "Prezývka používaná pri priradení hráća k hre.",
+      "nickname": "Prezývka",
+      "nickname-description": "Prezývka používaná pri priradení hráča k hre.",
       "preferred-color": "Predvolená farba",
       "preferred-color-description": "Automaticky vyberie farbu po pripojení k hre.",
       "none": "žiadne"
@@ -329,14 +329,14 @@
       "beep": "Pípnutie",
       "beep-description": "Pípnutie, keď ste na ťahu (alebo keď je potrebná vaša aktivita počas súperovho ťahu).",
       "enable-beep": "Povoliť pípnutie",
-      "active-player-indication": "Indikácia aktívneho hráča",
-      "multiple-indicators-are-allowed": "Povolené sú viaceré indikátory.",
+      "active-player-indication": "Označenie aktívneho hráča",
+      "multiple-indicators-are-allowed": "Viaceré označenia sú povolené.",
       "colored-background-in-right-sidebar": "farebné pozadie v pravom bočnom paneli",
       "triangle-in-top-bar": "trojuholník v hornej lište",
       "player-list": "Zoznam hráčov",
       "player-list-description": "Môžete povoliť rotáciu zoznamu hráčov (pravý bočný panel).",
       "player-list-no-rotate": "Žiadna rotácia",
-      "player-list-active-on-top": "Aktívny hráča vždy navrchu",
+      "player-list-active-on-top": "Aktívny hráč vždy navrchu",
       "player-list-local-on-top": "Miestny hráč vždy navrchu"
     },
     "appearance": {

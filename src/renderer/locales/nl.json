@@ -1,7 +1,7 @@
 {
   "title": "JCloisterZone",
   "author": "Kiap1969",
-  "version": "0.2",
+  "version": "0.2.1",
   "jcz-version": "5.10.2",
   "game-setup": {
     "header": {
@@ -29,7 +29,7 @@
     },
     "rules": {
       "optional-game-mechanics": "Optionele spelmechanismes",
-      "gameplay-variants": "Spelvarianties",
+      "gameplay-variants": "Spelvariaties",
       "scoring-variants": "Puntentellingvariaties",
       "starting-tiles-configuration": "Configuratie van de starttegel(s)",
       "starting-tiles-different-configuration": "Sommige uitbreidingen voorzien in alternatieve startconfiguraties.",
@@ -526,7 +526,7 @@
       "monasteries-how-do-you-want-place-follower": "Hoe wilt u de meeple op het bijzondere klooster zetten?"
     },
     "feature": {
-      "acrobats": "Artiestens",
+      "acrobats": "Artiesten",
       "bazaar": "Bazaar",
       "big-top": "Circustent",
       "cathedral": "Kathedraal",
@@ -565,7 +565,7 @@
       "shrine": "Cultusplaats",
       "siege": "Belegering",
       "special-monastery": "Bijzonder klooster",
-      "special-monasteries": "Bijzondere cloosters",
+      "special-monasteries": "Bijzondere kloosters",
       "trade-good": "Handelswaar",
       "trade-goods": "Handelswaren",
       "vineyard": "Wijngaard",

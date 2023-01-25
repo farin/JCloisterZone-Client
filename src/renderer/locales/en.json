@@ -383,7 +383,7 @@
       "select-manually": "Or select proper java manually in {settings}."
     },
     "engine": {
-      "engine-path-not-exists": " Can't locate game engine (file {path} doesn't exist or can't be read)",
+      "engine-path-not-exists": "Can't locate game engine (file {path} doesn't exist or can't be read)",
       "unable-to-spawn-game-engine": "Unable to spawn game engine. Details:"
     }
   },
