@@ -2,7 +2,10 @@
   <v-card class="about">
     <v-card-title class="headline">{{ $t('join-game.title') }}</v-card-title>
     <v-card-text>
-      {{ $t('join-game.description') }}
+      {{ $t('join-game.connect-to-remote-host') }}
+      <div>
+        <i>{{ $t('join-game.the-game-on-remote-host-must-be-in-color-selection-phase') }}</i>
+      </div>
       <div class="field-wrapper">
         <v-progress-linear
           v-if="connecting"
