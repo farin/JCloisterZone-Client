@@ -103,4 +103,10 @@
     <rect width="2" height="2" x="1" y="0" fill="#FCD116"/>
     <rect width="1" height="2" x="2" y="0" fill="#CE1126"/>
   </symbol>
+
+  <symbol id="lithuania" viewBox="0 0 1000 600">
+    <path fill="#c1272d" d="M0 0h1000v600H0z"/>
+    <path fill="#006a44" d="M0 0h1000v400H0z"/>
+    <path fill="#fdb913" d="M0 0h1000v200H0z"/>
+  </symbol>
 </svg>

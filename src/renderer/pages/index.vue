@@ -213,6 +213,11 @@ export default {
 //          value: 'lv',
 //          flag: 'latvia',
 //          text: 'Latviešu'
+//         },
+//        {
+//          value: 'lt',
+//          flag: 'lithuania',
+//          text: 'Lietuvių',
 //        },
         {
           value: 'nl',
