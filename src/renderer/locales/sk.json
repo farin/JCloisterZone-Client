@@ -393,7 +393,7 @@
         "abbey-and-mayor-release": "Piate veľké rozšírenie vydané v roku 2007.",
         "abbey-and-mayor-description": "Každý hráč môže tiež umiestniť kartičku opátstva zo svojej zásoby.",
         "basic": "Základná hra",
-        "base-game-description": "Môžete hrať dlaždice s pravidlami 1. edície alebo novej edície (napr. záhrady).",
+        "base-game-description": "Môžete hrať kartičky s pravidlami 1. edície alebo novej edície (napr. záhrady).",
         "besiegers": "Obliehanie",
         "bridges-castles-and-bazaars": "Mosty, hrady a bazáre",
         "bridges-castles-and-bazaars-release": "Ôsme veľké rozšírenie vydané v roku 2010.",
@@ -467,7 +467,7 @@
             "disabled-show-remaining": "Hra bola vytvorená s nastavením, ktoré neumožňuje zobrazenie zostávajúceho počtu kartičiek.",
             "remaining-tiles": "Zostávajúce kartičky",
             "hidden-tiles-under-hill": "Nezabudnite, že pod kopcom sa skrýva {count} {tiles} zo zoznamu.",
-            "tiles-plural": "kartičiek | kartička | kartičiek"
+            "tiles-plural": "kartičiek | kartička | kartičky | kartičiek"
         },
         "action": {
             "or": "alebo",
@@ -518,9 +518,9 @@
             "tower-select-follower-for-exchange": "Vyberte spoločníka na výmenu",
             "tower-player-must-select-follower-for-exchange": "Hráč si musí vybrať spoločníka na výmenu",
             "hills-and-sheep-shepherd-fields-was-expanded": "Rozšírilo sa pole s pastierom.",
-            "hills-and-sheep-tokens-left-plural": "Nezostali žiadne žetóny | 1 žetón zostal| {tokens} žetónov zostalo",
-            "hills-and-receive-points-plural": "získať 0 bodov | získať 1 bod | získať {points} bodov",
-            "hills-and-player-must-choose-grow-or-score-plural": "Hráč sa musí rozhodnúť rozšíriť stádo alebo získať za ovce { bodov } bod.|Hráč sa musí rozhodnúť rozšíriť stádo alebo získať za ovce { bodov } bodov.",
+            "hills-and-sheep-tokens-left-plural": "Nezostali žiadne žetóny | Zostal 1 žetón | Zostali {tokens} žetóny | Zostalo {tokens} žetónov",
+            "hills-and-receive-points-plural": "získať 0 bodov | získať 1 bod | získať {points} body | získať {points} bodov",
+            "hills-and-player-must-choose-grow-or-score-plural": "Hráč sa musí rozhodnúť rozšíriť stádo alebo získať za ovce {points} bod.|Hráč sa musí rozhodnúť rozšíriť stádo alebo získať za ovce {points} body.|Hráč sa musí rozhodnúť rozšíriť stádo alebo získať za ovce {points} bodov.",
             "tower-you-can-take-a-prisoner": "Môžete vziať zajatca",
             "tower-player-can-take-a-prisoner": "Hráč môže vziať zajatca",
             "monasteries-how-do-you-want-place-follower": "Ako chcete umiestniť spoločníka na špeciálny kláštor?"

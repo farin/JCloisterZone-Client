@@ -467,7 +467,7 @@
             "disabled-show-remaining": "Hra byla vytvořena s nastavením, která neumožňuje zobrazit zbývající počet kartiček.",
             "remaining-tiles": "Zbývající kartičky",
             "hidden-tiles-under-hill": "Nezapomeňte, že pod kopcem se skrývá {count} neznámých {tile} ze seznamu.",
-            "tiles-plural": "kartiček | kartička | kartiček"
+            "tiles-plural": "kartiček | kartička | kartičky | kartiček"
         },
         "action": {
             "or": "nebo",
@@ -518,8 +518,8 @@
             "tower-select-follower-for-exchange": "Vyberte družiníka pro výměnu",
             "tower-player-must-select-follower-for-exchange": "Hráč si musí vybrat družiníka pro výměnu",
             "hills-and-sheep-shepherd-fields-was-expanded": "Louka pastýřské byla rozšířena",
-            "hills-and-sheep-tokens-left-plural": "Nezbývají žádné žetony | 1 žeton zbýva | {tokens} žetonů zbývá",
-            "hills-and-receive-points-plural": "získat 0 bodů | získat 1 bod | získat {points} bodů",
+            "hills-and-sheep-tokens-left-plural": "Nezbývají žádné žetony | 1 žeton zbýva | {tokens} žetony zbývají | {tokens} žetonů zbývá",
+            "hills-and-receive-points-plural": "získat 0 bodů | získat 1 bod | získat {points} body | získat {points} bodů",
             "hills-and-player-must-choose-grow-or-score-plural": "Hráč se musí rozhodnout, zda bude rozšiřovat stádo nebo zažene ovce do ovčince za {points} bodů.",
             "tower-you-can-take-a-prisoner": "Můžete vzít zajatce",
             "tower-player-can-take-a-prisoner": "Hráč může vzít zajatce",
