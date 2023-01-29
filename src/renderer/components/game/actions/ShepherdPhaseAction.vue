@@ -32,7 +32,7 @@
         <div class="help">{{ $tc('game.action.hills-and-sheep-tokens-left-plural', sheep.bagSize, { tokens: sheep.bagSize } ) }}</div>
       </div>
       <div>
-        <div class="text">or</div>
+        <div class="text">{{ $t('game.action.or') }}</div>
         <div class="help">&nbsp;</div>
       </div>
       <div>
