@@ -41,14 +41,9 @@
           class="hills-info"
         >
           <img src="~/assets/features/C1/hill.png" height="55">
-          <i18n tag="p" path="game.tile-pack-dialog.hidden-tiles-under-hill">
-            <template #count>
-	          <b>{{ underHills }}</b>
-            </template>
-            <template #tiles>
-              {{ $tc('game.tile-pack-dialog.tiles-plural', underHills) }}
-            </template>
-          </i18n>
+          <p>
+            {{ $tc('game.tile-pack-dialog.hidden-tiles-under-hill-plural', underHills) }}
+          </p>
         </div>
 
         <TileDistributionLive :sets="sets" :rules="rules" :available-only="showAvailableOnly" />

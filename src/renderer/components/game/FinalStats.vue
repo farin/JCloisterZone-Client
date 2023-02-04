@@ -120,6 +120,15 @@
         <div class="header fairy" :title="$t('game.feature.fairy')"><NeutralFigure figure="fairy" :width="40" :height="40" /></div>
         <div v-for="(val, idx) in stats.points.fairy" :key="'fairy-'+idx" class="fairy value">
           {{ val }}
+        </div> 
+      </template>
+
+      <template v-if="stats.points.flock.some(p => p)">
+        <div class="header sheep" :title="$t('game.feature.sheep')">
+          <TokenImage token="SHEEP_3X" :height="40" />
+        </div>
+        <div v-for="(val, idx) in stats.points.flock" :key="'flock-'+idx" class="sheep value">
+          {{ val }}
         </div>
       </template>
 
@@ -136,12 +145,14 @@ import debounce from 'lodash/debounce'
 import Meeple from '@/components/game/Meeple'
 import NeutralFigure from '@/components/game/NeutralFigure'
 import StandaloneTileImage from '@/components/game/StandaloneTileImage'
+import TokenImage from '@/components/game/TokenImage'
 
 export default {
   components: {
     Meeple,
     NeutralFigure,
-    StandaloneTileImage
+    StandaloneTileImage,
+    TokenImage
   },
 
   data () {
@@ -181,7 +192,8 @@ export default {
           'robber': (new Array(this.players.length)).fill(0),
           'king': (new Array(this.players.length)).fill(0),
           'gold': (new Array(this.players.length)).fill(0),
-          'fairy': (new Array(this.players.length)).fill(0)
+          'fairy': (new Array(this.players.length)).fill(0),
+          'flock': (new Array(this.players.length)).fill(0)
         }
       }
       this.history.forEach(h => {

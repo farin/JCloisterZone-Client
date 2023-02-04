@@ -466,7 +466,7 @@
             "game-tiles": "Game tiles",
             "disabled-show-remaining": "The game was created with option which doesn't allow showing remaining tiles count.",
             "remaining-tiles": "Remaining tiles",
-            "hidden-tiles-under-hill": "Don't forget that {count} unknown {tiles} from list is hidden under a hill.",
+            "hidden-tiles-under-hill-plural": "There is no unknown tile under hill. | Don't forget that 1 unknown tile from list is hidden under a hill. | Don't forget that {count} unknown tiles from list are hidden under hills.",
             "tiles-plural": "tiles | tile | tiles"
         },
         "action": {
@@ -519,8 +519,8 @@
             "tower-player-must-select-follower-for-exchange": "Player must select meeple for exchange",
             "hills-and-sheep-shepherd-fields-was-expanded": "Shepherd's field was expanded.",
             "hills-and-sheep-tokens-left-plural": "None tokens left | 1 token left | {tokens} tokens left",
-            "hills-and-receive-points-plural": "receive 0 points | receive 1 point | receive {points} points",
-            "hills-and-player-must-choose-grow-or-score-plural": "Player must choose to grow the flock or score sheep for {points} point. | Player must choose to grow the flock or score sheep for {points} points.",
+            "hills-and-receive-points-plural": "Receive 0 points | Receive 1 point | Receive {points} points",
+            "hills-and-player-must-choose-grow-or-score-plural": "Player must choose to grow the flock or score sheep for 0 point. | Player must choose to grow the flock or score sheep for {points} point. | Player must choose to grow the flock or score sheep for {points} points.",
             "tower-you-can-take-a-prisoner": "You can take a prisoner",
             "tower-player-can-take-a-prisoner": "Player can take a prisoner",
             "monasteries-how-do-you-want-place-follower": "How do you want to place meeple on special monastery?"
@@ -562,6 +562,7 @@
             "road": "Road",
             "roads": "Roads",
             "robber": "Robber Barron",
+            "sheep": "Sheep",
             "shrine": "Shrine",
             "siege": "Siege",
             "special-monastery": "Special monastery",
