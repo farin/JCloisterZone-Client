@@ -1,7 +1,7 @@
 {
     "title": "JCloisterZone",
     "author": "Challa007",
-    "version": "0.2.1",
+    "version": "0.3.1",
     "jcz-version": "5.10.2",
     "game-setup": {
         "header": {
@@ -466,7 +466,7 @@
             "game-tiles": "Spielplättchen",
             "disabled-show-remaining": "Für das Spiel wurde die Option gewählt, daß die Anzahl der restlichen Plättchen nicht angezeigt werden darf.",
             "remaining-tiles": "Restliche Plättchen",
-            "hidden-tiles-under-hill-plural": "Vergiss nicht, dass {count} unbekannte {tiles} aus der Liste unter einem Hügel versteckt sind.",
+            "hidden-tiles-under-hill-plural": "Es gibt kein unbekanntes Plättchen unter einem Hügel. | Vergiss nicht, dass 1 unbekanntes Plättchen unter einem Hügel versteckt ist. | Vergiss nicht, dass {count} unbekannte Plättchen aus der Liste unter Hügeln versteckt sind.",
             "tiles-plural": "Plättchen | Plättchen | Plättchen"
         },
         "action": {
@@ -520,7 +520,7 @@
             "hills-and-sheep-shepherd-fields-was-expanded": "Die Wiese des Schäfers wurde erweitert.",
             "hills-and-sheep-tokens-left-plural": "Keine Schafsplättchen übrig | Ein Schafsplättchen übrig | {tokens} Schafsplättchen übrig",
             "hills-and-receive-points-plural": "Du erhältst 0 Punkte | Du erhältst 1 Punkt | Du erhältst {points} Punkte",
-            "hills-and-player-must-choose-grow-or-score-plural": "Der Spieler muss wählen, ob er die Schafherde erweitert oder die Herde in den Stall treibt für {points} Punkt. | Der Spieler muss wählen, ob er die Schafherde erweitert oder die Herde in den Stall treibt für {points} Punkte.",
+            "hills-and-player-must-choose-grow-or-score-plural": "Der Spieler muss wählen, ob er die Schafherde erweitert oder die Herde in den Stall treibt für 0 Punkte. | Der Spieler muss wählen, ob er die Schafherde erweitert oder die Herde in den Stall treibt für {points} Punkt. | Der Spieler muss wählen, ob er die Schafherde erweitert oder die Herde in den Stall treibt für {points} Punkte.",
             "tower-you-can-take-a-prisoner": "Du kannst einen Gefangenen machen",
             "tower-player-can-take-a-prisoner": "Der Spieler kann einen Gefangenen machen",
             "monasteries-how-do-you-want-place-follower": "Wie willst du den Meeple auf das besondere Kloster setzen?"
@@ -562,21 +562,21 @@
             "road": "Straße",
             "roads": "Straßen",
             "robber": "Raubritter",
-            "sheep": "Sheep",
+            "sheep": "Schafe",
             "shrine": "Kultstätte",
-            "shrines": "Shrines",
+            "shrines": "Kultstätten",
             "siege": "Belagerung",
             "special-monastery": "Besonderes Kloster",
             "special-monasteries": "Besondere Klöster",
-            "tower": "Tower",
-            "towers": "Towers",
+            "tower": "Turm",
+            "towers": "Türme",
             "trade-goods": "Warenplättchen",
             "vineyard": "Weinberg",
             "vodyanoy": "Vodjanoy",
             "watchtower": "Wachturm",
             "watchtowers": "Wachtürme",
             "wind-rose": "Windrose",
-            "wind-roses": "Wind roses",
+            "wind-roses": "Windrosen",
             "yaga-hut": "Baba-Jagas Hütte"
         },
         "scoring": {
