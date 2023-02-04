@@ -1,7 +1,7 @@
 {
     "title": "JCloisterZone",
     "author": "farin",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "jcz-version": "5.10.2",
     "game-setup": {
         "header": {
@@ -302,6 +302,7 @@
         "undo": "Undo",
         "zoom-in": "Zoom In",
         "zoom-out": "Zoom Out",
+        "rotate": "Rotate",
         "tiles": "Tiles",
         "farm-hints": "Farm hints",
         "toggle-history": "Toggle History",

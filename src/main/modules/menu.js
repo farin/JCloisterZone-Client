@@ -39,6 +39,7 @@ async function createMenu (win, messages) {
         { type: 'separator' },
         { id: 'zoom-in', label: $t('menu.zoom-in') || 'Zoom In', accelerator: 'numadd', registerAccelerator: false, click () { win.webContents.send('menu.zoom-in') } },
         { id: 'zoom-out', label: $t('menu.zoom-out') || 'Zoom Out', accelerator: 'numsub', registerAccelerator: false, click () { win.webContents.send('menu.zoom-out') } },
+        { id: 'rotate', label: $t('menu.rotate') || 'Rotate', accelerator: 'r', registerAccelerator: false, click () { win.webContents.send('menu.rotate') } },
         { type: 'separator' },
         { id: 'game-tiles', label: $t('menu.tiles') || 'Tiles', accelerator: 't', click () { win.webContents.send('menu.game-tiles') } },
         { id: 'game-farm-hints', label: $t('menu.farm-hints') || 'Farm Hints', accelerator: 'f', click () { win.webContents.send('menu.game-farm-hints') } },

@@ -206,6 +206,9 @@ export default {
     ipcRenderer.on('menu.zoom-out', () => {
       this.$root.$emit('request-zoom', -ZOOM_SENSITIVITY)
     })
+    ipcRenderer.on('menu.rotate', () => {
+      this.$root.$emit('request-rotate', 90)
+    })
     ipcRenderer.on('menu.game-tiles', () => {
       this.$store.commit('showGameTiles', !this.$store.state.showGameTiles)
     })
@@ -333,6 +336,7 @@ export default {
         'undo': gameRunning && this.undoAllowed,
         'zoom-in': gameRunning,
         'zoom-out': gameRunning,
+        'rotate': gameRunning,
         'toggle-history': gameRunning,
         'game-tiles': gameRunning,
         'game-farm-hints': gameRunning,

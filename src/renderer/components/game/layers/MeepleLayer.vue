@@ -24,7 +24,7 @@
     <g
       v-for="group in meeples"
       :key="group.id"
-      :transform="group.customTransform ? group.customTransform : transformPoint(group)"
+      :transform="(group.customTransform ? group.customTransform : transformPoint(group)) + ` ` + rotateMeeple()"
     >
       <g
         v-for="meeple in group.meeples"
@@ -198,7 +198,8 @@ export default {
         const bt = state.game.neutralFigures.bigtop
         return bt ? { placement: { position: bt.placement, feature: 'Circus', location: 'I' } } : null
       },
-      meepleSelect: state => state.board.layers.MeepleSelectLayer
+      meepleSelect: state => state.board.layers.MeepleSelectLayer,
+      rotate: state => state.board.rotate
     }),
 
     ...mapGetters({
@@ -380,6 +381,10 @@ export default {
         t = position[0] === leftX ? `translate(${BASE_SIZE} ${BASE_SIZE / 2})` : `translate(0 ${BASE_SIZE / 2})`
       }
       return this.transformPosition(position) + ' ' + t
+    },
+    
+    rotateMeeple() {
+      return `rotate(` + (-1 * this.rotate) + ` 0 0)`
     }
   }
 }

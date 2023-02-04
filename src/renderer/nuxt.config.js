@@ -60,6 +60,10 @@ module.exports = {
         file: 'en.json'
       },
       {
+        code: 'es',
+        file: 'es.json'
+      },
+      {
         code: 'fr',
         file: 'fr.json'
       },

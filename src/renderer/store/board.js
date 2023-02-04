@@ -7,7 +7,8 @@ export const state = () => ({
   pointsExpression: null,
   layers: {},
   tilePlacementMouseOver: null, // select tile from TilePlacementLayer must be drawn together with regular tils by TileLayer
-  zoom: DEFAULT_ZOOM
+  zoom: DEFAULT_ZOOM,
+  rotate: 0
 })
 
 const delayedHideTimeout = {}
@@ -47,7 +48,7 @@ export const mutations = {
   },
 
   resetZoom (state) {
-    state.zoom = DEFAULT_ZOOM
+    state.m = DEFAULT_ZOOM
   },
 
   changeZoom (state, steps) {
@@ -57,12 +58,17 @@ export const mutations = {
     state.zoom = zoom
   },
 
+  changeRotate (state, rotate) {
+    state.rotate = rotate
+  },
+
   reset (state) {
     state.dragging = null
     state.pointsExpression = null
     state.layers = {}
     state.tilePlacementMouseOver = null
     state.zoom = DEFAULT_ZOOM
+    state.rotate = 0
   }
 }
 

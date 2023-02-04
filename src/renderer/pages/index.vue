@@ -199,11 +199,11 @@ export default {
           flag: 'great-britain',
           text: 'English'
         },
-//        {
-//          value: 'es',
-//          flag: 'spain-civil',
-//          text: 'Español'
-//        },
+        {
+          value: 'es',
+          flag: 'spain-civil',
+          text: 'Español'
+        },
         {
           value: 'fr',
           flag: 'france',
