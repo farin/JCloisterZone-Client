@@ -65,7 +65,6 @@
     "@nuxtjs/style-resources": "^1.2.1",
     "@openfonts/roboto_latin-ext": "^1.44.1",
     "compare-versions": "^3.6.0",
-    "country-flag-emoji-polyfill": "^0.1.4",
     "electron-log": "^4.4.1",
     "electron-updater": "^4.3.9",
     "lodash": "^4.17.21",
