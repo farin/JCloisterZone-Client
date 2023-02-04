@@ -1,7 +1,7 @@
 {
     "title": "JCloisterZone",
     "author": "Peťul",
-    "version": "0.2.1",
+    "version": "0.3.1",
     "jcz-version": "5.10.2",
     "game-setup": {
         "header": {
@@ -466,7 +466,7 @@
             "game-tiles": "Kartičky ke hře",
             "disabled-show-remaining": "Hra byla vytvořena s nastavením, která neumožňuje zobrazit zbývající počet kartiček.",
             "remaining-tiles": "Zbývající kartičky",
-            "hidden-tiles-under-hill": "Nezapomeňte, že pod kopcem se skrývá {count}{tiles} ze seznamu.",
+            "hidden-tiles-under-hill-plural": "Pod kopcem není žádná kartička. | Nezapomeňte, že pod kopcem se skrývá 1 neznámá kartička ze seznamu. | Nezapomeňte, že pod kopcem se skrývají {count} neznámé kartičky ze seznamu. | Nezapomeňte, že pod kopcem se skrývá {count} neznámých kartiček ze seznamu.",
             "tiles-plural": "kartiček | kartička | kartičky | kartiček"
         },
         "action": {
@@ -562,17 +562,21 @@
             "road": "Cesta",
             "roads": "Cesty",
             "robber": "Zbojník",
+            "sheep": "Ovce",
             "shrine": "Svatyně",
+            "shrines": "Svatyně",
             "siege": "Obléhání",
             "special-monastery": "Speciální klášter",
             "special-monasteries": "Speciální kláštery",
-            "trade-good": "Žeton zboží",
+            "tower": "Věž",
+            "towers": "Věže",
             "trade-goods": "Žetony zboží",
             "vineyard": "Vinice",
             "vodyanoy": "Vinohrady",
             "watchtower": "Strážní věž",
             "watchtowers": "Strážní věže",
             "wind-rose": "Větrná růžice",
+            "wind-roses": "Větrné růžice",
             "yaga-hut": "Chaloupka baby Yagy"
         },
         "scoring": {

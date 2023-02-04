@@ -1,7 +1,7 @@
 {
     "title": "JCloisterZone",
     "author": "farin",
-    "version": "0.2.1",
+    "version": "0.3.1",
     "jcz-version": "5.10.2",
     "game-setup": {
         "header": {
@@ -564,9 +564,12 @@
             "robber": "Robber Barron",
             "sheep": "Sheep",
             "shrine": "Shrine",
+            "shrines": "Shrines",
             "siege": "Siege",
             "special-monastery": "Special monastery",
             "special-monasteries": "Special monasteries",
+            "tower": "Tower",
+            "towers": "Towers",
             "trade-good": "Trade Good",
             "trade-goods": "Trade Goods",
             "vineyard": "Vineyard",
@@ -574,6 +577,7 @@
             "watchtower": "Watchtower",
             "watchtowers": "Watchtowers",
             "wind-rose": "Wind rose",
+            "wind-roses": "Wind roses",
             "yaga-hut": "Yaga hut"
         },
         "scoring": {
