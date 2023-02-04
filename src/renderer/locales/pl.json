@@ -466,7 +466,11 @@
             "game-tiles": "Płytki gry",
             "disabled-show-remaining": "Gra została stworzona z opcją, która nie pozwala na wyświetlanie liczby pozostałych kamieni.",
             "remaining-tiles": "Pozostałe płytki",
+<<<<<<< HEAD
             "hidden-tiles-under-hill-plural": "Nie ma nieznanych płytek pod wzgórzem. | Nie zapomnij, że {count} nieznana płytka z listy jest ukryta pod wzgórzem. | Nie zapomnij, że {count} nieznane płytki z listy są ukryte pod wzgórzami. | Nie zapomnij, że {count} nieznanych płytek z listy jest ukrytych pod wzgórzami.",
+=======
+            "hidden-tiles-under-hill-plural": "Nie ma nieznanych płytek pod wzgórzem. | Nie zapomnij, że {count} nieznana płytka z listy jest ukryta pod wzgórzem. | Nie zapomnij, że {count} niezname płytki z listy są ukryte pod wzgórzami. | Nie zapomnij, że {count} nieznanych płytek z listy jest ukrytych pod wzgórzami.",
+>>>>>>> branch 'new-i18n' of https://github.com/stanolacko/JCloisterZone-Client.git
             "tiles-plural": "płytek | płytka | płytki | płytek"
         },
         "action": {

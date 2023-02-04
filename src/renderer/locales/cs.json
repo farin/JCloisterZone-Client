@@ -563,7 +563,11 @@
             "roads": "Cesty",
             "robber": "Zbojník",
             "sheep": "Ovce",
+<<<<<<< HEAD
             "shrine": "Svatyní",
+=======
+            "shrine": "Svatyně",
+>>>>>>> branch 'new-i18n' of https://github.com/stanolacko/JCloisterZone-Client.git
             "shrines": "Svatyně",
             "siege": "Obléhání",
             "special-monastery": "Speciální klášter",
