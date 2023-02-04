@@ -1,7 +1,7 @@
 {
     "title": "JCloisterZone",
     "author": "Snearone",
-    "version": "0.2.1",
+    "version": "0.3.1",
     "jcz-version": "5.10.2",
     "game-setup": {
         "header": {
@@ -466,8 +466,8 @@
             "game-tiles": "Płytki gry",
             "disabled-show-remaining": "Gra została stworzona z opcją, która nie pozwala na wyświetlanie liczby pozostałych kamieni.",
             "remaining-tiles": "Pozostałe płytki",
-            "hidden-tiles-under-hill": "Nie zapomnij, że {count} nieznanych płytek z listy jest ukryta pod wzgórzem.",
-            "tiles-plural": "płytka | płytka | płytki"
+            "hidden-tiles-under-hill-plural": "Nie ma nieznanych płytek pod wzgórzem. | Nie zapomnij, że {count} nieznana płytka z listy jest ukryta pod wzgórzem. | Nie zapomnij, że {count} nieznane płytki z listy są ukryte pod wzgórzami. | Nie zapomnij, że {count} nieznanych płytek z listy jest ukrytych pod wzgórzami.",
+            "tiles-plural": "płytek | płytka | płytki | płytek"
         },
         "action": {
             "or": "lub",
@@ -518,9 +518,9 @@
             "tower-select-follower-for-exchange": "Wybierz zakładnika do wymiany",
             "tower-player-must-select-follower-for-exchange": "Gracz musi wybrać zakładnika do wymiany",
             "hills-and-sheep-shepherd-fields-was-expanded": "Pole Pasterza zostało powiększone.",
-            "hills-and-sheep-tokens-left-plural": "Brak żetonów | Pozostał 1 żeton | Pozostało {tokens} żetonów",
-            "hills-and-receive-points-plural": "otrzymaj 0 puntków | otrzymaj 1 punkt | otrzymaj {points} punktów",
-            "hills-and-player-must-choose-grow-or-score-plural": "Gracz musi wybrać, czy chce powiększać stado, czy otrzymać punkty za owce: {points}. | Gracz musi wybrać, czy chce powiększać stado, czy otrzymać punkty za owce: {points}.",
+            "hills-and-sheep-tokens-left-plural": "Brak żetonów | Pozostał 1 żeton | Pozostały {tokens} żetony | Pozostało {tokens} żetonów",
+            "hills-and-receive-points-plural": "Otrzymaj 0 puntków | Otrzymaj 1 punkt | Otrzymaj {points} punkty | Otrzymaj {points} punktów",
+            "hills-and-player-must-choose-grow-or-score-plural": "Gracz musi wybrać, czy chce powiększać stado, czy otrzymać {points} punktów za owcę. | Gracz musi wybrać, czy chce powiększać stado, czy otrzymać {points} punkt za owcę. | Gracz musi wybrać, czy chce powiększać stado, czy otrzymać {points} punkty za owce. | Gracz musi wybrać, czy chce powiększać stado, czy otrzymać {points} punktów za owce.",
             "tower-you-can-take-a-prisoner": "Możesz wziąć zakładnika",
             "tower-player-can-take-a-prisoner": "Gracz może wziąć zakładnika",
             "monasteries-how-do-you-want-place-follower": "Zdecyduj, jak chcesz umieścić podwładnego na specjalnym klasztorze."
@@ -562,17 +562,21 @@
             "road": "Droga",
             "roads": "Drogi",
             "robber": "Baron Rabusiów",
+            "sheep": "Owce",
             "shrine": "Siedziba Kultu",
+            "shrines": "Siedziby Kultu",
             "siege": "Oblężenie",
             "special-monastery": "Klasztor specjalny",
             "special-monasteries": "Klasztory specjalne",
-            "trade-good": "Towar",
+            "tower": "Wieża",
+            "towers": "Wieże",
             "trade-goods": "Towary",
             "vineyard": "Winiarnia",
             "vodyanoy": "Utopiec",
             "watchtower": "Strażnica",
             "watchtowers": "Strażnice",
             "wind-rose": "Róża Wiatrów",
+            "wind-roses": "Róże Wiatrów",
             "yaga-hut": "Hatka Baby Jagi"
         },
         "scoring": {

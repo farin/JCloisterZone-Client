@@ -1,7 +1,7 @@
 {
     "title": "JCloisterZone",
     "author": "Bumsakalaka",
-    "version": "0.2.1",
+    "version": "0.3.1",
     "jcz-version": "5.10.2",
     "game-setup": {
         "header": {
@@ -466,7 +466,7 @@
             "game-tiles": "Hracie kartičky",
             "disabled-show-remaining": "Hra bola vytvorená s nastavením, ktoré neumožňuje zobrazenie zostávajúceho počtu kartičiek.",
             "remaining-tiles": "Zostávajúce kartičky",
-            "hidden-tiles-under-hill": "Nezabudnite, že pod kopcom sa skrýva {count} {tiles} zo zoznamu.",
+            "hidden-tiles-under-hill-plural": "Pod kopcami nie je žiadna kartička. | Nezabudnite, že pod kopcom sa skrýva 1 neznáma kartička zo zoznamu. | Nezabudnite, že pod kopcami sa skrývajú {count} neznáme kartičky zo zoznamu. | Nezabudnite, že pod kopcami sa skrýva {count} neznámych kartičiek zo zoznamu.",
             "tiles-plural": "kartičiek | kartička | kartičky | kartičiek"
         },
         "action": {
@@ -519,8 +519,8 @@
             "tower-player-must-select-follower-for-exchange": "Hráč si musí vybrať spoločníka na výmenu",
             "hills-and-sheep-shepherd-fields-was-expanded": "Rozšírilo sa pole s pastierom.",
             "hills-and-sheep-tokens-left-plural": "Nezostali žiadne žetóny | Zostal 1 žetón | Zostali {tokens} žetóny | Zostalo {tokens} žetónov",
-            "hills-and-receive-points-plural": "získať 0 bodov | získať 1 bod | získať {points} body | získať {points} bodov",
-            "hills-and-player-must-choose-grow-or-score-plural": "Hráč sa musí rozhodnúť rozšíriť stádo alebo získať za ovce {points} bod.|Hráč sa musí rozhodnúť rozšíriť stádo alebo získať za ovce {points} body.|Hráč sa musí rozhodnúť rozšíriť stádo alebo získať za ovce {points} bodov.",
+            "hills-and-receive-points-plural": "Získať 0 bodov | Získať 1 bod | Získať {points} body | Získať {points} bodov",
+            "hills-and-player-must-choose-grow-or-score-plural": "Hráč sa musí rozhodnúť rozšíriť stádo alebo získať za ovce 0 bodov. | Hráč sa musí rozhodnúť rozšíriť stádo alebo získať za ovce {points} bod.|Hráč sa musí rozhodnúť rozšíriť stádo alebo získať za ovce {points} body.|Hráč sa musí rozhodnúť rozšíriť stádo alebo získať za ovce {points} bodov.",
             "tower-you-can-take-a-prisoner": "Môžete vziať zajatca",
             "tower-player-can-take-a-prisoner": "Hráč môže vziať zajatca",
             "monasteries-how-do-you-want-place-follower": "Ako chcete umiestniť spoločníka na špeciálny kláštor?"
@@ -562,17 +562,21 @@
             "road": "Cesta",
             "roads": "Cesty",
             "robber": "Lúpežník",
+            "sheep": "Ovce",
             "shrine": "Svätyňa",
+            "shrines": "Svätyne",
             "siege": "Obliehanie",
             "special-monastery": "Špeciálny kláštor",
             "special-monasteries": "Špeciálne kláštory",
-            "trade-good": "Žetón tovaru",
+            "tower": "Veža",
+            "towers": "Veže",
             "trade-goods": "Žetóny tovaru",
             "vineyard": "Vinice",
             "vodyanoy": "Vodník",
             "watchtower": "Strážna veža",
             "watchtowers": "Strážne veže",
             "wind-rose": "Veterná ružica",
+            "wind-roses": "Veterné ružice",
             "yaga-hut": "Izbuška"
         },
         "scoring": {

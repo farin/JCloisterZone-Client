@@ -1,7 +1,7 @@
 {
     "title": "JCloisterZone",
     "author": "Black Bear",
-    "version": "0.2.1",
+    "version": "0.3.1",
     "jcz-version": "5.10.2",
     "game-setup": {
         "header": {
@@ -466,8 +466,8 @@
             "game-tiles": "Tuiles de la partie",
             "disabled-show-remaining": "La partie a été créée avec une option qui ne permet pas d’afficher le nombre de tuiles restantes.",
             "remaining-tiles": "Tuiles restantes",
-            "hidden-tiles-under-hill": "N’oubliez pas {tiles} sous une colline.",
-            "tiles-plural": "qu’aucune tuile de la liste n’est cachée|qu’1 tuile inconnue de la liste est cachée| que {count} tuiles inconnues de la liste sont cachées"
+            "hidden-tiles-under-hill-plural": "Il n’y a aucune tuile cachée sous une colline. | N’oubliez pas qu’une tuile inconnue de la liste est cachée sous une colline. | N’oubliez pas que {count} tuiles inconnues de la liste sont cachées sous des collines.",
+            "tiles-plural": "tuile | tuile | tuiles"
         },
         "action": {
             "or": "ou",
@@ -519,8 +519,8 @@
             "tower-player-must-select-follower-for-exchange": "Le joueur doit sélectionner un meeple pour l’échange",
             "hills-and-sheep-shepherd-fields-was-expanded": "Le pré du berger a été prolongé.",
             "hills-and-sheep-tokens-left-plural": "Aucun jeton restant | 1 jeton restant | {tokens} jetons restant",
-            "hills-and-receive-points-plural": "recevez aucun point | recevez 1 point | recevez {points} points",
-            "hills-and-player-must-choose-grow-or-score-plural": "Le joueur doit choisir d’agrandir son troupeau ou de l’évaluer pour {points} point. | Le joueur doit choisir d’agrandir son troupeau ou de l’évaluer pour {points} points.",
+            "hills-and-receive-points-plural": "Recevez aucun point | Recevez 1 point | Recevez {points} points",
+            "hills-and-player-must-choose-grow-or-score-plural": "Le joueur doit choisir d’agrandir son troupeau ou de l’évaluer pour aucun point. |Le joueur doit choisir d’agrandir son troupeau ou de l’évaluer pour {points} point. | Le joueur doit choisir d’agrandir son troupeau ou de l’évaluer pour {points} points.",
             "tower-you-can-take-a-prisoner": "Vous pouvez capturer un meeple",
             "tower-player-can-take-a-prisoner": "Le joueur peut capturer un meeple",
             "monasteries-how-do-you-want-place-follower": "Comment voulez-vous poser le meeple sur la nouvelle tuile Abbaye ?"
@@ -562,17 +562,21 @@
             "road": "Route",
             "roads": "Routes",
             "robber": "Chevalier-brigand",
+            "sheep": "Mouton",
             "shrine": "Lieu de culte",
+            "shrines": "Lieux de culte",
             "siege": "Siège",
             "special-monastery": "Nouvelle tuile Abbaye",
             "special-monasteries": "Nouvelles tuiles Abbayes",
-            "trade-good": "Marchandise",
+            "tower": "Tour",
+            "towers": "Tours",
             "trade-goods": "Marchandises",
             "vineyard": "Vignoble",
             "vodyanoy": "Vodianoï",
             "watchtower": "Tour de guet",
             "watchtowers": "Tours de guet",
             "wind-rose": "Rose des vents",
+            "wind-roses": "Roses des vents",
             "yaga-hut": "Isba de Baba Yaga"
         },
         "scoring": {

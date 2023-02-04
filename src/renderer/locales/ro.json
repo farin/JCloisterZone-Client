@@ -466,7 +466,7 @@
             "game-tiles": "Cartonașe de joc",
             "disabled-show-remaining": "Jocul a fost creat cu opțiunea care nu permite afișarea numărului cartonașelor rămase.",
             "remaining-tiles": "Cartonașe rămase",
-            "hidden-tiles-under-hill": "Nu uita că {count} {tiles} nucunoscute din listă sunt ascunse sub un deal.",
+            "hidden-tiles-under-hill-plural": "Nu uita că {count} {tiles} nucunoscute din listă sunt ascunse sub un deal.",
             "tiles-plural": "cartonașe | cartonaș | cartonașe"
         },
         "action": {
@@ -519,8 +519,8 @@
             "tower-player-must-select-follower-for-exchange": "Jucătorul trebuie să selecteze un meeple pentru schimb",
             "hills-and-sheep-shepherd-fields-was-expanded": "Câmpul oierului a fost extins.",
             "hills-and-sheep-tokens-left-plural": "Niciun jeton rămas | 1 jeton rămas | {tokens} jetoane rămase",
-            "hills-and-receive-points-plural": "primește 0 puncte | primește 1 punct | primește {points} puncte",
-            "hills-and-player-must-choose-grow-or-score-plural": "Jucătorul trebuie să aleagă să crească turma sau să evalueze oi pentru {points} punct. | Jucătorul trebuie să aleagă să crească turma sau să evalueze oi pentru {points} puncte.",
+            "hills-and-receive-points-plural": "Primește 0 puncte | Primește 1 punct | Primește {points} puncte",
+            "hills-and-player-must-choose-grow-or-score-plural": "Jucătorul trebuie să aleagă să crească turma sau să evalueze oile pentru 0 puncte. | Jucătorul trebuie să aleagă să crească turma sau să evalueze oi pentru {points} punct. | Jucătorul trebuie să aleagă să crească turma sau să evalueze oi pentru {points} puncte.",
             "tower-you-can-take-a-prisoner": "Poți lua un prizonier",
             "tower-player-can-take-a-prisoner": "Jucătorul poate lua un prizonier",
             "monasteries-how-do-you-want-place-follower": "Cum vrei să plasezi meepleul pe mănăstirea specială?"
@@ -562,17 +562,21 @@
             "road": "Drum",
             "roads": "Drumuri",
             "robber": "Cavalerul brigand",
+            "sheep": "Oi",
             "shrine": "Lăcaș de cult",
+            "shrines": "Shrines",
             "siege": "Asediu",
             "special-monastery": "Mănăstire specială",
             "special-monasteries": "Mănăstiri speciale",
-            "trade-good": "Jeton cu marfă",
+            "tower": "Turnul",
+            "towers": "Towers",
             "trade-goods": "Jetoane cu mărfuri",
             "vineyard": "Vie",
             "vodyanoy": "Vodyanoy",
             "watchtower": "Turn de observație",
             "watchtowers": "Turnuri de observație",
             "wind-rose": "Roză a vântului",
+            "wind-roses": "Rozele vântului",
             "yaga-hut": "Coliba lui Yaga"
         },
         "scoring": {

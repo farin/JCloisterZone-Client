@@ -1,7 +1,7 @@
 {
     "title": "JCloisterZone",
     "author": "Peťul",
-    "version": "0.2.1",
+    "version": "0.3.1",
     "jcz-version": "5.10.2",
     "game-setup": {
         "header": {
@@ -28,9 +28,9 @@
             "related-tiles-not-selected": "Nebyly vybrány související kartičky"
         },
         "rules": {
-            "optional-game-mechanics": "Volitelná herní mechanika",
-            "gameplay-variants": "Varianty hry",
-            "scoring-variants": "Varianty hodnocení",
+            "optional-game-mechanics": "Volitelné herní mechaniky",
+            "gameplay-variants": "Volitelná pravidla hry",
+            "scoring-variants": "Volitelná hodnocení",
             "starting-tiles-configuration": "Rozložení startovních kartiček",
             "starting-tiles-different-configuration": "Některá rozšíření umožňují alternativní počáteční rozložení.",
             "farmers-description": "Hráči mohou umístit družiníka na louku.",
@@ -70,7 +70,7 @@
                 "must": "musí"
             },
             "fairy-placement": {
-                "description": "Víla je umístěna {}.",
+                "description": "Víla stojí {}.",
                 "next-follower": "vedle družiníka",
                 "on-tile": "na kartičce"
             },
@@ -85,22 +85,22 @@
                 "occupied": "může"
             },
             "wagon-move": {
-                "description": "Po vyhodnocení se vůz může přesunut do sousedního neobsazeného, ​​nedokončeného území {}.",
-                "C1": "propojeného cestou nebo cesta vedoucí do města/kláštera (1. edice)",
-                "C2": "Na stejné nebo sousední kartičce (2. edice)"
+                "description": "Po vyhodnocení území se vůz může přesunut na sousední neobsazené a ​​nedokončené území {}.",
+                "C1": "které přímo navazuje na cestou, město nebo klášter (1. vydání)",
+                "C2": "na stejné nebo sousední kartičce (2. vydání)"
             },
             "bazaar-no-auction": {
                 "description": "Varianta bez dražby. Každý hráč si jen vybere kartičku."
             },
             "hill-tiebreaker": {
-                "description": "Rozhodování remízy: {} na kopci.",
+                "description": "V případě remízy rozhoduje {} na kopcích.",
                 "at-least-one-follower": "alespoň jeden družiník",
                 "number-of-followers": "počet družiníku"
             },
             "espace-variant": {
-                "description": "Klášter musí být umístěn v sousedství {} obléhaného města, aby umožnil útěk.",
+                "description": "Aby klášter umožnil útěk z obléhaného města musí být umístěn v sousedství {}.",
                 "any-tile": "jakákoli kartičky",
-                "siege-tile": "obležené kartičky"
+                "siege-tile": "kartičky s obléháním"
             },
             "gq11-pig-herd": {
                 "description": "Kartička s loukou z rozšíření Game Quarterly 11 {}.",
@@ -122,7 +122,7 @@
                 "follower": "jakoukoli figurku"
             },
             "keep-monasteries": {
-                "description": "Speciální kláštery: {}.",
+                "description": "Speciální kláštery {}.",
                 "replace": "nahradí původní kláštery",
                 "keep": "přidají se k původním klášterům"
             },
@@ -132,9 +132,9 @@
                 "advanced": "pokročilou"
             },
             "coc-final-scoring": {
-                "description": "Přesouvání družiníka z města Carcassonne před vyhodnocením {}.",
-                "market-only": "je povoleno pouze z tržiště (C2)",
-                "any-district": "není omezeno (C1)"
+                "description": "Přesouvání družiníků z města Carcassonne před závěrečným vyhodnocením {}.",
+                "market-only": "je povoleno pouze z tržiště (2. vydání)",
+                "any-district": "není omezeno (1. vydání)"
             },
             "count-move": {
                 "description": "Pokud je do města Carcassonne umístěn družiník, přesouvá se hrabě {}.",
@@ -143,7 +143,7 @@
                 "follow-meeple": "do stejné čtvrti jako umístěný družiník"
             },
             "little-buildings-scoring": {
-                "description": "Přidělte {} bodů za věž/dům/kůlnu.",
+                "description": "Věž/dům/kůlna se hodnotí za {} bod.",
                 "1/1/1": "1/1/1",
                 "3/2/1": "3/2/1"
             },
@@ -163,18 +163,18 @@
         "timer": {
             "player-time-limit": "Časový limit hráče",
             "unlimited-time": "Neomezený čas",
-            "enable-limits": "povolit limit",
-            "disable-limits": "deaktivovat limit",
-            "at-game-start-set-timer-to": "Nastavení času na začátku hry:",
-            "each-turn-increase-timer-by": "Každý tah navýší časovač o:",
+            "enable-limits": "Zapnout časový limit",
+            "disable-limits": "Vypnout časový limit",
+            "at-game-start-set-timer-to": "Celkový čas na začátku hry:",
+            "each-turn-increase-timer-by": "Každý tah navýší čas o:",
             "when-time-is-over": "Pokud čas vyprší",
             "do-nothing": "nestane se nic"
         },
         "create": {
-            "open-slot": "otevřený slot",
+            "open-slot": "Volná pozice",
             "local-player": "místní hráč",
             "remote-player": "vzdálený hráč",
-            "click-to-assign": "kliknutím přiřadíte",
+            "click-to-assign": "Kliknutím přidáte hráče",
             "rename-player": "Přejmenovat hráče",
             "name": "Jméno"
         },
@@ -201,7 +201,7 @@
         "online": {
             "title": "Hry pro připojení na veřejném serveru",
             "private-games-only": "Nyní můžete hrát pouze hry na tomto počítači.",
-            "no-random-discovery": "Znamená to, že se nezobrazí žádné hry jiných hráčů.",
+            "no-random-discovery": "Nespustíte žádné hry vytvořené jinými hráči",
             "connected-to": "Připojeno k {0}",
             "abandon-game": "Opustit hru",
             "remove-unfinished-game-confirmation": "Chcete trvale odstranit nedokončenou hru ze svého seznamu?",
@@ -216,7 +216,7 @@
             "title": "Hry na tomto počítači",
             "new-game": "Nová hra",
             "load-game": "Nahrát hru",
-            "create-directly-from": "Vytvořte novou hru přímo z adresáře",
+            "create-directly-from": "Vytvořte novou hru přímo z adresáře ",
             "my-favorites": "Moje oblíbené",
             "continue-with-recently-saved-games": "Pokračujte v nedávno uložených hrách"
         },
@@ -250,11 +250,11 @@
         "close": "Zavřít",
         "confirm": "Potvrdit",
         "connect": "Připojit se",
-        "create": "Vytvořit",
+        "create": "Vytvořit hru",
         "create-game": "Vytvořit hru",
         "disconnect": "Odpojit",
         "hide-stats": "Skrýt statistiky",
-        "grow-the-flock": "Rozšířit stádo",
+        "grow-the-flock": "Rozšíření stáda",
         "join-game": "Připojit se do hry",
         "load": "Načítání",
         "load-setup-from-file": "Načíst nastavení ze souboru",
@@ -270,14 +270,14 @@
         "reset": "Resetovat",
         "resume": "Pokračovat",
         "rules": "Pravidla",
-        "rules-1st-edition": "Pravidla (1. edice)",
+        "rules-1st-edition": "Pravidla (1. vydání)",
         "save-to-file": "Uložit do souboru",
-        "score-the-sheep": "Vyhodnotit ovce",
-        "select": "Vybrat",
+        "score-the-sheep": "Vyhodnocení stáda",
+        "select": "Vyberte",
         "sell": "Prodat",
         "set": "Nastavit",
         "show-stats": "Zobrazit statistiky",
-        "start": "Start",
+        "start": "Spustit hru",
         "undo": "vrátit zpět"
     },
     "join-game": {
@@ -316,12 +316,12 @@
             "nickname": "Přezdívka",
             "nickname-description": "Vaše přezdívka používaná při on-line hře.",
             "preferred-color": "Preferovaná barva",
-            "preferred-color-description": "Barvu přidat automaticky po připojení ke hře.",
+            "preferred-color-description": "Barva se přidá automaticky po připojení ke hře.",
             "none": "Žádná"
         },
         "game-interface": {
             "title": "Rozhraní hry",
-            "turn-confirmation": "Potvrzovat akce",
+            "turn-confirmation": "Potvrzení úkonů",
             "turn-confirmation-description": "Potvrzení umožňuje hráči vrátit zpět provedený úkon předtím, než je aktivita předána dalšímu hráči. Děje se tak před vyhodnocením nebo např. v průběhu tahu soupeře při pohybu vozu apod.",
             "always-enabled": "Potvrdit každý úkon",
             "only-when-meeple-was-deployed-on-a-field": "Potvrdit pouze pokud byl družiník umístěn na louku",
@@ -329,10 +329,10 @@
             "beep": "Pípnutí",
             "beep-description": "Pípnutí nastane v okamžiku kdy jste na tahu (nebo pokud je v tahu soupeře vyžadován váš úkon).",
             "enable-beep": "Povolit pípnutí",
-            "active-player-indication": "Označení hráče na tahu",
-            "multiple-indicators-are-allowed": "Povolit vícero označení.",
+            "active-player-indication": "Zvýraznění hráče na tahu",
+            "multiple-indicators-are-allowed": "Povolit prvky zvýrazňující hráče na tahu.",
             "colored-background-in-right-sidebar": "Barevné pozadí v pravém postranním panelu",
-            "triangle-in-top-bar": "Trojúhelník v horní liště",
+            "triangle-in-top-bar": "Barevný trojúhelník v horní liště",
             "player-list": "Seznam hráčů",
             "player-list-description": "Můžete povolit rotaci seznamu hráčů (pravý postranní panel).",
             "player-list-no-rotate": "Bez rotace",
@@ -364,12 +364,12 @@
         },
         "java": {
             "title": "Java",
-            "description": "Přestože klient JCloisterZone je čistě nativní aplikace, ke spuštění herního enginu je vyžadována Java.",
-            "java-executable": "Soubor Java je možné spustit",
-            "you-may-set-path": "Cestu můžete nastavit ručně na {0}",
+            "description": "Přestože je klient JCloisterZone čistě Java aplikace, potřebuje ke spuštění herního enginu Javu.",
+            "java-executable": "Javu je možné spustit",
+            "you-may-set-path": "Pokud Javu nelze spustit můžete ji nastavit ručně na {0}.",
             "using-system-default": "Použít výchozí nastavení systému.",
             "selected": "Vybráno: {0}",
-            "version": "Verze Java {0}",
+            "version": "Nainstalována Java verze {0}",
             "warning-file-is-not-java-binary": "Soubor neodpovídá binárnímu souboru Java.",
             "warning-java-not-found": "Java nenalezena.",
             "java-is-not-installed": "Java není nainstalována!",
@@ -393,7 +393,7 @@
         "abbey-and-mayor-release": "Páté velké rozšíření vydané v roce 2007.",
         "abbey-and-mayor-description": "Každý hráč má ve své zásobě také kartičku opatství, kterou může přiložit.",
         "basic": "Základní hra",
-        "base-game-description": "Kartičky můžete hrát s pravidly 1. edice nebo 2. edice (např. zahrady).",
+        "base-game-description": "Kartičky můžete hrát s pravidly 1. vydání nebo 2. vydání (např. zahrady).",
         "besiegers": "Obléhání",
         "bridges-castles-and-bazaars": "Mosty a hrady",
         "bridges-castles-and-bazaars-release": "Osmé velké rozšíření vydané v roce 2010.",
@@ -402,11 +402,11 @@
         "corn-circles": "Kruhy v obilí",
         "crop-circles-I": "Kruhy v obilí I",
         "crop-circles-II": "Kruhy v obilí II",
-        "cult": "Kacíři a kultovní místa",
-        "cult-places": "Kultovní místa",
+        "cult": "Kacíři",
+        "cult-places": "Kultovní místa / Svatyně",
         "darmstadt": "Darmstadt",
         "darmstadt-release": "Původně vydáno v roce 2014.",
-        "heretics-and-shrines": "Kacíři a svatyně",
+        "heretics-and-shrines": "Kultovní místa (5 kartiček)",
         "ferries": "Přívozy",
         "festival": "Oslava",
         "flier": "Létající stroje",
@@ -442,7 +442,7 @@
         "tunnel": "Tunel",
         "under-the-big-top": "Cirkus",
         "watchtowers": "Strážní věže",
-        "wind-roses": "Větrná růžice",
+        "wind-roses": "Směrová růžice",
         "winter": "Zimní krajina",
         "winter-edition-description": "Základní sada ze spin-offu Zimní edice."
     },
@@ -457,7 +457,7 @@
         "the-biggest-city": "Největší město",
         "the-longest-road": "Nejdelší cesta",
         "offline": "Offline",
-        "incomplete-features": "Neukončené území",
+        "incomplete-features": "Nedokončená území",
         "penalties": "Pokuty"
     },
     "game": {
@@ -466,12 +466,12 @@
             "game-tiles": "Kartičky ke hře",
             "disabled-show-remaining": "Hra byla vytvořena s nastavením, která neumožňuje zobrazit zbývající počet kartiček.",
             "remaining-tiles": "Zbývající kartičky",
-            "hidden-tiles-under-hill": "Nezapomeňte, že pod kopcem se skrývá {count} neznámých {tile} ze seznamu.",
+            "hidden-tiles-under-hill-plural": "Pod kopcem není žádná kartička. | Nezapomeňte, že pod kopcem se skrývá 1 neznámá kartička ze seznamu. | Nezapomeňte, že pod kopcem se skrývají {count} neznámé kartičky ze seznamu. | Nezapomeňte, že pod kopcem se skrývá {count} neznámých kartiček ze seznamu.",
             "tiles-plural": "kartiček | kartička | kartičky | kartiček"
         },
         "action": {
             "or": "nebo",
-            "your-action": "váš úkon",
+            "your-action": "provedený úkon",
             "skip-action": "Přeskočit úkon",
             "waiting-for-player-confirmation": "Čeká se na potvrzení hráče.",
             "you-may-place-an-abbey": "Můžete přiložit opatství",
@@ -517,10 +517,10 @@
             "mage-and-witch-player-must-remove-mage-or-witch": "Hráč musí odstranit mága nebo čarodějnici",
             "tower-select-follower-for-exchange": "Vyberte družiníka pro výměnu",
             "tower-player-must-select-follower-for-exchange": "Hráč si musí vybrat družiníka pro výměnu",
-            "hills-and-sheep-shepherd-fields-was-expanded": "Louka pastýřské byla rozšířena",
-            "hills-and-sheep-tokens-left-plural": "Nezbývají žádné žetony | 1 žeton zbýva | {tokens} žetony zbývají | {tokens} žetonů zbývá",
-            "hills-and-receive-points-plural": "získat 0 bodů | získat 1 bod | získat {points} body | získat {points} bodů",
-            "hills-and-player-must-choose-grow-or-score-plural": "Hráč se musí rozhodnout, zda bude rozšiřovat stádo nebo zažene ovce do ovčince za {points} bodů.",
+            "hills-and-sheep-shepherd-fields-was-expanded": "Rozšířily jste louku s pastýřem",
+            "hills-and-sheep-tokens-left-plural": "Nezbývají žádné žetony | Zbývá 1 žeton | Zbývají {tokens} žetony | Zbývá {tokens} žetonů",
+            "hills-and-receive-points-plural": "Získáte 0 bodů | Získáte 1 bod | Získáte {points} body | Získáte {points} bodů",
+            "hills-and-player-must-choose-grow-or-score-plural": "Hráč se musí rozhodnout, zda bude rozšiřovat stádo nebo zažene ovce do ovčince za {points} bodů. | Hráč se musí rozhodnout, zda bude rozšiřovat stádo nebo zažene ovce do ovčince za {points} bod. | Hráč se musí rozhodnout, zda bude rozšiřovat stádo nebo zažene ovce do ovčince za {points} body. | Hráč se musí rozhodnout, zda bude rozšiřovat stádo nebo zažene ovce do ovčince za {points} bodů.",
             "tower-you-can-take-a-prisoner": "Můžete vzít zajatce",
             "tower-player-can-take-a-prisoner": "Hráč může vzít zajatce",
             "monasteries-how-do-you-want-place-follower": "Jak chcete umístit družiníka na speciální klášter?"
@@ -547,7 +547,7 @@
             "flock": "Stádo",
             "garden": "Zahrada",
             "gardens": "Zahrady",
-            "gold": "Zlato",
+            "gold": "Zlaté cihličky",
             "gold-ingots": "Zlaté cihličky",
             "hill": "Kopec",
             "inn": "Hostinec",
@@ -562,21 +562,25 @@
             "road": "Cesta",
             "roads": "Cesty",
             "robber": "Zbojník",
-            "shrine": "Svatyně",
+            "sheep": "Ovce",
+            "shrine": "Svatyní",
+            "shrines": "Svatyně",
             "siege": "Obléhání",
             "special-monastery": "Speciální klášter",
             "special-monasteries": "Speciální kláštery",
-            "trade-good": "Žeton zboží",
+            "tower": "Věž",
+            "towers": "Věže",
             "trade-goods": "Žetony zboží",
             "vineyard": "Vinice",
             "vodyanoy": "Vinohrady",
             "watchtower": "Strážní věž",
             "watchtowers": "Strážní věže",
             "wind-rose": "Větrná růžice",
+            "wind-roses": "Větrné růžice",
             "yaga-hut": "Chaloupka baby Yagy"
         },
         "scoring": {
-            "incomplete": "neúplný",
+            "incomplete": "nedokončené",
             "challenged": "vyzve",
             "empty": "prázdný",
             "feature-scored": "území vyhodnoceno",
@@ -585,7 +589,7 @@
             "barn-connected": "připojen statek"
         },
         "element": {
-            "small-follower": "normální družiník",
+            "small-follower": "Normální družiník",
             "abbot": "Opat",
             "phantom": "Fantom",
             "big-follower": "Velký družiník",

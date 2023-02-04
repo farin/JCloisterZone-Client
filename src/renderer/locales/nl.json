@@ -466,7 +466,7 @@
             "game-tiles": "Speltegels",
             "disabled-show-remaining": "Het spel is gestart met de optie die het tonen van het aantal resterende tegels niet toestaat.",
             "remaining-tiles": "Overgebleven tegels",
-            "hidden-tiles-under-hill": "Vergeet niet dat {count} onbekende {tiles} uit deze lijst onder een heuvel verborgen ligt.",
+            "hidden-tiles-under-hill-plural": "Vergeet niet dat {count} onbekende {tiles} uit deze lijst onder een heuvel verborgen ligt.",
             "tiles-plural": "tegels | tegel | tegels"
         },
         "action": {
@@ -562,17 +562,21 @@
             "road": "Weg",
             "roads": "Wegen",
             "robber": "Roofridder",
+            "sheep": "Sheep",
             "shrine": "Cultusplaats",
+            "shrines": "Shrines",
             "siege": "Belegering",
             "special-monastery": "Bijzonder klooster",
             "special-monasteries": "Bijzondere kloosters",
-            "trade-good": "Handelswaar",
+            "tower": "Tower",
+            "towers": "Towers",
             "trade-goods": "Handelswaren",
             "vineyard": "Wijngaard",
             "vodyanoy": "Vodyanoy",
             "watchtower": "Wachttoren",
             "watchtowers": "Wachttorens",
             "wind-rose": "Windroos",
+            "wind-roses": "Wind roses",
             "yaga-hut": "Yaga-hut"
         },
         "scoring": {

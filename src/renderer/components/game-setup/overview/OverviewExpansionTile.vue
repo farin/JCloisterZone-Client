@@ -33,10 +33,6 @@ export default {
     title: { type: String, required: true },
     quantity: { type: Number, default: 1 },
     zIndex: { type: Number, default: 1 }
-  },
-  
-  mounted() {
-    console.log('fff',this.expansion)
   }
 }
 </script>
