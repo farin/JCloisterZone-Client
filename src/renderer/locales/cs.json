@@ -1,7 +1,7 @@
 {
     "title": "JCloisterZone",
     "author": "Peťul",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "jcz-version": "5.10.2",
     "game-setup": {
         "header": {
@@ -143,15 +143,15 @@
                 "follow-meeple": "do stejné čtvrti jako umístěný družiník"
             },
             "little-buildings-scoring": {
-                "description": "Věž/dům/kůlna se hodnotí za {} bod.",
+                "description": "Domy se hodnotí za {} bod pro věž/dům/kůlnu.",
                 "1/1/1": "1/1/1",
                 "3/2/1": "3/2/1"
             },
             "king-and-robber-scoring": {
                 "description": "Získejte {}.",
-                "default": "1 bod za každou dokončenou část krajiny na konci hry",
+                "default": "1 bod za každé dokončené území na konci hry",
                 "10/20": "10 bodů za každou kartičku na konci hry",
-                "15/40": "15/40 bodů za jeden nebo oba žetony na konci hry",
+                "15/40": "15/40 bodu za jednu nebo obě kartičky na konci hry",
                 "continuously": "1 bod za každé dokončené území v průběhu hry"
             },
             "tiny-city-scoring": {
@@ -302,6 +302,7 @@
         "undo": "Krok zpět",
         "zoom-in": "Přiblížit",
         "zoom-out": "Oddálit",
+        "rotate": "Otočit",
         "tiles": "Kartičky ve hře",
         "farm-hints": "Zvýraznit louky",
         "toggle-history": "Skrýt/zobrazit historii",
@@ -563,7 +564,7 @@
             "roads": "Cesty",
             "robber": "Zbojník",
             "sheep": "Ovce",
-            "shrine": "Svatyně",
+            "shrine": "Svatyní",
             "shrines": "Svatyně",
             "siege": "Obléhání",
             "special-monastery": "Speciální klášter",

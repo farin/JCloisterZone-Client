@@ -1,7 +1,7 @@
 {
     "title": "JCloisterZone",
     "author": "Snearone",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "jcz-version": "5.10.2",
     "game-setup": {
         "header": {
@@ -302,6 +302,7 @@
         "undo": "Cofnij",
         "zoom-in": "Przbliż",
         "zoom-out": "Oddal",
+        "rotate": "Obrócić",
         "tiles": "Płytki",
         "farm-hints": "Podpowiedźi pól",
         "toggle-history": "Historia ruchów",

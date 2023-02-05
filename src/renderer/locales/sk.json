@@ -1,7 +1,7 @@
 {
     "title": "JCloisterZone",
     "author": "Bumsakalaka",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "jcz-version": "5.10.2",
     "game-setup": {
         "header": {
@@ -302,6 +302,7 @@
         "undo": "Späť",
         "zoom-in": "Priblížiť",
         "zoom-out": "Oddialiť",
+        "rotate": "Otočiť",
         "tiles": "Kartičky v hre",
         "farm-hints": "Zafarbenie fariem",
         "toggle-history": "Skryť/zobraziť históriu",
