@@ -36,9 +36,9 @@
             "farmers-description": "Hráči mohou umístit družiníka na louku.",
             "garden-description": "Může být obsazen opatem.",
             "garden-disabled": "Opat není vybrán.",
-            "cathedral-description": "Dokončená města s katedrálou se hodnotí ×3 místo ×2 body za kartičku a při závěrečném hodnocení nezískáte žádné body.",
+            "cathedral-description": "Dokončená města s katedrálou se hodnotí 3 body za kartičku a při závěrečném hodnocení nezískáte žádné body.",
             "cathedral-disabled": "Ve hře není žádná kartička s katedrálou.",
-            "inn-description": "Dokončené cesty s hostincem se hodnotí ×2 body za kartičku a při závěrečném hodnocení nezískáte žádné body.",
+            "inn-description": "Dokončené cesty s hostincem se hodnotí 2 body za kartičku a při závěrečném hodnocení nezískáte žádné body.",
             "inn-disabled": "Ve hře není žádná kartička s hostincem.",
             "princess-description": "Princezna může odstranit rytíře z města.",
             "princess-disabled": "Ve hře není žádná kartička s princeznou.",
@@ -99,8 +99,8 @@
             },
             "espace-variant": {
                 "description": "Aby klášter umožnil útěk z obléhaného města musí být umístěn v sousedství {}.",
-                "any-tile": "jakákoli kartičky",
-                "siege-tile": "kartičky s obléháním"
+                "any-tile": "jakékoli kartičky obléhaného města",
+                "siege-tile": "kartičky s obléhateli"
             },
             "gq11-pig-herd": {
                 "description": "Kartička s loukou z rozšíření Game Quarterly 11 {}.",
@@ -108,10 +108,10 @@
                 "nothing": "je jen prázdná louka"
             },
             "tunnelize-other-expansions": {
-                "description": "Použití pravidla tunelu na kartičky s vyobrazenými tunely z jiných rozšíření."
+                "description": "Použít pravidla tunelu na kartičky s vyobrazenými tunely i v jiných rozšířeních."
             },
             "more-tunnel-tokens": {
-                "description": "Přidělte {} sad žetonů každému hráči při hře ve dvou nebo ve třech.",
+                "description": "Přidělit {} sad žetonů každému hráči při hře ve dvou/třech.",
                 "3/2": "3/2",
                 "2/1": "2/1",
                 "1/1": "1/1"
@@ -180,7 +180,7 @@
         },
         "open-game": {
             "untitled-game": "nepojmenovaná hra",
-            "assign-all-players-to-start": "Přiřaďte všechny hráče, aby začali",
+            "assign-all-players-to-start": "Přiřaďte všechny hráče a spusťte hru",
             "no-player-in-game": "Žádný hráč ve hře",
             "share-the-key": "Nasdílejte kód hry ostatním hráčům, aby se mohli připojit ke hře.",
             "waiting-for-host-to-start-the-game": "Čeká se, až hostitel spustí hru.",
@@ -283,8 +283,8 @@
     "join-game": {
         "title": "Připojit se do hry na dálku",
         "host": "Hostitel",
-        "connect-to-remote-host": "Připojte se ke vzdálenému hostiteli s vytvořenou hrou.",
-        "the-game-on-remote-host-must-be-in-color-selection-phase": "Hra na vzdáleném hostiteli musí být ve fázi výběru barvy hráče."
+        "connect-to-remote-host": "Připojit se ke vzdálenému hostiteli s vytvořenou hrou.",
+        "the-game-on-remote-host-must-be-in-color-selection-phase": "Hra vzdáleného hostitele musí být ve fázi výběru barvy hráče."
     },
     "menu": {
         "playonline-connect": "Hrát online",
@@ -365,8 +365,8 @@
         },
         "java": {
             "title": "Java",
-            "description": "Přestože je klient JCloisterZone čistě Java aplikace, potřebuje ke spuštění herního enginu Javu.",
-            "java-executable": "Javu je možné spustit",
+            "description": "Klient JCloisterZone je čistě Java aplikace, ke spuštění proto potřebuje herní engine Java.",
+            "java-executable": "Tento soubor Java je možné spustit",
             "you-may-set-path": "Pokud Javu nelze spustit můžete ji nastavit ručně na {0}.",
             "using-system-default": "Použít výchozí nastavení systému.",
             "selected": "Vybráno: {0}",
@@ -379,7 +379,7 @@
             "java-is-required": "Ke spuštění hry je vyžadována Java.",
             "download-java": "Odkaz ke stažení Javy",
             "java-path-is-not-valid": "Vaše ručně nastavená cesta k Java není platná.",
-            "java-version-found": "Ke spuštění hry je vyžadována Java 11 nebo vyšší (nalezena {verze}).",
+            "java-version-found": "Ke spuštění hry je vyžadována Java 11 nebo vyšší (nalezena {version}).",
             "change-in-settings": "Úpravu provedete v {settings}.",
             "verify": "Pokud máte Javu již nainstalovanou, zkontrolujte zda je přidána do vaší systémové cesty, nebo vyberte Java soubor ručně v {settings}.",
             "select-manually": "Nebo vyberte správný soubor Java ručně v {settings}."
@@ -465,7 +465,7 @@
         "tile-pack-dialog": {
             "tiles": "Kartičky",
             "game-tiles": "Kartičky ke hře",
-            "disabled-show-remaining": "Hra byla vytvořena s nastavením, která neumožňuje zobrazit zbývající počet kartiček.",
+            "disabled-show-remaining": "Hra byla nastavena, aby neumožňovala zobrazit zbývající počet kartiček.",
             "remaining-tiles": "Zbývající kartičky",
             "hidden-tiles-under-hill-plural": "Pod kopcem není žádná kartička. | Nezapomeňte, že pod kopcem se skrývá 1 neznámá kartička ze seznamu. | Nezapomeňte, že pod kopcem se skrývají {count} neznámé kartičky ze seznamu. | Nezapomeňte, že pod kopcem se skrývá {count} neznámých kartiček ze seznamu.",
             "tiles-plural": "kartiček | kartička | kartičky | kartiček"
@@ -479,7 +479,7 @@
             "player-may-place-an-abbey": "Hráč může přiložit opatství",
             "place-the-tile": "Přiložte kartičku",
             "player-must-place-the-tile": "Hráč musí přiložit kartičku",
-            "draw-a-tile": "Přiložte kartičku",
+            "draw-a-tile": "Vezměte si kartičku",
             "you-may-place-a-meeple-in-a-city-district": "Družiníka můžete umístit do jedné ze 4 čtvrtí města Carcassonne.",
             "player-may-place-a-meeple-in-a-city-district": "Hráč může umístit družiníka do jedné ze 4 čtvrtí města Carcassonne.",
             "you-may-move-a-meeple-from-a-city-district": "Můžete přesunout družiníka ze čtvrti ve městě Carcassonne.",
@@ -532,13 +532,13 @@
             "big-top": "Šapitó",
             "cathedral": "Katedrála",
             "castle": "Hrad",
-            "castles": "Německý hrad",
+            "castles": "Hrady",
             "church-bonus": "Církevní bonus",
             "city": "Město",
             "city-small": "Malé město",
             "cities": "Města",
             "coat-of-arms": "Erb",
-            "crop-circle": "Kruh v obilí",
+            "crop-circle": "Kruhy v obilí",
             "escape": "Uniknout",
             "fairy": "Víla",
             "farmers": "Sedláci",
