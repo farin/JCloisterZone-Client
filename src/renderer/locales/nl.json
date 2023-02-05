@@ -1,7 +1,7 @@
 {
     "title": "JCloisterZone",
     "author": "Kiap1969",
-    "version": "0.2.1",
+    "version": "0.3.2",
     "jcz-version": "5.10.2",
     "game-setup": {
         "header": {
@@ -302,6 +302,7 @@
         "undo": "Ongedaan maken",
         "zoom-in": "Inzoomen",
         "zoom-out": "Uitzoomen",
+        "rotate": "Draaien",
         "tiles": "Tegels",
         "farm-hints": "Weide-wenken",
         "toggle-history": "Geschiedenis in-/uitschakelen",
@@ -466,7 +467,7 @@
             "game-tiles": "Speltegels",
             "disabled-show-remaining": "Het spel is gestart met de optie die het tonen van het aantal resterende tegels niet toestaat.",
             "remaining-tiles": "Overgebleven tegels",
-            "hidden-tiles-under-hill-plural": "Vergeet niet dat {count} onbekende {tiles} uit deze lijst onder een heuvel verborgen ligt.",
+            "hidden-tiles-under-hill-plural": "Er is geen onbekende tegel onder een heuvel. |  Vergeet niet dat 1 onbekende tegel uit de lijst verborgen is onder een heuvel. | Vergeet niet dat {count} onbekende tegels van de lijst verborgen zijn onder heuvels.",
             "tiles-plural": "tegels | tegel | tegels"
         },
         "action": {
@@ -519,8 +520,8 @@
             "tower-player-must-select-follower-for-exchange": "Speler moet een meeple selecteren om te ruilen",
             "hills-and-sheep-shepherd-fields-was-expanded": "Weide met herder is uitgebreid.",
             "hills-and-sheep-tokens-left-plural": "Geen fiches over | 1 fiche over | {tokens} fiches over",
-            "hills-and-receive-points-plural": "krijgt 0 punten | krijgt 1 punt | krijgt {points} punten",
-            "hills-and-player-must-choose-grow-or-score-plural": "Speler moet kiezen om de kudde uit te breiden of de schapen naar de stal te drijven voor {points} punt. | Speler moet kiezen om de kudde uit te breiden of de schapen naar de stal te drijven voor {points} punten.",
+            "hills-and-receive-points-plural": "Krijgt 0 punten | Krijgt 1 punt | Krijgt {points} punten",
+            "hills-and-player-must-choose-grow-or-score-plural": "Speler moet kiezen om de kudde uit te breiden of de schapen naar de stal te drijven voor {points} punten. | Speler moet kiezen om de kudde uit te breiden of de schapen naar de stal te drijven voor {points} punt. | Speler moet kiezen om de kudde uit te breiden of de schapen naar de stal te drijven voor {points} punten.",
             "tower-you-can-take-a-prisoner": "U kunt een gevangene nemen",
             "tower-player-can-take-a-prisoner": "Speler kan een gevangene nemen",
             "monasteries-how-do-you-want-place-follower": "Hoe wilt u de meeple op het bijzondere klooster zetten?"
@@ -562,21 +563,21 @@
             "road": "Weg",
             "roads": "Wegen",
             "robber": "Roofridder",
-            "sheep": "Sheep",
+            "sheep": "Schaap",
             "shrine": "Cultusplaats",
-            "shrines": "Shrines",
+            "shrines": "Cultusplaats",
             "siege": "Belegering",
             "special-monastery": "Bijzonder klooster",
             "special-monasteries": "Bijzondere kloosters",
-            "tower": "Tower",
-            "towers": "Towers",
+            "tower": "Toren",
+            "towers": "Torens",
             "trade-goods": "Handelswaren",
             "vineyard": "Wijngaard",
             "vodyanoy": "Vodyanoy",
             "watchtower": "Wachttoren",
             "watchtowers": "Wachttorens",
             "wind-rose": "Windroos",
-            "wind-roses": "Wind roses",
+            "wind-roses": "Windrozen",
             "yaga-hut": "Yaga-hut"
         },
         "scoring": {
