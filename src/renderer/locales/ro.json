@@ -1,7 +1,7 @@
 {
     "title": "JCloisterZone",
     "author": "NGC 54",
-    "version": "0.2.1",
+    "version": "0.3.2",
     "jcz-version": "5.10.2",
     "game-setup": {
         "header": {
@@ -302,6 +302,7 @@
         "undo": "Anulează",
         "zoom-in": "Mărește",
         "zoom-out": "Micșorează",
+        "rotate": "Rotește",
         "tiles": "Cartonașe",
         "farm-hints": "Indicii pentru câmpuri",
         "toggle-history": "Comută istoricul",
@@ -466,8 +467,8 @@
             "game-tiles": "Cartonașe de joc",
             "disabled-show-remaining": "Jocul a fost creat cu opțiunea care nu permite afișarea numărului cartonașelor rămase.",
             "remaining-tiles": "Cartonașe rămase",
-            "hidden-tiles-under-hill-plural": "Nu uita că {count} {tiles} nucunoscute din listă sunt ascunse sub un deal.",
-            "tiles-plural": "cartonașe | cartonaș | cartonașe"
+            "hidden-tiles-under-hill-plural": "Nu există niciun cartonaș necunoscut sub deal. | Nu uita că 1 cartonaș necunoscut din listă este ascuns sub un deal. | Nu uita că {count} cartonașe necunoscute din listă sunt ascunse sub dealuri. | Nu uita că {count} de cartonașe necunoscute din listă sunt ascunse sub dealuri.",
+            "tiles-plural": "cartonașe | cartonaș | cartonașe | de cartonașe"
         },
         "action": {
             "or": "sau",
@@ -518,9 +519,9 @@
             "tower-select-follower-for-exchange": "Selectează un meeple pentru schimb",
             "tower-player-must-select-follower-for-exchange": "Jucătorul trebuie să selecteze un meeple pentru schimb",
             "hills-and-sheep-shepherd-fields-was-expanded": "Câmpul oierului a fost extins.",
-            "hills-and-sheep-tokens-left-plural": "Niciun jeton rămas | 1 jeton rămas | {tokens} jetoane rămase",
+            "hills-and-sheep-tokens-left-plural": "Niciun jeton rămas | 1 jeton rămas | {tokens} jetoane rămase | {tokens} de jetoane rămase",
             "hills-and-receive-points-plural": "Primește 0 puncte | Primește 1 punct | Primește {points} puncte",
-            "hills-and-player-must-choose-grow-or-score-plural": "Jucătorul trebuie să aleagă să crească turma sau să evalueze oile pentru 0 puncte. | Jucătorul trebuie să aleagă să crească turma sau să evalueze oi pentru {points} punct. | Jucătorul trebuie să aleagă să crească turma sau să evalueze oi pentru {points} puncte.",
+            "hills-and-player-must-choose-grow-or-score-plural": "Jucătorul trebuie să aleagă să crească turma sau să evalueze oile pentru 0 puncte. | Jucătorul trebuie să aleagă să crească turma sau să evalueze oi pentru {points} punct. | Jucătorul trebuie să aleagă să crească turma sau să evalueze oi pentru {points} puncte. | Jucătorul trebuie să aleagă să crească turma sau să evalueze oi pentru {points} de puncte.",
             "tower-you-can-take-a-prisoner": "Poți lua un prizonier",
             "tower-player-can-take-a-prisoner": "Jucătorul poate lua un prizonier",
             "monasteries-how-do-you-want-place-follower": "Cum vrei să plasezi meepleul pe mănăstirea specială?"
@@ -564,12 +565,12 @@
             "robber": "Cavalerul brigand",
             "sheep": "Oi",
             "shrine": "Lăcaș de cult",
-            "shrines": "Shrines",
+            "shrines": "Lăcașuri de cult",
             "siege": "Asediu",
             "special-monastery": "Mănăstire specială",
             "special-monasteries": "Mănăstiri speciale",
             "tower": "Turnul",
-            "towers": "Towers",
+            "towers": "Turnuri",
             "trade-goods": "Jetoane cu mărfuri",
             "vineyard": "Vie",
             "vodyanoy": "Vodyanoy",
