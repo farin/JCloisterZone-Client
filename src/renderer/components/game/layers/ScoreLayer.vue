@@ -9,8 +9,8 @@
       :transform="transformPointer(scores[0].ptr)"
     >
       <g
-        v-for="(s, idx) in scores"
-        :key="idx"
+        v-for="s in scores"
+        :key="s.id"
         class="points"
         :class="{[colorCssClass(s.player)]: true, 'in-game': s.inGame}"
         :transform="transformStack(idx, scores.length)"
@@ -42,6 +42,12 @@ import LayerMixin from '@/components/game/layers/LayerMixin'
 export default {
   mixins: [LayerMixin],
 
+  data () {
+    return {
+      selected: null
+    }
+  },
+
   computed: {
     ...mapState({
       gameEnd: state => state.game.phase === 'GameOverPhase',
@@ -61,17 +67,30 @@ export default {
       if (this.gameEnd) {
         visibleTurns += 1
       }
+      let selectedIsInSources = false;
       for (let i = Math.max(0, len - visibleTurns); i < len; i++) {
         const h = this.history[i]
         h.events.forEach(ev => {
           if (ev.type === 'points') {
             ev.points.forEach(p => {
               if (p.ptr) {
-                items.push(this.gameEnd && i !== len - 1 ? { ...p, inGame: true } : p)
+                const item = { ...p, id: i }
+                if (this.gameEnd && i !== len - 1) {
+                  item.inGame = true
+                }
+                items.push(item)
+                if (item.id === this.selected) {
+                  selectedIsInSources = true
+                }
               }
             })
           }
         })
+      }
+      if (this.selected && !selectedIsInSources) {
+        setTimeout(() => { // eslint-disable-line vue/no-async-in-computed-properties
+          this.onMouseLeave()
+        }, 0)
       }
       return groupBy(items, item => Array.isArray(item.ptr) ? this.positionAsKey(item.ptr) : this.pointerAsKey(item.ptr))
     }
@@ -94,10 +113,12 @@ export default {
     },
 
     onMouseEnter (points) {
+      this.selected = points.id
       this.$store.commit('board/pointsExpression', points)
     },
 
     onMouseLeave () {
+      this.selected = null
       this.$store.commit('board/pointsExpression', null)
     }
   }
