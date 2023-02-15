@@ -1,11 +1,10 @@
 {
-  "title": "JCloisterZone",
   "game-setup": {
     "header": {
       "tiles": "Tiles",
       "components": "Components",
       "rules": "Rules",
-      "timer": "Timer"      
+      "timer": "Timer"
     },
     "tiles": {
       "core-sets": "Core sets",

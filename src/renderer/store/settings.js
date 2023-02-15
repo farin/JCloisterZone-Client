@@ -46,7 +46,7 @@ export const state = () => ({
 
 const changeCallbacks = {}
 
-function getSupportedLanguage(locale) {
+function getSupportedLanguage (locale) {
   const lang = locale.split('-')[0]
   return LOCALES.find(l => l.id === lang)?.id || 'en'
 }

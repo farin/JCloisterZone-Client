@@ -1,11 +1,10 @@
 {
-  "title": "JCloisterZone",
   "game-setup": {
     "header": {
       "tiles": "Tiles",
       "components": "Components",
       "rules": "Rules",
-      "timer": "Timer"      
+      "timer": "Timer"
     },
     "tiles": {
       "core-sets": "Core sets",
@@ -281,8 +280,8 @@
   "join-game": {
     "title": "Join Remote Game",
     "host": "Host",
-        "connect-to-remote-host": "Connect to remote host with created game.",
-        "the-game-on-remote-host-must-be-in-color-selection-phase": "The game on remote host must be in color selection phase."
+    "connect-to-remote-host": "Connect to remote host with created game.",
+    "the-game-on-remote-host-must-be-in-color-selection-phase": "The game on remote host must be in color selection phase."
   },
   "menu": {
     "playonline-connect": "Play Online",
