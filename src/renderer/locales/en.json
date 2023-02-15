@@ -35,11 +35,11 @@
       "farmers-description": "Players are allowed to place meeples on fields.",
       "garden-description": "Can be occupied by an abbot.",
       "garden-disabled": "Abbot is not selected.",
-      "cathedral-description": "Completed cities with cathedral \u00d73 instead of \u00d72, no points during final scoring.",
+      "cathedral-description": "Completed cities with cathedral ×3 instead of ×2, no points during final scoring.",
       "cathedral-disabled": "No tile with Cathedral is in game.",
-      "inn-description": "Completed roads with inn \u00d72, no points during final scoring.",
+      "inn-description": "Completed roads with inn ×2, no points during final scoring.",
       "inn-disabled": "No tile with Inn is in the game.",
-      "princess-description": "Princess can remove knight from a\u00a0city.",
+      "princess-description": "Princess can remove knight from a city.",
       "princess-disabled": "No tile with Princess is in game.",
       "portal-description": "Through magic portal meeple can be placed on any tile.",
       "portal-disabled": "No tile with Magic portal is in game.",
@@ -64,13 +64,13 @@
     },
     "variant": {
       "princess-action": {
-        "description": "The Princess {} remove knight from a\u00a0city.",
+        "description": "The Princess {} remove knight from a city.",
         "may": "may",
         "must": "must"
       },
       "fairy-placement": {
         "description": "The Fairy is deployed {}.",
-        "next-follower": "next to a\u00a0meeple",
+        "next-follower": "next to a meeple",
         "on-tile": "on a tile"
       },
       "dragon-move": {
@@ -79,7 +79,7 @@
         "after-scoring": "after"
       },
       "barn-placement": {
-        "description": "Barn {} be placed on a\u00a0field already occupied by another barn.",
+        "description": "Barn {} be placed on a field already occupied by another barn.",
         "not-occupied": "can't",
         "occupied": "can"
       },
@@ -97,7 +97,7 @@
         "number-of-followers": "number of meeples"
       },
       "espace-variant": {
-        "description": "Monastery must be placed adjacent to {} of a\u00a0besieged city to escape.",
+        "description": "Monastery must be placed adjacent to {} of a besieged city to escape.",
         "any-tile": "any tile",
         "siege-tile": "siege tile"
       },
@@ -116,7 +116,7 @@
         "1/1": "1/1"
       },
       "festival-return": {
-        "description": "Player may return one of one\u2019s own {}.",
+        "description": "Player may return one of one’s own {}.",
         "meeple": "player figures",
         "follower": "meeples"
       },
@@ -154,9 +154,9 @@
         "continuously": "1 point for every completed feature during the game"
       },
       "tiny-city-scoring": {
-        "description": "Tiny city is scored for {}.",
+        "2": "2 points",
         "4": "4 points",
-        "2": "2 points"
+        "description": "Tiny city is scored for {}."
       }
     },
     "timer": {
@@ -282,8 +282,8 @@
   "join-game": {
     "title": "Join Remote Game",
     "host": "Host",
-    "connect-to-remote-host": "Connect to remote host with created game.",
-    "the-game-on-remote-host-must-be-in-color-selection-phase": "The game on remote host must be in color selection phase."
+    "description": "The game on remote host must be in color selection phase.",
+    "connect-to-remote-host": "Connect to remote host with created game."
   },
   "menu": {
     "playonline-connect": "Play Online",
@@ -322,7 +322,7 @@
     "game-interface": {
       "title": "Game Interface",
       "turn-confirmation": "Turn Confirmation",
-      "turn-confirmation-description": "Confirmation allows player undo performed actions before activity is passed to a next player. It happens before scoring or eg. in during opponent turn when you move wagon, etc. Enable explicit confirmation\u2026",
+      "turn-confirmation-description": "Confirmation allows player undo performed actions before activity is passed to a next player. It happens before scoring or eg. in during opponent turn when you move wagon, etc. Enable explicit confirmation…",
       "always-enabled": "always enabled",
       "only-when-meeple-was-deployed-on-a-field": "only when meeple was deployed on a field",
       "only-when-meeple-was-deployed-on-a-tower": "only when meeple was deployed on a tower",
@@ -337,7 +337,8 @@
       "player-list-description": "You may enable player list (right sidebar) rotation.",
       "player-list-no-rotate": "No rotate",
       "player-list-active-on-top": "Keep active player always on top",
-      "player-list-local-on-top": "Keep local player always on top"
+      "player-list-local-on-top": "Keep local player always on top",
+      "language": "Language"
     },
     "appearance": {
       "title": "Appearance",
@@ -350,7 +351,7 @@
     },
     "add-ons": {
       "title": "Add-ons",
-      "installation-is-not-allowed-during-game": "Installing or removing add-on is not allowed when game is running or game setup is open.",
+      "installation-is-not-allowed-during-game": "Installation is not allowed during game.",
       "finish-or-leave-game-to-make-changes": "Please finish or leave the game first to make changes here.",
       "install-add-on": "Install add-on",
       "installed-add-ons": "Installed add-ons",
@@ -466,7 +467,7 @@
       "game-tiles": "Game tiles",
       "disabled-show-remaining": "The game was created with option which doesn't allow showing remaining tiles count.",
       "remaining-tiles": "Remaining tiles",
-      "hidden-tiles-under-hill-plural": "There is no unknown tile under hill. | Don't forget that 1 unknown tile from list is hidden under a hill. | Don't forget that {count} unknown tiles from list are hidden under hills.",
+      "hidden-tiles-under-hill-plural": "| Don't forget that {} unknown tile from list is hidden under a hills. | Don't forget that {} unknown tiles from list is hidden under hills. ",
       "tiles-plural": "tiles | tile | tiles"
     },
     "action": {

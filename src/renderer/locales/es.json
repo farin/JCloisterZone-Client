@@ -35,11 +35,11 @@
       "farmers-description": "Los jugadores pueden colocar seguidores en los campos.",
       "garden-description": "Puede ser ocupado por un abad.",
       "garden-disabled": "Abad no está seleccionado.",
-      "cathedral-description": "Ciudades completadas con Catedral \u00d73 en lugar de \u00d72, no puntuan durante la puntuación final.",
+      "cathedral-description": "Ciudades completadas con Catedral ×3 en lugar de ×2, no puntuan durante la puntuación final.",
       "cathedral-disabled": "No hay ninguna loseta con Catedral en el juego.",
-      "inn-description": "Caminos completados con posada \u00d72, no dan puntos durante la puntuación final.",
+      "inn-description": "Caminos completados con posada ×2, no dan puntos durante la puntuación final.",
       "inn-disabled": "No hay ninguna loseta con Posada en el juego.",
-      "princess-description": "La princesa puede retirar un caballero de una\u00a0ciudad.",
+      "princess-description": "La princesa puede retirar un caballero de una ciudad.",
       "princess-disabled": "No hay ninguna loseta con Princesa en el juego.",
       "portal-description": "A través de Portal Mágico un seguidor puede colocarse en cualquier loseta.",
       "portal-disabled": "No hay ninguna loseta con Portal Mágico en el juego.",
@@ -64,13 +64,13 @@
     },
     "variant": {
       "princess-action": {
-        "description": "La princesa {} remover al caballero de a\u00a0ciudad.",
+        "description": "La princesa {} remover al caballero de a ciudad.",
         "may": "puede",
         "must": "debe"
       },
       "fairy-placement": {
         "description": "El Hada está se coloca {}.",
-        "next-follower": "junto a un\u00a0meeple",
+        "next-follower": "junto a un meeple",
         "on-tile": "en la loseta"
       },
       "dragon-move": {
@@ -97,7 +97,7 @@
         "number-of-followers": "número de meeples"
       },
       "espace-variant": {
-        "description": "El monasterio debe colocarse adyacente a {} de una \u00a0ciudad sitiada para servir de escape.",
+        "description": "El monasterio debe colocarse adyacente a {} de una  ciudad sitiada para servir de escape.",
         "any-tile": "cualquier loseta",
         "siege-tile": "loseta con asedio"
       },
@@ -117,8 +117,8 @@
       },
       "festival-return": {
         "description": "El jugador puede devolver {}.",
-        "meeple": "una de sus e\u2019spropias figuras",
-        "follower": "uno de sus e\u2019spropios meeples"
+        "meeple": "una de sus e’spropias figuras",
+        "follower": "uno de sus e’spropios meeples"
       },
       "keep-monasteries": {
         "description": "Monasterios especiales {}.",
@@ -154,9 +154,9 @@
         "continuously": "1 punto por cada elemento completado durante el juego"
       },
       "tiny-city-scoring": {
-        "description": "Ciudades de 2 losetas se puntua {}.",
+        "2": "2 puntos",
         "4": "4 puntos",
-        "2": "2 puntos"
+        "description": "Ciudades de 2 losetas se puntua {}."
       }
     },
     "timer": {
@@ -282,8 +282,8 @@
   "join-game": {
     "title": "Unirse al juego remoto",
     "host": "Anfitrión",
-    "connect-to-remote-host": "Conectar a un servidor remoto con un juego iniciado.",
-    "the-game-on-remote-host-must-be-in-color-selection-phase": "El juego en el servidor remoto debe estar en fase de selección de color."
+    "connect-to-remote-host": "Conectar al host remoto con el juego creado.",
+    "description": "El juego en el host remoto debe estar en fase de selección de color."
   },
   "menu": {
     "playonline-connect": "Jugar en línea",
@@ -301,7 +301,7 @@
     "undo": "Deshacer",
     "zoom-in": "Acercar",
     "zoom-out": "Alejar",
-    "rotate": "Rotar",
+    "rotate": "",
     "tiles": "Losetas",
     "farm-hints": "Sugerencias para la granja",
     "toggle-history": "Mostrar/Ocultar historial",
@@ -322,7 +322,7 @@
     "game-interface": {
       "title": "Interfaz del juego",
       "turn-confirmation": "Confirmación de turno",
-      "turn-confirmation-description": "La confirmación permite al jugador deshacer las acciones realizadas antes de que la actividad pase al siguiente jugador. Esto ocurre antes de puntuar o, por ejemplo, durante el turno del oponente cuando mueve el carro, etc. Activar confirmación explícita\u2026",
+      "turn-confirmation-description": "La confirmación permite al jugador deshacer las acciones realizadas antes de que la actividad pase al siguiente jugador. Esto ocurre antes de puntuar o, por ejemplo, durante el turno del oponente cuando mueve el carro, etc. Activar confirmación explícita…",
       "always-enabled": "siempre habilitada",
       "only-when-meeple-was-deployed-on-a-field": "sólo cuando meeple se coloca en un campo",
       "only-when-meeple-was-deployed-on-a-tower": "sólo cuando meeple se coloca en una torre",
@@ -337,7 +337,8 @@
       "player-list-description": "Puede rotar la lista de jugadores (barra lateral derecha).",
       "player-list-no-rotate": "No rotar",
       "player-list-active-on-top": "Mantener al jugador activo siempre arriba",
-      "player-list-local-on-top": "Mantener al jugador local siempre arriba"
+      "player-list-local-on-top": "Mantener al jugador local siempre arriba",
+      "language": "Idioma"
     },
     "appearance": {
       "title": "Apariencia",
@@ -350,7 +351,7 @@
     },
     "add-ons": {
       "title": "Add-ons",
-      "installation-is-not-allowed-during-game": "Instalar o remover un add-on no es permitido durante una partida o cuando la configuración del juego está abierta.",
+      "installation-is-not-allowed-during-game": "",
       "finish-or-leave-game-to-make-changes": "Termine o abandone el juego antes de hacer cambios acá.",
       "install-add-on": "Instalar add-on",
       "installed-add-ons": "Add-ons instalados",
@@ -466,7 +467,7 @@
       "game-tiles": "Losetas de juego",
       "disabled-show-remaining": "El juego fue creado con una opción que no permite mostrar el número de losetas restantes.",
       "remaining-tiles": "Losetas restantes",
-      "hidden-tiles-under-hill-plural": "No hay ninguna loseta bajo de losetas de colina. | No olvidar que 1 loseta desconocida está oculta bajo una loseta de colina. | No olvidar que {count} losetas desconocidas están ocultas bajo losetas de colina.",
+      "hidden-tiles-under-hill-plural": "",
       "tiles-plural": "losetas | loseta | losetas"
     },
     "action": {
@@ -562,21 +563,21 @@
       "road": "Camino",
       "roads": "Caminos",
       "robber": "El Ladrón",
-      "sheep": "Oveja",
+      "sheep": "",
       "shrine": "Santuario",
-      "shrines": "Santuarios",
+      "shrines": "",
       "siege": "Asedio",
       "special-monastery": "Monasterio especial",
       "special-monasteries": "Monasterios especiales",
       "tower": "Torre",
-      "towers": "Torres",
+      "towers": "",
       "trade-goods": "Mercancías",
       "vineyard": "Viñedo",
       "vodyanoy": "Vodyanoy",
       "watchtower": "Atalaya",
       "watchtowers": "Atalayas",
       "wind-rose": "Rosa de los Vientos",
-      "wind-roses": "Rosas de los Vientos",
+      "wind-roses": "",
       "yaga-hut": "Cabaña de Yagá"
     },
     "scoring": {

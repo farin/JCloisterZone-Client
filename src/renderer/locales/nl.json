@@ -155,9 +155,9 @@
         "continuously": "tijdens het spel steeds punten op"
       },
       "tiny-city-scoring": {
-        "description": "Een kleine stad levert {} op.",
+        "2": "2 punten",
         "4": "4 punten",
-        "2": "2 punten"
+        "description": "Een kleine stad levert {} op."
       }
     },
     "timer": {
@@ -283,8 +283,8 @@
   "join-game": {
     "title": "Met extern spel verbinden",
     "host": "Host",
-    "connect-to-remote-host": "Verbinden met externe host met gemaakt spel.",
-    "the-game-on-remote-host-must-be-in-color-selection-phase": "Het spel op de externe host moet zich in de fase kleurselectie bevinden."
+    "connect-to-remote-host": "Maak verbinding met externe host met gecreëerd spel.",
+    "description": "Het spel op de externe host moet in de kleurselectiefase zijn."
   },
   "menu": {
     "playonline-connect": "Online spelen",
@@ -302,7 +302,7 @@
     "undo": "Ongedaan maken",
     "zoom-in": "Inzoomen",
     "zoom-out": "Uitzoomen",
-    "rotate": "Draaien",
+    "rotate": "",
     "tiles": "Tegels",
     "farm-hints": "Weide-wenken",
     "toggle-history": "Geschiedenis in-/uitschakelen",
@@ -338,7 +338,8 @@
       "player-list-description": "U kunt roulatie van de spelerslijst (rechter zijbalk) inschakelen.",
       "player-list-no-rotate": "Geen roulatie",
       "player-list-active-on-top": "Speler die aan de beurt is altijd bovenaan",
-      "player-list-local-on-top": "Lokale speler altijd bovenaan"
+      "player-list-local-on-top": "Lokale speler altijd bovenaan",
+      "language": "Taal"
     },
     "appearance": {
       "title": "Weergave",
@@ -351,7 +352,7 @@
     },
     "add-ons": {
       "title": "Add-ons",
-      "installation-is-not-allowed-during-game": "Het installeren of verwijderen van add-ons is niet toegestaan als een spel loopt of de spelopzet geopend is.",
+      "installation-is-not-allowed-during-game": "",
       "finish-or-leave-game-to-make-changes": "Voltooi of verlaat het spel alvorens hier wijzigingen door te voeren.",
       "install-add-on": "Add-on installeren",
       "installed-add-ons": "Geïnstalleerde add-ons",
@@ -467,7 +468,7 @@
       "game-tiles": "Speltegels",
       "disabled-show-remaining": "Het spel is gestart met de optie die het tonen van het aantal resterende tegels niet toestaat.",
       "remaining-tiles": "Overgebleven tegels",
-      "hidden-tiles-under-hill-plural": "Er is geen onbekende tegel onder een heuvel. |  Vergeet niet dat 1 onbekende tegel uit de lijst verborgen is onder een heuvel. | Vergeet niet dat {count} onbekende tegels van de lijst verborgen zijn onder heuvels.",
+      "hidden-tiles-under-hill-plural": "",
       "tiles-plural": "tegels | tegel | tegels"
     },
     "action": {
@@ -563,21 +564,21 @@
       "road": "Weg",
       "roads": "Wegen",
       "robber": "Roofridder",
-      "sheep": "Schaap",
+      "sheep": "",
       "shrine": "Cultusplaats",
-      "shrines": "Cultusplaats",
+      "shrines": "",
       "siege": "Belegering",
       "special-monastery": "Bijzonder klooster",
       "special-monasteries": "Bijzondere kloosters",
       "tower": "Toren",
-      "towers": "Torens",
+      "towers": "",
       "trade-goods": "Handelswaren",
       "vineyard": "Wijngaard",
       "vodyanoy": "Vodyanoy",
       "watchtower": "Wachttoren",
       "watchtowers": "Wachttorens",
       "wind-rose": "Windroos",
-      "wind-roses": "Windrozen",
+      "wind-roses": "",
       "yaga-hut": "Yaga-hut"
     },
     "scoring": {

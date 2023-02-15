@@ -36,7 +36,7 @@
       "cathedral-disabled": "No tile with Cathedral is in game.",
       "inn-description": "Completed roads with inn ×2, no points during final scoring.",
       "inn-disabled": "No tile with Inn is in the game.",
-      "princess-description": "Princess can remove knight from a\u00A0city.",
+      "princess-description": "Princess can remove knight from a city.",
       "princess-disabled": "No tile with Princess is in game.",
       "portal-description": "Through magic portal meeple can be placed on any tile.",
       "portal-disabled": "No tile with Magic portal is in game.",
@@ -61,13 +61,13 @@
     },
     "variant": {
       "princess-action": {
-        "description": "The Princess {} remove knight from a\u00A0city.",
+        "description": "The Princess {} remove knight from a city.",
         "may": "may",
         "must": "must"
       },
       "fairy-placement": {
         "description": "The Fairy is deployed {}.",
-        "next-follower": "next to a\u00A0meeple",
+        "next-follower": "next to a meeple",
         "on-tile": "on a tile"
       },
       "dragon-move": {
@@ -76,7 +76,7 @@
         "after-scoring": "after"
       },
       "barn-placement": {
-        "description": "Barn {} be placed on a\u00A0field already occupied by another barn.",
+        "description": "Barn {} be placed on a field already occupied by another barn.",
         "not-occupied": "can't",
         "occupied": "can"
       },
@@ -94,7 +94,7 @@
         "number-of-followers": "number of meeples"
       },
       "espace-variant": {
-        "description": "Monastery must be placed adjacent to {} of a\u00A0besieged city to escape.",
+        "description": "Monastery must be placed adjacent to {} of a besieged city to escape.",
         "any-tile": "any tile",
         "siege-tile": "siege tile"
       },
@@ -151,9 +151,9 @@
         "continuously": "points continuously during play"
       },
       "tiny-city-scoring": {
-        "description": "Tiny city is scored for {}.",
+        "2": "2 points",
         "4": "4 points",
-        "2": "2 points"
+        "description": "Tiny city is scored for {}."
       }
     },
     "timer": {
@@ -280,8 +280,8 @@
   "join-game": {
     "title": "Join Remote Game",
     "host": "Host",
-    "connect-to-remote-host": "Connect to remote host with created game.",
-    "the-game-on-remote-host-must-be-in-color-selection-phase": "The game on remote host must be in color selection phase."
+    "description": "The game on remote host must be in color selection phase.",
+    "connect-to-remote-host": "Connect to remote host with created game."
   },
   "menu": {
     "playonline-connect": "Play Online",
@@ -304,7 +304,8 @@
     "toggle-history": "Toggle History",
     "show-game-setup": "Show Game Setup",
     "rules": "Rules",
-    "about": "About"
+    "about": "About",
+    "rotate": ""
   },
   "settings": {
     "title": "Settings",
@@ -334,7 +335,8 @@
       "player-list-description": "You may enable player list (right sidebar) rotation.",
       "player-list-no-rotate": "No rotate",
       "player-list-active-on-top": "Keep active player always on top",
-      "player-list-local-on-top": "Keep local player always on top"
+      "player-list-local-on-top": "Keep local player always on top",
+      "language": "Language"
     },
     "appearance": {
       "title": "Appearance",
@@ -357,7 +359,8 @@
       "please-check-connectivity-and-restart-app": "Please check your connectivity and restart app to try it again.",
       "add-on-url": "add-on url",
       "add-on-already-installed": "Add-on {id} is already installed. If you want to reinstall it please remove it first.",
-      "invalid-add-on-multiple-folders-in-root": "Invalid add-on: package must contain only single folder in root"
+      "invalid-add-on-multiple-folders-in-root": "Invalid add-on: package must contain only single folder in root",
+      "installation-is-not-allowed-during-game": ""
     },
     "java": {
       "title": "Java",
@@ -464,7 +467,8 @@
       "disabled-show-remaining": "The game was created with option which doesn't allow showing remaining tiles count.",
       "remaining-tiles": "Remaining tiles",
       "hidden-tiles-under-hill": "Don't forget that {count} unknown {tiles} from list is hidden under a hill.",
-      "tiles-plural": "tiles | tile | tiles"
+      "tiles-plural": "tiles | tile | tiles",
+      "hidden-tiles-under-hill-plural": ""
     },
     "action": {
       "or": "or",
@@ -570,7 +574,11 @@
       "watchtower": "Watchtower",
       "watchtowers": "Watchtowers",
       "wind-rose": "Wind rose",
-      "yaga-hut": "Yaga hut"
+      "yaga-hut": "Yaga hut",
+      "shrines": "",
+      "towers": "",
+      "sheep": "",
+      "wind-roses": ""
     },
     "scoring": {
       "incomplete": "incomplete",

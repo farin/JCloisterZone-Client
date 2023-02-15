@@ -4,7 +4,7 @@
     <v-card-text>
       {{ $t('join-game.connect-to-remote-host') }}
       <div>
-        <i>{{ $t('join-game.the-game-on-remote-host-must-be-in-color-selection-phase') }}</i>
+        <i>{{ $t('join-game.description') }}</i>
       </div>
       <div class="field-wrapper">
         <v-progress-linear

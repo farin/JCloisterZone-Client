@@ -154,9 +154,9 @@
         "continuously": "zliczana podczas trwania rozgrywki"
       },
       "tiny-city-scoring": {
-        "description": "Punktacja za dwupłytkowe miasto: {}",
+        "2": "2 punkty",
         "4": "4 punkty",
-        "2": "2 punkty"
+        "description": "Punktacja za dwupłytkowe miasto: {}"
       }
     },
     "timer": {
@@ -283,7 +283,7 @@
     "title": "Dołącz do gry zdalnej",
     "host": "Host",
     "connect-to-remote-host": "Połącz się ze zdalnym hostem z utworzoną grą.",
-    "the-game-on-remote-host-must-be-in-color-selection-phase": "Gra na zdalnym hoście musi być w fazie wyboru kolorów."
+    "description": "Gra na zdalnym hoście musi być w fazie wyboru koloru."
   },
   "menu": {
     "playonline-connect": "Graj online",
@@ -301,7 +301,7 @@
     "undo": "Cofnij",
     "zoom-in": "Przbliż",
     "zoom-out": "Oddal",
-    "rotate": "Obrócić",
+    "rotate": "",
     "tiles": "Płytki",
     "farm-hints": "Podpowiedźi pól",
     "toggle-history": "Historia ruchów",
@@ -337,7 +337,8 @@
       "player-list-description": "Możesz włączyć rotację listy graczy (prawy pasek boczny).",
       "player-list-no-rotate": "Bez rotacji",
       "player-list-active-on-top": "Utrzymuj aktywnego gracza zawsze na szczycie",
-      "player-list-local-on-top": "Utrzymuj lokalnego gracza zawsze na szczycie"
+      "player-list-local-on-top": "Utrzymuj lokalnego gracza zawsze na szczycie",
+      "language": "Język"
     },
     "appearance": {
       "title": "Wygląd",
@@ -350,7 +351,7 @@
     },
     "add-ons": {
       "title": "Dodatki",
-      "installation-is-not-allowed-during-game": "Instalowanie lub usuwanie dodatków jest zabronione, gdy gra jest uruchomiona lub konfiguracja gry jest otwarta.",
+      "installation-is-not-allowed-during-game": "",
       "finish-or-leave-game-to-make-changes": "Proszę najpierw zakończyć lub opuścić grę, aby dokonać zmian tutaj.",
       "install-add-on": "Zainstaluj dodatek",
       "installed-add-ons": "Zainstalowane dodatki",
@@ -466,7 +467,7 @@
       "game-tiles": "Płytki gry",
       "disabled-show-remaining": "Gra została stworzona z opcją, która nie pozwala na wyświetlanie liczby pozostałych kamieni.",
       "remaining-tiles": "Pozostałe płytki",
-      "hidden-tiles-under-hill-plural": "Nie ma nieznanych płytek pod wzgórzem. | Nie zapomnij, że {count} nieznana płytka z listy jest ukryta pod wzgórzem. | Nie zapomnij, że {count} nieznane płytki z listy są ukryte pod wzgórzami. | Nie zapomnij, że {count} nieznanych płytek z listy jest ukrytych pod wzgórzami.",
+      "hidden-tiles-under-hill-plural": "",
       "tiles-plural": "płytek | płytka | płytki | płytek"
     },
     "action": {
@@ -562,21 +563,21 @@
       "road": "Droga",
       "roads": "Drogi",
       "robber": "Baron Rabusiów",
-      "sheep": "Owce",
+      "sheep": "",
       "shrine": "Siedziba Kultu",
-      "shrines": "Siedziby Kultu",
+      "shrines": "",
       "siege": "Oblężenie",
       "special-monastery": "Klasztor specjalny",
       "special-monasteries": "Klasztory specjalne",
       "tower": "Wieża",
-      "towers": "Wieże",
+      "towers": "",
       "trade-goods": "Towary",
       "vineyard": "Winiarnia",
       "vodyanoy": "Utopiec",
       "watchtower": "Strażnica",
       "watchtowers": "Strażnice",
       "wind-rose": "Róża Wiatrów",
-      "wind-roses": "Róże Wiatrów",
+      "wind-roses": "",
       "yaga-hut": "Hatka Baby Jagi"
     },
     "scoring": {

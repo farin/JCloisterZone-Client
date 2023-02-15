@@ -154,9 +154,9 @@
         "continuously": "1 bod za každé dokončené území v průběhu hry"
       },
       "tiny-city-scoring": {
-        "description": "Malé město se hodnotí za {}",
+        "2": "2 body",
         "4": "4 body",
-        "2": "2 body"
+        "description": "Malé město se hodnotí za {}"
       }
     },
     "timer": {
@@ -282,8 +282,8 @@
   "join-game": {
     "title": "Připojit se do hry na dálku",
     "host": "Hostitel",
-    "connect-to-remote-host": "Připojit se ke vzdálenému hostiteli s vytvořenou hrou.",
-    "the-game-on-remote-host-must-be-in-color-selection-phase": "Hra vzdáleného hostitele musí být ve fázi výběru barvy hráče."
+    "connect-to-remote-host": "Připojení ke vzdálenému hostiteli s vytvořenou hrou.",
+    "description": "Hra na vzdáleném hostiteli musí být ve fázi výběru barvy."
   },
   "menu": {
     "playonline-connect": "Hrát online",
@@ -337,7 +337,8 @@
       "player-list-description": "Můžete povolit rotaci seznamu hráčů (pravý postranní panel).",
       "player-list-no-rotate": "Bez rotace",
       "player-list-active-on-top": "Hráč na tahu vždy nahoře",
-      "player-list-local-on-top": "Místní hráč vždy nahoře"
+      "player-list-local-on-top": "Místní hráč vždy nahoře",
+      "language": "Jazyk"
     },
     "appearance": {
       "title": "Vzhled",
@@ -350,7 +351,7 @@
     },
     "add-ons": {
       "title": "Doplňky",
-      "installation-is-not-allowed-during-game": "Instalace nebo odstranění doplňku není povoleno v průběhu spuštěné hry nebo při otevřeném nastavení hry.",
+      "installation-is-not-allowed-during-game": "Instalace není během hry povolena.",
       "finish-or-leave-game-to-make-changes": "Chcete-li provést změny, nejprve dokončete nebo opusťte hru.",
       "install-add-on": "Nainstalujte doplněk",
       "installed-add-ons": "Nainstalované doplňky",
@@ -466,7 +467,7 @@
       "game-tiles": "Kartičky ke hře",
       "disabled-show-remaining": "Hra byla nastavena, aby neumožňovala zobrazit zbývající počet kartiček.",
       "remaining-tiles": "Zbývající kartičky",
-      "hidden-tiles-under-hill-plural": "Pod kopcem není žádná kartička. | Nezapomeňte, že pod kopcem se skrývá 1 neznámá kartička ze seznamu. | Nezapomeňte, že pod kopcem se skrývají {count} neznámé kartičky ze seznamu. | Nezapomeňte, že pod kopcem se skrývá {count} neznámých kartiček ze seznamu.",
+      "hidden-tiles-under-hill-plural": "| Nezapomeňte, že 1 neznámá kartička ze seznamu je schovaná pod kopcem. | Nezapomeňte, že {} neznámé kartičky ze seznamu jsou schované pod kopci. | | Nezapomeňte, že {} neznámých kartiček ze seznamu je schovano pod kopci. ",
       "tiles-plural": "kartiček | kartička | kartičky | kartiček"
     },
     "action": {
@@ -563,7 +564,7 @@
       "roads": "Cesty",
       "robber": "Zbojník",
       "sheep": "Ovce",
-      "shrine": "Svatyní",
+      "shrine": "Svatyně",
       "shrines": "Svatyně",
       "siege": "Obléhání",
       "special-monastery": "Speciální klášter",

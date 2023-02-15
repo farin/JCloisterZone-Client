@@ -1,12 +1,12 @@
 <template>
   <div>
     <h3 class="mt-2 mb-4">{{ $t('settings.game-interface.title') }}</h3>
-    <h4>{{ $t('settings.game-interface.localization') }}</h4>
+    <h4>{{ $t('settings.game-interface.language') }}</h4>
     <v-select
       v-model="locale"
       class="locale"
+      item-value="id"
       :items="LOCALES"
-      return-object
       single-line
     >
       <template slot="selection" slot-scope="data">
@@ -143,8 +143,8 @@ export default {
     locale: {
       get () { return this.$store.state.settings.locale },
       set (locale) {
-        this.$store.dispatch('settings/update', { locale: locale.id })
-        this.$i18n.setLocale(locale.id)
+        this.$store.dispatch('settings/update', { locale })
+        this.$i18n.setLocale(locale)
       }
     }
   }

@@ -36,11 +36,11 @@
       "farmers-description": "Les joueurs sont autorisés à placer des meeples sur les prés.",
       "garden-description": "Peut être occupé par un abbé.",
       "garden-disabled": "L’abbé n’est pas sélectionné.",
-      "cathedral-description": "Les villes complétées avec une ou plusieurs cathédrales \u00d73 au lieu de \u00d72, aucun point lors de l’évaluation finale.",
+      "cathedral-description": "Les villes complétées avec une ou plusieurs cathédrales ×3 au lieu de ×2, aucun point lors de l’évaluation finale.",
       "cathedral-disabled": "Aucune tuile Cathédrale n’est en jeu.",
-      "inn-description": "Routes achevées avec une ou plusieurs auberges au lac \u00d72, pas de points lors de l’évaluation finale.",
+      "inn-description": "Routes achevées avec une ou plusieurs auberges au lac ×2, pas de points lors de l’évaluation finale.",
       "inn-disabled": "Aucune tuile Auberge au Lac n’est en jeu.",
-      "princess-description": "La princesse peut retirer un chevalier d’une\u00A0ville.",
+      "princess-description": "La princesse peut retirer un chevalier d’une ville.",
       "princess-disabled": "Aucune tuile Princesse n’est en jeu.",
       "portal-description": "Grâce à un portail magique, un meeple peut être posé sur une tuile placée précédemment.",
       "portal-disabled": "Aucune tuile Portail Magique n’est en jeu.",
@@ -65,13 +65,13 @@
     },
     "variant": {
       "princess-action": {
-        "description": "La princesse {} retirer un chevalier d’une\u00A0ville.",
+        "description": "La princesse {} retirer un chevalier d’une ville.",
         "may": "peut",
         "must": "doit"
       },
       "fairy-placement": {
         "description": "La fée {}.",
-        "next-follower": "est assignée à un\u00A0meeple",
+        "next-follower": "est assignée à un meeple",
         "on-tile": "est déplacée sur une tuile"
       },
       "dragon-move": {
@@ -80,7 +80,7 @@
         "after-scoring": "après"
       },
       "barn-placement": {
-        "description": "La grange {} être posée sur un\u00A0pré déjà occupé par une autre grange.",
+        "description": "La grange {} être posée sur un pré déjà occupé par une autre grange.",
         "not-occupied": "ne peut pas",
         "occupied": "peut"
       },
@@ -98,7 +98,7 @@
         "number-of-followers": "Nombre de meeples"
       },
       "espace-variant": {
-        "description": "L’abbaye doit être adjacente {} d’une\u00A0ville assiégée pour pouvoir permettre une évasion.",
+        "description": "L’abbaye doit être adjacente {} d’une ville assiégée pour pouvoir permettre une évasion.",
         "any-tile": "de toute tuile",
         "siege-tile": "d’une tuile Siège"
       },
@@ -155,9 +155,9 @@
         "continuously": "1 point pour chaque zone complétée pendant le jeu"
       },
       "tiny-city-scoring": {
-        "description": "Une petite ville rapporte {}.",
+        "2": "2 points",
         "4": "4 points",
-        "2": "2 points"
+        "description": "Une petite ville rapporte {}."
       }
     },
     "timer": {
@@ -283,8 +283,8 @@
   "join-game": {
     "title": "Rejoindre une partie à distance",
     "host": "Hôte",
-    "connect-to-remote-host": "Connectez-vous à l’hôte distant avec une partie créée.",
-    "the-game-on-remote-host-must-be-in-color-selection-phase": "La partie sur l’hôte distant doit être en phase de sélection de la couleur."
+    "connect-to-remote-host": "Connectez-vous à l'hôte distant avec le jeu créé.",
+    "description": "Le jeu sur l'hôte distant doit être en phase de sélection des couleurs."
   },
   "menu": {
     "playonline-connect": "Jouer en ligne",
@@ -302,7 +302,7 @@
     "undo": "Annuler",
     "zoom-in": "Zoom avant",
     "zoom-out": "Zoom arrière",
-    "rotate": "Pivoter",
+    "rotate": "",
     "tiles": "Tuiles",
     "farm-hints": "Délimiter les prés",
     "toggle-history": "Activer/désactiver l’historique",
@@ -323,7 +323,7 @@
     "game-interface": {
       "title": "Interface de jeu",
       "turn-confirmation": "Confirmation du tour",
-      "turn-confirmation-description": "La confirmation permet au joueur d’annuler les actions effectuées avant que l’activité ne soit transmise au joueur suivant. Cela se produit avant l’évaluation ou par exemple pendant le tour de l’adversaire lorsque vous déplacez le chariot, etc. Activer la confirmation explicite\u2026",
+      "turn-confirmation-description": "La confirmation permet au joueur d’annuler les actions effectuées avant que l’activité ne soit transmise au joueur suivant. Cela se produit avant l’évaluation ou par exemple pendant le tour de l’adversaire lorsque vous déplacez le chariot, etc. Activer la confirmation explicite…",
       "always-enabled": "toujours activé",
       "only-when-meeple-was-deployed-on-a-field": "seulement quand un meeple est posé sur un pré",
       "only-when-meeple-was-deployed-on-a-tower": "seulement quand un meeple est posé sur une tour",
@@ -338,7 +338,8 @@
       "player-list-description": "Vous pouvez activer la rotation de la liste des joueurs (barre latérale droite).",
       "player-list-no-rotate": "Aucune rotation",
       "player-list-active-on-top": "Garder le joueur actif toujours en tête",
-      "player-list-local-on-top": "Gardez le joueur local toujours en tête"
+      "player-list-local-on-top": "Gardez le joueur local toujours en tête",
+      "language": "Langue"
     },
     "appearance": {
       "title": "Apparence",
@@ -351,7 +352,7 @@
     },
     "add-ons": {
       "title": "Modules complémentaires",
-      "installation-is-not-allowed-during-game": "L’installation ou la suppression de modules complémentaires n’est pas autorisée lorsque la partie est en cours ou que la configuration de la partie est ouverte.",
+      "installation-is-not-allowed-during-game": "",
       "finish-or-leave-game-to-make-changes": "Veuillez terminer ou quitter la partie avant de pouvoir effectuer des changements ici.",
       "install-add-on": "Installer un module complémentaire",
       "installed-add-ons": "Modules complémentaires installés",
@@ -467,7 +468,7 @@
       "game-tiles": "Tuiles de la partie",
       "disabled-show-remaining": "La partie a été créée avec une option qui ne permet pas d’afficher le nombre de tuiles restantes.",
       "remaining-tiles": "Tuiles restantes",
-      "hidden-tiles-under-hill-plural": "Il n’y a aucune tuile cachée sous une colline. | N’oubliez pas qu’une tuile inconnue de la liste est cachée sous une colline. | N’oubliez pas que {count} tuiles inconnues de la liste sont cachées sous des collines.",
+      "hidden-tiles-under-hill-plural": "",
       "tiles-plural": "tuile | tuile | tuiles"
     },
     "action": {
@@ -563,21 +564,21 @@
       "road": "Route",
       "roads": "Routes",
       "robber": "Chevalier-brigand",
-      "sheep": "Mouton",
+      "sheep": "",
       "shrine": "Lieu de culte",
-      "shrines": "Lieux de culte",
+      "shrines": "",
       "siege": "Siège",
       "special-monastery": "Nouvelle tuile Abbaye",
       "special-monasteries": "Nouvelles tuiles Abbayes",
       "tower": "Tour",
-      "towers": "Tours",
+      "towers": "",
       "trade-goods": "Marchandises",
       "vineyard": "Vignoble",
       "vodyanoy": "Vodianoï",
       "watchtower": "Tour de guet",
       "watchtowers": "Tours de guet",
       "wind-rose": "Rose des vents",
-      "wind-roses": "Roses des vents",
+      "wind-roses": "",
       "yaga-hut": "Isba de Baba Yaga"
     },
     "scoring": {

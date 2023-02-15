@@ -154,9 +154,9 @@
         "continuously": "puncte continue în timpul jocului"
       },
       "tiny-city-scoring": {
-        "description": "Orașul mic este evaluat pentru {}.",
+        "2": "2 puncte",
         "4": "4 puncte",
-        "2": "2 puncte"
+        "description": "Orașul mic este evaluat pentru {}."
       }
     },
     "timer": {
@@ -282,8 +282,8 @@
   "join-game": {
     "title": "Alătură-te jocului de la distanță",
     "host": "Gazdă",
-    "connect-to-remote-host": "Conectează-te la gazda de la distanță cu jocul creat.",
-    "the-game-on-remote-host-must-be-in-color-selection-phase": "Jocul gazdei de la distanță trebuie să fie în faza alegerii culorilor."
+    "connect-to-remote-host": "Conectați-vă la gazda la distanță cu jocul creat.",
+    "description": "Jocul de pe gazda la distanță trebuie să fie în faza de selecție a culorilor."
   },
   "menu": {
     "playonline-connect": "Joacă online",
@@ -301,7 +301,7 @@
     "undo": "Anulează",
     "zoom-in": "Mărește",
     "zoom-out": "Micșorează",
-    "rotate": "Rotește",
+    "rotate": "",
     "tiles": "Cartonașe",
     "farm-hints": "Indicii pentru câmpuri",
     "toggle-history": "Comută istoricul",
@@ -337,7 +337,8 @@
       "player-list-description": "Poți activa rotirea listei jucătorilor (bara laterală din dreapta).",
       "player-list-no-rotate": "Fără rotație",
       "player-list-active-on-top": "Menține mereu sus jucătorul activ",
-      "player-list-local-on-top": "Menține mereu sus jucătorul local"
+      "player-list-local-on-top": "Menține mereu sus jucătorul local",
+      "language": "Limba"
     },
     "appearance": {
       "title": "Aspect",
@@ -350,7 +351,7 @@
     },
     "add-ons": {
       "title": "Add-on-uri",
-      "installation-is-not-allowed-during-game": "Instalarea sau eliminarea unui add-on nu este permisă atunci când jocul este în desfășurare sau este deschisă configurarea jocului.",
+      "installation-is-not-allowed-during-game": "",
       "finish-or-leave-game-to-make-changes": "Te rugăm ca mai întâi să închei sau să părăsești jocul pentru a face schimbări aici.",
       "install-add-on": "Instalează add-on-ul",
       "installed-add-ons": "Add-on-uri instalate",
@@ -466,7 +467,7 @@
       "game-tiles": "Cartonașe de joc",
       "disabled-show-remaining": "Jocul a fost creat cu opțiunea care nu permite afișarea numărului cartonașelor rămase.",
       "remaining-tiles": "Cartonașe rămase",
-      "hidden-tiles-under-hill-plural": "Nu există niciun cartonaș necunoscut sub deal. | Nu uita că 1 cartonaș necunoscut din listă este ascuns sub un deal. | Nu uita că {count} cartonașe necunoscute din listă sunt ascunse sub dealuri. | Nu uita că {count} de cartonașe necunoscute din listă sunt ascunse sub dealuri.",
+      "hidden-tiles-under-hill-plural": "",
       "tiles-plural": "cartonașe | cartonaș | cartonașe | de cartonașe"
     },
     "action": {
@@ -562,21 +563,21 @@
       "road": "Drum",
       "roads": "Drumuri",
       "robber": "Cavalerul brigand",
-      "sheep": "Oi",
+      "sheep": "",
       "shrine": "Lăcaș de cult",
-      "shrines": "Lăcașuri de cult",
+      "shrines": "",
       "siege": "Asediu",
       "special-monastery": "Mănăstire specială",
       "special-monasteries": "Mănăstiri speciale",
       "tower": "Turnul",
-      "towers": "Turnuri",
+      "towers": "",
       "trade-goods": "Jetoane cu mărfuri",
       "vineyard": "Vie",
       "vodyanoy": "Vodyanoy",
       "watchtower": "Turn de observație",
       "watchtowers": "Turnuri de observație",
       "wind-rose": "Roză a vântului",
-      "wind-roses": "Rozele vântului",
+      "wind-roses": "",
       "yaga-hut": "Coliba lui Yaga"
     },
     "scoring": {

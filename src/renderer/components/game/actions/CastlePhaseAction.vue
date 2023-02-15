@@ -1,6 +1,6 @@
 <template>
   <section :class="{remote: !local}">
-    <span class="text">{{ $t(local ? 'game.action.castle-you-are-allowed-to-place' : 'game.action.castle-player-is-allowed-to-place') }}</span>
+    <span class="text">{{ local ? $t('game.action.castle-you-are-allowed-to-place') : $('game.action.castle-player-is-allowed-to-place') }}</span>
     <img src="~/assets/figures/castle.png" :height="$vuetify.breakpoint.height > 768 ? 70 : 50">
     <slot />
   </section>

@@ -154,9 +154,9 @@
         "continuously": "1 bod za každé dokončené územie počas hry"
       },
       "tiny-city-scoring": {
-        "description": "Malé mesto získa {}.",
+        "2": "2 body",
         "4": "4 body",
-        "2": "2 body"
+        "description": "Malé mesto získa {}."
       }
     },
     "timer": {
@@ -282,8 +282,8 @@
   "join-game": {
     "title": "Pripojte sa k hre na diaľku",
     "host": "Hostiteľ",
-    "connect-to-remote-host": "Pripojte sa k vzdialenému hostiteľovi s vytvorenou hrou.",
-    "the-game-on-remote-host-must-be-in-color-selection-phase": "Hra na vzdialenom hostiteľovi musí byť vo fáze výberu farby hráčov."
+    "connect-to-remote-host": "Pripojenie k vzdialenému hostiteľovi s vytvorenou hrou.",
+    "description": "Hra na vzdialenom hostiteľovi musí byť vo fáze výberu farby."
   },
   "menu": {
     "playonline-connect": "Hrajte online",
@@ -301,7 +301,7 @@
     "undo": "Späť",
     "zoom-in": "Priblížiť",
     "zoom-out": "Oddialiť",
-    "rotate": "Otočiť",
+    "rotate": "",
     "tiles": "Kartičky v hre",
     "farm-hints": "Zafarbenie fariem",
     "toggle-history": "Skryť/zobraziť históriu",
@@ -337,7 +337,8 @@
       "player-list-description": "Môžete povoliť rotáciu zoznamu hráčov (pravý bočný panel).",
       "player-list-no-rotate": "Žiadna rotácia",
       "player-list-active-on-top": "Aktívny hráč vždy navrchu",
-      "player-list-local-on-top": "Miestny hráč vždy navrchu"
+      "player-list-local-on-top": "Miestny hráč vždy navrchu",
+      "language": "Jazyk"
     },
     "appearance": {
       "title": "Vzhľad",
@@ -350,7 +351,7 @@
     },
     "add-ons": {
       "title": "Doplnky / Add-ons",
-      "installation-is-not-allowed-during-game": "Inštalácia alebo odstránenie doplnku nie je povolená počas spustenej hry alebo pri otvorenon nastavení hry.",
+      "installation-is-not-allowed-during-game": "",
       "finish-or-leave-game-to-make-changes": "Ak chcete vykonať zmany, najprv dokončite alebo opustite hru.",
       "install-add-on": "Nainštalujte doplnok",
       "installed-add-ons": "Nainštalované doplnky",
@@ -466,7 +467,7 @@
       "game-tiles": "Hracie kartičky",
       "disabled-show-remaining": "Hra bola vytvorená s nastavením, ktoré neumožňuje zobrazenie zostávajúceho počtu kartičiek.",
       "remaining-tiles": "Zostávajúce kartičky",
-      "hidden-tiles-under-hill-plural": "Pod kopcami nie je žiadna kartička. | Nezabudnite, že pod kopcom sa skrýva 1 neznáma kartička zo zoznamu. | Nezabudnite, že pod kopcami sa skrývajú {count} neznáme kartičky zo zoznamu. | Nezabudnite, že pod kopcami sa skrýva {count} neznámych kartičiek zo zoznamu.",
+      "hidden-tiles-under-hill-plural": "",
       "tiles-plural": "kartičiek | kartička | kartičky | kartičiek"
     },
     "action": {
@@ -562,21 +563,21 @@
       "road": "Cesta",
       "roads": "Cesty",
       "robber": "Lúpežník",
-      "sheep": "Ovce",
+      "sheep": "",
       "shrine": "Svätyňa",
-      "shrines": "Svätyne",
+      "shrines": "",
       "siege": "Obliehanie",
       "special-monastery": "Špeciálny kláštor",
       "special-monasteries": "Špeciálne kláštory",
       "tower": "Veža",
-      "towers": "Veže",
+      "towers": "",
       "trade-goods": "Žetóny tovaru",
       "vineyard": "Vinice",
       "vodyanoy": "Vodník",
       "watchtower": "Strážna veža",
       "watchtowers": "Strážne veže",
       "wind-rose": "Veterná ružica",
-      "wind-roses": "Veterné ružice",
+      "wind-roses": "",
       "yaga-hut": "Izbuška"
     },
     "scoring": {

@@ -1,11 +1,11 @@
 <template>
   <section :class="{['action-' + actionItem.type]: true, local}">
     <span class="text">
-      <template v-if="actionItem.type === 'BazaarSelectTile' && !noAuction">{{ $t(local ? 'game.action.bazaar-choose-a-tile-and-your-bid' : 'game.action.bazaar-player-must-choose-a-tile-and-bid')}}</template>
-      <template v-else-if="actionItem.type === 'BazaarSelectTile' && noAuction">{{ $t(local ? 'game.action.bazaar-choose-a-tile' : 'game.action.bazaar-player-must-choose-a-tile') }}</template>
-      <template v-else-if="actionItem.type === 'BazaarBid'">{{ $t(local ? 'game.action.bazaar-raise-bid-or-pass' : 'game.action.bazaar-player-must-raise-bid-or-pass') }}</template>
+      <template v-if="actionItem.type === 'BazaarSelectTile' && !noAuction">{{ local ? $t('game.action.bazaar-choose-a-tile-and-your-bid') : $t('game.action.bazaar-player-must-choose-a-tile-and-bid')}}</template>
+      <template v-else-if="actionItem.type === 'BazaarSelectTile' && noAuction">{{ local ? $t('game.action.bazaar-choose-a-tile') : $t('game.action.bazaar-player-must-choose-a-tile') }}</template>
+      <template v-else-if="actionItem.type === 'BazaarBid'">{{ local ? $t('game.action.bazaar-raise-bid-or-pass') : $t('game.action.bazaar-player-must-raise-bid-or-pass') }}</template>
       <template v-else-if="actionItem.type === 'BazaarSelectBuyOrSell'">
-        {{ $t(local ? 'game.action.bazaar-buy-sell-the-tile-from-to' : 'game.action.bazaar-player-must-buy-sell-the-tile-from-to') }}
+        {{ local ? $t('game.action.bazaar-buy-sell-the-tile-from-to') : $t('game.action.bazaar-player-must-buy-sell-the-tile-from-to') }}
       </template>
       <template v-else>{{ actionItem.type }}</template>
     </span>

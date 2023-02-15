@@ -1,6 +1,6 @@
 <template>
   <section>
-    <span class="text">{{ $t(local ? 'game.action.coc-you-can-move-the-count' : 'game.action.coc-player-can-move-the-count') }}</span>
+    <span class="text">{{ local ? $t('game.action.coc-you-can-move-the-count') : $t('game.action.coc-player-can-move-the-count') }}</span>
     <NeutralFigure figure="count" />
     <slot />
   </section>
