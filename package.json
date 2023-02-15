@@ -73,6 +73,7 @@
     "portal-vue": "^2.1.7",
     "random-bigint": "^0.0.1",
     "sha256-file": "^1.0.0",
+    "sort-json-keys": "^1.0.3",
     "tiny-emitter": "^2.1.0",
     "unzipper": "^0.10.11",
     "username": "^5.1.0",

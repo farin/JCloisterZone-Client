@@ -9801,6 +9801,11 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
+sort-json-keys@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/sort-json-keys/-/sort-json-keys-1.0.3.tgz#7318928fa147792c9f977f997119148d6d4f61b6"
+  integrity sha512-Q2UtaKIARKqH1YWjucyrvgAv0s4GsFaZdpJUaZ+v5ch9qBcCo/fyCUwIJ3GzEOjWJ3HdCbDTxQ7cN9+8x7Gp7w==
+
 sort-keys@^1.0.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/sort-keys/-/sort-keys-1.1.2.tgz#441b6d4d346798f1b4e49e8920adfba0e543f9ad"
