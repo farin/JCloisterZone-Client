@@ -524,7 +524,10 @@
       "hills-and-player-must-choose-grow-or-score-plural": "Gracz musi wybrać, czy chce powiększać stado, czy otrzymać {points} punktów za owcę. | Gracz musi wybrać, czy chce powiększać stado, czy otrzymać {points} punkt za owcę. | Gracz musi wybrać, czy chce powiększać stado, czy otrzymać {points} punkty za owce. | Gracz musi wybrać, czy chce powiększać stado, czy otrzymać {points} punktów za owce.",
       "tower-you-can-take-a-prisoner": "Możesz wziąć zakładnika",
       "tower-player-can-take-a-prisoner": "Gracz może wziąć zakładnika",
-      "monasteries-how-do-you-want-place-follower": "Zdecyduj, jak chcesz umieścić podwładnego na specjalnym klasztorze."
+      "monasteries-how-do-you-want-place-follower": "Zdecyduj, jak chcesz umieścić podwładnego na specjalnym klasztorze.",
+      "crop-circles-choose-city": "",
+      "crop-circles-choose-field": "",
+      "crop-circles-choose-road": ""
     },
     "feature": {
       "acrobats": "Akrobaci",

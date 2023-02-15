@@ -524,7 +524,10 @@
       "hills-and-player-must-choose-grow-or-score-plural": "Hráč se musí rozhodnout, zda bude rozšiřovat stádo nebo zažene ovce do ovčince za {points} bodů. | Hráč se musí rozhodnout, zda bude rozšiřovat stádo nebo zažene ovce do ovčince za {points} bod. | Hráč se musí rozhodnout, zda bude rozšiřovat stádo nebo zažene ovce do ovčince za {points} body. | Hráč se musí rozhodnout, zda bude rozšiřovat stádo nebo zažene ovce do ovčince za {points} bodů.",
       "tower-you-can-take-a-prisoner": "Můžete vzít zajatce",
       "tower-player-can-take-a-prisoner": "Hráč může vzít zajatce",
-      "monasteries-how-do-you-want-place-follower": "Jak chcete umístit družiníka na speciální klášter?"
+      "monasteries-how-do-you-want-place-follower": "Jak chcete umístit družiníka na speciální klášter?",
+      "crop-circles-choose-city": "město",
+      "crop-circles-choose-field": "louku",
+      "crop-circles-choose-road": "cestu"
     },
     "feature": {
       "acrobats": "Artisté",

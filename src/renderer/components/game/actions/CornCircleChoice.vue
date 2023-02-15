@@ -40,8 +40,10 @@ export default {
 
     featureName () {
       const { featureType } = this.actionItem
-      if (featureType === 'Farm') featureType = 'field'
-      return this.$t(['game.feature',featureType.toLowerCase()].join('.'))
+      if (featureType === 'City') return this.$t('game.action.crop-circles-choose-city')
+      if (featureType === 'Farm') return this.$t('game.action.crop-circles-choose-field')
+      if (featureType === 'Road') return this.$t('game.action.crop-circles-choose-road')
+      return featureType
     }
   },
 

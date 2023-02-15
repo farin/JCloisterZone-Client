@@ -524,7 +524,10 @@
       "hills-and-player-must-choose-grow-or-score-plural": "Jucătorul trebuie să aleagă să crească turma sau să evalueze oile pentru 0 puncte. | Jucătorul trebuie să aleagă să crească turma sau să evalueze oi pentru {points} punct. | Jucătorul trebuie să aleagă să crească turma sau să evalueze oi pentru {points} puncte. | Jucătorul trebuie să aleagă să crească turma sau să evalueze oi pentru {points} de puncte.",
       "tower-you-can-take-a-prisoner": "Poți lua un prizonier",
       "tower-player-can-take-a-prisoner": "Jucătorul poate lua un prizonier",
-      "monasteries-how-do-you-want-place-follower": "Cum vrei să plasezi meepleul pe mănăstirea specială?"
+      "monasteries-how-do-you-want-place-follower": "Cum vrei să plasezi meepleul pe mănăstirea specială?",
+      "crop-circles-choose-city": "",
+      "crop-circles-choose-field": "",
+      "crop-circles-choose-road": ""
     },
     "feature": {
       "acrobats": "Artiști",

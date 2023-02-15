@@ -524,7 +524,10 @@
       "hills-and-player-must-choose-grow-or-score-plural": "Der Spieler muss wählen, ob er die Schafherde erweitert oder die Herde in den Stall treibt für 0 Punkte. | Der Spieler muss wählen, ob er die Schafherde erweitert oder die Herde in den Stall treibt für {points} Punkt. | Der Spieler muss wählen, ob er die Schafherde erweitert oder die Herde in den Stall treibt für {points} Punkte.",
       "tower-you-can-take-a-prisoner": "Du kannst einen Gefangenen machen",
       "tower-player-can-take-a-prisoner": "Der Spieler kann einen Gefangenen machen",
-      "monasteries-how-do-you-want-place-follower": "Wie willst du den Meeple auf das besondere Kloster setzen?"
+      "monasteries-how-do-you-want-place-follower": "Wie willst du den Meeple auf das besondere Kloster setzen?",
+      "crop-circles-choose-city": "",
+      "crop-circles-choose-field": "",
+      "crop-circles-choose-road": ""
     },
     "feature": {
       "acrobats": "Artisten",

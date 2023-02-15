@@ -524,7 +524,10 @@
       "hills-and-player-must-choose-grow-or-score-plural": "El jugador debe elegir entre hacer crecer el rebaño o puntuar las ovejas por 0 puntos. | El jugador debe elegir entre hacer crecer el rebaño o puntuar las ovejas por {points} puntos. | El jugador debe elegir entre hacer crecer el rebaño o puntuar las ovejas por {points} puntos.",
       "tower-you-can-take-a-prisoner": "Puede tomar un prisionero",
       "tower-player-can-take-a-prisoner": "Jugador puede tomar un prisionero",
-      "monasteries-how-do-you-want-place-follower": "¿Cómo quiere colocar el meeple en monasterio especial?"
+      "monasteries-how-do-you-want-place-follower": "¿Cómo quiere colocar el meeple en monasterio especial?",
+      "crop-circles-choose-city": "",
+      "crop-circles-choose-field": "",
+      "crop-circles-choose-road": ""
     },
     "feature": {
       "acrobats": "Acróbatas",

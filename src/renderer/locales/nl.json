@@ -525,7 +525,10 @@
       "hills-and-player-must-choose-grow-or-score-plural": "Speler moet kiezen om de kudde uit te breiden of de schapen naar de stal te drijven voor {points} punten. | Speler moet kiezen om de kudde uit te breiden of de schapen naar de stal te drijven voor {points} punt. | Speler moet kiezen om de kudde uit te breiden of de schapen naar de stal te drijven voor {points} punten.",
       "tower-you-can-take-a-prisoner": "U kunt een gevangene nemen",
       "tower-player-can-take-a-prisoner": "Speler kan een gevangene nemen",
-      "monasteries-how-do-you-want-place-follower": "Hoe wilt u de meeple op het bijzondere klooster zetten?"
+      "monasteries-how-do-you-want-place-follower": "Hoe wilt u de meeple op het bijzondere klooster zetten?",
+      "crop-circles-choose-city": "",
+      "crop-circles-choose-field": "",
+      "crop-circles-choose-road": ""
     },
     "feature": {
       "acrobats": "Artiesten",

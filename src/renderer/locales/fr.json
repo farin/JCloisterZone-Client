@@ -525,7 +525,10 @@
       "hills-and-player-must-choose-grow-or-score-plural": "Le joueur doit choisir d’agrandir son troupeau ou de l’évaluer pour aucun point. |Le joueur doit choisir d’agrandir son troupeau ou de l’évaluer pour {points} point. | Le joueur doit choisir d’agrandir son troupeau ou de l’évaluer pour {points} points.",
       "tower-you-can-take-a-prisoner": "Vous pouvez capturer un meeple",
       "tower-player-can-take-a-prisoner": "Le joueur peut capturer un meeple",
-      "monasteries-how-do-you-want-place-follower": "Comment voulez-vous poser le meeple sur la nouvelle tuile Abbaye ?"
+      "monasteries-how-do-you-want-place-follower": "Comment voulez-vous poser le meeple sur la nouvelle tuile Abbaye ?",
+      "crop-circles-choose-city": "",
+      "crop-circles-choose-field": "",
+      "crop-circles-choose-road": ""
     },
     "feature": {
       "acrobats": "Artistes",
