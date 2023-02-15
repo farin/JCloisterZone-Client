@@ -265,6 +265,7 @@ export default {
 
     await this.$store.dispatch('settings/loaded', await ipcRenderer.invoke('settings.get'))
     onThemeChange(this.$store.state.settings.theme)
+    this.$i18n.setLocale(this.$store.state.settings.locale)
     this.updateMenu()
 
     ipcRenderer.on('error', (ev, value) => {

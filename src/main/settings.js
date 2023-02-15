@@ -27,7 +27,7 @@ export async function loadSettings () {
 
 export default async function () {
   ipcMain.handle('settings.get', () => {
-    return { settings, file: SETTINGS_FILE }
+    return { settings, file: SETTINGS_FILE, systemLocale: app.getSystemLocale() || 'en-US' }
   })
 
   ipcMain.handle('settings.save', async (ev, data) => {

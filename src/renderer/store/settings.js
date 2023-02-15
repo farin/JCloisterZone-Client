@@ -6,6 +6,7 @@ import { ipcRenderer } from 'electron'
 import username from 'username'
 import { randomId } from '@/utils/random'
 import { CONSOLE_SETTINGS_COLOR } from '@/constants/logging'
+import { LOCALES } from '@/constants/locales'
 
 const RECENT_SAVED_GAME_COUNT = 14
 const RECENT_SETUP_FILE_COUNT = 9
@@ -36,6 +37,7 @@ export const state = () => ({
   activePlayerIndicatorTriangle: true,
   playerListRotate: 'none', // none | active-on-top | local-on-top
   theme: 'light',
+  locale: null,
   enginePath: null, // explicit engine path
   javaPath: null, // exolicit java path
   playOnlineUrl: 'play.jcloisterzone.com/ws',
@@ -43,6 +45,11 @@ export const state = () => ({
 })
 
 const changeCallbacks = {}
+
+function getSupportedLanguage(locale) {
+  const lang = locale.split('-')[0]
+  return LOCALES.find(l => l.id === lang)?.id || 'en'
+}
 
 export const mutations = {
   settings (state, { settings, source }) {
@@ -94,7 +101,8 @@ export const actions = {
     changeCallbacks[key] = cb
   },
 
-  async loaded ({ commit, dispatch }, { settings, file }) {
+  async loaded ({ commit, dispatch }, { settings, file, systemLocale }) {
+    console.log(systemLocale)
     let missingKey = false
     if (settings) {
       settings = { ...settings, file }
@@ -123,7 +131,7 @@ export const actions = {
       // locale
       if (!settings.locale) {
         missingKey = true
-        settings.locale = 'en'
+        settings.locale = getSupportedLanguage(systemLocale)
       }
       commit('settings', { settings, source: 'load' })
       console.log(`%c settings %c loaded ${file}`, CONSOLE_SETTINGS_COLOR, '')
@@ -134,7 +142,8 @@ export const actions = {
           file,
           clientId: randomId(),
           secret: randomId(),
-          nickname: await username()
+          nickname: await username(),
+          locale: getSupportedLanguage(systemLocale)
         },
         source: 'load'
       })

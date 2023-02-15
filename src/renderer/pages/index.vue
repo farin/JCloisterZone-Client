@@ -1,27 +1,6 @@
 <template>
   <div class="landing-view view">
-    <v-select
-      class="locale"
-      v-model="locale"
-      :items="locales"
-      @input="setLocale"
-      return-object
-      single-line
-    >
-      <template slot="selection" slot-scope="data">
-        <svg class="flag" v-if="data.item.flag" :width="18" :height="12">
-          <use :href="`${FLAGS_SVG}#${data.item.flag}`" />
-        </svg>
-        {{ data.item.text }}
-      </template>
-      <template slot="item" slot-scope="data">
-        <svg class="flag" v-if="data.item.flag" :width="18" :height="12">
-          <use :href="`${FLAGS_SVG}#${data.item.flag}`" />
-        </svg>
-        {{ data.item.text }}
-      </template>
-    </v-select>
-.    <div>
+    <div>
       <v-alert v-if="java && java.error === 'not-found' && !javaSelectedByUser" type="warning">
         {{ $t('settings.java.unable-to-find-java') }}<br>
         <br>
@@ -158,8 +137,6 @@ import AddonsReloadObserverMixin from '@/components/AddonsReloadObserverMixin'
 const isMac = process.platform === 'darwin'
 const isWin = process.platform === 'win32'
 
-const FLAGS_SVG = require('~/assets/flags.svg')
-
 export default {
   components: {
   },
@@ -176,80 +153,7 @@ export default {
       showRecentSetupMenu: false,
       menuX: null,
       menuY: null,
-      menuItemIdx: null,
-      FLAGS_SVG,
-      locales: [
-//        {
-//          value: 'ca',
-//          flag: 'catalonia',
-//          text: 'Català'
-//        },
-        {
-          value: 'cs',
-          flag: 'czechia',
-          text: 'Čeština'
-        },
-        {
-          value: 'de',
-          flag: 'germany',
-          text: 'Deutsch'
-        },
-        {
-          value: 'en',
-          flag: 'great-britain',
-          text: 'English'
-        },
-        {
-          value: 'es',
-          flag: 'spain-civil',
-          text: 'Español'
-        },
-        {
-          value: 'fr',
-          flag: 'france',
-          text: 'Français'
-        },
-//        {
-//          value: 'lv',
-//          flag: 'latvia',
-//          text: 'Latviešu'
-//         },
-//        {
-//          value: 'lt',
-//          flag: 'lithuania',
-//          text: 'Lietuvių',
-//        },
-        {
-          value: 'nl',
-          flag: 'nederland',
-          text: 'Nederlands'
-        },
-        {
-          value: 'pl',
-          flag: 'poland',
-          text: 'Polski',
-        },
-        {
-          value: 'ro',
-          flag: 'romania',
-          text: 'Română'
-        },
-//        {
-//          value: 'ru',
-//          flag: 'russia-anti-war',
-//          text: 'Русский'
-//        },
-        {
-          value: 'sk',
-          flag: 'slovakia',
-          text: 'Slovensky'
-//        },
-//        {
-//          value: 'zh',
-//          flag: 'china',
-//          text: '简体中文'
-        }
-      ]
+      menuItemIdx: null
     }
   },
 
@@ -271,19 +175,12 @@ export default {
         return `https://github.com/farin/JCloisterZone-Client/releases/download/v${this.updateInfo.version}/${this.updateInfo.files[0].url}`
       }
       return null
-    },
-    
-    locale: {
-      get () { return this.$store.state.settings['locale'] },
-      set (val) { this.$store.dispatch('settings/update', { 'locale': val.value }) }
     }
-    
   },
 
   watch: {
     settingsLoaded () {
       this.recentSaves = [...this.$store.state.settings.recentSaves]
-      this.$i18n.setLocale(this.$store.state.settings['locale'])
     }
   },
 
@@ -346,10 +243,6 @@ export default {
       Vue.nextTick(() => {
         this.showRecentSetupMenu = true
       })
-    },
-    
-    setLocale(event) {
-      this.$i18n.setLocale(event.value)
     }
   }
 }
@@ -470,14 +363,6 @@ h2
 
   .description
     flex-grow: 1
-
-.v-select
-  max-width: 50vw
-  margin: 0 auto
-
-.flag
-  margin-left: 1ex
-  margin-right: 1ex
 
 @media (max-height: 1199px)
   .landing-view
