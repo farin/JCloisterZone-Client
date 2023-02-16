@@ -84,9 +84,9 @@ export default {
         this.$store.dispatch('gameSetup/setReleaseQuantity', { release: this.expansion.releases[0], quantity: 1 })
       }
     },
-    
-    title(originalTitle, id) {
-      const langId = ['tile-set',id].join('.');
+
+    title (originalTitle, id) {
+      const langId = ['tile-set', id].join('.')
       if (this.$te(langId)) {
         return this.$t(langId)
       } else {

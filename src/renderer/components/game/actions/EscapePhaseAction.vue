@@ -2,7 +2,7 @@
   <section>
     <img src="~/assets/features/C1/escape.png" :height="$vuetify.breakpoint.height > 768 ? 54 : 37">
     <div class="text">
-      {{ $t( local ? 'game.action.siege-you-can-escape-a-besieged-city' : 'game.action.siege-player-can-escape-a-besieged-city' ) }}
+      {{ local ? $t('game.action.siege-you-can-escape-a-besieged-city') : $t('game.action.siege-player-can-escape-a-besieged-city') }}
     </div>
     <slot plain />
   </section>

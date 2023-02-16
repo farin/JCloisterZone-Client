@@ -10,9 +10,9 @@
   },
   "bookmarks": {
     "description-end": "v postranním panelu přehledu.",
-    "description-start": "V seznamu oblíbených nemáte žádné nastavené hry. Nejprve vytvořte hru a poté klikněte na tlačítko",
-    "nothing-saved": "Žádné uložené nastavení.",
-    "setups-saved-to-file": "Nastavení uložena do souboru",
+    "description-start": "V seznamu oblíbených nemáte žádné konfigurace hry. Nejprve vytvořte hru a poté klikněte na tlačítko",
+    "nothing-saved": "Žádná uložená konfigurace.",
+    "setups-saved-to-file": "Konfigurace uložené do souboru",
     "title": "Moje oblíbené"
   },
   "button": {
@@ -34,8 +34,8 @@
     "hide-stats": "Skrýt statistiky",
     "join-game": "Připojit se do hry",
     "load": "Načítání",
-    "load-setup-from-file": "Načíst nastavení ze souboru",
-    "may-deploy": "Může přiložit",
+    "load-setup-from-file": "Načíst konfiguraci ze souboru",
+    "may-deploy": "Může umístit",
     "must-remove": "Musí odstranit",
     "pass": "Přenechat",
     "play-again": "Hrát znovu",
@@ -62,7 +62,7 @@
     "done": "Hotovo",
     "game-engine-not-available": "Herní engine nebyl nalezen.",
     "incomplete-features": "Nedokončená území",
-    "no-core-set": "Nevybrána žádná základní sada!",
+    "no-core-set": "Není vybrána žádná základní sada!",
     "offline": "Offline",
     "penalties": "Pokuty",
     "show-available-only": "Zobrazit pouze vybrané",
@@ -225,7 +225,7 @@
       "turn-start": "otočit startovní kartičku"
     },
     "tile-pack-dialog": {
-      "disabled-show-remaining": "Hra byla nastavena, aby neumožňovala zobrazit zbývající počet kartiček.",
+      "disabled-show-remaining": "Konfigurace hry neumožňuje zobrazit zbývající počet kartiček.",
       "game-tiles": "Kartičky ke hře",
       "hidden-tiles-under-hill-plural": "| Nezapomeňte, že 1 neznámá kartička ze seznamu je schovaná pod kopcem. | Nezapomeňte, že {} neznámé kartičky ze seznamu jsou schované pod kopci. | | Nezapomeňte, že {} neznámých kartiček ze seznamu je schovano pod kopci. ",
       "remaining-tiles": "Zbývající kartičky",
@@ -328,7 +328,7 @@
       "unlimited-time": "Neomezený čas",
       "when-time-is-over": "Pokud čas vyprší"
     },
-    "title": "Nastavení hry",
+    "title": "Konfigurace hry",
     "variant": {
       "barn-placement": {
         "description": "Statek {} být umístěn na louce, která je již obsazená jiným statkem.",
@@ -431,23 +431,23 @@
     "automatic-updates-linux-only": "Automatické aktualizace jsou aktuálně podporovány pouze na platformě Linux.",
     "local": {
       "continue-with-recently-saved-games": "Pokračujte v nedávno uložených hrách",
-      "create-directly-from": "Vytvořte novou hru přímo z adresáře ",
+      "create-directly-from": "Vytvořte novou hru přímo z ",
       "load-game": "Nahrát hru",
       "my-favorites": "Moje oblíbené",
       "new-game": "Nová hra",
       "title": "Hry na tomto počítači"
     },
-    "new-version-available": "Nová verze JCloisterZone připravena ke stažení.",
+    "new-version-available": "Nová verze JCloisterZone je připravena ke stažení.",
     "online": {
       "abandon-game": "Opustit hru",
       "connected-to": "Připojeno k {0}",
       "game-id": "Kód hry",
       "games-in-progress": "Probíhající hry",
       "join-game": "Připojit se do hry",
-      "no-random-discovery": "Nespustíte žádné hry vytvořené jinými hráči",
+      "no-random-discovery": "tj. nelze vyhledávat náhodné hráče",
       "online-storage-description": "Pokud opustíte online hru, nedokončená hra zůstane rozháraná na serveru a můžete ji dokončit později.",
       "paste-a-game-key": "Vložte kód hry poskytnutý hostitelem",
-      "private-games-only": "Nyní můžete hrát pouze hry na tomto počítači.",
+      "private-games-only": "Podporované jsou pouze soukromé hry",
       "remove-unfinished-game-confirmation": "Chcete trvale odstranit nedokončenou hru ze svého seznamu?",
       "title": "Hry pro připojení na veřejném serveru",
       "you-have-no-game-in-progress": "Nemáte rozehranou žádnou hru."
@@ -469,7 +469,7 @@
     "help": "Pomoc",
     "join-game": "Připojit se do hry",
     "leave-game": "Opustit hru",
-    "load-game": "Načíst hru / Nastavení",
+    "load-game": "Načíst hru / konfiguraci",
     "new-game": "Nová hra",
     "playonline-connect": "Hrát online",
     "playonline-disconnect": "Odpojit se",
@@ -478,10 +478,10 @@
     "save-game": "Uložit hru",
     "session": "Akce",
     "settings": "Nastavení",
-    "show-game-setup": "Zobrazit nastavení hry",
-    "tiles": "Kartičky ve hře",
+    "show-game-setup": "Zobrazit konfiguraci hry",
+    "tiles": "Kartičky",
     "toggle-history": "Skrýt/zobrazit historii",
-    "undo": "Krok zpět",
+    "undo": "Zpět",
     "zoom-in": "Přiblížit",
     "zoom-out": "Oddálit"
   },
@@ -491,7 +491,7 @@
       "add-on-url": "Adresa URL grafiky kartiček",
       "artwork-not-found-internet-connection-is-needed": "Nelze najít nebo stáhnout doplněk s výchozí grafikou kartiček.",
       "drag-add-on-here-or-click-here": "Přetáhněte doplněk sem (soubor .jca) nebo jej vyberte kliknutím sem.",
-      "finish-or-leave-game-to-make-changes": "Chcete-li provést změny, nejprve dokončete nebo opusťte hru.",
+      "finish-or-leave-game-to-make-changes": "Chcete-li provést změny, nejprve dohrajte nebo opusťte hru.",
       "install-add-on": "Nainstalujte doplněk",
       "installation-is-not-allowed-during-game": "Instalace není během hry povolena.",
       "installed-add-ons": "Nainstalované doplňky",
