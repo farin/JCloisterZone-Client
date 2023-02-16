@@ -44,10 +44,6 @@ module.exports = {
     detectBrowserLanguage: false,
     locales: [
       {
-        code: 'ca',
-        file: 'ca.json'
-      },
-      {
         code: 'cs',
         file: 'cs.json'
       },
@@ -82,10 +78,6 @@ module.exports = {
       {
         code: 'sk',
         file: 'sk.json'
-      },
-      {
-        code: 'zh',
-        file: 'zh.json'
       }
     ],
     // lazy: true,
