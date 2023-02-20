@@ -24,7 +24,7 @@ async function createMenu (win, messages) {
     { type: 'separator' },
     { id: 'settings', label: $t('menu.settings') || 'Settings', accelerator: 'CommandOrControl+,', click () { win.webContents.send('menu.show-settings') } },
     { type: 'separator' },
-    isMac ? { role: 'close' } : { role: 'quit' }
+    isMac ? { role: 'close', label: $t('menu.exit') } : { role: 'quit', label: $t('menu.exit') }
   ]
 
   const template = [
