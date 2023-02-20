@@ -95,7 +95,7 @@ export const COUNT = Expansion.COUNT = new Expansion('COUNT', 'The Count of Carc
   new Release('The Count of Carcassonne', ['count'], { id: 'count', max: 1 })
 ])
 export const GQ11 = Expansion.GQ11 = new Expansion('GQ11', 'The Mini Expansion (GQ11)', {}, [
-  new Release('The Mini Expansion (GQ11)', ['gq11', 'gq11/river'], { id: 'gq11'} )
+  new Release('The Mini Expansion (GQ11)', ['gq11', 'gq11/river'], { id: 'gq11' })
 ])
 export const CULT = Expansion.CULT = new Expansion('CULT', 'The Cult', { implies: ['shrine'] }, [
   new Release('Cult Places', ['cult/6'], { id: 'cult-places', note: '6 tiles (HiG)' }),
@@ -123,7 +123,7 @@ export const MAGE_AND_WITCH = Expansion.MAGE_AND_WITCH = new Expansion('MAGE_AND
 export const WATCHTOWERS = Expansion.WATCHTOWERS = new Expansion('WATCHTOWERS', 'The Watchtowers', { enforces: ['watchtower'] })
 
 export const RUSSIAN_PROMOS = Expansion.RUSSIAN_PROMOS = new Expansion('RUSSIAN_PROMOS', 'Russian Promos', { enforces: ['yaga', 'russian-trap'] }, [
-  new Release('Russian Promos', ['russian-promos/2013', 'russian-promos/2016'], { id: 'russian-promos' } )
+  new Release('Russian Promos', ['russian-promos/2013', 'russian-promos/2016'], { id: 'russian-promos' })
 ])
 export const LABYRINTH = Expansion.LABYRINTH = new Expansion('LABYRINTH', 'The Labyrinth', { enforces: ['labyrinth'] })
 export const DARMSTADT = Expansion.DARMSTADT = new Expansion('DARMSTADT', 'Darmstadt', { enforces: ['church'] })

@@ -1,9 +1,9 @@
 export const LOCALES = [
-  //  {
-  //    id: 'ca',
-  //    flag: 'catalonia',
-  //    text: 'Català'
-  //  },
+  {
+    id: 'ca',
+    flag: 'catalonia',
+    text: 'Català'
+  },
   {
     id: 'cs',
     flag: 'czechia',
@@ -34,11 +34,11 @@ export const LOCALES = [
   //    flag: 'latvia',
   //    text: 'Latviešu'
   //   },
-  //  {
-  //    id: 'lt',
-  //    flag: 'lithuania',
-  //    text: 'Lietuvių',
-  //  },
+  {
+    id: 'lt',
+    flag: 'lithuania',
+    text: 'Lietuvių'
+  },
   {
     id: 'nl',
     flag: 'nederland',
