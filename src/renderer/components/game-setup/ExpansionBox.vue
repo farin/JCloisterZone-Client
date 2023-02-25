@@ -16,14 +16,14 @@
       <ReleaseButtons :release="expansion.releases[0]">
         <div class="exp-title">
           <ExpansionSymbol :expansion="expansion" />
-          <h3>{{ title(expansion.title,expansion.name.toLowerCase().replaceAll('_','-')) }}</h3>
+          <h3>{{ title(expansion.title, expansion.name.toLowerCase().replaceAll('_','-')) }}</h3>
         </div>
       </ReleaseButtons>
     </template>
     <template v-else>
       <div class="exp-title" @click="onMultisetTitleClick">
         <ExpansionSymbol :expansion="expansion" />
-        <h3>{{ title(expansion.title,expansion.name.toLowerCase().replaceAll('_','-')) }}</h3>
+        <h3>{{ title(expansion.title, expansion.name.toLowerCase().replaceAll('_','-')) }}</h3>
       </div>
       <div
         v-for="(release, idx) in expansion.releases"
@@ -31,7 +31,7 @@
         class="tile-set-row"
       >
         <ReleaseButtons :release="release">
-          <h4 :title="release.note">{{ title(release.title,release.id) }}</h4>
+          <h4 :title="release.note">{{ title(release.title, release.id) }}</h4>
         </ReleaseButtons>
       </div>
     </template>

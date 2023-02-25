@@ -3,13 +3,13 @@
     <v-card-title class="headline">
       <ExpansionSymbol :expansion="expansion" :style="{ width: 32, height: 32 }" />
       &ensp;
-      {{ $t(['tile-set',expansion.name.replaceAll('_','-').toLowerCase()].join('.')) }}
+      {{ $t(['expansion',expansion.name.replaceAll('_','-').toLowerCase()].join('.')) }}
     </v-card-title>
     <v-card-text>
       <component :is="detailComponent" :expansion="expansion" />
     </v-card-text>
     <v-card-actions>
-      <v-spacer/>
+      <v-spacer />
       <v-btn
         text
         @click="$emit('close')"
