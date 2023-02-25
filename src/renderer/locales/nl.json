@@ -1,7 +1,7 @@
 {
   "@author": "Kiap1969",
   "@jcz-version": "5.10.2",
-  "@version": "0.3.2",
+  "@version": "0.4.0",
   "about": {
     "configuration-file": "Configuratiebestand",
     "jcloisterzone-game-engine": "JCloisterZone Spelmachine",
@@ -85,10 +85,10 @@
       "castle-you-are-allowed-to-place": "U mag leggen",
       "coc-player-can-move-the-count": "Speler mag de graaf verplaatsen",
       "coc-you-can-move-the-count": "U mag de graaf verplaatsen",
-      "crop-circles-choose-city": "",
-      "crop-circles-choose-field": "",
+      "crop-circles-choose-city": "een stad",
+      "crop-circles-choose-field": "een weide",
       "crop-circles-choose-one": "Kies er één: Elke speler {deploy} of {remove} een meeple op/van {feature}.",
-      "crop-circles-choose-road": "",
+      "crop-circles-choose-road": "een weg",
       "crop-circles-player-must-choose": "Speler moet kiezen: Elke speler mag een meeple zetten op of moet er één verwijderen van {feature}.",
       "crop-circles-player-must-return-meeple": "Speler moet een meeple terugnemen",
       "crop-circles-you-must-return-meeple": "U moet één van uw meeples terugnemen.",
@@ -198,21 +198,21 @@
       "road": "Weg",
       "roads": "Wegen",
       "robber": "Roofridder",
-      "sheep": "",
+      "sheep": "Schaap",
       "shrine": "Cultusplaats",
-      "shrines": "",
+      "shrines": "Cultusplaats",
       "siege": "Belegering",
       "special-monasteries": "Bijzondere kloosters",
       "special-monastery": "Bijzonder klooster",
       "tower": "Toren",
-      "towers": "",
+      "towers": "Torens",
       "trade-goods": "Handelswaren",
       "vineyard": "Wijngaard",
       "vodyanoy": "Vodyanoy",
       "watchtower": "Wachttoren",
       "watchtowers": "Wachttorens",
       "wind-rose": "Windroos",
-      "wind-roses": "",
+      "wind-roses": "Windrozen",
       "yaga-hut": "Yaga-hut"
     },
     "scoring": {
@@ -227,7 +227,7 @@
     "tile-pack-dialog": {
       "disabled-show-remaining": "Het spel is gestart met de optie die het tonen van het aantal resterende tegels niet toestaat.",
       "game-tiles": "Speltegels",
-      "hidden-tiles-under-hill-plural": "",
+      "hidden-tiles-under-hill-plural": "Er is geen onbekende tegel onder een heuvel. |  Vergeet niet dat 1 onbekende tegel uit de lijst verborgen is onder een heuvel. | Vergeet niet dat {count} onbekende tegels van de lijst verborgen zijn onder heuvels.",
       "remaining-tiles": "Overgebleven tegels",
       "tiles": "Tegels",
       "tiles-plural": "tegels | tegel | tegels"
@@ -456,8 +456,8 @@
     "update-to": "Updaten naar {version}"
   },
   "join-game": {
-    "connect-to-remote-host": "Maak verbinding met externe host met gecreëerd spel.",
-    "description": "Het spel op de externe host moet in de kleurselectiefase zijn.",
+    "connect-to-remote-host": "Verbinden met externe host met gemaakt spel.",
+    "description": "Het spel op de externe host moet zich in de fase kleurselectie bevinden.",
     "host": "Host",
     "title": "Met extern spel verbinden"
   },
@@ -473,7 +473,7 @@
     "new-game": "Nieuw spel",
     "playonline-connect": "Online spelen",
     "playonline-disconnect": "Verbinding verbreken",
-    "rotate": "",
+    "rotate": "Draaien",
     "rules": "Spelregels",
     "save-game": "Spel opslaan",
     "session": "Sessie",
@@ -493,7 +493,7 @@
       "drag-add-on-here-or-click-here": "Sleep de add-on hierheen (.jca-bestand) of klik hier om deze te selecteren.",
       "finish-or-leave-game-to-make-changes": "Voltooi of verlaat het spel alvorens hier wijzigingen door te voeren.",
       "install-add-on": "Add-on installeren",
-      "installation-is-not-allowed-during-game": "",
+      "installation-is-not-allowed-during-game": "Installatie is niet toegestaan tijdens het spel.",
       "installed-add-ons": "Geïnstalleerde add-ons",
       "invalid-add-on-multiple-folders-in-root": "Ongeldige add-on: het pakket mag slechts één map in de hoofdmap bevatten",
       "look-at-jcz-for-add-ons": "Kijk op {link} voor beschikbare add-ons.",
@@ -532,7 +532,7 @@
       "title": "Spelinterface",
       "triangle-in-top-bar": "driehoek in bovenbalk",
       "turn-confirmation": "Beurt bevestigen",
-      "turn-confirmation-description": "Bevestigen stelt de speler in staat om uitgevoerde acties ongedaan te maken voordat de beurt doorgegeven wordt naar de volgende speler. Dit vindt plaats vóór de puntentelling of bijv. tijdens de beurt van een tegenstander als u uw transportwagen verplaatst, enz. Expliete bevestiging inschakelen…"
+      "turn-confirmation-description": "Bevestigen stelt de speler in staat om uitgevoerde acties ongedaan te maken voordat de beurt doorgegeven wordt naar de volgende speler. Dit vindt plaats vóór de puntentelling of bijv. tijdens de beurt van een tegenstander als u uw transportwagen verplaatst, enz. Expliciete bevestiging inschakelen…"
     },
     "java": {
       "change-in-settings": "Wijzig dit in {settings}.",

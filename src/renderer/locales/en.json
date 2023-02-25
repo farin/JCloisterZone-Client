@@ -1,7 +1,7 @@
 {
   "@author": "farin",
   "@jcz-version": "5.10.2",
-  "@version": "0.3.2",
+  "@version": "0.4.0",
   "about": {
     "configuration-file": "Configuration file",
     "jcloisterzone-game-engine": "JCloisterZone Game Engine",
@@ -227,7 +227,7 @@
     "tile-pack-dialog": {
       "disabled-show-remaining": "The game was created with option which doesn't allow showing remaining tiles count.",
       "game-tiles": "Game tiles",
-      "hidden-tiles-under-hill-plural": "| Don't forget that {} unknown tile from list is hidden under a hills. | Don't forget that {} unknown tiles from list is hidden under hills. ",
+      "hidden-tiles-under-hill-plural": "There is no unknown tile under hill. | Don't forget that 1 unknown tile from list is hidden under a hill. | Don't forget that {count} unknown tiles from list are hidden under hills.",
       "remaining-tiles": "Remaining tiles",
       "tiles": "Tiles",
       "tiles-plural": "tiles | tile | tiles"
@@ -298,7 +298,7 @@
       "pig-herd-disabled": "No tile with Pig herd is in game.",
       "portal-description": "Through magic portal meeple can be placed on any tile.",
       "portal-disabled": "No tile with Magic portal is in game.",
-      "princess-description": "Princess can remove knight from a city.",
+      "princess-description": "Princess can remove knight from a city.",
       "princess-disabled": "No tile with Princess is in game.",
       "scoring-variants": "Scoring variants",
       "shrine-description": "Shrine placed next to a monastery compete who finish feature first. (second gets no points)",

@@ -1,8 +1,7 @@
 {
   "@author": "J0anJosep",
   "@jcz-version": "5.10.2",
-  "@title": "JCloisterZone",
-  "@version": "0.3.2",
+  "@version": "0.4.0",
   "about": {
     "configuration-file": "Fitxer de configuració",
     "jcloisterzone-game-engine": "Motor de joc del JCloisterZone",
@@ -86,10 +85,10 @@
       "castle-you-are-allowed-to-place": "Podeu posar",
       "coc-player-can-move-the-count": "El jugador pot moure el comte",
       "coc-you-can-move-the-count": "Podeu moure el comte",
-      "crop-circles-choose-city": "???",
-      "crop-circles-choose-field": "???",
+      "crop-circles-choose-city": "una ciutat",
+      "crop-circles-choose-field": "un camp",
       "crop-circles-choose-one": "Escolliu un. Cada jugador {deploy} o {remove} un seguidor de {feature}.",
-      "crop-circles-choose-road": "???",
+      "crop-circles-choose-road": "un camí",
       "crop-circles-player-must-choose": "El jugador ha d'escollir: Cada jugador pot col·locar o ha de retirar un seguidor de {feature}.",
       "crop-circles-player-must-return-meeple": "El jugador ha de retirar un seguidor",
       "crop-circles-you-must-return-meeple": "Heu de retirar un dels vostres seguidors.",
@@ -416,7 +415,7 @@
       "tiny-city-scoring": {
         "2": "2 punts",
         "4": "4 punts",
-        "description": "Les ciutats petites (de dues rajoles valen {}."
+        "description": "Les ciutats petites (de dues rajoles) valen {}."
       },
       "tunnelize-other-expansions": {
         "description": "Aplica la regla dels túnels a rajoles d'altres expansions que mostrin un túnel."
@@ -521,7 +520,7 @@
       "beep-description": "Pita quan és el vostre torn (o quan heu de fer alguna acció durant el torn de l'oponent).",
       "colored-background-in-right-sidebar": "fons de color a la barra de l'esquerra",
       "enable-beep": "Activa l'avís acústic",
-      "language": "???",
+      "language": "Idioma",
       "multiple-indicators-are-allowed": "Es permeten múltiples indicadors.",
       "only-when-meeple-was-deployed-on-a-field": "només quan es col·loca un seguidor en un camp",
       "only-when-meeple-was-deployed-on-a-tower": "només quan es col·loca un seguidor en una torre",

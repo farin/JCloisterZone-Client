@@ -1,7 +1,7 @@
 {
   "@author": "Black Bear",
   "@jcz-version": "5.10.2",
-  "@version": "0.3.2",
+  "@version": "0.4.0",
   "about": {
     "configuration-file": "Fichier de configuration",
     "jcloisterzone-game-engine": "Moteur de jeu de JCloisterZone",
@@ -35,8 +35,8 @@
     "join-game": "Rejoindre une partie",
     "load": "Charger",
     "load-setup-from-file": "Charger la configuration à partir d’un fichier",
-    "may-deploy": "Pouvoir poser",
-    "must-remove": "Devoir retirer",
+    "may-deploy": "Peut poser",
+    "must-remove": "Doit le retirer",
     "pass": "Passer",
     "play-again": "Jouer à nouveau",
     "play-online": "Jouer en ligne",
@@ -58,7 +58,7 @@
     "undo": "Annuler"
   },
   "core-messages": {
-    "choose": "Choisissez",
+    "choose": "Choisir",
     "done": "Terminé",
     "game-engine-not-available": "Moteur de jeu non disponible.",
     "incomplete-features": "Zones incomplètes",
@@ -85,11 +85,11 @@
       "castle-you-are-allowed-to-place": "Vous êtes autorisés à poser",
       "coc-player-can-move-the-count": "Le joueur peut déplacer le Comte",
       "coc-you-can-move-the-count": "Vous pouvez déplacer le Comte",
-      "crop-circles-choose-city": "",
-      "crop-circles-choose-field": "",
-      "crop-circles-choose-one": "Choisissez-en une. Chaque joueur {deploy} un meeple ou le {remove} de la zone {feature}.",
-      "crop-circles-choose-road": "",
-      "crop-circles-player-must-choose": "Le joueur doit choisir : Chaque joueur peut poser un meeple ou doit le retirer de la zone {feature}.",
+      "crop-circles-choose-city": "une ville",
+      "crop-circles-choose-field": "un pré",
+      "crop-circles-choose-one": "Choisissez une option. Chaque joueur {deploy} un meeple sur {feature} ou {remove} d’{feature}.",
+      "crop-circles-choose-road": "une route",
+      "crop-circles-player-must-choose": "Le joueur doit choisir : Chaque joueur peut poser un meeple sur {feature} ou doit le retirer d’{feature}.",
       "crop-circles-player-must-return-meeple": "Le joueur doit reprendre un de ses meeples",
       "crop-circles-you-must-return-meeple": "Vous devez reprendre un de vos meeples.",
       "draw-a-tile": "Piochez une tuile",
@@ -198,21 +198,21 @@
       "road": "Route",
       "roads": "Routes",
       "robber": "Chevalier-brigand",
-      "sheep": "",
+      "sheep": "Mouton",
       "shrine": "Lieu de culte",
-      "shrines": "",
+      "shrines": "Lieux de culte",
       "siege": "Siège",
       "special-monasteries": "Nouvelles tuiles Abbayes",
       "special-monastery": "Nouvelle tuile Abbaye",
       "tower": "Tour",
-      "towers": "",
+      "towers": "Tours",
       "trade-goods": "Marchandises",
       "vineyard": "Vignoble",
       "vodyanoy": "Vodianoï",
       "watchtower": "Tour de guet",
       "watchtowers": "Tours de guet",
       "wind-rose": "Rose des vents",
-      "wind-roses": "",
+      "wind-roses": "Roses des vents",
       "yaga-hut": "Isba de Baba Yaga"
     },
     "scoring": {
@@ -227,7 +227,7 @@
     "tile-pack-dialog": {
       "disabled-show-remaining": "La partie a été créée avec une option qui ne permet pas d’afficher le nombre de tuiles restantes.",
       "game-tiles": "Tuiles de la partie",
-      "hidden-tiles-under-hill-plural": "",
+      "hidden-tiles-under-hill-plural": "Il n’y a aucune tuile cachée sous une colline. | N’oubliez pas qu’une tuile inconnue de la liste est cachée sous une colline. | N’oubliez pas que {count} tuiles inconnues de la liste sont cachées sous des collines.",
       "remaining-tiles": "Tuiles restantes",
       "tiles": "Tuiles",
       "tiles-plural": "tuile | tuile | tuiles"
@@ -279,7 +279,7 @@
       "acrobats-disabled": "Aucune tuile Piste d’Artiste n’est en jeu.",
       "bazaar-description": "Les tuiles Terrain sont vendues aux enchères lorsque le bazar entre en jeu.",
       "bazaar-disabled": "Aucune tuile Bazar n’est en jeu.",
-      "cathedral-description": "Les villes complétées avec une ou plusieurs cathédrales ×3 au lieu de ×2, aucun point lors de l’évaluation finale.",
+      "cathedral-description": "Villes complétées avec une ou plusieurs cathédrales ×3 au lieu de ×2, aucun point lors de l’évaluation finale.",
       "cathedral-disabled": "Aucune tuile Cathédrale n’est en jeu.",
       "escape-description": "Évasion possible via une abbaye voisine.",
       "escape-disabled": "Aucune tuile Siège n’est en jeu.",
@@ -291,14 +291,14 @@
       "garden-disabled": "L’abbé n’est pas sélectionné.",
       "hill-description": "Utilisé pour départager les joueurs. Cache également une tuile aléatoire en dessous.",
       "hill-disabled": "Aucune tuile Colline n’est en jeu.",
-      "inn-description": "Routes achevées avec une ou plusieurs auberges au lac ×2, pas de points lors de l’évaluation finale.",
+      "inn-description": "Routes achevées avec une ou plusieurs auberges au lac ×2, aucun point lors de l’évaluation finale.",
       "inn-disabled": "Aucune tuile Auberge au Lac n’est en jeu.",
       "optional-game-mechanics": "Mécaniques de jeu facultatives",
       "pig-herd-description": "Compte comme un cochon supplémentaire sur le pré (les paysans marquent plus de points).",
       "pig-herd-disabled": "Aucune tuile Troupeau de Porcs n’est en jeu.",
       "portal-description": "Grâce à un portail magique, un meeple peut être posé sur une tuile placée précédemment.",
       "portal-disabled": "Aucune tuile Portail Magique n’est en jeu.",
-      "princess-description": "La princesse peut retirer un chevalier d’une ville.",
+      "princess-description": "La princesse peut retirer un chevalier d’une ville.",
       "princess-disabled": "Aucune tuile Princesse n’est en jeu.",
       "scoring-variants": "Variantes d’évaluation",
       "shrine-description": "Un lieu de culte placé à côté d’une abbaye la défie. Le premier à finir sa zone obtient tous ses points et le second n’obtient rien.",
@@ -331,7 +331,7 @@
     "title": "Configuration de la partie",
     "variant": {
       "barn-placement": {
-        "description": "La grange {} être posée sur un pré déjà occupé par une autre grange.",
+        "description": "La grange {} être posée sur un pré déjà occupé par une autre grange.",
         "not-occupied": "ne peut pas",
         "occupied": "peut"
       },
@@ -356,12 +356,12 @@
       },
       "espace-variant": {
         "any-tile": "de toute tuile",
-        "description": "L’abbaye doit être adjacente {} d’une ville assiégée pour pouvoir permettre une évasion.",
+        "description": "L’abbaye doit être adjacente {} d’une ville assiégée pour pouvoir permettre une évasion.",
         "siege-tile": "d’une tuile Siège"
       },
       "fairy-placement": {
         "description": "La fée {}.",
-        "next-follower": "est assignée à un meeple",
+        "next-follower": "est assignée à un meeple",
         "on-tile": "est déplacée sur une tuile"
       },
       "festival-return": {
@@ -408,7 +408,7 @@
         "description": "Attribuer {} à chaque joueur dans une partie à 2 ou à 3."
       },
       "princess-action": {
-        "description": "La princesse {} retirer un chevalier d’une ville.",
+        "description": "La princesse {} retirer un chevalier d’une ville.",
         "may": "peut",
         "must": "doit"
       },
@@ -456,8 +456,8 @@
     "update-to": "Mise à jour vers {version}"
   },
   "join-game": {
-    "connect-to-remote-host": "Connectez-vous à l'hôte distant avec le jeu créé.",
-    "description": "Le jeu sur l'hôte distant doit être en phase de sélection des couleurs.",
+    "connect-to-remote-host": "Connectez-vous à l’hôte distant avec une partie créée.",
+    "description": "La partie sur l’hôte distant doit être en phase de sélection de la couleur.",
     "host": "Hôte",
     "title": "Rejoindre une partie à distance"
   },
@@ -473,7 +473,7 @@
     "new-game": "Nouvelle partie",
     "playonline-connect": "Jouer en ligne",
     "playonline-disconnect": "Se déconnecter",
-    "rotate": "",
+    "rotate": "Pivoter",
     "rules": "Règles",
     "save-game": "Sauvegarder la partie",
     "session": "Session",
@@ -493,7 +493,7 @@
       "drag-add-on-here-or-click-here": "Faites glisser le module complémentaire ici (fichier .jca) ou cliquez ici pour le sélectionner.",
       "finish-or-leave-game-to-make-changes": "Veuillez terminer ou quitter la partie avant de pouvoir effectuer des changements ici.",
       "install-add-on": "Installer un module complémentaire",
-      "installation-is-not-allowed-during-game": "",
+      "installation-is-not-allowed-during-game": "Toute installation est interdite pendant une partie.",
       "installed-add-ons": "Modules complémentaires installés",
       "invalid-add-on-multiple-folders-in-root": "Module complémentaire invalide : le module ne doit contenir qu’un seul dossier à la racine.",
       "look-at-jcz-for-add-ons": "Consultez le site {link} pour connaître les modules complémentaires disponibles.",
