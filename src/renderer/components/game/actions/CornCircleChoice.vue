@@ -8,9 +8,7 @@
         <template #remove>
           <v-btn large color="secondary" @click="select('REMOVE')">{{ $t('button.must-remove') }}</v-btn>
         </template>
-        <template #feature>
-          {{ featureName }}
-        </template>
+        <template #feature>{{ featureName }}</template>
       </i18n>
     </template>
     <span v-else class="text">{{ $t('game.action.crop-circles-player-must-choose', { feature: featureName } ) }}</span>
@@ -40,8 +38,9 @@ export default {
 
     featureName () {
       const { featureType } = this.actionItem
+      console.log(featureType);
       if (featureType === 'City') return this.$t('game.action.crop-circles-choose-city')
-      if (featureType === 'Farm') return this.$t('game.action.crop-circles-choose-field')
+      if (featureType === 'Farm' || featureType === 'Field') return this.$t('game.action.crop-circles-choose-field')
       if (featureType === 'Road') return this.$t('game.action.crop-circles-choose-road')
       return featureType
     }
