@@ -86,7 +86,7 @@ export default {
     },
 
     title (originalTitle, id) {
-      const langId = ['tile-set', id].join('.')
+      const langId = ['expansion', id].join('.')
       if (this.$te(langId)) {
         return this.$t(langId)
       } else {
