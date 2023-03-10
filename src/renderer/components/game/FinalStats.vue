@@ -166,7 +166,7 @@
 
       <template v-if="stats.points.acrobats.some(p => p)">
         <div class="header bigtop" :title="$t('game.feature.acrobats')">
-          <svg class="meeple2" width="40" height="40">
+          <svg class="meeple" width="40" height="40">
             <g transform="scale(0.40)">
               <use :href="`${MEEPLES_SVG}#small-follower`" x="22" y="0" />
               <use :href="`${MEEPLES_SVG}#small-follower`" x="-1" y="41" />
@@ -358,6 +358,10 @@ export default {
     justify-items: center
     align-items: center
     grid-gap: 5px 0
+
+    svg.meeple, svg.neutral
+      +theme using ($theme)
+        fill: map-get($theme, 'gray-text-color')
 
 svg.meeple
   width: 40px
