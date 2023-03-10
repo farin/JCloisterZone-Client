@@ -141,7 +141,7 @@ export default {
     .v-icon
       font-size: 40px
 
-    svg.meeple, svg.artwork-element
+    svg.meeple, svg.artwork-element, svg.exp-symbol
       +theme using ($theme)
         fill: map-get($theme, 'gray-text-color')
 
