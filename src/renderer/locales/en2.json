@@ -1,7 +1,7 @@
 {
   "@author": "farin",
-  "@jcz-version": "5.10.2",
-  "@version": "0.4.0",
+  "@jcz-version": "5.11.0",
+  "@version": "0.4.1",
   "about": {
     "configuration-file": "Configuration file",
     "jcloisterzone-game-engine": "JCloisterZone Game Engine",
@@ -371,7 +371,7 @@
     "title": "Game Setup",
     "variant": {
       "barn-placement": {
-        "description": "Barn {} be placed on a field already occupied by another barn.",
+        "description": "Barn {} be placed on a field already occupied by another barn.",
         "not-occupied": "can't",
         "occupied": "can"
       },
@@ -396,12 +396,12 @@
       },
       "espace-variant": {
         "any-tile": "any tile",
-        "description": "Monastery must be placed adjacent to {} of a besieged city to escape.",
+        "description": "Monastery must be placed adjacent to {} of a besieged city to escape.",
         "siege-tile": "siege tile"
       },
       "fairy-placement": {
         "description": "The Fairy is deployed {}.",
-        "next-follower": "next to a meeple",
+        "next-follower": "next to a meeple",
         "on-tile": "on a tile"
       },
       "festival-return": {
@@ -448,7 +448,7 @@
         "description": "Assign {} token sets to each player in game of two/three."
       },
       "princess-action": {
-        "description": "The Princess {} remove knight from a city.",
+        "description": "The Princess {} remove knight from a city.",
         "may": "may",
         "must": "must"
       },
