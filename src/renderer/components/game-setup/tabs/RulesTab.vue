@@ -43,7 +43,7 @@
 
         <GameMechanicsBox :item="GameElement.INN">
           <template #icon>
-            <img src="~/assets/features/C1/inn.png" width="80">
+            <img src="~/assets/features/C1/inn.png" height="55">
           </template>
           <template #description>{{ $t('game-setup.rules.inn-description') }}</template>
           <template #disabled>{{ $t('game-setup.rules.inn-disabled') }}</template>
@@ -51,7 +51,7 @@
 
         <GameMechanicsBox :item="GameElement.PRINCESS">
           <template #icon>
-            <img src="~/assets/features/C1/princess.png" height="42">
+            <img src="~/assets/features/C1/princess.png" height="55">
           </template>
           <template #description>{{ $t('game-setup.rules.princess-description') }}</template>
           <template #disabled>{{ $t('game-setup.rules.princess-disabled') }}</template>
