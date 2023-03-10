@@ -8,7 +8,7 @@
     </div>
     <ExpansionSymbol v-else :expansion="expansion" />
 
-    <template #title>{{ $t(['expansion',lang || expansion.name.toLowerCase()].join('.')) }}</template>
+    <template #title>{{ title(expansion.title, lang || expansion.name.toLowerCase().replaceAll('_','-')) }}</template>
     <template #quantity>
       <div v-if="quantity !== 1 && expansion.name !== '_UNKNOWN'" class="quantity tile-set">
         {{ quantity === -1 ? '*' : quantity }}
@@ -33,6 +33,17 @@ export default {
     title: { type: String, required: true },
     quantity: { type: Number, default: 1 },
     zIndex: { type: Number, default: 1 }
+  },
+  
+  methods: {
+    title (originalTitle, id) {
+      const langId = ['expansion', id].join('.')
+      if (this.$te(langId)) {
+        return this.$t(langId)
+      } else {
+        return originalTitle
+      }
+    }
   }
 }
 </script>
