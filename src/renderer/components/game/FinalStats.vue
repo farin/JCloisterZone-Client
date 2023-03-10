@@ -359,9 +359,10 @@ export default {
     align-items: center
     grid-gap: 5px 0
 
-    svg.meeple, svg.neutral
-      +theme using ($theme)
-        fill: map-get($theme, 'gray-text-color')
+    .header
+      svg.meeple, svg.neutral
+        +theme using ($theme)
+          fill: map-get($theme, 'gray-text-color')
 
 svg.meeple
   width: 40px
