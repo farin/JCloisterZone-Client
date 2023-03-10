@@ -1,7 +1,7 @@
 <template>
   <div class="game-setup-overview-inline" :class="sizeClass">
     <OverviewExpansionTile
-      v-for="({ expansion, title, quantity }, idx) in releases"
+      v-for="({ expansion, id, title, quantity, lang }, idx) in releases"
       :key="'r' + expansion.name + idx"
       :expansion="expansion"
       :title="title"
