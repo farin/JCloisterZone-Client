@@ -19,7 +19,7 @@ autoUpdater.logger.transports.file.level = 'info'
 
 const modules = []
 
-function createWindow () {
+async function createWindow () {
   const win = new BrowserWindow({
     height: 600,
     width: 1000,

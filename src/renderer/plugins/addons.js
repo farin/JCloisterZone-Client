@@ -8,7 +8,7 @@ import uniq from 'lodash/uniq'
 import isNumber from 'lodash/isNumber'
 import unzipper from 'unzipper'
 import sha256File from 'sha256-file'
-import compareVersions from 'compare-versions'
+import { compare } from 'compare-versions'
 import Vue from 'vue'
 
 import { getAppVersion } from '@/utils/version'
@@ -289,7 +289,7 @@ class Addons extends EventsBase {
           addon.error = `Invalid add-on. Expecting integer number as version, found ${addon.json.version}`
         } else if (!addon.json.minimumJczVersion) {
           addon.error = 'Invalid add-on. Missing minimumJczVersion.'
-        } else if (compareVersions.compare(getAppVersion(), addon.json.minimumJczVersion, '<')) {
+        } else if (compare(getAppVersion(), addon.json.minimumJczVersion, '<')) {
           addon.error = `Add-on requires JCZ ${addon.json.minimumJczVersion} or higher`
         } else if (addon.remote) {
           if (addon.json.version !== addon.remote.version) {

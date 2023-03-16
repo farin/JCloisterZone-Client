@@ -1,7 +1,7 @@
 import { app, ipcMain } from 'electron'
 import { autoUpdater } from 'electron-updater'
 import electronLogger from 'electron-log'
-import compareVersions from 'compare-versions'
+import { compareVersions } from 'compare-versions'
 
 let diffDown = {
   percent: 0,

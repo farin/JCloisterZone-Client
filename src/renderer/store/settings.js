@@ -1,9 +1,9 @@
+import os from 'os'
 import fs from 'fs'
 import Vue from 'vue'
 import isEqual from 'lodash/isEqual'
 import { ipcRenderer } from 'electron'
 
-import username from 'username'
 import { randomId } from '@/utils/random'
 import { CONSOLE_SETTINGS_COLOR } from '@/constants/logging'
 import { LOCALES } from '@/constants/locales'
@@ -116,7 +116,7 @@ export const actions = {
       }
       if (!settings.nickname) {
         missingKey = true
-        settings.nickname = await username()
+        settings.nickname = os.userInfo().username
       }
       // migrate legacy play online settings
       if (settings.playOnlineUrl === null || settings.playOnlineUrl === 'play.jcloisterzone.com/ws') {
@@ -142,7 +142,7 @@ export const actions = {
           file,
           clientId: randomId(),
           secret: randomId(),
-          nickname: await username(),
+          nickname: os.userInfo().username,
           locale: getSupportedLanguage(systemLocale)
         },
         source: 'load'

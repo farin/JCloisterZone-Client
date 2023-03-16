@@ -1,8 +1,7 @@
 import isObject from 'lodash/isObject'
 import zip from 'lodash/zip'
-import ohm from 'ohm-js'
+import * as ohm from 'ohm-js'
 import { Path, Point } from 'paper/dist/paper-core'
-import { kForOnEventAttribute } from 'ws/lib/constants'
 
 import PathTemplateGrammar from './path-template.ohm'
 
