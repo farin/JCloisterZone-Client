@@ -4,7 +4,7 @@
       <div>
         <ConfigSection :title="$t('bookmarks.title')">
           <div v-if="!verifiedMySetups.length" class="empty-message">
-            <i>{{ $t('bookmarks.description-start') }}<span class="btn-ref"><v-icon left>far fa-heart</v-icon>{{ $t('button.add-to-favorites') }}</span> {{ $t('bookmarks.description-end') }}</i>
+            <i>{{ $t('bookmarks.description-start') }}&nbsp;<span class="btn-ref"><v-icon left>far fa-heart</v-icon>{{ $t('button.add-to-favorites') }}</span> {{ $t('bookmarks.description-end') }}</i>
           </div>
           <div class="d-flex flex-wrap">
             <GameSetupBox

@@ -1,16 +1,16 @@
 <template>
   <div>
     <p>
-      <RulesLink :title="$t('tile-set.crop-circles-I')" href="https://boardgamegeek.com/boardgame/67055/carcassonne-die-kornkreise" />
-      <RulesLink :title="$t('tile-set.crop-circles-II')" href="https://boardgamegeek.com/boardgame/120686/carcassonne-corn-circles-ii" />
+      <RulesLink :title="$t('expansion.crop-circles-I')" href="https://boardgamegeek.com/boardgame/67055/carcassonne-die-kornkreise" />
+      <RulesLink :title="$t('expansion.crop-circles-II')" href="https://boardgamegeek.com/boardgame/120686/carcassonne-corn-circles-ii" />
       <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/Special:MyLanguage/Crop_Circles" />
       <RulesLink :title="$t('button.rules-1st-edition')" href="http://wikicarpedia.com/index.php/Special:MyLanguage/Crop_Circles_(1st_edition)" />
     </p>
 
-    <h5>{{ $t('tile-set.crop-circles-I') }}</h5>
+    <h5>{{ $t('expansion.crop-circles-I') }}</h5>
     <TileDistribution :sets="{'corn-circles/1': 1}" />
 
-    <h5>{{ $t('tile-set.crop-circles-II') }}</h5>
+    <h5>{{ $t('expansion.crop-circles-II') }}</h5>
     <TileDistribution :sets="{'corn-circles/2': 1}" />
   </div>
 </template>

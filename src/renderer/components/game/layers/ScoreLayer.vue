@@ -9,7 +9,7 @@
       :transform="transformPointer(scores[0].ptr)"
     >
       <g
-        v-for="s in scores"
+        v-for="(s, idx) in scores"
         :key="s.id"
         class="points"
         :class="{[colorCssClass(s.player)]: true, 'in-game': s.inGame}"

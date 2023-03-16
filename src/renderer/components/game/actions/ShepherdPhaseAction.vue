@@ -25,7 +25,6 @@
     <template v-if="local">
       <div>
         <div class="text">{{ $t('core-messages.choose') }}</div>
-        <div class="help">&nbsp;</div>
       </div>
       <div>
         <v-btn color="secondary" @click="grow">{{ $t('button.grow-the-flock') }}</v-btn>
@@ -33,7 +32,6 @@
       </div>
       <div>
         <div class="text">{{ $t('game.action.or') }}</div>
-        <div class="help">&nbsp;</div>
       </div>
       <div>
         <v-btn color="secondary" @click="score">{{ $t('button.score-the-sheep') }}</v-btn>
