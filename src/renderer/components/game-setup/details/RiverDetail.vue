@@ -8,13 +8,13 @@
     </p>
 
     <p>
-      {{ $t('expansion.river-I-release') }}
+      {{ $t('tile-set.river-I-release') }}
     </p>
 
     <TileDistribution :sets="{'river/1': 1}" />
 
     <p>
-      {{ $t('expansion.river-II-release') }}
+      {{ $t('tile-set.river-II-release') }}
     </p>
 
     <TileDistribution :sets="{'river/2': 1}" />
