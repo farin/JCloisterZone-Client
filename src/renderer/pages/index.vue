@@ -71,7 +71,7 @@
             <a :href="updateInfoFile">{{ updateInfoFile }}</a>
           </template>
           <v-btn v-else-if="!updating" color="secondary" @click="updateApp">{{ $t('index.update-to', { version: updateInfo.version }) }}</v-btn>
-          <v-progress-linear v-else-if="updateProgres === null" indeterminate />
+          <v-progress-linear v-else-if="updateProgress === null" indeterminate />
           <v-progress-linear v-else :value="updateProgress" />
         </div>
 
