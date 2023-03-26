@@ -171,7 +171,6 @@ export default {
       if (this.phase === 'TowerCapturePhase' && itemType === 'SelectPrisonerToExchange') {
         return SelectPrisonerToExchangeAction
       }
-        console.log(itemType);
       if (this.phase === 'MageAndWitchPhase') {
         if (itemType === 'RemoveMageOrWitch') {
           return RemoveMageOrWitchAction

@@ -67,14 +67,14 @@ export default {
       if (this.gameEnd) {
         visibleTurns += 1
       }
-      let selectedIsInSources = false;
+      let selectedIsInSources = false
       for (let i = Math.max(0, len - visibleTurns); i < len; i++) {
         const h = this.history[i]
-        h.events.forEach(ev => {
+        h.events.forEach((ev, turnIdx) => {
           if (ev.type === 'points') {
             ev.points.forEach(p => {
               if (p.ptr) {
-                const item = { ...p, id: i }
+                const item = { ...p, id: `${h.turn}/${turnIdx}` }
                 if (this.gameEnd && i !== len - 1) {
                   item.inGame = true
                 }

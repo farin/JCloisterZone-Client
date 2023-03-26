@@ -20,7 +20,7 @@
       <TileImage
         v-for="pt in tiles"
         :key="`${pt.x},${pt.y})`"
-        :transform="`translate(${(pt.x + x) * tileSize} ${(pt.y + y) * tileSize})`"
+        :transform="`scale(${BASE_SIZE / tileSize}) translate(${(pt.x + x) * BASE_SIZE} ${(pt.y + y) * BASE_SIZE})`"
         :tile-id="pt.tile"
         :rotation="pt.rotation"
       />
