@@ -223,7 +223,6 @@ export default {
       range.selectNodeContents(ev.target)
       selection.removeAllRanges()
       selection.addRange(range)
-      document.execCommand('copy')
     },
 
     showRenameDialog () {
