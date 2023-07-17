@@ -84,6 +84,10 @@ module.exports = {
         file: 'ro.json'
       },
       {
+        code: 'ru',
+        file: 'ru.json'
+      },
+      {
         code: 'sk',
         file: 'sk.json'
       }
