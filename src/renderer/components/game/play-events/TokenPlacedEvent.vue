@@ -12,7 +12,7 @@
 <script>
 import TokenImage from '@/components/game/TokenImage'
 
-const FULL_SIZE_TOKENS = new Set(['WOLF', 'SHEEP', 'TUNNEL', 'FERRY', 'LB'])
+const FULL_SIZE_TOKENS = new Set(['WOLF', 'SHEEP', 'TUNNEL', 'FERRY', 'LB', 'BARDS_NOTE'])
 
 export default {
   components: {

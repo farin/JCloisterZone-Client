@@ -106,6 +106,13 @@
         :options="item.options"
         :active="idx === selected"
       />
+      <BardsLuteItem
+        v-else-if="item.type == 'BardsLute'"
+        :player="action.player"
+        :token="item.token"
+        :options="item.options"
+        :active="idx === selected"
+      />
       <div v-else>{{ item.type }}</div>
     </div>
     <slot />
@@ -127,6 +134,7 @@ import ReturnMeepleItem from '@/components/game/actions/items/ReturnMeepleItem.v
 import ScoreAcrobatsItem from '@/components/game/actions/items/ScoreAcrobatsItem.vue'
 import TowerPieceItem from '@/components/game/actions/items/TowerPieceItem.vue'
 import TunnelItem from '@/components/game/actions/items/TunnelItem.vue'
+import BardsLuteItem from '@/components/game/actions/items/BardsLuteItem.vue'
 
 export default {
   components: {
@@ -140,7 +148,8 @@ export default {
     ReturnMeepleItem,
     ScoreAcrobatsItem,
     TowerPieceItem,
-    TunnelItem
+    TunnelItem,
+    BardsLuteItem
   },
 
   props: {

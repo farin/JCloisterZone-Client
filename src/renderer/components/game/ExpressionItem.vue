@@ -56,6 +56,7 @@
       <template v-else-if="item.name === 'besieged'"><img src="~/assets/features/C1/siege.png" height="40"></template>
       <template v-else-if="item.name === 'shrine-challenge'"><ExpansionSymbol :expansion="Expansion.CULT" :style="{ width: 40, height: 40 }" /></template>
       <template v-else-if="item.name === 'coc'"><ExpansionSymbol :expansion="Expansion.COUNT" :style="{ width: 40, height: 40 }" /></template>
+      <template v-else-if="item.name === 'bardsnotes'"><TokenImage token="BARDS_NOTE" :height="40" /></template>
       <template v-else-if="artworkValue && artworkValue.tag === 'svg'">
         <svg
           class="artwork-element"

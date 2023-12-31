@@ -37,7 +37,8 @@ const TOKENS = {
   GOLD: { tag: 'img', src: require('~/assets/figures/gold.png') },
   LB_HOUSE: { tag: 'img', src: require('~/assets/figures/lb_house.png') },
   LB_SHED: { tag: 'img', src: require('~/assets/figures/lb_shed.png') },
-  LB_TOWER: { tag: 'img', src: require('~/assets/figures/lb_tower.png') }
+  LB_TOWER: { tag: 'img', src: require('~/assets/figures/lb_tower.png') },
+  BARDS_NOTE: { tag: 'img', src: require('~/assets/figures/bards_note.png') },
 }
 
 export default {
@@ -46,7 +47,7 @@ export default {
     AnimalToken
   },
 
-  props: {
+  props: { 
     token: { type: String, required: true },
     height: { type: Number, default: null },
     player: { type: Number, default: null },

@@ -91,7 +91,8 @@ const MAPPING = {
   PlaceFerryPhase: FerryPhaseAction,
   PhantomPhase: ActionPhaseAction,
   TunnelPhase: ActionPhaseAction,
-  WagonPhase: ActionPhaseAction
+  WagonPhase: ActionPhaseAction,
+  BardsLutePhase: ActionPhaseAction
 }
 
 export default {
