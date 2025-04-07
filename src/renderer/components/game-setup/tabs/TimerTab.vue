@@ -1,34 +1,34 @@
 <template>
   <div>
-    <ConfigSection title="Player Time Limit">
+    <ConfigSection :title="$t('game-setup.timer.player-time-limit')">
       <template v-if="timer !== null">
         <!-- TODO use display grid -->
         <div class="limits-row">
-          <span class="label">At game start set timer to</span>
+          <span class="label">{{ $t('game-setup.timer.at-game-start-set-timer-to') }}</span>
           <div class="clock">
             <TimeInput v-model="initial" />
           </div>
         </div>
         <div class="limits-row">
-          <span class="label">Each turn increase timer by</span>
+          <span class="label">{{ $t('game-setup.timer.each-turn-increase-timer-by') }}</span>
           <div class="clock">
             <TimeInput v-model="turn" />
           </div>
         </div>
         <!-- <div class="limits-row">
-          <span class="label">When time is over</span>
-          <span>do nothing</span>
+          <span class="label">{{ $t('game-setup.timer.when-time-is-over') }}</span>
+          <span>{{ $t('game-setup.timer.do-nothing') }}</span>
         </div> -->
         <div class="buttons">
-          <v-btn color="secondary" @click="disableLimits">Disable limits</v-btn>
+          <v-btn color="secondary" @click="disableLimits">{{ $t('game-setup.timer.disable-limits') }}</v-btn>
         </div>
       </template>
       <template v-else>
         <div class="unlimited">
-          unlimited time
+          {{ $t('game-setup.timer.unlimited-time') }}
         </div>
         <div class="buttons">
-          <v-btn color="secondary" @click="enableLimits">Enable limits</v-btn>
+          <v-btn color="secondary" @click="enableLimits">{{ $t('game-setup.timer.enable-limits') }}</v-btn>
         </div>
       </template>
     </ConfigSection>

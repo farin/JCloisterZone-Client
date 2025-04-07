@@ -30,41 +30,41 @@ import { Expansion } from '@/models/expansions'
 import ExpressionItem from '@/components/game/ExpressionItem'
 
 const TITLE_MAPPING = {
-  'acrobats': 'Acrobats',
-  'bigtop': 'Big Top',
-  'city': 'City',
-  'city.tiny': 'Tiny city',
-  'road': 'Road',
-  'monastery': 'Monastery',
-  'church': 'Church bonus',
-  'shrine': 'Shrine',
-  'garden': 'Garden',
-  'castle': 'Castle',
-  'fairy': 'Fairy',
-  'flock': 'Flock',
-  'wind-rose': 'Wind rose',
-  'yaga-hut': 'Yaga hut',
-  'field': 'Field',
-  'trade-goods': 'Trade Goods',
-  'king': 'King',
-  'ringmaster': 'Ringmaster',
-  'robber': 'Robber',
-  'king+robber': 'King & Robber',
-  'special-monastery': 'Special monastery',
-  'gold': 'Gold ingots',
-  'vodyanoy': 'Vodyanoy',
-  'watchtower': 'Watchtower'
+  'acrobats': 'game.feature.acrobats',
+  'bigtop': 'game.feature.big-top',
+  'city': 'game.feature.city',
+  'city.tiny': 'game.feature.city-small',
+  'road': 'game.feature.road',
+  'monastery': 'game.feature.monastery',
+  'church': 'game.feature.church-bonus',
+  'shrine': 'game.feature.shrine',
+  'garden': 'game.feature.garden',
+  'castle': 'game.feature.castle',
+  'fairy': 'game.feature.fairy',
+  'flock': 'game.feature.flock',
+  'wind-rose': 'game.feature.wind-rose',
+  'yaga-hut': 'game.feature.yaga-hut',
+  'field': 'game.feature.field',
+  'trade-goods': 'game.feature.trade-goods',
+  'king': 'game.feature.king',
+  'ringmaster': 'game.feature.ringmaster',
+  'robber': 'game.feature.robber',
+  'king+robber': 'game.feature.king-and-robber',
+  'special-monastery': 'game.feature.special-monastery',
+  'gold': 'game.feature.gold-ingots',
+  'vodyanoy': 'game.feature.vodyanoy',
+  'watchtower': 'game.feature.watchtower'
 }
 
 const SUBTITLE_MAPPING = {
-  'incomplete': '(incomplete)',
-  'challenged': '(challenged)',
-  'empty': '(empty)',
+  'incomplete': 'game.scoring.incomplete',
+  'challenged': 'game.scoring.challenged',
+  'empty': 'game.scoring.empty',
   'city.tiny': null,
-  'fairy.completed': '(feature scored)',
-  'fairy.turn': '(turn start)',
-  'barn-placed': '(barn placed)',
-  'barn-connected': '(barn connected)'
+  'fairy.completed': 'game.scoring.feature-scored',
+  'fairy.turn': 'game.scoring.turn-start',
+  'barn-placed': 'game.scoring.barn-placed',
+  'barn-connected': 'game.scoring.barn-connected'
 }
 
 export default {
@@ -89,18 +89,18 @@ export default {
 
     title () {
       let title = TITLE_MAPPING[this.expr.name]
-      if (title) return title
+      if (title) return this.$t(title)
       title = TITLE_MAPPING[this.expr.name.split('.')[0]]
-      if (title) return title
+      if (title) return this.$t(title)
       return this.expr.name
     },
 
     subtitle () {
       const title = SUBTITLE_MAPPING[this.expr.name]
-      if (title !== undefined) return title
+      if (title !== undefined) return '(' + this.$t(title) + ')'
       const key = this.expr.name.split('.')[1]
       if (!key) return null
-      return SUBTITLE_MAPPING[key] !== undefined ? SUBTITLE_MAPPING[key] : key
+      return SUBTITLE_MAPPING[key] !== undefined ? '(' + this.$t(SUBTITLE_MAPPING[key]) + ')' : key
     }
   },
 

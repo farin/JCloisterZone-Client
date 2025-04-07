@@ -8,7 +8,7 @@ import uniq from 'lodash/uniq'
 import isNumber from 'lodash/isNumber'
 import unzipper from 'unzipper'
 import sha256File from 'sha256-file'
-import compareVersions from 'compare-versions'
+import { compare } from 'compare-versions'
 import Vue from 'vue'
 
 import { getAppVersion } from '@/utils/version'
@@ -123,11 +123,11 @@ class Addons extends EventsBase {
 
     const listing = await fs.promises.readdir(tmpFolder)
     if (listing.length !== 1) {
-      throw new Error('Invalid addon: package must contain only single folder in root')
+      throw new Error($nuxt.$t('settings.add-ons.invalid-add-on-multiple-folders-in-root'))
     }
     const id = listing[0]
     if (this.addons.find(addon => addon.id === id)) {
-      throw new Error(`Addon ${id} is already installed. If you want to reinstall it please remove it first.`)
+      throw new Error($nuxt.$t('settings.add-ons.add-on-already-installed', { id: id }))
     }
 
     const tmpAddonPath = path.join(tmpFolder, id)
@@ -289,7 +289,7 @@ class Addons extends EventsBase {
           addon.error = `Invalid add-on. Expecting integer number as version, found ${addon.json.version}`
         } else if (!addon.json.minimumJczVersion) {
           addon.error = 'Invalid add-on. Missing minimumJczVersion.'
-        } else if (compareVersions.compare(getAppVersion(), addon.json.minimumJczVersion, '<')) {
+        } else if (compare(getAppVersion(), addon.json.minimumJczVersion, '<')) {
           addon.error = `Add-on requires JCZ ${addon.json.minimumJczVersion} or higher`
         } else if (addon.remote) {
           if (addon.json.version !== addon.remote.version) {

@@ -206,8 +206,21 @@ export default {
     ipcRenderer.on('menu.zoom-out', () => {
       this.$root.$emit('request-zoom', -ZOOM_SENSITIVITY)
     })
+    ipcRenderer.on('menu.rotate', () => {
+      this.$root.$emit('request-rotate', 90)
+    })
     ipcRenderer.on('menu.game-tiles', () => {
       this.$store.commit('showGameTiles', !this.$store.state.showGameTiles)
+    })
+    ipcRenderer.on('menu.game-farm-hints', () => {
+      if (this.$store.state.board.layers.FarmHintsLayer) {
+        this.$store.dispatch('board/hideLayer', { layer: 'FarmHintsLayer' })
+      } else {
+        this.$store.dispatch('board/showLayer', {
+          layer: 'FarmHintsLayer',
+          props: {}
+        })
+      }
     })
     ipcRenderer.on('menu.game-history', () => {
       this.$store.commit('toggleGameHistory')
@@ -216,7 +229,7 @@ export default {
       this.$store.commit('showGameSetup', true)
     })
     ipcRenderer.on('menu.rules', () => {
-      shell.openExternal('http://wikicarpedia.com/index.php/Main_Page')
+      shell.openExternal('http://wikicarpedia.com/index.php/Special:MyLanguage/Main_Page')
     })
     ipcRenderer.on('menu.about', () => {
       this.showAbout = true
@@ -252,6 +265,7 @@ export default {
 
     await this.$store.dispatch('settings/loaded', await ipcRenderer.invoke('settings.get'))
     onThemeChange(this.$store.state.settings.theme)
+    this.$i18n.setLocale(this.$store.state.settings.locale)
     this.updateMenu()
 
     ipcRenderer.on('error', (ev, value) => {
@@ -323,8 +337,10 @@ export default {
         'undo': gameRunning && this.undoAllowed,
         'zoom-in': gameRunning,
         'zoom-out': gameRunning,
+        'rotate': gameRunning,
         'toggle-history': gameRunning,
         'game-tiles': gameRunning,
+        'game-farm-hints': gameRunning,
         'game-setup': gameRunning,
         'dump-server': this.$server.isRunning(),
         'theme-inspector': !gameOpen
@@ -399,7 +415,7 @@ export default {
 </script>
 
 <style lang="sass">
-@import 'typeface-roboto/index.css'
+@import '@openfonts/roboto_latin-ext/index.css'
 @import '~vuetify/src/styles/styles.sass'
 
 @import '~/assets/styles/player-colors.scss'

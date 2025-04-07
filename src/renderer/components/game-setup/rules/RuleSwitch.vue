@@ -3,12 +3,12 @@
     v-if="!readOnly"
     v-model="value"
     class="rule-switch"
-    :label="rule.title"
+    :label="$t(['game-setup.variant',rule.id,'description'].join('.'))"
     :disabled="!enabled"
     hide-details
     :color="theme === 'light' ? '#3E2723' : '#bbb'"
   />
-  <span v-else class="ro-value"><v-icon>fas {{ value ? 'fa-check' : 'fa-times' }}</v-icon> {{ rule.title }}</span>
+  <span v-else class="ro-value"><v-icon>fas {{ value ? 'fa-check' : 'fa-times' }}</v-icon> {{ $t(['game-setup.variant',rule.id,'description'].join('.')) }}</span>
 </template>
 
 <script>

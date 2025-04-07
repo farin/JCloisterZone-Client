@@ -13,7 +13,7 @@
         text
         @click="$emit('close')"
       >
-        Close
+        {{ $t('button.close') }}
       </v-btn>
     </v-card-actions>
   </v-card>

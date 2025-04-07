@@ -1,12 +1,12 @@
 <template>
   <section>
     <div class="text">
-      {{ local ? 'Place a gold ingot' : 'Player must place a gold ingot' }}
+      {{ local ? $t('game.action.goldmines-place-a-gold-ingot') : $t('game.action.goldmines-player-must-place-a-gold-ingot') }}
       <img src="~/assets/figures/gold.png" :height="$vuetify.breakpoint.height > 768 ? 30 : 20">
     </div>
     <slot
       plain
-      label="Done"
+      :label="$t('core-messages.done')"
     />
   </section>
 </template>

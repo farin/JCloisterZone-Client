@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { extname } from 'path'
 import { ipcRenderer } from 'electron'
-import compareVersions from 'compare-versions'
+import { compare } from 'compare-versions'
 
 import difference from 'lodash/difference'
 import pick from 'lodash/pick'
@@ -458,7 +458,7 @@ export const actions = {
           commit('errorMessage', { title: 'File is not valid', content: err + '' }, { root: true })
           reject(err)
         }
-        if (compareVersions.compare(sg.appVersion, SAVED_GAME_COMPATIBILITY, '<')) {
+        if (compare(sg.appVersion, SAVED_GAME_COMPATIBILITY, '<')) {
           const msg = `Saves created prior ${SAVED_GAME_COMPATIBILITY} are not supported.`
           commit('errorMessage', { title: 'Load Error', content: msg }, { root: true })
           reject(msg)

@@ -10,11 +10,11 @@
   >
     <div class="box-title">
       <slot name="icon" />
-      <h3>{{ item.title }}</h3>
+      <h3>{{ $t(['game.feature',item.id].join('.')) }}</h3>
     </div>
     <div class="toggle">
       <v-icon v-if="selected">fas fa-check</v-icon>
-      <div v-else-if="enabled" class="add-first">Set</div>
+      <div v-else-if="enabled" class="add-first">{{ $t('button.set') }}</div>
       <div v-else class="disabled-message">
         <slot name="disabled" />
       </div>
@@ -84,7 +84,7 @@ export default {
       font-weight: 300
       margin-top: 16px
 
-    img
+    img, svg
       display: block
       opacity: 0.9
       filter: grayscale(100%)
@@ -123,10 +123,11 @@ export default {
       +theme using ($theme)
         color: map-get($theme, 'cards-selected-text')
 
-    .box-title img
-      opacity: 1
-      filter: none
-      display: block
+    .box-title
+      img, svg
+        opacity: 1
+        filter: none
+        display: block
 
   &.disabled
     background: transparent

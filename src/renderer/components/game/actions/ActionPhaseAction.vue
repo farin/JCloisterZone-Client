@@ -8,33 +8,33 @@
       <v-icon>fas fa-arrow-right</v-icon>
       <v-icon>fab fa-fort-awesome-alt</v-icon>
       <br>
-      {{ local ? 'You' : 'Player' }} may place a meeple in a city district.
+      {{ local ? $t('game.action.you-may-place-a-meeple-in-a-city-district') : $t('game.action.player-may-place-a-meeple-in-a-city-district') }}
     </div>
     <div v-if="phase === 'CocScoringPhase'" class="text-with-icons text-center">
       <v-icon>fab fa-fort-awesome-alt</v-icon>
       <v-icon>fas fa-arrow-right</v-icon>
       <br>
-      {{ local ? 'You' : 'Player' }} may move a meeple from a city district.
+      {{ local ? $t('game.action.you-may-move-a-meeple-from-a-city-district') : $t('game.action.player-may-move-a-meeple-from-a-city-district') }}
     </div>
     <div v-if="phase === 'CocFinalScoringPhase' && rules['coc-final-scoring'] === 'market-only'" class="text-with-icons text-center">
       <v-icon>fab fa-fort-awesome-alt</v-icon>
       <v-icon>fas fa-arrow-right</v-icon>
       <br>
-      {{ local ? 'You' : 'Player' }} may move a meeple from the market district before final scoring.
+      {{ local ? $t('game.action.you-may-move-a-meeple-from-the-market-district-before-final-scoring') : $t('game.action.player-may-move-a-meeple-from-the-market-district-before-final-scoring') }}
     </div>
     <div v-if="phase === 'CocFinalScoringPhase' && rules['coc-final-scoring'] !== 'market-only'" class="text-with-icons text-center">
       <v-icon>fab fa-fort-awesome-alt</v-icon>
       <v-icon>fas fa-arrow-right</v-icon>
       <br>
-      {{ local ? 'You' : 'Player' }} may move a meeple from a city district before final scoring.
+      {{ local ? $t('game.action.you-may-move-a-meeple-from-a-city-district-before-final-scoring') : $t('game.action.player-may-move-a-meeple-from-a-city-district-before-final-scoring') }}
     </div>
     <div v-if="phase === 'CornCirclePhase'" class="text-with-icons text-center">
-      <ExpansionSymbol :expansion="Expansion.CORN_CIRCLES" :style="{ width: 30, height: 30 }" /> Corn circle:
+      <ExpansionSymbol :expansion="Expansion.CORN_CIRCLES" :style="{ width: 30, height: 30 }" /> {{ $t('game.feature.crop-circle') }}
       <br>
-      {{ local ? 'You' : 'Player' }} may place a meeple next to already present one.
+      {{ local ? $t('game.action.you-may-place-a-meeple-next-to-already-present-one') : $t('game.action.player-may-place-a-meeple-next-to-already-present-one') }}
     </div>
 
-    <!-- key composed from phase meepls trigers properly mounted when one action follows another
+    <!-- key composed from phase meeples trigers properly mounted when one action follows another
          eg phantom action -->
     <div
       v-for="(item, idx) in items"

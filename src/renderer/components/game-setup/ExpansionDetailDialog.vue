@@ -3,17 +3,17 @@
     <v-card-title class="headline">
       <ExpansionSymbol :expansion="expansion" :style="{ width: 32, height: 32 }" />
       &ensp;
-      {{ expansion.title }}
+      {{ title(expansion.title, expansion.name.toLowerCase().replaceAll('_','-')) }}
     </v-card-title>
     <v-card-text>
       <component :is="detailComponent" :expansion="expansion" />
     </v-card-text>
     <v-card-actions>
-      <v-spacer/>
+      <v-spacer />
       <v-btn
         text
         @click="$emit('close')"
-      >Close</v-btn>
+      >{{ $t('button.close') }}</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -91,6 +91,17 @@ export default {
         WINTER: WinterEditionDetail,
         WIND_ROSES: WindRosesDetail
       }[this.expansion.name] || GenericExpansionDetail
+    }
+  },
+  
+  methods: {
+    title (originalTitle, id) {
+      const langId = ['expansion', id].join('.')
+      if (this.$te(langId)) {
+        return this.$t(langId)
+      } else {
+        return originalTitle
+      }
     }
   }
 }

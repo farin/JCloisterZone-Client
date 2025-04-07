@@ -1,20 +1,20 @@
 <template>
   <div>
     <p>
-      <RulesLink title="River I" href="https://boardgamegeek.com/boardgame/2591/carcassonne-river" />
-      <RulesLink title="River II" href="https://boardgamegeek.com/boardgame/18836/carcassonne-river-ii" />
-      <RulesLink title="Rules" href="http://wikicarpedia.com/index.php/River" />
-      <RulesLink title="Rules (1st ed.)" href="http://wikicarpedia.com/index.php/River_(1st_edition)" />
+      <RulesLink :title="$t('expansion.river-I')" href="https://boardgamegeek.com/boardgame/2591/carcassonne-river" />
+      <RulesLink :title="$t('expansion.river-II')" href="https://boardgamegeek.com/boardgame/18836/carcassonne-river-ii" />
+      <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/Special:MyLanguage/River" />
+      <RulesLink :title="$t('button.rules-1st-edition')" href="http://wikicarpedia.com/index.php/Special:MyLanguage/River_(1st_edition)" />
     </p>
 
     <p>
-      The River I is mini expansion released in 2001.
+      {{ $t('tile-set.river-I-release') }}
     </p>
 
     <TileDistribution :sets="{'river/1': 1}" />
 
     <p>
-      The River II was released in 2006 and now is contained in sixth major expansion Count, King & Robber.
+      {{ $t('tile-set.river-II-release') }}
     </p>
 
     <TileDistribution :sets="{'river/2': 1}" />

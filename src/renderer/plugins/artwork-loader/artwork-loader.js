@@ -371,6 +371,13 @@ export default class ArtworkLoader {
 
       if (item.clip && !this.validateFeatureClip(featureId + rot, item.clip)) item.clip = EMPTY_PATH
     })
+
+    // inline rotation refs ( eg "@2": "@0" )
+    forEachRotation(data, (item, rot) => {
+      if (typeof item === 'string' && item[0] === '@') {
+        data[rot] = data[item]
+      }
+    })
   }
 
   validateFeatureClip (featureId, clip) {

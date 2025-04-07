@@ -15,15 +15,15 @@
     >
       <div class="box-title">
         <slot />
-        <h3>{{ item.title }}</h3>
+        <h3>{{ $t(['game.element',item.id].join('.')) }}</h3>
       </div>
 
       <template v-if="!enabled" #hover>
-        <div class="text text-disabled">Related tiles<br>not selected</div>
+        <div class="text text-disabled">{{ $t('game-setup.game-element-box.related-tiles-not-selected') }}</div>
       </template>
 
       <template v-else-if="mandatory" #hover>
-        <div class="text text-mandatory">Mandatory for<br>selected tiles</div>
+        <div class="text text-mandatory">{{ $t('game-setup.game-element-box.mandatory-for-selected-tiles') }}</div>
       </template>
     </GameElementButtons>
   </div>

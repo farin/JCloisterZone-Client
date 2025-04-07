@@ -22,17 +22,79 @@ module.exports = {
     '~/plugins/theme',
     { ssr: true, src: '@/plugins/icons.js' },
     '~/plugins/router-patch',
-    '~/plugins/date-format'
+    '~/plugins/date-format',
+    '~/plugins/i18n.js',
+    '~/plugins/vuei18n.js'
   ],
   buildModules: [
     '@nuxtjs/style-resources'
   ],
   modules: [
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    '@nuxtjs/i18n'
   ],
 
   styleResources: {
     sass: './assets/styles/shared.sass'
+  },
+
+  i18n: {
+    vueI18n: '~/plugins/vuei18n.js',
+    strategy: 'no_prefix',
+    detectBrowserLanguage: false,
+    locales: [
+      {
+        code: 'ca',
+        file: 'ca.json'
+      },
+      {
+        code: 'cs',
+        file: 'cs.json'
+      },
+      {
+        code: 'de',
+        file: 'de.json'
+      },
+      {
+        code: 'en',
+        file: 'en.json'
+      },
+      {
+        code: 'es',
+        file: 'es.json'
+      },
+      {
+        code: 'fr',
+        file: 'fr.json'
+      },
+      {
+        code: 'lt',
+        file: 'lt.json'
+      },
+      {
+        code: 'nl',
+        file: 'nl.json'
+      },
+      {
+        code: 'pl',
+        file: 'pl.json'
+      },
+      {
+        code: 'ro',
+        file: 'ro.json'
+      },
+      {
+        code: 'ru',
+        file: 'ru.json'
+      },
+      {
+        code: 'sk',
+        file: 'sk.json'
+      }
+    ],
+    // lazy: true,
+    langDir: 'locales/',
+    defaultLocale: 'en'
   },
 
   vuetify: {

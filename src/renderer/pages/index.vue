@@ -2,35 +2,52 @@
   <div class="landing-view view">
     <div>
       <v-alert v-if="java && java.error === 'not-found' && !javaSelectedByUser" type="warning">
-        Unable to locate Java on your system.<br>
+        {{ $t('settings.java.unable-to-find-java') }}<br>
         <br>
-        Java is required to start a game.<br>
-        <a href="#" @click="openLink('https://www.oracle.com/java/technologies/javase-jdk14-downloads.html')">Download Java</a><br>
-        If Java is already installed, verify if Java is added to your system path or select java binary manually in <a href @click.prevent="() => $store.commit('showSettings', true)">settings</a>.
+        {{ $t('settings.java.java-is-required') }}<br>
+        <a href="#" @click="openLink('https://www.oracle.com/java/technologies/javase-jdk14-downloads.html')">{{ $t('settings.java.download-java') }}</a><br>
+        <i18n tag="span" path="settings.java.verify">
+          <template #settings>
+            <a href @click.prevent="() => $store.commit('showSettings', true)">{{ $t('settings.title') }}</a>
+          </template>
+        </i18n>
       </v-alert>
       <v-alert v-if="java && java.error === 'not-found' && javaSelectedByUser" type="warning">
-        Your manually configured Java path is not valid.<br>
+        {{ $t('settings.java.java-path-is-not-valid') }}<br>
         <br>
-        Change it in <a href @click.prevent="() => $store.commit('showSettings', true)">settings</a>.
+        <i18n tag="span" path="settings.java.change-in-settings">
+          <template #settings>
+            <a href @click.prevent="() => $store.commit('showSettings', true)">{{ $t('settings.title') }}</a>
+          </template>
+        </i18n>
       </v-alert>
       <v-alert v-if="java && java.error === 'outdated'" type="warning">
-        You Java installation is outdated.<br>
+        {{ $t('settings.java.java-is-outdated') }}<br>
         <br>
-        Java 11 or higher is required (found {{ java.version }}) to start a game.<br>
-        <a href="#" @click="openLink('https://www.oracle.com/java/technologies/javase-jdk14-downloads.html')">Download Java</a><br>
-        Or select proper java manually in <a href @click.prevent="() => $store.commit('showSettings', true)">settings</a>.
+        {{ $t('settings.java.java-version-found', { version: java.version } ) }}
+        <br>
+        <a href="#" @click="openLink('https://www.oracle.com/java/technologies/javase-jdk14-downloads.html')">{{ $t('settings.java.download-java') }}</a><br>
+        <i18n tag="span" path="settings.java.select-manually">
+          <template #settings>
+            <a href @click.prevent="() => $store.commit('showSettings', true)">{{ $t('settings.title') }}</a>
+          </template>
+        </i18n>
       </v-alert>
       <v-alert v-if="engine && engine.error === 'not-found'" type="warning">
-        Can't locate game engine (file <i>{{ engine.path }}</i> doesn't exist or can't be read)
+        <i18n tag="span" path="settings.engine.engine-path-not-exists">
+          <template #path>
+            <i>{{ engine.path }}</i>
+          </template>
+        </i18n>
       </v-alert>
       <v-alert v-if="engine && engine.error === 'exec-error'" type="warning">
-        Unable to spawn game engine. Details:<br>
+        {{ $t('settings.engine.unable-to-spawn-game-engine') }}<br>
         <small>{{ engine.errorMessage }}</small>
       </v-alert>
       <v-alert v-if="artworksLoaded && !hasClassicAddon" type="warning">
-        Unable to locate or download addon with default artwork. Internet conection is needed at fist run to donwload it.<br>
-        Plese check your connectivity and restart app to try it again.<br>
-        <small>addon url: <a :href="$addons.getDefaultArtworkUrl()" @click.prevent="openLink($addons.getDefaultArtworkUrl())">>{{ $addons.getDefaultArtworkUrl() }}</a></small>
+        {{ $t('settings.add-ons.artwork-not-found-internet-connection-is-needed') }}<br>
+        {{ $t('settings.add-ons.please-check-connectivity-and-restart-app') }}<br>
+        <small>{{ $t('settings.add-ons.add-on-url') }}: <a :href="$addons.getDefaultArtworkUrl()" @click.prevent="openLink($addons.getDefaultArtworkUrl())">>{{ $addons.getDefaultArtworkUrl() }}</a></small>
       </v-alert>
       <div v-if="download" class="download">
         <div class="download-header">
@@ -46,63 +63,63 @@
         <v-progress-linear v-else indeterminate />
       </div>
       <div v-if="updateInfo" class="update-box">
-        <h3>New JCloisterZone version is available.</h3>
+        <h3>{{ $t('index.new-version-available') }}</h3>
 
         <div class="update-action">
           <template v-if="isMac || isWin">
-            Automatic updates are currently supported only on Linux platform. Please download new version directly and update manually<br>
+            {{ $t('index.automatic-updates-linux-only') }}<br>
             <a :href="updateInfoFile">{{ updateInfoFile }}</a>
           </template>
-          <v-btn v-else-if="!updating" color="secondary" @click="updateApp">Update to {{ updateInfo.version }}</v-btn>
-          <v-progress-linear v-else-if="updateProgres === null" indeterminate />
+          <v-btn v-else-if="!updating" color="secondary" @click="updateApp">{{ $t('index.update-to', { version: updateInfo.version }) }}</v-btn>
+          <v-progress-linear v-else-if="updateProgress === null" indeterminate />
           <v-progress-linear v-else :value="updateProgress" />
         </div>
 
-        <h4>Release Notes</h4>
+        <h4>{{ $t('index.release-notes') }}</h4>
         <div v-html="updateInfo.releaseNotes" />
       </div>
     </div>
 
     <section class="online-hosted">
       <div>
-        <h2>Public server hosted games</h2>
+        <h2>{{ $t('index.online.title') }}</h2>
         <v-btn large color="secondary" :disabled="!engine || !engine.ok" @click="playOnline()">
-          Play online
+          {{ $t('button.play-online') }}
           <v-icon right>fa-cloud</v-icon>
         </v-btn>
         <div class="subsection">
-          Only private games are now supported.<br>(it means no random players discovery)
+          {{ $t('index.online.private-games-only') }}<br>({{ $t('index.online.no-random-discovery') }})
         </div>
       </div>
     </section>
 
     <section class="player-hosted">
-      <h2>Player hosted games</h2>
+      <h2>{{ $t('index.local.title') }}</h2>
 
       <div class="subsection">
         <v-btn large color="secondary" @click="newGame()">
-          New game
+          {{ $t('index.local.new-game') }}
         </v-btn>
 
         <v-btn large color="secondary" :disabled="!engine || !engine.ok" @click="joinGame()">
-          Join game
+          {{ $t('button.join-game') }}
         </v-btn>
 
         <v-btn large color="secondary" :disabled="!engine || !engine.ok" @click="loadGame()">
-          Load game
+          {{ $t('index.local.load-game') }}
         </v-btn>
       </div>
 
       <div class="subsection">
-        or create a new game directly from <a class="my-list" @click="newGame(0)"><v-icon>far fa-heart</v-icon> my favorites</a>
+        {{ $t('index.local.create-directly-from') }} <a class="my-list" @click="newGame(0)"><v-icon>far fa-heart</v-icon> {{ $t('index.local.my-favorites') }}</a>
       </div>
 
       <div v-if="recentSaves.length" class="subsection">
-        or continue with recently saved game
+        {{ $t('index.local.continue-with-recently-saved-games') }}
 
         <div class="recent-list">
           <a v-for="save in recentSaves" :key="save" href="#" @click="loadSavedGame(save)">{{ save }}</a>
-          <a class="clear" href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> clear list</a>
+          <a class="clear" href="#" @click="clearRecentSaves"><v-icon>fas fa-times</v-icon> {{ $t('button.clear-list') }}</a>
         </div>
       </div>
     </section>

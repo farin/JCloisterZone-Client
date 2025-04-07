@@ -19,12 +19,40 @@
         :height="MEEPLE_SIZE"
         :href="`${MEEPLES_SVG}#barn`"
       />
+      <g
+        v-if="meeple.selectable"
+        :class="meepleSelect.css || 'meeple-select'"
+      >
+        <circle
+          cx="0"
+          cy="0"
+          :r="BASE_SIZE * 0.27"
+          :class="{'color-stroke': true, mouseover: mouseOver === meeple.selectable }"
+          :style="{'pointer-events': 'none'}"
+          fill="none"
+          :stroke-width="BASE_SIZE * 0.07"
+        />
+
+        <!--
+          invisible shape for tracking mouse events
+          use only if single meeple is on the spot
+        -->
+        <circle
+          cx="0"
+          cy="0"
+          :r="BASE_SIZE * 0.305"
+          :style="{'pointer-events': 'all', fill: 'none'}"
+          @mouseenter="meepleSelect.local && onMouseOver(meeple.selectable)"
+          @mouseleave="meepleSelect.local && onMouseLeave(meeple.selectable)"
+          @click="ev => meepleSelect.local && onSelect(ev, meeple.selectable)"
+        />
+      </g>
     </g>
 
     <g
       v-for="group in meeples"
       :key="group.id"
-      :transform="group.customTransform ? group.customTransform : transformPoint(group)"
+      :transform="(group.customTransform ? group.customTransform : transformPoint(group)) + ` ` + rotateMeeple()"
     >
       <g
         v-for="meeple in group.meeples"
@@ -198,7 +226,8 @@ export default {
         const bt = state.game.neutralFigures.bigtop
         return bt ? { placement: { position: bt.placement, feature: 'Circus', location: 'I' } } : null
       },
-      meepleSelect: state => state.board.layers.MeepleSelectLayer
+      meepleSelect: state => state.board.layers.MeepleSelectLayer,
+      rotate: state => state.board.rotate
     }),
 
     ...mapGetters({
@@ -209,7 +238,14 @@ export default {
       if (this.deployedOnBridge) {
         return []
       }
-      return this.$store.state.game.deployedMeeples.filter(m => m.type === 'Barn')
+
+      const selectable = this.meepleSelect ? keyBy(this.meepleSelect.options, 'meepleId') : null
+      return this.$store.state.game.deployedMeeples.filter(m => m.type === 'Barn').map(barn => {
+        return {
+          ...barn,
+          selectable: selectable && selectable[barn.id]
+        }
+      })
     },
 
     meeples () {
@@ -380,6 +416,10 @@ export default {
         t = position[0] === leftX ? `translate(${BASE_SIZE} ${BASE_SIZE / 2})` : `translate(0 ${BASE_SIZE / 2})`
       }
       return this.transformPosition(position) + ' ' + t
+    },
+
+    rotateMeeple() {
+      return `rotate(` + (-1 * this.rotate) + ` 0 0)`
     }
   }
 }

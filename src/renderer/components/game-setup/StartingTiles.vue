@@ -18,8 +18,7 @@
       </div>
     </div>
     <div class="disclaimer">
-      The River, The Count, GQ11, The Wind Roses and Spiel Doch Promo provides alternative
-      starting configurations.
+      {{ $t('game-setup.rules.starting-tiles-different-configuration') }}
     </div>
     <!-- <div class="items disabled">
       <div

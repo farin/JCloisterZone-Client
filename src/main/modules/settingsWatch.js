@@ -1,5 +1,5 @@
-import { time } from 'console'
 import fs from 'fs'
+import { app } from 'electron'
 
 import { loadSettings, isSaveInProgress, SETTINGS_FILE } from '../settings'
 
@@ -14,7 +14,7 @@ export default function () {
           watcher = fs.watch(SETTINGS_FILE, eventType => {
             if (eventType === 'change' && !isSaveInProgress()) {
               loadSettings().then(settings => {
-                win.webContents.send('settings.changed', { settings, file: SETTINGS_FILE })
+                win.webContents.send('settings.changed', { settings, file: SETTINGS_FILE, systemLocale: app.getSystemLocale() || 'en-US' })
               })
             }
           })

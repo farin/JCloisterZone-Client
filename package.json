@@ -1,6 +1,6 @@
 {
   "name": "jcloisterzone",
-  "version": "5.10.1",
+  "version": "5.12.1",
   "description": "JCloisterZone UI client",
   "repository": "github:farin/JCloisterZone-Client",
   "license": "AGPL-3.0-or-later",
@@ -16,22 +16,23 @@
     "lint:fix": "yarn run lint -- --fix",
     "preinstall": "node .electron-nuxt/check-engines.js",
     "postinstall": "electron-builder install-app-deps && yarn run download-game-engine",
-    "package": "yarn run build && electron-builder -c builder.config.js"
+    "package": "yarn run build && electron-builder -c builder.config.js",
+    "extract": "vue-i18n-extract report --vueFiles './src/{main/modules,renderer}/**/*.?(js|vue)' --languageFiles './src/renderer/locales/*.json'"
   },
   "build": {
     "provider": "github"
   },
   "keywords": [],
   "engines": {
-    "node": ">=14.16.0"
+    "node": ">=16.0.0"
   },
   "resolutions": {
-    "@types/node": "14.14.41"
+    "@types/node": "16.11.26"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "5.15.4",
+    "@fortawesome/fontawesome-free": "6.3.0",
     "@nuxtjs/eslint-config": "6.0.1",
-    "@nuxtjs/vuetify": "1.12.1",
+    "@nuxtjs/vuetify": "1.12.3",
     "@xpda-dev/core": "^0.1.6",
     "@xpda-dev/electron-builder": "^0.2.1",
     "@xpda-dev/electron-launcher": "^0.3.0",
@@ -39,41 +40,43 @@
     "babel-eslint": "11.0.0-beta.2",
     "browser-env": "3.3.0",
     "cross-env": "7.0.3",
-    "deepmerge": "4.2.2",
-    "electron": "13.2.3",
-    "electron-builder": "22.11.7",
+    "deepmerge": "4.3.0",
+    "electron": "21.1.0",
+    "electron-builder": "23.6.0",
     "electron-debug": "3.2.0",
-    "electron-devtools-installer": "^3.1.1",
+    "electron-devtools-installer": "^3.2.0",
     "eslint": "7.32.0",
     "eslint-friendly-formatter": "4.0.1",
     "eslint-loader": "4.0.2",
     "native-ext-loader": "2.3.0",
-    "node-sass": "6.0.1",
+    "node-sass": "8.0.0",
     "nuxt": "2.15.8",
-    "ohm-js": "^16.0.0",
+    "ohm-js": "^17.0.4",
     "raw-loader": "^4.0.2",
     "roboto-fontface": "0.10.0",
     "sass-loader": "10.1.1",
+    "vue-i18n-extract": "^2.0.7",
     "vuetify": "2.5.8",
     "webpack": "4.44.2",
     "webpack-node-externals": "2.5.2"
   },
   "dependencies": {
+    "@nuxtjs/i18n": "^7.3.1",
     "@nuxtjs/style-resources": "^1.2.1",
-    "compare-versions": "^3.6.0",
+    "@openfonts/roboto_latin-ext": "^1.44.1",
+    "compare-versions": "^5.0.3",
     "electron-log": "^4.4.1",
     "electron-updater": "^4.3.9",
     "lodash": "^4.17.21",
-    "moment": "^2.29.1",
-    "paper": "^0.12.15",
+    "moment": "^2.29.4",
+    "paper": "^0.12.17",
     "portal-vue": "^2.1.7",
     "random-bigint": "^0.0.1",
     "sha256-file": "^1.0.0",
+    "sort-json-keys": "^1.0.3",
     "tiny-emitter": "^2.1.0",
-    "typeface-roboto": "^1.1.13",
     "unzipper": "^0.10.11",
-    "username": "^5.1.0",
-    "uuid": "^8.3.2",
-    "ws": "^8.2.0"
+    "uuid": "^9.0.0",
+    "ws": "^8.13.0"
   }
 }

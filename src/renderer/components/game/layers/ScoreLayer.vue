@@ -1,5 +1,8 @@
 <template>
-  <g id="score-layer">
+  <g
+    id="score-layer"
+    :class="{ 'muted': local && layers.MeepleSelectLayer }"
+  >
     <g
       v-for="(scores, key) in scoreSources"
       :key="key"
@@ -7,7 +10,7 @@
     >
       <g
         v-for="(s, idx) in scores"
-        :key="idx"
+        :key="s.id"
         class="points"
         :class="{[colorCssClass(s.player)]: true, 'in-game': s.inGame}"
         :transform="transformStack(idx, scores.length)"
@@ -31,7 +34,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import groupBy from 'lodash/groupBy'
 
 import LayerMixin from '@/components/game/layers/LayerMixin'
@@ -39,11 +42,22 @@ import LayerMixin from '@/components/game/layers/LayerMixin'
 export default {
   mixins: [LayerMixin],
 
+  data () {
+    return {
+      selected: null
+    }
+  },
+
   computed: {
     ...mapState({
       gameEnd: state => state.game.phase === 'GameOverPhase',
       history: state => state.game.history,
-      playersCount: state => state.game.players.length
+      playersCount: state => state.game.players.length,
+      layers: state => state.board.layers
+    }),
+
+    ...mapGetters({
+      local: 'game/isActionLocal'
     }),
 
     scoreSources () {
@@ -53,17 +67,30 @@ export default {
       if (this.gameEnd) {
         visibleTurns += 1
       }
+      let selectedIsInSources = false
       for (let i = Math.max(0, len - visibleTurns); i < len; i++) {
         const h = this.history[i]
-        h.events.forEach(ev => {
+        h.events.forEach((ev, turnIdx) => {
           if (ev.type === 'points') {
             ev.points.forEach(p => {
               if (p.ptr) {
-                items.push(this.gameEnd && i !== len - 1 ? { ...p, inGame: true } : p)
+                const item = { ...p, id: `${h.turn}/${turnIdx}` }
+                if (this.gameEnd && i !== len - 1) {
+                  item.inGame = true
+                }
+                items.push(item)
+                if (item.id === this.selected) {
+                  selectedIsInSources = true
+                }
               }
             })
           }
         })
+      }
+      if (this.selected && !selectedIsInSources) {
+        setTimeout(() => { // eslint-disable-line vue/no-async-in-computed-properties
+          this.onMouseLeave()
+        }, 0)
       }
       return groupBy(items, item => Array.isArray(item.ptr) ? this.positionAsKey(item.ptr) : this.pointerAsKey(item.ptr))
     }
@@ -86,10 +113,12 @@ export default {
     },
 
     onMouseEnter (points) {
+      this.selected = points.id
       this.$store.commit('board/pointsExpression', points)
     },
 
     onMouseLeave () {
+      this.selected = null
       this.$store.commit('board/pointsExpression', null)
     }
   }
@@ -99,4 +128,8 @@ export default {
 <style lang="sass" scoped>
 .in-game
   opacity: 0.5
+
+.muted
+  pointer-events: none
+  opacity: 0.3
 </style>

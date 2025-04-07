@@ -11,6 +11,9 @@
   >
     <g :transform="transform">
       <TileLayer />
+    </g>
+    <FarmHintsLayer v-if="layers.FarmHintsLayer" :global-transform="transform" />
+    <g :transform="transform">
       <TilePlacementLayer
         v-if="layers.TilePlacementLayer"
         v-bind="layers.TilePlacementLayer"
@@ -80,6 +83,7 @@ import CastleLayer from '@/components/game/layers/CastleLayer'
 import CastleBaseSelectLayer from '@/components/game/layers/CastleBaseSelectLayer'
 import DragonMoveLayer from '@/components/game/layers/DragonMoveLayer'
 import EmphasizeLayer from '@/components/game/layers/EmphasizeLayer'
+import FarmHintsLayer from '@/components/game/layers/FarmHintsLayer'
 import FerryChangeLayer from '@/components/game/layers/FerryChangeLayer'
 import FlierLayer from '@/components/game/layers/FlierLayer'
 import TokenLayer from '@/components/game/layers/TokenLayer'
@@ -106,6 +110,7 @@ export default {
     CastleBaseSelectLayer,
     DragonMoveLayer,
     EmphasizeLayer,
+    FarmHintsLayer,
     FeatureSelectLayer,
     FerryChangeLayer,
     FlierLayer,
@@ -125,7 +130,8 @@ export default {
     return {
       offsetX: 0,
       offsetY: 0,
-      overlay: false
+      overlay: false,
+      rotate: 0
     }
   },
 
@@ -144,7 +150,7 @@ export default {
     transform () {
       const x = this.offsetX
       const y = this.offsetY
-      return `translate(${x} ${y}) scale(${this.zoom} ${this.zoom})`
+      return `rotate(${this.rotate} ${x} ${y}) translate(${x} ${y}) scale(${this.zoom} ${this.zoom})`
     },
 
     tileSize () {
@@ -182,6 +188,7 @@ export default {
     document.addEventListener('mouseup', this.stopDragging) // reset it even if mouse is outside
     document.addEventListener('mouseleave', this.stopDragging)
     this.$root.$on('request-zoom', this.onRequestZoom)
+    this.$root.$on('request-rotate', this.onRequestRotate)
   },
 
   beforeDestroy () {
@@ -191,11 +198,12 @@ export default {
     document.removeEventListener('mouseup', this.stopDragging)
     document.removeEventListener('mouseleave', this.stopDragging)
     this.$root.$off('request-zoom', this.onRequestZoom)
+    this.$root.$off('request-rotate', this.onRequestRotate)
   },
 
   methods: {
     onKeyDown (ev) {
-      if (['a', 's', 'd', 'w'].includes(ev.key) && !this.$store.state.gameDialog) {
+      if (['a', 's', 'd', 'w', 'r'].includes(ev.key) && !this.$store.state.gameDialog) {
         if (ev.ctrlKey || ev.metaKey || ev.altKey || ev.shiftKey) {
           return
         }
@@ -213,6 +221,10 @@ export default {
             }
             if (this.pressedKeys.s) {
               this.offsetY += KEY_PRESSED_OFFSET
+              pressed = true
+            }
+            if (this.pressedKeys.r) {
+              this.changeRotate()
               pressed = true
             }
             if (this.pressedKeys.w) {
@@ -329,7 +341,19 @@ export default {
       if (this.offsetY > maxY) {
         this.offsetY = maxY
       }
-    }
+    },
+
+    onRequestRotate () {
+      this.changeRotate()
+    },
+
+    changeRotate () {
+      const rotate = (this.rotate + 90) % 360
+      this.$store.commit('board/changeRotate', rotate)
+      this.rotate = rotate
+      this.adjustAfterMove()
+    },
+
   }
 }
 </script>

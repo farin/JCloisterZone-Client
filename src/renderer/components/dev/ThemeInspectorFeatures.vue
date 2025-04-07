@@ -145,6 +145,10 @@ export default {
 
     transformFeaturePoint (feature) {
       const { point, rotation, transform, inverseScaleTransform } = feature
+      if (!point) {
+        console.error('No point for ', feature)
+        return ''
+      }
       return `${this.transformRotation(rotation)} ${transform || ''} translate(${point[0]} ${point[1]}) rotate(${-rotation} 0 0) ${inverseScaleTransform || ''}`
     }
   }

@@ -1,9 +1,9 @@
 <template>
   <section>
     <div class="text">
-      Crop Circle<br>
-      <template v-if="local">You must return one of your meeples</template>
-      <template v-else>Player must return a meeple</template>
+      {{ $t('game.feature.crop-circle') }}<br>
+      <template v-if="local">{{ $t('game.action.crop-circles-you-must-return-meeple') }}</template>
+      <template v-else>{{ $t('game.action.crop-circles-player-must-return-meeple') }}</template>
     </div>
     <slot plain />
   </section>

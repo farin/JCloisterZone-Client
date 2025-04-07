@@ -1,7 +1,7 @@
 <template>
   <section>
     <template v-if="local">
-      <span class="text">Remove mage or witch</span>
+      <span class="text">{{ $t('game.action.mage-and-witch-remove-mage-or-witch') }}</span>
       <v-btn large @click="select('mage.1')">
         <NeutralFigure figure="mage" />
       </v-btn>
@@ -9,7 +9,7 @@
         <NeutralFigure figure="witch" />
       </v-btn>
     </template>
-    <span v-else class="text">Player must remove mage or witch.</span>
+    <span v-else class="text">{{ $t('game.action.mage-and-witch-player-must-remove-mage-or-witch') }}</span>
   </section>
 </template>
 

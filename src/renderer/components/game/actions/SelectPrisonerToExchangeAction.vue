@@ -2,7 +2,7 @@
   <section
     :class="colorCssClass(action.player)"
   >
-    <span class="text">{{ local ? 'Select follower for exchange' : 'Player must select follower for exchange' }} </span>
+    <span class="text">{{ local ? $t('game.action.tower-select-follower-for-exchange') : $t('game.action.tower-player-must-select-follower-for-exchange') }} </span>
     <v-btn
       v-for="opt in options"
       :key="opt.id"

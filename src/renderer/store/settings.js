@@ -1,11 +1,12 @@
+import os from 'os'
 import fs from 'fs'
 import Vue from 'vue'
 import isEqual from 'lodash/isEqual'
 import { ipcRenderer } from 'electron'
 
-import username from 'username'
 import { randomId } from '@/utils/random'
 import { CONSOLE_SETTINGS_COLOR } from '@/constants/logging'
+import { LOCALES } from '@/constants/locales'
 
 const RECENT_SAVED_GAME_COUNT = 14
 const RECENT_SETUP_FILE_COUNT = 9
@@ -36,6 +37,7 @@ export const state = () => ({
   activePlayerIndicatorTriangle: true,
   playerListRotate: 'none', // none | active-on-top | local-on-top
   theme: 'light',
+  locale: null,
   enginePath: null, // explicit engine path
   javaPath: null, // exolicit java path
   playOnlineUrl: 'play.jcloisterzone.com/ws',
@@ -43,6 +45,11 @@ export const state = () => ({
 })
 
 const changeCallbacks = {}
+
+function getSupportedLanguage (locale) {
+  const lang = locale.split('-')[0]
+  return LOCALES.find(l => l.id === lang)?.id || 'en'
+}
 
 export const mutations = {
   settings (state, { settings, source }) {
@@ -94,7 +101,8 @@ export const actions = {
     changeCallbacks[key] = cb
   },
 
-  async loaded ({ commit, dispatch }, { settings, file }) {
+  async loaded ({ commit, dispatch }, { settings, file, systemLocale }) {
+    console.log(systemLocale)
     let missingKey = false
     if (settings) {
       settings = { ...settings, file }
@@ -108,7 +116,7 @@ export const actions = {
       }
       if (!settings.nickname) {
         missingKey = true
-        settings.nickname = await username()
+        settings.nickname = os.userInfo().username
       }
       // migrate legacy play online settings
       if (settings.playOnlineUrl === null || settings.playOnlineUrl === 'play.jcloisterzone.com/ws') {
@@ -120,6 +128,11 @@ export const actions = {
         missingKey = true
         settings.enabledArtworks = ['classic/classic']
       }
+      // locale
+      if (!settings.locale) {
+        missingKey = true
+        settings.locale = getSupportedLanguage(systemLocale)
+      }
       commit('settings', { settings, source: 'load' })
       console.log(`%c settings %c loaded ${file}`, CONSOLE_SETTINGS_COLOR, '')
     } else {
@@ -129,7 +142,8 @@ export const actions = {
           file,
           clientId: randomId(),
           secret: randomId(),
-          nickname: await username()
+          nickname: os.userInfo().username,
+          locale: getSupportedLanguage(systemLocale)
         },
         source: 'load'
       })

@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="text">
-      {{ local ? 'Take a prisoner' : 'Player can take a prisoner' }}
+      {{ local ? $t('game.action.tower-you-can-take-a-prisoner') : $t('game.action.tower-player-can-take-a-prisoner') }}
     </div>
     <slot />
   </section>

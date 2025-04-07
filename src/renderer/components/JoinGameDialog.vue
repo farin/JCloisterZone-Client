@@ -1,9 +1,11 @@
 <template>
   <v-card class="about">
-    <v-card-title class="headline">Join Remote Game</v-card-title>
+    <v-card-title class="headline">{{ $t('join-game.title') }}</v-card-title>
     <v-card-text>
-      Connect to remote host with created game.<br>
-      <i>The game on remote host must be in color selection phase.</i>
+      {{ $t('join-game.connect-to-remote-host') }}
+      <div>
+        <i>{{ $t('join-game.description') }}</i>
+      </div>
       <div class="field-wrapper">
         <v-progress-linear
           v-if="connecting"
@@ -13,7 +15,7 @@
           v-else
           ref="input"
           v-model="host"
-          label="Host"
+          :label="$t('join-game.host')"
           @keydown.enter="connect"
         />
         <v-alert
@@ -31,14 +33,14 @@
         text
         @click="$emit('close')"
       >
-        Cancel
+        {{ $t('button.cancel') }}
       </v-btn>
       <v-btn
         text
         :disabled="host.trim() === ''"
         @click="connect"
       >
-        Connect
+        {{ $t('button.connect') }}
       </v-btn>
     </v-card-actions>
   </v-card>

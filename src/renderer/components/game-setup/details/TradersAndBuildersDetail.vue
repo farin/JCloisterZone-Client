@@ -2,12 +2,12 @@
   <div>
     <p>
       <RulesLink href="https://boardgamegeek.com/boardgame/5405/carcassonne-expansion-2-traders-builders" />
-      <RulesLink title="Rules" href="http://wikicarpedia.com/index.php/Traders_and_Builders" />
-      <RulesLink title="Rules (1st ed.)" href="http://wikicarpedia.com/index.php/Traders_and_Builders_(1st_edition)" />
+      <RulesLink :title="$t('button.rules')" href="http://wikicarpedia.com/index.php/Special:MyLanguage/Traders_and_Builders" />
+      <RulesLink :title="$t('button.rules-1st-edition')" href="http://wikicarpedia.com/index.php/Special:MyLanguage/Traders_and_Builders_(1st_edition)" />
     </p>
 
     <p>
-      The second major expansion released in 2003
+      {{ $t('tile-set.traders-and-builders-release') }}
     </p>
 
     <TileDistribution :sets="{'traders-and-builders': 1}" />

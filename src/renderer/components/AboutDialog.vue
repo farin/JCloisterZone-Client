@@ -15,25 +15,25 @@
           </svg>
         </div>
         <div>
-          <div class="version">version {{ version }}</div>
+          <div class="version">{{ $t('about.version') }} {{ version }}</div>
           Roman Krejčík<br>
           farin@farin.cz
         </div>
       </section>
       <hr>
       <section class="my-3">
-        <div class="label">Configuration file</div>
+        <div class="label">{{ $t('about.configuration-file') }}</div>
         <div class="value config-file" @click="openConfig">{{ $store.state.settings.file }}</div>
-        <div class="label">System Java Version</div>
+        <div class="label">{{ $t('about.system-java-version') }}</div>
         <div class="value">{{ java ? (java.version || '') : '' }}</div>
-        <div class="label">JCloisteZone Game Engine</div>
+        <div class="label">{{ $t('about.jcloisterzone-game-engine') }}</div>
         <div class="value">{{ engine ? engine.path : '' }}</div>
         <div class="value">{{ engine ? engine.version : '' }}</div>
       </section>
     </v-card-text>
     <v-card-actions>
       <v-spacer />
-      <v-btn text @click="$emit('close')">Close</v-btn>
+      <v-btn text @click="$emit('close')">{{ $t('button.close') }}</v-btn>
     </v-card-actions>
   </v-card>
 </template>
